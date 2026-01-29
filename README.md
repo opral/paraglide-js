@@ -136,7 +136,7 @@ m.items_in_cart({ count: 5 }); // "5 items in cart"
 // Works correctly for complex locales (Russian, Arabic, etc.)
 ```
 
-Message format is **plugin-based** — use the default inlang format, or switch to i18next, JSON, or ICU MessageFormat via [plugins](https://inlang.com/c/plugins).
+Message format is **plugin-based** — use the default inlang format, or switch to i18next, JSON, or ICU MessageFormat via [plugins](https://inlang.com/c/plugins). If your team relies on ICU MessageFormat 1 syntax, use the [inlang-icu-messageformat-1 plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1).
 
 **[Pluralization & Variants Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)**
 

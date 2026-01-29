@@ -39,6 +39,8 @@ If you are looking for a benchmark, check out the [interactive benchmark](/m/ger
 | **Lazy locale loading** [ℹ️](#lazy-locale-loading)                                                            | [🟠 Experimental](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark)                                                      | [✅ HTTP backend](https://github.com/i18next/i18next-http-backend)                                               | ❌ No                                                                                            |
 | **Component interpolation**                                                                                   | [❌ Upvote issue #240](https://github.com/opral/inlang-sdk/issues/240)                                                                     | [🟠 Only for React](https://react.i18next.com/legacy-v9/trans-component)                                         | [🟠 Only for React](https://formatjs.github.io/docs/react-intl/components/#rich-text-formatting) |
 
+Paraglide supports ICU MessageFormat 1 syntax through the [inlang-icu-messageformat-1 plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1).
+
 ### Lazy locale loading
 
 Paraglide compiles messages into functions that contain all locales. Lazy locale loading instead fetches only the current locale's messages on-demand.
