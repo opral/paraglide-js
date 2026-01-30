@@ -1,0 +1,15 @@
+{
+	"name": "@inlang/paraglide-js-example-icu1",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide",
+		"clean": "rm -rf ./src/paraglide ./node_modules"
+	},
+	"devDependencies": {
+		"@inlang/paraglide-js": "workspace:*",
+		"@inlang/plugin-icu1": "^1.0.0",
+		"@inlang/plugin-m-function-matcher": "^2.1.0"
+	}
+}
