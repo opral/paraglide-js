@@ -1,14 +1,20 @@
 import type { InputVariable } from "@inlang/sdk";
 import { isValidIdentifier, quotePropertyKey } from "./variable-access.js";
 
+export type InputMatchTypes = Map<
+	string,
+	{ literals: Set<string>; hasCatchAll: boolean }
+>;
+
 export function jsDocBundleFunctionTypes(args: {
 	inputs: InputVariable[];
 	locales: string[];
+	matchTypes?: InputMatchTypes;
 }): string {
 	const localesUnion = args.locales.map((locale) => `"${locale}"`).join(" | ");
 
 	return `
-* @param {${inputsType(args.inputs)}} inputs
+* @param {${inputsType(args.inputs, args.matchTypes)}} inputs
 * @param {{ locale?: ${localesUnion} }} options
 * @returns {LocalizedString}`;
 }
@@ -21,7 +27,10 @@ export function jsDocBundleFunctionTypes(args: {
  *   inputsType(inputs)
  *   >> "{ age: NonNullable<unknown> }"
  */
-export function inputsType(inputs: InputVariable[]): string {
+export function inputsType(
+	inputs: InputVariable[],
+	matchTypes?: InputMatchTypes
+): string {
 	if (inputs.length === 0) {
 		return "{}";
 	}
@@ -40,8 +49,22 @@ export function inputsType(inputs: InputVariable[]): string {
 			const name = isValidIdentifier(input.name)
 				? input.name
 				: quotePropertyKey(input.name);
-			return `${name}: NonNullable<unknown>`;
+			return `${name}: ${resolveInputType(input.name, matchTypes)}`;
 		})
 		.join(", ");
 	return `{ ${inputParams} }`;
+}
+
+function resolveInputType(name: string, matchTypes?: InputMatchTypes): string {
+	if (!matchTypes) return "NonNullable<unknown>";
+
+	const info = matchTypes.get(name);
+	if (!info) return "NonNullable<unknown>";
+	if (info.hasCatchAll) return "NonNullable<unknown>";
+
+	const literals = Array.from(info.literals);
+	if (literals.length === 0) return "NonNullable<unknown>";
+
+	literals.sort();
+	return literals.map((value) => JSON.stringify(value)).join(" | ");
 }

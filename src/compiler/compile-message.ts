@@ -2,7 +2,7 @@ import type { Declaration, Message, Variant } from "@inlang/sdk";
 import { compilePattern } from "./compile-pattern.js";
 import type { Compiled } from "./types.js";
 import { doubleQuote } from "../services/codegen/quotes.js";
-import { inputsType } from "./jsdoc-types.js";
+import { inputsType, type InputMatchTypes } from "./jsdoc-types.js";
 import { compileLocalVariable } from "./compile-local-variable.js";
 import { compileInputAccess } from "./variable-access.js";
 
@@ -13,7 +13,8 @@ import { compileInputAccess } from "./variable-access.js";
 export const compileMessage = (
 	declarations: Declaration[],
 	message: Message,
-	variants: Variant[]
+	variants: Variant[],
+	matchTypes?: InputMatchTypes
 ): Compiled<Message> => {
 	// return empty string instead?
 	if (variants.length == 0) {
@@ -22,14 +23,20 @@ export const compileMessage = (
 
 	const hasMultipleVariants = variants.length > 1;
 	return hasMultipleVariants
-		? compileMessageWithMultipleVariants(declarations, message, variants)
-		: compileMessageWithOneVariant(declarations, message, variants);
+		? compileMessageWithMultipleVariants(
+				declarations,
+				message,
+				variants,
+				matchTypes
+			)
+		: compileMessageWithOneVariant(declarations, message, variants, matchTypes);
 };
 
 function compileMessageWithOneVariant(
 	declarations: Declaration[],
 	message: Message,
-	variants: Variant[]
+	variants: Variant[],
+	matchTypes?: InputMatchTypes
 ): Compiled<Message> {
 	const variant = variants[0];
 	if (!variant || variants.length !== 1) {
@@ -52,7 +59,7 @@ function compileMessageWithOneVariant(
 		}
 	}
 
-	const code = `/** @type {(inputs: ${inputsType(inputs)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {
+	const code = `/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {
 	${compiledLocalVariables.join("\n\t")}return /** @type {LocalizedString} */ (${compiledPattern.code})
 };`;
 
@@ -62,7 +69,8 @@ function compileMessageWithOneVariant(
 function compileMessageWithMultipleVariants(
 	declarations: Declaration[],
 	message: Message,
-	variants: Variant[]
+	variants: Variant[],
+	matchTypes?: InputMatchTypes
 ): Compiled<Message> {
 	if (variants.length <= 1) {
 		throw new Error("Message must have more than one variant");
@@ -128,7 +136,7 @@ function compileMessageWithMultipleVariants(
 		}
 	}
 
-	const code = `/** @type {(inputs: ${inputsType(inputs)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {${compiledLocalVariables.join("\n\t")}
+	const code = `/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {${compiledLocalVariables.join("\n\t")}
 	${compiledVariants.join("\n\t")}
 	${hasCatchAll ? "" : `return /** @type {LocalizedString} */ ("${message.bundleId}");`}
 };`;

@@ -101,9 +101,7 @@ export function createTrackedFs(options: TrackedFsOptions = {}): TrackedFs {
 	const readFiles = new Set<string>();
 
 	const trackRead = (path: fs.PathLike | number) => {
-		readFiles.add(
-			nodeNormalizePath(resolve(baseDir, path.toString()))
-		);
+		readFiles.add(nodeNormalizePath(resolve(baseDir, path.toString())));
 	};
 
 	const wrappedFs: typeof import("node:fs") = {

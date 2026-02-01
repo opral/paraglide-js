@@ -6,7 +6,10 @@ import type {
 } from "@inlang/sdk";
 import { compileMessage } from "./compile-message.js";
 import type { Compiled } from "./types.js";
-import { jsDocBundleFunctionTypes } from "./jsdoc-types.js";
+import {
+	jsDocBundleFunctionTypes,
+	type InputMatchTypes,
+} from "./jsdoc-types.js";
 import { toSafeModuleId } from "./safe-module-id.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
 
@@ -17,6 +20,8 @@ export type CompiledBundleWithMessages = {
 	messages: {
 		[locale: string]: Compiled<Message>;
 	};
+	/** Match literal types inferred from bundle variants */
+	matchTypes: InputMatchTypes;
 };
 
 /**
@@ -29,6 +34,7 @@ export const compileBundle = (args: {
 	settings?: ProjectSettings;
 }): CompiledBundleWithMessages => {
 	const compiledMessages: Record<string, Compiled<Message>> = {};
+	const matchTypes = collectInputMatchTypes(args.bundle);
 
 	for (const message of args.bundle.messages) {
 		if (compiledMessages[message.locale]) {
@@ -38,7 +44,8 @@ export const compileBundle = (args: {
 		const compiledMessage = compileMessage(
 			args.bundle.declarations,
 			message,
-			message.variants
+			message.variants,
+			matchTypes
 		);
 
 		// set the pattern for the language tag
@@ -51,8 +58,10 @@ export const compileBundle = (args: {
 			availableLocales: Object.keys(args.fallbackMap),
 			messageReferenceExpression: args.messageReferenceExpression,
 			settings: args.settings,
+			matchTypes,
 		}),
 		messages: compiledMessages,
+		matchTypes,
 	};
 };
 
@@ -73,6 +82,10 @@ const compileBundleFunction = (args: {
 	 * The project settings
 	 */
 	settings?: ProjectSettings;
+	/**
+	 * Match literal types inferred from bundle variants
+	 */
+	matchTypes: InputMatchTypes;
 }): Compiled<Bundle> => {
 	const inputs = args.bundle.declarations.filter(
 		(decl) => decl.type === "input-variable"
@@ -92,7 +105,11 @@ const compileBundleFunction = (args: {
 *
 * - If you want to change the translations, you can either edit the source files e.g. \`en.json\`, or
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
-* ${jsDocBundleFunctionTypes({ inputs, locales: args.availableLocales })}
+* ${jsDocBundleFunctionTypes({
+		inputs,
+		locales: args.availableLocales,
+		matchTypes: args.matchTypes,
+	})}
 */
 /* @__NO_SIDE_EFFECTS__ */
 ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = (inputs${hasInputs ? "" : " = {}"}, options = {}) => {
@@ -120,3 +137,38 @@ ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = (inputs${hasInputs ? "
 		node: args.bundle,
 	};
 };
+
+function collectInputMatchTypes(bundle: BundleNested): InputMatchTypes {
+	const inputNames = new Set(
+		bundle.declarations
+			?.filter((decl) => decl.type === "input-variable")
+			.map((decl) => decl.name) ?? []
+	);
+	const matchTypes: InputMatchTypes = new Map();
+
+	const ensureInfo = (name: string) => {
+		const existing = matchTypes.get(name);
+		if (existing) return existing;
+		const created = { literals: new Set<string>(), hasCatchAll: false };
+		matchTypes.set(name, created);
+		return created;
+	};
+
+	for (const message of bundle.messages) {
+		for (const variant of message.variants) {
+			for (const match of variant.matches ?? []) {
+				if (!inputNames.has(match.key)) continue;
+				const info = ensureInfo(match.key);
+				if (match.type === "catchall-match") {
+					info.hasCatchAll = true;
+					continue;
+				}
+				if (match.type === "literal-match") {
+					info.literals.add(match.value);
+				}
+			}
+		}
+	}
+
+	return matchTypes;
+}
