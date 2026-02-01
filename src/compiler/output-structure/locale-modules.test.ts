@@ -1,5 +1,8 @@
 import { test, expect } from "vitest";
-import { generateOutput, messageReferenceExpression } from "./locale-modules.js";
+import {
+	generateOutput,
+	messageReferenceExpression,
+} from "./locale-modules.js";
 import type { Bundle, Message, ProjectSettings } from "@inlang/sdk";
 import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 
@@ -22,6 +25,7 @@ test("should emit per locale message files", () => {
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 	];
 
@@ -55,6 +59,7 @@ test("the files should include files for each locale, even if there are no messa
 				} as unknown as Bundle,
 			},
 			messages: {},
+			matchTypes: new Map(),
 		},
 	];
 
@@ -90,6 +95,7 @@ test("should handle case sensitivity in message IDs correctly", () => {
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 		{
 			bundle: {
@@ -104,6 +110,7 @@ test("should handle case sensitivity in message IDs correctly", () => {
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 	];
 
@@ -142,6 +149,7 @@ test("prefixes locale imports to avoid message name collisions", () => {
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 	];
 

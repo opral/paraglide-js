@@ -22,6 +22,7 @@ test("should emit per locale message files", () => {
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 	];
 
@@ -57,6 +58,7 @@ test("handles case senstivity by creating directories and files only in lowercas
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 		{
 			bundle: {
@@ -71,6 +73,7 @@ test("handles case senstivity by creating directories and files only in lowercas
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 	];
 	const settings: Pick<ProjectSettings, "locales" | "baseLocale"> = {
@@ -102,6 +105,7 @@ test("emits fallback definitions after their dependencies", () => {
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 	];
 

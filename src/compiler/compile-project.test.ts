@@ -1035,6 +1035,42 @@ describe.each([
     // a message without params shouldn't require params
     m.sad_penguin_bundle() satisfies string
 
+		// --------- MATCH TYPE INFERENCE ---------
+		// known match values should be accepted
+		m.auth_password_error({ type: "invalid" }) satisfies string
+		m.auth_password_error({ type: "empty" }) satisfies string
+		m.auth_password_error({ type: "min_length" }) satisfies string
+		m.auth_password_error({ type: "secure" }) satisfies string
+
+		// @ts-expect-error - unknown match value
+		m.auth_password_error({ type: "typo" })
+
+		// quoted keys should still get literal unions
+		m.error_with_dash({ "error-type": "network" }) satisfies string
+		m.error_with_dash({ "error-type": "timeout" }) satisfies string
+
+		// @ts-expect-error - unknown match value for quoted key
+		m.error_with_dash({ "error-type": "offline" })
+
+		// catchall should widen match value typing
+		m.auth_password_error_catchall({ type: "invalid" }) satisfies string
+		m.auth_password_error_catchall({ type: "typo" }) satisfies string
+
+		// multiple match keys should each get literal unions
+		m.multi_key_status_type({ type: "invalid", status: "ready" }) satisfies string
+		m.multi_key_status_type({ type: "empty", status: "done" }) satisfies string
+		m.multi_key_status_type({ type: "secure", status: "failed" }) satisfies string
+
+		// @ts-expect-error - invalid type literal
+		m.multi_key_status_type({ type: "typo", status: "ready" })
+
+		// @ts-expect-error - invalid status literal
+		m.multi_key_status_type({ type: "invalid", status: "pending" })
+
+		// empty matches should widen to NonNullable<unknown>
+		m.empty_matches_catchall({ type: "invalid" }) satisfies string
+		m.empty_matches_catchall({ type: "typo" }) satisfies string
+
 		// --------- MESSAGE OPTIONS ---------
 		// the locale option should be optional
 		m.sad_penguin_bundle({}, {}) satisfies string
@@ -1265,6 +1301,236 @@ const mockBundles: BundleNested[] = [
 							},
 							{ type: "text", value: " Nachrichten." },
 						],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "auth_password_error",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "type",
+			},
+		],
+		messages: [
+			{
+				id: "auth_password_error_en",
+				bundleId: "auth_password_error",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "auth_password_error_en_variant_invalid",
+						messageId: "auth_password_error_en",
+						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
+						pattern: [
+							{
+								type: "text",
+								value: "The password provided is not valid",
+							},
+						],
+					},
+					{
+						id: "auth_password_error_en_variant_empty",
+						messageId: "auth_password_error_en",
+						matches: [{ type: "literal-match", key: "type", value: "empty" }],
+						pattern: [
+							{
+								type: "text",
+								value: "You must provide a password",
+							},
+						],
+					},
+					{
+						id: "auth_password_error_en_variant_min",
+						messageId: "auth_password_error_en",
+						matches: [
+							{
+								type: "literal-match",
+								key: "type",
+								value: "min_length",
+							},
+						],
+						pattern: [
+							{
+								type: "text",
+								value: "Your password is not secure enough",
+							},
+						],
+					},
+					{
+						id: "auth_password_error_en_variant_secure",
+						messageId: "auth_password_error_en",
+						matches: [{ type: "literal-match", key: "type", value: "secure" }],
+						pattern: [
+							{
+								type: "text",
+								value: "Your password is not secure enough",
+							},
+						],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "error_with_dash",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "error-type",
+			},
+		],
+		messages: [
+			{
+				id: "error_with_dash_en",
+				bundleId: "error_with_dash",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "error_with_dash_en_variant_network",
+						messageId: "error_with_dash_en",
+						matches: [
+							{ type: "literal-match", key: "error-type", value: "network" },
+						],
+						pattern: [{ type: "text", value: "Network error" }],
+					},
+					{
+						id: "error_with_dash_en_variant_timeout",
+						messageId: "error_with_dash_en",
+						matches: [
+							{
+								type: "literal-match",
+								key: "error-type",
+								value: "timeout",
+							},
+						],
+						pattern: [{ type: "text", value: "Timeout error" }],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "auth_password_error_catchall",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "type",
+			},
+		],
+		messages: [
+			{
+				id: "auth_password_error_catchall_en",
+				bundleId: "auth_password_error_catchall",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "auth_password_error_catchall_en_variant_invalid",
+						messageId: "auth_password_error_catchall_en",
+						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
+						pattern: [
+							{
+								type: "text",
+								value: "The password provided is not valid",
+							},
+						],
+					},
+					{
+						id: "auth_password_error_catchall_en_variant_catchall",
+						messageId: "auth_password_error_catchall_en",
+						matches: [{ type: "catchall-match", key: "type" }],
+						pattern: [
+							{
+								type: "text",
+								value: "Unknown password error",
+							},
+						],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "multi_key_status_type",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "type",
+			},
+			{
+				type: "input-variable",
+				name: "status",
+			},
+		],
+		messages: [
+			{
+				id: "multi_key_status_type_en",
+				bundleId: "multi_key_status_type",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "multi_key_status_type_en_variant_ready_invalid",
+						messageId: "multi_key_status_type_en",
+						matches: [
+							{ type: "literal-match", key: "type", value: "invalid" },
+							{ type: "literal-match", key: "status", value: "ready" },
+						],
+						pattern: [{ type: "text", value: "Ready invalid" }],
+					},
+					{
+						id: "multi_key_status_type_en_variant_done_empty",
+						messageId: "multi_key_status_type_en",
+						matches: [
+							{ type: "literal-match", key: "type", value: "empty" },
+							{ type: "literal-match", key: "status", value: "done" },
+						],
+						pattern: [{ type: "text", value: "Done empty" }],
+					},
+					{
+						id: "multi_key_status_type_en_variant_failed_secure",
+						messageId: "multi_key_status_type_en",
+						matches: [
+							{ type: "literal-match", key: "type", value: "secure" },
+							{ type: "literal-match", key: "status", value: "failed" },
+						],
+						pattern: [{ type: "text", value: "Failed secure" }],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "empty_matches_catchall",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "type",
+			},
+		],
+		messages: [
+			{
+				id: "empty_matches_catchall_en",
+				bundleId: "empty_matches_catchall",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "empty_matches_catchall_en_variant_invalid",
+						messageId: "empty_matches_catchall_en",
+						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
+						pattern: [{ type: "text", value: "Invalid" }],
+					},
+					{
+						id: "empty_matches_catchall_en_variant_any",
+						messageId: "empty_matches_catchall_en",
+						matches: [],
+						pattern: [{ type: "text", value: "Any" }],
 					},
 				],
 			},

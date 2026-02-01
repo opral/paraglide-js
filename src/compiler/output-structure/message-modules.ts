@@ -24,6 +24,7 @@ export function generateOutput(
 			compiledBundle.bundle.node.declarations?.filter(
 				(decl) => decl.type === "input-variable"
 			) ?? [];
+		const matchTypes = compiledBundle.matchTypes;
 
 		// bundle file
 		const filename = `messages/${safeModuleId}.js`;
@@ -84,11 +85,11 @@ export function generateOutput(
 			if (fallbackLocale) {
 				const safeFallbackLocale = toSafeModuleId(fallbackLocale);
 				messages.push(
-					`/** @type {(inputs: ${inputsType(inputs)}) => LocalizedString} */\nconst ${safeLocale}_${safeModuleId} = ${safeFallbackLocale}_${safeModuleId};`
+					`/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */\nconst ${safeLocale}_${safeModuleId} = ${safeFallbackLocale}_${safeModuleId};`
 				);
 			} else {
 				messages.push(
-					`/** @type {(inputs: ${inputsType(inputs)}) => LocalizedString} */\nconst ${safeLocale}_${safeModuleId} = () => /** @type {LocalizedString} */ ('${escapeForSingleQuoteString(
+					`/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */\nconst ${safeLocale}_${safeModuleId} = () => /** @type {LocalizedString} */ ('${escapeForSingleQuoteString(
 						bundleId
 					)}')`
 				);

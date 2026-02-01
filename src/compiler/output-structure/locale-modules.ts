@@ -43,6 +43,7 @@ export function generateOutput(
 				compiledBundle.bundle.node.declarations?.filter(
 					(decl) => decl.type === "input-variable"
 				) ?? [];
+			const matchTypes = compiledBundle.matchTypes;
 			if (!compiledMessage) {
 				const fallbackLocale = fallbackMap[locale];
 				if (fallbackLocale) {
@@ -50,7 +51,7 @@ export function generateOutput(
 					file += `\nexport { ${bundleModuleId} } from "./${fallbackLocale}.js"`;
 				} else {
 					// no fallback exists, render the bundleId
-					file += `\n/** @type {(inputs: ${inputsType(inputs)}) => LocalizedString} */\nexport const ${bundleModuleId} = () => /** @type {LocalizedString} */ ('${bundleId}')`;
+					file += `\n/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */\nexport const ${bundleModuleId} = () => /** @type {LocalizedString} */ ('${bundleId}')`;
 				}
 				continue;
 			}
