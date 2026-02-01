@@ -156,6 +156,13 @@ function collectInputMatchTypes(bundle: BundleNested): InputMatchTypes {
 
 	for (const message of bundle.messages) {
 		for (const variant of message.variants) {
+			if (!variant.matches || variant.matches.length === 0) {
+				for (const name of inputNames) {
+					const info = ensureInfo(name);
+					info.hasCatchAll = true;
+				}
+				continue;
+			}
 			for (const match of variant.matches ?? []) {
 				if (!inputNames.has(match.key)) continue;
 				const info = ensureInfo(match.key);

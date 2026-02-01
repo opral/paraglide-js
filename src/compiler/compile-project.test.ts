@@ -1067,6 +1067,10 @@ describe.each([
 		// @ts-expect-error - invalid status literal
 		m.multi_key_status_type({ type: "invalid", status: "pending" })
 
+		// empty matches should widen to NonNullable<unknown>
+		m.empty_matches_catchall({ type: "invalid" }) satisfies string
+		m.empty_matches_catchall({ type: "typo" }) satisfies string
+
 		// --------- MESSAGE OPTIONS ---------
 		// the locale option should be optional
 		m.sad_penguin_bundle({}, {}) satisfies string
@@ -1496,6 +1500,37 @@ const mockBundles: BundleNested[] = [
 							{ type: "literal-match", key: "status", value: "failed" },
 						],
 						pattern: [{ type: "text", value: "Failed secure" }],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "empty_matches_catchall",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "type",
+			},
+		],
+		messages: [
+			{
+				id: "empty_matches_catchall_en",
+				bundleId: "empty_matches_catchall",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "empty_matches_catchall_en_variant_invalid",
+						messageId: "empty_matches_catchall_en",
+						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
+						pattern: [{ type: "text", value: "Invalid" }],
+					},
+					{
+						id: "empty_matches_catchall_en_variant_any",
+						messageId: "empty_matches_catchall_en",
+						matches: [],
+						pattern: [{ type: "text", value: "Any" }],
 					},
 				],
 			},
