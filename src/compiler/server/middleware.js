@@ -138,9 +138,25 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 	// The middleware is responsible for mapping a localized URL to the
 	// de-localized URL e.g. `/en/about` to `/about`. Otherwise,
 	// the server can't render the correct page.
+	// Avoid consuming the original request body when URL strategy rewraps it.
+	// https://github.com/opral/paraglide-js/issues/564
+	let requestForParaglide = request;
+	const method = request.method?.toUpperCase();
+	const hasBody = method && method !== "GET" && method !== "HEAD";
+	if (hasBody) {
+		try {
+			requestForParaglide = request.clone();
+		} catch {
+			requestForParaglide = request;
+		}
+	}
+
 	let newRequest;
 	if (runtime.strategy.includes("url")) {
-		newRequest = new Request(runtime.deLocalizeUrl(request.url), request);
+		newRequest = new Request(
+			runtime.deLocalizeUrl(request.url),
+			requestForParaglide
+		);
 	} else {
 		// Some metaframeworks (NextJS) require a new Request object
 		// https://github.com/opral/inlang-paraglide-js/issues/411
@@ -149,9 +165,9 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 		// https://github.com/opral/paraglide-js/issues/573
 		// Try to clone the request, but fall back to the original if cloning fails
 		try {
-			newRequest = new Request(request);
+			newRequest = new Request(requestForParaglide);
 		} catch {
-			newRequest = request;
+			newRequest = requestForParaglide;
 		}
 	}
 
