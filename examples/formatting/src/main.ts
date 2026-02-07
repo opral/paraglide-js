@@ -43,14 +43,8 @@ test("formats dates using locale-specific ordering", async () => {
 	const date = new Date("2022-04-01T00:00:00.000Z");
 
 	setLocale("en");
-	assert.strictEqual(
-		m.purchase_date({ date }),
-		"Purchase date: 04/01/2022."
-	);
+	assert.strictEqual(m.purchase_date({ date }), "Purchase date: 04/01/2022.");
 
 	setLocale("de");
-	assert.strictEqual(
-		m.purchase_date({ date }),
-		"Kaufdatum: 01.04.2022."
-	);
+	assert.strictEqual(m.purchase_date({ date }), "Kaufdatum: 01.04.2022.");
 });

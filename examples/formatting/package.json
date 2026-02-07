@@ -6,12 +6,11 @@
 	"scripts": {
 		"build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --strategy globalVariable baseLocale && tsc",
 		"pretest": "npm run build",
-		"test": "vitest run"
+		"test": "node ./dist/main.js"
 	},
 	"devDependencies": {
 		"@inlang/plugin-message-format": "4.0.0",
 		"@inlang/paraglide-js": "workspace:*",
-		"typescript": "^5.7.2",
-		"vitest": "^3.1.4"
+		"typescript": "^5.7.2"
 	}
 }
