@@ -401,6 +401,135 @@ test("compiles messages that use plural() with ordinal type", async () => {
 	expect(ordinal_test({ count: 4 })).toBe("4th place");
 });
 
+test("compiles messages that use number()", async () => {
+	const createMessage = async (locale: string) => {
+		const declarations: Declaration[] = [
+			{ type: "input-variable", name: "amount" },
+			{
+				type: "local-variable",
+				name: "formattedAmount",
+				value: {
+					arg: { type: "variable-reference", name: "amount" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [],
+					},
+					type: "expression",
+				},
+			},
+		];
+
+		const message: Message = {
+			locale,
+			bundleId: "number_test",
+			id: "message_id",
+			selectors: [],
+		};
+
+		const variants: Variant[] = [
+			{
+				id: "1",
+				messageId: "message_id",
+				matches: [],
+				pattern: [
+					{ type: "text", value: "Your balance is " },
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "formattedAmount" },
+					},
+					{ type: "text", value: "." },
+				],
+			},
+		];
+
+		const compiled = compileMessage(declarations, message, variants);
+
+		const { number_test } = await import(
+			"data:text/javascript;base64," +
+				// bundling the registry inline to avoid managing module imports here
+				btoa(createRegistry()) +
+				btoa("export const number_test = " + compiled.code.replace("registry.", ""))
+		);
+		return number_test;
+	};
+
+	const enMessage = await createMessage("en");
+	const deMessage = await createMessage("de");
+
+	expect(enMessage({ amount: 1000.57 })).toBe("Your balance is 1,000.57.");
+	expect(deMessage({ amount: 1000.57 })).toBe("Your balance is 1.000,57.");
+});
+
+test("compiles messages that use number() with options", async () => {
+	const createMessage = async (locale: string) => {
+		const declarations: Declaration[] = [
+			{ type: "input-variable", name: "amount" },
+			{
+				type: "local-variable",
+				name: "formattedAmount",
+				value: {
+					arg: { type: "variable-reference", name: "amount" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [
+							{
+								name: "minimumFractionDigits",
+								value: { type: "literal", value: "2" },
+							},
+							{
+								name: "maximumFractionDigits",
+								value: { type: "literal", value: "2" },
+							},
+						],
+					},
+					type: "expression",
+				},
+			},
+		];
+
+		const message: Message = {
+			locale,
+			bundleId: "number_test",
+			id: "message_id",
+			selectors: [],
+		};
+
+		const variants: Variant[] = [
+			{
+				id: "1",
+				messageId: "message_id",
+				matches: [],
+				pattern: [
+					{ type: "text", value: "Balance: " },
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "formattedAmount" },
+					},
+					{ type: "text", value: "." },
+				],
+			},
+		];
+
+		const compiled = compileMessage(declarations, message, variants);
+
+		const { number_test } = await import(
+			"data:text/javascript;base64," +
+				// bundling the registry inline to avoid managing module imports here
+				btoa(createRegistry()) +
+				btoa("export const number_test = " + compiled.code.replace("registry.", ""))
+		);
+		return number_test;
+	};
+
+	const enMessage = await createMessage("en");
+	const deMessage = await createMessage("de");
+
+	expect(enMessage({ amount: 1000.5 })).toBe("Balance: 1,000.50.");
+	expect(deMessage({ amount: 1000.5 })).toBe("Balance: 1.000,50.");
+});
+
 test("compiles messages that use datetime()", async () => {
 	const createMessage = async (locale: string) => {
 		const declarations: Declaration[] = [
