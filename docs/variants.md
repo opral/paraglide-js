@@ -7,6 +7,9 @@ description: Pluralization, gendering, A/B testing, and conditional messages in 
 
 Variants enable pluralization, gendering, A/B testing, and more. They are a powerful feature of inlang that allows you to create different versions of a message based on conditions.
 
+> [!TIP]
+> Need locale-aware number/date formatting (`number`, `datetime`)? See [Formatting](./formatting).
+
 ## Matching
 
 The message below will match the following conditions:
