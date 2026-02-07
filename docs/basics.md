@@ -176,6 +176,7 @@ function PageTitle(props: { title: LocalizedString }) {
 
 ## Next steps
 
+- [Formatting](./formatting) - Number/date formatting with `number` and `datetime`
 - [Strategy](./strategy) - Configure locale detection
 - [i18n Routing](./i18n-routing) - URL patterns, translated pathnames, domain-based routing
 - [Middleware](./middleware-guide) - Server-side integration

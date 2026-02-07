@@ -126,7 +126,13 @@ Paraglide compiles an [inlang project](https://inlang.com/docs/introduction#how-
 
 ## Message Format
 
-Paraglide uses `Intl.PluralRules` for locale-aware pluralization, supporting all CLDR plural categories (zero, one, two, few, many, other) and ordinals (1st, 2nd, 3rd). Gender and custom selects are supported via the variants system.
+Paraglide supports locale-aware formatting via declaration formatters:
+
+- `plural` (`Intl.PluralRules`) for plural and ordinal categories
+- `number` (`Intl.NumberFormat`) for numbers, currency, compact notation, and more
+- `datetime` (`Intl.DateTimeFormat`) for dates/times with locale-aware output
+
+Gender and custom selects are supported via the variants system.
 
 ```js
 // Pluralization example
@@ -138,7 +144,7 @@ m.items_in_cart({ count: 5 }); // "5 items in cart"
 
 Message format is **plugin-based** — use the default inlang format, or switch to i18next, JSON, or ICU MessageFormat via [plugins](https://inlang.com/c/plugins). If your team relies on ICU MessageFormat 1 syntax, use the [inlang-icu-messageformat-1 plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1).
 
-**[Pluralization & Variants Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)**
+**[Formatting Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/formatting)** · **[Pluralization & Variants Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)**
 
 ## Comparison
 
@@ -193,6 +199,7 @@ Paraglide is built on the [open inlang format](https://github.com/opral/inlang-s
 - [Getting Started](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)
 - [Framework Guides](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/react-router) (React Router, SvelteKit, Astro, etc.)
 - [Message Syntax & Pluralization](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)
+- [Formatting (Number/Date)](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/formatting)
 - [Routing & SSR](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/server-side-rendering)
 - [API Reference](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)
 

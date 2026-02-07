@@ -147,6 +147,18 @@ importers:
         specifier: ^5.7.2
         version: 5.8.3
 
+  examples/formatting:
+    devDependencies:
+      '@inlang/paraglide-js':
+        specifier: workspace:*
+        version: link:../..
+      '@inlang/plugin-message-format':
+        specifier: 4.0.0
+        version: 4.0.0
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+
   examples/incremental-migration:
     dependencies:
       i18next:
