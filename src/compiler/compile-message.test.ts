@@ -249,8 +249,8 @@ test("only emits input arguments when inputs exist", async () => {
 
 // https://github.com/opral/inlang-paraglide-js/issues/379
 test("compiles messages that use plural()", async () => {
-	const declarations: Declaration[] = [
-		{ type: "input-variable", name: "count" },
+			const declarations: Declaration[] = [
+				{ type: "input-variable", name: "date" },
 		{
 			type: "local-variable",
 			name: "countPlural",
@@ -533,7 +533,7 @@ test("compiles messages that use number() with options", async () => {
 test("compiles messages that use datetime()", async () => {
 	const createMessage = async (locale: string) => {
 		const declarations: Declaration[] = [
-			{ type: "input-variable", name: "count" },
+			{ type: "input-variable", name: "date" },
 			{
 				type: "local-variable",
 				name: "formattedDate",
@@ -601,7 +601,7 @@ test("compiles messages that use datetime()", async () => {
 test("compiles messages that use datetime a function with options", async () => {
 	const createMessage = async (locale: string) => {
 		const declarations: Declaration[] = [
-			{ type: "input-variable", name: "count" },
+			{ type: "input-variable", name: "date" },
 			{
 				type: "local-variable",
 				name: "formattedDate",
