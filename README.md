@@ -205,11 +205,11 @@ Paraglide is built on the [open inlang format](https://github.com/opral/inlang-s
 
 ## Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+We welcome contributions! See [CONTRIBUTING.md](https://github.com/opral/paraglide-js/blob/main/CONTRIBUTING.md) for guidelines.
 
 - [GitHub Issues](https://github.com/opral/inlang-paraglide-js/issues)
 - [Discord Community](https://discord.gg/gdMPPWy57R)
 
 ## License
 
-MIT — see [LICENSE](./LICENSE)
+MIT — see [LICENSE](https://github.com/opral/paraglide-js/blob/main/LICENSE)

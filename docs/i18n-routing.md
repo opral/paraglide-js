@@ -191,7 +191,7 @@ With this setup:
 - Other routes like `/about` use URL-based locale (`/de/about`)
 
 > [!TIP]
-> For routes that don't need i18n at all (like `/api`), bypass the middleware entirely instead. See [Excluding Routes from Middleware](./middleware-guide#excluding-routes-from-middleware).
+> For routes that don't need i18n at all (like `/api`), bypass the middleware entirely instead. See [Excluding Routes from Middleware](./middleware#excluding-routes-from-middleware).
 
 ### Translated pathnames
 
@@ -444,7 +444,7 @@ strategy: ["url", "localStorage", "preferredLanguage"];
 
 [URLPattern](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API#regex_matchers_limitations) does not support negative lookahead regex patterns, so you cannot exclude paths like `/api/*` directly in your URL patterns.
 
-Instead, filter routes manually in your request handler before calling the middleware. See [Excluding Routes from Middleware](./middleware-guide#excluding-routes-from-middleware) for examples.
+Instead, filter routes manually in your request handler before calling the middleware. See [Excluding Routes from Middleware](./middleware#excluding-routes-from-middleware) for examples.
 
 ### Pattern order matters
 

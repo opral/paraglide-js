@@ -10,7 +10,7 @@ imports:
 Paraglide JS provides first-class SSR support through the `paraglideMiddleware()`. The middleware handles locale detection, URL delocalization, and request isolation automatically.
 
 > [!TIP]
-> For middleware setup, framework examples, and troubleshooting, see the [Middleware Guide](./middleware-guide).
+> For middleware setup, framework examples, and troubleshooting, see the [Middleware Guide](./middleware).
 
 ## Basic Setup
 
@@ -66,7 +66,7 @@ app.get("*", async (request) => {
 ```
 
 > [!NOTE]
-> For edge runtimes (Cloudflare Workers, Vercel Edge), AsyncLocalStorage is polyfilled automatically. See [AsyncLocalStorage](./middleware-guide#asynclocalstorage) in the Middleware Guide.
+> For edge runtimes (Cloudflare Workers, Vercel Edge), AsyncLocalStorage is polyfilled automatically. See [AsyncLocalStorage](./middleware#asynclocalstorage) in the Middleware Guide.
 
 ## Fallback Behavior
 
@@ -87,11 +87,11 @@ strategy: ["url", "cookie", "baseLocale"]
 - Server reads URL, client reads localStorage
 - Cached HTML served with stale locale
 
-See the [Middleware Guide](./middleware-guide#troubleshooting) for more debugging tips.
+See the [Middleware Guide](./middleware#troubleshooting) for more debugging tips.
 
 ## See Also
 
-- [Middleware Guide](./middleware-guide) - Framework examples, troubleshooting, AsyncLocalStorage
+- [Middleware Guide](./middleware) - Framework examples, troubleshooting, AsyncLocalStorage
 - [Static Site Generation](./static-site-generation) - Build-time generation of localized pages
 - [Strategy Configuration](./strategy) - Configure locale detection strategies
 - [i18n Routing](./i18n-routing) - URL patterns, translated pathnames, domain-based routing

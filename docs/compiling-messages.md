@@ -19,7 +19,7 @@ For all available options, see the [Compiler Options Reference](./compiler-optio
 ## Via the Paraglide CLI
 
 > [!TIP]
-> For a complete setup guide using CLI compilation with Express, Hono, Fastify, or Elysia, see [Standalone Servers](./getting-started/standalone-servers). For monorepo setups, see [Monorepo Setup](./monorepo).
+> For a complete setup guide using CLI compilation with Express, Hono, Fastify, or Elysia, see [Standalone Servers](./standalone-servers). For monorepo setups, see [Monorepo Setup](./monorepo).
 
 To compile your messages via the CLI, run the following command:
 

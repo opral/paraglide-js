@@ -4,7 +4,7 @@ description: Add multi-language support to any Vite project with Paraglide JS. W
 og:image: https://raw.githubusercontent.com/opral/paraglide-js/main/examples/vite/banner.svg
 ---
 
-![Paraglide + Vite banner](./banner.svg)
+![Paraglide + Vite banner](https://raw.githubusercontent.com/opral/paraglide-js/main/examples/vite/banner.svg)
 
 Paraglide JS is a build-time i18n library for Vite.
 
