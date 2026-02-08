@@ -107,3 +107,64 @@ test("it can reference local variables", () => {
 
 	expect(code).toBe("`Hello ${name}`");
 });
+
+test("plain string mode strips markup wrappers", () => {
+	const pattern: Pattern = [
+		{ type: "text", value: "Hello " },
+		{ type: "markup-start", name: "b" },
+		{ type: "expression", arg: { type: "variable-reference", name: "name" } },
+		{ type: "markup-end", name: "b" },
+		{ type: "text", value: "!" },
+	];
+
+	const { code } = compilePattern({
+		pattern,
+		declarations: [{ type: "input-variable", name: "name" }],
+	});
+
+	expect(code).toBe("`Hello ${i?.name}!`");
+});
+
+test("parts mode compiles text, markup, options and attributes", () => {
+	const pattern: Pattern = [
+		{ type: "text", value: "Read " },
+		{
+			type: "markup-start",
+			name: "link",
+			options: [
+				{ name: "to", value: { type: "literal", value: "/docs" } },
+				{
+					name: "rel",
+					value: { type: "variable-reference", name: "relationship" },
+				},
+			],
+			attributes: [
+				{ name: "track", value: true },
+				{ name: "variant", value: { type: "literal", value: "hero" } },
+			],
+		},
+		{ type: "text", value: "docs" },
+		{
+			type: "markup-end",
+			name: "link",
+			options: [{ name: "to", value: { type: "literal", value: "/docs" } }],
+			attributes: [{ name: "track", value: true }],
+		},
+		{
+			type: "markup-standalone",
+			name: "icon",
+			options: [{ name: "name", value: { type: "literal", value: "arrow" } }],
+			attributes: [{ name: "filled", value: true }],
+		},
+	];
+
+	const { code } = compilePattern({
+		mode: "parts",
+		pattern,
+		declarations: [{ type: "input-variable", name: "relationship" }],
+	});
+
+	expect(code).toBe(
+		'[{ type: "text", value: "Read " }, { type: "markup-start", name: "link", options: { "to": "/docs", "rel": i?.relationship }, attributes: { "track": true, "variant": "hero" } }, { type: "text", value: "docs" }, { type: "markup-end", name: "link", options: { "to": "/docs" }, attributes: { "track": true } }, { type: "markup-standalone", name: "icon", options: { "name": "arrow" }, attributes: { "filled": true } }]'
+	);
+});

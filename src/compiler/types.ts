@@ -20,6 +20,61 @@ export type Compiled<Node> = {
  */
 export type LocalizedString = string & { readonly __brand: "LocalizedString" };
 
+export type MessageMarkupOption = {
+	name: string;
+	value: unknown;
+};
+
+export type MessageMarkupAttribute = {
+	name: string;
+	value: string | true;
+};
+
+export type MessageMarkupOptions = Record<string, unknown>;
+
+export type MessageMarkupAttributes = Record<string, string | true>;
+
+export type MessageMarkupTag = {
+	options: MessageMarkupOptions;
+	attributes: MessageMarkupAttributes;
+	children: boolean;
+};
+
+export type MessageMarkupSchema = Record<string, MessageMarkupTag>;
+
+export type MessageMetadata<
+	Inputs,
+	Options,
+	Markup extends MessageMarkupSchema = MessageMarkupSchema,
+> = {
+	readonly __paraglide?: {
+		inputs: Inputs;
+		options: Options;
+		markup: Markup;
+	};
+};
+
+export type MessagePart =
+	| { type: "text"; value: string }
+	| {
+			type: "markup-start";
+			name: string;
+			options: MessageMarkupOptions;
+			attributes: MessageMarkupAttributes;
+	  }
+	| {
+			type: "markup-end";
+			name: string;
+			options: MessageMarkupOptions;
+			attributes: MessageMarkupAttributes;
+	  }
+	| {
+			type: "markup-standalone";
+			name: string;
+			options: MessageMarkupOptions;
+			attributes: MessageMarkupAttributes;
+	  };
+
 /**
  * A message function is a message for a specific locale.
  *

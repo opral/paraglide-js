@@ -12,8 +12,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1
       '@inlang/sdk':
-        specifier: 2.6.2
-        version: 2.6.2(babel-plugin-macros@3.1.0)
+        specifier: file:../inlang/packages/sdk
+        version: file:../inlang/packages/sdk(babel-plugin-macros@3.1.0)
       commander:
         specifier: 11.1.0
         version: 11.1.0
@@ -381,6 +381,33 @@ importers:
       vite:
         specifier: ^6.0.7
         version: 6.4.1(@types/node@22.19.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2)
+
+  react:
+    devDependencies:
+      '@inlang/paraglide-js':
+        specifier: workspace:*
+        version: link:..
+      '@inlang/plugin-message-format':
+        specifier: file:../../inlang/packages/plugins/inlang-message-format
+        version: file:../inlang/packages/plugins/inlang-message-format
+      '@types/react':
+        specifier: ^18.3.18
+        version: 18.3.27
+      '@types/react-dom':
+        specifier: ^18.3.5
+        version: 18.3.7(@types/react@18.3.27)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vitest:
+        specifier: 3.1.4
+        version: 3.1.4(@types/debug@4.1.12)(@types/node@22.19.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2)
 
 packages:
 
@@ -1371,6 +1398,9 @@ packages:
   '@inlang/plugin-message-format@4.2.0':
     resolution: {integrity: sha512-OIsrlC5VhRfKMCWIaVRtQvn1Iu58gNyuawwE7E/cQTZ3+ADAMVQWkMVw39pIOyaKIomavMvHgSECJLBISpt8mg==}
 
+  '@inlang/plugin-message-format@file:../inlang/packages/plugins/inlang-message-format':
+    resolution: {directory: ../inlang/packages/plugins/inlang-message-format, type: directory}
+
   '@inlang/recommend-sherlock@0.2.1':
     resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
 
@@ -1378,8 +1408,8 @@ packages:
     resolution: {integrity: sha512-cvz/C1rF5WBxzHbEoiBoI6Sz6q6M+TdxfWkEGBYTD77opY8i8WN01prUWXEM87GPF4SZcyIySez9U0Ccm12oFQ==}
     engines: {node: '>=18.0.0'}
 
-  '@inlang/sdk@2.6.2':
-    resolution: {integrity: sha512-eOgAX+eQpHvD/H4BMILc4tZ85XviTlwr/51RKkKUHozVVthj5avUPKP+4N4vcTUrqSscl2atTh9NbNTuvoBN0A==}
+  '@inlang/sdk@file:../inlang/packages/sdk':
+    resolution: {directory: ../inlang/packages/sdk, type: directory}
     engines: {node: '>=18.0.0'}
 
   '@inquirer/external-editor@1.0.3':
@@ -6813,6 +6843,10 @@ snapshots:
     dependencies:
       flat: 6.0.1
 
+  '@inlang/plugin-message-format@file:../inlang/packages/plugins/inlang-message-format':
+    dependencies:
+      flat: 6.0.1
+
   '@inlang/recommend-sherlock@0.2.1':
     dependencies:
       comment-json: 4.5.1
@@ -6827,7 +6861,7 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  '@inlang/sdk@2.6.2(babel-plugin-macros@3.1.0)':
+  '@inlang/sdk@file:../inlang/packages/sdk(babel-plugin-macros@3.1.0)':
     dependencies:
       '@lix-js/sdk': 0.4.7(babel-plugin-macros@3.1.0)
       '@sinclair/typebox': 0.31.28

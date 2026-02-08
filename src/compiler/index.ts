@@ -4,6 +4,14 @@ export {
 } from "./compiler-options.js";
 export type {
 	LocalizedString,
+	MessagePart,
+	MessageMarkupAttribute,
+	MessageMarkupOption,
+	MessageMarkupAttributes,
+	MessageMarkupOptions,
+	MessageMarkupTag,
+	MessageMarkupSchema,
+	MessageMetadata,
 	MessageBundleFunction,
 	MessageFunction,
 } from "./types.js";
