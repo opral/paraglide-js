@@ -58,7 +58,6 @@ test("compiles to jsdoc", async () => {
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
 		*/
-		/* @__NO_SIDE_EFFECTS__ */
 		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
 			if (experimentalMiddlewareLocaleSplitting && isServer === false) {
 				return /** @type {any} */ (globalThis).__paraglide_ssr.blue_moon_bottle(inputs) 
@@ -127,7 +126,6 @@ test("compiles to jsdoc with missing translation", async () => {
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
 		*/
-		/* @__NO_SIDE_EFFECTS__ */
 		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
 			if (experimentalMiddlewareLocaleSplitting && isServer === false) {
 				return /** @type {any} */ (globalThis).__paraglide_ssr.blue_moon_bottle(inputs) 

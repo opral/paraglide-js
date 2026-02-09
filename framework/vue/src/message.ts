@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from "react";
+import { defineComponent, type PropType, type VNodeChild } from "vue";
 import type {
 	MessageMetadata,
 	MessageMarkupAttributes,
@@ -33,7 +33,7 @@ type MessageMetadataOf<TMessage extends MessageLike<any, any, any>> =
 				inputs: TInputs;
 				options: TOptions;
 				markup: TMarkup;
-			}
+		  }
 		: never;
 
 type MessageInputs<TMessage extends MessageLike<any, any, any>> =
@@ -67,6 +67,8 @@ type MessageMarkup<TMessage extends MessageLike<any, any, any>> =
 			: MessageMarkupSchema
 		: MessageMarkupSchema;
 
+type NoInfer<T> = [T][T extends any ? 0 : never];
+
 export type MarkupRendererProps<
 	TInputs,
 	TOptions extends MessageOptions = MessageOptions,
@@ -74,7 +76,7 @@ export type MarkupRendererProps<
 	TName extends string = string,
 > = {
 	name: TName;
-	children?: ReactNode;
+	children?: VNodeChild;
 	inputs: TInputs;
 	messageOptions?: TOptions;
 	options: TTag["options"];
@@ -88,20 +90,20 @@ export type MarkupRenderer<
 	TName extends string = string,
 > = (
 	props: MarkupRendererProps<TInputs, TOptions, TTag, TName>
-) => ReactNode;
+) => VNodeChild;
 
 type MarkupRenderersForSchema<
 	TInputs,
 	TOptions extends MessageOptions,
 	TMarkup extends MessageMarkupSchema,
-> = Partial<{
+> = {
 	[TName in keyof TMarkup & string]: MarkupRenderer<
 		TInputs,
 		TOptions,
 		TMarkup[TName] extends MessageMarkupTag ? TMarkup[TName] : MessageMarkupTag,
 		TName
 	>;
-}>;
+};
 
 type AnyMarkupRenderer = MarkupRenderer<
 	unknown,
@@ -112,41 +114,52 @@ type AnyMarkupRenderer = MarkupRenderer<
 
 type AnyMarkupRenderers = Partial<Record<string, AnyMarkupRenderer>>;
 
-export type MessageProps<TMessage extends MessageLike<any, any, any>> = {
+type MessageBaseProps<TMessage extends MessageLike<any, any, any>> = {
 	message: TMessage;
 	inputs: MessageInputs<TMessage>;
 	options?: MessageRuntimeOptions<TMessage>;
-	markup?: MarkupRenderersForSchema<
-		MessageInputs<TMessage>,
-		MessageRuntimeOptions<TMessage>,
-		MessageMarkup<TMessage>
-	>;
-	missingMarkup?: "throw" | "unwrap";
 };
+
+type MessageMarkupProps<TMessage extends MessageLike<any, any, any>> =
+	keyof MessageMarkup<TMessage> extends never
+		? {
+				markup?: never;
+			}
+		: {
+				markup: MarkupRenderersForSchema<
+					MessageInputs<TMessage>,
+					MessageRuntimeOptions<TMessage>,
+					MessageMarkup<TMessage>
+				>;
+			};
+
+export type MessageProps<TMessage extends MessageLike<any, any, any>> =
+	MessageBaseProps<TMessage> & MessageMarkupProps<TMessage>;
 
 type OpenMarkupFrame = {
 	name: string;
-	children: ReactNode[];
+	children: VNodeChild[];
 	options: MessageMarkupOptions;
 	attributes: MessageMarkupAttributes;
 };
 
-/**
- * React adapter for Paraglide messages with markup.
- *
- * Uses `message.parts()` when available and falls back to `message()` for plain
- * messages without markup.
- */
-export function Message<
+type MessageComponent = {
+	<TMessage extends MessageLike<any, any, any>>(
+		props: MessageProps<NoInfer<TMessage>> & { message: TMessage }
+	): VNodeChild;
+	(props: {
+		message: MessageLike<any, any, any>;
+		inputs: Record<string, unknown>;
+		options?: MessageOptions;
+		markup?: AnyMarkupRenderers;
+	}): VNodeChild;
+};
+
+export function renderMessage<
 	TMessage extends MessageLike<any, any, any>,
->(props: MessageProps<TMessage>): ReactNode {
-	const {
-		message,
-		inputs,
-		options: messageOptions,
-		markup,
-		missingMarkup = "throw",
-	} = props;
+>(props: MessageProps<NoInfer<TMessage>> & { message: TMessage }): VNodeChild {
+	const { message, inputs, options: messageOptions } = props;
+	const markup = (props as { markup?: AnyMarkupRenderers }).markup;
 	const callableMessage = message as MessageLike<
 		MessageInputs<TMessage>,
 		MessageRuntimeOptions<TMessage>,
@@ -162,11 +175,41 @@ export function Message<
 		inputs,
 		messageOptions,
 		markup: markup as AnyMarkupRenderers | undefined,
-		missingMarkup,
 	});
 
 	return toChildren(nodes);
 }
+
+export const Message = defineComponent({
+	name: "ParaglideMessage",
+	props: {
+		message: {
+			type: Function as PropType<MessageLike<any, any, any>>,
+			required: true,
+		},
+		inputs: {
+			type: Object as PropType<Record<string, unknown>>,
+			required: true,
+		},
+		options: {
+			type: Object as PropType<MessageOptions>,
+			required: false,
+		},
+		markup: {
+			type: Object as PropType<AnyMarkupRenderers>,
+			required: false,
+		},
+	},
+	setup(props) {
+		return () =>
+			renderMessage({
+				message: props.message,
+				inputs: props.inputs,
+				options: props.options,
+				markup: props.markup,
+			} as MessageProps<MessageLike<any, any, any>>);
+	},
+}) as unknown as MessageComponent;
 
 function renderParts<TInputs, TOptions extends MessageOptions = MessageOptions>(
 	parts: MessagePart[],
@@ -174,13 +217,12 @@ function renderParts<TInputs, TOptions extends MessageOptions = MessageOptions>(
 		inputs: TInputs;
 		messageOptions?: TOptions;
 		markup?: AnyMarkupRenderers;
-		missingMarkup: "throw" | "unwrap";
 	}
-): ReactNode[] {
-	const rootChildren: ReactNode[] = [];
+): VNodeChild[] {
+	const rootChildren: VNodeChild[] = [];
 	const stack: OpenMarkupFrame[] = [];
 
-	const appendNode = (node: ReactNode) => {
+	const appendNode = (node: VNodeChild) => {
 		const target = stack[stack.length - 1];
 		if (target) {
 			target.children.push(node);
@@ -251,15 +293,14 @@ function renderParts<TInputs, TOptions extends MessageOptions = MessageOptions>(
 function renderMarkup<TInputs, TOptions extends MessageOptions = MessageOptions>(
 	args: {
 		name: string;
-		children: ReactNode[];
+		children: VNodeChild[];
 		options: MessageMarkupOptions;
 		attributes: MessageMarkupAttributes;
 		inputs: TInputs;
 		messageOptions?: TOptions;
 		markup?: AnyMarkupRenderers;
-		missingMarkup: "throw" | "unwrap";
 	}
-): ReactNode {
+): VNodeChild {
 	const renderer = args.markup?.[args.name];
 	const children = toChildren(args.children);
 
@@ -274,19 +315,15 @@ function renderMarkup<TInputs, TOptions extends MessageOptions = MessageOptions>
 		});
 	}
 
-	if (args.missingMarkup === "unwrap") {
-		return children;
-	}
-
-	throw new Error(`Missing renderer for markup "${args.name}"`);
+	return children;
 }
 
-function toChildren(nodes: ReactNode[]): ReactNode {
+function toChildren(nodes: VNodeChild[]): VNodeChild {
 	if (nodes.length === 0) {
 		return null;
 	}
 	if (nodes.length === 1) {
 		return nodes[0] ?? null;
 	}
-	return nodes.map((node, index) => <Fragment key={index}>{node}</Fragment>);
+	return nodes;
 }

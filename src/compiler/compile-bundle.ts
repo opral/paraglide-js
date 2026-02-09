@@ -163,18 +163,20 @@ const compileBundleFunction = (args: {
 
 	if (!args.hasMarkup) {
 		code = `${commonJsDoc}
-/* @__NO_SIDE_EFFECTS__ */
 ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & ${messageMetadataType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {
 	if (experimentalMiddlewareLocaleSplitting && isServer === false) {
 		return /** @type {any} */ (globalThis).__paraglide_ssr.${safeBundleId}(inputs) 
 	}
 	const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
 	trackMessageCall("${safeBundleId}", locale)
-	${compileLocaleReturnStatements("string", "\t")}${!isFullyTranslated ? `\n	return /** @type {LocalizedString} */ ("${args.bundle.id}")` : ""}
+	${compileLocaleReturnStatements("string", "\t")}${
+		!isFullyTranslated
+			? `\n	return /** @type {LocalizedString} */ ("${args.bundle.id}")`
+			: ""
+	}
 });`;
 	} else {
 		code = `${commonJsDoc}
-/* @__NO_SIDE_EFFECTS__ */
 ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & { parts: ${partsFunctionType} } & ${messageMetadataType}} */ (
 	/* @__PURE__ */ Object.assign(
 		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {

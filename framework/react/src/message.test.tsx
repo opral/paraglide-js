@@ -1,6 +1,5 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
-import { type MessagePart } from "@inlang/paraglide-js";
 import { m } from "./paraglide/messages.js";
 import { Message } from "./message.js";
 
@@ -49,34 +48,13 @@ test("renders compiled nested markup", () => {
 	expect(html).toBe('<a href="/docs"><strong>Read docs</strong></a>');
 });
 
-test("throws on missing markup renderer by default", () => {
-	const message = Object.assign(() => "Hello world", {
-		parts: () =>
-			[
-				{ type: "markup-start", name: "b", options: {}, attributes: {} },
-				{ type: "text", value: "Hello" },
-				{ type: "markup-end", name: "b", options: {}, attributes: {} },
-			] as MessagePart[],
-	});
+test("enforces markup props at type level", () => {
+	if (false) {
+		// @ts-expect-error markup renderers are required for markup messages
+		Message<typeof m.cta>({ message: m.cta, inputs: {} });
+		// @ts-expect-error plain messages do not accept a markup prop
+		Message<typeof m.hello>({ message: m.hello, inputs: { name: "Ada" }, markup: { link: () => null } });
+	}
 
-	expect(() =>
-		renderToStaticMarkup(<Message message={message} inputs={{}} />)
-	).toThrowError('Missing renderer for markup "b"');
-});
-
-test("can unwrap missing markup renderers", () => {
-	const message = Object.assign(() => "Hello world", {
-		parts: () =>
-			[
-				{ type: "markup-start", name: "b", options: {}, attributes: {} },
-				{ type: "text", value: "Hello" },
-				{ type: "markup-end", name: "b", options: {}, attributes: {} },
-			] as MessagePart[],
-	});
-
-	const html = renderToStaticMarkup(
-		<Message message={message} inputs={{}} missingMarkup="unwrap" />
-	);
-
-	expect(html).toBe("Hello");
+	expect(true).toBe(true);
 });

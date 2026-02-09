@@ -1,0 +1,39 @@
+{
+	"name": "@inlang/paraglide-js-solid",
+	"type": "module",
+	"version": "0.1.0",
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public",
+		"tag": "latest"
+	},
+	"author": "inlang <hello@inlang.com> (https://inlang.com/)",
+	"homepage": "https://inlang.com/m/gerre34r/library-inlang-paraglideJs",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/opral/paraglide-js"
+	},
+	"files": [
+		"./dist"
+	],
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./dist/index.js"
+	},
+	"scripts": {
+		"build": "tsc --project tsconfig.json",
+		"pretest": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations",
+		"test": "tsc --noEmit && vitest run"
+	},
+	"peerDependencies": {
+		"@inlang/paraglide-js": "^2.10.0",
+		"solid-js": "^1.8.0"
+	},
+	"devDependencies": {
+		"@inlang/paraglide-js": "workspace:*",
+		"@inlang/plugin-message-format": "file:../../../inlang/packages/plugins/inlang-message-format",
+		"solid-js": "^1.9.5",
+		"typescript": "5.8.3",
+		"vitest": "3.1.4"
+	}
+}
