@@ -11,7 +11,8 @@ export function messageReferenceExpression(locale: string, bundleId: string) {
 export function generateOutput(
 	compiledBundles: CompiledBundleWithMessages[],
 	settings: Pick<ProjectSettings, "locales" | "baseLocale">,
-	fallbackMap: Record<string, string | undefined>
+	fallbackMap: Record<string, string | undefined>,
+	experimentalMiddlewareLocaleSplitting = false
 ): Record<string, string> {
 	const output: Record<string, string> = {};
 
@@ -106,8 +107,12 @@ export function generateOutput(
 		output[filename] = messages.join("\n\n") + "\n\n" + output[filename];
 
 		// add the imports and type reference (LocalizedString is defined in runtime.js)
+		const runtimeImport = experimentalMiddlewareLocaleSplitting
+			? `import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale } from '../runtime.js';\n`
+			: `import { getLocale, experimentalStaticLocale } from '../runtime.js';\n`;
+
 		output[filename] =
-			`import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale } from '../runtime.js';\n` +
+			runtimeImport +
 			`/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */\n\n` +
 			output[filename];
 

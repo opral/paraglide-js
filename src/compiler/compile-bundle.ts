@@ -37,6 +37,7 @@ export const compileBundle = (args: {
 	fallbackMap: Record<string, string | undefined>;
 	messageReferenceExpression: (locale: string, bundleId: string) => string;
 	settings?: ProjectSettings;
+	experimentalMiddlewareLocaleSplitting?: boolean;
 }): CompiledBundleWithMessages => {
 	const compiledMessages: Record<string, Compiled<Message>> = {};
 	const matchTypes = collectInputMatchTypes(args.bundle);
@@ -66,6 +67,8 @@ export const compileBundle = (args: {
 			settings: args.settings,
 			matchTypes,
 			hasMarkup,
+			experimentalMiddlewareLocaleSplitting:
+				args.experimentalMiddlewareLocaleSplitting ?? false,
 		}),
 		messages: compiledMessages,
 		matchTypes,
@@ -97,6 +100,10 @@ const compileBundleFunction = (args: {
 	 * Whether at least one variant in this bundle contains markup.
 	 */
 	hasMarkup: boolean;
+	/**
+	 * Whether middleware locale splitting runtime hooks should be emitted.
+	 */
+	experimentalMiddlewareLocaleSplitting: boolean;
 }): Compiled<Bundle> => {
 	const inputs = args.bundle.declarations.filter(
 		(decl) => decl.type === "input-variable"
@@ -159,16 +166,40 @@ const compileBundleFunction = (args: {
 	})}
 */`;
 
+	const clientMiddlewareGuard = (indent: string): string => {
+		if (!args.experimentalMiddlewareLocaleSplitting) {
+			return "";
+		}
+
+		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\treturn /** @type {any} */ (globalThis).__paraglide_ssr.${safeBundleId}(inputs)\n${indent}}`;
+	};
+
+	const clientPartsMiddlewareGuard = (indent: string): string => {
+		if (!args.experimentalMiddlewareLocaleSplitting) {
+			return "";
+		}
+
+		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\tconst serverMessage = /** @type {any} */ (globalThis).__paraglide_ssr.${safeBundleId}\n${indent}\tif (typeof serverMessage.parts === "function") {\n${indent}\t\treturn /** @type {import('../runtime.js').MessagePart[]} */ (serverMessage.parts(inputs))\n${indent}\t}\n${indent}\treturn /** @type {import('../runtime.js').MessagePart[]} */ ([{ type: "text", value: serverMessage(inputs) }])\n${indent}}`;
+	};
+
+	const maybeTrackMessageCall = (indent: string): string => {
+		if (!args.experimentalMiddlewareLocaleSplitting) {
+			return "";
+		}
+
+		return `\n${indent}trackMessageCall("${safeBundleId}", locale)`;
+	};
+
 	let code = "";
 
 	if (!args.hasMarkup) {
 		code = `${commonJsDoc}
-${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & ${messageMetadataType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {
-	if (experimentalMiddlewareLocaleSplitting && isServer === false) {
-		return /** @type {any} */ (globalThis).__paraglide_ssr.${safeBundleId}(inputs) 
-	}
-	const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
-	trackMessageCall("${safeBundleId}", locale)
+${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & ${messageMetadataType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
+			"\t"
+		)}
+	const locale = experimentalStaticLocale ?? options.locale ?? getLocale()${maybeTrackMessageCall(
+		"\t"
+	)}
 	${compileLocaleReturnStatements("string", "\t")}${
 		!isFullyTranslated
 			? `\n	return /** @type {LocalizedString} */ ("${args.bundle.id}")`
@@ -179,12 +210,12 @@ ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFu
 		code = `${commonJsDoc}
 ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & { parts: ${partsFunctionType} } & ${messageMetadataType}} */ (
 	/* @__PURE__ */ Object.assign(
-		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {
-			if (experimentalMiddlewareLocaleSplitting && isServer === false) {
-				return /** @type {any} */ (globalThis).__paraglide_ssr.${safeBundleId}(inputs) 
-			}
-			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
-			trackMessageCall("${safeBundleId}", locale)
+		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
+			"\t\t\t"
+		)}
+			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()${maybeTrackMessageCall(
+				"\t\t\t"
+			)}
 			${compileLocaleReturnStatements("string", "\t\t\t")}${
 				!isFullyTranslated
 					? `\n			return /** @type {LocalizedString} */ (${JSON.stringify(args.bundle.id)})`
@@ -194,16 +225,10 @@ ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFu
 		{
 			parts: /** @type {${partsFunctionType}} */ ((inputs${
 				hasInputs ? "" : " = {}"
-			}, options = {}) => {
-				if (experimentalMiddlewareLocaleSplitting && isServer === false) {
-					const serverMessage = /** @type {any} */ (globalThis).__paraglide_ssr.${safeBundleId}
-					if (typeof serverMessage.parts === "function") {
-						return /** @type {import('../runtime.js').MessagePart[]} */ (serverMessage.parts(inputs))
-					}
-					return /** @type {import('../runtime.js').MessagePart[]} */ ([{ type: "text", value: serverMessage(inputs) }])
-				}
-				const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
-				trackMessageCall("${safeBundleId}", locale)
+			}, options = {}) => {${clientPartsMiddlewareGuard("\t\t\t\t")}
+				const locale = experimentalStaticLocale ?? options.locale ?? getLocale()${maybeTrackMessageCall(
+					"\t\t\t\t"
+				)}
 				${compileLocaleReturnStatements("parts", "\t\t\t\t")}${
 					!isFullyTranslated
 						? `\n				return /** @type {import('../runtime.js').MessagePart[]} */ ([{ type: "text", value: ${JSON.stringify(args.bundle.id)} }])`

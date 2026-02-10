@@ -12,10 +12,15 @@ export function messageReferenceExpression(locale: string, bundleId: string) {
 export function generateOutput(
 	compiledBundles: CompiledBundleWithMessages[],
 	settings: Pick<ProjectSettings, "locales" | "baseLocale">,
-	fallbackMap: Record<string, string | undefined>
+	fallbackMap: Record<string, string | undefined>,
+	experimentalMiddlewareLocaleSplitting = false
 ): Record<string, string> {
+	const runtimeImport = experimentalMiddlewareLocaleSplitting
+		? `import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale } from "../runtime.js"`
+		: `import { getLocale, experimentalStaticLocale } from "../runtime.js"`;
+
 	const indexFile = [
-		`import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale } from "../runtime.js"`,
+		runtimeImport,
 		`/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */`,
 		settings.locales
 			.map(

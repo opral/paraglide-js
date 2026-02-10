@@ -168,3 +168,37 @@ test("prefixes locale imports to avoid message name collisions", () => {
 	);
 	expect(messageReferenceExpression("no", "no")).toBe("__no.no");
 });
+
+test("emits minimal runtime imports in index when middleware splitting is disabled", () => {
+	const bundles: CompiledBundleWithMessages[] = [
+		{
+			bundle: {
+				code: "export const happy_elephant = () => __en.happy_elephant()",
+				node: {
+					id: "happy_elephant",
+				} as unknown as Bundle,
+			},
+			messages: {
+				en: {
+					code: '() => "happy"',
+					node: {} as unknown as Message,
+				},
+			},
+			matchTypes: new Map(),
+		},
+	];
+
+	const output = generateOutput(
+		bundles,
+		{ locales: ["en"], baseLocale: "en" },
+		{},
+		false
+	);
+
+	expect(output["messages/_index.js"]).toContain(
+		'import { getLocale, experimentalStaticLocale } from "../runtime.js"'
+	);
+	expect(output["messages/_index.js"]).not.toContain("trackMessageCall");
+	expect(output["messages/_index.js"]).not.toContain("experimentalMiddlewareLocaleSplitting");
+	expect(output["messages/_index.js"]).not.toContain("isServer");
+});

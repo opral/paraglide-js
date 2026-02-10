@@ -59,16 +59,45 @@ test("compiles to jsdoc", async () => {
 		* @returns {LocalizedString}
 		*/
 		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
-			if (experimentalMiddlewareLocaleSplitting && isServer === false) {
-				return /** @type {any} */ (globalThis).__paraglide_ssr.blue_moon_bottle(inputs) 
-			}
 			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
-			trackMessageCall("blue_moon_bottle", locale)
 			if (locale === "en") return en.blue_moon_bottle(inputs)
 			return en_us2.blue_moon_bottle(inputs)
 		});"
 	`
 	);
+});
+
+test("emits middleware locale splitting hooks when enabled", () => {
+	const mockBundle: BundleNested = {
+		id: "blue_moon_bottle",
+		declarations: [{ type: "input-variable", name: "age" }],
+		messages: [
+			{
+				id: "message-id",
+				bundleId: "blue_moon_bottle",
+				locale: "en",
+				selectors: [],
+				variants: [{ id: "1", messageId: "message-id", matches: [], pattern: [] }],
+			},
+		],
+	};
+
+	const result = compileBundle({
+		fallbackMap: { en: "en" },
+		bundle: mockBundle,
+		messageReferenceExpression: (locale) =>
+			`${toSafeModuleId(locale)}.blue_moon_bottle`,
+		settings: {
+			locales: ["en"],
+		} as ProjectSettings,
+		experimentalMiddlewareLocaleSplitting: true,
+	});
+
+	expect(result.bundle.code).toContain(
+		"if (experimentalMiddlewareLocaleSplitting && isServer === false)"
+	);
+	expect(result.bundle.code).toContain("trackMessageCall(\"blue_moon_bottle\", locale)");
+	expect(result.bundle.code).toContain("globalThis).__paraglide_ssr.blue_moon_bottle(inputs)");
 });
 
 test("compiles to jsdoc with missing translation", async () => {
@@ -127,11 +156,7 @@ test("compiles to jsdoc with missing translation", async () => {
 		* @returns {LocalizedString}
 		*/
 		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
-			if (experimentalMiddlewareLocaleSplitting && isServer === false) {
-				return /** @type {any} */ (globalThis).__paraglide_ssr.blue_moon_bottle(inputs) 
-			}
 			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
-			trackMessageCall("blue_moon_bottle", locale)
 			if (locale === "en") return en.blue_moon_bottle(inputs)
 			if (locale === "en-US") return en_us2.blue_moon_bottle(inputs)
 			return /** @type {LocalizedString} */ ("blue_moon_bottle")
