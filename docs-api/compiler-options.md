@@ -448,7 +448,7 @@ await compile({
 
 #### strategy?
 
-> `optional` **strategy**: [`Runtime`](/runtime#strategy)\[`"strategy"`\]
+> `optional` **strategy**: [`Runtime`](runtime/type/README.md#runtime)\[`"strategy"`\]
 
 Defined in: [compiler-options.ts:63](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
@@ -474,7 +474,7 @@ Custom strategies with the pattern `custom-[A-Za-z0-9]+` are supported.
 
 #### urlPatterns?
 
-> `optional` **urlPatterns**: [`Runtime`](/runtime#urlpatterns)\[`"urlPatterns"`\]
+> `optional` **urlPatterns**: [`Runtime`](runtime/type/README.md#runtime)\[`"urlPatterns"`\]
 
 Defined in: [compiler-options.ts:248](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
