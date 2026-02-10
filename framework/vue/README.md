@@ -1,8 +1,4 @@
-# @inlang/paraglide-js-vue
-
-Vue component for rendering Paraglide JS messages that contain markup.
-
-Built on [Paraglide JS](https://github.com/opral/paraglide-js).
+Vue component for rendering [Paraglide JS](https://github.com/opral/paraglide-js) messages that contain markup.
 
 ```vue
 <script setup lang="ts">

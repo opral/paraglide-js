@@ -1,8 +1,4 @@
-# @inlang/paraglide-js-svelte
-
-Svelte component for rendering Paraglide JS messages that contain markup.
-
-Built on [Paraglide JS](https://github.com/opral/paraglide-js).
+Svelte component for rendering [Paraglide JS](https://github.com/opral/paraglide-js) messages that contain markup.
 
 Given this message in your source file (for example `messages/en.json`):
 

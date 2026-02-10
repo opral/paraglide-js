@@ -42,5 +42,8 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Build framework packages
+        run: pnpm run build:framework
+
       - name: Publish packages
         run: pnpm exec changeset publish

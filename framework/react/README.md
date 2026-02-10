@@ -1,8 +1,4 @@
-# @inlang/paraglide-js-react
-
-React component for rendering Paraglide JS messages that contain markup.
-
-Built on [Paraglide JS](https://github.com/opral/paraglide-js).
+React component for rendering [Paraglide JS](https://github.com/opral/paraglide-js) messages that contain markup.
 
 ```tsx
 import { ParaglideMessage } from "@inlang/paraglide-js-react";
