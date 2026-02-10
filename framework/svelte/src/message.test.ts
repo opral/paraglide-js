@@ -2,6 +2,9 @@ import { render } from "svelte/server";
 import { expect, test } from "vitest";
 import { m } from "./paraglide/messages.js";
 import Message from "./Message.svelte";
+import MessageCTATest from "./MessageCTATest.svelte";
+import MessageCTAWithComponentTest from "./MessageCTAWithComponentTest.svelte";
+import MessageNestedCTATest from "./MessageNestedCTATest.svelte";
 import { renderMessage } from "./message.js";
 
 function normalizeSsrBody(body: string): string {
@@ -17,40 +20,24 @@ test("renders compiled plain messages when parts() is not present", () => {
 	expect("parts" in m.hello).toBe(false);
 });
 
-test("renders compiled markup and exposes options/attributes as records", () => {
-	const { body } = render(Message, {
-		props: {
-			message: m.cta,
-			inputs: {},
-			markup: {
-				link: (props: {
-					children?: string;
-					options: { to: string };
-					attributes: { track?: true };
-				}) =>
-					`<a href="${props.options.to}" data-track="${props.attributes.track === true ? "true" : "false"}">${props.children ?? ""}</a>`,
-			},
-		},
-	});
+test("renders compiled markup and exposes options/attributes to snippets", () => {
+	const { body } = render(MessageCTATest, {});
 
 	expect(normalizeSsrBody(body)).toBe(
 		'<a href="/docs" data-track="true">Read docs</a>'
 	);
 });
 
+test("renders svelte component in markup", () => {
+	const { body } = render(MessageCTAWithComponentTest, {});
+
+	expect(normalizeSsrBody(body)).toBe(
+		'<a href="/docs" data-track="true">🔗 Read docs</a>'
+	);
+});
+
 test("renders compiled nested markup", () => {
-	const { body } = render(Message, {
-		props: {
-			message: m.nested_cta,
-			inputs: {},
-			markup: {
-				link: (props: { children?: string; options: { to: string } }) =>
-					`<a href="${props.options.to}">${props.children ?? ""}</a>`,
-				strong: (props: { children?: string }) =>
-					`<strong>${props.children ?? ""}</strong>`,
-			},
-		},
-	});
+	const { body } = render(MessageNestedCTATest, {});
 
 	expect(normalizeSsrBody(body)).toBe(
 		'<a href="/docs"><strong>Read docs</strong></a>'
@@ -59,10 +46,14 @@ test("renders compiled nested markup", () => {
 
 test("enforces markup props at type level", () => {
 	if (false) {
-		// @ts-expect-error markup renderers are required for markup messages
+		// @ts-expect-error markup snippets are required for markup messages
 		renderMessage<typeof m.cta>({ message: m.cta, inputs: {} });
-		// @ts-expect-error plain messages do not accept a markup prop
-		renderMessage<typeof m.hello>({ message: m.hello, inputs: { name: "Ada" }, markup: { link: () => "" } });
+		renderMessage<typeof m.hello>({
+			message: m.hello,
+			inputs: { name: "Ada" },
+			// @ts-expect-error plain messages do not accept markup snippets
+			link: undefined as any,
+		});
 	}
 
 	expect(true).toBe(true);

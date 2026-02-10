@@ -6,6 +6,7 @@ import type {
 	MessageMarkupTag,
 	MessagePart,
 } from "@inlang/paraglide-js";
+import type { Snippet } from "svelte";
 
 export type MessageOptions = {
 	locale?: string;
@@ -66,30 +67,28 @@ type MessageMarkup<TMessage extends MessageLike<any, any, any>> =
 			: MessageMarkupSchema
 		: MessageMarkupSchema;
 
-type NoInfer<T> = [T][T extends any ? 0 : never];
+export type NoInfer<T> = [T][T extends any ? 0 : never];
+
+type MarkupRendererBaseProps<TTag extends MessageMarkupTag = MessageMarkupTag> = {
+	options: TTag["options"];
+	attributes: TTag["attributes"];
+};
 
 export type MarkupRendererProps<
 	TInputs,
 	TOptions extends MessageOptions = MessageOptions,
 	TTag extends MessageMarkupTag = MessageMarkupTag,
-	TName extends string = string,
 > = {
-	name: TName;
-	children?: string;
+	children?: Snippet;
 	inputs: TInputs;
 	messageOptions?: TOptions;
-	options: TTag["options"];
-	attributes: TTag["attributes"];
-};
+} & MarkupRendererBaseProps<TTag>;
 
 export type MarkupRenderer<
 	TInputs,
 	TOptions extends MessageOptions = MessageOptions,
 	TTag extends MessageMarkupTag = MessageMarkupTag,
-	TName extends string = string,
-> = (
-	props: MarkupRendererProps<TInputs, TOptions, TTag, TName>
-) => string;
+> = Snippet<[MarkupRendererProps<TInputs, TOptions, TTag>]>;
 
 type MarkupRenderersForSchema<
 	TInputs,
@@ -99,19 +98,9 @@ type MarkupRenderersForSchema<
 	[TName in keyof TMarkup & string]: MarkupRenderer<
 		TInputs,
 		TOptions,
-		TMarkup[TName] extends MessageMarkupTag ? TMarkup[TName] : MessageMarkupTag,
-		TName
+		TMarkup[TName] extends MessageMarkupTag ? TMarkup[TName] : MessageMarkupTag
 	>;
 };
-
-type AnyMarkupRenderer = MarkupRenderer<
-	unknown,
-	MessageOptions,
-	MessageMarkupTag,
-	string
->;
-
-type AnyMarkupRenderers = Partial<Record<string, AnyMarkupRenderer>>;
 
 type MessageBaseProps<TMessage extends MessageLike<any, any, any>> = {
 	message: TMessage;
@@ -119,34 +108,46 @@ type MessageBaseProps<TMessage extends MessageLike<any, any, any>> = {
 	options?: MessageRuntimeOptions<TMessage>;
 };
 
-type MessageMarkupProps<TMessage extends MessageLike<any, any, any>> =
+export type MessageMarkupProps<TMessage extends MessageLike<any, any, any>> =
 	keyof MessageMarkup<TMessage> extends never
-		? {
-				markup?: never;
-			}
-		: {
-				markup: MarkupRenderersForSchema<
+		? Record<string, never>
+		: MarkupRenderersForSchema<
 					MessageInputs<TMessage>,
 					MessageRuntimeOptions<TMessage>,
 					MessageMarkup<TMessage>
-				>;
-			};
+			  >;
 
 export type MessageProps<TMessage extends MessageLike<any, any, any>> =
 	MessageBaseProps<TMessage> & MessageMarkupProps<TMessage>;
 
-type OpenMarkupFrame = {
+export type Child<
+	TInputs,
+	TOptions extends MessageOptions = MessageOptions,
+	TTag extends MessageMarkupTag = MessageMarkupTag,
+> =
+	| string
+	| ({
+			snippet: MarkupRenderer<TInputs, TOptions, TTag>;
+			children: Child<TInputs, TOptions, TTag>[];
+	  } & MarkupRendererBaseProps<TTag>);
+
+export type OpenMarkupFrame<
+	TInputs,
+	TOptions extends MessageOptions = MessageOptions,
+	TTag extends MessageMarkupTag = MessageMarkupTag,
+> = {
 	name: string;
-	children: string[];
+	snippet?: MarkupRenderer<TInputs, TOptions, TTag>;
+	children: Child<TInputs, TOptions, TTag>[];
 	options: MessageMarkupOptions;
 	attributes: MessageMarkupAttributes;
 };
 
-export function Message<
-	TMessage extends MessageLike<any, any, any>,
->(props: MessageProps<NoInfer<TMessage>> & { message: TMessage }): string {
-	const { message, inputs, options: messageOptions } = props;
-	const markup = (props as { markup?: AnyMarkupRenderers }).markup;
+export function renderMessage<TMessage extends MessageLike<any, any, any>>(
+	props: MessageProps<NoInfer<TMessage>> & { message: TMessage }
+): Child<MessageInputs<TMessage>, MessageRuntimeOptions<TMessage>>[] {
+	const { message, inputs, options, ...rest } = props;
+	const markup = rest as unknown as MessageMarkupProps<TMessage>;
 	const callableMessage = message as MessageLike<
 		MessageInputs<TMessage>,
 		MessageRuntimeOptions<TMessage>,
@@ -154,31 +155,22 @@ export function Message<
 	>;
 
 	if (typeof callableMessage.parts !== "function") {
-		return callableMessage(inputs, messageOptions);
+		return [callableMessage(inputs, options)];
 	}
 
-	const parts = callableMessage.parts(inputs, messageOptions);
-	return renderParts(parts, {
-		inputs,
-		messageOptions,
-		markup: markup as AnyMarkupRenderers | undefined,
-	});
-}
+	const rootChildren: Child<
+		MessageInputs<TMessage>,
+		MessageRuntimeOptions<TMessage>
+	>[] = [];
+	const stack: OpenMarkupFrame<
+		MessageInputs<TMessage>,
+		MessageRuntimeOptions<TMessage>
+	>[] = [];
+	const parts = callableMessage.parts(inputs, options);
 
-export const renderMessage = Message;
-
-function renderParts<TInputs, TOptions extends MessageOptions = MessageOptions>(
-	parts: MessagePart[],
-	args: {
-		inputs: TInputs;
-		messageOptions?: TOptions;
-		markup?: AnyMarkupRenderers;
-	}
-): string {
-	const rootChildren: string[] = [];
-	const stack: OpenMarkupFrame[] = [];
-
-	const appendNode = (node: string) => {
+	const appendNode = (
+		node: Child<MessageInputs<TMessage>, MessageRuntimeOptions<TMessage>>
+	) => {
 		const target = stack[stack.length - 1];
 		if (target) {
 			target.children.push(node);
@@ -192,14 +184,22 @@ function renderParts<TInputs, TOptions extends MessageOptions = MessageOptions>(
 			case "text":
 				appendNode(part.value);
 				break;
-			case "markup-start":
+			case "markup-start": {
+				const snippet = markup[part.name as keyof typeof markup] as
+					| MarkupRenderer<
+							MessageInputs<TMessage>,
+							MessageRuntimeOptions<TMessage>
+					  >
+					| undefined;
 				stack.push({
 					name: part.name,
+					snippet,
 					children: [],
 					options: part.options,
 					attributes: part.attributes,
 				});
 				break;
+			}
 			case "markup-end": {
 				const frame = stack.pop();
 				if (!frame) {
@@ -210,29 +210,38 @@ function renderParts<TInputs, TOptions extends MessageOptions = MessageOptions>(
 						`Mismatched markup. Expected closing "${frame.name}" but received "${part.name}"`
 					);
 				}
-
-				appendNode(
-					renderMarkup({
-						name: frame.name,
-						children: frame.children,
-						options: frame.options,
-						attributes: frame.attributes,
-						...args,
-					})
-				);
+				if (!frame.snippet) {
+					for (const child of frame.children) {
+						appendNode(child);
+					}
+					break;
+				}
+				appendNode({
+					snippet: frame.snippet,
+					children: frame.children,
+					options: frame.options,
+					attributes: frame.attributes,
+				});
 				break;
 			}
-			case "markup-standalone":
-				appendNode(
-					renderMarkup({
-						name: part.name,
-						children: [],
-						options: part.options,
-						attributes: part.attributes,
-						...args,
-					})
-				);
+			case "markup-standalone": {
+				const snippet = markup[part.name as keyof typeof markup] as
+					| MarkupRenderer<
+							MessageInputs<TMessage>,
+							MessageRuntimeOptions<TMessage>
+					  >
+					| undefined;
+				if (!snippet) {
+					break;
+				}
+				appendNode({
+					snippet,
+					children: [],
+					options: part.options,
+					attributes: part.attributes,
+				});
 				break;
+			}
 		}
 	}
 
@@ -243,33 +252,5 @@ function renderParts<TInputs, TOptions extends MessageOptions = MessageOptions>(
 		}
 	}
 
-	return rootChildren.join("");
-}
-
-function renderMarkup<TInputs, TOptions extends MessageOptions = MessageOptions>(
-	args: {
-		name: string;
-		children: string[];
-		options: MessageMarkupOptions;
-		attributes: MessageMarkupAttributes;
-		inputs: TInputs;
-		messageOptions?: TOptions;
-		markup?: AnyMarkupRenderers;
-	}
-): string {
-	const renderer = args.markup?.[args.name];
-	const children = args.children.join("");
-
-	if (renderer) {
-		return renderer({
-			name: args.name,
-			children: children.length === 0 ? undefined : children,
-			inputs: args.inputs,
-			messageOptions: args.messageOptions,
-			options: args.options,
-			attributes: args.attributes,
-		});
-	}
-
-	return children;
+	return rootChildren;
 }

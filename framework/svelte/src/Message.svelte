@@ -1,21 +1,42 @@
-<script lang="ts">
+<script lang="ts" generics="TMessage extends MessageLike<any, any, any>">
 	import { renderMessage } from "./message.js";
-	import type { MessageLike, MessageProps } from "./message.js";
+	import type {
+		Child,
+		MessageLike,
+		MessageMarkupProps,
+		MessageProps,
+	} from "./message.js";
 
-	export let message: MessageLike<any, any, any>;
-	export let inputs: Record<string, unknown>;
-	export let options: MessageProps<MessageLike<any, any, any>>["options"] | undefined =
-		undefined;
-	export let markup: MessageProps<MessageLike<any, any, any>>["markup"] | undefined =
-		undefined;
-	let html = "";
+	const { message, inputs, options, ...rest }: MessageProps<TMessage> = $props();
+	const markup = rest as unknown as MessageMarkupProps<TMessage>;
 
-	$: html = renderMessage({
-		message,
-		inputs,
-		options,
-		markup,
-	} as MessageProps<MessageLike<any, any, any>>);
+	const parts = $derived.by(() =>
+		renderMessage({
+			message,
+			inputs,
+			options,
+			...markup,
+		})
+	);
 </script>
 
-{@html html}
+{#snippet renderChildren(children: Child<typeof inputs>[])}
+	{#each children as child}
+		{#if typeof child === "string"}
+			{child}
+		{:else}
+			{#snippet childrenSnippet()}
+				{@render renderChildren(child.children)}
+			{/snippet}
+			{@render child.snippet({
+				options: child.options,
+				attributes: child.attributes,
+				inputs,
+				messageOptions: options,
+				children: childrenSnippet,
+			})}
+		{/if}
+	{/each}
+{/snippet}
+
+{@render renderChildren(parts)}
