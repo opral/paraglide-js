@@ -143,7 +143,7 @@ type OpenMarkupFrame = {
 	attributes: MessageMarkupAttributes;
 };
 
-export function Message<
+export function ParaglideMessage<
 	TMessage extends MessageLike<any, any, any>,
 >(props: MessageProps<NoInfer<TMessage>> & { message: TMessage }): JSX.Element {
 	const { message, inputs, options: messageOptions } = props;

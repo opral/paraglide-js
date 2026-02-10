@@ -1,11 +1,11 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
 import { m } from "./paraglide/messages.js";
-import { Message } from "./message.js";
+import { ParaglideMessage } from "./message.js";
 
 test("renders compiled plain messages when parts() is not present", () => {
 	const html = renderToStaticMarkup(
-		<Message message={m.hello} inputs={{ name: "Ada" }} />
+		<ParaglideMessage message={m.hello} inputs={{ name: "Ada" }} />
 	);
 
 	expect(html).toBe("Hello Ada");
@@ -14,7 +14,7 @@ test("renders compiled plain messages when parts() is not present", () => {
 
 test("renders compiled markup and exposes options/attributes as records", () => {
 	const html = renderToStaticMarkup(
-		<Message
+		<ParaglideMessage
 			message={m.cta}
 			inputs={{}}
 			markup={{
@@ -35,7 +35,7 @@ test("renders compiled markup and exposes options/attributes as records", () => 
 
 test("renders compiled nested markup", () => {
 	const html = renderToStaticMarkup(
-		<Message
+		<ParaglideMessage
 			message={m.nested_cta}
 			inputs={{}}
 			markup={{
@@ -51,9 +51,9 @@ test("renders compiled nested markup", () => {
 test("enforces markup props at type level", () => {
 	if (false) {
 		// @ts-expect-error markup renderers are required for markup messages
-		Message<typeof m.cta>({ message: m.cta, inputs: {} });
+		ParaglideMessage<typeof m.cta>({ message: m.cta, inputs: {} });
 		// @ts-expect-error plain messages do not accept a markup prop
-		Message<typeof m.hello>({ message: m.hello, inputs: { name: "Ada" }, markup: { link: () => null } });
+		ParaglideMessage<typeof m.hello>({ message: m.hello, inputs: { name: "Ada" }, markup: { link: () => null } });
 	}
 
 	expect(true).toBe(true);

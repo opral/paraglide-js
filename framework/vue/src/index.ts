@@ -1,4 +1,4 @@
-export { Message, renderMessage } from "./message.js";
+export { ParaglideMessage, renderMessage } from "./message.js";
 export type {
 	MarkupRenderer,
 	MarkupRendererProps,

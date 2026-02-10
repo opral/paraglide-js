@@ -1,7 +1,7 @@
 import { render } from "svelte/server";
 import { expect, test } from "vitest";
 import { m } from "./paraglide/messages.js";
-import Message from "./Message.svelte";
+import ParaglideMessage from "./Message.svelte";
 import MessageCTATest from "./MessageCTATest.svelte";
 import MessageCTAWithComponentTest from "./MessageCTAWithComponentTest.svelte";
 import MessageNestedCTATest from "./MessageNestedCTATest.svelte";
@@ -12,7 +12,7 @@ function normalizeSsrBody(body: string): string {
 }
 
 test("renders compiled plain messages when parts() is not present", () => {
-	const { body } = render(Message, {
+	const { body } = render(ParaglideMessage, {
 		props: { message: m.hello, inputs: { name: "Ada" } },
 	});
 

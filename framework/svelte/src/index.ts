@@ -1,4 +1,4 @@
-export { default as Message } from "./Message.svelte";
+export { default as ParaglideMessage } from "./Message.svelte";
 export { renderMessage } from "./message.js";
 export type {
 	MarkupRenderer,

@@ -2,11 +2,13 @@ import { createSSRApp, h } from "vue";
 import { renderToString } from "@vue/server-renderer";
 import { expect, test } from "vitest";
 import { m } from "./paraglide/messages.js";
-import { Message, renderMessage } from "./message.js";
+import { ParaglideMessage, renderMessage } from "./message.js";
 
 test("renders compiled plain messages when parts() is not present", async () => {
 	const html = await renderToString(
-		createSSRApp(() => h(Message, { message: m.hello, inputs: { name: "Ada" } }))
+		createSSRApp(() =>
+			h(ParaglideMessage, { message: m.hello, inputs: { name: "Ada" } })
+		)
 	);
 
 	expect(html).toBe("Hello Ada");
@@ -16,7 +18,7 @@ test("renders compiled plain messages when parts() is not present", async () => 
 test("renders compiled markup and exposes options/attributes as records", async () => {
 	const html = await renderToString(
 		createSSRApp(() =>
-			h(Message, {
+			h(ParaglideMessage, {
 				message: m.cta,
 				inputs: {},
 				markup: {
@@ -40,7 +42,7 @@ test("renders compiled markup and exposes options/attributes as records", async 
 test("renders compiled nested markup", async () => {
 	const html = await renderToString(
 		createSSRApp(() =>
-			h(Message, {
+			h(ParaglideMessage, {
 				message: m.nested_cta,
 				inputs: {},
 				markup: {

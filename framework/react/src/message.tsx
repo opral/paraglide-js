@@ -149,7 +149,7 @@ type OpenMarkupFrame = {
  * Uses `message.parts()` when available and falls back to `message()` for plain
  * messages without markup.
  */
-export function Message<
+export function ParaglideMessage<
 	TMessage extends MessageLike<any, any, any>,
 >(props: MessageProps<NoInfer<TMessage>> & { message: TMessage }): ReactNode {
 	const { message, inputs, options: messageOptions } = props;

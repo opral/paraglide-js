@@ -3,12 +3,12 @@
 React adapter for rendering Paraglide markup messages through one component.
 
 ```tsx
-import { Message } from "@inlang/paraglide-js-react";
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import { m } from "./paraglide/messages.js";
 
 export function ContactCta() {
 	return (
-		<Message
+		<ParaglideMessage
 			message={m.contact}
 			inputs={{ email: "hello@example.com" }}
 			markup={{
@@ -22,5 +22,5 @@ export function ContactCta() {
 }
 ```
 
-`Message` uses `message.parts()` when present and falls back to `message()` for
+`ParaglideMessage` uses `message.parts()` when present and falls back to `message()` for
 plain-text messages.

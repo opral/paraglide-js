@@ -12,19 +12,19 @@ Given this message in your source file (for example `messages/en.json`):
 
 ```svelte
 <script lang="ts">
-	import { Message } from "@inlang/paraglide-js-svelte";
+	import { ParaglideMessage } from "@inlang/paraglide-js-svelte";
 	import { m } from "./paraglide/messages.js";
 	import CustomLink from "./CustomLink.svelte";
 </script>
 
-<Message message={m.cta} inputs={{}}>
+<ParaglideMessage message={m.cta} inputs={{}}>
 	{#snippet link({ children, options })}
 		<CustomLink to={options.to}>
 			{@render children?.()}
 		</CustomLink>
 	{/snippet}
-</Message>
+</ParaglideMessage>
 ```
 
-`<Message />` uses `message.parts()` when present and falls back to `message()`
-for plain-text messages.
+`<ParaglideMessage />` uses `message.parts()` when present and falls back to
+`message()` for plain-text messages.

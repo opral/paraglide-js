@@ -180,7 +180,7 @@ export function renderMessage<
 	return toChildren(nodes);
 }
 
-export const Message = defineComponent({
+export const ParaglideMessage = defineComponent({
 	name: "ParaglideMessage",
 	props: {
 		message: {

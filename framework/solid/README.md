@@ -3,11 +3,11 @@
 Solid adapter package for Paraglide JS.
 
 ```tsx
-import { Message } from "@inlang/paraglide-js-solid";
+import { ParaglideMessage } from "@inlang/paraglide-js-solid";
 import { m } from "./paraglide/messages.js";
 
 const view = (
-	<Message
+	<ParaglideMessage
 		message={m.cta}
 		inputs={{}}
 		markup={{
@@ -17,5 +17,5 @@ const view = (
 );
 ```
 
-`Message` uses `message.parts()` when present and falls back to `message()` for
+`ParaglideMessage` uses `message.parts()` when present and falls back to `message()` for
 plain-text messages.

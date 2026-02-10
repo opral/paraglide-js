@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { m } from "./paraglide/messages.js";
-	import Message from "./Message.svelte";
+	import ParaglideMessage from "./Message.svelte";
 </script>
 
-<Message message={m.nested_cta} inputs={{}}>
+<ParaglideMessage message={m.nested_cta} inputs={{}}>
 	{#snippet link({ children, options })}
 		<a href={options.to}>
 			{@render children?.()}
@@ -14,4 +14,4 @@
 			{@render children?.()}
 		</strong>
 	{/snippet}
-</Message>
+</ParaglideMessage>
