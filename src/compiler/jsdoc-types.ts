@@ -10,11 +10,13 @@ export function jsDocBundleFunctionTypes(args: {
 	inputs: InputVariable[];
 	locales: string[];
 	matchTypes?: InputMatchTypes;
+	inputTypeOverride?: string;
 }): string {
 	const localesUnion = args.locales.map((locale) => `"${locale}"`).join(" | ");
+	const inputType = args.inputTypeOverride ?? inputsType(args.inputs, args.matchTypes);
 
 	return `
-* @param {${inputsType(args.inputs, args.matchTypes)}} inputs
+* @param {${inputType}} inputs
 * @param {{ locale?: ${localesUnion} }} options
 * @returns {LocalizedString}`;
 }

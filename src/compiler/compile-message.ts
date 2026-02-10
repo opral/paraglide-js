@@ -14,7 +14,8 @@ export const compileMessage = (
 	declarations: Declaration[],
 	message: Message,
 	variants: Variant[],
-	matchTypes?: InputMatchTypes
+	matchTypes?: InputMatchTypes,
+	inputTypeAliasName?: string
 ): Compiled<Message> => {
 	// return empty string instead?
 	if (variants.length == 0) {
@@ -27,16 +28,24 @@ export const compileMessage = (
 				declarations,
 				message,
 				variants,
-				matchTypes
+				matchTypes,
+				inputTypeAliasName
 			)
-		: compileMessageWithOneVariant(declarations, message, variants, matchTypes);
+		: compileMessageWithOneVariant(
+				declarations,
+				message,
+				variants,
+				matchTypes,
+				inputTypeAliasName
+			);
 };
 
 function compileMessageWithOneVariant(
 	declarations: Declaration[],
 	message: Message,
 	variants: Variant[],
-	matchTypes?: InputMatchTypes
+	matchTypes?: InputMatchTypes,
+	inputTypeAliasName?: string
 ): Compiled<Message> {
 	const variant = variants[0];
 	if (!variant || variants.length !== 1) {
@@ -46,6 +55,7 @@ function compileMessageWithOneVariant(
 	const hasMarkup = patternHasMarkup(variant.pattern);
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
 	const hasInputs = inputs.length > 0;
+	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
 	const compiledPattern = compilePattern({
 		pattern: variant.pattern,
 		declarations,
@@ -62,7 +72,7 @@ function compileMessageWithOneVariant(
 	}
 
 	if (!hasMarkup) {
-		const code = `/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {
+		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {
 	${compiledLocalVariables.join("\n\t")}return /** @type {LocalizedString} */ (${compiledPattern.code})
 };`;
 
@@ -77,7 +87,7 @@ function compileMessageWithOneVariant(
 	const localVariablesCode = compiledLocalVariables.length
 		? compiledLocalVariables.join("\n\t") + "\n\t"
 		: "";
-	const inputType = inputsType(inputs, matchTypes);
+	const inputType = messageInputType;
 	const messageInput = hasInputs ? "i" : "";
 
 	const partsCode = `/** @type {((inputs: ${inputType}) => LocalizedString) & { parts: (inputs: ${inputType}) => import('../runtime.js').MessagePart[] }} */ (
@@ -100,7 +110,8 @@ function compileMessageWithMultipleVariants(
 	declarations: Declaration[],
 	message: Message,
 	variants: Variant[],
-	matchTypes?: InputMatchTypes
+	matchTypes?: InputMatchTypes,
+	inputTypeAliasName?: string
 ): Compiled<Message> {
 	if (variants.length <= 1) {
 		throw new Error("Message must have more than one variant");
@@ -109,6 +120,7 @@ function compileMessageWithMultipleVariants(
 	const hasMarkup = variants.some((variant) => patternHasMarkup(variant.pattern));
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
 	const hasInputs = inputs.length > 0;
+	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
 
 	// TODO make sure that matchers use keys instead of indexes
 	const compiledVariants = [];
@@ -186,7 +198,7 @@ function compileMessageWithMultipleVariants(
 	}
 
 	if (!hasMarkup) {
-		const code = `/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {${compiledLocalVariables.join("\n\t")}
+		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {${compiledLocalVariables.join("\n\t")}
 	${compiledVariants.join("\n\t")}
 	${hasCatchAll ? "" : `return /** @type {LocalizedString} */ ("${message.bundleId}");`}
 };`;
@@ -203,7 +215,7 @@ function compileMessageWithMultipleVariants(
 	const partsVariantsCode = compiledPartsVariants.length
 		? compiledPartsVariants.join("\n\t") + "\n\t"
 		: "";
-	const inputType = inputsType(inputs, matchTypes);
+	const inputType = messageInputType;
 	const fallbackParts = `[{ type: "text", value: ${JSON.stringify(message.bundleId)} }]`;
 	const messageInput = hasInputs ? "i" : "";
 

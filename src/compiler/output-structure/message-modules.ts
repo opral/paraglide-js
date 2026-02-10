@@ -3,6 +3,7 @@ import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import { escapeForSingleQuoteString } from "../../services/codegen/escape.js";
 import { toSafeModuleId } from "../safe-module-id.js";
 import { inputsType } from "../jsdoc-types.js";
+import { toBundleInputTypeAliasName } from "../compile-bundle.js";
 
 export function messageReferenceExpression(locale: string, bundleId: string) {
 	return `${toSafeModuleId(locale)}_${toSafeModuleId(bundleId)}`;
@@ -26,6 +27,10 @@ export function generateOutput(
 				(decl) => decl.type === "input-variable"
 			) ?? [];
 		const matchTypes = compiledBundle.matchTypes;
+		const inputTypeAliasName =
+			compiledBundle.inputTypeAliasName ??
+			toBundleInputTypeAliasName(safeModuleId);
+		const inputTypeDefinition = inputsType(inputs, matchTypes);
 
 		// bundle file
 		const filename = `messages/${safeModuleId}.js`;
@@ -86,11 +91,11 @@ export function generateOutput(
 			if (fallbackLocale) {
 				const safeFallbackLocale = toSafeModuleId(fallbackLocale);
 				messages.push(
-					`/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */\nconst ${safeLocale}_${safeModuleId} = ${safeFallbackLocale}_${safeModuleId};`
+					`/** @type {(inputs: ${inputTypeAliasName}) => LocalizedString} */\nconst ${safeLocale}_${safeModuleId} = ${safeFallbackLocale}_${safeModuleId};`
 				);
 			} else {
 				messages.push(
-					`/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */\nconst ${safeLocale}_${safeModuleId} = () => /** @type {LocalizedString} */ ('${escapeForSingleQuoteString(
+					`/** @type {(inputs: ${inputTypeAliasName}) => LocalizedString} */\nconst ${safeLocale}_${safeModuleId} = () => /** @type {LocalizedString} */ ('${escapeForSingleQuoteString(
 						bundleId
 					)}')`
 				);
@@ -108,12 +113,13 @@ export function generateOutput(
 
 		// add the imports and type reference (LocalizedString is defined in runtime.js)
 		const runtimeImport = experimentalMiddlewareLocaleSplitting
-			? `import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale } from '../runtime.js';\n`
-			: `import { getLocale, experimentalStaticLocale } from '../runtime.js';\n`;
+			? `import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale } from '../runtime.js';\n\n`
+			: `import { getLocale, experimentalStaticLocale } from '../runtime.js';\n\n`;
 
 		output[filename] =
 			runtimeImport +
 			`/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */\n\n` +
+			`/** @typedef {${inputTypeDefinition}} ${inputTypeAliasName} */\n\n` +
 			output[filename];
 
 		// Add the registry import to the message file

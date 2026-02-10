@@ -10,7 +10,6 @@ import { compileMessage } from "./compile-message.js";
 import type { Compiled } from "./types.js";
 import {
 	inputTypeForName,
-	inputsType,
 	jsDocBundleFunctionTypes,
 	type InputMatchTypes,
 } from "./jsdoc-types.js";
@@ -27,6 +26,8 @@ export type CompiledBundleWithMessages = {
 	};
 	/** Match literal types inferred from bundle variants */
 	matchTypes: InputMatchTypes;
+	/** Shared typedef name for bundle input types used across emitted JSDoc */
+	inputTypeAliasName?: string;
 };
 
 /**
@@ -40,6 +41,8 @@ export const compileBundle = (args: {
 	experimentalMiddlewareLocaleSplitting?: boolean;
 }): CompiledBundleWithMessages => {
 	const compiledMessages: Record<string, Compiled<Message>> = {};
+	const safeBundleId = toSafeModuleId(args.bundle.id);
+	const inputTypeAliasName = toBundleInputTypeAliasName(safeBundleId);
 	const matchTypes = collectInputMatchTypes(args.bundle);
 	const hasMarkup = bundleHasMarkup(args.bundle);
 
@@ -52,7 +55,8 @@ export const compileBundle = (args: {
 			args.bundle.declarations,
 			message,
 			message.variants,
-			matchTypes
+			matchTypes,
+			inputTypeAliasName
 		);
 
 		// set the pattern for the language tag
@@ -69,9 +73,11 @@ export const compileBundle = (args: {
 			hasMarkup,
 			experimentalMiddlewareLocaleSplitting:
 				args.experimentalMiddlewareLocaleSplitting ?? false,
+			inputTypeAliasName,
 		}),
 		messages: compiledMessages,
 		matchTypes,
+		inputTypeAliasName,
 	};
 };
 
@@ -104,6 +110,10 @@ const compileBundleFunction = (args: {
 	 * Whether middleware locale splitting runtime hooks should be emitted.
 	 */
 	experimentalMiddlewareLocaleSplitting: boolean;
+	/**
+	 * Shared typedef name for bundle input types used across emitted JSDoc.
+	 */
+	inputTypeAliasName: string;
 }): Compiled<Bundle> => {
 	const inputs = args.bundle.declarations.filter(
 		(decl) => decl.type === "input-variable"
@@ -116,7 +126,7 @@ const compileBundleFunction = (args: {
 	const isFullyTranslated =
 		args.availableLocales.length === args.settings?.locales.length;
 
-	const inputType = inputsType(inputs, args.matchTypes);
+	const inputType = args.inputTypeAliasName;
 	const localesUnion =
 		args.availableLocales.length === 0
 			? "never"
@@ -159,6 +169,7 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 		inputs,
 		locales: args.availableLocales,
 		matchTypes: args.matchTypes,
+		inputTypeOverride: args.inputTypeAliasName,
 	})}
 */`;
 
@@ -318,6 +329,28 @@ function escapeTableCell(value: string): string {
 		.replace(/\|/g, "\\|")
 		.replace(/\r?\n/g, " ")
 		.replaceAll("*/", "*\\/");
+}
+
+export function toBundleInputTypeAliasName(safeBundleId: string): string {
+	return `${toBundleTypeBaseName(safeBundleId)}Inputs`;
+}
+
+function toBundleTypeBaseName(safeBundleId: string): string {
+	const segments = safeBundleId
+		.split("_")
+		.filter(Boolean)
+		.map((segment) => segment[0]?.toUpperCase() + segment.slice(1));
+	let baseName = segments.join("");
+
+	if (!baseName) {
+		baseName = "Message";
+	}
+
+	if (!/^[A-Za-z]/.test(baseName)) {
+		baseName = `Message${baseName}`;
+	}
+
+	return baseName;
 }
 
 function serializePatternPreview(

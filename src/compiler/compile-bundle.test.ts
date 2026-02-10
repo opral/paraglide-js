@@ -51,11 +51,11 @@ test("compiles to jsdoc", async () => {
 		* | --- |
 		* | "Hello{age}" |
 		*
-		* @param {{ age: NonNullable<unknown> }} inputs
+		* @param {BlueMoonBottleInputs} inputs
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
 		*/
-		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
+		export const blue_moon_bottle = /** @type {((inputs: BlueMoonBottleInputs, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<BlueMoonBottleInputs, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
 			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
 			if (locale === "en") return en.blue_moon_bottle(inputs)
 			return en_us2.blue_moon_bottle(inputs)
@@ -145,11 +145,11 @@ test("compiles to jsdoc with missing translation", async () => {
 		* | --- |
 		* | "Hello{age}" |
 		*
-		* @param {{ age: NonNullable<unknown> }} inputs
+		* @param {BlueMoonBottleInputs} inputs
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
 		*/
-		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
+		export const blue_moon_bottle = /** @type {((inputs: BlueMoonBottleInputs, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<BlueMoonBottleInputs, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
 			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
 			if (locale === "en") return en.blue_moon_bottle(inputs)
 			if (locale === "en-US") return en_us2.blue_moon_bottle(inputs)
@@ -248,7 +248,7 @@ test("handles message pattern with duplicate variable references", async () => {
 
 	// The JSDoc should not have duplicate parameters
 	expect(result.bundle.code).toContain(
-		"@param {{ days: NonNullable<unknown> }} inputs"
+		"@param {DateLastDaysInputs} inputs"
 	);
 	expect(result.bundle.code).not.toContain(
 		"days: NonNullable<unknown>, days: NonNullable<unknown>"
@@ -331,6 +331,6 @@ ${result.bundle.code}
 		{ type: "markup-end", name: "strong", options: {}, attributes: {} },
 	]);
 	expect(result.bundle.code).toContain(
-		'MessageMetadata<{ count: NonNullable<unknown> }, { locale?: "en" }, { strong: { options: {}; attributes: {}; children: true } }>'
+		'MessageMetadata<NoticeInputs, { locale?: "en" }, { strong: { options: {}; attributes: {}; children: true } }>'
 	);
 });
