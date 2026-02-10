@@ -47,13 +47,10 @@ test("compiles to jsdoc", async () => {
 	expect(result.bundle.code).toMatchInlineSnapshot(
 		`
 		"/**
-		* This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
+		* | output |
+		* | --- |
+		* | "Hello{age}" |
 		*
-		* - Changing this function will be over-written by the next build.
-		*
-		* - If you want to change the translations, you can either edit the source files e.g. \`en.json\`, or
-		* use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
-		* 
 		* @param {{ age: NonNullable<unknown> }} inputs
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
@@ -144,13 +141,10 @@ test("compiles to jsdoc with missing translation", async () => {
 	expect(result.bundle.code).toMatchInlineSnapshot(
 		`
 		"/**
-		* This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
+		* | output |
+		* | --- |
+		* | "Hello{age}" |
 		*
-		* - Changing this function will be over-written by the next build.
-		*
-		* - If you want to change the translations, you can either edit the source files e.g. \`en.json\`, or
-		* use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
-		* 
 		* @param {{ age: NonNullable<unknown> }} inputs
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}

@@ -152,14 +152,10 @@ const compileBundleFunction = (args: {
 			})
 			.join("\n");
 
+	const englishMatchTableDoc = buildEnglishMatchTableDoc(args.bundle);
+
 	const commonJsDoc = `/**
-* This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
-*
-* - Changing this function will be over-written by the next build.
-*
-* - If you want to change the translations, you can either edit the source files e.g. \`en.json\`, or
-* use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
-* ${jsDocBundleFunctionTypes({
+${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 		inputs,
 		locales: args.availableLocales,
 		matchTypes: args.matchTypes,
@@ -249,6 +245,103 @@ ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFu
 		node: args.bundle,
 	};
 };
+
+function buildEnglishMatchTableDoc(bundle: BundleNested): string {
+	const message = selectEnglishMessage(bundle);
+	if (!message) {
+		return "";
+	}
+
+	const selectorKeys = collectSelectorKeys(message);
+	const headerCells = [...selectorKeys, "output"];
+	const lines = [
+		`* | ${headerCells.map(escapeTableCell).join(" | ")} |`,
+		`* | ${headerCells.map(() => "---").join(" | ")} |`,
+	];
+
+	for (const variant of message.variants) {
+		const rowValues = selectorKeys.map((key) => getMatchCellValue(variant, key));
+		const serializedOutput = serializePatternPreview(variant.pattern);
+		const outputValue = JSON.stringify(
+			serializedOutput.length > 160
+				? `${serializedOutput.slice(0, 157)}...`
+				: serializedOutput
+		);
+		lines.push(
+			`* | ${[...rowValues, outputValue].map(escapeTableCell).join(" | ")} |`
+		);
+	}
+
+	lines.push("*");
+
+	return lines.join("\n");
+}
+
+function selectEnglishMessage(
+	bundle: BundleNested
+): BundleNested["messages"][number] | undefined {
+	return (
+		bundle.messages.find((message) => message.locale === "en") ??
+		bundle.messages.find((message) => message.locale.startsWith("en-"))
+	);
+}
+
+function collectSelectorKeys(message: BundleNested["messages"][number]): string[] {
+	const keys: string[] = [];
+	const seen = new Set<string>();
+
+	for (const variant of message.variants) {
+		for (const match of variant.matches ?? []) {
+			if (seen.has(match.key)) continue;
+			seen.add(match.key);
+			keys.push(match.key);
+		}
+	}
+
+	return keys;
+}
+
+function getMatchCellValue(
+	variant: BundleNested["messages"][number]["variants"][number],
+	key: string
+): string {
+	const match = (variant.matches ?? []).find((entry) => entry.key === key);
+	if (!match || match.type === "catchall-match") {
+		return "*";
+	}
+
+	return JSON.stringify(match.value);
+}
+
+function escapeTableCell(value: string): string {
+	return value
+		.replace(/\|/g, "\\|")
+		.replace(/\r?\n/g, " ")
+		.replaceAll("*/", "*\\/");
+}
+
+function serializePatternPreview(
+	pattern: BundleNested["messages"][number]["variants"][number]["pattern"]
+): string {
+	let result = "";
+
+	for (const part of pattern) {
+		if (part.type === "text") {
+			result += part.value;
+			continue;
+		}
+
+		if (part.type === "expression") {
+			if (part.arg.type === "literal") {
+				result += part.arg.value;
+			} else {
+				result += `{${part.arg.name}}`;
+			}
+		}
+	}
+
+	return result.replace(/\s+/g, " ").trim();
+}
 
 type MarkupValueAccumulator = {
 	count: number;
