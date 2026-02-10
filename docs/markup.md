@@ -29,9 +29,11 @@ Markup lets translators control where emphasis, links, and inline UI appear, whi
 ## Render markup in your framework
 
 Paraglide keeps `message()` returning plain strings.
-When markup exists, compiled messages also expose `message.parts()`, and adapter components use that automatically.
+When markup exists, compiled messages also expose `message.parts()`, and framework components use that automatically.
 
 ### React
+
+Package: [`@inlang/paraglide-js-react`](https://www.npmjs.com/package/@inlang/paraglide-js-react)
 
 ```tsx
 import { ParaglideMessage } from "@inlang/paraglide-js-react";
@@ -59,6 +61,8 @@ export function ContactCta() {
 
 ### Vue
 
+Package: [`@inlang/paraglide-js-vue`](https://www.npmjs.com/package/@inlang/paraglide-js-vue)
+
 Most Vue apps use templates, so this is the recommended shape:
 
 ```vue
@@ -79,6 +83,8 @@ const markup = {
 
 ### Svelte
 
+Package: [`@inlang/paraglide-js-svelte`](https://www.npmjs.com/package/@inlang/paraglide-js-svelte)
+
 ```svelte
 <script lang="ts">
 	import { ParaglideMessage } from "@inlang/paraglide-js-svelte";
@@ -95,6 +101,8 @@ const markup = {
 ```
 
 ### Solid
+
+Package: [`@inlang/paraglide-js-solid`](https://www.npmjs.com/package/@inlang/paraglide-js-solid)
 
 ```tsx
 import { ParaglideMessage } from "@inlang/paraglide-js-solid";

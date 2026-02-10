@@ -1,6 +1,8 @@
 # @inlang/paraglide-js-svelte
 
-Svelte adapter package for Paraglide JS.
+Svelte component for rendering Paraglide JS messages that contain markup.
+
+Built on [Paraglide JS](https://github.com/opral/paraglide-js).
 
 Given this message in your source file (for example `messages/en.json`):
 

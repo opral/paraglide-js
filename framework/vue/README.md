@@ -1,6 +1,8 @@
 # @inlang/paraglide-js-vue
 
-Vue adapter package for Paraglide JS.
+Vue component for rendering Paraglide JS messages that contain markup.
+
+Built on [Paraglide JS](https://github.com/opral/paraglide-js).
 
 ```vue
 <script setup lang="ts">

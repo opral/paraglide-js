@@ -1,6 +1,8 @@
 # @inlang/paraglide-js-solid
 
-Solid adapter package for Paraglide JS.
+Solid component for rendering Paraglide JS messages that contain markup.
+
+Built on [Paraglide JS](https://github.com/opral/paraglide-js).
 
 ```tsx
 import { ParaglideMessage } from "@inlang/paraglide-js-solid";
