@@ -204,6 +204,73 @@ ${injectCode("./strategy.js")}
  * @typedef {string & { readonly __brand: 'LocalizedString' }} LocalizedString
  */
 
+/**
+ * Record of markup options for a tag instance.
+ *
+ * @typedef {Record<string, unknown>} MessageMarkupOptions
+ */
+
+/**
+ * Record of markup attributes for a tag instance.
+ *
+ * @typedef {Record<string, string | true>} MessageMarkupAttributes
+ */
+
+/**
+ * Type-level schema for a single markup tag.
+ *
+ * @typedef {{
+ *   options: MessageMarkupOptions;
+ *   attributes: MessageMarkupAttributes;
+ *   children: boolean;
+ * }} MessageMarkupTag
+ */
+
+/**
+ * Type-level schema for all markup tags in a message.
+ *
+ * @typedef {Record<string, MessageMarkupTag>} MessageMarkupSchema
+ */
+
+/**
+ * Type-only metadata attached to compiled message functions.
+ *
+ * @template Inputs
+ * @template Options
+ * @template {MessageMarkupSchema} Markup
+ * @typedef {{
+ *   readonly __paraglide?: {
+ *     inputs: Inputs;
+ *     options: Options;
+ *     markup: Markup;
+ *   };
+ * }} MessageMetadata
+ */
+
+/**
+ * A compiled, framework-neutral message part.
+ *
+ * @typedef {{
+ *   type: "text";
+ *   value: string;
+ * } | {
+ *   type: "markup-start";
+ *   name: string;
+ *   options: MessageMarkupOptions;
+ *   attributes: MessageMarkupAttributes;
+ * } | {
+ *   type: "markup-end";
+ *   name: string;
+ *   options: MessageMarkupOptions;
+ *   attributes: MessageMarkupAttributes;
+ * } | {
+ *   type: "markup-standalone";
+ *   name: string;
+ *   options: MessageMarkupOptions;
+ *   attributes: MessageMarkupAttributes;
+ * }} MessagePart
+ */
+
 `;
 
 	return code;

@@ -68,3 +68,10 @@ function resolveInputType(name: string, matchTypes?: InputMatchTypes): string {
 	literals.sort();
 	return literals.map((value) => JSON.stringify(value)).join(" | ");
 }
+
+export function inputTypeForName(
+	name: string,
+	matchTypes?: InputMatchTypes
+): string {
+	return resolveInputType(name, matchTypes);
+}

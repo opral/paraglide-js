@@ -30,6 +30,146 @@ test("compiles a message with a single variant", async () => {
 	expect(some_message()).toBe("Hello");
 });
 
+test("compiles a markup message with .parts()", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "amount" },
+		{ type: "input-variable", name: "relationship" },
+	];
+	const message: Message = {
+		locale: "en",
+		bundleId: "balance",
+		id: "balance-id",
+		selectors: [],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "balance-id",
+			matches: [],
+			pattern: [
+				{ type: "text", value: "You have " },
+				{
+					type: "markup-start",
+					name: "tooltip",
+					options: [{ name: "rel", value: { type: "variable-reference", name: "relationship" } }],
+					attributes: [{ name: "track", value: true }],
+				},
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "amount" },
+				},
+				{ type: "text", value: " coins" },
+				{
+					type: "markup-end",
+					name: "tooltip",
+					options: [],
+					attributes: [],
+				},
+				{ type: "text", value: "." },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	const { balance } = await import(
+		"data:text/javascript;base64," + btoa("export const balance =" + compiled.code)
+	);
+
+	expect(balance({ amount: 5, relationship: "noopener" })).toBe(
+		"You have 5 coins."
+	);
+	expect(balance.parts({ amount: 5, relationship: "noopener" })).toEqual([
+		{ type: "text", value: "You have " },
+		{
+			type: "markup-start",
+			name: "tooltip",
+			options: { rel: "noopener" },
+			attributes: { track: true },
+		},
+		{ type: "text", value: "5" },
+		{ type: "text", value: " coins" },
+		{
+			type: "markup-end",
+			name: "tooltip",
+			options: {},
+			attributes: {},
+		},
+		{ type: "text", value: "." },
+	]);
+});
+
+test("does not add .parts() for plain messages", async () => {
+	const declarations: Declaration[] = [];
+	const message: Message = {
+		locale: "en",
+		bundleId: "plain",
+		id: "plain-id",
+		selectors: [],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "plain-id",
+			matches: [],
+			pattern: [{ type: "text", value: "Hello" }],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { plain } = await import(
+		"data:text/javascript;base64," + btoa("export const plain = " + compiled.code)
+	);
+
+	expect(plain()).toBe("Hello");
+	expect("parts" in plain).toBe(false);
+});
+
+test("compiles multi-variant markup messages with .parts()", async () => {
+	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const message: Message = {
+		locale: "en",
+		id: "select-id",
+		bundleId: "select_message",
+		selectors: [{ type: "variable-reference", name: "count" }],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "select-id",
+			matches: [{ type: "literal-match", key: "count", value: "1" }],
+			pattern: [
+				{ type: "markup-start", name: "strong", options: [], attributes: [] },
+				{ type: "text", value: "One item" },
+				{ type: "markup-end", name: "strong", options: [], attributes: [] },
+			],
+		},
+		{
+			id: "2",
+			messageId: "select-id",
+			matches: [{ type: "catchall-match", key: "count" }],
+			pattern: [{ type: "text", value: "Many items" }],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { select_message } = await import(
+		"data:text/javascript;base64," +
+			btoa("export const select_message = " + compiled.code)
+	);
+
+	expect(select_message({ count: 1 })).toBe("One item");
+	expect(select_message.parts({ count: 1 })).toEqual([
+		{ type: "markup-start", name: "strong", options: {}, attributes: {} },
+		{ type: "text", value: "One item" },
+		{ type: "markup-end", name: "strong", options: {}, attributes: {} },
+	]);
+	expect(select_message({ count: 2 })).toBe("Many items");
+	expect(select_message.parts({ count: 2 })).toEqual([
+		{ type: "text", value: "Many items" },
+	]);
+});
+
 // https://github.com/opral/paraglide-js/issues/571
 test("compiles a message that can be parsed as JSON", async () => {
 	const declarations: Declaration[] = [];

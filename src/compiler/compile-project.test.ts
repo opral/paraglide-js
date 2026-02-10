@@ -250,6 +250,81 @@ test("handles message bundles with a : in the id", async () => {
 	expect(m["hello:world"]()).toBe("Hello world!");
 });
 
+test("emits .parts() on bundle functions for markup messages", async () => {
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: {
+				locales: ["en", "de"],
+				baseLocale: "en",
+			},
+		}),
+	});
+
+	await insertBundleNested(
+		project.db,
+		createBundleNested({
+			id: "balance",
+			declarations: [
+				{
+					type: "input-variable",
+					name: "amount",
+				},
+			],
+			messages: [
+				{
+					locale: "en",
+					variants: [
+						{
+							pattern: [
+								{ type: "text", value: "You have " },
+								{
+									type: "markup-start",
+									name: "strong",
+									options: [],
+									attributes: [],
+								},
+								{
+									type: "expression",
+									arg: { type: "variable-reference", name: "amount" },
+								},
+								{ type: "text", value: " coins" },
+								{
+									type: "markup-end",
+									name: "strong",
+									options: [],
+									attributes: [],
+								},
+								{ type: "text", value: "." },
+							],
+						},
+					],
+				},
+			],
+		})
+	);
+
+	const output = await compileProject({
+		project,
+	});
+
+	const code = await bundleCode(
+		output,
+		`export * as m from "./paraglide/messages.js"
+		 export * as runtime from "./paraglide/runtime.js"`
+	);
+	const { m } = await importCode(code);
+
+	expect(m.balance({ amount: 7 }, { locale: "en" })).toBe("You have 7 coins.");
+	expect(m.balance.parts({ amount: 7 }, { locale: "en" })).toEqual([
+		{ type: "text", value: "You have " },
+		{ type: "markup-start", name: "strong", options: {}, attributes: {} },
+		{ type: "text", value: "7" },
+		{ type: "text", value: " coins" },
+		{ type: "markup-end", name: "strong", options: {}, attributes: {} },
+		{ type: "text", value: "." },
+	]);
+});
+
 // https://github.com/opral/inlang-paraglide-js/issues/347
 test("can emit message bundles with more than 255 characters", async () => {
 	const project = await loadProjectInMemory({

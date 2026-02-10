@@ -45,28 +45,29 @@ test("compiles to jsdoc", async () => {
 	});
 
 	expect(result.bundle.code).toMatchInlineSnapshot(
-		`"/**
-* This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
-*
-* - Changing this function will be over-written by the next build.
-*
-* - If you want to change the translations, you can either edit the source files e.g. \`en.json\`, or
-* use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
-* 
-* @param {{ age: NonNullable<unknown> }} inputs
-* @param {{ locale?: "en" | "en-US" }} options
-* @returns {LocalizedString}
-*/
-/* @__NO_SIDE_EFFECTS__ */
-export const blue_moon_bottle = (inputs, options = {}) => {
-	if (experimentalMiddlewareLocaleSplitting && isServer === false) {
-		return /** @type {any} */ (globalThis).__paraglide_ssr.blue_moon_bottle(inputs) 
-	}
-	const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
-	trackMessageCall("blue_moon_bottle", locale)
-	if (locale === "en") return en.blue_moon_bottle(inputs)
-	return en_us2.blue_moon_bottle(inputs)
-};"`
+		`
+		"/**
+		* This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
+		*
+		* - Changing this function will be over-written by the next build.
+		*
+		* - If you want to change the translations, you can either edit the source files e.g. \`en.json\`, or
+		* use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
+		* 
+		* @param {{ age: NonNullable<unknown> }} inputs
+		* @param {{ locale?: "en" | "en-US" }} options
+		* @returns {LocalizedString}
+		*/
+		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
+			if (experimentalMiddlewareLocaleSplitting && isServer === false) {
+				return /** @type {any} */ (globalThis).__paraglide_ssr.blue_moon_bottle(inputs) 
+			}
+			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
+			trackMessageCall("blue_moon_bottle", locale)
+			if (locale === "en") return en.blue_moon_bottle(inputs)
+			return en_us2.blue_moon_bottle(inputs)
+		});"
+	`
 	);
 });
 
@@ -125,8 +126,7 @@ test("compiles to jsdoc with missing translation", async () => {
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
 		*/
-		/* @__NO_SIDE_EFFECTS__ */
-		export const blue_moon_bottle = (inputs, options = {}) => {
+		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
 			if (experimentalMiddlewareLocaleSplitting && isServer === false) {
 				return /** @type {any} */ (globalThis).__paraglide_ssr.blue_moon_bottle(inputs) 
 			}
@@ -135,7 +135,7 @@ test("compiles to jsdoc with missing translation", async () => {
 			if (locale === "en") return en.blue_moon_bottle(inputs)
 			if (locale === "en-US") return en_us2.blue_moon_bottle(inputs)
 			return /** @type {LocalizedString} */ ("blue_moon_bottle")
-		};"
+		});"
 	`
 	);
 });
@@ -240,5 +240,78 @@ test("handles message pattern with duplicate variable references", async () => {
 	expect(enMessage).toBeDefined();
 	expect(enMessage?.code).toContain(
 		"Last ${i?.days} days, showing ${i?.days} items"
+	);
+});
+
+test("adds .parts() to bundle functions when markup exists", async () => {
+	const mockBundle: BundleNested = {
+		id: "notice",
+		declarations: [{ type: "input-variable", name: "count" }],
+		messages: [
+			{
+				id: "notice-id",
+				bundleId: "notice",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "1",
+						messageId: "notice-id",
+						matches: [],
+						pattern: [
+							{ type: "markup-start", name: "strong", options: [], attributes: [] },
+							{
+								type: "expression",
+								arg: { type: "variable-reference", name: "count" },
+							},
+							{ type: "text", value: " items" },
+							{ type: "markup-end", name: "strong", options: [], attributes: [] },
+						],
+					},
+				],
+			},
+		],
+	};
+
+	const result = compileBundle({
+		fallbackMap: {
+			en: undefined,
+		},
+		bundle: mockBundle,
+		messageReferenceExpression: (locale) => `${toSafeModuleId(locale)}.notice`,
+		settings: {
+			locales: ["en"],
+		} as ProjectSettings,
+	});
+	const compiledEnMessage = result.messages.en;
+	if (!compiledEnMessage) {
+		throw new Error("Expected compiled english message");
+	}
+
+	const moduleSource = `
+const getLocale = () => "en";
+const trackMessageCall = () => {};
+const experimentalMiddlewareLocaleSplitting = false;
+const isServer = true;
+const experimentalStaticLocale = undefined;
+const en = {
+	notice: ${compiledEnMessage.code.replace(/;\s*$/, "")}
+};
+${result.bundle.code}
+`;
+
+	const { notice } = await import(
+		"data:text/javascript;base64," + btoa(moduleSource)
+	);
+
+	expect(notice({ count: 3 })).toBe("3 items");
+	expect(notice.parts({ count: 3 })).toEqual([
+		{ type: "markup-start", name: "strong", options: {}, attributes: {} },
+		{ type: "text", value: "3" },
+		{ type: "text", value: " items" },
+		{ type: "markup-end", name: "strong", options: {}, attributes: {} },
+	]);
+	expect(result.bundle.code).toContain(
+		'MessageMetadata<{ count: NonNullable<unknown> }, { locale?: "en" }, { strong: { options: {}; attributes: {}; children: true } }>'
 	);
 });

@@ -1,4 +1,4 @@
-import type { Declaration, Message, Variant } from "@inlang/sdk";
+import type { Declaration, Message, Pattern, Variant } from "@inlang/sdk";
 import { compilePattern } from "./compile-pattern.js";
 import type { Compiled } from "./types.js";
 import { doubleQuote } from "../services/codegen/quotes.js";
@@ -42,6 +42,8 @@ function compileMessageWithOneVariant(
 	if (!variant || variants.length !== 1) {
 		throw new Error("Message must have exactly one variant");
 	}
+
+	const hasMarkup = patternHasMarkup(variant.pattern);
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
 	const hasInputs = inputs.length > 0;
 	const compiledPattern = compilePattern({
@@ -59,11 +61,39 @@ function compileMessageWithOneVariant(
 		}
 	}
 
-	const code = `/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {
+	if (!hasMarkup) {
+		const code = `/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {
 	${compiledLocalVariables.join("\n\t")}return /** @type {LocalizedString} */ (${compiledPattern.code})
 };`;
 
-	return { code, node: message };
+		return { code, node: message };
+	}
+
+	const compiledPartsPattern = compilePattern({
+		pattern: variant.pattern,
+		declarations,
+		mode: "parts",
+	});
+	const localVariablesCode = compiledLocalVariables.length
+		? compiledLocalVariables.join("\n\t") + "\n\t"
+		: "";
+	const inputType = inputsType(inputs, matchTypes);
+	const messageInput = hasInputs ? "i" : "";
+
+	const partsCode = `/** @type {((inputs: ${inputType}) => LocalizedString) & { parts: (inputs: ${inputType}) => import('../runtime.js').MessagePart[] }} */ (
+	/* @__PURE__ */ Object.assign(
+		/** @type {(inputs: ${inputType}) => LocalizedString} */ ((${messageInput}) => {
+			${localVariablesCode}return /** @type {LocalizedString} */ (${compiledPattern.code})
+		}),
+		{
+			parts: /** @type {(inputs: ${inputType}) => import('../runtime.js').MessagePart[]} */ ((${messageInput}) => {
+				${localVariablesCode}return /** @type {import('../runtime.js').MessagePart[]} */ (${compiledPartsPattern.code})
+			})
+		}
+	)
+);`;
+
+	return { code: partsCode, node: message };
 }
 
 function compileMessageWithMultipleVariants(
@@ -76,11 +106,13 @@ function compileMessageWithMultipleVariants(
 		throw new Error("Message must have more than one variant");
 	}
 
+	const hasMarkup = variants.some((variant) => patternHasMarkup(variant.pattern));
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
 	const hasInputs = inputs.length > 0;
 
 	// TODO make sure that matchers use keys instead of indexes
 	const compiledVariants = [];
+	const compiledPartsVariants = [];
 
 	let hasCatchAll = false;
 
@@ -89,6 +121,13 @@ function compileMessageWithMultipleVariants(
 			pattern: variant.pattern,
 			declarations,
 		});
+		const compiledPartsPattern = hasMarkup
+			? compilePattern({
+					pattern: variant.pattern,
+					declarations,
+					mode: "parts",
+				})
+			: undefined;
 
 		const isCatchAll = variant.matches.every(
 			(match) => match.type === "catchall-match"
@@ -98,6 +137,11 @@ function compileMessageWithMultipleVariants(
 			compiledVariants.push(
 				`return /** @type {LocalizedString} */ (${compiledPattern.code})`
 			);
+			if (compiledPartsPattern) {
+				compiledPartsVariants.push(
+					`return /** @type {import('../runtime.js').MessagePart[]} */ (${compiledPartsPattern.code})`
+				);
+			}
 			hasCatchAll = true;
 		}
 
@@ -124,6 +168,11 @@ function compileMessageWithMultipleVariants(
 		compiledVariants.push(
 			`if (${conditions.join(" && ")}) return /** @type {LocalizedString} */ (${compiledPattern.code});`
 		);
+		if (compiledPartsPattern) {
+			compiledPartsVariants.push(
+				`if (${conditions.join(" && ")}) return /** @type {import('../runtime.js').MessagePart[]} */ (${compiledPartsPattern.code});`
+			);
+		}
 	}
 
 	const compiledLocalVariables = [];
@@ -136,10 +185,57 @@ function compileMessageWithMultipleVariants(
 		}
 	}
 
-	const code = `/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {${compiledLocalVariables.join("\n\t")}
+	if (!hasMarkup) {
+		const code = `/** @type {(inputs: ${inputsType(inputs, matchTypes)}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {${compiledLocalVariables.join("\n\t")}
 	${compiledVariants.join("\n\t")}
 	${hasCatchAll ? "" : `return /** @type {LocalizedString} */ ("${message.bundleId}");`}
 };`;
 
+		return { code, node: message };
+	}
+
+	const localVariablesCode = compiledLocalVariables.length
+		? compiledLocalVariables.join("\n\t") + "\n\t"
+		: "";
+	const stringVariantsCode = compiledVariants.length
+		? compiledVariants.join("\n\t") + "\n\t"
+		: "";
+	const partsVariantsCode = compiledPartsVariants.length
+		? compiledPartsVariants.join("\n\t") + "\n\t"
+		: "";
+	const inputType = inputsType(inputs, matchTypes);
+	const fallbackParts = `[{ type: "text", value: ${JSON.stringify(message.bundleId)} }]`;
+	const messageInput = hasInputs ? "i" : "";
+
+	const code = `/** @type {((inputs: ${inputType}) => LocalizedString) & { parts: (inputs: ${inputType}) => import('../runtime.js').MessagePart[] }} */ (
+	/* @__PURE__ */ Object.assign(
+		/** @type {(inputs: ${inputType}) => LocalizedString} */ ((${messageInput}) => {
+			${localVariablesCode}${stringVariantsCode}${
+				hasCatchAll
+					? ""
+					: `return /** @type {LocalizedString} */ (${JSON.stringify(message.bundleId)});`
+			}
+		}),
+		{
+			parts: /** @type {(inputs: ${inputType}) => import('../runtime.js').MessagePart[]} */ ((${messageInput}) => {
+				${localVariablesCode}${partsVariantsCode}${
+					hasCatchAll
+						? ""
+						: `return /** @type {import('../runtime.js').MessagePart[]} */ (${fallbackParts});`
+				}
+			})
+		}
+	)
+);`;
+
 	return { code, node: message };
+}
+
+function patternHasMarkup(pattern: Pattern): boolean {
+	return pattern.some(
+		(part) =>
+			part.type === "markup-start" ||
+			part.type === "markup-end" ||
+			part.type === "markup-standalone"
+	);
 }
