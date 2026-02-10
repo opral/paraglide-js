@@ -12,8 +12,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1
       '@inlang/sdk':
-        specifier: file:../inlang/packages/sdk
-        version: file:../inlang/packages/sdk(babel-plugin-macros@3.1.0)
+        specifier: ^2.7.0
+        version: 2.7.0(babel-plugin-macros@3.1.0)
       commander:
         specifier: 11.1.0
         version: 11.1.0
@@ -34,8 +34,8 @@ importers:
         specifier: ^2.29.7
         version: 2.29.8(@types/node@22.19.3)
       '@inlang/plugin-message-format':
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.3.0
+        version: 4.3.0
       '@rollup/plugin-virtual':
         specifier: 3.0.2
         version: 3.0.2(rollup@4.55.1)
@@ -388,8 +388,8 @@ importers:
         specifier: workspace:*
         version: link:../..
       '@inlang/plugin-message-format':
-        specifier: file:../../../inlang/packages/plugins/inlang-message-format
-        version: file:../inlang/packages/plugins/inlang-message-format
+        specifier: ^4.3.0
+        version: 4.3.0
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.27
@@ -415,8 +415,8 @@ importers:
         specifier: workspace:*
         version: link:../..
       '@inlang/plugin-message-format':
-        specifier: file:../../../inlang/packages/plugins/inlang-message-format
-        version: file:../inlang/packages/plugins/inlang-message-format
+        specifier: ^4.3.0
+        version: 4.3.0
       solid-js:
         specifier: ^1.9.5
         version: 1.9.10
@@ -430,15 +430,15 @@ importers:
   framework/svelte:
     dependencies:
       svelte:
-        specifier: ^4.0.0 || ^5.0.0
+        specifier: ^5.0.0
         version: 5.46.3
     devDependencies:
       '@inlang/paraglide-js':
         specifier: workspace:*
         version: link:../..
       '@inlang/plugin-message-format':
-        specifier: file:../../../inlang/packages/plugins/inlang-message-format
-        version: file:../inlang/packages/plugins/inlang-message-format
+        specifier: ^4.3.0
+        version: 4.3.0
       '@sveltejs/vite-plugin-svelte':
         specifier: ^6.2.4
         version: 6.2.4(svelte@5.46.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2))
@@ -455,8 +455,8 @@ importers:
         specifier: workspace:*
         version: link:../..
       '@inlang/plugin-message-format':
-        specifier: file:../../../inlang/packages/plugins/inlang-message-format
-        version: file:../inlang/packages/plugins/inlang-message-format
+        specifier: ^4.3.0
+        version: 4.3.0
       '@vue/server-renderer':
         specifier: ^3.5.13
         version: 3.5.27(vue@3.5.27(typescript@5.8.3))
@@ -1463,8 +1463,8 @@ packages:
   '@inlang/plugin-message-format@4.2.0':
     resolution: {integrity: sha512-OIsrlC5VhRfKMCWIaVRtQvn1Iu58gNyuawwE7E/cQTZ3+ADAMVQWkMVw39pIOyaKIomavMvHgSECJLBISpt8mg==}
 
-  '@inlang/plugin-message-format@file:../inlang/packages/plugins/inlang-message-format':
-    resolution: {directory: ../inlang/packages/plugins/inlang-message-format, type: directory}
+  '@inlang/plugin-message-format@4.3.0':
+    resolution: {integrity: sha512-7Tmqd2Z0yhIZ3CwsdlMcJsMpqygN65TuoOzDviDmMp03v3XEC0NGmGr3fxZB6o2hp/Mt5t+GpOqYD30Bvp/6Qw==}
 
   '@inlang/recommend-sherlock@0.2.1':
     resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
@@ -1473,8 +1473,8 @@ packages:
     resolution: {integrity: sha512-cvz/C1rF5WBxzHbEoiBoI6Sz6q6M+TdxfWkEGBYTD77opY8i8WN01prUWXEM87GPF4SZcyIySez9U0Ccm12oFQ==}
     engines: {node: '>=18.0.0'}
 
-  '@inlang/sdk@file:../inlang/packages/sdk':
-    resolution: {directory: ../inlang/packages/sdk, type: directory}
+  '@inlang/sdk@2.7.0':
+    resolution: {integrity: sha512-yJNBD0o8i29TTJqWX5uDRHxnalDGcsUDctxepzFXsUfkzqGWfiFBxODdxvReqvM2CuKAAOo/kib/F1UcgdYFNQ==}
     engines: {node: '>=18.0.0'}
 
   '@inquirer/external-editor@1.0.3':
@@ -6995,7 +6995,7 @@ snapshots:
     dependencies:
       flat: 6.0.1
 
-  '@inlang/plugin-message-format@file:../inlang/packages/plugins/inlang-message-format':
+  '@inlang/plugin-message-format@4.3.0':
     dependencies:
       flat: 6.0.1
 
@@ -7013,7 +7013,7 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  '@inlang/sdk@file:../inlang/packages/sdk(babel-plugin-macros@3.1.0)':
+  '@inlang/sdk@2.7.0(babel-plugin-macros@3.1.0)':
     dependencies:
       '@lix-js/sdk': 0.4.7(babel-plugin-macros@3.1.0)
       '@sinclair/typebox': 0.31.28

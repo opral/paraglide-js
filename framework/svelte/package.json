@@ -32,7 +32,7 @@
 	"devDependencies": {
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
 		"@inlang/paraglide-js": "workspace:*",
-		"@inlang/plugin-message-format": "file:../../../inlang/packages/plugins/inlang-message-format",
+		"@inlang/plugin-message-format": "^4.3.0",
 		"typescript": "5.8.3",
 		"vitest": "3.1.4"
 	}

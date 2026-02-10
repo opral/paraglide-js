@@ -44,7 +44,7 @@
 	},
 	"dependencies": {
 		"@inlang/recommend-sherlock": "^0.2.1",
-		"@inlang/sdk": "file:../inlang/packages/sdk",
+		"@inlang/sdk": "^2.7.0",
 		"commander": "11.1.0",
 		"consola": "3.4.0",
 		"json5": "2.2.3",
@@ -53,7 +53,7 @@
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.29.7",
-		"@inlang/plugin-message-format": "^4.0.0",
+		"@inlang/plugin-message-format": "^4.3.0",
 		"@rollup/plugin-virtual": "3.0.2",
 		"@ts-morph/bootstrap": "0.26.0",
 		"@types/node": "^22.10.6",
