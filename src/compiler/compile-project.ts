@@ -53,6 +53,8 @@ export const compileProject = async (args: {
 			fallbackMap,
 			messageReferenceExpression: outputStructure.messageReferenceExpression,
 			settings,
+			experimentalMiddlewareLocaleSplitting:
+				optionsWithDefaults.experimentalMiddlewareLocaleSplitting,
 		})
 	);
 
@@ -77,7 +79,12 @@ export const compileProject = async (args: {
 	// generate the output modules
 	Object.assign(
 		output,
-		outputStructure.generateOutput(compiledBundles, settings, fallbackMap)
+		outputStructure.generateOutput(
+			compiledBundles,
+			settings,
+			fallbackMap,
+			optionsWithDefaults.experimentalMiddlewareLocaleSplitting
+		)
 	);
 
 	if (optionsWithDefaults.emitGitIgnore) {

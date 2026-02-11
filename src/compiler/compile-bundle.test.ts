@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { compileBundle } from "./compile-bundle.js";
+import { compileBundle, toBundleInputTypeAliasName } from "./compile-bundle.js";
 import type { BundleNested, ProjectSettings } from "@inlang/sdk";
 import { toSafeModuleId } from "./safe-module-id.js";
 
@@ -47,28 +47,54 @@ test("compiles to jsdoc", async () => {
 	expect(result.bundle.code).toMatchInlineSnapshot(
 		`
 		"/**
-		* This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
+		* | output |
+		* | --- |
+		* | "Hello{age}" |
 		*
-		* - Changing this function will be over-written by the next build.
-		*
-		* - If you want to change the translations, you can either edit the source files e.g. \`en.json\`, or
-		* use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
-		* 
-		* @param {{ age: NonNullable<unknown> }} inputs
+		* @param {Blue_Moon_BottleInputs} inputs
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
 		*/
-		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
-			if (experimentalMiddlewareLocaleSplitting && isServer === false) {
-				return /** @type {any} */ (globalThis).__paraglide_ssr.blue_moon_bottle(inputs) 
-			}
+		export const blue_moon_bottle = /** @type {((inputs: Blue_Moon_BottleInputs, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<Blue_Moon_BottleInputs, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
 			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
-			trackMessageCall("blue_moon_bottle", locale)
 			if (locale === "en") return en.blue_moon_bottle(inputs)
 			return en_us2.blue_moon_bottle(inputs)
 		});"
 	`
 	);
+});
+
+test("emits middleware locale splitting hooks when enabled", () => {
+	const mockBundle: BundleNested = {
+		id: "blue_moon_bottle",
+		declarations: [{ type: "input-variable", name: "age" }],
+		messages: [
+			{
+				id: "message-id",
+				bundleId: "blue_moon_bottle",
+				locale: "en",
+				selectors: [],
+				variants: [{ id: "1", messageId: "message-id", matches: [], pattern: [] }],
+			},
+		],
+	};
+
+	const result = compileBundle({
+		fallbackMap: { en: "en" },
+		bundle: mockBundle,
+		messageReferenceExpression: (locale) =>
+			`${toSafeModuleId(locale)}.blue_moon_bottle`,
+		settings: {
+			locales: ["en"],
+		} as ProjectSettings,
+		experimentalMiddlewareLocaleSplitting: true,
+	});
+
+	expect(result.bundle.code).toContain(
+		"if (experimentalMiddlewareLocaleSplitting && isServer === false)"
+	);
+	expect(result.bundle.code).toContain("trackMessageCall(\"blue_moon_bottle\", locale)");
+	expect(result.bundle.code).toContain("globalThis).__paraglide_ssr.blue_moon_bottle(inputs)");
 });
 
 test("compiles to jsdoc with missing translation", async () => {
@@ -115,23 +141,16 @@ test("compiles to jsdoc with missing translation", async () => {
 	expect(result.bundle.code).toMatchInlineSnapshot(
 		`
 		"/**
-		* This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
+		* | output |
+		* | --- |
+		* | "Hello{age}" |
 		*
-		* - Changing this function will be over-written by the next build.
-		*
-		* - If you want to change the translations, you can either edit the source files e.g. \`en.json\`, or
-		* use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
-		* 
-		* @param {{ age: NonNullable<unknown> }} inputs
+		* @param {Blue_Moon_BottleInputs} inputs
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
 		*/
-		export const blue_moon_bottle = /** @type {((inputs: { age: NonNullable<unknown> }, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<{ age: NonNullable<unknown> }, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
-			if (experimentalMiddlewareLocaleSplitting && isServer === false) {
-				return /** @type {any} */ (globalThis).__paraglide_ssr.blue_moon_bottle(inputs) 
-			}
+		export const blue_moon_bottle = /** @type {((inputs: Blue_Moon_BottleInputs, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<Blue_Moon_BottleInputs, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
 			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
-			trackMessageCall("blue_moon_bottle", locale)
 			if (locale === "en") return en.blue_moon_bottle(inputs)
 			if (locale === "en-US") return en_us2.blue_moon_bottle(inputs)
 			return /** @type {LocalizedString} */ ("blue_moon_bottle")
@@ -178,6 +197,14 @@ test("compiles bundles with arbitrary module identifiers", async () => {
 
 	expect(result.bundle.code).includes(
 		`export { ${toSafeModuleId("$p@44🍌")} as "$p@44🍌" }`
+	);
+});
+
+test("keeps generated input typedef names collision-free for repeated underscores", () => {
+	expect(toBundleInputTypeAliasName("foo_bar")).toBe("Foo_BarInputs");
+	expect(toBundleInputTypeAliasName("foo__bar")).toBe("Foo__BarInputs");
+	expect(toBundleInputTypeAliasName("foo_bar")).not.toBe(
+		toBundleInputTypeAliasName("foo__bar")
 	);
 });
 
@@ -229,7 +256,7 @@ test("handles message pattern with duplicate variable references", async () => {
 
 	// The JSDoc should not have duplicate parameters
 	expect(result.bundle.code).toContain(
-		"@param {{ days: NonNullable<unknown> }} inputs"
+		"@param {Date_Last_DaysInputs} inputs"
 	);
 	expect(result.bundle.code).not.toContain(
 		"days: NonNullable<unknown>, days: NonNullable<unknown>"
@@ -312,6 +339,6 @@ ${result.bundle.code}
 		{ type: "markup-end", name: "strong", options: {}, attributes: {} },
 	]);
 	expect(result.bundle.code).toContain(
-		'MessageMetadata<{ count: NonNullable<unknown> }, { locale?: "en" }, { strong: { options: {}; attributes: {}; children: true } }>'
+		'MessageMetadata<NoticeInputs, { locale?: "en" }, { strong: { options: {}; attributes: {}; children: true } }>'
 	);
 });

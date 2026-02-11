@@ -21,8 +21,10 @@
 		".": "./dist/index.js"
 	},
 	"scripts": {
+		"compile:messages": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations",
+		"prebuild": "pnpm run compile:messages",
 		"build": "tsc --project tsconfig.json && node -e \"const fs=require('node:fs');fs.mkdirSync('dist',{recursive:true});fs.copyFileSync('src/Message.svelte','dist/Message.svelte');fs.copyFileSync('src/Message.svelte.d.ts','dist/Message.svelte.d.ts');\"",
-		"pretest": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations",
+		"pretest": "pnpm run compile:messages",
 		"test": "tsc --noEmit && vitest run --config ./vitest.config.ts"
 	},
 	"peerDependencies": {
