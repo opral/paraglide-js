@@ -1,7 +1,7 @@
 {
 	"name": "@inlang/paraglide-js-svelte",
 	"type": "module",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"license": "MIT",
 	"publishConfig": {
 		"access": "public",
@@ -28,7 +28,7 @@
 		"test": "tsc --noEmit && vitest run --config ./vitest.config.ts"
 	},
 	"peerDependencies": {
-		"@inlang/paraglide-js": "^2.10.0",
+		"@inlang/paraglide-js": "^2.11.0",
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {

@@ -1,5 +1,22 @@
 # @inlang/paraglide-js
 
+## 2.11.0
+
+### Minor Changes
+
+- d1c86fb: Improve emitted message-module output by gating middleware locale-splitting hooks behind `experimentalMiddlewareLocaleSplitting`.
+
+  When the option is disabled (default), generated message functions no longer emit:
+  - `if (experimentalMiddlewareLocaleSplitting && isServer === false) { ...__paraglide_ssr... }`
+  - `trackMessageCall(...)`
+  - related runtime imports (`experimentalMiddlewareLocaleSplitting`, `isServer`, `trackMessageCall`)
+
+  When `experimentalMiddlewareLocaleSplitting` is enabled, the existing SSR/middleware injection flow is preserved.
+
+- 90a1580: Add compiler support for markup messages with a new `message.parts()` API.
+
+  Messages that contain markup now compile to framework-neutral parts (`text`, `markup-start`, `markup-end`, and `markup-standalone`) while `message()` continues to return plain strings.
+
 ## 2.10.0
 
 ### Minor Changes
