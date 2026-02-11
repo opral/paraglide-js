@@ -1,7 +1,7 @@
 {
 	"name": "@inlang/paraglide-js-vue",
 	"type": "module",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"license": "MIT",
 	"publishConfig": {
 		"access": "public",
@@ -28,7 +28,7 @@
 		"test": "tsc --noEmit && vitest run"
 	},
 	"peerDependencies": {
-		"@inlang/paraglide-js": "^2.10.0",
+		"@inlang/paraglide-js": "^2.11.0",
 		"vue": "^3.4.0"
 	},
 	"devDependencies": {
