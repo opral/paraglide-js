@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { compileBundle } from "./compile-bundle.js";
+import { compileBundle, toBundleInputTypeAliasName } from "./compile-bundle.js";
 import type { BundleNested, ProjectSettings } from "@inlang/sdk";
 import { toSafeModuleId } from "./safe-module-id.js";
 
@@ -51,11 +51,11 @@ test("compiles to jsdoc", async () => {
 		* | --- |
 		* | "Hello{age}" |
 		*
-		* @param {BlueMoonBottleInputs} inputs
+		* @param {Blue_Moon_BottleInputs} inputs
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
 		*/
-		export const blue_moon_bottle = /** @type {((inputs: BlueMoonBottleInputs, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<BlueMoonBottleInputs, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
+		export const blue_moon_bottle = /** @type {((inputs: Blue_Moon_BottleInputs, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<Blue_Moon_BottleInputs, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
 			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
 			if (locale === "en") return en.blue_moon_bottle(inputs)
 			return en_us2.blue_moon_bottle(inputs)
@@ -145,11 +145,11 @@ test("compiles to jsdoc with missing translation", async () => {
 		* | --- |
 		* | "Hello{age}" |
 		*
-		* @param {BlueMoonBottleInputs} inputs
+		* @param {Blue_Moon_BottleInputs} inputs
 		* @param {{ locale?: "en" | "en-US" }} options
 		* @returns {LocalizedString}
 		*/
-		export const blue_moon_bottle = /** @type {((inputs: BlueMoonBottleInputs, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<BlueMoonBottleInputs, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
+		export const blue_moon_bottle = /** @type {((inputs: Blue_Moon_BottleInputs, options?: { locale?: "en" | "en-US" }) => LocalizedString) & import('../runtime.js').MessageMetadata<Blue_Moon_BottleInputs, { locale?: "en" | "en-US" }, {}>} */ ((inputs, options = {}) => {
 			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
 			if (locale === "en") return en.blue_moon_bottle(inputs)
 			if (locale === "en-US") return en_us2.blue_moon_bottle(inputs)
@@ -197,6 +197,14 @@ test("compiles bundles with arbitrary module identifiers", async () => {
 
 	expect(result.bundle.code).includes(
 		`export { ${toSafeModuleId("$p@44🍌")} as "$p@44🍌" }`
+	);
+});
+
+test("keeps generated input typedef names collision-free for repeated underscores", () => {
+	expect(toBundleInputTypeAliasName("foo_bar")).toBe("Foo_BarInputs");
+	expect(toBundleInputTypeAliasName("foo__bar")).toBe("Foo__BarInputs");
+	expect(toBundleInputTypeAliasName("foo_bar")).not.toBe(
+		toBundleInputTypeAliasName("foo__bar")
 	);
 });
 
@@ -248,7 +256,7 @@ test("handles message pattern with duplicate variable references", async () => {
 
 	// The JSDoc should not have duplicate parameters
 	expect(result.bundle.code).toContain(
-		"@param {DateLastDaysInputs} inputs"
+		"@param {Date_Last_DaysInputs} inputs"
 	);
 	expect(result.bundle.code).not.toContain(
 		"days: NonNullable<unknown>, days: NonNullable<unknown>"

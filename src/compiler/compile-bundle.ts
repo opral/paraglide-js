@@ -336,17 +336,29 @@ export function toBundleInputTypeAliasName(safeBundleId: string): string {
 }
 
 function toBundleTypeBaseName(safeBundleId: string): string {
-	const segments = safeBundleId
-		.split("_")
-		.filter(Boolean)
-		.map((segment) => segment[0]?.toUpperCase() + segment.slice(1));
-	let baseName = segments.join("");
+	let baseName = "";
+	let capitalizeNext = true;
+
+	for (const character of safeBundleId) {
+		if (character === "_") {
+			baseName += "_";
+			capitalizeNext = true;
+			continue;
+		}
+
+		if (character >= "a" && character <= "z") {
+			baseName += capitalizeNext ? character.toUpperCase() : character;
+		} else {
+			baseName += character;
+		}
+		capitalizeNext = false;
+	}
 
 	if (!baseName) {
 		baseName = "Message";
 	}
 
-	if (!/^[A-Za-z]/.test(baseName)) {
+	if (!/^[A-Za-z_]/.test(baseName)) {
 		baseName = `Message${baseName}`;
 	}
 
