@@ -37,6 +37,8 @@ export const compileProject = async (args: {
 		...defaultCompilerOptions,
 		...args.compilerOptions,
 	};
+	await ensureURLPatternAvailable();
+	validateRouteStrategyMatchers(optionsWithDefaults.routeStrategies);
 
 	const settings = await args.project.settings.get();
 	const bundles = await selectBundleNested(args.project.db).execute();
@@ -136,3 +138,30 @@ const ignoreDirectory = `# ignore everything because the directory is auto-gener
 # for more info visit https://inlang.com/m/gerre34r/paraglide-js
 *
 `;
+
+async function ensureURLPatternAvailable() {
+	try {
+		new URLPattern({ pathname: "/:path(.*)?" });
+	} catch {
+		await import("urlpattern-polyfill");
+	}
+}
+
+function validateRouteStrategyMatchers(
+	routeStrategies: CompilerOptions["routeStrategies"]
+) {
+	if (!routeStrategies?.length) {
+		return;
+	}
+
+	for (const [index, routeStrategy] of routeStrategies.entries()) {
+		try {
+			new URLPattern(routeStrategy.match, "https://example.com");
+		} catch (error) {
+			const details = error instanceof Error ? error.message : String(error);
+			throw new Error(
+				`Invalid routeStrategies[${index}].match "${routeStrategy.match}". URLPattern parsing failed: ${details}`
+			);
+		}
+	}
+}
