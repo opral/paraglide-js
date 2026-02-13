@@ -6,6 +6,7 @@ import { isCustomStrategy } from "./strategy.js";
 import {
 	baseLocale,
 	cookieName,
+	getStrategyForUrl,
 	strategy,
 	TREE_SHAKE_COOKIE_STRATEGY_USED,
 	TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED,
@@ -31,10 +32,24 @@ import {
  * @type {(request: Request) => Locale}
  */
 export const extractLocaleFromRequest = (request) => {
+	return extractLocaleFromRequestWithStrategies(
+		request,
+		getStrategyForUrl(request.url)
+	);
+};
+
+/**
+ * Extracts a locale from a request using the provided strategy order.
+ *
+ * @param {Request} request
+ * @param {typeof strategy} strategies
+ * @returns {Locale}
+ */
+export const extractLocaleFromRequestWithStrategies = (request, strategies) => {
 	/** @type {string|undefined} */
 	let locale;
 
-	for (const strat of strategy) {
+	for (const strat of strategies) {
 		if (TREE_SHAKE_COOKIE_STRATEGY_USED && strat === "cookie") {
 			locale = request.headers
 				.get("cookie")

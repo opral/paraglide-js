@@ -133,6 +133,42 @@ test("url pattern strategy sets the window location", async () => {
 	expect(globalThis.window.location.reload).not.toBeCalled();
 });
 
+test("routeStrategies can disable url navigation on matching routes", async () => {
+	// @ts-expect-error - global variable definition
+	globalThis.window = {};
+	// @ts-expect-error - global variable definition
+	globalThis.document = {};
+	// @ts-expect-error - global variable definition
+	globalThis.window.location = {
+		href: "https://example.com/dashboard",
+		hostname: "example.com",
+		reload: vi.fn(),
+	};
+
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+		strategy: ["url", "cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		routeStrategies: [
+			{
+				match: "/dashboard/:path(.*)?",
+				strategy: ["cookie", "baseLocale"],
+			},
+		],
+	});
+
+	globalThis.document.cookie = "PARAGLIDE_LOCALE=en";
+	runtime.setLocale("fr");
+
+	expect(globalThis.document.cookie).toBe(
+		"PARAGLIDE_LOCALE=fr; path=/; max-age=34560000"
+	);
+	expect(globalThis.window.location.href).toBe("https://example.com/dashboard");
+	expect(globalThis.window.location.reload).toBeCalled();
+});
+
 // `!document.cookie` was used which returned false for an empty string
 test("sets the cookie when it's an empty string", async () => {
 	const runtime = await createParaglide({

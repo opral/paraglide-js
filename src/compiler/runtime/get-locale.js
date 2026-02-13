@@ -6,6 +6,7 @@ import { setLocale } from "./set-locale.js";
 import { customClientStrategies, isCustomStrategy } from "./strategy.js";
 import {
 	baseLocale,
+	getStrategyForUrl,
 	isServer,
 	localStorageKey,
 	serverAsyncLocalStorage,
@@ -66,7 +67,12 @@ export let getLocale = () => {
 		}
 	}
 
-	for (const strat of strategy) {
+	let strategyToUse = strategy;
+	if (!isServer && typeof window !== "undefined" && window.location?.href) {
+		strategyToUse = getStrategyForUrl(window.location.href);
+	}
+
+	for (const strat of strategyToUse) {
 		if (TREE_SHAKE_COOKIE_STRATEGY_USED && strat === "cookie") {
 			locale = extractLocaleFromCookie();
 		} else if (strat === "baseLocale") {

@@ -158,6 +158,37 @@ The URL-based strategy uses the web standard [URLPattern](https://developer.mozi
 > [!NOTE]
 > **Default URL Patterns**: If you don't specify `urlPatterns`, Paraglide uses a default pattern with a wildcard `/:path(.*)?` that matches any path. For paths without a locale prefix, this resolves to your base locale. This is why the `url` strategy always finds a match by default.
 
+## Route-level strategy overrides
+
+You can override strategy behavior per route with `routeStrategies`.
+
+Common use case:
+
+- Public pages use URL prefixes (`/de/...`) and keep `url` in the global strategy.
+- Private routes like `/dashboard` are never prefixed and should read locale from cookie.
+- API/RPC routes should skip i18n middleware behavior entirely.
+
+Without route-level overrides, `url` with wildcard patterns resolves unprefixed routes to `baseLocale` before cookie fallback.
+
+```ts
+compile({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	strategy: ["url", "cookie", "baseLocale"],
+	routeStrategies: [
+		{ match: "/dashboard/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+		{ match: "/rpc/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+		{ match: "/api/:path(.*)?", exclude: true },
+	],
+});
+```
+
+Rules:
+
+- Route rules are checked in declaration order.
+- The first matching rule wins.
+- `exclude: true` disables i18n middleware behavior for the matched route.
+
 ## Write your own strategy
 
 Write your own cookie, http header, or i18n routing based locale strategy to integrate Paraglide into any framework or app.

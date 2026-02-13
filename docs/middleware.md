@@ -187,22 +187,26 @@ export default {
 
 ## Excluding Routes from Middleware
 
-To skip i18n for certain routes (e.g., API, dashboard), bypass the middleware before it runs. This is necessary because URLPattern doesn't support negative lookahead (to prevent [ReDoS attacks](https://en.wikipedia.org/wiki/ReDoS)).
+To skip i18n for specific routes (for example API endpoints), use `routeStrategies` with `exclude: true` in your compiler config.
+
+This is especially useful when public pages are URL-prefixed, but private routes like `/dashboard` are intentionally unprefixed and should use cookie-based locale detection.
 
 ```ts
-async function handleRequest(request: Request): Promise<Response> {
-	const url = new URL(request.url);
-
-	// Skip middleware for routes that don't need i18n
-	if (url.pathname.startsWith("/api")) {
-		return yourApp.handle(request);
-	}
-
-	return paraglideMiddleware(request, ({ request }) => {
-		return yourApp.handle(request);
-	});
-}
+compile({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	strategy: ["url", "cookie", "baseLocale"],
+	routeStrategies: [
+		{ match: "/dashboard/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+		{ match: "/rpc/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+		{ match: "/api/:path(.*)?", exclude: true },
+	],
+});
 ```
+
+`routeStrategies` are matched in declaration order. The first match wins.
+
+For excluded routes, Paraglide skips i18n middleware behavior (locale redirects and URL de-localization).
 
 ## When to Use `request` vs Original Request
 

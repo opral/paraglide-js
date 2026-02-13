@@ -1,8 +1,8 @@
 import { customServerStrategies, isCustomStrategy } from "./strategy.js";
-import { strategy } from "./variables.js";
+import { getStrategyForUrl } from "./variables.js";
 import { assertIsLocale } from "./assert-is-locale.js";
 import { isLocale } from "./is-locale.js";
-import { extractLocaleFromRequest } from "./extract-locale-from-request.js";
+import { extractLocaleFromRequestWithStrategies } from "./extract-locale-from-request.js";
 
 /**
  * Asynchronously extracts a locale from a request.
@@ -36,6 +36,7 @@ import { extractLocaleFromRequest } from "./extract-locale-from-request.js";
 export const extractLocaleFromRequestAsync = async (request) => {
 	/** @type {string|undefined} */
 	let locale;
+	const strategy = getStrategyForUrl(request.url);
 
 	// Process custom strategies first, in order
 	for (const strat of strategy) {
@@ -54,6 +55,6 @@ export const extractLocaleFromRequestAsync = async (request) => {
 	}
 
 	// If no custom strategy provided a valid locale, fall back to sync version
-	locale = extractLocaleFromRequest(request);
+	locale = extractLocaleFromRequestWithStrategies(request, strategy);
 	return assertIsLocale(locale);
 };

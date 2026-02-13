@@ -11,6 +11,7 @@ export declare const {
 	baseLocale,
 	locales,
 	strategy,
+	routeStrategies,
 	cookieName,
 	urlPatterns,
 	serverAsyncLocalStorage,
@@ -39,4 +40,6 @@ export declare const {
 	extractLocaleFromNavigator,
 	withMessageCallTracking,
 	trackMessageCall,
+	getStrategyForUrl,
+	isExcludedByRouteStrategy,
 }: Runtime;

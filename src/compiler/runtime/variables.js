@@ -36,11 +36,90 @@ export const localStorageKey = "PARAGLIDE_LOCALE";
 export const strategy = ["globalVariable"];
 
 /**
+ * Route-level strategy overrides.
+ *
+ * `match` uses URLPattern syntax.
+ *
+ * @type {Array<{
+ *   match: string;
+ *   strategy?: Array<"cookie" | "baseLocale" | "globalVariable" | "url" | "preferredLanguage" | "localStorage" | `custom-${string}`>;
+ *   exclude?: boolean;
+ * }>}
+ */
+export const routeStrategies = [];
+
+/**
  * The used URL patterns.
  *
  * @type {Array<{ pattern: string, localized: Array<[Locale, string]> }> }
  */
 export const urlPatterns = [];
+
+/** @type {string | undefined} */
+let cachedRouteStrategyUrl;
+/** @type {{ match: string; strategy?: Array<string>; exclude?: boolean } | undefined} */
+let cachedRouteStrategy;
+
+/**
+ * @param {string | URL} url
+ * @returns {{ match: string; strategy?: Array<string>; exclude?: boolean } | undefined}
+ */
+function findMatchingRouteStrategy(url) {
+	if (routeStrategies.length === 0) {
+		return undefined;
+	}
+
+	const urlString = typeof url === "string" ? url : url.href;
+	if (cachedRouteStrategyUrl === urlString) {
+		return cachedRouteStrategy;
+	}
+
+	const urlObject = new URL(urlString, "http://dummy.com");
+	let match;
+	for (const routeStrategy of routeStrategies) {
+		const pattern = new URLPattern(routeStrategy.match, urlObject.href);
+		if (pattern.exec(urlObject.href)) {
+			match = routeStrategy;
+			break;
+		}
+	}
+
+	cachedRouteStrategyUrl = urlString;
+	cachedRouteStrategy = match;
+	return match;
+}
+
+/**
+ * Returns the strategy to use for a specific URL.
+ *
+ * If no route strategy matches (or the matching rule is `exclude: true`),
+ * the global strategy is returned.
+ *
+ * @param {string | URL} url
+ * @returns {typeof strategy}
+ */
+export function getStrategyForUrl(url) {
+	const routeStrategy = findMatchingRouteStrategy(url);
+	if (
+		routeStrategy &&
+		routeStrategy.exclude !== true &&
+		Array.isArray(routeStrategy.strategy)
+	) {
+		// @ts-ignore - runtime value is injected and validated by compiler types.
+		return routeStrategy.strategy;
+	}
+	return strategy;
+}
+
+/**
+ * Returns whether the given URL is excluded from middleware i18n processing.
+ *
+ * @param {string | URL} url
+ * @returns {boolean}
+ */
+export function isExcludedByRouteStrategy(url) {
+	return findMatchingRouteStrategy(url)?.exclude === true;
+}
 
 /**
  * @typedef {{

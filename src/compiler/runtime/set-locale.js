@@ -5,6 +5,7 @@ import {
 	cookieDomain,
 	cookieMaxAge,
 	cookieName,
+	getStrategyForUrl,
 	isServer,
 	localStorageKey,
 	strategy,
@@ -73,7 +74,11 @@ export let setLocale = (newLocale, options) => {
 	const customSetLocalePromises = [];
 	/** @type {string | undefined} */
 	let newLocation = undefined;
-	for (const strat of strategy) {
+	let strategyToUse = strategy;
+	if (!isServer && typeof window !== "undefined" && window.location?.href) {
+		strategyToUse = getStrategyForUrl(window.location.href);
+	}
+	for (const strat of strategyToUse) {
 		if (
 			TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED &&
 			strat === "globalVariable"

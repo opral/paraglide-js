@@ -102,6 +102,13 @@ import * as runtime from "./runtime.js";
 export async function paraglideMiddleware(request, resolve, callbacks) {
 	// %async-local-storage
 
+	if (runtime.isExcludedByRouteStrategy(request.url)) {
+		return /** @type {Response} */ (
+			await resolve({ locale: runtime.baseLocale, request })
+		);
+	}
+
+	const strategy = runtime.getStrategyForUrl(request.url);
 	const decision = await runtime.shouldRedirect({ request });
 	const locale = decision.locale;
 	const origin = new URL(request.url).origin;
@@ -116,7 +123,7 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 		// Create headers object with Vary header if preferredLanguage strategy is used
 		/** @type {Record<string, string>} */
 		const headers = {};
-		if (runtime.strategy.includes("preferredLanguage")) {
+		if (strategy.includes("preferredLanguage")) {
 			headers["Vary"] = "Accept-Language";
 		}
 
@@ -139,7 +146,7 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 	// de-localized URL e.g. `/en/about` to `/about`. Otherwise,
 	// the server can't render the correct page.
 	let newRequest;
-	if (runtime.strategy.includes("url")) {
+	if (strategy.includes("url")) {
 		newRequest = new Request(runtime.deLocalizeUrl(request.url), request);
 	} else {
 		// Some metaframeworks (NextJS) require a new Request object

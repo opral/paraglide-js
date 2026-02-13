@@ -132,3 +132,34 @@ test("shouldRedirect never suggests a redirect without the url strategy", async 
 	expect(decision.redirectUrl).toBeUndefined();
 	expect(decision.locale).toBe("fr");
 });
+
+test("shouldRedirect respects routeStrategies that disable url strategy per route", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		routeStrategies: [
+			{
+				match: "/dashboard/:path(.*)?",
+				strategy: ["cookie", "baseLocale"],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		},
+	});
+
+	const decision = await runtime.shouldRedirect({ request });
+
+	expect(decision.shouldRedirect).toBe(false);
+	expect(decision.redirectUrl).toBeUndefined();
+	expect(decision.locale).toBe("fr");
+});

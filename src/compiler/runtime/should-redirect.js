@@ -3,7 +3,7 @@ import { getLocale } from "./get-locale.js";
 import { getUrlOrigin } from "./get-url-origin.js";
 import { extractLocaleFromRequestAsync } from "./extract-locale-from-request-async.js";
 import { assertIsLocale } from "./assert-is-locale.js";
-import { strategy } from "./variables.js";
+import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
 
 /**
  * @typedef {object} ShouldRedirectServerInput
@@ -61,15 +61,16 @@ import { strategy } from "./variables.js";
  * @returns {Promise<ShouldRedirectResult>}
  */
 export async function shouldRedirect(input = {}) {
+	const currentUrl = resolveUrl(input);
 	const locale = /** @type {ReturnType<typeof assertIsLocale>} */ (
 		await resolveLocale(input)
 	);
+	const strategy = getStrategyForUrl(currentUrl.href);
 
-	if (!strategy.includes("url")) {
+	if (isExcludedByRouteStrategy(currentUrl.href) || !strategy.includes("url")) {
 		return { shouldRedirect: false, locale, redirectUrl: undefined };
 	}
 
-	const currentUrl = resolveUrl(input);
 	const localizedUrl = localizeUrl(currentUrl.href, { locale });
 
 	const shouldRedirectToLocalizedUrl =

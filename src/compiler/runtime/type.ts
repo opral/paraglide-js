@@ -5,6 +5,7 @@ export type Runtime = {
 	baseLocale: typeof import("./variables.js").baseLocale;
 	locales: typeof import("./variables.js").locales;
 	strategy: typeof import("./variables.js").strategy;
+	routeStrategies: typeof import("./variables.js").routeStrategies;
 	cookieName: typeof import("./variables.js").cookieName;
 	cookieMaxAge: typeof import("./variables.js").cookieMaxAge;
 	urlPatterns: typeof import("./variables.js").urlPatterns;
@@ -35,6 +36,8 @@ export type Runtime = {
 	extractLocaleFromNavigator: typeof import("./extract-locale-from-navigator.js").extractLocaleFromNavigator;
 	generateStaticLocalizedUrls: typeof import("./generate-static-localized-urls.js").generateStaticLocalizedUrls;
 	trackMessageCall: typeof import("./track-message-call.js").trackMessageCall;
+	getStrategyForUrl: typeof import("./variables.js").getStrategyForUrl;
+	isExcludedByRouteStrategy: typeof import("./variables.js").isExcludedByRouteStrategy;
 	defineCustomServerStrategy: typeof import("./strategy.js").defineCustomServerStrategy;
 	defineCustomClientStrategy: typeof import("./strategy.js").defineCustomClientStrategy;
 };
