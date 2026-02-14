@@ -1,5 +1,15 @@
 # @inlang/paraglide-js
 
+## 2.12.0
+
+### Minor Changes
+
+- af0084e: Add route-level locale strategy overrides via `routeStrategies`.
+
+  You can now define per-route strategy behavior (first match wins), including:
+  - `strategy` overrides for paths like `/dashboard/*` and `/rpc/*`
+  - `exclude: true` to skip i18n middleware behavior for paths like `/api/*`
+
 ## 2.11.0
 
 ### Minor Changes
