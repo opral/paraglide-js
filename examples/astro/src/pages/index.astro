@@ -20,6 +20,15 @@ import { m } from "../paraglide/messages.js";
 			<p>{m.street_board_orange()}</p>
 			<br />
 			<a href={localizeHref("/nested")}>go to /nested</a>
+			<hr />
+			<h2>POST request</h2>
+			<form method="post" action="/api/post">
+				<label>
+					Message
+					<input name="message" value="hello from form" />
+				</label>
+				<button type="submit">Submit POST request</button>
+			</form>
 		</main>
 	</body>
 </HTML>
