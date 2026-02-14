@@ -55,9 +55,6 @@ export let getLocale = () => {
 		return assertIsLocale(experimentalStaticLocale);
 	}
 
-	/** @type {string | undefined} */
-	let locale;
-
 	// if running in a server-side rendering context
 	// retrieve the locale from the async local storage
 	if (serverAsyncLocalStorage) {
@@ -72,6 +69,59 @@ export let getLocale = () => {
 		strategyToUse = getStrategyForUrl(window.location.href);
 	}
 
+	const resolved = resolveLocaleWithStrategies(
+		strategyToUse,
+		typeof window !== "undefined" ? window.location?.href : undefined
+	);
+	if (resolved) {
+		if (!localeInitiallySet) {
+			_locale = resolved;
+			// https://github.com/opral/inlang-paraglide-js/issues/455
+			localeInitiallySet = true;
+			setLocale(resolved, { reload: false });
+		}
+		return resolved;
+	}
+
+	throw new Error(
+		"No locale found. Read the docs https://inlang.com/m/gerre34r/library-inlang-paraglideJs/errors#no-locale-found"
+	);
+};
+
+/**
+ * Resolve locale for a given URL using route-aware strategies.
+ *
+ * @param {string | URL} url
+ * @returns {Locale}
+ */
+export function getLocaleForUrl(url) {
+	if (experimentalStaticLocale !== undefined) {
+		return assertIsLocale(experimentalStaticLocale);
+	}
+
+	const strategyToUse = getStrategyForUrl(url);
+	const resolved = resolveLocaleWithStrategies(
+		strategyToUse,
+		typeof url === "string" ? url : url.href
+	);
+	if (resolved) {
+		return resolved;
+	}
+
+	throw new Error(
+		"No locale found. Read the docs https://inlang.com/m/gerre34r/library-inlang-paraglideJs/errors#no-locale-found"
+	);
+}
+
+/**
+ * @param {typeof strategy} strategyToUse
+ * @param {string | undefined} urlForUrlStrategy
+ * @returns {Locale | undefined}
+ */
+function resolveLocaleWithStrategies(strategyToUse, urlForUrlStrategy) {
+	/** @type {string | undefined} */
+	let locale;
+
 	for (const strat of strategyToUse) {
 		if (TREE_SHAKE_COOKIE_STRATEGY_USED && strat === "cookie") {
 			locale = extractLocaleFromCookie();
@@ -81,9 +131,9 @@ export let getLocale = () => {
 			TREE_SHAKE_URL_STRATEGY_USED &&
 			strat === "url" &&
 			!isServer &&
-			typeof window !== "undefined"
+			typeof urlForUrlStrategy === "string"
 		) {
-			locale = extractLocaleFromUrl(window.location.href);
+			locale = extractLocaleFromUrl(urlForUrlStrategy);
 		} else if (
 			TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED &&
 			strat === "globalVariable" &&
@@ -114,23 +164,14 @@ export let getLocale = () => {
 				locale = result;
 			}
 		}
-		// check if match, else continue loop
+
 		if (locale !== undefined) {
-			const asserted = assertIsLocale(locale);
-			if (!localeInitiallySet) {
-				_locale = asserted;
-				// https://github.com/opral/inlang-paraglide-js/issues/455
-				localeInitiallySet = true;
-				setLocale(asserted, { reload: false });
-			}
-			return asserted;
+			return assertIsLocale(locale);
 		}
 	}
 
-	throw new Error(
-		"No locale found. Read the docs https://inlang.com/m/gerre34r/library-inlang-paraglideJs/errors#no-locale-found"
-	);
-};
+	return undefined;
+}
 
 /**
  * Overwrite the `getLocale()` function.

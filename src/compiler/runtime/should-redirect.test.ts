@@ -108,6 +108,70 @@ test("shouldRedirect falls back to the browser URL when no input is provided", a
 	}
 });
 
+test("shouldRedirect({ url }) resolves locale using target URL routeStrategies on client", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		isServer: "false",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+		routeStrategies: [
+			{
+				match: "/dashboard/:path(.*)?",
+				strategy: ["cookie", "baseLocale"],
+			},
+		],
+	});
+
+	const originalWindow = globalThis.window;
+	const originalDocument = globalThis.document;
+
+	try {
+		globalThis.window = {
+			location: {
+				href: "https://example.com/dashboard",
+				origin: "https://example.com",
+			},
+		} as any;
+		globalThis.document = {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		} as any;
+
+		const decision = await runtime.shouldRedirect({
+			url: "https://example.com/en/profile",
+		});
+
+		expect(decision.shouldRedirect).toBe(false);
+		expect(decision.redirectUrl).toBeUndefined();
+		expect(decision.locale).toBe("en");
+	} finally {
+		if (originalWindow === undefined) {
+			Reflect.deleteProperty(globalThis, "window");
+		} else {
+			globalThis.window = originalWindow;
+		}
+
+		if (originalDocument === undefined) {
+			Reflect.deleteProperty(globalThis, "document");
+		} else {
+			globalThis.document = originalDocument;
+		}
+	}
+});
+
 test("shouldRedirect never suggests a redirect without the url strategy", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({

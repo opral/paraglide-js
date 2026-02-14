@@ -1090,7 +1090,7 @@ localizeUrl(url, { locale: "de" });
 
 > **overwriteGetLocale**(`fn`): `void`
 
-Defined in: [runtime/get-locale.js:150](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-locale.js)
+Defined in: [runtime/get-locale.js:191](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-locale.js)
 
 Overwrite the `getLocale()` function.
 
