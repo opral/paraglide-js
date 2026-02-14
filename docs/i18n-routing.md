@@ -440,11 +440,25 @@ strategy: ["localStorage", "preferredLanguage", "url"];
 strategy: ["url", "localStorage", "preferredLanguage"];
 ```
 
-### Excluding paths is not supported
+### Excluding paths in URL patterns
 
-[URLPattern](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API#regex_matchers_limitations) does not support negative lookahead regex patterns, so you cannot exclude paths like `/api/*` directly in your URL patterns.
+[URLPattern](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API#regex_matchers_limitations) does not support negative lookahead regex patterns, so you cannot exclude paths like `/api/*` directly inside `urlPatterns`.
 
-Instead, filter routes manually in your request handler before calling the middleware. See [Excluding Routes from Middleware](./middleware#excluding-routes-from-middleware) for examples.
+Use `routeStrategies` instead. This pattern is common when public pages are localized by URL, while unprefixed private pages (like `/dashboard`) should resolve locale from cookies.
+
+```ts
+compile({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	strategy: ["url", "cookie", "baseLocale"],
+	routeStrategies: [
+		{ match: "/dashboard/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+		{ match: "/api/:path(.*)?", exclude: true },
+	],
+});
+```
+
+See [Excluding Routes from Middleware](./middleware#excluding-routes-from-middleware) for details.
 
 ### Pattern order matters
 

@@ -102,6 +102,21 @@ import * as runtime from "./runtime.js";
 export async function paraglideMiddleware(request, resolve, callbacks) {
 	// %async-local-storage
 
+	if (runtime.isExcludedByRouteStrategy(request.url)) {
+		const locale = runtime.baseLocale;
+		const origin = new URL(request.url).origin;
+		const newRequest = cloneRequestWithFallback(request);
+		/** @type {Set<string>} */
+		const messageCalls = new Set();
+		return /** @type {Response} */ (
+			await runtime.serverAsyncLocalStorage?.run(
+				{ locale, origin, messageCalls },
+				() => resolve({ locale, request: newRequest })
+			)
+		);
+	}
+
+	const strategy = runtime.getStrategyForUrl(request.url);
 	const decision = await runtime.shouldRedirect({ request });
 	const locale = decision.locale;
 	const origin = new URL(request.url).origin;
@@ -116,7 +131,7 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 		// Create headers object with Vary header if preferredLanguage strategy is used
 		/** @type {Record<string, string>} */
 		const headers = {};
-		if (runtime.strategy.includes("preferredLanguage")) {
+		if (strategy.includes("preferredLanguage")) {
 			headers["Vary"] = "Accept-Language";
 		}
 
@@ -139,20 +154,10 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 	// de-localized URL e.g. `/en/about` to `/about`. Otherwise,
 	// the server can't render the correct page.
 	let newRequest;
-	if (runtime.strategy.includes("url")) {
+	if (strategy.includes("url")) {
 		newRequest = new Request(runtime.deLocalizeUrl(request.url), request);
 	} else {
-		// Some metaframeworks (NextJS) require a new Request object
-		// https://github.com/opral/inlang-paraglide-js/issues/411
-		// However, some frameworks (TanStack Start 1.143+) use custom Request
-		// implementations that cannot be cloned with `new Request(request)`
-		// https://github.com/opral/paraglide-js/issues/573
-		// Try to clone the request, but fall back to the original if cloning fails
-		try {
-			newRequest = new Request(request);
-		} catch {
-			newRequest = request;
-		}
+		newRequest = cloneRequestWithFallback(request);
 	}
 
 	// the message functions that have been called in this request
@@ -201,6 +206,30 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 	}
 
 	return response;
+}
+
+/**
+ * Some metaframeworks (NextJS) require a new Request object.
+ * https://github.com/opral/inlang-paraglide-js/issues/411
+ *
+ * However, some frameworks (TanStack Start 1.143+) use custom Request
+ * implementations that cannot be cloned with `new Request(request)`.
+ * https://github.com/opral/paraglide-js/issues/573
+ *
+ * @param {Request} request
+ * @returns {Request}
+ */
+function cloneRequestWithFallback(request) {
+	try {
+		// Clone first so building a new Request does not consume the original body stream.
+		return new Request(request.clone());
+	} catch {
+		try {
+			return new Request(request);
+		} catch {
+			return request;
+		}
+	}
 }
 
 /**

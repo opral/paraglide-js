@@ -1,5 +1,35 @@
 import type { Runtime } from "./runtime/type.js";
 
+export type RouteStrategy =
+	| {
+			/**
+			 * URLPattern-compatible matcher.
+			 */
+			match: string;
+			/**
+			 * Strategy override for matching requests.
+			 */
+			strategy: Runtime["strategy"];
+			/**
+			 * Prevent mutually exclusive configuration (`exclude` + `strategy`).
+			 */
+			exclude?: never;
+	  }
+	| {
+			/**
+			 * URLPattern-compatible matcher.
+			 */
+			match: string;
+			/**
+			 * Exclude matching requests from i18n middleware behavior.
+			 */
+			exclude: true;
+			/**
+			 * Prevent mutually exclusive configuration (`exclude` + `strategy`).
+			 */
+			strategy?: never;
+	  };
+
 export const defaultCompilerOptions = {
 	outputStructure: "message-modules",
 	emitGitIgnore: true,
@@ -61,6 +91,24 @@ export type CompilerOptions = {
 	 * @default ["cookie", "globalVariable", "baseLocale"]
 	 */
 	strategy?: Runtime["strategy"];
+	/**
+	 * Route-level strategy overrides.
+	 *
+	 * Routes are matched in declaration order. The first matching rule wins.
+	 * `match` uses URLPattern syntax.
+	 *
+	 * - `strategy`: Override locale resolution for the matched route.
+	 * - `exclude: true`: Skip i18n middleware behavior for the matched route.
+	 *
+	 * @example
+	 * ```ts
+	 * routeStrategies: [
+	 *   { match: "/dashboard/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+	 *   { match: "/api/:path(.*)?", exclude: true }
+	 * ]
+	 * ```
+	 */
+	routeStrategies?: RouteStrategy[];
 	/**
 	 * Whether or not to use experimental middleware locale splitting.
 	 *

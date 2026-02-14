@@ -92,6 +92,186 @@ test("does not delocalize the url if the url strategy is not used", async () => 
 	expect(await result.text()).toBe("Hello World");
 });
 
+test("skips i18n middleware behavior for excluded routeStrategies", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		routeStrategies: [{ match: "/api/:path(.*)?", exclude: true }],
+	});
+
+	const request = new Request("https://example.com/api/data", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const response = await runtime.paraglideMiddleware(request, ({ locale, request }) =>
+		new Response(`${locale}|${request.url}`)
+	);
+
+	expect(response.status).toBe(200);
+	expect(await response.text()).toBe("en|https://example.com/api/data");
+});
+
+test("excluded routeStrategies keep request-scoped locale context and clone request when possible", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["globalVariable", "baseLocale"],
+		routeStrategies: [{ match: "/api/:path(.*)?", exclude: true }],
+	});
+
+	runtime.setLocale("fr");
+	const originalRequest = new Request("https://example.com/api/data", {
+		headers: { "Sec-Fetch-Dest": "document" },
+	});
+
+	const response = await runtime.paraglideMiddleware(
+		originalRequest,
+		({ locale, request }) => {
+		expect(locale).toBe("en");
+		expect(runtime.getLocale()).toBe("en");
+		expect(runtime.getUrlOrigin()).toBe("https://example.com");
+		expect(request).not.toBe(originalRequest);
+		expect(request.url).toBe("https://example.com/api/data");
+		return new Response("ok");
+		}
+	);
+
+	expect(await response.text()).toBe("ok");
+	expect(runtime.getLocale()).toBe("fr");
+});
+
+test("excluded routeStrategies fall back to original request when cloning fails", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["globalVariable", "baseLocale"],
+		routeStrategies: [{ match: "/api/:path(.*)?", exclude: true }],
+	});
+
+	const customRequest = {
+		url: "https://example.com/api/data",
+		headers: new Headers({ "Sec-Fetch-Dest": "document" }),
+		method: "GET",
+	} as unknown as Request;
+
+	const response = await runtime.paraglideMiddleware(customRequest, ({ locale, request }) => {
+		expect(locale).toBe("en");
+		expect(request).toBe(customRequest);
+		return new Response("ok");
+	});
+
+	expect(await response.text()).toBe("ok");
+});
+
+test("excluded routeStrategies preserve original request body readability", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["globalVariable", "baseLocale"],
+		routeStrategies: [{ match: "/api/:path(.*)?", exclude: true }],
+	});
+
+	const originalRequest = new Request("https://example.com/api/data", {
+		method: "POST",
+		body: "hello=world",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const response = await runtime.paraglideMiddleware(originalRequest, async ({ request }) => {
+		expect(await request.text()).toBe("hello=world");
+		return new Response("ok");
+	});
+
+	expect(await response.text()).toBe("ok");
+	expect(await originalRequest.text()).toBe("hello=world");
+});
+
+test("routeStrategies layering is first-match-wins when exclude comes first", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		routeStrategies: [
+			{ match: "/api/:path(.*)?", exclude: true },
+			{ match: "/api/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+		],
+	});
+
+	const request = new Request("https://example.com/api/data", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const response = await runtime.paraglideMiddleware(request, ({ locale, request }) =>
+		new Response(`${locale}|${request.url}`)
+	);
+
+	expect(response.status).toBe(200);
+	expect(await response.text()).toBe("en|https://example.com/api/data");
+});
+
+test("routeStrategies layering is first-match-wins when strategy comes first", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		routeStrategies: [
+			{ match: "/api/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+			{ match: "/api/:path(.*)?", exclude: true },
+		],
+	});
+
+	const request = new Request("https://example.com/api/data", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const response = await runtime.paraglideMiddleware(request, ({ locale, request }) =>
+		new Response(`${locale}|${request.url}`)
+	);
+
+	expect(response.status).toBe(200);
+	expect(await response.text()).toBe("fr|https://example.com/api/data");
+});
+
 test("redirects to localized URL when non-URL strategy determines locale", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({

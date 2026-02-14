@@ -230,6 +230,33 @@ test("cookie strategy precedes URL strategy for API requests with wildcards", as
 	expect(fallbackLocale).toBe("en");
 });
 
+test("routeStrategies can override strategy order for matching routes", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url", "cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		routeStrategies: [
+			{
+				match: "/dashboard/:path(.*)?",
+				strategy: ["cookie", "baseLocale"],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=de",
+		},
+	});
+
+	expect(runtime.extractLocaleFromRequest(request)).toBe("de");
+});
+
 // https://github.com/opral/inlang-paraglide-js/issues/436
 test("preferredLanguage precedence over url", async () => {
 	const runtime = await createParaglide({

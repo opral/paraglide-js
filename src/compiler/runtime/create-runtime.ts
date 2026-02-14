@@ -9,6 +9,7 @@ export function createRuntimeFile(args: {
 	locales: string[];
 	compilerOptions: {
 		strategy: NonNullable<CompilerOptions["strategy"]>;
+		routeStrategies?: CompilerOptions["routeStrategies"];
 		cookieName: NonNullable<CompilerOptions["cookieName"]>;
 		cookieMaxAge: NonNullable<CompilerOptions["cookieMaxAge"]>;
 		cookieDomain: CompilerOptions["cookieDomain"];
@@ -23,6 +24,7 @@ export function createRuntimeFile(args: {
 	};
 }): string {
 	const urlPatterns = args.compilerOptions.urlPatterns ?? [];
+	const routeStrategies = args.compilerOptions.routeStrategies ?? [];
 
 	let defaultUrlPatternUsed = false;
 
@@ -47,8 +49,18 @@ export function createRuntimeFile(args: {
 			`:protocol://:domain(.*)::port?/:path(.*)?`,
 		]);
 	}
+	const strategiesUsedByRoutes = routeStrategies.flatMap((routeStrategy) =>
+		"strategy" in routeStrategy ? routeStrategy.strategy : []
+	);
+	const allUsedStrategies = new Set([
+		...args.compilerOptions.strategy,
+		...strategiesUsedByRoutes,
+	]);
+	const needsUrlPatternPolyfill =
+		!defaultUrlPatternUsed || routeStrategies.length > 0;
+
 	const code = `
-${defaultUrlPatternUsed ? "/** @type {any} */\nconst URLPattern = {}" : `import "@inlang/paraglide-js/urlpattern-polyfill";`}
+${needsUrlPatternPolyfill ? `import "@inlang/paraglide-js/urlpattern-polyfill";` : "/** @type {any} */\nconst URLPattern = {}"}
 
 ${injectCode("./variables.js")
 	.replace(
@@ -67,20 +79,24 @@ ${injectCode("./variables.js")
 	.replace(`60 * 60 * 24 * 400`, `${args.compilerOptions.cookieMaxAge}`)
 	.replace(`<cookie-domain>`, `${args.compilerOptions.cookieDomain}`)
 	.replace(
+		`export const routeStrategies = [];`,
+		`export const routeStrategies = ${JSON.stringify(routeStrategies, null, 2)};`
+	)
+	.replace(
 		`export const TREE_SHAKE_COOKIE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_COOKIE_STRATEGY_USED = ${args.compilerOptions.strategy.includes("cookie")};`
+		`const TREE_SHAKE_COOKIE_STRATEGY_USED = ${allUsedStrategies.has("cookie")};`
 	)
 	.replace(
 		`export const TREE_SHAKE_URL_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_URL_STRATEGY_USED = ${args.compilerOptions.strategy.includes("url")};`
+		`const TREE_SHAKE_URL_STRATEGY_USED = ${allUsedStrategies.has("url")};`
 	)
 	.replace(
 		`export const TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED = ${args.compilerOptions.strategy.includes("globalVariable")};`
+		`const TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED = ${allUsedStrategies.has("globalVariable")};`
 	)
 	.replace(
 		`export const TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED = ${args.compilerOptions.strategy.includes("preferredLanguage")};`
+		`const TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED = ${allUsedStrategies.has("preferredLanguage")};`
 	)
 	.replace(
 		`export const urlPatterns = [];`,
@@ -112,7 +128,7 @@ ${injectCode("./variables.js")
 	)
 	.replace(
 		`export const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${args.compilerOptions.strategy.includes("localStorage")};`
+		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${allUsedStrategies.has("localStorage")};`
 	)}
 
 globalThis.__paraglide = {}

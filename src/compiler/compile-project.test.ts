@@ -166,6 +166,26 @@ test("emitReadme includes project path", async () => {
 	expect(output["README.md"]).toContain("Paraglide JS");
 });
 
+test("throws during compile for invalid routeStrategies match patterns", async () => {
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: {
+				locales: ["en", "de"],
+				baseLocale: "en",
+			},
+		}),
+	});
+
+	await expect(
+		compileProject({
+			project,
+			compilerOptions: {
+				routeStrategies: [{ match: "/api/:path(.*", exclude: true }],
+			},
+		})
+	).rejects.toThrow(`Invalid routeStrategies[0].match "/api/:path(.*"`);
+});
+
 // https://github.com/opral/paraglide-js/issues/539
 test("omits async_hooks import when disableAsyncLocalStorage is true", async () => {
 	const project = await loadProjectInMemory({

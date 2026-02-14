@@ -1,9 +1,9 @@
 import { localizeUrl } from "./localize-url.js";
-import { getLocale } from "./get-locale.js";
+import { getLocale, getLocaleForUrl } from "./get-locale.js";
 import { getUrlOrigin } from "./get-url-origin.js";
 import { extractLocaleFromRequestAsync } from "./extract-locale-from-request-async.js";
 import { assertIsLocale } from "./assert-is-locale.js";
-import { strategy } from "./variables.js";
+import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
 
 /**
  * @typedef {object} ShouldRedirectServerInput
@@ -61,15 +61,16 @@ import { strategy } from "./variables.js";
  * @returns {Promise<ShouldRedirectResult>}
  */
 export async function shouldRedirect(input = {}) {
+	const currentUrl = resolveUrl(input);
 	const locale = /** @type {ReturnType<typeof assertIsLocale>} */ (
-		await resolveLocale(input)
+		await resolveLocale(input, currentUrl)
 	);
+	const strategy = getStrategyForUrl(currentUrl.href);
 
-	if (!strategy.includes("url")) {
+	if (isExcludedByRouteStrategy(currentUrl.href) || !strategy.includes("url")) {
 		return { shouldRedirect: false, locale, redirectUrl: undefined };
 	}
 
-	const currentUrl = resolveUrl(input);
 	const localizedUrl = localizeUrl(currentUrl.href, { locale });
 
 	const shouldRedirectToLocalizedUrl =
@@ -86,15 +87,20 @@ export async function shouldRedirect(input = {}) {
  * Resolves the locale either from the provided input or by using the configured strategies.
  *
  * @param {ShouldRedirectInput} input
+ * @param {URL} currentUrl
  * @returns {Promise<ReturnType<typeof assertIsLocale>>}
  */
-async function resolveLocale(input) {
+async function resolveLocale(input, currentUrl) {
 	if (input.locale) {
 		return assertIsLocale(input.locale);
 	}
 
 	if (input.request) {
 		return extractLocaleFromRequestAsync(input.request);
+	}
+
+	if (typeof input.url !== "undefined") {
+		return getLocaleForUrl(currentUrl.href);
 	}
 
 	return getLocale();
