@@ -28,7 +28,7 @@
 		"test": "tsc --noEmit && vitest run"
 	},
 	"peerDependencies": {
-		"@inlang/paraglide-js": "^2.11.0",
+		"@inlang/paraglide-js": ">=2.11.0 <3",
 		"vue": "^3.4.0"
 	},
 	"devDependencies": {
