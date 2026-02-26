@@ -117,11 +117,11 @@ export default {
 In `__root.tsx` change the HTML lang attribute to the current locale.
 
 ```tsx
-import { getLocale } from '../paraglide/runtime.js'
+import { getLocale, getTextDirection } from '../paraglide/runtime.js'
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={getLocale()}>
+    <html lang={getLocale()} dir={getTextDirection()}>
       <head>
         <HeadContent />
       </head>

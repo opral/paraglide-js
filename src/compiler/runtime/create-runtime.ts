@@ -135,6 +135,8 @@ globalThis.__paraglide = {}
 
 ${injectCode("./get-locale.js")}
 
+${injectCode("./get-text-direction.js")}
+
 ${injectCode("./set-locale.js")}
 
 ${injectCode("./get-url-origin.js")}

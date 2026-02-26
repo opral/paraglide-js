@@ -1,9 +1,8 @@
 ---
-import { getLocale } from "../paraglide/runtime";
+import { getLocale, getTextDirection } from "../paraglide/runtime";
 ---
 
 <!doctype html>
-<html lang={getLocale()}>
+<html lang={getLocale()} dir={getTextDirection()}>
     <slot />
 </html>
-

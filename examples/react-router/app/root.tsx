@@ -6,7 +6,7 @@ import {
 	ScrollRestoration,
 	type MiddlewareFunction,
 } from "react-router";
-import { getLocale } from "./paraglide/runtime";
+import { getLocale, getTextDirection } from "./paraglide/runtime";
 import { paraglideMiddleware } from "./paraglide/server.js";
 
 export const middleware: MiddlewareFunction[] = [
@@ -19,7 +19,7 @@ export default function App() {
 
 export function Layout(props: { children: React.ReactNode }) {
 	return (
-		<html lang={getLocale()}>
+		<html lang={getLocale()} dir={getTextDirection()}>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -81,6 +81,9 @@ test("runtime type", async () => {
     // setLocale() should not fail if the given language tag is included in locales
     runtime.setLocale("de")
 
+		// getTextDirection() should return a strict direction union
+		runtime.getTextDirection() satisfies "ltr" | "rtl"
+
 		// isLocale should narrow the type of it's argument
 		const thing = 5;
 

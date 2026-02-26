@@ -15,6 +15,7 @@ export type Runtime = {
 	isServer: typeof import("./variables.js").isServer;
 	experimentalStaticLocale: typeof import("./variables.js").experimentalStaticLocale;
 	getLocale: typeof import("./get-locale.js").getLocale;
+	getTextDirection: typeof import("./get-text-direction.js").getTextDirection;
 	setLocale: typeof import("./set-locale.js").setLocale;
 	getUrlOrigin: typeof import("./get-url-origin.js").getUrlOrigin;
 	overwriteGetLocale: typeof import("./get-locale.js").overwriteGetLocale;

@@ -65,13 +65,14 @@ You can read more about about Astro's middleware [here](https://docs.astro.build
 
 ```js
 import { m } from "./paraglide/messages.js";
-import { getLocale, setLocale } from "./paraglide/runtime.js";
+import { getLocale, getTextDirection, setLocale } from "./paraglide/runtime.js";
 
 // Use messages
 m.greeting({ name: "World" }); // "Hello World!"
 
 // Get and set locale
 getLocale();    // "en"
+getTextDirection(); // "ltr" | "rtl" for current locale
 setLocale("de"); // switches to German
 ```
 

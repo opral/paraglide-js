@@ -877,6 +877,39 @@ the global strategy is returned.
 
 ***
 
+## getTextDirection()
+
+> **getTextDirection**(`locale?`): `"ltr"` \| `"rtl"`
+
+Defined in: [runtime/get-text-direction.js:19](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-text-direction.js)
+
+Get writing direction for a locale.
+
+Uses `Intl.Locale` text info when available and falls back to a
+language-based RTL check for runtimes without `getTextInfo()`.
+
+### Parameters
+
+#### locale?
+
+`string` = `...`
+
+Target locale. If not provided, uses `getLocale()`
+
+### Returns
+
+`"ltr"` \| `"rtl"`
+
+### Example
+
+```ts
+getTextDirection(); // "ltr" or "rtl" for current locale
+  getTextDirection("ar"); // "rtl"
+  getTextDirection("en"); // "ltr"
+```
+
+***
+
 ## getUrlOrigin()
 
 > **getUrlOrigin**(): `string`

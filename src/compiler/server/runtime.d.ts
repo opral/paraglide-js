@@ -19,6 +19,7 @@ export declare const {
 	isServer,
 	disableAsyncLocalStorage,
 	getLocale,
+	getTextDirection,
 	setLocale,
 	getUrlOrigin,
 	overwriteGetLocale,

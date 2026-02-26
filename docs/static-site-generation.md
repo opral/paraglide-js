@@ -180,6 +180,7 @@ Use `overwriteGetLocale` with React's `cache` to scope the locale per page durin
 import { cache } from "react";
 import {
   getLocale,
+  getTextDirection,
   overwriteGetLocale,
   baseLocale,
   assertIsLocale,
@@ -200,7 +201,7 @@ export default function RootLayout({
 }) {
   ssrLocale().locale = params.locale;
   return (
-    <html lang={getLocale()}>
+    <html lang={getLocale()} dir={getTextDirection()}>
       <body>{children}</body>
     </html>
   );

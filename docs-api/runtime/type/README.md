@@ -16,7 +16,7 @@ The Paraglide runtime API.
 
 > **assertIsLocale**: [`assertIsLocale`](-internal-.md#assertislocale)
 
-Defined in: [runtime/type.ts:24](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:25](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### baseLocale
 
@@ -40,25 +40,25 @@ Defined in: [runtime/type.ts:9](https://github.com/opral/paraglide-js/tree/main/
 
 > **defineCustomClientStrategy**: [`defineCustomClientStrategy`](-internal-.md#definecustomclientstrategy)
 
-Defined in: [runtime/type.ts:42](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:43](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### defineCustomServerStrategy
 
 > **defineCustomServerStrategy**: [`defineCustomServerStrategy`](-internal-.md#definecustomserverstrategy)
 
-Defined in: [runtime/type.ts:41](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:42](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### deLocalizeHref
 
 > **deLocalizeHref**: [`deLocalizeHref`](-internal-.md#delocalizehref)
 
-Defined in: [runtime/type.ts:27](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:28](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### deLocalizeUrl
 
 > **deLocalizeUrl**: [`deLocalizeUrl`](-internal-.md#delocalizeurl)
 
-Defined in: [runtime/type.ts:29](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:30](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### disableAsyncLocalStorage
 
@@ -82,43 +82,43 @@ Defined in: [runtime/type.ts:16](https://github.com/opral/paraglide-js/tree/main
 
 > **extractLocaleFromCookie**: [`extractLocaleFromCookie`](-internal-.md#extractlocalefromcookie)
 
-Defined in: [runtime/type.ts:34](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:35](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### extractLocaleFromHeader
 
 > **extractLocaleFromHeader**: [`extractLocaleFromHeader`](-internal-.md#extractlocalefromheader)
 
-Defined in: [runtime/type.ts:35](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:36](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### extractLocaleFromNavigator
 
 > **extractLocaleFromNavigator**: [`extractLocaleFromNavigator`](-internal-.md#extractlocalefromnavigator)
 
-Defined in: [runtime/type.ts:36](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:37](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### extractLocaleFromRequest
 
 > **extractLocaleFromRequest**: [`extractLocaleFromRequest`](-internal-.md#extractlocalefromrequest)
 
-Defined in: [runtime/type.ts:32](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:33](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### extractLocaleFromRequestAsync
 
 > **extractLocaleFromRequestAsync**: [`extractLocaleFromRequestAsync`](-internal-.md#extractlocalefromrequestasync)
 
-Defined in: [runtime/type.ts:33](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:34](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### extractLocaleFromUrl
 
 > **extractLocaleFromUrl**: [`extractLocaleFromUrl`](-internal-.md#extractlocalefromurl)
 
-Defined in: [runtime/type.ts:31](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:32](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### generateStaticLocalizedUrls
 
 > **generateStaticLocalizedUrls**: [`generateStaticLocalizedUrls`](-internal-.md#generatestaticlocalizedurls)
 
-Defined in: [runtime/type.ts:37](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:38](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### getLocale
 
@@ -130,25 +130,31 @@ Defined in: [runtime/type.ts:17](https://github.com/opral/paraglide-js/tree/main
 
 > **getStrategyForUrl**: [`getStrategyForUrl`](-internal-.md#getstrategyforurl)
 
-Defined in: [runtime/type.ts:39](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:40](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+
+#### getTextDirection
+
+> **getTextDirection**: [`getTextDirection`](-internal-.md#gettextdirection)
+
+Defined in: [runtime/type.ts:18](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### getUrlOrigin
 
 > **getUrlOrigin**: [`getUrlOrigin`](-internal-.md#geturlorigin)
 
-Defined in: [runtime/type.ts:19](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:20](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### isExcludedByRouteStrategy
 
 > **isExcludedByRouteStrategy**: [`isExcludedByRouteStrategy`](-internal-.md#isexcludedbyroutestrategy)
 
-Defined in: [runtime/type.ts:40](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:41](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### isLocale
 
 > **isLocale**: [`isLocale`](-internal-.md#islocale)
 
-Defined in: [runtime/type.ts:25](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:26](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### isServer
 
@@ -166,37 +172,37 @@ Defined in: [runtime/type.ts:6](https://github.com/opral/paraglide-js/tree/main/
 
 > **localizeHref**: [`localizeHref`](-internal-.md#localizehref)
 
-Defined in: [runtime/type.ts:26](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:27](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### localizeUrl
 
 > **localizeUrl**: [`localizeUrl`](-internal-.md#localizeurl)
 
-Defined in: [runtime/type.ts:28](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:29](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### overwriteGetLocale
 
 > **overwriteGetLocale**: [`overwriteGetLocale`](-internal-.md#overwritegetlocale)
 
-Defined in: [runtime/type.ts:20](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:21](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### overwriteGetUrlOrigin
 
 > **overwriteGetUrlOrigin**: [`overwriteGetUrlOrigin`](-internal-.md#overwritegeturlorigin)
 
-Defined in: [runtime/type.ts:22](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:23](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### overwriteServerAsyncLocalStorage
 
 > **overwriteServerAsyncLocalStorage**: [`overwriteServerAsyncLocalStorage`](-internal-.md#overwriteserverasynclocalstorage)
 
-Defined in: [runtime/type.ts:23](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:24](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### overwriteSetLocale
 
 > **overwriteSetLocale**: [`overwriteSetLocale`](-internal-.md#overwritesetlocale)
 
-Defined in: [runtime/type.ts:21](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:22](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### routeStrategies
 
@@ -214,13 +220,13 @@ Defined in: [runtime/type.ts:13](https://github.com/opral/paraglide-js/tree/main
 
 > **setLocale**: [`setLocale`](-internal-.md#setlocale-1)
 
-Defined in: [runtime/type.ts:18](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:19](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### shouldRedirect
 
 > **shouldRedirect**: [`shouldRedirect`](-internal-.md#shouldredirect-1)
 
-Defined in: [runtime/type.ts:30](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:31](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### strategy
 
@@ -232,7 +238,7 @@ Defined in: [runtime/type.ts:7](https://github.com/opral/paraglide-js/tree/main/
 
 > **trackMessageCall**: [`trackMessageCall`](-internal-.md#trackmessagecall)
 
-Defined in: [runtime/type.ts:38](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
+Defined in: [runtime/type.ts:39](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type.ts)
 
 #### urlPatterns
 

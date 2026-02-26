@@ -46,14 +46,14 @@ export default defineConfig({
 });
 ```
 
-### Add `%lang%` to `src/app.html`.
+### Add `%lang%` and `%dir%` to `src/app.html`.
 
 See https://svelte.dev/docs/kit/accessibility#The-lang-attribute for more information.
 
 ```diff
 <!doctype html>
 -<html lang="en">
-+<html lang="%lang%">
++<html lang="%lang%" dir="%dir%">
 	...
 </html>
 ```
@@ -63,6 +63,7 @@ See https://svelte.dev/docs/kit/accessibility#The-lang-attribute for more inform
 ```typescript
 import type { Handle } from '@sveltejs/kit';
 import { paraglideMiddleware } from '$lib/paraglide/server';
+import { getTextDirection } from '$lib/paraglide/runtime';
 
 // creating a handle to use the paraglide middleware
 const paraglideHandle: Handle = ({ event, resolve }) =>
@@ -70,7 +71,9 @@ const paraglideHandle: Handle = ({ event, resolve }) =>
 		event.request = localizedRequest;
 		return resolve(event, {
 			transformPageChunk: ({ html }) => {
-				return html.replace('%lang%', locale);
+				return html
+					.replace('%lang%', locale)
+					.replace('%dir%', getTextDirection(locale));
 			}
 		});
 	});

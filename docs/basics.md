@@ -30,9 +30,10 @@ m.greeting({ name: "Samuel" }); // "Hello Samuel!"
 ## Getting and setting the locale
 
 ```js
-import { getLocale, setLocale } from "./paraglide/runtime.js";
+import { getLocale, getTextDirection, setLocale } from "./paraglide/runtime.js";
 
 getLocale(); // "en"
+getTextDirection(); // "ltr" or "rtl" for current locale
 setLocale("de"); // Changes locale and reloads page
 ```
 
