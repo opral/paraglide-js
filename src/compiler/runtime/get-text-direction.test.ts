@@ -37,6 +37,9 @@ test("falls back when Intl.Locale text info is unavailable", () => {
 
 	try {
 		expect(runtime.getTextDirection("ar")).toBe("rtl");
+		expect(runtime.getTextDirection("ug")).toBe("rtl");
+		expect(runtime.getTextDirection("sd")).toBe("rtl");
+		expect(runtime.getTextDirection("ks")).toBe("rtl");
 		expect(runtime.getTextDirection("en")).toBe("ltr");
 	} finally {
 		Object.defineProperty(Intl, "Locale", {

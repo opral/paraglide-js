@@ -1,6 +1,18 @@
 import { getLocale } from "./get-locale.js";
 
-const rtlLanguages = new Set(["ar", "fa", "he", "ur", "ps", "dv", "ku", "yi"]);
+const rtlLanguages = new Set([
+	"ar",
+	"dv",
+	"fa",
+	"he",
+	"ks",
+	"ku",
+	"ps",
+	"sd",
+	"ug",
+	"ur",
+	"yi",
+]);
 
 /**
  * Get writing direction for a locale.
