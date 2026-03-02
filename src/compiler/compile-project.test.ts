@@ -1030,6 +1030,66 @@ describe.each([
 			}
 			expect(diagnostics.length).toEqual(0);
 		});
+
+		test("./messages.js types (single locale should not emit TS6133)", async () => {
+			const singleLocaleProject = await loadProjectInMemory({
+				blob: await newProject({
+					settings: { locales: ["en"], baseLocale: "en" },
+				}),
+			});
+
+			await insertBundleNested(
+				singleLocaleProject.db,
+				createBundleNested({
+					id: "single_locale_message",
+					messages: [
+						{
+							locale: "en",
+							variants: [{ pattern: [{ type: "text", value: "Hello" }] }],
+						},
+					],
+				})
+			);
+
+			const singleLocaleOutput = await compileProject({
+				project: singleLocaleProject,
+				compilerOptions,
+			});
+
+			const project = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+
+			for (const [fileName, code] of Object.entries(singleLocaleOutput)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					project.createSourceFile(fileName, code);
+				}
+			}
+
+			project.createSourceFile(
+				"test.ts",
+				`import { single_locale_message } from "./messages.js"; single_locale_message();`
+			);
+
+			const program = project.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+
+			const ts6133LocaleDiagnostics = diagnostics.filter((d) => {
+				return (
+					d.code === 6133 &&
+					d.messageText
+						.toString()
+						.includes("'locale' is declared but its value is never read")
+				);
+			});
+
+			expect(ts6133LocaleDiagnostics.length).toEqual(0);
+		});
 	}
 );
 

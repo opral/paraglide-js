@@ -197,6 +197,20 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 		return `\n${indent}trackMessageCall("${safeBundleId}", locale)`;
 	};
 
+	const localeResolutionStatement = (indent: string): string => {
+		if (
+			isFullyTranslated &&
+			args.availableLocales.length === 1 &&
+			!args.experimentalMiddlewareLocaleSplitting
+		) {
+			return `${indent}experimentalStaticLocale ?? options.locale ?? getLocale()`;
+		}
+
+		return `${indent}const locale = experimentalStaticLocale ?? options.locale ?? getLocale()${maybeTrackMessageCall(
+			indent
+		)}`;
+	};
+
 	let code = "";
 
 	if (!args.hasMarkup) {
@@ -204,9 +218,7 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & ${messageMetadataType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
 			"\t"
 		)}
-	const locale = experimentalStaticLocale ?? options.locale ?? getLocale()${maybeTrackMessageCall(
-		"\t"
-	)}
+${localeResolutionStatement("\t")}
 	${compileLocaleReturnStatements("string", "\t")}${
 		!isFullyTranslated
 			? `\n	return /** @type {LocalizedString} */ ("${args.bundle.id}")`
@@ -220,9 +232,7 @@ ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFu
 		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
 			"\t\t\t"
 		)}
-			const locale = experimentalStaticLocale ?? options.locale ?? getLocale()${maybeTrackMessageCall(
-				"\t\t\t"
-			)}
+${localeResolutionStatement("\t\t\t")}
 			${compileLocaleReturnStatements("string", "\t\t\t")}${
 				!isFullyTranslated
 					? `\n			return /** @type {LocalizedString} */ (${JSON.stringify(args.bundle.id)})`
@@ -233,9 +243,7 @@ ${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFu
 			parts: /** @type {${partsFunctionType}} */ ((inputs${
 				hasInputs ? "" : " = {}"
 			}, options = {}) => {${clientPartsMiddlewareGuard("\t\t\t\t")}
-				const locale = experimentalStaticLocale ?? options.locale ?? getLocale()${maybeTrackMessageCall(
-					"\t\t\t\t"
-				)}
+${localeResolutionStatement("\t\t\t\t")}
 				${compileLocaleReturnStatements("parts", "\t\t\t\t")}${
 					!isFullyTranslated
 						? `\n				return /** @type {import('../runtime.js').MessagePart[]} */ ([{ type: "text", value: ${JSON.stringify(args.bundle.id)} }])`
@@ -271,7 +279,9 @@ function buildEnglishMatchTableDoc(bundle: BundleNested): string {
 	];
 
 	for (const variant of message.variants) {
-		const rowValues = selectorKeys.map((key) => getMatchCellValue(variant, key));
+		const rowValues = selectorKeys.map((key) =>
+			getMatchCellValue(variant, key)
+		);
 		const serializedOutput = serializePatternPreview(variant.pattern);
 		const outputValue = JSON.stringify(
 			serializedOutput.length > 160
@@ -297,7 +307,9 @@ function selectEnglishMessage(
 	);
 }
 
-function collectSelectorKeys(message: BundleNested["messages"][number]): string[] {
+function collectSelectorKeys(
+	message: BundleNested["messages"][number]
+): string[] {
 	const keys: string[] = [];
 	const seen = new Set<string>();
 

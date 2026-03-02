@@ -881,7 +881,7 @@ the global strategy is returned.
 
 > **getTextDirection**(`locale?`): `"ltr"` \| `"rtl"`
 
-Defined in: [runtime/get-text-direction.js:19](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-text-direction.js)
+Defined in: [runtime/get-text-direction.js:31](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-text-direction.js)
 
 Get writing direction for a locale.
 
