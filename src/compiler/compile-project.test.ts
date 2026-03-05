@@ -1090,6 +1090,99 @@ describe.each([
 
 			expect(ts6133LocaleDiagnostics.length).toEqual(0);
 		});
+
+		test("#625: number formatter digit options should pass checkJs", async () => {
+			const projectWithNumberOptions = await loadProjectInMemory({
+				blob: await newProject({
+					settings: {
+						baseLocale: "en",
+						locales: ["en"],
+					},
+				}),
+			});
+
+			await insertBundleNested(
+				projectWithNumberOptions.db,
+				createBundleNested({
+					id: "formatted_percentage",
+					declarations: [
+						{
+							type: "input-variable",
+							name: "value",
+						},
+						{
+							type: "local-variable",
+							name: "formattedValue",
+							value: {
+								type: "expression",
+								arg: { type: "variable-reference", name: "value" },
+								annotation: {
+									type: "function-reference",
+									name: "number",
+									options: [
+										{
+											name: "minimumFractionDigits",
+											value: { type: "literal", value: "1" },
+										},
+										{
+											name: "maximumFractionDigits",
+											value: { type: "literal", value: "1" },
+										},
+									],
+								},
+							},
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							variants: [
+								{
+									pattern: [
+										{
+											type: "expression",
+											arg: {
+												type: "variable-reference",
+												name: "formattedValue",
+											},
+										},
+										{ type: "text", value: "%" },
+									],
+								},
+							],
+						},
+					],
+				})
+			);
+
+			const output = await compileProject({
+				project: projectWithNumberOptions,
+				compilerOptions,
+			});
+
+			const tsProject = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+
+			for (const [fileName, code] of Object.entries(output)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					tsProject.createSourceFile(fileName, code);
+				}
+			}
+
+			const program = tsProject.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+
+			for (const diagnostic of diagnostics) {
+				console.error(diagnostic.messageText, diagnostic.file?.fileName);
+			}
+			expect(diagnostics.length).toEqual(0);
+		});
 	}
 );
 
