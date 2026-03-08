@@ -188,7 +188,7 @@ ${injectCode("./type-definitions.js").replace(
 function injectCode(path: string): string {
 	const code = fs.readFileSync(new URL(path, import.meta.url), "utf-8");
 	// Regex to match single-line and multi-line imports
-	const importJsdocRegex = /\/\*\*\s*?@import.*?\*\//g;
+	const importJsdocRegex = /\/\*\*(?:(?!\*\/)[\s\S])*?@import[\s\S]*?\*\//g;
 	const importRegex = /import\s+[\s\S]*?from\s+['"][^'"]+['"]\s*;?/g;
 	const sourceMapRegex = /\/\/# sourceMappingURL=.*$/gm;
 	const blockSourceMapRegex = /\/\*# sourceMappingURL=.*?\*\//g;
