@@ -1,6 +1,7 @@
 import { newProject } from "@inlang/sdk";
 import { expect, test } from "vitest";
 import { createParaglide } from "../create-paraglide.js";
+import type { Locale } from "./type-definitions.js";
 
 test("throws if the locale is not available", async () => {
 	const runtime = await createParaglide({
@@ -56,8 +57,7 @@ test("the return value is a Locale", async () => {
 
 	const locale = runtime.assertIsLocale("en");
 
-	// a bit of a wacky test given that locale is `any`
-	// in the ambient type definition
+	// a bit of a wacky test given that locale is `string`
 	locale satisfies Locale;
 });
 

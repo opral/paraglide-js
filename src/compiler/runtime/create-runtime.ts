@@ -68,8 +68,8 @@ ${injectCode("./variables.js")
 		`export const baseLocale = "${args.baseLocale}";`
 	)
 	.replace(
-		`export const locales = /** @type {const} */ (["en", "de"]);`,
-		`export const locales = /** @type {const} */ (["${args.locales.join('", "')}"]);`
+		`export const locales = /** @type {readonly string[]} */ (["en", "de"]);`,
+		`export const locales = /** @type {const} */ (${JSON.stringify(args.locales)});`
 	)
 	.replace(
 		`export const strategy = ["globalVariable"];`,
@@ -131,7 +131,10 @@ ${injectCode("./variables.js")
 		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${allUsedStrategies.has("localStorage")};`
 	)}
 
-globalThis.__paraglide = {}
+/** @type {any} */ (globalThis).__paraglide =
+	/** @type {any} */ (globalThis).__paraglide ?? {};
+/** @type {any} */ (globalThis).__paraglide.ssr =
+	/** @type {any} */ (globalThis).__paraglide.ssr ?? {};
 
 ${injectCode("./get-locale.js")}
 
@@ -169,126 +172,10 @@ ${injectCode("./generate-static-localized-urls.js")}
 
 ${injectCode("./strategy.js")}
 
-// ------ TYPES ------
-
-/**
- * A locale that is available in the project.
- *
- * @example
- *   setLocale(request.locale as Locale)
- *
- * @typedef {(typeof locales)[number]} Locale
- */
-
-/**
- * A branded type representing a localized string.
- *
- * Message functions return this type instead of \`string\`, enabling TypeScript
- * to distinguish translated strings from regular strings at compile time.
- * This allows you to enforce that only properly localized content is used
- * in your UI components.
- *
- * Since \`LocalizedString\` is a branded subtype of \`string\`, it remains fully
- * backward compatible—you can pass it anywhere a \`string\` is expected.
- *
- * @example
- *   // Enforce localized strings in your components
- *   function PageTitle(props: { title: LocalizedString }) {
- *     return <h1>{props.title}</h1>
- *   }
- *
- *   // ✅ Correct: using a message function
- *   <PageTitle title={m.welcome_title()} />
- *
- *   // ❌ Type error: raw strings are not LocalizedString
- *   <PageTitle title="Welcome" />
- *
- * @example
- *   // LocalizedString is assignable to string (backward compatible)
- *   const localized: LocalizedString = m.greeting()
- *   const str: string = localized  // ✅ works fine
- *
- *   // But string is not assignable to LocalizedString
- *   const raw: LocalizedString = "Hello"  // ❌ Type error
- *
- * @example
- *   // Catches accidental string concatenation
- *   function showMessage(msg: LocalizedString) { ... }
- *
- *   showMessage(m.hello())                    // ✅
- *   showMessage("Hello " + userName)          // ❌ Type error
- *   showMessage(m.hello_user({ name: userName }))  // ✅ use params instead
- *
- * @typedef {string & { readonly __brand: 'LocalizedString' }} LocalizedString
- */
-
-/**
- * Record of markup options for a tag instance.
- *
- * @typedef {Record<string, unknown>} MessageMarkupOptions
- */
-
-/**
- * Record of markup attributes for a tag instance.
- *
- * @typedef {Record<string, string | true>} MessageMarkupAttributes
- */
-
-/**
- * Type-level schema for a single markup tag.
- *
- * @typedef {{
- *   options: MessageMarkupOptions;
- *   attributes: MessageMarkupAttributes;
- *   children: boolean;
- * }} MessageMarkupTag
- */
-
-/**
- * Type-level schema for all markup tags in a message.
- *
- * @typedef {Record<string, MessageMarkupTag>} MessageMarkupSchema
- */
-
-/**
- * Type-only metadata attached to compiled message functions.
- *
- * @template Inputs
- * @template Options
- * @template {MessageMarkupSchema} Markup
- * @typedef {{
- *   readonly __paraglide?: {
- *     inputs: Inputs;
- *     options: Options;
- *     markup: Markup;
- *   };
- * }} MessageMetadata
- */
-
-/**
- * A compiled, framework-neutral message part.
- *
- * @typedef {{
- *   type: "text";
- *   value: string;
- * } | {
- *   type: "markup-start";
- *   name: string;
- *   options: MessageMarkupOptions;
- *   attributes: MessageMarkupAttributes;
- * } | {
- *   type: "markup-end";
- *   name: string;
- *   options: MessageMarkupOptions;
- *   attributes: MessageMarkupAttributes;
- * } | {
- *   type: "markup-standalone";
- *   name: string;
- *   options: MessageMarkupOptions;
- *   attributes: MessageMarkupAttributes;
- * }} MessagePart
- */
-
+${injectCode("./type-definitions.js").replace(
+	`@typedef {string} Locale`,
+	`@typedef {typeof locales[number]} Locale`
+)}
 `;
 
 	return code;
@@ -306,10 +193,12 @@ ${injectCode("./strategy.js")}
 function injectCode(path: string): string {
 	const code = fs.readFileSync(new URL(path, import.meta.url), "utf-8");
 	// Regex to match single-line and multi-line imports
+	const importJsdocRegex = /\/\*\*(?:(?!\*\/)[\s\S])*?@import\b[\s\S]*?\*\//g;
 	const importRegex = /import\s+[\s\S]*?from\s+['"][^'"]+['"]\s*;?/g;
 	const sourceMapRegex = /\/\/# sourceMappingURL=.*$/gm;
 	const blockSourceMapRegex = /\/\*# sourceMappingURL=.*?\*\//g;
 	return code
+		.replace(importJsdocRegex, "")
 		.replace(importRegex, "")
 		.replace(sourceMapRegex, "")
 		.replace(blockSourceMapRegex, "")

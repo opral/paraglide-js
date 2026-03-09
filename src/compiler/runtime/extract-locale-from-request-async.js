@@ -31,7 +31,8 @@ import { extractLocaleFromRequestWithStrategies } from "./extract-locale-from-re
  *
  *   const locale = await extractLocaleFromRequestAsync(request);
  *
- * @type {(request: Request) => Promise<Locale>}
+ * @param {Request} request - The request object to extract the locale from.
+ * @returns {Promise<Locale>} The extracted locale.
  */
 export const extractLocaleFromRequestAsync = async (request) => {
 	/** @type {string|undefined} */

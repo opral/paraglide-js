@@ -30,7 +30,7 @@ export const customClientStrategies = new Map();
 /**
  * Checks if the given strategy is a custom strategy.
  *
- * @param {any} strategy The name of the custom strategy to validate.
+ * @param {unknown} strategy The name of the custom strategy to validate.
  * Must be a string that starts with "custom-" followed by alphanumeric characters, hyphens, or underscores.
  * @returns {boolean} Returns true if it is a custom strategy, false otherwise.
  */
@@ -45,7 +45,7 @@ export function isCustomStrategy(strategy) {
  *
  * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#write-your-own-strategy
  *
- * @param {any} strategy The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
+ * @param {string} strategy The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
  * @param {CustomServerStrategyHandler} handler The handler for the custom strategy, which should implement
  * the method getLocale.
  * @returns {void}
@@ -65,7 +65,7 @@ export function defineCustomServerStrategy(strategy, handler) {
  *
  * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#write-your-own-strategy
  *
- * @param {any} strategy The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
+ * @param {string} strategy The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
  * @param {CustomClientStrategyHandler} handler The handler for the custom strategy, which should implement the
  * methods getLocale and setLocale.
  * @returns {void}

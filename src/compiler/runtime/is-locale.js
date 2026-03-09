@@ -10,7 +10,8 @@ import { locales } from "./variables.js";
  *     setLocale('en');
  *   }
  *
- * @param {any} locale
+ *
+ * @param {unknown} locale
  * @returns {locale is Locale}
  */
 export function isLocale(locale) {

@@ -50,6 +50,7 @@ import {
  *   The order follows each input URL with all its locale variants before moving to the next URL.
  */
 export function generateStaticLocalizedUrls(urls) {
+	/** @type {Set<URL>} */
 	const localizedUrls = new Set();
 
 	// For default URL pattern, we can optimize the generation

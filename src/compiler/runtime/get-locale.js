@@ -26,7 +26,7 @@ import {
  * The implementation is overwritten
  * by \`overwriteGetLocale()\` and \`defineSetLocale()\`.
  *
- * @type {Locale|undefined}
+ * @type {Locale | undefined}
  */
 let _locale;
 
@@ -48,7 +48,7 @@ let localeInitiallySet = false;
  *     console.log('Netherlands 🇳🇱');
  *   }
  *
- * @type {() => Locale}
+ * @returns {Locale} The current locale.
  */
 export let getLocale = () => {
 	if (experimentalStaticLocale !== undefined) {
@@ -186,7 +186,7 @@ function resolveLocaleWithStrategies(strategyToUse, urlForUrlStrategy) {
  *     return Cookies.get('locale') ?? baseLocale
  *   });
  *
- * @type {(fn: () => Locale) => void}
+ * @param {() => Locale} fn - The new implementation for `getLocale()`.
  */
 export const overwriteGetLocale = (fn) => {
 	getLocale = fn;

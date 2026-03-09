@@ -1,6 +1,6 @@
 import type { Runtime } from "../runtime/type.ts";
 
-export type Locale = any;
+export type Locale = string;
 
 export type ParaglideAsyncLocalStorage = {
 	run(store: any, callback: () => any): any;

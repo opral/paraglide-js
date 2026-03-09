@@ -372,7 +372,8 @@ function fillPattern(pattern, values, origin) {
  * Aggregates named groups from various parts of the URLPattern match result.
  *
  *
- * @type {(match: any) => Record<string, string | null | undefined>}
+ * @param {any} match - The URLPattern match result object.
+ * @returns {Record<string, string | null | undefined>} An object containing all named groups from the match.
  */
 export function aggregateGroups(match) {
 	return {

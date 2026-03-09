@@ -177,7 +177,9 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 			messages.push(`${id}: ${compiledBundles[id]?.[locale]}`);
 		}
 
-		const script = `<script>globalThis.__paraglide_ssr = { ${messages.join(",")} }</script>`;
+		// Prevent translated content from terminating the inline script tag.
+		const escapedMessages = messages.join(",").replace(/<\/(script)/gi, "<\\/$1");
+		const script = `<script>globalThis.__paraglide = globalThis.__paraglide ?? {}; globalThis.__paraglide.ssr = { ${escapedMessages} }</script>`;
 
 		// Insert the script before the closing head tag
 		const newBody = body.replace("</head>", `${script}</head>`);

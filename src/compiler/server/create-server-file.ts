@@ -2,6 +2,7 @@ import fs from "node:fs";
 import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import type { CompilerOptions } from "../compiler-options.js";
 import { toSafeModuleId } from "../safe-module-id.js";
+import type { Locale } from "./runtime.d.ts";
 
 /**
  * Returns the code for the `runtime.js` module

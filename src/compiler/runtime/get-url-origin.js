@@ -24,7 +24,7 @@ export let getUrlOrigin = () => {
  * Use this function in server environments to
  * define how the URL origin is resolved.
  *
- * @type {(fn: () => string) => void}
+ * @param {() => string} fn - The new implementation for `getUrlOrigin()`.
  */
 export let overwriteGetUrlOrigin = (fn) => {
 	getUrlOrigin = fn;

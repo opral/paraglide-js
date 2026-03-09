@@ -44,7 +44,7 @@
 - d1c86fb: Improve emitted message-module output by gating middleware locale-splitting hooks behind `experimentalMiddlewareLocaleSplitting`.
 
   When the option is disabled (default), generated message functions no longer emit:
-  - `if (experimentalMiddlewareLocaleSplitting && isServer === false) { ...__paraglide_ssr... }`
+  - `if (experimentalMiddlewareLocaleSplitting && isServer === false) { ...__paraglide.ssr... }`
   - `trackMessageCall(...)`
   - related runtime imports (`experimentalMiddlewareLocaleSplitting`, `isServer`, `trackMessageCall`)
 

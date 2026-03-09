@@ -6,7 +6,7 @@ Defined in: [runtime/should-redirect.js:14](https://github.com/opral/paraglide-j
 
 #### locale?
 
-> `optional` **locale**: `any`
+> `optional` **locale**: `string`
 
 Defined in: [runtime/should-redirect.js:17](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
 
@@ -32,7 +32,7 @@ Defined in: [runtime/should-redirect.js:21](https://github.com/opral/paraglide-j
 
 #### locale
 
-> **locale**: `any`
+> **locale**: `string`
 
 Defined in: [runtime/should-redirect.js:23](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
 
@@ -62,7 +62,7 @@ Defined in: [runtime/should-redirect.js:9](https://github.com/opral/paraglide-js
 
 #### locale?
 
-> `optional` **locale**: `any`
+> `optional` **locale**: `string`
 
 Defined in: [runtime/should-redirect.js:12](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
 
@@ -142,9 +142,19 @@ Defined in: [runtime/strategy.js:18](https://github.com/opral/paraglide-js/tree/
 
 ## Locale
 
-> **Locale** = `any`
+> **Locale** = [`Locale`](#locale-4)
 
-Defined in: [runtime/ambient.d.ts:10](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/ambient.d.ts)
+Defined in: [runtime/ambient.d.ts:9](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/ambient.d.ts)
+
+***
+
+## Locale
+
+> **Locale**\<\> = `string`
+
+Defined in: [runtime/type-definitions.js:9](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/type-definitions.js)
+
+### Type Parameters
 
 ***
 
@@ -200,7 +210,7 @@ Defined in: [runtime/variables.js:133](https://github.com/opral/paraglide-js/tre
 
 > **SetLocaleFn**\<\> = (`newLocale`, `options?`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [runtime/set-locale.js:35](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
+Defined in: [runtime/set-locale.js:34](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
 
 ### Type Parameters
 
@@ -284,7 +294,7 @@ Defined in: [runtime/variables.js:148](https://github.com/opral/paraglide-js/tre
 
 ## experimentalStaticLocale
 
-> `const` **experimentalStaticLocale**: `any` = `undefined`
+> `const` **experimentalStaticLocale**: `undefined` \| `string` = `undefined`
 
 Defined in: [runtime/variables.js:154](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
@@ -300,7 +310,7 @@ Defined in: [runtime/variables.js:150](https://github.com/opral/paraglide-js/tre
 
 ## locales
 
-> `const` **locales**: readonly \[`"en"`, `"de"`\]
+> `const` **locales**: readonly `string`[]
 
 Defined in: [runtime/variables.js:19](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
@@ -375,7 +385,7 @@ The used URL patterns.
 
 #### localized
 
-> **localized**: \[`any`, `string`\][]
+> **localized**: \[`string`, `string`\][]
 
 #### pattern
 
@@ -385,7 +395,7 @@ The used URL patterns.
 
 ## assertIsLocale()
 
-> **assertIsLocale**(`input`): `any`
+> **assertIsLocale**(`input`): `string`
 
 Defined in: [runtime/assert-is-locale.js:10](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/assert-is-locale.js)
 
@@ -395,13 +405,13 @@ Asserts that the input is a locale.
 
 #### input
 
-`any`
+`unknown`
 
 The input to check.
 
 ### Returns
 
-`any`
+`string`
 
 The input if it is a locale.
 
@@ -423,7 +433,7 @@ Defines a custom strategy that is executed on the client.
 
 #### strategy
 
-`any`
+`string`
 
 The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
 
@@ -456,7 +466,7 @@ Defines a custom strategy that is executed on the server.
 
 #### strategy
 
-`any`
+`string`
 
 The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
 
@@ -616,9 +626,14 @@ The `document` object is not available in server-side rendering, so this functio
 
 ## extractLocaleFromHeader()
 
-> **extractLocaleFromHeader**(`request`): `any`
+> **extractLocaleFromHeader**(`request`): `undefined` \| `string`
 
-Defined in: [runtime/extract-locale-from-header.js:12](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-header.js)
+Defined in: [runtime/extract-locale-from-header.js:15](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-header.js)
+
+Extracts a locale from the accept-language header.
+
+Use the function on the server to extract the locale
+from the accept-language header that is sent by the client.
 
 ### Parameters
 
@@ -626,29 +641,50 @@ Defined in: [runtime/extract-locale-from-header.js:12](https://github.com/opral/
 
 `Request`
 
+The request object to extract the locale from.
+
 ### Returns
 
-`any`
+`undefined` \| `string`
+
+The negotiated preferred language.
+
+### Example
+
+```ts
+const locale = extractLocaleFromHeader(request);
+```
 
 ***
 
 ## extractLocaleFromNavigator()
 
-> **extractLocaleFromNavigator**(): `any`
+> **extractLocaleFromNavigator**(): `undefined` \| `string`
 
-Defined in: [runtime/extract-locale-from-navigator.js:12](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-navigator.js)
+Defined in: [runtime/extract-locale-from-navigator.js:14](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-navigator.js)
+
+Negotiates a preferred language from navigator.languages.
+
+Use the function on the client to extract the locale
+from the navigator.languages array.
 
 ### Returns
 
-`any`
+`undefined` \| `string`
+
+### Example
+
+```ts
+const locale = extractLocaleFromNavigator();
+```
 
 ***
 
 ## extractLocaleFromRequest()
 
-> **extractLocaleFromRequest**(`request`): `any`
+> **extractLocaleFromRequest**(`request`): `string`
 
-Defined in: [runtime/extract-locale-from-request.js:34](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
+Defined in: [runtime/extract-locale-from-request.js:35](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
 
 Extracts a locale from a request.
 
@@ -670,7 +706,7 @@ Use `extractLocaleFromRequestAsync` if you need custom server strategies with as
 
 ### Returns
 
-`any`
+`string`
 
 ### Example
 
@@ -682,9 +718,9 @@ const locale = extractLocaleFromRequest(request);
 
 ## extractLocaleFromRequestAsync()
 
-> **extractLocaleFromRequestAsync**(`request`): `Promise`\<`any`\>
+> **extractLocaleFromRequestAsync**(`request`): `Promise`\<`string`\>
 
-Defined in: [runtime/extract-locale-from-request-async.js:36](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request-async.js)
+Defined in: [runtime/extract-locale-from-request-async.js:37](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request-async.js)
 
 Asynchronously extracts a locale from a request.
 
@@ -701,9 +737,13 @@ to the synchronous `extractLocaleFromRequest` for all other strategies.
 
 `Request`
 
+The request object to extract the locale from.
+
 ### Returns
 
-`Promise`\<`any`\>
+`Promise`\<`string`\>
+
+The extracted locale.
 
 ### See
 
@@ -732,7 +772,7 @@ to the synchronous `extractLocaleFromRequest` for all other strategies.
 
 ## extractLocaleFromUrl()
 
-> **extractLocaleFromUrl**(`url`): `any`
+> **extractLocaleFromUrl**(`url`): `undefined` \| `string`
 
 Defined in: [runtime/extract-locale-from-url.js:26](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-url.js)
 
@@ -748,7 +788,7 @@ The full URL from which to extract the locale.
 
 ### Returns
 
-`any`
+`undefined` \| `string`
 
 The extracted locale, or undefined if no locale is found.
 
@@ -824,7 +864,7 @@ const sitemapUrls = generateStaticLocalizedUrls(allPages);
 
 ## getLocale()
 
-> **getLocale**(): `any`
+> **getLocale**(): `string`
 
 Defined in: [runtime/get-locale.js:53](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-locale.js)
 
@@ -836,7 +876,9 @@ which is set by the `paraglideMiddleware()`.
 
 ### Returns
 
-`any`
+`string`
+
+The current locale.
 
 ### See
 
@@ -950,9 +992,9 @@ Returns whether the given URL is excluded from middleware i18n processing.
 
 ## isLocale()
 
-> **isLocale**(`locale`): `locale is any`
+> **isLocale**(`locale`): `locale is string`
 
-Defined in: [runtime/is-locale.js:16](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/is-locale.js)
+Defined in: [runtime/is-locale.js:17](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/is-locale.js)
 
 Check if something is an available locale.
 
@@ -960,11 +1002,11 @@ Check if something is an available locale.
 
 #### locale
 
-`any`
+`unknown`
 
 ### Returns
 
-`locale is any`
+`locale is string`
 
 ### Example
 
@@ -1134,7 +1176,9 @@ for custom locale resolution or advanced use cases like SSG with concurrent rend
 
 #### fn
 
-() => `any`
+() => `string`
+
+The new implementation for `getLocale()`.
 
 ### Returns
 
@@ -1171,6 +1215,8 @@ define how the URL origin is resolved.
 
 () => `string`
 
+The new implementation for `getUrlOrigin()`.
+
 ### Returns
 
 `void`
@@ -1206,7 +1252,7 @@ avoid a circular import between `runtime.js` and
 
 > **overwriteSetLocale**(`fn`): `void`
 
-Defined in: [runtime/set-locale.js:182](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
+Defined in: [runtime/set-locale.js:181](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
 
 Overwrite the `setLocale()` function.
 
@@ -1238,7 +1284,7 @@ overwriteSetLocale((newLocale) => {
 
 > **setLocale**(`newLocale`, `options?`): `void` \| `Promise`\<`void`\>
 
-Defined in: [runtime/set-locale.js:59](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
+Defined in: [runtime/set-locale.js:58](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
 
 Set the locale.
 
@@ -1254,7 +1300,7 @@ will become async as well.
 
 #### newLocale
 
-`any`
+`string`
 
 #### options?
 
@@ -1352,7 +1398,7 @@ Defined in: [runtime/track-message-call.js:7](https://github.com/opral/paraglide
 
 #### locale
 
-`any`
+`string`
 
 ### Returns
 

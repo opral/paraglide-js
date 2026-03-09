@@ -94,7 +94,7 @@ test("emits middleware locale splitting hooks when enabled", () => {
 		"if (experimentalMiddlewareLocaleSplitting && isServer === false)"
 	);
 	expect(result.bundle.code).toContain("trackMessageCall(\"blue_moon_bottle\", locale)");
-	expect(result.bundle.code).toContain("globalThis).__paraglide_ssr.blue_moon_bottle(inputs)");
+	expect(result.bundle.code).toContain("globalThis).__paraglide.ssr.blue_moon_bottle(inputs)");
 });
 
 test("compiles to jsdoc with missing translation", async () => {

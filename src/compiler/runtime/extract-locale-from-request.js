@@ -29,7 +29,8 @@ import {
  * @example
  *   const locale = extractLocaleFromRequest(request);
  *
- * @type {(request: Request) => Locale}
+ * @param {Request} request
+ * @returns {Locale}
  */
 export const extractLocaleFromRequest = (request) => {
 	return extractLocaleFromRequestWithStrategies(
