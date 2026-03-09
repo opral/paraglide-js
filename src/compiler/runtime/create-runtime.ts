@@ -131,6 +131,11 @@ ${injectCode("./variables.js")
 		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${allUsedStrategies.has("localStorage")};`
 	)}
 
+/** @type {any} */ (globalThis).__paraglide =
+	/** @type {any} */ (globalThis).__paraglide ?? {};
+/** @type {any} */ (globalThis).__paraglide.ssr =
+	/** @type {any} */ (globalThis).__paraglide.ssr ?? {};
+
 ${injectCode("./get-locale.js")}
 
 ${injectCode("./get-text-direction.js")}

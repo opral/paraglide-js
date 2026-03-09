@@ -1,5 +1,4 @@
 import { isLocale } from "./is-locale.js";
-/** @import {Locale} from "./type-definitions.js" */
 
 /**
  * Negotiates a preferred language from navigator.languages.

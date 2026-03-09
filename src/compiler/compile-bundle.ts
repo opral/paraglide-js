@@ -178,7 +178,7 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 			return "";
 		}
 
-		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\treturn /** @type {any} */ (globalThis).__paraglide_ssr.${safeBundleId}(inputs)\n${indent}}`;
+		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\treturn /** @type {any} */ (globalThis).__paraglide.ssr.${safeBundleId}(inputs)\n${indent}}`;
 	};
 
 	const clientPartsMiddlewareGuard = (indent: string): string => {
@@ -186,7 +186,7 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 			return "";
 		}
 
-		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\tconst serverMessage = /** @type {any} */ (globalThis).__paraglide_ssr.${safeBundleId}\n${indent}\tif (typeof serverMessage.parts === "function") {\n${indent}\t\treturn /** @type {import('../runtime.js').MessagePart[]} */ (serverMessage.parts(inputs))\n${indent}\t}\n${indent}\treturn /** @type {import('../runtime.js').MessagePart[]} */ ([{ type: "text", value: serverMessage(inputs) }])\n${indent}}`;
+		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\tconst serverMessage = /** @type {any} */ (globalThis).__paraglide.ssr.${safeBundleId}\n${indent}\tif (typeof serverMessage.parts === "function") {\n${indent}\t\treturn /** @type {import('../runtime.js').MessagePart[]} */ (serverMessage.parts(inputs))\n${indent}\t}\n${indent}\treturn /** @type {import('../runtime.js').MessagePart[]} */ ([{ type: "text", value: serverMessage(inputs) }])\n${indent}}`;
 	};
 
 	const maybeTrackMessageCall = (indent: string): string => {

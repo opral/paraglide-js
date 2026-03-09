@@ -18,7 +18,6 @@ import {
 	TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED,
 	TREE_SHAKE_URL_STRATEGY_USED,
 } from "./variables.js";
-/** @import {Locale} from "./type-definitions.js" */
 
 /**
  * This is a fallback to get started with a custom

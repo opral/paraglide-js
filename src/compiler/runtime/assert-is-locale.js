@@ -1,5 +1,4 @@
 import { locales } from "./variables.js";
-/** @import {Locale} from "./type-definitions.js" */
 
 /**
  * Asserts that the input is a locale.

@@ -3,7 +3,6 @@ import { getStrategyForUrl } from "./variables.js";
 import { assertIsLocale } from "./assert-is-locale.js";
 import { isLocale } from "./is-locale.js";
 import { extractLocaleFromRequestWithStrategies } from "./extract-locale-from-request.js";
-/** @import {Locale} from "./type-definitions.js" */
 
 /**
  * Asynchronously extracts a locale from a request.

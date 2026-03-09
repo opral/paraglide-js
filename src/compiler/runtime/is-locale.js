@@ -1,8 +1,5 @@
 import { locales } from "./variables.js";
 
-// @ts-ignore a bug in tsc marks this as unused, it's fixed in tsgo (typescript 7.0)
-/** @import {Locale} from "./type-definitions.js" */
-
 /**
  * Check if something is an available locale.
  *

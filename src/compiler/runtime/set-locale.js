@@ -14,7 +14,6 @@ import {
 	TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED,
 	TREE_SHAKE_URL_STRATEGY_USED,
 } from "./variables.js";
-/** @import {Locale} from "./type-definitions.js" */
 
 /**
  * Navigates to the localized URL, or reloads the current page

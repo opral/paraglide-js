@@ -5,7 +5,6 @@ import {
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
 	urlPatterns,
 } from "./variables.js";
-/** @import {Locale} from "./type-definitions.js" */
 
 /**
  * If extractLocaleFromUrl is called many times on the same page and the URL

@@ -1,5 +1,4 @@
 import { isLocale } from "./is-locale.js";
-/** @import {Locale} from "./type-definitions.js" */
 
 /**
  * Extracts a locale from the accept-language header.

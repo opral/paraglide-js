@@ -1,5 +1,3 @@
-/** @import {Locale} from "./type-definitions.js" */
-
 /**
  * The project's base locale.
  *

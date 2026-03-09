@@ -1,6 +1,5 @@
 import { isLocale } from "./is-locale.js";
 import { cookieName } from "./variables.js";
-/** @import {Locale} from "./type-definitions.js" */
 
 /**
  * Extracts a cookie from the document.
