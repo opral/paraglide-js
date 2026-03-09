@@ -80,7 +80,7 @@ setLocale("de"); // switches to German
 
 ## Disabling AsyncLocalStorage
 
-If you're deploying Astro to current Vercel or Cloudflare edge runtimes, keep AsyncLocalStorage enabled. Those runtimes support it today, so `disableAsyncLocalStorage` is no longer part of the recommended setup.
+If you're deploying Astro to Vercel Edge or to Cloudflare Workers with Node.js compatibility enabled, keep AsyncLocalStorage enabled. Those runtimes support it today, so `disableAsyncLocalStorage` is no longer part of the recommended setup.
 
 `disableAsyncLocalStorage` remains available as a compatibility fallback for runtimes that do not provide `AsyncLocalStorage` or `node:async_hooks` but still isolate each request.
 

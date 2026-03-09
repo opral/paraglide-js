@@ -263,7 +263,7 @@ Request A (locale: de) ───────────────────
 ### Disabling AsyncLocalStorage
 
 > [!WARNING]
-> Only disable AsyncLocalStorage when your runtime does not provide `AsyncLocalStorage` or `node:async_hooks` and also guarantees request isolation. Keep the default on modern Cloudflare Workers and Vercel Edge deployments.
+> Only disable AsyncLocalStorage when your runtime does not provide `AsyncLocalStorage` or `node:async_hooks` and also guarantees request isolation. Keep the default on Vercel Edge and on Cloudflare Workers when Node.js compatibility (`nodejs_compat`) is enabled.
 
 ```ts
 paraglideVitePlugin({
