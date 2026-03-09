@@ -2,9 +2,15 @@
 
 > **paraglideMiddleware**\<`T`\>(`request`, `resolve`, `callbacks?`): `Promise`\<`Response`\>
 
-Defined in: [server/middleware.js:102](https://github.com/opral/paraglide-js/tree/main/src/compiler/server/middleware.js)
+Defined in: [server/middleware.js:91](https://github.com/opral/paraglide-js/tree/main/src/compiler/server/middleware.js)
 
 Server middleware that handles locale-based routing and request processing.
+
+Configure `disableAsyncLocalStorage` when generating Paraglide with
+`paraglideVitePlugin()` or `compile()`, not when calling
+`paraglideMiddleware()`. Keep AsyncLocalStorage enabled by default and
+only disable it for runtimes that lack `AsyncLocalStorage` support and
+guarantee request isolation.
 
 This middleware performs several key functions:
 
@@ -80,22 +86,6 @@ app.use(async (req, res, next) => {
     return next(request);
   });
 });
-```
-
-```typescript
-// Usage in serverless environments like Cloudflare Workers
-// ⚠️ WARNING: This should ONLY be used in serverless environments like Cloudflare Workers.
-// Disabling AsyncLocalStorage in traditional server environments risks cross-request pollution where state from
-// one request could leak into another concurrent request.
-export default {
-  fetch: async (request) => {
-    return paraglideMiddleware(
-      request,
-      ({ request, locale }) => handleRequest(request, locale),
-      { disableAsyncLocalStorage: true }
-    );
-  }
-};
 ```
 
 ```typescript

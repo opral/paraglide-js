@@ -183,7 +183,7 @@ export default {
 ```
 
 > [!TIP]
-> Cloudflare Workers isolate each request automatically, so AsyncLocalStorage works correctly even though it uses a mock implementation internally.
+> Cloudflare Workers supports AsyncLocalStorage through Node.js compatibility (`nodejs_compat`), so modern deployments can keep the default configuration.
 
 ## Excluding Routes from Middleware
 
@@ -263,13 +263,13 @@ Request A (locale: de) ───────────────────
 ### Disabling AsyncLocalStorage
 
 > [!WARNING]
-> Only disable AsyncLocalStorage in environments that guarantee request isolation (Cloudflare Workers, Vercel Edge, AWS Lambda single-request mode).
+> Only disable AsyncLocalStorage when your runtime does not provide `AsyncLocalStorage` or `node:async_hooks` and also guarantees request isolation. Keep the default on Vercel Edge and on Cloudflare Workers when Node.js compatibility (`nodejs_compat`) is enabled.
 
 ```ts
 paraglideVitePlugin({
 	project: "./project.inlang",
 	outdir: "./src/paraglide",
-	disableAsyncLocalStorage: true, // Use with caution
+	disableAsyncLocalStorage: true, // Compatibility fallback
 });
 ```
 
@@ -348,12 +348,13 @@ Ensure AsyncLocalStorage is enabled (the default):
 paraglideVitePlugin({
 	project: "./project.inlang",
 	outdir: "./src/paraglide",
-	// Don't set this to true unless you're in a serverless environment
+	// Don't set this to true unless your runtime lacks AsyncLocalStorage
+	// and guarantees per-request isolation
 	// disableAsyncLocalStorage: true,
 });
 ```
 
-If you must disable it, ensure your environment isolates requests (Cloudflare Workers, Vercel Edge, AWS Lambda).
+If you must disable it, ensure your environment isolates requests and does not share state across concurrent requests.
 
 ### Cookies not being set
 

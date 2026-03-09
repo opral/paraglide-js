@@ -78,22 +78,13 @@ setLocale("de"); // switches to German
 
 [Learn more about messages, parameters, and locale management →](/m/gerre34r/library-inlang-paraglideJs/basics)
 
-## Disabling AsyncLocalStorage in serverless environments
+## Disabling AsyncLocalStorage
 
-You can disable async local storage in serverless environments by using the `disableAsyncLocalStorage` option.
+If you're deploying Astro to Vercel Edge or to Cloudflare Workers with Node.js compatibility enabled, keep AsyncLocalStorage enabled. Those runtimes support it today, so `disableAsyncLocalStorage` is no longer part of the recommended setup.
+
+`disableAsyncLocalStorage` remains available as a compatibility fallback for runtimes that do not provide `AsyncLocalStorage` or `node:async_hooks` but still isolate each request.
 
 > [!WARNING]
-> This is only safe in serverless environments where each request gets its own isolated runtime context. Using it in multi-request server environments could lead to data leakage between concurrent requests.
+> Only use this fallback when your runtime guarantees per-request isolation. Using it in a multi-request server environment could leak locale state between concurrent requests.
 
-
-```diff
-	vite: {
-		plugins: [
-			paraglideVitePlugin({
-				project: "./project.inlang",
-				outdir: "./src/paraglide",
-+				disableAsyncLocalStorage: true,
-			}),
-		],
-	},
-```
+See [AsyncLocalStorage in the Middleware Guide](/m/gerre34r/library-inlang-paraglideJs/middleware#asynclocalstorage) if you need that escape hatch.

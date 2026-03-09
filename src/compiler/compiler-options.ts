@@ -303,12 +303,14 @@ export type CompilerOptions = {
 	/**
 	 * Replaces AsyncLocalStorage with a synchronous implementation.
 	 *
-	 * ⚠️ WARNING: This should ONLY be used in serverless environments
-	 * like Cloudflare Workers.
+	 * Leave AsyncLocalStorage enabled by default. This option is a
+	 * compatibility fallback for runtimes that do not provide
+	 * AsyncLocalStorage or `node:async_hooks`.
 	 *
-	 * Disabling AsyncLocalStorage in traditional server environments
-	 * risks cross-request pollution where state from one request could
-	 * leak into another concurrent request.
+	 * ⚠️ WARNING: Only use this option when your runtime also guarantees
+	 * request isolation. Disabling AsyncLocalStorage in multi-request
+	 * server environments risks cross-request pollution where state from
+	 * one request could leak into another concurrent request.
 	 */
 	disableAsyncLocalStorage?: boolean;
 	/**

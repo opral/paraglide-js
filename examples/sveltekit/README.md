@@ -160,26 +160,16 @@ export default config;
 
 ## Troubleshooting
 
-### Disabling AsyncLocalStorage in serverless environments
+### Disabling AsyncLocalStorage
 
-If you're deploying to SvelteKit's Edge adapter like Vercel Edge or Cloudflare Pages, you can disable AsyncLocalStorage to avoid issues with Node.js dependencies not available in those environments:
+If you're deploying to Vercel Edge or to Cloudflare Workers with Node.js compatibility enabled, keep AsyncLocalStorage enabled. Those runtimes support it today, so `disableAsyncLocalStorage` is no longer part of the recommended SvelteKit setup.
+
+`disableAsyncLocalStorage` remains available as a compatibility fallback for runtimes that do not provide `AsyncLocalStorage` or `node:async_hooks` but still isolate each request.
 
 > [!WARNING]
-> Only use this option in serverless environments where each request gets its own isolated runtime context. Using it in multi-request server environments could lead to data leakage between concurrent requests.
+> Only use this fallback when your runtime guarantees per-request isolation. Using it in a multi-request server environment could leak locale state between concurrent requests.
 
-```diff
-// vite.config.js
-export default defineConfig({
-	plugins: [
-		sveltekit(),
-		paraglideVitePlugin({
-			project: './project.inlang',
-			outdir: './src/lib/paraglide',
-+			disableAsyncLocalStorage: true
-		})
-	]
-});
-```
+See [AsyncLocalStorage in the Middleware Guide](/m/gerre34r/library-inlang-paraglideJs/middleware#asynclocalstorage) if you need that escape hatch.
 
 ### No locale OR different locale when calling messages outside of .server.ts files
 

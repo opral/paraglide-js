@@ -66,7 +66,7 @@ app.get("*", async (request) => {
 ```
 
 > [!NOTE]
-> For edge runtimes (Cloudflare Workers, Vercel Edge), AsyncLocalStorage is polyfilled automatically. See [AsyncLocalStorage](./middleware#asynclocalstorage) in the Middleware Guide.
+> Modern edge runtimes support AsyncLocalStorage. Keep the default on Vercel Edge and on Cloudflare Workers when Node.js compatibility is available. If you target a runtime that still lacks `AsyncLocalStorage` or `node:async_hooks`, see [AsyncLocalStorage](./middleware#asynclocalstorage) in the Middleware Guide for the fallback option.
 
 ## Fallback Behavior
 

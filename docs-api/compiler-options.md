@@ -40,7 +40,7 @@ The output will look like this:
 
 > `optional` **cleanOutdir**: `boolean`
 
-Defined in: [compiler-options.ts:384](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:386](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Whether to clean the output directory before writing the new files.
 
@@ -111,22 +111,24 @@ The name of the cookie to use for the cookie strategy.
 
 > `optional` **disableAsyncLocalStorage**: `boolean`
 
-Defined in: [compiler-options.ts:313](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:315](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Replaces AsyncLocalStorage with a synchronous implementation.
 
-⚠️ WARNING: This should ONLY be used in serverless environments
-like Cloudflare Workers.
+Leave AsyncLocalStorage enabled by default. This option is a
+compatibility fallback for runtimes that do not provide
+AsyncLocalStorage or `node:async_hooks`.
 
-Disabling AsyncLocalStorage in traditional server environments
-risks cross-request pollution where state from one request could
-leak into another concurrent request.
+⚠️ WARNING: Only use this option when your runtime also guarantees
+request isolation. Disabling AsyncLocalStorage in multi-request
+server environments risks cross-request pollution where state from
+one request could leak into another concurrent request.
 
 #### emitGitIgnore?
 
 > `optional` **emitGitIgnore**: `boolean`
 
-Defined in: [compiler-options.ts:327](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:329](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 If `emitGitIgnore` is set to `true` a `.gitignore` file will be emitted in the output directory. Defaults to `true`.
 
@@ -295,7 +297,7 @@ https://github.com/opral/paraglide-js/issues/88#issuecomment-3634754638
 
 > `optional` **fs**: `any`
 
-Defined in: [compiler-options.ts:391](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:393](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The file system to use. Defaults to `await import('node:fs')`.
 
@@ -374,7 +376,7 @@ await compile({
 
 > `optional` **outputStructure**: `"locale-modules"` \| `"message-modules"`
 
-Defined in: [compiler-options.ts:378](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:380](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The `outputStructure` defines how modules are structured in the output.
 
