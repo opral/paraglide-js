@@ -1,11 +1,7 @@
 import { locales } from "./variables.js";
-/** @import {Locale} from "./type-definitions.js" */
 
-// Because of a bug in tsc does not recognize that {locale is Locale} guard
-// uses this type and complains that `Locale` type is unused.
-// So we have to use it here.
-// This is fixed in tsgo (typescript 7.0)
-void (/**@type {readonly Locale[]}*/ (locales));
+// @ts-ignore a bug in tsc marks this as unused, it's fixed in tsgo (typescript 7.0)
+/** @import {Locale} from "./type-definitions.js" */
 
 /**
  * Check if something is an available locale.
