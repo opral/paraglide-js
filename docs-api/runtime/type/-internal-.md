@@ -1,51 +1,3 @@
-## ParaglideAsyncLocalStorage
-
-Defined in: [runtime/variables.js:127](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
-
-### Properties
-
-#### getStore()
-
-> **getStore**: () => `undefined` \| \{ `locale?`: `string`; `messageCalls?`: `Set`\<`string`\>; `origin?`: `string`; \}
-
-Defined in: [runtime/variables.js:128](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
-
-##### Returns
-
-`undefined` \| \{ `locale?`: `string`; `messageCalls?`: `Set`\<`string`\>; `origin?`: `string`; \}
-
-#### run()
-
-> **run**: (`store`, `cb`) => `any`
-
-Defined in: [runtime/variables.js:129](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
-
-##### Parameters
-
-###### store
-
-###### locale?
-
-`string`
-
-###### messageCalls?
-
-`Set`\<`string`\>
-
-###### origin?
-
-`string`
-
-###### cb
-
-`any`
-
-##### Returns
-
-`any`
-
-***
-
 ## ShouldRedirectClientInput
 
 Defined in: [runtime/should-redirect.js:14](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
@@ -198,6 +150,54 @@ Defined in: [runtime/type-definitions.js:9](https://github.com/opral/paraglide-j
 
 ***
 
+## ParaglideAsyncLocalStorage
+
+> **ParaglideAsyncLocalStorage**\<\> = `object`
+
+Defined in: [runtime/variables.js:135](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+
+### Type Parameters
+
+### Type Declaration
+
+#### run()
+
+> **run**: (`store`, `cb`) => `any`
+
+##### Parameters
+
+###### store
+
+###### locale?
+
+[`Locale`](#locale-3)
+
+###### messageCalls?
+
+`Set`\<`string`\>
+
+###### origin?
+
+`string`
+
+###### cb
+
+`any`
+
+##### Returns
+
+`any`
+
+#### getStore()
+
+> **getStore**(): `undefined` \| \{ `locale?`: [`Locale`](#locale-3); `messageCalls?`: `Set`\<`string`\>; `origin?`: `string`; \}
+
+##### Returns
+
+`undefined` \| \{ `locale?`: [`Locale`](#locale-3); `messageCalls?`: `Set`\<`string`\>; `origin?`: `string`; \}
+
+***
+
 ## SetLocaleFn()
 
 > **SetLocaleFn**\<\> = (`newLocale`, `options?`) => `void` \| `Promise`\<`void`\>
@@ -272,7 +272,7 @@ Defined in: [runtime/variables.js:24](https://github.com/opral/paraglide-js/tree
 
 > `const` **disableAsyncLocalStorage**: `false` = `false`
 
-Defined in: [runtime/variables.js:142](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:148](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 ***
 
@@ -280,7 +280,7 @@ Defined in: [runtime/variables.js:142](https://github.com/opral/paraglide-js/tre
 
 > `const` **experimentalMiddlewareLocaleSplitting**: `false` = `false`
 
-Defined in: [runtime/variables.js:144](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:150](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 ***
 
@@ -288,7 +288,7 @@ Defined in: [runtime/variables.js:144](https://github.com/opral/paraglide-js/tre
 
 > `const` **experimentalStaticLocale**: `undefined` \| `string` = `undefined`
 
-Defined in: [runtime/variables.js:150](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:156](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 ***
 
@@ -296,7 +296,7 @@ Defined in: [runtime/variables.js:150](https://github.com/opral/paraglide-js/tre
 
 > `const` **isServer**: `boolean`
 
-Defined in: [runtime/variables.js:146](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:152](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 ***
 
@@ -348,7 +348,7 @@ Route-level strategy overrides.
 
 > **serverAsyncLocalStorage**: `undefined` \| [`ParaglideAsyncLocalStorage`](#paraglideasynclocalstorage) = `undefined`
 
-Defined in: [runtime/variables.js:140](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:146](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 Server side async local storage that is set by `serverMiddleware()`.
 
@@ -986,7 +986,7 @@ Returns whether the given URL is excluded from middleware i18n processing.
 
 > **isLocale**(`locale`): `locale is string`
 
-Defined in: [runtime/is-locale.js:24](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/is-locale.js)
+Defined in: [runtime/is-locale.js:20](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/is-locale.js)
 
 Check if something is an available locale.
 
@@ -1219,7 +1219,7 @@ The new implementation for `getUrlOrigin()`.
 
 > **overwriteServerAsyncLocalStorage**(`value`): `void`
 
-Defined in: [runtime/variables.js:162](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:168](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 Sets the server side async local storage.
 
