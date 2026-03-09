@@ -6,6 +6,12 @@ Defined in: [server/middleware.js:91](https://github.com/opral/paraglide-js/tree
 
 Server middleware that handles locale-based routing and request processing.
 
+Configure `disableAsyncLocalStorage` when generating Paraglide with
+`paraglideVitePlugin()` or `compile()`, not when calling
+`paraglideMiddleware()`. Keep AsyncLocalStorage enabled by default and
+only disable it for runtimes that lack `AsyncLocalStorage` support and
+guarantee request isolation.
+
 This middleware performs several key functions:
 
 1. Determines the locale for the incoming request using configured strategies
@@ -47,12 +53,6 @@ Function to handle the request. The callback receives:
 #### callbacks?
 
 Callbacks to handle events from middleware
-
-Configure `disableAsyncLocalStorage` when generating Paraglide with
-`paraglideVitePlugin()` or `compile()`, not when calling
-`paraglideMiddleware()`. Keep AsyncLocalStorage enabled by default and
-only disable it for runtimes that lack `AsyncLocalStorage` support and
-guarantee request isolation.
 
 ##### onRedirect
 
