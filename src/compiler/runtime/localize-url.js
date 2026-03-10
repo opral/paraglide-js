@@ -1,7 +1,7 @@
 import { extractLocaleFromUrl } from "./extract-locale-from-url.js";
 import { getLocale } from "./get-locale.js";
 import { getUrlOrigin } from "./get-url-origin.js";
-import { isLocale } from "./is-locale.js";
+import { toLocale } from "./check-locale.js";
 import {
 	baseLocale,
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
@@ -131,7 +131,7 @@ function localizeUrlDefaultPattern(url, options) {
 	const pathSegments = urlObj.pathname.split("/").filter(Boolean);
 
 	// If current path starts with a locale, remove it
-	if (pathSegments.length > 0 && isLocale(pathSegments[0])) {
+	if (pathSegments.length > 0 && toLocale(pathSegments[0])) {
 		pathSegments.shift();
 	}
 
@@ -236,7 +236,7 @@ function deLocalizeUrlDefaultPattern(url) {
 	const pathSegments = urlObj.pathname.split("/").filter(Boolean);
 
 	// If first segment is a locale, remove it
-	if (pathSegments.length > 0 && isLocale(pathSegments[0])) {
+	if (pathSegments.length > 0 && toLocale(pathSegments[0])) {
 		urlObj.pathname = "/" + pathSegments.slice(1).join("/");
 	}
 

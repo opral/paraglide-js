@@ -1,5 +1,4 @@
-import { assertIsLocale } from "./assert-is-locale.js";
-import { isLocale } from "./is-locale.js";
+import { toLocale } from "./check-locale.js";
 import {
 	baseLocale,
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
@@ -47,11 +46,8 @@ export function extractLocaleFromUrl(url) {
 					continue;
 				}
 
-				// Check if the locale is valid
-				if (assertIsLocale(locale)) {
-					result = locale;
-					break;
-				}
+				result = locale;
+				break;
 			}
 			if (result) break;
 		}
@@ -71,11 +67,9 @@ export function extractLocaleFromUrl(url) {
 function defaultUrlPatternExtractLocale(url) {
 	const urlObj = new URL(url, "http://dummy.com");
 	const pathSegments = urlObj.pathname.split("/").filter(Boolean);
-	if (pathSegments.length > 0) {
-		const potentialLocale = pathSegments[0];
-		if (isLocale(potentialLocale)) {
-			return potentialLocale;
-		}
+	const locale = toLocale(pathSegments[0]);
+	if (locale) {
+		return locale;
 	}
 	// everything else has to be the base locale
 	return baseLocale;

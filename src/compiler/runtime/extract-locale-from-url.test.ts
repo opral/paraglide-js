@@ -163,4 +163,5 @@ test("default url pattern", async () => {
 	expect(
 		r.extractLocaleFromUrl("https://example.com/de/optional-subpage")
 	).toBe("de");
+	expect(r.extractLocaleFromUrl("https://example.com/DE")).toBe("de");
 });

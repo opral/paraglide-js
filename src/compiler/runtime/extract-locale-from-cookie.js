@@ -1,4 +1,4 @@
-import { isLocale } from "./is-locale.js";
+import { toLocale } from "./check-locale.js";
 import { cookieName } from "./variables.js";
 
 /**
@@ -15,8 +15,5 @@ export function extractLocaleFromCookie() {
 	}
 	const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
 	const locale = match?.[2];
-	if (isLocale(locale)) {
-		return locale;
-	}
-	return undefined;
+	return toLocale(locale);
 }

@@ -144,9 +144,7 @@ ${injectCode("./set-locale.js")}
 
 ${injectCode("./get-url-origin.js")}
 
-${injectCode("./is-locale.js")}
-
-${injectCode("./assert-is-locale.js")}
+${injectCode("./check-locale.js")}
 
 ${injectCode("./extract-locale-from-request.js")}
 

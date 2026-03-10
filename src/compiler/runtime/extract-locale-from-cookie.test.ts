@@ -39,6 +39,25 @@ test("matches the locale of a cookie", async () => {
 	expect(locale).toBe("de");
 });
 
+test("canonicalizes cookie locale casing", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de-CH"],
+			},
+		}),
+		strategy: ["cookie"],
+		cookieName: "PARAGLIDE_LOCALE",
+	});
+
+	// @ts-expect-error - global variable definition
+	globalThis.document = {};
+	globalThis.document.cookie = "PARAGLIDE_LOCALE=de-ch;";
+
+	expect(runtime.extractLocaleFromCookie()).toBe("de-CH");
+});
+
 // useful scenario that avoids throws if the cookie uses an old locale that is
 // not supported anymore or development on localhost shares multiple apps with
 // different locales

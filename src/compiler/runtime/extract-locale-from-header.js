@@ -1,4 +1,4 @@
-import { isLocale } from "./is-locale.js";
+import { toLocale } from "./check-locale.js";
 
 /**
  * Extracts a locale from the accept-language header.
@@ -21,9 +21,9 @@ export function extractLocaleFromHeader(request) {
 			.map((lang) => {
 				const [tag, q = "1"] = lang.trim().split(";q=");
 				// Get both the full tag and base language code
-				const baseTag = tag?.split("-")[0]?.toLowerCase();
+				const baseTag = tag?.split("-")[0];
 				return {
-					fullTag: tag?.toLowerCase(),
+					fullTag: tag,
 					baseTag,
 					q: Number(q),
 				};
@@ -31,10 +31,14 @@ export function extractLocaleFromHeader(request) {
 			.sort((a, b) => b.q - a.q);
 
 		for (const lang of languages) {
-			if (isLocale(lang.fullTag)) {
-				return lang.fullTag;
-			} else if (isLocale(lang.baseTag)) {
-				return lang.baseTag;
+			const fullLocale = toLocale(lang.fullTag);
+			if (fullLocale) {
+				return fullLocale;
+			}
+
+			const baseLocale = toLocale(lang.baseTag);
+			if (baseLocale) {
+				return baseLocale;
 			}
 		}
 

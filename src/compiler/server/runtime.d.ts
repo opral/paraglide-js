@@ -26,6 +26,7 @@ export declare const {
 	overwriteSetLocale,
 	overwriteGetUrlOrigin,
 	overwriteServerAsyncLocalStorage,
+	toLocale,
 	assertIsLocale,
 	isLocale,
 	localizeHref,

@@ -97,6 +97,9 @@ test("runtime type", async () => {
 		}
 
 		// to make ts not complain about unused variables
+		runtime.toLocale("EN") satisfies "de" | "en" | "en-US" | undefined
+		runtime.toLocale(123) satisfies "de" | "en" | "en-US" | undefined
+
 		console.log(a)
     `
 	);
