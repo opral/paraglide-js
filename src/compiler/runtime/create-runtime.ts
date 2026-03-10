@@ -59,6 +59,17 @@ export function createRuntimeFile(args: {
 	const needsUrlPatternPolyfill =
 		!defaultUrlPatternUsed || routeStrategies.length > 0;
 
+	// verify that urlPatterns' locales are valid
+	for (const urlPattern of urlPatterns) {
+		for (const [locale] of urlPattern.localized) {
+			if (!args.locales.includes(locale)) {
+				throw new Error(
+					`Invalid locale "${locale}" in urlPatterns. It must be one of the locales defined in the "locales" array.`
+				);
+			}
+		}
+	}
+
 	const code = `
 ${needsUrlPatternPolyfill ? `import "@inlang/paraglide-js/urlpattern-polyfill";` : "/** @type {any} */\nconst URLPattern = {}"}
 
@@ -120,7 +131,9 @@ ${injectCode("./variables.js")
 	)
 	.replace(
 		`export const experimentalStaticLocale = undefined;`,
-		`export const experimentalStaticLocale = ${args.compilerOptions.experimentalStaticLocale ?? "undefined"};`
+		args.compilerOptions.experimentalStaticLocale
+			? `export const experimentalStaticLocale = assertIsLocale(${args.compilerOptions.experimentalStaticLocale});`
+			: `export const experimentalStaticLocale = undefined;`
 	)
 	.replace(
 		`export const localStorageKey = "PARAGLIDE_LOCALE";`,
