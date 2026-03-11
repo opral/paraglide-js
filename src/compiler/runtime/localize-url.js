@@ -48,8 +48,8 @@ import {
  * ```
  *
  * @param {string | URL} url - The URL to localize. If string, must be absolute.
- * @param {Object} [options] - Options for localization
- * @param {string} [options.locale] - Target locale. If not provided, uses getLocale()
+ * @param {object} [options] - Options for localization
+ * @param {Locale} [options.locale] - Target locale. If not provided, uses getLocale()
  * @returns {URL} The localized URL, always absolute
  */
 export function localizeUrl(url, options) {
@@ -112,8 +112,8 @@ export function localizeUrl(url, options) {
  * https://github.com/opral/inlang-paraglide-js/issues/381
  *
  * @param {string | URL} url
- * @param {Object} [options]
- * @param {string} [options.locale]
+ * @param {object} [options]
+ * @param {Locale} [options.locale]
  * @returns {URL}
  */
 function localizeUrlDefaultPattern(url, options) {
