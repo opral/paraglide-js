@@ -165,3 +165,46 @@ test("default url pattern", async () => {
 	).toBe("de");
 	expect(r.extractLocaleFromUrl("https://example.com/DE")).toBe("de");
 });
+
+test("default pattern is case-insensitive but custom urlPatterns keep exact matching", async () => {
+	const defaultRuntime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+	});
+
+	expect(
+		defaultRuntime.extractLocaleFromUrl("https://example.com/DE/about")
+	).toBe("de");
+
+	const customRuntime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:locale(en|de)/:path*",
+				localized: [
+					["en", "https://example.com/en/:path*"],
+					["de", "https://example.com/de/:path*"],
+				],
+			},
+		],
+	});
+
+	expect(
+		customRuntime.extractLocaleFromUrl("https://example.com/de/about")
+	).toBe("de");
+	expect(
+		customRuntime.extractLocaleFromUrl("https://example.com/en/about")
+	).toBe("en");
+	expect(
+		customRuntime.extractLocaleFromUrl("https://example.com/DE/about")
+	).toBe(undefined);
+});

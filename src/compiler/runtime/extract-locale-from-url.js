@@ -19,6 +19,10 @@ let cachedLocale;
 /**
  * Extracts the locale from a given URL using native URLPattern.
  *
+ * The built-in default `/:locale/...` routing is case-insensitive because it
+ * canonicalizes the first path segment with `toLocale()`. Custom `urlPatterns`
+ * keep URLPattern's normal exact matching semantics for path segments.
+ *
  * @param {URL|string} url - The full URL from which to extract the locale.
  * @returns {Locale|undefined} The extracted locale, or undefined if no locale is found.
  */

@@ -133,6 +133,39 @@ test("url pattern strategy sets the window location", async () => {
 	expect(globalThis.window.location.reload).not.toBeCalled();
 });
 
+test("url strategy setLocale normalizes mixed-case explicit locales", async () => {
+	// @ts-expect-error - global variable definition
+	globalThis.window = {};
+	// @ts-expect-error - global variable definition
+	globalThis.window.location = {};
+	globalThis.window.location.hostname = "example.com";
+	globalThis.window.location.reload = vi.fn();
+
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "de"] },
+		}),
+		strategy: ["url"],
+		urlPatterns: [
+			{
+				pattern: "https://example.:tld/:path*",
+				localized: [
+					["en", "https://example.com/:path*"],
+					["de", "https://example.de/:path*"],
+				],
+			},
+		],
+	});
+
+	globalThis.window.location.href = "https://example.com/page";
+
+	runtime.setLocale("DE" as any);
+
+	expect(globalThis.window.location.href).toBe("https://example.de/page");
+	// setting window.location.hostname automatically reloads the page
+	expect(globalThis.window.location.reload).not.toBeCalled();
+});
+
 test("routeStrategies can disable url navigation on matching routes", async () => {
 	// @ts-expect-error - global variable definition
 	globalThis.window = {};

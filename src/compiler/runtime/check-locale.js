@@ -40,21 +40,16 @@ export function isLocale(locale) {
 }
 
 /**
- * Asserts that the input is a locale.
+ * Asserts that the input can be normalized to a locale.
  *
  * @param {unknown} input - The input to check.
- * @returns {Locale} The input if it is a locale.
+ * @returns {Locale} The input normalized to a Locale.
  * @throws {Error} If the input is not a locale.
  */
 export function assertIsLocale(input) {
-	if (typeof input !== "string") {
-		throw new Error(`Invalid locale: ${input}. Expected a string.`);
-	}
-	const matchedLocale = toLocale(input);
-	if (!matchedLocale) {
-		throw new Error(
-			`Invalid locale: ${input}. Expected one of: ${locales.join(", ")}`
-		);
-	}
-	return matchedLocale;
+	const locale = toLocale(input);
+	if (locale) return locale;
+	throw new Error(
+		`Invalid locale: ${input}. Expected one of: ${locales.join(", ")}`
+	);
 }

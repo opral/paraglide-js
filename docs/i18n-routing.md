@@ -95,7 +95,7 @@ urlPatterns: [
 | Subdomains                | `example.com`, `de.example.com` | `["en", "https://example.com/:path(.*)?"]`, `["de", "https://de.example.com/:path(.*)?"]` |
 | No prefix (cookie/header) | `/dashboard`                    | `["en", "/dashboard/:path(.*)?"]`, `["de", "/dashboard/:path(.*)?"]`                      |
 
-*"No prefix" is useful for authenticated areas like dashboards where the URL stays the same but content is localized based on user preferences stored in cookies or headers.*
+_"No prefix" is useful for authenticated areas like dashboards where the URL stays the same but content is localized based on user preferences stored in cookies or headers._
 
 ### Locale prefixing
 
@@ -123,6 +123,9 @@ compile({
 ```
 
 **Why the wildcard pattern always resolves**: The pattern `/:path(.*)?` matches **any** path. When a user visits `/about` (without a locale prefix), it matches the English pattern and resolves to `en`. This is also the default behavior if you don't specify `urlPatterns` at all.
+
+> [!NOTE]
+> `extractLocaleFromUrl()` is case-insensitive only for Paraglide's built-in default routing mode, where the locale is read from the first path segment and canonicalized (so `/DE/about` resolves to `de`). Once you provide custom `urlPatterns`, matching follows normal `URLPattern` semantics instead, so path casing must match your configured patterns exactly.
 
 #### Prefixing all locales (SvelteKit, Next.js)
 
@@ -464,7 +467,7 @@ See [Excluding Routes from Middleware](./middleware#excluding-routes-from-middle
 
 URL patterns are evaluated in the order they appear in the `urlPatterns` array. The first pattern that matches a URL will be used. More specific patterns should come before general ones.
 
-*Examples below show `urlPatterns` arrays only, omitting the `compile()` wrapper for brevity.*
+_Examples below show `urlPatterns` arrays only, omitting the `compile()` wrapper for brevity._
 
 ```js
 urlPatterns: [

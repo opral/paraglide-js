@@ -1,7 +1,7 @@
 import { extractLocaleFromUrl } from "./extract-locale-from-url.js";
 import { getLocale } from "./get-locale.js";
 import { getUrlOrigin } from "./get-url-origin.js";
-import { toLocale } from "./check-locale.js";
+import { assertIsLocale, toLocale } from "./check-locale.js";
 import {
 	baseLocale,
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
@@ -53,11 +53,14 @@ import {
  * @returns {URL} The localized URL, always absolute
  */
 export function localizeUrl(url, options) {
+	const targetLocale = options?.locale
+		? assertIsLocale(options?.locale)
+		: getLocale();
+
 	if (TREE_SHAKE_DEFAULT_URL_PATTERN_USED) {
-		return localizeUrlDefaultPattern(url, options);
+		return localizeUrlDefaultPattern(url, targetLocale);
 	}
 
-	const targetLocale = options?.locale ?? getLocale();
 	const urlObj = typeof url === "string" ? new URL(url) : url;
 
 	// Iterate over URL patterns
@@ -112,15 +115,13 @@ export function localizeUrl(url, options) {
  * https://github.com/opral/inlang-paraglide-js/issues/381
  *
  * @param {string | URL} url
- * @param {object} [options]
- * @param {Locale} [options.locale]
+ * @param {Locale} locale
  * @returns {URL}
  */
-function localizeUrlDefaultPattern(url, options) {
+function localizeUrlDefaultPattern(url, locale) {
 	const urlObj =
 		typeof url === "string" ? new URL(url, getUrlOrigin()) : new URL(url);
 
-	const locale = options?.locale ?? getLocale();
 	const currentLocale = extractLocaleFromUrl(urlObj);
 
 	// If current locale matches target locale, no change needed

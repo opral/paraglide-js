@@ -424,6 +424,39 @@ test("uses getLocale when no locale is provided", async () => {
 	).toBe("https://example.com/en/about");
 });
 
+test("normalizes mixed-case explicit locales for custom url patterns", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url"],
+		urlPatterns: [
+			{
+				pattern: "https://:domain(.*)/:path(.*)?",
+				localized: [
+					["de", "https://:domain(.*)/de/:path(.*)?"],
+					["en", "https://:domain(.*)/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	expect(
+		runtime.localizeUrl("https://example.com/about", {
+			locale: "DE",
+		}).href
+	).toBe("https://example.com/de/about");
+
+	expect(
+		runtime.localizeUrl("https://example.com/de/about", {
+			locale: "EN",
+		}).href
+	).toBe("https://example.com/about");
+});
+
 // https://github.com/opral/inlang-paraglide-js/issues/381
 test.each([
 	// empty url pattern will set TREE_SHAKE_DEFAULT_ULR_PATTERN_USED to true
@@ -473,7 +506,19 @@ test.each([
 	).toBe("https://example.com/de/about");
 
 	expect(
+		runtime.localizeUrl("https://example.com/about", {
+			locale: "DE" as any,
+		}).href
+	).toBe("https://example.com/de/about");
+
+	expect(
 		runtime.localizeUrl("https://example.com/about", { locale: "en" }).href
+	).toBe("https://example.com/about");
+
+	expect(
+		runtime.localizeUrl("https://example.com/de/about", {
+			locale: "EN" as any,
+		}).href
 	).toBe("https://example.com/about");
 
 	expect(runtime.deLocalizeUrl("https://example.com/de/about").href).toBe(

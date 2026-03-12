@@ -399,7 +399,7 @@ The used URL patterns.
 
 Defined in: [runtime/check-locale.js:49](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
 
-Asserts that the input is a locale.
+Asserts that the input can be normalized to a locale.
 
 ### Parameters
 
@@ -413,7 +413,7 @@ The input to check.
 
 `string`
 
-The input if it is a locale.
+The input normalized to a Locale.
 
 ### Throws
 
@@ -552,7 +552,7 @@ which provides more precise control over URL handling.
 
 > **deLocalizeUrl**(`url`): `URL`
 
-Defined in: [runtime/localize-url.js:188](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/localize-url.js)
+Defined in: [runtime/localize-url.js:189](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/localize-url.js)
 
 Low-level URL de-localization function, primarily used in server contexts.
 
@@ -774,9 +774,13 @@ The extracted locale.
 
 > **extractLocaleFromUrl**(`url`): `undefined` \| `string`
 
-Defined in: [runtime/extract-locale-from-url.js:25](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-url.js)
+Defined in: [runtime/extract-locale-from-url.js:29](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-url.js)
 
 Extracts the locale from a given URL using native URLPattern.
+
+The built-in default `/:locale/...` routing is case-insensitive because it
+canonicalizes the first path segment with `toLocale()`. Custom `urlPatterns`
+keep URLPattern's normal exact matching semantics for path segments.
 
 ### Parameters
 
