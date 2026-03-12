@@ -8,10 +8,6 @@
  */
 export declare const ENV_VARIABLES: {
 	/**
-	 * The inlang app id.
-	 */
-	PARJS_APP_ID: string;
-	/**
 	 * The Package version from package.json
 	 *
 	 * This value is inlined by vite during build to avoid having to read the package.json
