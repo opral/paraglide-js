@@ -39,6 +39,21 @@ test("experimentalStaticLocale overrides runtime strategies", async () => {
 	expect(runtime.getLocale()).toBe("de");
 });
 
+test("invalid experimentalStaticLocale throws during runtime creation", async () => {
+	await expect(
+		createParaglide({
+			blob: await newProject({
+				settings: {
+					baseLocale: "en",
+					locales: ["en", "de"],
+				},
+			}),
+			strategy: ["cookie", "baseLocale"],
+			experimentalStaticLocale: JSON.stringify("fr"),
+		})
+	).rejects.toThrow("Invalid locale: fr. Expected one of: en, de");
+});
+
 test("throws if variable is used without baseLocale as fallback strategy", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({

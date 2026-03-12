@@ -193,3 +193,19 @@ test("default url patterns to improve out of the box experience", async () => {
 		"http://localhost:5173/about"
 	);
 });
+
+test("normalizes mixed-case explicit locales in localizeHref", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url"],
+	});
+
+	expect(runtime.localizeHref("/about", { locale: "DE" })).toBe("/de/about");
+
+	expect(runtime.localizeHref("/de/about", { locale: "EN" })).toBe("/about");
+});

@@ -1,26 +1,26 @@
 import { localizeUrl } from "./localize-url.js";
+import { toLocale } from "./check-locale.js";
 import { getLocale, getLocaleForUrl } from "./get-locale.js";
 import { getUrlOrigin } from "./get-url-origin.js";
 import { extractLocaleFromRequestAsync } from "./extract-locale-from-request-async.js";
-import { assertIsLocale } from "./assert-is-locale.js";
 import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
 
 /**
  * @typedef {object} ShouldRedirectServerInput
  * @property {Request} request
  * @property {string | URL} [url]
- * @property {ReturnType<typeof assertIsLocale>} [locale]
+ * @property {Locale} [locale]
  *
  * @typedef {object} ShouldRedirectClientInput
  * @property {undefined} [request]
  * @property {string | URL} [url]
- * @property {ReturnType<typeof assertIsLocale>} [locale]
+ * @property {Locale} [locale]
  *
  * @typedef {ShouldRedirectServerInput | ShouldRedirectClientInput} ShouldRedirectInput
  *
  * @typedef {object} ShouldRedirectResult
  * @property {boolean} shouldRedirect - Indicates whether the consumer should perform a redirect.
- * @property {ReturnType<typeof assertIsLocale>} locale - Locale resolved using the configured strategies.
+ * @property {Locale} locale - Locale resolved using the configured strategies.
  * @property {URL | undefined} redirectUrl - Destination URL when a redirect is required.
  */
 
@@ -62,9 +62,7 @@ import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
  */
 export async function shouldRedirect(input = {}) {
 	const currentUrl = resolveUrl(input);
-	const locale = /** @type {ReturnType<typeof assertIsLocale>} */ (
-		await resolveLocale(input, currentUrl)
-	);
+	const locale = await resolveLocale(input, currentUrl);
 	const strategy = getStrategyForUrl(currentUrl.href);
 
 	if (isExcludedByRouteStrategy(currentUrl.href) || !strategy.includes("url")) {
@@ -88,11 +86,12 @@ export async function shouldRedirect(input = {}) {
  *
  * @param {ShouldRedirectInput} input
  * @param {URL} currentUrl
- * @returns {Promise<ReturnType<typeof assertIsLocale>>}
+ * @returns {Promise<Locale>}
  */
 async function resolveLocale(input, currentUrl) {
-	if (input.locale) {
-		return assertIsLocale(input.locale);
+	const locale = toLocale(input.locale);
+	if (locale) {
+		return locale;
 	}
 
 	if (input.request) {

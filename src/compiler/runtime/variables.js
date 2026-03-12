@@ -57,12 +57,12 @@ export const urlPatterns = [];
 
 /** @type {string | undefined} */
 let cachedRouteStrategyUrl;
-/** @type {{ match: string; strategy?: Array<string>; exclude?: boolean } | undefined} */
+/** @type {{ match: string; strategy?: typeof strategy; exclude?: boolean } | undefined} */
 let cachedRouteStrategy;
 
 /**
  * @param {string | URL} url
- * @returns {{ match: string; strategy?: Array<string>; exclude?: boolean } | undefined}
+ * @returns {{ match: string; strategy?: typeof strategy; exclude?: boolean } | undefined}
  */
 function findMatchingRouteStrategy(url) {
 	if (routeStrategies.length === 0) {
@@ -105,7 +105,6 @@ export function getStrategyForUrl(url) {
 		routeStrategy.exclude !== true &&
 		Array.isArray(routeStrategy.strategy)
 	) {
-		// @ts-ignore - runtime value is injected and validated by compiler types.
 		return routeStrategy.strategy;
 	}
 	return strategy;
@@ -150,7 +149,6 @@ export const experimentalMiddlewareLocaleSplitting = false;
 export const isServer = typeof window === "undefined";
 
 /** @type {Locale | undefined} */
-// @ts-ignore - injected by bundlers at compile time
 export const experimentalStaticLocale = undefined;
 
 /**

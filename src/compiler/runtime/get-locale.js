@@ -1,4 +1,4 @@
-import { assertIsLocale } from "./assert-is-locale.js";
+import { assertIsLocale, toLocale } from "./check-locale.js";
 import { extractLocaleFromCookie } from "./extract-locale-from-cookie.js";
 import { extractLocaleFromNavigator } from "./extract-locale-from-navigator.js";
 import { extractLocaleFromUrl } from "./extract-locale-from-url.js";
@@ -24,7 +24,7 @@ import {
  * strategy and avoid type errors.
  *
  * The implementation is overwritten
- * by \`overwriteGetLocale()\` and \`defineSetLocale()\`.
+ * by `overwriteGetLocale()` and `defineSetLocale()`.
  *
  * @type {Locale | undefined}
  */
@@ -52,7 +52,7 @@ let localeInitiallySet = false;
  */
 export let getLocale = () => {
 	if (experimentalStaticLocale !== undefined) {
-		return assertIsLocale(experimentalStaticLocale);
+		return experimentalStaticLocale;
 	}
 
 	// if running in a server-side rendering context
@@ -96,7 +96,7 @@ export let getLocale = () => {
  */
 export function getLocaleForUrl(url) {
 	if (experimentalStaticLocale !== undefined) {
-		return assertIsLocale(experimentalStaticLocale);
+		return experimentalStaticLocale;
 	}
 
 	const strategyToUse = getStrategyForUrl(url);
@@ -161,12 +161,15 @@ function resolveLocaleWithStrategies(strategyToUse, urlForUrlStrategy) {
 					// Can't await in sync function, skip async strategies
 					continue;
 				}
-				locale = result;
+				if (result !== undefined) {
+					return assertIsLocale(result);
+				}
 			}
 		}
 
-		if (locale !== undefined) {
-			return assertIsLocale(locale);
+		const matchedLocale = toLocale(locale);
+		if (matchedLocale) {
+			return matchedLocale;
 		}
 	}
 

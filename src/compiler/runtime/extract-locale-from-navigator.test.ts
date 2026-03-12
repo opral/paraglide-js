@@ -32,3 +32,32 @@ test("returns the preferred locale from navigator.languages", async () => {
 		configurable: true,
 	});
 });
+
+test("canonicalizes navigator locale casing", async () => {
+	const originalNavigator = globalThis.navigator;
+
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "pt-BR"],
+			},
+		}),
+		isServer: "false",
+		strategy: ["preferredLanguage"],
+	});
+
+	Object.defineProperty(globalThis, "navigator", {
+		value: {
+			languages: ["pt-br", "en-US"],
+		},
+		configurable: true,
+	});
+
+	expect(runtime.getLocale()).toBe("pt-BR");
+
+	Object.defineProperty(globalThis, "navigator", {
+		value: originalNavigator,
+		configurable: true,
+	});
+});

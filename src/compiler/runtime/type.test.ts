@@ -30,6 +30,26 @@ const superStrictRuleOutAnyErrorTsSettings: ProjectOptions["compilerOptions"] =
 		strict: true,
 	};
 
+test("createRuntimeFile throws if urlPatterns contains an unknown locale", () => {
+	expect(() =>
+		createRuntimeFile({
+			baseLocale: "en",
+			locales: ["en", "de"],
+			compilerOptions: {
+				...defaultCompilerOptions,
+				urlPatterns: [
+					{
+						pattern: "https://example.com/:path*",
+						localized: [["fr", "https://example.com/fr/:path*"]],
+					},
+				],
+			},
+		})
+	).toThrow(
+		'Invalid locale "fr" in urlPatterns. It must be one of the locales defined in the "locales" array.'
+	);
+});
+
 test("runtime type", async () => {
 	const project = await typescriptProject({
 		useInMemoryFileSystem: true,
@@ -97,6 +117,9 @@ test("runtime type", async () => {
 		}
 
 		// to make ts not complain about unused variables
+		runtime.toLocale("EN") satisfies "de" | "en" | "en-US" | undefined
+		runtime.toLocale(123) satisfies "de" | "en" | "en-US" | undefined
+
 		console.log(a)
     `
 	);

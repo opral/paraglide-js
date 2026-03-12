@@ -154,7 +154,7 @@
  *
  * @example
  *   import { m } from './messages.js'
- *   m.hello({ name: 'world', { locale: "en" } })
+ *   m.hello({ name: 'world' }, { locale: "en" })
  *
  * @typedef {(params: Record<string, never>, options: { locale: T }) => LocalizedString} MessageBundleFunction
  */

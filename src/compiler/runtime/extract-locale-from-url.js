@@ -1,5 +1,4 @@
-import { assertIsLocale } from "./assert-is-locale.js";
-import { isLocale } from "./is-locale.js";
+import { toLocale } from "./check-locale.js";
 import {
 	baseLocale,
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
@@ -20,6 +19,10 @@ let cachedLocale;
 /**
  * Extracts the locale from a given URL using native URLPattern.
  *
+ * The built-in default `/:locale/...` routing is case-insensitive because it
+ * canonicalizes the first path segment with `toLocale()`. Custom `urlPatterns`
+ * keep URLPattern's normal exact matching semantics for path segments.
+ *
  * @param {URL|string} url - The full URL from which to extract the locale.
  * @returns {Locale|undefined} The extracted locale, or undefined if no locale is found.
  */
@@ -30,6 +33,7 @@ export function extractLocaleFromUrl(url) {
 		return cachedLocale;
 	}
 
+	/** @type {Locale | undefined} */
 	let result;
 	if (TREE_SHAKE_DEFAULT_URL_PATTERN_USED) {
 		result = defaultUrlPatternExtractLocale(url);
@@ -43,12 +47,7 @@ export function extractLocaleFromUrl(url) {
 					urlObj.href
 				);
 
-				if (!match) {
-					continue;
-				}
-
-				// Check if the locale is valid
-				if (assertIsLocale(locale)) {
+				if (match) {
 					result = locale;
 					break;
 				}
@@ -71,12 +70,5 @@ export function extractLocaleFromUrl(url) {
 function defaultUrlPatternExtractLocale(url) {
 	const urlObj = new URL(url, "http://dummy.com");
 	const pathSegments = urlObj.pathname.split("/").filter(Boolean);
-	if (pathSegments.length > 0) {
-		const potentialLocale = pathSegments[0];
-		if (isLocale(potentialLocale)) {
-			return potentialLocale;
-		}
-	}
-	// everything else has to be the base locale
-	return baseLocale;
+	return toLocale(pathSegments[0]) || baseLocale;
 }

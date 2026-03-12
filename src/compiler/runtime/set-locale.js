@@ -165,7 +165,7 @@ export let setLocale = (newLocale, options) => {
 };
 
 /**
- * Overwrite the \`setLocale()\` function.
+ * Overwrite the `setLocale()` function.
  *
  * Use this function to overwrite how the locale is set. For example,
  * modify a cookie, env variable, or a user's preference.
@@ -179,5 +179,5 @@ export let setLocale = (newLocale, options) => {
  * @param {SetLocaleFn} fn
  */
 export const overwriteSetLocale = (fn) => {
-	setLocale = /** @type {SetLocaleFn} */ (fn);
+	setLocale = fn;
 };

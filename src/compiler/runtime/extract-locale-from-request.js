@@ -1,7 +1,6 @@
-import { assertIsLocale } from "./assert-is-locale.js";
+import { toLocale } from "./check-locale.js";
 import { extractLocaleFromHeader } from "./extract-locale-from-header.js";
 import { extractLocaleFromUrl } from "./extract-locale-from-url.js";
-import { isLocale } from "./is-locale.js";
 import { isCustomStrategy } from "./strategy.js";
 import {
 	baseLocale,
@@ -75,12 +74,9 @@ export const extractLocaleFromRequestWithStrategies = (request, strategies) => {
 			// Use extractLocaleFromRequestAsync for custom server strategies
 			continue;
 		}
-		if (locale !== undefined) {
-			if (!isLocale(locale)) {
-				locale = undefined;
-			} else {
-				return assertIsLocale(locale);
-			}
+		const matchedLocale = toLocale(locale);
+		if (matchedLocale) {
+			return matchedLocale;
 		}
 	}
 	throw new Error(

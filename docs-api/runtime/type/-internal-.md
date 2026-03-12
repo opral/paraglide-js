@@ -162,7 +162,7 @@ Defined in: [runtime/type-definitions.js:9](https://github.com/opral/paraglide-j
 
 > **ParaglideAsyncLocalStorage**\<\> = `object`
 
-Defined in: [runtime/variables.js:133](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:132](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 ### Type Parameters
 
@@ -280,7 +280,7 @@ Defined in: [runtime/variables.js:22](https://github.com/opral/paraglide-js/tree
 
 > `const` **disableAsyncLocalStorage**: `false` = `false`
 
-Defined in: [runtime/variables.js:146](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:145](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 ***
 
@@ -288,7 +288,7 @@ Defined in: [runtime/variables.js:146](https://github.com/opral/paraglide-js/tre
 
 > `const` **experimentalMiddlewareLocaleSplitting**: `false` = `false`
 
-Defined in: [runtime/variables.js:148](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:147](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 ***
 
@@ -296,7 +296,7 @@ Defined in: [runtime/variables.js:148](https://github.com/opral/paraglide-js/tre
 
 > `const` **experimentalStaticLocale**: `undefined` \| `string` = `undefined`
 
-Defined in: [runtime/variables.js:154](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:152](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 ***
 
@@ -304,7 +304,7 @@ Defined in: [runtime/variables.js:154](https://github.com/opral/paraglide-js/tre
 
 > `const` **isServer**: `boolean`
 
-Defined in: [runtime/variables.js:150](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:149](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 ***
 
@@ -356,7 +356,7 @@ Route-level strategy overrides.
 
 > **serverAsyncLocalStorage**: `undefined` \| [`ParaglideAsyncLocalStorage`](#paraglideasynclocalstorage) = `undefined`
 
-Defined in: [runtime/variables.js:144](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:143](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 Server side async local storage that is set by `serverMiddleware()`.
 
@@ -397,9 +397,9 @@ The used URL patterns.
 
 > **assertIsLocale**(`input`): `string`
 
-Defined in: [runtime/assert-is-locale.js:10](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/assert-is-locale.js)
+Defined in: [runtime/check-locale.js:49](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
 
-Asserts that the input is a locale.
+Asserts that the input can be normalized to a locale.
 
 ### Parameters
 
@@ -413,7 +413,7 @@ The input to check.
 
 `string`
 
-The input if it is a locale.
+The input normalized to a Locale.
 
 ### Throws
 
@@ -552,7 +552,7 @@ which provides more precise control over URL handling.
 
 > **deLocalizeUrl**(`url`): `URL`
 
-Defined in: [runtime/localize-url.js:188](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/localize-url.js)
+Defined in: [runtime/localize-url.js:189](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/localize-url.js)
 
 Low-level URL de-localization function, primarily used in server contexts.
 
@@ -684,7 +684,7 @@ const locale = extractLocaleFromNavigator();
 
 > **extractLocaleFromRequest**(`request`): `string`
 
-Defined in: [runtime/extract-locale-from-request.js:35](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
+Defined in: [runtime/extract-locale-from-request.js:34](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
 
 Extracts a locale from a request.
 
@@ -720,7 +720,7 @@ const locale = extractLocaleFromRequest(request);
 
 > **extractLocaleFromRequestAsync**(`request`): `Promise`\<`string`\>
 
-Defined in: [runtime/extract-locale-from-request-async.js:37](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request-async.js)
+Defined in: [runtime/extract-locale-from-request-async.js:36](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request-async.js)
 
 Asynchronously extracts a locale from a request.
 
@@ -774,9 +774,13 @@ The extracted locale.
 
 > **extractLocaleFromUrl**(`url`): `undefined` \| `string`
 
-Defined in: [runtime/extract-locale-from-url.js:26](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-url.js)
+Defined in: [runtime/extract-locale-from-url.js:29](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-url.js)
 
 Extracts the locale from a given URL using native URLPattern.
+
+The built-in default `/:locale/...` routing is case-insensitive because it
+canonicalizes the first path segment with `toLocale()`. Custom `urlPatterns`
+keep URLPattern's normal exact matching semantics for path segments.
 
 ### Parameters
 
@@ -974,7 +978,7 @@ by `overwriteGetUrlOrigin()`.
 
 > **isExcludedByRouteStrategy**(`url`): `boolean`
 
-Defined in: [runtime/variables.js:120](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:119](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 Returns whether the given URL is excluded from middleware i18n processing.
 
@@ -994,9 +998,9 @@ Returns whether the given URL is excluded from middleware i18n processing.
 
 > **isLocale**(`locale`): `locale is string`
 
-Defined in: [runtime/is-locale.js:17](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/is-locale.js)
+Defined in: [runtime/check-locale.js:38](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
 
-Check if something is an available locale.
+Check if something is an available locale with the canonical project casing.
 
 ### Parameters
 
@@ -1016,6 +1020,8 @@ if (isLocale(params.locale)) {
   } else {
     setLocale('en');
   }
+
+Use `toLocale()` when you want case-insensitive matching and canonicalization.
 ```
 
 ***
@@ -1165,7 +1171,7 @@ localizeUrl(url, { locale: "de" });
 
 > **overwriteGetLocale**(`fn`): `void`
 
-Defined in: [runtime/get-locale.js:191](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-locale.js)
+Defined in: [runtime/get-locale.js:194](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-locale.js)
 
 Overwrite the `getLocale()` function.
 
@@ -1227,7 +1233,7 @@ The new implementation for `getUrlOrigin()`.
 
 > **overwriteServerAsyncLocalStorage**(`value`): `void`
 
-Defined in: [runtime/variables.js:166](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:164](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 Sets the server side async local storage.
 
@@ -1381,6 +1387,26 @@ export async function handle(request) {
   return render(request, decision.locale);
 }
 ```
+
+***
+
+## toLocale()
+
+> **toLocale**(`value`): `undefined` \| `string`
+
+Defined in: [runtime/check-locale.js:9](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
+
+Coerces a locale-like string to the canonical locale value used by the runtime.
+
+### Parameters
+
+#### value
+
+`unknown`
+
+### Returns
+
+`undefined` \| `string`
 
 ***
 
