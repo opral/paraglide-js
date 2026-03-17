@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { m } from '$lib/paraglide/messages';
 	import { localizeHref, setLocale } from '$lib/paraglide/runtime';
 </script>
@@ -10,5 +11,5 @@
 
 <br />
 <br />
-<a href={localizeHref('/about', { locale: 'en' })}>go to about in en</a>
-<a href={localizeHref('/about', { locale: 'de' })}>go to about in de</a>
+<a href={resolve(localizeHref('/about', { locale: 'en' }))}>go to about in en</a>
+<a href={resolve(localizeHref('/about', { locale: 'de' }))}>go to about in de</a>

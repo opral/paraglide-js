@@ -124,12 +124,13 @@ Then add a locale switcher in `routes/+layout.svelte` to generate all pages duri
 ```diff
 <script>
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 	import { locales, localizeHref } from '$lib/paraglide/runtime';
 </script>
 
 <nav class="locale-switcher" aria-label="Languages">
 	{#each locales as locale}
-		<a href={localizeHref(page.url.pathname, { locale })} data-sveltekit-reload>
+		<a href={resolve(localizeHref(page.url.pathname, { locale }))} data-sveltekit-reload>
 			{locale}
 		</a>
 	{/each}
