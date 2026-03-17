@@ -139,6 +139,7 @@ import { ParaglideMessage } from "@inlang/paraglide-js-react"; // or -vue, -svel
     link: ({ children, options }) => <a href={options.to}>{children}</a>,
   }}
 />
+\`\`\`
 
 See the [markup documentation](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/markup) for details.
 
