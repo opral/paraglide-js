@@ -107,6 +107,8 @@ Messages can contain markup tags for bold, links, and other inline elements. Tra
 - Options: \`to=|/docs|\` (accessed via \`options.to\`).
 - Attributes: \`@track\` (boolean, accessed via \`attributes.track\`).
 
+This is the default inlang message syntax. Paraglide's message format is plugin-based — you can use [ICU MessageFormat 1](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1), [i18next](https://inlang.com/m/3i8bor92/plugin-inlang-i18next), or other [plugins](https://inlang.com/c/plugins) instead.
+
 ### Rendering markup
 
 Calling \`m.cta()\` returns **plain text** (markup stripped). To render markup, use the framework adapter or the low-level \`parts()\` API:
