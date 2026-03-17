@@ -148,13 +148,14 @@ Message format is **plugin-based** — use the default inlang format, or switch 
 
 ## Comparison
 
-| Feature                | Paraglide                          | i18next               | react-intl            |
-| ---------------------- | ---------------------------------- | --------------------- | --------------------- |
-| **i18n bundle size**   | Up to 70% smaller via tree-shaking | ❌ Ships all messages | ❌ Ships all messages |
-| **Tree-shakable**      | ✅                                 | ❌                    | ❌                    |
-| **Typesafe**           | ✅                                 | Partial               | ❌                    |
-| **Framework agnostic** | ✅                                 | Wrappers needed       | React only            |
-| **i18n routing**       | ✅ Built-in                        | ❌                    | ❌                    |
+| Feature                    | Paraglide                          | i18next               | react-intl            |
+| -------------------------- | ---------------------------------- | --------------------- | --------------------- |
+| **i18n bundle size**       | Up to 70% smaller via tree-shaking | ❌ Ships all messages | ❌ Ships all messages |
+| **Tree-shakable**          | ✅                                 | ❌                    | ❌                    |
+| **Typesafe**               | ✅                                 | Partial               | ❌                    |
+| **Framework agnostic**     | ✅                                 | Wrappers needed       | React only            |
+| **i18n routing**           | ✅ Built-in                        | ❌                    | ❌                    |
+| **ICU MessageFormat 1**    | ✅ [Via plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1) | ✅                    | ✅                    |
 
 **[Full Comparison →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/comparison)**
 
