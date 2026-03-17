@@ -120,9 +120,16 @@ const parts = m.cta.parts({});
 // ]
 \`\`\`
 
-Framework adapters (React, Vue, Svelte, Solid) provide components like \`<ParaglideMessage>\` that accept markup renderers:
+Framework adapters provide a \`<ParaglideMessage>\` component that accepts markup renderers:
+
+- \`@inlang/paraglide-js-react\`
+- \`@inlang/paraglide-js-vue\`
+- \`@inlang/paraglide-js-svelte\`
+- \`@inlang/paraglide-js-solid\`
 
 \`\`\`jsx
+import { ParaglideMessage } from "@inlang/paraglide-js-react"; // or -vue, -svelte, -solid
+
 <ParaglideMessage
   message={m.cta}
   inputs={{}}
@@ -130,7 +137,6 @@ Framework adapters (React, Vue, Svelte, Solid) provide components like \`<Paragl
     link: ({ children, options }) => <a href={options.to}>{children}</a>,
   }}
 />
-\`\`\`
 
 See the [markup documentation](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/markup) for details.
 
