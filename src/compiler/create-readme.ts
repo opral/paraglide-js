@@ -90,6 +90,50 @@ await compile({
 
 See the [strategy documentation](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy) for details.
 
+## Markup (Rich Text)
+
+Messages can contain markup tags for bold, links, and other inline elements. Translators control where tags appear; developers control how they render.
+
+### Message syntax
+
+\`\`\`json
+{
+  "cta": "{#link to=|/docs|}Read the docs{/link}",
+  "bold_text": "This is {#bold}important{/bold}"
+}
+\`\`\`
+
+- \`{#tagName}\` opens a tag, \`{/tagName}\` closes it.
+- Options: \`to=|/docs|\` (accessed via \`options.to\`).
+- Attributes: \`@track\` (boolean, accessed via \`attributes.track\`).
+
+### Rendering markup
+
+Calling \`m.cta()\` returns **plain text** (markup stripped). To render markup, use the framework adapter or the low-level \`parts()\` API:
+
+\`\`\`js
+const parts = m.cta.parts({});
+// [
+//   { type: "markup-start", name: "link", options: { to: "/docs" }, attributes: {} },
+//   { type: "text", value: "Read the docs" },
+//   { type: "markup-end", name: "link" }
+// ]
+\`\`\`
+
+Framework adapters (React, Vue, Svelte, Solid) provide components like \`<ParaglideMessage>\` that accept markup renderers:
+
+\`\`\`jsx
+<ParaglideMessage
+  message={m.cta}
+  inputs={{}}
+  markup={{
+    link: ({ children, options }) => <a href={options.to}>{children}</a>,
+  }}
+/>
+\`\`\`
+
+See the [markup documentation](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/markup) for details.
+
 ## Key concepts
 
 - **Tree-shakeable**: Each message is a function, enabling [up to 70% smaller i18n bundle sizes](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark) than traditional i18n libraries.
