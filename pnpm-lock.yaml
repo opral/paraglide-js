@@ -12,8 +12,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1
       '@inlang/sdk':
-        specifier: ^2.8.0
-        version: 2.8.0(babel-plugin-macros@3.1.0)
+        specifier: ^2.9.1
+        version: 2.9.1(babel-plugin-macros@3.1.0)
       commander:
         specifier: 11.1.0
         version: 11.1.0
@@ -626,8 +626,8 @@ packages:
     resolution: {integrity: sha512-HFN59MmQXGHVyYadKLVumYsA9dBFun/ldYxipEjzA4196jpLZd8UjEEBLkbEkvfYreDqJhZxYAWFPtrfhNpj4w==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helpers@7.28.6':
-    resolution: {integrity: sha512-xOBvwq86HHdB7WUDTfKfT/Vuxh7gElQ+Sfti2Cy6yIWNW05P8iUslOVcZ4/sKbE+/jQaukQAdz/gf3724kYdqw==}
+  '@babel/helpers@7.29.2':
+    resolution: {integrity: sha512-HoGuUs4sCZNezVEKdVcwqmZN8GoHirLUcLaYVNBK2J0DadGtdcqgr3BCbvH8+XUo4NGjNl3VOtSjEKNzqfFgKw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/parser@7.28.5':
@@ -635,8 +635,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  '@babel/parser@7.29.0':
-    resolution: {integrity: sha512-IyDgFV5GeDUVX4YdF/3CPULtVGSXXMLh1xVIgdCgxApktqnQV0r7/8Nqthg+8YLGaAtdyIlo2qIdZrbCv4+7ww==}
+  '@babel/parser@7.29.2':
+    resolution: {integrity: sha512-4GgRzy/+fsBa72/RZVJmGKPmZu9Byn8o4MoLpmNe1m8ZfYnz5emHLQz3U4gLud6Zwl0RZIcgiLD7Uq7ySFuDLA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -1534,9 +1534,9 @@ packages:
     resolution: {integrity: sha512-cvz/C1rF5WBxzHbEoiBoI6Sz6q6M+TdxfWkEGBYTD77opY8i8WN01prUWXEM87GPF4SZcyIySez9U0Ccm12oFQ==}
     engines: {node: '>=18.0.0'}
 
-  '@inlang/sdk@2.8.0':
-    resolution: {integrity: sha512-w1jysvUDTMgCaONklIgOJAp9dUDl0UhLbsdqfWEwY/GIqoc9IwpuHsrP3pzC+h3DfOpkMMDnDkTpPv8kIZ98iA==}
-    engines: {node: '>=18.0.0'}
+  '@inlang/sdk@2.9.1':
+    resolution: {integrity: sha512-y0C3xaKo6pSGDr3p5OdreRVT3THJpgKVe1lLvG3BE4v9lskp3UfI9cPCbN8X2dpfLt/4ljtehMb5SykpMfJrMg==}
+    engines: {node: '>=20.0.0'}
 
   '@inquirer/external-editor@1.0.3':
     resolution: {integrity: sha512-RWbSrDiYmO4LbejWY7ttpxczuwQyZLBUyygsA9Nsv95hpzUWwnNTVQmAq3xuh7vNwCp07UTmE5i11XAEExx4RA==}
@@ -1609,6 +1609,10 @@ packages:
 
   '@lix-js/sdk@0.4.7':
     resolution: {integrity: sha512-pRbW+joG12L0ULfMiWYosIW0plmW4AsUdiPCp+Z8rAsElJ+wJ6in58zhD3UwUcd4BNcpldEGjg6PdA7e0RgsDQ==}
+    engines: {node: '>=18'}
+
+  '@lix-js/sdk@0.4.9':
+    resolution: {integrity: sha512-30mDkXpx704359oRrJI42bjfCspCiaMItngVBbPkiTGypS7xX4jYbHWQkXI8XuJ7VDB69D0MsVU6xfrBAIrM4A==}
     engines: {node: '>=18'}
 
   '@lix-js/server-protocol-schema@0.1.1':
@@ -4217,6 +4221,10 @@ packages:
     resolution: {integrity: sha512-FIyV/64EkKhJmjgC0g2hygpBv5RNWVPyNCqSAD7eTCv6eFWNIi4PN1UvdSJGicN/o35bnevgis4Y0UDC0qi8jQ==}
     engines: {node: '>=14.0.0'}
 
+  kysely@0.28.14:
+    resolution: {integrity: sha512-SU3lgh0rPvq7upc6vvdVrCsSMUG1h3ChvHVOY7wJ2fw4C9QEB7X3d5eyYEyULUX7UQtxZJtZXGuT6U2US72UYA==}
+    engines: {node: '>=20.0.0'}
+
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
@@ -6232,8 +6240,8 @@ snapshots:
       '@babel/generator': 7.29.1
       '@babel/helper-compilation-targets': 7.28.6
       '@babel/helper-module-transforms': 7.28.6(@babel/core@7.29.0)
-      '@babel/helpers': 7.28.6
-      '@babel/parser': 7.29.0
+      '@babel/helpers': 7.29.2
+      '@babel/parser': 7.29.2
       '@babel/template': 7.28.6
       '@babel/traverse': 7.29.0
       '@babel/types': 7.29.0
@@ -6257,7 +6265,7 @@ snapshots:
 
   '@babel/generator@7.29.1':
     dependencies:
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/types': 7.29.0
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
@@ -6382,7 +6390,7 @@ snapshots:
       '@babel/template': 7.27.2
       '@babel/types': 7.28.5
 
-  '@babel/helpers@7.28.6':
+  '@babel/helpers@7.29.2':
     dependencies:
       '@babel/template': 7.28.6
       '@babel/types': 7.29.0
@@ -6392,7 +6400,7 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.5
 
-  '@babel/parser@7.29.0':
+  '@babel/parser@7.29.2':
     dependencies:
       '@babel/types': 7.29.0
     optional: true
@@ -6464,7 +6472,7 @@ snapshots:
   '@babel/template@7.28.6':
     dependencies:
       '@babel/code-frame': 7.29.0
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/types': 7.29.0
     optional: true
 
@@ -6485,7 +6493,7 @@ snapshots:
       '@babel/code-frame': 7.29.0
       '@babel/generator': 7.29.1
       '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/template': 7.28.6
       '@babel/types': 7.29.0
       debug: 4.4.3
@@ -7210,12 +7218,12 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  '@inlang/sdk@2.8.0(babel-plugin-macros@3.1.0)':
+  '@inlang/sdk@2.9.1(babel-plugin-macros@3.1.0)':
     dependencies:
-      '@lix-js/sdk': 0.4.7(babel-plugin-macros@3.1.0)
+      '@lix-js/sdk': 0.4.9(babel-plugin-macros@3.1.0)
       '@sinclair/typebox': 0.31.28
-      kysely: 0.27.6
-      sqlite-wasm-kysely: 0.3.0(kysely@0.27.6)
+      kysely: 0.28.14
+      sqlite-wasm-kysely: 0.3.0(kysely@0.28.14)
       uuid: 13.0.0
     transitivePeerDependencies:
       - babel-plugin-macros
@@ -7301,6 +7309,18 @@ snapshots:
       js-sha256: 0.11.1
       kysely: 0.27.6
       sqlite-wasm-kysely: 0.3.0(kysely@0.27.6)
+      uuid: 10.0.0
+    transitivePeerDependencies:
+      - babel-plugin-macros
+
+  '@lix-js/sdk@0.4.9(babel-plugin-macros@3.1.0)':
+    dependencies:
+      '@lix-js/server-protocol-schema': 0.1.1
+      dedent: 1.5.1(babel-plugin-macros@3.1.0)
+      human-id: 4.1.3
+      js-sha256: 0.11.1
+      kysely: 0.28.14
+      sqlite-wasm-kysely: 0.3.0(kysely@0.28.14)
       uuid: 10.0.0
     transitivePeerDependencies:
       - babel-plugin-macros
@@ -10134,6 +10154,8 @@ snapshots:
 
   kysely@0.27.6: {}
 
+  kysely@0.28.14: {}
+
   levn@0.4.1:
     dependencies:
       prelude-ls: 1.2.1
@@ -11515,6 +11537,11 @@ snapshots:
     dependencies:
       '@sqlite.org/sqlite-wasm': 3.48.0-build4
       kysely: 0.27.6
+
+  sqlite-wasm-kysely@0.3.0(kysely@0.28.14):
+    dependencies:
+      '@sqlite.org/sqlite-wasm': 3.48.0-build4
+      kysely: 0.28.14
 
   srvx@0.10.0: {}
 
