@@ -12,8 +12,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1
       '@inlang/sdk':
-        specifier: ^2.9.0
-        version: 2.9.0(babel-plugin-macros@3.1.0)
+        specifier: ^2.9.1
+        version: 2.9.1(babel-plugin-macros@3.1.0)
       commander:
         specifier: 11.1.0
         version: 11.1.0
@@ -1534,8 +1534,8 @@ packages:
     resolution: {integrity: sha512-cvz/C1rF5WBxzHbEoiBoI6Sz6q6M+TdxfWkEGBYTD77opY8i8WN01prUWXEM87GPF4SZcyIySez9U0Ccm12oFQ==}
     engines: {node: '>=18.0.0'}
 
-  '@inlang/sdk@2.9.0':
-    resolution: {integrity: sha512-CfaKtwnPZpVcq3/+/IpMO1NrbyrODNzfwGvMuxoUQjojnC7+9Omtuz1Ol3Hy+tfS6i9zmSvu3c5Ru1/Zzq8QhA==}
+  '@inlang/sdk@2.9.1':
+    resolution: {integrity: sha512-y0C3xaKo6pSGDr3p5OdreRVT3THJpgKVe1lLvG3BE4v9lskp3UfI9cPCbN8X2dpfLt/4ljtehMb5SykpMfJrMg==}
     engines: {node: '>=20.0.0'}
 
   '@inquirer/external-editor@1.0.3':
@@ -1611,8 +1611,8 @@ packages:
     resolution: {integrity: sha512-pRbW+joG12L0ULfMiWYosIW0plmW4AsUdiPCp+Z8rAsElJ+wJ6in58zhD3UwUcd4BNcpldEGjg6PdA7e0RgsDQ==}
     engines: {node: '>=18'}
 
-  '@lix-js/sdk@0.4.8':
-    resolution: {integrity: sha512-H0nbC7ruhom1WQHmaXje6hyp8LYKqHw4VsJIm+i3QQMmz70Qr4MEIiy2Epma2AFSVD2rdIfIY4mQ+8WdCtjR3Q==}
+  '@lix-js/sdk@0.4.9':
+    resolution: {integrity: sha512-30mDkXpx704359oRrJI42bjfCspCiaMItngVBbPkiTGypS7xX4jYbHWQkXI8XuJ7VDB69D0MsVU6xfrBAIrM4A==}
     engines: {node: '>=18'}
 
   '@lix-js/server-protocol-schema@0.1.1':
@@ -7218,9 +7218,9 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  '@inlang/sdk@2.9.0(babel-plugin-macros@3.1.0)':
+  '@inlang/sdk@2.9.1(babel-plugin-macros@3.1.0)':
     dependencies:
-      '@lix-js/sdk': 0.4.8(babel-plugin-macros@3.1.0)
+      '@lix-js/sdk': 0.4.9(babel-plugin-macros@3.1.0)
       '@sinclair/typebox': 0.31.28
       kysely: 0.28.14
       sqlite-wasm-kysely: 0.3.0(kysely@0.28.14)
@@ -7313,7 +7313,7 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  '@lix-js/sdk@0.4.8(babel-plugin-macros@3.1.0)':
+  '@lix-js/sdk@0.4.9(babel-plugin-macros@3.1.0)':
     dependencies:
       '@lix-js/server-protocol-schema': 0.1.1
       dedent: 1.5.1(babel-plugin-macros@3.1.0)
