@@ -1,5 +1,12 @@
 # @inlang/paraglide-js
 
+## 2.15.1
+
+### Patch Changes
+
+- 2e8b5a1: Add markup documentation and message format plugin references to compiled README
+- 8964e8b: Update `@inlang/sdk` to `2.9.1`.
+
 ## 2.15.0
 
 ### Minor Changes
