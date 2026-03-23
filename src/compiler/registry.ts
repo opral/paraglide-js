@@ -16,11 +16,23 @@ export function createRegistry(): string {
 /**
  * @param {import("./runtime.js").Locale} locale
  * @param {unknown} input
- * @param {Intl.PluralRulesOptions} [options]
+ * @param {(Intl.PluralRulesOptions & { offset?: number | string })} [options]
  * @returns {string}
  */
 export function plural(locale, input, options) { 
-	return new Intl.PluralRules(locale, options).select(Number(input))
+	const offset = Number(options?.offset ?? 0)
+	const pluralOptions = options ? { ...options } : {}
+	delete pluralOptions.offset
+	return new Intl.PluralRules(locale, pluralOptions).select(Number(input) - offset)
+};
+
+/**
+ * @param {unknown} input
+ * @param {string} key
+ * @returns {boolean}
+ */
+export function numberExact(input, key) {
+	return JSON.stringify(Number(input)) === key
 };
 
 /**

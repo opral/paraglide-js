@@ -74,6 +74,7 @@ const numericOptionNamesByAnnotation: Record<string, ReadonlySet<string>> = {
 		"roundingIncrement",
 	]),
 	plural: new Set([
+		"offset",
 		"minimumIntegerDigits",
 		"minimumFractionDigits",
 		"maximumFractionDigits",

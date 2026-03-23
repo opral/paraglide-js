@@ -121,6 +121,20 @@ function compileMessageWithMultipleVariants(
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
 	const hasInputs = inputs.length > 0;
 	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
+	const declarationsByName = new Map(
+		declarations.map((declaration) => [declaration.name, declaration])
+	);
+	const sortedVariants = [...variants]
+		.map((variant, index) => ({ variant, index }))
+		.sort((left, right) =>
+			compareVariantSpecificity(
+				left.variant,
+				right.variant,
+				message,
+				declarationsByName
+			) || left.index - right.index
+		)
+		.map((entry) => entry.variant);
 
 	// TODO make sure that matchers use keys instead of indexes
 	const compiledVariants = [];
@@ -128,7 +142,7 @@ function compileMessageWithMultipleVariants(
 
 	let hasCatchAll = false;
 
-	for (const variant of variants) {
+	for (const variant of sortedVariants) {
 		const compiledPattern = compilePattern({
 			pattern: variant.pattern,
 			declarations,
@@ -160,19 +174,9 @@ function compileMessageWithMultipleVariants(
 		const conditions: string[] = [];
 
 		for (const match of variant.matches) {
-			// catch all matches are not used in the conditions
-			if (match.type !== "literal-match") {
-				continue;
-			}
-			const variableType = declarations.find(
-				(decl) => decl.name === match.key
-			)?.type;
-			if (variableType === "input-variable") {
-				conditions.push(
-					`${compileInputAccess(match.key)} == ${doubleQuote(match.value)}`
-				);
-			} else if (variableType === "local-variable") {
-				conditions.push(`${match.key} == ${doubleQuote(match.value)}`);
+			const condition = compileMatchCondition(match, declarationsByName);
+			if (condition) {
+				conditions.push(condition);
 			}
 		}
 
@@ -241,6 +245,92 @@ function compileMessageWithMultipleVariants(
 );`;
 
 	return { code, node: message };
+}
+
+function compileMatchCondition(
+	match: Variant["matches"][number],
+	declarationsByName: Map<string, Declaration>
+): string | undefined {
+	if (match.type !== "literal-match") {
+		return undefined;
+	}
+
+	const declaration = declarationsByName.get(match.key);
+	if (!declaration) {
+		return undefined;
+	}
+
+	if (declaration.type === "input-variable") {
+		return `${compileInputAccess(match.key)} == ${doubleQuote(match.value)}`;
+	}
+
+	if (isPluralSelectorDeclaration(declaration) && isNumericLiteralKey(match.value)) {
+		return `registry.numberExact(${compileSelectorOperand(declaration)}, ${doubleQuote(match.value)})`;
+	}
+
+	return `${match.key} == ${doubleQuote(match.value)}`;
+}
+
+function compareVariantSpecificity(
+	left: Variant,
+	right: Variant,
+	message: Message,
+	declarationsByName: Map<string, Declaration>
+): number {
+	for (const selector of message.selectors) {
+		const leftScore = selectorMatchPriority(
+			left.matches.find((match) => match.key === selector.name),
+			declarationsByName.get(selector.name)
+		);
+		const rightScore = selectorMatchPriority(
+			right.matches.find((match) => match.key === selector.name),
+			declarationsByName.get(selector.name)
+		);
+		if (leftScore !== rightScore) {
+			return leftScore - rightScore;
+		}
+	}
+
+	return 0;
+}
+
+function selectorMatchPriority(
+	match: Variant["matches"][number] | undefined,
+	declaration: Declaration | undefined
+): number {
+	if (!match || match.type === "catchall-match") {
+		return isPluralSelectorDeclaration(declaration) ? 2 : 1;
+	}
+
+	if (isPluralSelectorDeclaration(declaration) && isNumericLiteralKey(match.value)) {
+		return 0;
+	}
+
+	return isPluralSelectorDeclaration(declaration) ? 1 : 0;
+}
+
+function isPluralSelectorDeclaration(
+	declaration: Declaration | undefined
+): declaration is Extract<Declaration, { type: "local-variable" }> {
+	return (
+		declaration?.type === "local-variable" &&
+		declaration.value.annotation?.type === "function-reference" &&
+		declaration.value.annotation.name === "plural"
+	);
+}
+
+function compileSelectorOperand(
+	declaration: Extract<Declaration, { type: "local-variable" }>
+): string {
+	if (declaration.value.arg.type === "variable-reference") {
+		return compileInputAccess(declaration.value.arg.name);
+	}
+
+	return doubleQuote(declaration.value.arg.value);
+}
+
+function isNumericLiteralKey(value: string): boolean {
+	return /^-?(?:0|[1-9]\d*)(?:\.\d+)?$/.test(value);
 }
 
 function patternHasMarkup(pattern: Pattern): boolean {

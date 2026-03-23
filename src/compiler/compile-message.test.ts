@@ -3,6 +3,19 @@ import { compileMessage } from "./compile-message.js";
 import type { Declaration, Message, Variant } from "@inlang/sdk";
 import { createRegistry } from "./registry.js";
 
+async function importCompiledWithRegistry(
+	exportName: string,
+	compiledCode: string
+) {
+	const source =
+		createRegistry() +
+		`\nexport const ${exportName} = ` +
+		compiledCode.replaceAll("registry.", "");
+	return import(
+		"data:text/javascript;base64," + Buffer.from(source).toString("base64")
+	);
+}
+
 test("compiles a message with a single variant", async () => {
 	const declarations: Declaration[] = [];
 	const message: Message = {
@@ -434,19 +447,132 @@ test("compiles messages that use plural()", async () => {
 
 	const compiled = compileMessage(declarations, message, variants);
 
-	const { plural_test } = await import(
-		"data:text/javascript;base64," +
-			// bundling the registry inline to avoid managing module imports here
-			btoa(createRegistry()) +
-			btoa(
-				"export const plural_test = " + compiled.code.replace("registry.", "")
-			)
+	const { plural_test } = await importCompiledWithRegistry(
+		"plural_test",
+		compiled.code
 	);
 
 	expect(plural_test({ count: 1 })).toBe("There is one cat.");
 	expect(plural_test({ count: 2 })).toBe("There are many cats.");
 	// INTL.plural will match "other" for undefined
 	expect(plural_test({ count: undefined })).toBe("There are many cats.");
+});
+
+test("compiles plural exact matches before keyword and catchall matches", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "item" },
+		{
+			type: "local-variable",
+			name: "itemPlural",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "item" },
+				annotation: {
+					type: "function-reference",
+					name: "plural",
+					options: [],
+				},
+			},
+		},
+	];
+	const message: Message = {
+		locale: "en",
+		bundleId: "plural_exact",
+		id: "plural-exact-id",
+		selectors: [{ type: "variable-reference", name: "itemPlural" }],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "plural-exact-id",
+			matches: [{ type: "literal-match", value: "one", key: "itemPlural" }],
+			pattern: [{ type: "text", value: "one item" }],
+		},
+		{
+			id: "2",
+			messageId: "plural-exact-id",
+			matches: [{ type: "literal-match", value: "other", key: "itemPlural" }],
+			pattern: [{ type: "text", value: "other items" }],
+		},
+		{
+			id: "3",
+			messageId: "plural-exact-id",
+			matches: [{ type: "literal-match", value: "0", key: "itemPlural" }],
+			pattern: [],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	expect(compiled.code).toContain('registry.numberExact(i?.item, "0")');
+
+	const { plural_exact } = await importCompiledWithRegistry(
+		"plural_exact",
+		compiled.code
+	);
+
+	expect(plural_exact({ item: 0 })).toBe("");
+	expect(plural_exact({ item: 1 })).toBe("one item");
+	expect(plural_exact({ item: 2 })).toBe("other items");
+});
+
+test("compiles plural offset selectors with exact and category matching", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "count" },
+		{
+			type: "local-variable",
+			name: "countPluralOffset1",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "count" },
+				annotation: {
+					type: "function-reference",
+					name: "plural",
+					options: [{ name: "offset", value: { type: "literal", value: "1" } }],
+				},
+			},
+		},
+	];
+	const message: Message = {
+		locale: "en",
+		bundleId: "plural_offset",
+		id: "plural-offset-id",
+		selectors: [{ type: "variable-reference", name: "countPluralOffset1" }],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "plural-offset-id",
+			matches: [{ type: "literal-match", value: "0", key: "countPluralOffset1" }],
+			pattern: [{ type: "text", value: "no items" }],
+		},
+		{
+			id: "2",
+			messageId: "plural-offset-id",
+			matches: [
+				{ type: "literal-match", value: "one", key: "countPluralOffset1" },
+			],
+			pattern: [{ type: "text", value: "one other item" }],
+		},
+		{
+			id: "3",
+			messageId: "plural-offset-id",
+			matches: [
+				{ type: "literal-match", value: "other", key: "countPluralOffset1" },
+			],
+			pattern: [{ type: "text", value: "many other items" }],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { plural_offset } = await importCompiledWithRegistry(
+		"plural_offset",
+		compiled.code
+	);
+
+	expect(plural_offset({ count: 0 })).toBe("no items");
+	expect(plural_offset({ count: 2 })).toBe("one other item");
+	expect(plural_offset({ count: 4 })).toBe("many other items");
 });
 
 test("compiles messages that use plural() with ordinal type", async () => {
@@ -527,12 +653,9 @@ test("compiles messages that use plural() with ordinal type", async () => {
 
 	const compiled = compileMessage(declarations, message, variants);
 
-	const { ordinal_test } = await import(
-		"data:text/javascript;base64," +
-			btoa(createRegistry()) +
-			btoa(
-				"export const ordinal_test = " + compiled.code.replace("registry.", "")
-			)
+	const { ordinal_test } = await importCompiledWithRegistry(
+		"ordinal_test",
+		compiled.code
 	);
 
 	expect(ordinal_test({ count: 1 })).toBe("1st place");
@@ -585,11 +708,9 @@ test("compiles messages that use number()", async () => {
 
 		const compiled = compileMessage(declarations, message, variants);
 
-		const { number_test } = await import(
-			"data:text/javascript;base64," +
-				// bundling the registry inline to avoid managing module imports here
-				btoa(createRegistry()) +
-				btoa("export const number_test = " + compiled.code.replace("registry.", ""))
+		const { number_test } = await importCompiledWithRegistry(
+			"number_test",
+			compiled.code
 		);
 		return number_test;
 	};
@@ -654,11 +775,9 @@ test("compiles messages that use number() with options", async () => {
 
 		const compiled = compileMessage(declarations, message, variants);
 
-		const { number_test } = await import(
-			"data:text/javascript;base64," +
-				// bundling the registry inline to avoid managing module imports here
-				btoa(createRegistry()) +
-				btoa("export const number_test = " + compiled.code.replace("registry.", ""))
+		const { number_test } = await importCompiledWithRegistry(
+			"number_test",
+			compiled.code
 		);
 		return number_test;
 	};
@@ -714,14 +833,9 @@ test("compiles messages that use datetime()", async () => {
 
 		const compiled = compileMessage(declarations, message, variants);
 
-		const { datetime_test } = await import(
-			"data:text/javascript;base64," +
-				// bundling the registry inline to avoid managing module imports here
-				btoa(createRegistry()) +
-				btoa(
-					"export const datetime_test =" +
-						compiled.code.replace("registry.", "")
-				)
+		const { datetime_test } = await importCompiledWithRegistry(
+			"datetime_test",
+			compiled.code
 		);
 		return datetime_test;
 	};
@@ -785,14 +899,9 @@ test("compiles messages that use datetime a function with options", async () => 
 
 		const compiled = compileMessage(declarations, message, variants);
 
-		const { datetime_test } = await import(
-			"data:text/javascript;base64," +
-				// bundling the registry inline to avoid managing module imports here
-				btoa(createRegistry()) +
-				btoa(
-					"export const datetime_test = " +
-						compiled.code.replace("registry.", "")
-				)
+		const { datetime_test } = await importCompiledWithRegistry(
+			"datetime_test",
+			compiled.code
 		);
 		return datetime_test;
 	};
