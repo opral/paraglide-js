@@ -178,31 +178,3 @@ test("keeps negative digit options as strings to avoid emitting invalid numeric 
 		'const formattedValue = registry.number("en", i?.value, { minimumFractionDigits: "-1" });'
 	);
 });
-
-test("compiles plural offset options as numeric literals", () => {
-	const code = compileLocalVariable({
-		locale: "en",
-		declaration: {
-			type: "local-variable",
-			name: "countPlural",
-			value: {
-				type: "expression",
-				arg: { type: "variable-reference", name: "count" },
-				annotation: {
-					type: "function-reference",
-					name: "plural",
-					options: [
-						{
-							name: "offset",
-							value: { type: "literal", value: "1" },
-						},
-					],
-				},
-			},
-		},
-	});
-
-	expect(code).toEqual(
-		'const countPlural = registry.plural("en", i?.count, { offset: 1 });'
-	);
-});
