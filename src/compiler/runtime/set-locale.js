@@ -1,4 +1,4 @@
-import { getLocale } from "./get-locale.js";
+import { getLocale, _setLocaleOnGlobal } from "./get-locale.js";
 import { localizeUrl } from "./localize-url.js";
 import { customClientStrategies, isCustomStrategy } from "./strategy.js";
 import {
@@ -84,7 +84,7 @@ export let setLocale = (newLocale, options) => {
 		) {
 			// a default for a custom strategy to get started quickly
 			// is likely overwritten by `defineSetLocale()`
-			_locale = newLocale;
+			_setLocaleOnGlobal(newLocale);
 		} else if (TREE_SHAKE_COOKIE_STRATEGY_USED && strat === "cookie") {
 			if (
 				isServer ||

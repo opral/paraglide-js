@@ -20,15 +20,30 @@ import {
 } from "./variables.js";
 
 /**
- * This is a fallback to get started with a custom
- * strategy and avoid type errors.
+ * Locale storage using globalThis to share state across module instances.
  *
- * The implementation is overwritten
- * by `overwriteGetLocale()` and `defineSetLocale()`.
+ * Bundlers like Turbopack (and sometimes Webpack) create separate module
+ * instances for server and client bundles during SSR. A module-level
+ * `let _locale` doesn't cross this boundary, causing `getLocale()` to
+ * return the wrong locale in client components during SSR.
  *
- * @type {Locale | undefined}
+ * `globalThis` is shared across all module instances in the same process,
+ * fixing the cross-module-boundary issue.
+ *
+ * See: https://github.com/opral/paraglide-js/issues/524
+ * See: https://github.com/vercel/next.js/discussions/76582
+ *
+ * @type {string}
  */
-let _locale;
+const _PARAGLIDE_LOCALE_KEY = "__paraglide_locale";
+
+/** @returns {Locale | undefined} */
+export const _getLocaleFromGlobal = () => globalThis[_PARAGLIDE_LOCALE_KEY];
+
+/** @param {Locale} v */
+export const _setLocaleOnGlobal = (v) => {
+	globalThis[_PARAGLIDE_LOCALE_KEY] = v;
+};
 
 let localeInitiallySet = false;
 
@@ -75,7 +90,7 @@ export let getLocale = () => {
 	);
 	if (resolved) {
 		if (!localeInitiallySet) {
-			_locale = resolved;
+			_setLocaleOnGlobal(resolved);
 			// https://github.com/opral/inlang-paraglide-js/issues/455
 			localeInitiallySet = true;
 			setLocale(resolved, { reload: false });
@@ -137,9 +152,9 @@ function resolveLocaleWithStrategies(strategyToUse, urlForUrlStrategy) {
 		} else if (
 			TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED &&
 			strat === "globalVariable" &&
-			_locale !== undefined
+			_getLocaleFromGlobal() !== undefined
 		) {
-			locale = _locale;
+			locale = _getLocaleFromGlobal();
 		} else if (
 			TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED &&
 			strat === "preferredLanguage" &&

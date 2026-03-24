@@ -1,4 +1,5 @@
 import { toLocale } from "./check-locale.js";
+import { _getLocaleFromGlobal } from "./get-locale.js";
 import { extractLocaleFromHeader } from "./extract-locale-from-header.js";
 import { extractLocaleFromUrl } from "./extract-locale-from-url.js";
 import { isCustomStrategy } from "./strategy.js";
@@ -64,7 +65,7 @@ export const extractLocaleFromRequestWithStrategies = (request, strategies) => {
 		) {
 			locale = extractLocaleFromHeader(request);
 		} else if (strat === "globalVariable") {
-			locale = _locale;
+			locale = _getLocaleFromGlobal();
 		} else if (strat === "baseLocale") {
 			return baseLocale;
 		} else if (strat === "localStorage") {
