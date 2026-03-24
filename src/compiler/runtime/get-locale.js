@@ -38,11 +38,12 @@ import {
 const _PARAGLIDE_LOCALE_KEY = "__paraglide_locale";
 
 /** @returns {Locale | undefined} */
-export const _getLocaleFromGlobal = () => globalThis[_PARAGLIDE_LOCALE_KEY];
+export const _getLocaleFromGlobal = () =>
+	/** @type {Record<string, unknown>} */ (/** @type {unknown} */ (globalThis))[_PARAGLIDE_LOCALE_KEY];
 
 /** @param {Locale} v */
 export const _setLocaleOnGlobal = (v) => {
-	globalThis[_PARAGLIDE_LOCALE_KEY] = v;
+	/** @type {Record<string, unknown>} */ (/** @type {unknown} */ (globalThis))[_PARAGLIDE_LOCALE_KEY] = v;
 };
 
 let localeInitiallySet = false;

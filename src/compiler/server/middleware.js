@@ -115,7 +115,7 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 	// for server and client components during SSR. AsyncLocalStorage context
 	// doesn't cross this boundary, but globalThis does.
 	// See: https://github.com/opral/paraglide-js/issues/524
-	globalThis.__paraglide_locale = locale;
+	/** @type {Record<string, unknown>} */ (/** @type {unknown} */ (globalThis)).__paraglide_locale = locale;
 
 	// if the client makes a request to a URL that doesn't match
 	// the localizedUrl, redirect the client to the localized URL
