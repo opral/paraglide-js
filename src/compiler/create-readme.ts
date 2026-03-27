@@ -117,12 +117,18 @@ This is the default inlang message syntax. Paraglide's message format is plugin-
 
 ### Rendering markup
 
-Calling \`m.cta()\` returns **plain text** (markup stripped). To render markup, use the framework adapter or the low-level \`parts()\` API:
+Calling the message function still returns **plain text** (markup stripped):
 
 \`\`\`js
-const parts = m.cta.parts({});
+m.cta({ relationship: "noopener" }); // "Read the docs"
+\`\`\`
+
+To render markup, use the framework adapter or the low-level \`parts()\` API:
+
+\`\`\`js
+const parts = m.cta.parts({ relationship: "noopener" });
 // [
-//   { type: "markup-start", name: "link", options: { to: "/docs" }, attributes: {} },
+//   { type: "markup-start", name: "link", options: { to: "/docs", rel: "noopener" }, attributes: { track: true } },
 //   { type: "text", value: "Read the docs" },
 //   { type: "markup-end", name: "link" }
 // ]
