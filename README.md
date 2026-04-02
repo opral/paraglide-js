@@ -16,10 +16,12 @@
 
 <p align="center">
   <sub>Used in production by</sub><br/><br/>
+  <a href="https://www.disney.co.jp/"><img src="https://www.google.com/s2/favicons?domain=www.disney.co.jp&sz=32" alt="Disney Japan" height="24" /></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.minecraft.net/"><img src="https://www.google.com/s2/favicons?domain=www.minecraft.net&sz=32" alt="Minecraft" height="24" /></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.bose.com/"><img src="https://www.google.com/s2/favicons?domain=www.bose.com&sz=32" alt="Bose" height="24" /></a>&nbsp;&nbsp;&nbsp;
   <a href="https://michelin.com"><img src="https://www.google.com/s2/favicons?domain=michelin.com&sz=32" alt="Michelin" height="24" /></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://idealista.com"><img src="https://www.google.com/s2/favicons?domain=idealista.com&sz=32" alt="Idealista" height="24" /></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://architonic.com"><img src="https://www.google.com/s2/favicons?domain=architonic.com&sz=32" alt="Architonic" height="24" /></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://0.email"><img src="https://www.google.com/s2/favicons?domain=0.email&sz=32" alt="0.email" height="24" /></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.kraftheinz.com/"><img src="https://www.google.com/s2/favicons?domain=www.kraftheinz.com&sz=32" alt="Kraft Heinz" height="24" /></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://brave.com/"><img src="https://www.google.com/s2/favicons?domain=brave.com&sz=32" alt="Brave" height="24" /></a>&nbsp;&nbsp;&nbsp;
   <sub>...and more</sub>
 </p>
 
@@ -50,7 +52,7 @@ The compiler generates typed message functions. Your bundler tree-shakes unused 
 
 |                           |                                                                                                                                                                                                                |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Smaller i18n Bundle**   | Up to 70% smaller i18n bundle size than runtime i18n libraries.                                                                                                                                                                 |
+| **Smaller i18n Bundle**   | Up to 70% smaller i18n bundle size than runtime i18n libraries.                                                                                                                                                |
 | **Tree-Shakable**         | Unused messages are eliminated by your bundler.                                                                                                                                                                |
 | **Fully Typesafe**        | Autocomplete for message keys and parameters. Typos become compile errors.                                                                                                                                     |
 | **Framework Agnostic**    | Works with React, Vue, Svelte, Solid, TanStack, or vanilla JS/TS.                                                                                                                                              |
@@ -148,14 +150,14 @@ Message format is **plugin-based** — use the default inlang format, or switch 
 
 ## Comparison
 
-| Feature                    | Paraglide                          | i18next               | react-intl            |
-| -------------------------- | ---------------------------------- | --------------------- | --------------------- |
-| **i18n bundle size**       | Up to 70% smaller via tree-shaking | ❌ Ships all messages | ❌ Ships all messages |
-| **Tree-shakable**          | ✅                                 | ❌                    | ❌                    |
-| **Typesafe**               | ✅                                 | Partial               | ❌                    |
-| **Framework agnostic**     | ✅                                 | Wrappers needed       | React only            |
-| **i18n routing**           | ✅ Built-in                        | ❌                    | ❌                    |
-| **ICU MessageFormat 1**    | ✅ [Via plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1) | ✅                    | ✅                    |
+| Feature                 | Paraglide                                                                        | i18next               | react-intl            |
+| ----------------------- | -------------------------------------------------------------------------------- | --------------------- | --------------------- |
+| **i18n bundle size**    | Up to 70% smaller via tree-shaking                                               | ❌ Ships all messages | ❌ Ships all messages |
+| **Tree-shakable**       | ✅                                                                               | ❌                    | ❌                    |
+| **Typesafe**            | ✅                                                                               | Partial               | ❌                    |
+| **Framework agnostic**  | ✅                                                                               | Wrappers needed       | React only            |
+| **i18n routing**        | ✅ Built-in                                                                      | ❌                    | ❌                    |
+| **ICU MessageFormat 1** | ✅ [Via plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1) | ✅                    | ✅                    |
 
 **[Full Comparison →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/comparison)**
 
