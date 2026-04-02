@@ -16,13 +16,16 @@
 
 <p align="center">
   <sub>Used in production by</sub><br/><br/>
-  <a href="https://www.disney.co.jp/"><img src="https://www.google.com/s2/favicons?domain=www.disney.co.jp&sz=32" alt="Disney Japan" height="24" /></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://www.minecraft.net/"><img src="https://www.google.com/s2/favicons?domain=www.minecraft.net&sz=32" alt="Minecraft" height="24" /></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://www.bose.com/"><img src="https://www.google.com/s2/favicons?domain=www.bose.com&sz=32" alt="Bose" height="24" /></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://michelin.com"><img src="https://www.google.com/s2/favicons?domain=michelin.com&sz=32" alt="Michelin" height="24" /></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://www.kraftheinz.com/"><img src="https://www.google.com/s2/favicons?domain=www.kraftheinz.com&sz=32" alt="Kraft Heinz" height="24" /></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://brave.com/"><img src="https://www.google.com/s2/favicons?domain=brave.com&sz=32" alt="Brave" height="24" /></a>&nbsp;&nbsp;&nbsp;
-  <sub>...and more</sub>
+  <a href="https://www.kraftheinz.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/kraft-heinz.png?raw=true" alt="Kraft Heinz" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.bose.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/bose.svg?raw=true" alt="Bose" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.disney.co.jp/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/disney.svg?raw=true" alt="Disney" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://ethz.ch/de.html"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/eth-zurich.svg?raw=true" alt="ETH Zurich" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://brave.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/brave.svg?raw=true" alt="Brave" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.michelin.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/michelin.svg?raw=true" alt="Michelin" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.idealista.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/idealista.svg?raw=true" alt="idealista" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.architonic.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/architonic.png?raw=true" alt="Architonic" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.finanzen100.de/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/finanzen100.png?raw=true" alt="Finanzen100" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://0.email/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/zero-email.svg?raw=true" alt="0.email" height="18"></a>
 </p>
 
 <p align="center">
