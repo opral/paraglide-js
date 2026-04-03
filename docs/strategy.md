@@ -47,6 +47,8 @@ strategy: ["localStorage", "cookie", "url", "baseLocale"];
 
 Use this when you want returning visitors to see content in their previously selected language, regardless of the URL they land on. The URL only determines locale if no preference is stored.
 
+In SSR apps, the initial document request cannot read `localStorage`. If the first request must respect the stored preference, include a server-visible strategy such as `cookie`.
+
 ### Automatic language detection with persistent override
 
 ```js
@@ -57,6 +59,13 @@ Use this when you want first-time visitors to see content in their browser's lan
 
 The fallback chain flows left to right: `localStorage → preferredLanguage → url → baseLocale`.
 Because `localStorage` is first, a stored selection overrides the browser setting. If it's missing, the arrow falls through to `preferredLanguage`, then `url`, and finally `baseLocale`.
+
+> [!NOTE]
+> In SSR apps that also localize the URL, `localStorage` is not available on the initial document request. The server will fall through to `preferredLanguage` or `url`, which can redirect to a locale that differs from the hydrated client locale. If the persisted override must affect the first request too, add a server-visible strategy such as `cookie`:
+>
+> ```js
+> strategy: ["localStorage", "cookie", "preferredLanguage", "url", "baseLocale"];
+> ```
 
 ## Built-in strategies
 
@@ -136,6 +145,8 @@ compile({
 +	strategy: ["localStorage"]
 })
 ```
+
+This strategy is browser-only. On the server, `localStorage` is skipped and the next strategy is used instead. In SSR apps, pair it with a server-visible strategy such as `cookie` if the initial request should respect the persisted locale.
 
 ### url
 

@@ -161,6 +161,22 @@ export default config;
 
 ## Troubleshooting
 
+### URL and locale getting out of sync
+
+If you use SSR with localized URLs, remember that the initial document request runs on the server. The server cannot read `localStorage`, so a strategy like:
+
+```js
+["localStorage", "preferredLanguage", "url", "baseLocale"]
+```
+
+can still redirect the first request based on `preferredLanguage` or `url` before hydration. If a stored override must affect the first request too, include a cookie strategy:
+
+```js
+["localStorage", "cookie", "preferredLanguage", "url", "baseLocale"]
+```
+
+Use `shouldRedirect()` in the root `+layout.svelte` only if you also want to re-sync the URL after client-side navigations. It does not replace the server-side middleware for the first page load. See the [client-side redirects guide](/m/gerre34r/library-inlang-paraglideJs/i18n-routing#client-side-redirects).
+
 ### Disabling AsyncLocalStorage
 
 If you're deploying to Vercel Edge or to Cloudflare Workers with Node.js compatibility enabled, keep AsyncLocalStorage enabled. Those runtimes support it today, so `disableAsyncLocalStorage` is no longer part of the recommended SvelteKit setup.
