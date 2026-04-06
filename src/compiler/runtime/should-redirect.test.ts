@@ -110,6 +110,43 @@ test("shouldRedirect resolves relative requestUrl strings against request.url", 
 	expect(decision.locale).toBe("fr");
 });
 
+test("shouldRedirect keeps request precedence over url on the server", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url"],
+		cookieName: "PARAGLIDE_LOCALE",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/en/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		},
+	});
+
+	const decision = await runtime.shouldRedirect({
+		request,
+		url: "/dashboard",
+	});
+
+	expect(decision.shouldRedirect).toBe(true);
+	expect(decision.redirectUrl?.href).toBe("https://example.com/fr/dashboard");
+	expect(decision.locale).toBe("fr");
+});
+
 test("shouldRedirect does nothing when the URL already matches", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({

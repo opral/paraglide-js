@@ -142,16 +142,16 @@ function resolveUrl(input) {
 		);
 	}
 
+	if (input.request) {
+		return new URL(input.request.url);
+	}
+
 	if ("url" in input && input.url instanceof URL) {
 		return new URL(input.url.href);
 	}
 
 	if ("url" in input && typeof input.url === "string") {
 		return new URL(input.url, getUrlOrigin());
-	}
-
-	if (input.request) {
-		return new URL(input.request.url);
 	}
 
 	if (typeof window !== "undefined" && window?.location?.href) {
