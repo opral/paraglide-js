@@ -419,6 +419,11 @@ If you need to re-sync the URL after client-side navigations in SvelteKit, put `
 		const decision = await shouldRedirect({ url });
 
 		if (decision.shouldRedirect && decision.redirectUrl) {
+			if (decision.redirectUrl.origin !== window.location.origin) {
+				window.location.href = decision.redirectUrl.href;
+				return;
+			}
+
 			await goto(decision.redirectUrl, { invalidateAll: true });
 		}
 	}
