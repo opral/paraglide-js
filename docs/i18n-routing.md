@@ -366,9 +366,12 @@ For SaaS platforms with different domains or subdomains per customer, each needi
 
 ## Client-side redirects
 
-The server-side `paraglideMiddleware()` uses the `shouldRedirect()` helper to keep URLs and locales in sync. Single-page apps can call the same helper on the client to mirror that behaviour.
+The server-side `paraglideMiddleware()` already uses the `shouldRedirect()` helper to keep document requests canonical. Call the same helper on the client when you need to mirror that behaviour in a single-page app, or after client-side navigations in an SSR app.
 
 `shouldRedirect()` accepts either a `Request` (server) or a URL string (client). It evaluates your configured strategies in order, returning both the winning locale and the canonical URL.
+
+> [!NOTE]
+> Client-side `shouldRedirect()` is not a replacement for server-side locale detection on the first document request. If your SSR app stores the locale only in `localStorage`, the server cannot see that value before hydration. In that case the initial URL may still be canonicalized from `preferredLanguage`, `cookie`, or `url`. Use a server-visible strategy such as `cookie` if the first request must respect the stored override.
 
 #### Generic SPA
 
@@ -400,6 +403,41 @@ export const beforeLoad = async ({ location }) => {
 		throw redirect({ to: decision.redirectUrl.href });
 	}
 };
+```
+
+#### SvelteKit
+
+If you need to re-sync the URL after client-side navigations in SvelteKit, put `shouldRedirect()` in the root `+layout.svelte`. This only affects the client after hydration. The initial SSR document request is still handled by `paraglideMiddleware()`.
+
+```svelte
+<script lang="ts">
+	import { afterNavigate, goto } from "$app/navigation";
+	import { onMount } from "svelte";
+	import { shouldRedirect } from "$lib/paraglide/runtime";
+
+	async function syncLocaleUrl(url: string) {
+		const decision = await shouldRedirect({ url });
+
+		if (decision.shouldRedirect && decision.redirectUrl) {
+			if (decision.redirectUrl.origin !== window.location.origin) {
+				window.location.href = decision.redirectUrl.href;
+				return;
+			}
+
+			await goto(decision.redirectUrl, { invalidateAll: true });
+		}
+	}
+
+	onMount(() => {
+		void syncLocaleUrl(window.location.href);
+	});
+
+	afterNavigate((navigation) => {
+		if (navigation.to) {
+			void syncLocaleUrl(navigation.to.url.href);
+		}
+	});
+</script>
 ```
 
 ## Troubleshooting
@@ -442,6 +480,8 @@ strategy: ["localStorage", "preferredLanguage", "url"];
 // localStorage will never be checked because URL always resolves
 strategy: ["url", "localStorage", "preferredLanguage"];
 ```
+
+In SSR apps, this only applies to strategies the server can actually read on the initial document request. `localStorage` participates only after hydration, while `cookie` and `preferredLanguage` are available to the server immediately.
 
 ### Excluding paths in URL patterns
 
