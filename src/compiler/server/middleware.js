@@ -31,7 +31,10 @@ import * as runtime from "./runtime.js";
  *      If your framework handles URL localization itself (e.g., TanStack Router's `rewrite` option), use the original
  *      request instead to avoid redirect loops.
  *   - `locale`: The determined locale for this request.
- * @param {{ onRedirect:(response: Response) => void }} [callbacks] - Callbacks to handle events from middleware
+ * @param {{
+ *   requestUrl?: string | URL | ((request: Request) => string | URL),
+ *   onRedirect?: (response: Response) => void
+ * }} [options] - Options to control middleware behavior. `requestUrl` sets the effective public URL used for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
  * @returns {Promise<Response>}
  *
  * @example
@@ -88,13 +91,14 @@ import * as runtime from "./runtime.js";
  * }
  * ```
  */
-export async function paraglideMiddleware(request, resolve, callbacks) {
+export async function paraglideMiddleware(request, resolve, options) {
 	// %async-local-storage
+	const url = resolveMiddlewareUrl(request, options?.requestUrl);
+	const origin = url.origin;
 
-	if (runtime.isExcludedByRouteStrategy(request.url)) {
+	if (runtime.isExcludedByRouteStrategy(url.href)) {
 		const locale = runtime.baseLocale;
-		const origin = new URL(request.url).origin;
-		const newRequest = cloneRequestWithFallback(request);
+		const newRequest = cloneRequestWithFallback(request, url);
 		/** @type {Set<string>} */
 		const messageCalls = new Set();
 		return /** @type {Response} */ (
@@ -105,10 +109,9 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 		);
 	}
 
-	const strategy = runtime.getStrategyForUrl(request.url);
-	const decision = await runtime.shouldRedirect({ request });
+	const strategy = runtime.getStrategyForUrl(url.href);
+	const decision = await runtime.shouldRedirect({ request, requestUrl: url });
 	const locale = decision.locale;
-	const origin = new URL(request.url).origin;
 
 	// if the client makes a request to a URL that doesn't match
 	// the localizedUrl, redirect the client to the localized URL
@@ -132,7 +135,7 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 			},
 		});
 
-		callbacks?.onRedirect(response);
+		options?.onRedirect?.(response);
 		return response;
 	}
 
@@ -144,9 +147,9 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 	// the server can't render the correct page.
 	let newRequest;
 	if (strategy.includes("url")) {
-		newRequest = new Request(runtime.deLocalizeUrl(request.url), request);
+		newRequest = cloneRequestWithFallback(request, runtime.deLocalizeUrl(url));
 	} else {
-		newRequest = cloneRequestWithFallback(request);
+		newRequest = cloneRequestWithFallback(request, url);
 	}
 
 	// the message functions that have been called in this request
@@ -178,7 +181,9 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 		}
 
 		// Prevent translated content from terminating the inline script tag.
-		const escapedMessages = messages.join(",").replace(/<\/(script)/gi, "<\\/$1");
+		const escapedMessages = messages
+			.join(",")
+			.replace(/<\/(script)/gi, "<\\/$1");
 		const script = `<script>globalThis.__paraglide = globalThis.__paraglide ?? {}; globalThis.__paraglide.ssr = { ${escapedMessages} }</script>`;
 
 		// Insert the script before the closing head tag
@@ -200,6 +205,23 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 }
 
 /**
+ * @param {Request} request
+ * @param {string | URL | ((request: Request) => string | URL) | undefined} requestUrl
+ * @returns {URL}
+ */
+function resolveMiddlewareUrl(request, requestUrl) {
+	if (typeof requestUrl === "function") {
+		return new URL(requestUrl(request), request.url);
+	}
+
+	if (typeof requestUrl === "string" || requestUrl instanceof URL) {
+		return new URL(requestUrl, request.url);
+	}
+
+	return new URL(request.url);
+}
+
+/**
  * Some metaframeworks (NextJS) require a new Request object.
  * https://github.com/opral/inlang-paraglide-js/issues/411
  *
@@ -207,16 +229,34 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
  * implementations that cannot be cloned with `new Request(request)`.
  * https://github.com/opral/paraglide-js/issues/573
  *
+ * Public request URL overrides behind proxies:
+ * https://github.com/opral/paraglide-js/issues/652
+ *
  * @param {Request} request
+ * @param {string | URL} [url]
  * @returns {Request}
  */
-function cloneRequestWithFallback(request) {
+function cloneRequestWithFallback(request, url = request.url) {
+	const targetUrl = typeof url === "string" ? url : url.href;
+	if (targetUrl === request.url) {
+		try {
+			// Clone first so building a new Request does not consume the original body stream.
+			return new Request(request.clone());
+		} catch {
+			try {
+				return new Request(request);
+			} catch {
+				return request;
+			}
+		}
+	}
+
 	try {
 		// Clone first so building a new Request does not consume the original body stream.
-		return new Request(request.clone());
+		return new Request(targetUrl, request.clone());
 	} catch {
 		try {
-			return new Request(request);
+			return new Request(targetUrl, request);
 		} catch {
 			return request;
 		}

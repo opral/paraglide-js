@@ -64,3 +64,93 @@ test("falls back to next strategy when custom strategy returns undefined", async
 	const locale = await runtime.extractLocaleFromRequestAsync(request);
 	expect(locale).toBe("en"); // Should fall back to baseLocale
 });
+
+test("uses the provided public url for url strategy matching", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("http://internal.example.com/en/home");
+	const locale = await runtime.extractLocaleFromRequestAsync(request, {
+		requestUrl: "https://example.com/fr/home",
+	});
+
+	expect(locale).toBe("fr");
+});
+
+test("resolves relative requestUrl strings against request.url", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/en/home");
+	const locale = await runtime.extractLocaleFromRequestAsync(request, {
+		requestUrl: "/fr/home",
+	});
+
+	expect(locale).toBe("fr");
+});
+
+test("uses normalized requestUrl for route strategy selection", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["baseLocale"],
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+		routeStrategies: [
+			{
+				match: "https://example.com/:path(.*)?",
+				strategy: ["url", "baseLocale"],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/en/home");
+	const locale = await runtime.extractLocaleFromRequestAsync(request, {
+		requestUrl: "/fr/home",
+	});
+
+	expect(locale).toBe("fr");
+});

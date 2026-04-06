@@ -364,11 +364,11 @@ When a German user visits `/specific-path`, they'll be redirected to `/de/404`. 
 
 For SaaS platforms with different domains or subdomains per customer, each needing different default locales or supported languages, see the [Multi-Tenancy Guide](./multi-tenancy).
 
-## Client-side redirects
+## Redirects
 
 The server-side `paraglideMiddleware()` already uses the `shouldRedirect()` helper to keep document requests canonical. Call the same helper on the client when you need to mirror that behaviour in a single-page app, or after client-side navigations in an SSR app.
 
-`shouldRedirect()` accepts either a `Request` (server) or a URL string (client). It evaluates your configured strategies in order, returning both the winning locale and the canonical URL.
+Use `{ url }` in the browser and `{ request }` on the server. If a proxy or load balancer changes the browser-facing URL before the request reaches your app, also pass `requestUrl`.
 
 > [!NOTE]
 > Client-side `shouldRedirect()` is not a replacement for server-side locale detection on the first document request. If your SSR app stores the locale only in `localStorage`, the server cannot see that value before hydration. In that case the initial URL may still be canonicalized from `preferredLanguage`, `cookie`, or `url`. Use a server-visible strategy such as `cookie` if the first request must respect the stored override.
@@ -438,6 +438,27 @@ If you need to re-sync the URL after client-side navigations in SvelteKit, put `
 		}
 	});
 </script>
+
+#### Server Behind a Proxy
+
+Pass the browser-facing URL as `requestUrl`. Derive it from trusted proxy or framework metadata.
+
+```ts
+import { shouldRedirect } from "./paraglide/runtime.js";
+
+export async function handle(request: Request) {
+	const requestUrl = new URL(request.url);
+	requestUrl.protocol = "https:";
+	requestUrl.host = "app.example.com";
+
+	const decision = await shouldRedirect({ request, requestUrl });
+
+	if (decision.shouldRedirect) {
+		return Response.redirect(decision.redirectUrl, 307);
+	}
+
+	return render(request, decision.locale);
+}
 ```
 
 ## Troubleshooting

@@ -36,6 +36,80 @@ test("shouldRedirect redirects to the strategy-preferred locale on the server", 
 	expect(decision.locale).toBe("fr");
 });
 
+test("shouldRedirect uses the provided public url when the transport request url differs", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url"],
+		cookieName: "PARAGLIDE_LOCALE",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("http://internal.example.com/en/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		},
+	});
+
+	const decision = await runtime.shouldRedirect({
+		request,
+		requestUrl: "https://example.com/en/dashboard",
+	});
+
+	expect(decision.shouldRedirect).toBe(true);
+	expect(decision.redirectUrl?.href).toBe("https://example.com/fr/dashboard");
+	expect(decision.locale).toBe("fr");
+});
+
+test("shouldRedirect resolves relative requestUrl strings against request.url", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url"],
+		cookieName: "PARAGLIDE_LOCALE",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/en/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		},
+	});
+
+	const decision = await runtime.shouldRedirect({
+		request,
+		requestUrl: "/en/dashboard",
+	});
+
+	expect(decision.shouldRedirect).toBe(true);
+	expect(decision.redirectUrl?.href).toBe("https://example.com/fr/dashboard");
+	expect(decision.locale).toBe("fr");
+});
+
 test("shouldRedirect does nothing when the URL already matches", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({

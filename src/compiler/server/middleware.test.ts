@@ -112,8 +112,9 @@ test("skips i18n middleware behavior for excluded routeStrategies", async () => 
 		},
 	});
 
-	const response = await runtime.paraglideMiddleware(request, ({ locale, request }) =>
-		new Response(`${locale}|${request.url}`)
+	const response = await runtime.paraglideMiddleware(
+		request,
+		({ locale, request }) => new Response(`${locale}|${request.url}`)
 	);
 
 	expect(response.status).toBe(200);
@@ -140,12 +141,12 @@ test("excluded routeStrategies keep request-scoped locale context and clone requ
 	const response = await runtime.paraglideMiddleware(
 		originalRequest,
 		({ locale, request }) => {
-		expect(locale).toBe("en");
-		expect(runtime.getLocale()).toBe("en");
-		expect(runtime.getUrlOrigin()).toBe("https://example.com");
-		expect(request).not.toBe(originalRequest);
-		expect(request.url).toBe("https://example.com/api/data");
-		return new Response("ok");
+			expect(locale).toBe("en");
+			expect(runtime.getLocale()).toBe("en");
+			expect(runtime.getUrlOrigin()).toBe("https://example.com");
+			expect(request).not.toBe(originalRequest);
+			expect(request.url).toBe("https://example.com/api/data");
+			return new Response("ok");
 		}
 	);
 
@@ -171,11 +172,14 @@ test("excluded routeStrategies fall back to original request when cloning fails"
 		method: "GET",
 	} as unknown as Request;
 
-	const response = await runtime.paraglideMiddleware(customRequest, ({ locale, request }) => {
-		expect(locale).toBe("en");
-		expect(request).toBe(customRequest);
-		return new Response("ok");
-	});
+	const response = await runtime.paraglideMiddleware(
+		customRequest,
+		({ locale, request }) => {
+			expect(locale).toBe("en");
+			expect(request).toBe(customRequest);
+			return new Response("ok");
+		}
+	);
 
 	expect(await response.text()).toBe("ok");
 });
@@ -201,10 +205,13 @@ test("excluded routeStrategies preserve original request body readability", asyn
 		},
 	});
 
-	const response = await runtime.paraglideMiddleware(originalRequest, async ({ request }) => {
-		expect(await request.text()).toBe("hello=world");
-		return new Response("ok");
-	});
+	const response = await runtime.paraglideMiddleware(
+		originalRequest,
+		async ({ request }) => {
+			expect(await request.text()).toBe("hello=world");
+			return new Response("ok");
+		}
+	);
 
 	expect(await response.text()).toBe("ok");
 	expect(await originalRequest.text()).toBe("hello=world");
@@ -233,8 +240,9 @@ test("routeStrategies layering is first-match-wins when exclude comes first", as
 		},
 	});
 
-	const response = await runtime.paraglideMiddleware(request, ({ locale, request }) =>
-		new Response(`${locale}|${request.url}`)
+	const response = await runtime.paraglideMiddleware(
+		request,
+		({ locale, request }) => new Response(`${locale}|${request.url}`)
 	);
 
 	expect(response.status).toBe(200);
@@ -264,8 +272,9 @@ test("routeStrategies layering is first-match-wins when strategy comes first", a
 		},
 	});
 
-	const response = await runtime.paraglideMiddleware(request, ({ locale, request }) =>
-		new Response(`${locale}|${request.url}`)
+	const response = await runtime.paraglideMiddleware(
+		request,
+		({ locale, request }) => new Response(`${locale}|${request.url}`)
 	);
 
 	expect(response.status).toBe(200);
@@ -364,6 +373,90 @@ test("call onRedirect callback when redirecting to new url", async () => {
 	expect(response.headers.get("Location")).toBe(
 		"https://example.com/fr/some-path"
 	);
+});
+
+test("uses the provided public url for redirects behind a proxy", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url"],
+		cookieName: "PARAGLIDE_LOCALE",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("http://internal.example.com/en/some-path", {
+		headers: {
+			cookie: `PARAGLIDE_LOCALE=fr`,
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const response = await runtime.paraglideMiddleware(
+		request,
+		() => {
+			throw new Error("Should not reach here");
+		},
+		{
+			requestUrl: "https://example.com/en/some-path",
+		}
+	);
+
+	expect(response.status).toBe(307);
+	expect(response.headers.get("Location")).toBe(
+		"https://example.com/fr/some-path"
+	);
+});
+
+test("uses the provided public url for callback request and origin", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("http://internal.example.com/fr/some-path", {
+		headers: {
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const response = await runtime.paraglideMiddleware(
+		request,
+		({ request }) => {
+			expect(runtime.getUrlOrigin()).toBe("https://example.com");
+			return new Response(request.url);
+		},
+		{
+			requestUrl: "https://example.com/fr/some-path",
+		}
+	);
+
+	expect(await response.text()).toBe("https://example.com/some-path");
 });
 
 test("sets Vary: Accept-Language header when preferredLanguage strategy is used and redirect occurs", async () => {
@@ -1070,6 +1163,70 @@ test("falls back to original request when cloning fails (e.g., TanStack Start cu
 
 	expect(middlewareResolveWasCalled).toBe(true);
 	expect(await response.text()).toBe("Success");
+});
+
+// https://github.com/opral/paraglide-js/issues/652
+test("falls back to original request when cloning a rewritten request fails", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["globalVariable", "baseLocale"],
+	});
+
+	const customRequest = {
+		url: "http://internal.example.com/page",
+		headers: new Headers({ "Sec-Fetch-Dest": "document" }),
+		method: "GET",
+	} as unknown as Request;
+
+	const NativeRequest = globalThis.Request;
+	Object.defineProperty(globalThis, "Request", {
+		value: class extends NativeRequest {
+			constructor(input: RequestInfo | URL, init?: RequestInit) {
+				if (
+					(typeof input === "string" &&
+						input === "https://example.com/page") ||
+					(input instanceof URL && input.href === "https://example.com/page")
+				) {
+					throw new TypeError("Simulated rewritten request clone failure");
+				}
+				super(input, init);
+			}
+		},
+		configurable: true,
+		writable: true,
+	});
+
+	try {
+		let middlewareResolveWasCalled = false;
+		const response = await runtime.paraglideMiddleware(
+			customRequest,
+			(args) => {
+				middlewareResolveWasCalled = true;
+				expect(args.locale).toBe("en");
+				expect(runtime.getUrlOrigin()).toBe("https://example.com");
+				expect(args.request).toBe(customRequest);
+				expect(args.request.url).toBe("http://internal.example.com/page");
+				return new Response("Success");
+			},
+			{
+				requestUrl: "https://example.com/page",
+			}
+		);
+
+		expect(middlewareResolveWasCalled).toBe(true);
+		expect(await response.text()).toBe("Success");
+	} finally {
+		Object.defineProperty(globalThis, "Request", {
+			value: NativeRequest,
+			configurable: true,
+			writable: true,
+		});
+	}
 });
 
 test("middleware works with multiple async custom strategies", async () => {
