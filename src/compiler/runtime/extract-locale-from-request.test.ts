@@ -47,6 +47,70 @@ test("returns the locale from the pathname for document requests", async () => {
 	expect(locale).toBe("en");
 });
 
+test("uses the provided public url for url strategy matching", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+	const request = new Request("http://internal.example.com/en/home", {
+		headers: {
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const locale = runtime.extractLocaleFromRequest(request, {
+		requestUrl: "https://example.com/fr/home",
+	});
+
+	expect(locale).toBe("fr");
+});
+
+test("resolves relative requestUrl strings against request.url", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+	const request = new Request("https://example.com/en/home", {
+		headers: {
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const locale = runtime.extractLocaleFromRequest(request, {
+		requestUrl: "/fr/home",
+	});
+
+	expect(locale).toBe("fr");
+});
+
 test("returns the baseLocale if no other strategy matches", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({

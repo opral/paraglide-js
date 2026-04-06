@@ -1,3 +1,19 @@
+## ExtractLocaleFromRequestOptions
+
+Defined in: [runtime/extract-locale-from-request.js:16](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
+
+### Properties
+
+#### requestUrl?
+
+> `optional` **requestUrl**: `string` \| `URL`
+
+Defined in: [runtime/extract-locale-from-request.js:17](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
+
+Effective request URL to use for route matching and locale detection with the URL strategy.
+
+***
+
 ## ShouldRedirectClientInput
 
 Defined in: [runtime/should-redirect.js:14](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
@@ -72,11 +88,13 @@ Defined in: [runtime/should-redirect.js:12](https://github.com/opral/paraglide-j
 
 Defined in: [runtime/should-redirect.js:10](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
 
-#### url?
+#### requestUrl?
 
-> `optional` **url**: `string` \| `URL`
+> `optional` **requestUrl**: `string` \| `URL`
 
 Defined in: [runtime/should-redirect.js:11](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
+
+Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
 
 ***
 
@@ -682,9 +700,9 @@ const locale = extractLocaleFromNavigator();
 
 ## extractLocaleFromRequest()
 
-> **extractLocaleFromRequest**(`request`): `string`
+> **extractLocaleFromRequest**(`request`, `options?`): `string`
 
-Defined in: [runtime/extract-locale-from-request.js:34](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
+Defined in: [runtime/extract-locale-from-request.js:40](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
 
 Extracts a locale from a request.
 
@@ -704,6 +722,10 @@ Use `extractLocaleFromRequestAsync` if you need custom server strategies with as
 
 `Request`
 
+#### options?
+
+[`ExtractLocaleFromRequestOptions`](#extractlocalefromrequestoptions) = `{}`
+
 ### Returns
 
 `string`
@@ -718,9 +740,9 @@ const locale = extractLocaleFromRequest(request);
 
 ## extractLocaleFromRequestAsync()
 
-> **extractLocaleFromRequestAsync**(`request`): `Promise`\<`string`\>
+> **extractLocaleFromRequestAsync**(`request`, `options?`): `Promise`\<`string`\>
 
-Defined in: [runtime/extract-locale-from-request-async.js:36](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request-async.js)
+Defined in: [runtime/extract-locale-from-request-async.js:37](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request-async.js)
 
 Asynchronously extracts a locale from a request.
 
@@ -738,6 +760,14 @@ to the synchronous `extractLocaleFromRequest` for all other strategies.
 `Request`
 
 The request object to extract the locale from.
+
+#### options?
+
+Effective request URL to use for route matching and locale detection with the URL strategy.
+
+##### requestUrl?
+
+`string` \| `URL`
 
 ### Returns
 
@@ -1338,7 +1368,7 @@ setLocale('en', { reload: false });
 
 > **shouldRedirect**(`input?`): `Promise`\<[`ShouldRedirectResult`](#shouldredirectresult)\>
 
-Defined in: [runtime/should-redirect.js:63](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
+Defined in: [runtime/should-redirect.js:80](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
 
 Determines whether a redirect is required to align the current URL with the active locale.
 
@@ -1385,6 +1415,24 @@ export async function handle(request) {
   }
 
   return render(request, decision.locale);
+}
+```
+
+```ts
+// Server side usage behind a proxy where request.url is not public-facing
+export async function handle(request) {
+  const requestUrl = new URL(request.url);
+  requestUrl.protocol = "https:";
+  requestUrl.host = "example.com";
+
+  const decision = await shouldRedirect({
+    request,
+    requestUrl,
+  });
+
+  if (decision.shouldRedirect) {
+    return Response.redirect(decision.redirectUrl, 307);
+  }
 }
 ```
 

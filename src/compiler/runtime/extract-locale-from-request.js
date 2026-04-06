@@ -13,6 +13,11 @@ import {
 } from "./variables.js";
 
 /**
+ * @typedef {object} ExtractLocaleFromRequestOptions
+ * @property {string | URL} [requestUrl] - Effective request URL to use for route matching and locale detection with the URL strategy.
+ */
+
+/**
  * Extracts a locale from a request.
  *
  * Use the function on the server to extract the locale
@@ -29,12 +34,15 @@ import {
  *   const locale = extractLocaleFromRequest(request);
  *
  * @param {Request} request
+ * @param {ExtractLocaleFromRequestOptions} [options]
  * @returns {Locale}
  */
-export const extractLocaleFromRequest = (request) => {
+export const extractLocaleFromRequest = (request, options = {}) => {
+	const requestUrl = resolveRequestUrl(request, options.requestUrl);
 	return extractLocaleFromRequestWithStrategies(
 		request,
-		getStrategyForUrl(request.url)
+		getStrategyForUrl(requestUrl),
+		requestUrl
 	);
 };
 
@@ -43,9 +51,15 @@ export const extractLocaleFromRequest = (request) => {
  *
  * @param {Request} request
  * @param {typeof strategy} strategies
+ * @param {string | URL} [url]
  * @returns {Locale}
  */
-export const extractLocaleFromRequestWithStrategies = (request, strategies) => {
+export const extractLocaleFromRequestWithStrategies = (
+	request,
+	strategies,
+	url = request.url
+) => {
+	const requestUrl = resolveRequestUrl(request, url);
 	/** @type {string|undefined} */
 	let locale;
 
@@ -57,7 +71,7 @@ export const extractLocaleFromRequestWithStrategies = (request, strategies) => {
 				.find((c) => c.startsWith(cookieName + "="))
 				?.split("=")[1];
 		} else if (TREE_SHAKE_URL_STRATEGY_USED && strat === "url") {
-			locale = extractLocaleFromUrl(request.url);
+			locale = extractLocaleFromUrl(requestUrl);
 		} else if (
 			TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED &&
 			strat === "preferredLanguage"
@@ -83,3 +97,16 @@ export const extractLocaleFromRequestWithStrategies = (request, strategies) => {
 		"No locale found. There is an error in your strategy. Try adding 'baseLocale' as the very last strategy. Read more here https://inlang.com/m/gerre34r/library-inlang-paraglideJs/errors#no-locale-found"
 	);
 };
+
+/**
+ * @param {Request} request
+ * @param {string | URL | undefined} requestUrl
+ * @returns {URL}
+ */
+function resolveRequestUrl(request, requestUrl = request.url) {
+	if (requestUrl instanceof URL) {
+		return new URL(requestUrl.href);
+	}
+
+	return new URL(requestUrl, request.url);
+}

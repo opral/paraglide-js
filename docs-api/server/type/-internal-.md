@@ -1,8 +1,8 @@
 ## paraglideMiddleware()
 
-> **paraglideMiddleware**\<`T`\>(`request`, `resolve`, `callbacks?`): `Promise`\<`Response`\>
+> **paraglideMiddleware**\<`T`\>(`request`, `resolve`, `options?`): `Promise`\<`Response`\>
 
-Defined in: [server/middleware.js:91](https://github.com/opral/paraglide-js/tree/main/src/compiler/server/middleware.js)
+Defined in: [server/middleware.js:94](https://github.com/opral/paraglide-js/tree/main/src/compiler/server/middleware.js)
 
 Server middleware that handles locale-based routing and request processing.
 
@@ -50,13 +50,17 @@ Function to handle the request. The callback receives:
      request instead to avoid redirect loops.
   - `locale`: The determined locale for this request.
 
-#### callbacks?
+#### options?
 
-Callbacks to handle events from middleware
+Options to control middleware behavior. `requestUrl` sets the effective public URL used for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
 
-##### onRedirect
+##### onRedirect?
 
 (`response`) => `void`
+
+##### requestUrl?
+
+`string` \| `URL` \| (`request`) => `string` \| `URL`
 
 ### Returns
 

@@ -18,7 +18,10 @@ import { paraglideMiddleware } from './paraglide/server.js'
 paraglideMiddleware(
   request: Request,
   resolve: (args: { request: Request, locale: Locale }) => Promise<Response>,
-  callbacks?: { onRedirect?: (response: Response) => void }
+  options?: {
+    requestUrl?: string | URL | ((request: Request) => string | URL)
+    onRedirect?: (response: Response) => void
+  }
 ): Promise<Response>
 ```
 
@@ -86,9 +89,30 @@ Your request handler. Receives:
 - **`request`**: A potentially modified request with delocalized URL (e.g., `/de/about` → `/about`). Use this unless your framework handles URL localization itself.
 - **`locale`**: The detected locale for this request.
 
-### `callbacks` (optional)
+### `options` (optional)
 
+- **`requestUrl`**: Sets the public URL Paraglide should use for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`. Use this when `request.url` is an internal transport URL, such as behind a proxy or load balancer.
 - **`onRedirect(response)`**: Called when middleware issues a redirect. Useful for logging or analytics.
+
+### Public Request URL
+
+Use `requestUrl` when the browser-facing URL differs from `request.url`, for example behind TLS termination.
+
+Derive it from trusted proxy or framework metadata and pass it explicitly:
+
+```ts
+const requestUrl = new URL(request.url);
+requestUrl.protocol = "https:";
+requestUrl.host = "app.example.com";
+
+return paraglideMiddleware(request, ({ request }) => resolve(request), {
+	requestUrl,
+});
+```
+
+Paraglide uses `requestUrl` for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
+
+In runtimes that can clone the request, the callback `request.url` will also reflect that effective URL. If the runtime uses a custom `Request` implementation that cannot be cloned, Paraglide falls back to the original request object.
 
 ## Framework Examples
 
@@ -214,6 +238,7 @@ For excluded routes, Paraglide skips i18n middleware behavior (locale redirects 
 | --------------------------------------------------------- | ----------------------- |
 | Framework does NOT handle URL rewriting                   | `request` from callback |
 | Framework handles URL rewriting (TanStack Router, custom) | Original `req`          |
+| Browser-facing URL differs from `request.url`             | Set `requestUrl`        |
 | You're not using URL strategy at all                      | Either works            |
 
 **Rule of thumb:** If you see redirect loops, try passing the original request instead of the callback's `request`.

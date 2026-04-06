@@ -8,7 +8,7 @@ import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
 /**
  * @typedef {object} ShouldRedirectServerInput
  * @property {Request} request
- * @property {string | URL} [url]
+ * @property {string | URL} [requestUrl] - Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
  * @property {Locale} [locale]
  *
  * @typedef {object} ShouldRedirectClientInput
@@ -57,6 +57,23 @@ import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
  *   return render(request, decision.locale);
  * }
  *
+ * @example
+ * // Server side usage behind a proxy where request.url is not public-facing
+ * export async function handle(request) {
+ *   const requestUrl = new URL(request.url);
+ *   requestUrl.protocol = "https:";
+ *   requestUrl.host = "example.com";
+ *
+ *   const decision = await shouldRedirect({
+ *     request,
+ *     requestUrl,
+ *   });
+ *
+ *   if (decision.shouldRedirect) {
+ *     return Response.redirect(decision.redirectUrl, 307);
+ *   }
+ * }
+ *
  * @param {ShouldRedirectInput} [input]
  * @returns {Promise<ShouldRedirectResult>}
  */
@@ -95,10 +112,12 @@ async function resolveLocale(input, currentUrl) {
 	}
 
 	if (input.request) {
-		return extractLocaleFromRequestAsync(input.request);
+		return extractLocaleFromRequestAsync(input.request, {
+			requestUrl: currentUrl,
+		});
 	}
 
-	if (typeof input.url !== "undefined") {
+	if ("url" in input && typeof input.url !== "undefined") {
 		return getLocaleForUrl(currentUrl.href);
 	}
 
@@ -112,15 +131,26 @@ async function resolveLocale(input, currentUrl) {
  * @returns {URL}
  */
 function resolveUrl(input) {
+	if ("requestUrl" in input && input.requestUrl instanceof URL) {
+		return new URL(input.requestUrl.href);
+	}
+
+	if ("requestUrl" in input && typeof input.requestUrl === "string") {
+		return new URL(
+			input.requestUrl,
+			input.request ? input.request.url : getUrlOrigin()
+		);
+	}
+
 	if (input.request) {
 		return new URL(input.request.url);
 	}
 
-	if (input.url instanceof URL) {
+	if ("url" in input && input.url instanceof URL) {
 		return new URL(input.url.href);
 	}
 
-	if (typeof input.url === "string") {
+	if ("url" in input && typeof input.url === "string") {
 		return new URL(input.url, getUrlOrigin());
 	}
 
