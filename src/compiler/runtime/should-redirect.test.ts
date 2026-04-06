@@ -140,7 +140,7 @@ test("shouldRedirect keeps request precedence over url on the server", async () 
 	const decision = await runtime.shouldRedirect({
 		request,
 		url: "/dashboard",
-	});
+	} as any);
 
 	expect(decision.shouldRedirect).toBe(true);
 	expect(decision.redirectUrl?.href).toBe("https://example.com/fr/dashboard");
