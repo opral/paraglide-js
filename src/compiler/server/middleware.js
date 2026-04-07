@@ -32,9 +32,9 @@ import * as runtime from "./runtime.js";
  *      request instead to avoid redirect loops.
  *   - `locale`: The determined locale for this request.
  * @param {{
- *   requestUrl?: string | URL | ((request: Request) => string | URL),
+ *   effectiveRequestUrl?: string | URL | ((request: Request) => string | URL),
  *   onRedirect?: (response: Response) => void
- * }} [options] - Options to control middleware behavior. `requestUrl` sets the effective public URL used for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
+ * }} [options] - Options to control middleware behavior. `effectiveRequestUrl` sets the effective request URL used for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
  * @returns {Promise<Response>}
  *
  * @example
@@ -93,7 +93,7 @@ import * as runtime from "./runtime.js";
  */
 export async function paraglideMiddleware(request, resolve, options) {
 	// %async-local-storage
-	const url = resolveMiddlewareUrl(request, options?.requestUrl);
+	const url = resolveMiddlewareUrl(request, options?.effectiveRequestUrl);
 	const origin = url.origin;
 
 	if (runtime.isExcludedByRouteStrategy(url.href)) {
@@ -110,7 +110,7 @@ export async function paraglideMiddleware(request, resolve, options) {
 	}
 
 	const strategy = runtime.getStrategyForUrl(url.href);
-	const decision = await runtime.shouldRedirect({ request, requestUrl: url });
+	const decision = await runtime.shouldRedirect({ request, effectiveRequestUrl: url });
 	const locale = decision.locale;
 
 	// if the client makes a request to a URL that doesn't match
@@ -206,16 +206,16 @@ export async function paraglideMiddleware(request, resolve, options) {
 
 /**
  * @param {Request} request
- * @param {string | URL | ((request: Request) => string | URL) | undefined} requestUrl
+ * @param {string | URL | ((request: Request) => string | URL) | undefined} effectiveRequestUrl
  * @returns {URL}
  */
-function resolveMiddlewareUrl(request, requestUrl) {
-	if (typeof requestUrl === "function") {
-		return new URL(requestUrl(request), request.url);
+function resolveMiddlewareUrl(request, effectiveRequestUrl) {
+	if (typeof effectiveRequestUrl === "function") {
+		return new URL(effectiveRequestUrl(request), request.url);
 	}
 
-	if (typeof requestUrl === "string" || requestUrl instanceof URL) {
-		return new URL(requestUrl, request.url);
+	if (typeof effectiveRequestUrl === "string" || effectiveRequestUrl instanceof URL) {
+		return new URL(effectiveRequestUrl, request.url);
 	}
 
 	return new URL(request.url);
@@ -229,7 +229,7 @@ function resolveMiddlewareUrl(request, requestUrl) {
  * implementations that cannot be cloned with `new Request(request)`.
  * https://github.com/opral/paraglide-js/issues/573
  *
- * Public request URL overrides behind proxies:
+ * Effective request URL overrides behind proxies:
  * https://github.com/opral/paraglide-js/issues/652
  *
  * @param {Request} request

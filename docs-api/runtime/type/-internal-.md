@@ -4,9 +4,9 @@ Defined in: [runtime/extract-locale-from-request.js:16](https://github.com/opral
 
 ### Properties
 
-#### requestUrl?
+#### effectiveRequestUrl?
 
-> `optional` **requestUrl**: `string` \| `URL`
+> `optional` **effectiveRequestUrl**: `string` \| `URL`
 
 Defined in: [runtime/extract-locale-from-request.js:17](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
 
@@ -76,6 +76,14 @@ Defined in: [runtime/should-redirect.js:9](https://github.com/opral/paraglide-js
 
 ### Properties
 
+#### effectiveRequestUrl?
+
+> `optional` **effectiveRequestUrl**: `string` \| `URL`
+
+Defined in: [runtime/should-redirect.js:11](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
+
+Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
+
 #### locale?
 
 > `optional` **locale**: `string`
@@ -87,14 +95,6 @@ Defined in: [runtime/should-redirect.js:12](https://github.com/opral/paraglide-j
 > **request**: `Request`
 
 Defined in: [runtime/should-redirect.js:10](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
-
-#### requestUrl?
-
-> `optional` **requestUrl**: `string` \| `URL`
-
-Defined in: [runtime/should-redirect.js:11](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
-
-Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
 
 ***
 
@@ -765,7 +765,7 @@ The request object to extract the locale from.
 
 Effective request URL to use for route matching and locale detection with the URL strategy.
 
-##### requestUrl?
+##### effectiveRequestUrl?
 
 `string` \| `URL`
 
@@ -1421,13 +1421,13 @@ export async function handle(request) {
 ```ts
 // Server side usage behind a proxy where request.url is not public-facing
 export async function handle(request) {
-  const requestUrl = new URL(request.url);
-  requestUrl.protocol = "https:";
-  requestUrl.host = "example.com";
+  const effectiveRequestUrl = new URL(request.url);
+  effectiveRequestUrl.protocol = "https:";
+  effectiveRequestUrl.host = "example.com";
 
   const decision = await shouldRedirect({
     request,
-    requestUrl,
+    effectiveRequestUrl,
   });
 
   if (decision.shouldRedirect) {

@@ -14,7 +14,7 @@ import {
 
 /**
  * @typedef {object} ExtractLocaleFromRequestOptions
- * @property {string | URL} [requestUrl] - Effective request URL to use for route matching and locale detection with the URL strategy.
+ * @property {string | URL} [effectiveRequestUrl] - Effective request URL to use for route matching and locale detection with the URL strategy.
  */
 
 /**
@@ -38,11 +38,14 @@ import {
  * @returns {Locale}
  */
 export const extractLocaleFromRequest = (request, options = {}) => {
-	const requestUrl = resolveRequestUrl(request, options.requestUrl);
+	const effectiveRequestUrl = resolveEffectiveRequestUrl(
+		request,
+		options.effectiveRequestUrl
+	);
 	return extractLocaleFromRequestWithStrategies(
 		request,
-		getStrategyForUrl(requestUrl),
-		requestUrl
+		getStrategyForUrl(effectiveRequestUrl),
+		effectiveRequestUrl
 	);
 };
 
@@ -59,7 +62,7 @@ export const extractLocaleFromRequestWithStrategies = (
 	strategies,
 	url = request.url
 ) => {
-	const requestUrl = resolveRequestUrl(request, url);
+	const effectiveRequestUrl = resolveEffectiveRequestUrl(request, url);
 	/** @type {string|undefined} */
 	let locale;
 
@@ -71,7 +74,7 @@ export const extractLocaleFromRequestWithStrategies = (
 				.find((c) => c.startsWith(cookieName + "="))
 				?.split("=")[1];
 		} else if (TREE_SHAKE_URL_STRATEGY_USED && strat === "url") {
-			locale = extractLocaleFromUrl(requestUrl);
+			locale = extractLocaleFromUrl(effectiveRequestUrl);
 		} else if (
 			TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED &&
 			strat === "preferredLanguage"
@@ -100,13 +103,13 @@ export const extractLocaleFromRequestWithStrategies = (
 
 /**
  * @param {Request} request
- * @param {string | URL | undefined} requestUrl
+ * @param {string | URL | undefined} effectiveRequestUrl
  * @returns {URL}
  */
-function resolveRequestUrl(request, requestUrl = request.url) {
-	if (requestUrl instanceof URL) {
-		return new URL(requestUrl.href);
+function resolveEffectiveRequestUrl(request, effectiveRequestUrl = request.url) {
+	if (effectiveRequestUrl instanceof URL) {
+		return new URL(effectiveRequestUrl.href);
 	}
 
-	return new URL(requestUrl, request.url);
+	return new URL(effectiveRequestUrl, request.url);
 }
