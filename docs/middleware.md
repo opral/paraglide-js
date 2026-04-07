@@ -19,7 +19,7 @@ paraglideMiddleware(
   request: Request,
   resolve: (args: { request: Request, locale: Locale }) => Promise<Response>,
   options?: {
-    publicUrl?: string | URL | ((request: Request) => string | URL)
+    effectiveRequestUrl?: string | URL | ((request: Request) => string | URL)
     onRedirect?: (response: Response) => void
   }
 ): Promise<Response>
@@ -91,26 +91,26 @@ Your request handler. Receives:
 
 ### `options` (optional)
 
-- **`publicUrl`**: Sets the public URL Paraglide should use for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`. Use this when `request.url` is an internal transport URL, such as behind a proxy or load balancer.
+- **`effectiveRequestUrl`**: Sets the effective request URL Paraglide should use for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`. Use this when `request.url` is an internal transport URL, such as behind a proxy or load balancer.
 - **`onRedirect(response)`**: Called when middleware issues a redirect. Useful for logging or analytics.
 
-### Public Request URL
+### Effective Request URL
 
-Use `publicUrl` when the browser-facing URL differs from `request.url`, for example behind TLS termination.
+Use `effectiveRequestUrl` when the browser-facing URL differs from `request.url`, for example behind TLS termination.
 
 Derive it from trusted proxy or framework metadata and pass it explicitly:
 
 ```ts
-const publicUrl = new URL(request.url);
-publicUrl.protocol = "https:";
-publicUrl.host = "app.example.com";
+const effectiveRequestUrl = new URL(request.url);
+effectiveRequestUrl.protocol = "https:";
+effectiveRequestUrl.host = "app.example.com";
 
 return paraglideMiddleware(request, ({ request }) => resolve(request), {
-	publicUrl,
+	effectiveRequestUrl,
 });
 ```
 
-Paraglide uses `publicUrl` for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
+Paraglide uses `effectiveRequestUrl` for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
 
 In runtimes that can clone the request, the callback `request.url` will also reflect that effective URL. If the runtime uses a custom `Request` implementation that cannot be cloned, Paraglide falls back to the original request object.
 
@@ -238,7 +238,7 @@ For excluded routes, Paraglide skips i18n middleware behavior (locale redirects 
 | --------------------------------------------------------- | ----------------------- |
 | Framework does NOT handle URL rewriting                   | `request` from callback |
 | Framework handles URL rewriting (TanStack Router, custom) | Original `req`          |
-| Browser-facing URL differs from `request.url`             | Set `publicUrl`        |
+| Browser-facing URL differs from `request.url`             | Set `effectiveRequestUrl` |
 | You're not using URL strategy at all                      | Either works            |
 
 **Rule of thumb:** If you see redirect loops, try passing the original request instead of the callback's `request`.

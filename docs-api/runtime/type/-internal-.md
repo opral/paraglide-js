@@ -4,13 +4,13 @@ Defined in: [runtime/extract-locale-from-request.js:16](https://github.com/opral
 
 ### Properties
 
-#### publicUrl?
+#### effectiveRequestUrl?
 
-> `optional` **publicUrl**: `string` \| `URL`
+> `optional` **effectiveRequestUrl**: `string` \| `URL`
 
 Defined in: [runtime/extract-locale-from-request.js:17](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-request.js)
 
-Effective public URL to use for route matching and locale detection with the URL strategy.
+Effective request URL to use for route matching and locale detection with the URL strategy.
 
 ***
 
@@ -76,19 +76,19 @@ Defined in: [runtime/should-redirect.js:9](https://github.com/opral/paraglide-js
 
 ### Properties
 
+#### effectiveRequestUrl?
+
+> `optional` **effectiveRequestUrl**: `string` \| `URL`
+
+Defined in: [runtime/should-redirect.js:11](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
+
+Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
+
 #### locale?
 
 > `optional` **locale**: `string`
 
 Defined in: [runtime/should-redirect.js:12](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
-
-#### publicUrl?
-
-> `optional` **publicUrl**: `string` \| `URL`
-
-Defined in: [runtime/should-redirect.js:11](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/should-redirect.js)
-
-Effective public URL to use for route matching, locale detection with the URL strategy, and redirect targets.
 
 #### request
 
@@ -763,9 +763,9 @@ The request object to extract the locale from.
 
 #### options?
 
-Effective public URL to use for route matching and locale detection with the URL strategy.
+Effective request URL to use for route matching and locale detection with the URL strategy.
 
-##### publicUrl?
+##### effectiveRequestUrl?
 
 `string` \| `URL`
 
@@ -1421,13 +1421,13 @@ export async function handle(request) {
 ```ts
 // Server side usage behind a proxy where request.url is not public-facing
 export async function handle(request) {
-  const publicUrl = new URL(request.url);
-  publicUrl.protocol = "https:";
-  publicUrl.host = "example.com";
+  const effectiveRequestUrl = new URL(request.url);
+  effectiveRequestUrl.protocol = "https:";
+  effectiveRequestUrl.host = "example.com";
 
   const decision = await shouldRedirect({
     request,
-    publicUrl,
+    effectiveRequestUrl,
   });
 
   if (decision.shouldRedirect) {

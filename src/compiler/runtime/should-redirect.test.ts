@@ -65,7 +65,7 @@ test("shouldRedirect uses the provided public url when the transport request url
 
 	const decision = await runtime.shouldRedirect({
 		request,
-		publicUrl: "https://example.com/en/dashboard",
+		effectiveRequestUrl: "https://example.com/en/dashboard",
 	});
 
 	expect(decision.shouldRedirect).toBe(true);
@@ -73,7 +73,7 @@ test("shouldRedirect uses the provided public url when the transport request url
 	expect(decision.locale).toBe("fr");
 });
 
-test("shouldRedirect resolves relative publicUrl strings against request.url", async () => {
+test("shouldRedirect resolves relative effectiveRequestUrl strings against request.url", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
 			settings: {
@@ -102,7 +102,7 @@ test("shouldRedirect resolves relative publicUrl strings against request.url", a
 
 	const decision = await runtime.shouldRedirect({
 		request,
-		publicUrl: "/en/dashboard",
+		effectiveRequestUrl: "/en/dashboard",
 	});
 
 	expect(decision.shouldRedirect).toBe(true);

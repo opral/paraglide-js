@@ -73,13 +73,13 @@ test("uses the provided public url for url strategy matching", async () => {
 	});
 
 	const locale = runtime.extractLocaleFromRequest(request, {
-		publicUrl: "https://example.com/fr/home",
+		effectiveRequestUrl: "https://example.com/fr/home",
 	});
 
 	expect(locale).toBe("fr");
 });
 
-test("resolves relative publicUrl strings against request.url", async () => {
+test("resolves relative effectiveRequestUrl strings against request.url", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
 			settings: {
@@ -105,7 +105,7 @@ test("resolves relative publicUrl strings against request.url", async () => {
 	});
 
 	const locale = runtime.extractLocaleFromRequest(request, {
-		publicUrl: "/fr/home",
+		effectiveRequestUrl: "/fr/home",
 	});
 
 	expect(locale).toBe("fr");

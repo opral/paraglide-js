@@ -409,7 +409,7 @@ test("uses the provided public url for redirects behind a proxy", async () => {
 			throw new Error("Should not reach here");
 		},
 		{
-			publicUrl: "https://example.com/en/some-path",
+			effectiveRequestUrl: "https://example.com/en/some-path",
 		}
 	);
 
@@ -452,7 +452,7 @@ test("uses the provided public url for callback request and origin", async () =>
 			return new Response(request.url);
 		},
 		{
-			publicUrl: "https://example.com/fr/some-path",
+			effectiveRequestUrl: "https://example.com/fr/some-path",
 		}
 	);
 
@@ -1214,7 +1214,7 @@ test("falls back to original request when cloning a rewritten request fails", as
 				return new Response("Success");
 			},
 			{
-				publicUrl: "https://example.com/page",
+				effectiveRequestUrl: "https://example.com/page",
 			}
 		);
 

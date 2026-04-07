@@ -8,7 +8,7 @@ import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
 /**
  * @typedef {object} ShouldRedirectServerInput
  * @property {Request} request
- * @property {string | URL} [publicUrl] - Effective public URL to use for route matching, locale detection with the URL strategy, and redirect targets.
+ * @property {string | URL} [effectiveRequestUrl] - Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
  * @property {Locale} [locale]
  *
  * @typedef {object} ShouldRedirectClientInput
@@ -60,13 +60,13 @@ import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
  * @example
  * // Server side usage behind a proxy where request.url is not public-facing
  * export async function handle(request) {
- *   const publicUrl = new URL(request.url);
- *   publicUrl.protocol = "https:";
- *   publicUrl.host = "example.com";
+ *   const effectiveRequestUrl = new URL(request.url);
+ *   effectiveRequestUrl.protocol = "https:";
+ *   effectiveRequestUrl.host = "example.com";
  *
  *   const decision = await shouldRedirect({
  *     request,
- *     publicUrl,
+ *     effectiveRequestUrl,
  *   });
  *
  *   if (decision.shouldRedirect) {
@@ -113,7 +113,7 @@ async function resolveLocale(input, currentUrl) {
 
 	if (input.request) {
 		return extractLocaleFromRequestAsync(input.request, {
-			publicUrl: currentUrl,
+			effectiveRequestUrl: currentUrl,
 		});
 	}
 
@@ -131,13 +131,13 @@ async function resolveLocale(input, currentUrl) {
  * @returns {URL}
  */
 function resolveUrl(input) {
-	if ("publicUrl" in input && input.publicUrl instanceof URL) {
-		return new URL(input.publicUrl.href);
+	if ("effectiveRequestUrl" in input && input.effectiveRequestUrl instanceof URL) {
+		return new URL(input.effectiveRequestUrl.href);
 	}
 
-	if ("publicUrl" in input && typeof input.publicUrl === "string") {
+	if ("effectiveRequestUrl" in input && typeof input.effectiveRequestUrl === "string") {
 		return new URL(
-			input.publicUrl,
+			input.effectiveRequestUrl,
 			input.request ? input.request.url : getUrlOrigin()
 		);
 	}

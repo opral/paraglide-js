@@ -368,7 +368,7 @@ For SaaS platforms with different domains or subdomains per customer, each needi
 
 The server-side `paraglideMiddleware()` already uses the `shouldRedirect()` helper to keep document requests canonical. Call the same helper on the client when you need to mirror that behaviour in a single-page app, or after client-side navigations in an SSR app.
 
-Use `{ url }` in the browser and `{ request }` on the server. If a proxy or load balancer changes the browser-facing URL before the request reaches your app, also pass `publicUrl`.
+Use `{ url }` in the browser and `{ request }` on the server. If a proxy or load balancer changes the browser-facing URL before the request reaches your app, also pass `effectiveRequestUrl`.
 
 > [!NOTE]
 > Client-side `shouldRedirect()` is not a replacement for server-side locale detection on the first document request. If your SSR app stores the locale only in `localStorage`, the server cannot see that value before hydration. In that case the initial URL may still be canonicalized from `preferredLanguage`, `cookie`, or `url`. Use a server-visible strategy such as `cookie` if the first request must respect the stored override.
@@ -441,17 +441,17 @@ If you need to re-sync the URL after client-side navigations in SvelteKit, put `
 
 #### Server Behind a Proxy
 
-Pass the browser-facing URL as `publicUrl`. Derive it from trusted proxy or framework metadata.
+Pass the browser-facing URL as `effectiveRequestUrl`. Derive it from trusted proxy or framework metadata.
 
 ```ts
 import { shouldRedirect } from "./paraglide/runtime.js";
 
 export async function handle(request: Request) {
-	const publicUrl = new URL(request.url);
-	publicUrl.protocol = "https:";
-	publicUrl.host = "app.example.com";
+	const effectiveRequestUrl = new URL(request.url);
+	effectiveRequestUrl.protocol = "https:";
+	effectiveRequestUrl.host = "app.example.com";
 
-	const decision = await shouldRedirect({ request, publicUrl });
+	const decision = await shouldRedirect({ request, effectiveRequestUrl });
 
 	if (decision.shouldRedirect) {
 		return Response.redirect(decision.redirectUrl, 307);

@@ -87,13 +87,13 @@ test("uses the provided public url for url strategy matching", async () => {
 
 	const request = new Request("http://internal.example.com/en/home");
 	const locale = await runtime.extractLocaleFromRequestAsync(request, {
-		publicUrl: "https://example.com/fr/home",
+		effectiveRequestUrl: "https://example.com/fr/home",
 	});
 
 	expect(locale).toBe("fr");
 });
 
-test("resolves relative publicUrl strings against request.url", async () => {
+test("resolves relative effectiveRequestUrl strings against request.url", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
 			settings: {
@@ -115,13 +115,13 @@ test("resolves relative publicUrl strings against request.url", async () => {
 
 	const request = new Request("https://example.com/en/home");
 	const locale = await runtime.extractLocaleFromRequestAsync(request, {
-		publicUrl: "/fr/home",
+		effectiveRequestUrl: "/fr/home",
 	});
 
 	expect(locale).toBe("fr");
 });
 
-test("uses normalized publicUrl for route strategy selection", async () => {
+test("uses normalized effectiveRequestUrl for route strategy selection", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
 			settings: {
@@ -149,7 +149,7 @@ test("uses normalized publicUrl for route strategy selection", async () => {
 
 	const request = new Request("https://example.com/en/home");
 	const locale = await runtime.extractLocaleFromRequestAsync(request, {
-		publicUrl: "/fr/home",
+		effectiveRequestUrl: "/fr/home",
 	});
 
 	expect(locale).toBe("fr");
