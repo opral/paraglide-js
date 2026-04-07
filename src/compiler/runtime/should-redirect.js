@@ -8,7 +8,7 @@ import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
 /**
  * @typedef {object} ShouldRedirectServerInput
  * @property {Request} request
- * @property {string | URL} [requestUrl] - Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
+ * @property {string | URL} [publicUrl] - Effective public URL to use for route matching, locale detection with the URL strategy, and redirect targets.
  * @property {Locale} [locale]
  *
  * @typedef {object} ShouldRedirectClientInput
@@ -60,13 +60,13 @@ import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
  * @example
  * // Server side usage behind a proxy where request.url is not public-facing
  * export async function handle(request) {
- *   const requestUrl = new URL(request.url);
- *   requestUrl.protocol = "https:";
- *   requestUrl.host = "example.com";
+ *   const publicUrl = new URL(request.url);
+ *   publicUrl.protocol = "https:";
+ *   publicUrl.host = "example.com";
  *
  *   const decision = await shouldRedirect({
  *     request,
- *     requestUrl,
+ *     publicUrl,
  *   });
  *
  *   if (decision.shouldRedirect) {
@@ -113,7 +113,7 @@ async function resolveLocale(input, currentUrl) {
 
 	if (input.request) {
 		return extractLocaleFromRequestAsync(input.request, {
-			requestUrl: currentUrl,
+			publicUrl: currentUrl,
 		});
 	}
 
@@ -131,13 +131,13 @@ async function resolveLocale(input, currentUrl) {
  * @returns {URL}
  */
 function resolveUrl(input) {
-	if ("requestUrl" in input && input.requestUrl instanceof URL) {
-		return new URL(input.requestUrl.href);
+	if ("publicUrl" in input && input.publicUrl instanceof URL) {
+		return new URL(input.publicUrl.href);
 	}
 
-	if ("requestUrl" in input && typeof input.requestUrl === "string") {
+	if ("publicUrl" in input && typeof input.publicUrl === "string") {
 		return new URL(
-			input.requestUrl,
+			input.publicUrl,
 			input.request ? input.request.url : getUrlOrigin()
 		);
 	}

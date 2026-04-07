@@ -14,7 +14,7 @@ import {
 
 /**
  * @typedef {object} ExtractLocaleFromRequestOptions
- * @property {string | URL} [requestUrl] - Effective request URL to use for route matching and locale detection with the URL strategy.
+ * @property {string | URL} [publicUrl] - Effective public URL to use for route matching and locale detection with the URL strategy.
  */
 
 /**
@@ -38,11 +38,11 @@ import {
  * @returns {Locale}
  */
 export const extractLocaleFromRequest = (request, options = {}) => {
-	const requestUrl = resolveRequestUrl(request, options.requestUrl);
+	const publicUrl = resolvePublicUrl(request, options.publicUrl);
 	return extractLocaleFromRequestWithStrategies(
 		request,
-		getStrategyForUrl(requestUrl),
-		requestUrl
+		getStrategyForUrl(publicUrl),
+		publicUrl
 	);
 };
 
@@ -59,7 +59,7 @@ export const extractLocaleFromRequestWithStrategies = (
 	strategies,
 	url = request.url
 ) => {
-	const requestUrl = resolveRequestUrl(request, url);
+	const publicUrl = resolvePublicUrl(request, url);
 	/** @type {string|undefined} */
 	let locale;
 
@@ -71,7 +71,7 @@ export const extractLocaleFromRequestWithStrategies = (
 				.find((c) => c.startsWith(cookieName + "="))
 				?.split("=")[1];
 		} else if (TREE_SHAKE_URL_STRATEGY_USED && strat === "url") {
-			locale = extractLocaleFromUrl(requestUrl);
+			locale = extractLocaleFromUrl(publicUrl);
 		} else if (
 			TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED &&
 			strat === "preferredLanguage"
@@ -100,13 +100,13 @@ export const extractLocaleFromRequestWithStrategies = (
 
 /**
  * @param {Request} request
- * @param {string | URL | undefined} requestUrl
+ * @param {string | URL | undefined} publicUrl
  * @returns {URL}
  */
-function resolveRequestUrl(request, requestUrl = request.url) {
-	if (requestUrl instanceof URL) {
-		return new URL(requestUrl.href);
+function resolvePublicUrl(request, publicUrl = request.url) {
+	if (publicUrl instanceof URL) {
+		return new URL(publicUrl.href);
 	}
 
-	return new URL(requestUrl, request.url);
+	return new URL(publicUrl, request.url);
 }

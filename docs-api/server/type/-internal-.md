@@ -52,13 +52,13 @@ Function to handle the request. The callback receives:
 
 #### options?
 
-Options to control middleware behavior. `requestUrl` sets the effective public URL used for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
+Options to control middleware behavior. `publicUrl` sets the effective public URL used for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
 
 ##### onRedirect?
 
 (`response`) => `void`
 
-##### requestUrl?
+##### publicUrl?
 
 `string` \| `URL` \| (`request`) => `string` \| `URL`
 
