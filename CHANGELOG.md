@@ -1,5 +1,11 @@
 # @inlang/paraglide-js
 
+## 2.15.2
+
+### Patch Changes
+
+- c716c6d: Fix proxy-aware URL handling in `paraglideMiddleware()`, `shouldRedirect()`, and locale extraction by adding an `effectiveRequestUrl` override for browser-facing URLs behind TLS-terminating proxies and load balancers. Addresses [#652](https://github.com/opral/paraglide-js/issues/652).
+
 ## 2.15.1
 
 ### Patch Changes
