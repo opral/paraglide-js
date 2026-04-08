@@ -1,9 +1,9 @@
 import type { Declaration, Message, Pattern, Variant } from "@inlang/sdk";
 import { compilePattern } from "./compile-pattern.js";
 import type { Compiled } from "./types.js";
-import { doubleQuote } from "../services/codegen/quotes.js";
 import { inputsType, type InputMatchTypes } from "./jsdoc-types.js";
 import { compileLocalVariable } from "./compile-local-variable.js";
+import { renderInputMatchCondition } from "./match-literals.js";
 import { compileInputAccess } from "./variable-access.js";
 
 /**
@@ -117,7 +117,9 @@ function compileMessageWithMultipleVariants(
 		throw new Error("Message must have more than one variant");
 	}
 
-	const hasMarkup = variants.some((variant) => patternHasMarkup(variant.pattern));
+	const hasMarkup = variants.some((variant) =>
+		patternHasMarkup(variant.pattern)
+	);
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
 	const hasInputs = inputs.length > 0;
 	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
@@ -169,10 +171,10 @@ function compileMessageWithMultipleVariants(
 			)?.type;
 			if (variableType === "input-variable") {
 				conditions.push(
-					`${compileInputAccess(match.key)} == ${doubleQuote(match.value)}`
+					renderInputMatchCondition(compileInputAccess(match.key), match.value)
 				);
 			} else if (variableType === "local-variable") {
-				conditions.push(`${match.key} == ${doubleQuote(match.value)}`);
+				conditions.push(`${match.key} === ${JSON.stringify(match.value)}`);
 			}
 		}
 

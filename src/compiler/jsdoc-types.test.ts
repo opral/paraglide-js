@@ -83,6 +83,24 @@ test("inputsType emits literal unions for match values", () => {
 	);
 });
 
+test("inputsType accepts both number and string forms for numeric match values", () => {
+	const inputs: InputVariable[] = [{ name: "input", type: "input-variable" }];
+
+	const matchTypes = new Map([
+		[
+			"input",
+			{
+				literals: new Set(["1", "2"]),
+				hasCatchAll: false,
+			},
+		],
+	]);
+
+	const result = inputsType(inputs, matchTypes);
+
+	expect(result).toBe('{ input: 1 | "1" | 2 | "2" }');
+});
+
 test("inputsType falls back to NonNullable<unknown> when catchall exists", () => {
 	const inputs: InputVariable[] = [{ name: "type", type: "input-variable" }];
 
