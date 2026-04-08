@@ -1,4 +1,5 @@
 import type { InputVariable } from "@inlang/sdk";
+import { renderInputMatchTypeVariants } from "./match-literals.js";
 import { isValidIdentifier, quotePropertyKey } from "./variable-access.js";
 
 export type InputMatchTypes = Map<
@@ -13,7 +14,8 @@ export function jsDocBundleFunctionTypes(args: {
 	inputTypeOverride?: string;
 }): string {
 	const localesUnion = args.locales.map((locale) => `"${locale}"`).join(" | ");
-	const inputType = args.inputTypeOverride ?? inputsType(args.inputs, args.matchTypes);
+	const inputType =
+		args.inputTypeOverride ?? inputsType(args.inputs, args.matchTypes);
 
 	return `
 * @param {${inputType}} inputs
@@ -68,7 +70,10 @@ function resolveInputType(name: string, matchTypes?: InputMatchTypes): string {
 	if (literals.length === 0) return "NonNullable<unknown>";
 
 	literals.sort();
-	return literals.map((value) => JSON.stringify(value)).join(" | ");
+	return literals
+		.flatMap((value) => renderInputMatchTypeVariants(value))
+		.filter((value, index, values) => values.indexOf(value) === index)
+		.join(" | ");
 }
 
 export function inputTypeForName(

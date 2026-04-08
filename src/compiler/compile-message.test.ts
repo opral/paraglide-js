@@ -51,7 +51,12 @@ test("compiles a markup message with .parts()", async () => {
 				{
 					type: "markup-start",
 					name: "tooltip",
-					options: [{ name: "rel", value: { type: "variable-reference", name: "relationship" } }],
+					options: [
+						{
+							name: "rel",
+							value: { type: "variable-reference", name: "relationship" },
+						},
+					],
 					attributes: [{ name: "track", value: true }],
 				},
 				{
@@ -73,7 +78,8 @@ test("compiles a markup message with .parts()", async () => {
 	const compiled = compileMessage(declarations, message, variants);
 
 	const { balance } = await import(
-		"data:text/javascript;base64," + btoa("export const balance =" + compiled.code)
+		"data:text/javascript;base64," +
+			btoa("export const balance =" + compiled.code)
 	);
 
 	expect(balance({ amount: 5, relationship: "noopener" })).toBe(
@@ -118,7 +124,8 @@ test("does not add .parts() for plain messages", async () => {
 
 	const compiled = compileMessage(declarations, message, variants);
 	const { plain } = await import(
-		"data:text/javascript;base64," + btoa("export const plain = " + compiled.code)
+		"data:text/javascript;base64," +
+			btoa("export const plain = " + compiled.code)
 	);
 
 	expect(plain()).toBe("Hello");
@@ -126,7 +133,9 @@ test("does not add .parts() for plain messages", async () => {
 });
 
 test("compiles multi-variant markup messages with .parts()", async () => {
-	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "count" },
+	];
 	const message: Message = {
 		locale: "en",
 		id: "select-id",
@@ -168,6 +177,42 @@ test("compiles multi-variant markup messages with .parts()", async () => {
 	expect(select_message.parts({ count: 2 })).toEqual([
 		{ type: "text", value: "Many items" },
 	]);
+});
+
+test("numeric literal matches accept number and string inputs without loose coercion", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "input" },
+	];
+	const message: Message = {
+		locale: "en",
+		id: "numeric-select-id",
+		bundleId: "numeric_select_message",
+		selectors: [{ type: "variable-reference", name: "input" }],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "numeric-select-id",
+			matches: [{ type: "literal-match", key: "input", value: "1" }],
+			pattern: [{ type: "text", value: "Thing 1" }],
+		},
+		{
+			id: "2",
+			messageId: "numeric-select-id",
+			matches: [{ type: "catchall-match", key: "input" }],
+			pattern: [{ type: "text", value: "Fallback" }],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { numeric_select_message } = await import(
+		"data:text/javascript;base64," +
+			btoa("export const numeric_select_message = " + compiled.code)
+	);
+
+	expect(numeric_select_message({ input: 1 })).toBe("Thing 1");
+	expect(numeric_select_message({ input: "1" })).toBe("Thing 1");
+	expect(numeric_select_message({ input: true })).toBe("Fallback");
 });
 
 // https://github.com/opral/paraglide-js/issues/571
@@ -389,8 +434,8 @@ test("only emits input arguments when inputs exist", async () => {
 
 // https://github.com/opral/inlang-paraglide-js/issues/379
 test("compiles messages that use plural()", async () => {
-			const declarations: Declaration[] = [
-				{ type: "input-variable", name: "date" },
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "date" },
 		{
 			type: "local-variable",
 			name: "countPlural",
@@ -589,7 +634,9 @@ test("compiles messages that use number()", async () => {
 			"data:text/javascript;base64," +
 				// bundling the registry inline to avoid managing module imports here
 				btoa(createRegistry()) +
-				btoa("export const number_test = " + compiled.code.replace("registry.", ""))
+				btoa(
+					"export const number_test = " + compiled.code.replace("registry.", "")
+				)
 		);
 		return number_test;
 	};
@@ -658,7 +705,9 @@ test("compiles messages that use number() with options", async () => {
 			"data:text/javascript;base64," +
 				// bundling the registry inline to avoid managing module imports here
 				btoa(createRegistry()) +
-				btoa("export const number_test = " + compiled.code.replace("registry.", ""))
+				btoa(
+					"export const number_test = " + compiled.code.replace("registry.", "")
+				)
 		);
 		return number_test;
 	};

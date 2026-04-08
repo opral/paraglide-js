@@ -1001,6 +1001,21 @@ describe.each([
 		// @ts-expect-error - invalid status literal
 		m.multi_key_status_type({ type: "invalid", status: "pending" })
 
+		// numeric matches should accept both number and string forms
+		m.numeric_input_match({ input: 1 }) satisfies string
+		m.numeric_input_match({ input: 2 }) satisfies string
+		m.numeric_input_match({ input: "1" }) satisfies string
+		m.numeric_input_match({ input: "2" }) satisfies string
+
+		// @ts-expect-error - invalid numeric literal
+		m.numeric_input_match({ input: 3 })
+
+		// @ts-expect-error - invalid string literal
+		m.numeric_input_match({ input: "3" })
+
+		// @ts-expect-error - no loose boolean coercion
+		m.numeric_input_match({ input: true })
+
 		// empty matches should widen to NonNullable<unknown>
 		m.empty_matches_catchall({ type: "invalid" }) satisfies string
 		m.empty_matches_catchall({ type: "typo" }) satisfies string
@@ -1618,6 +1633,37 @@ const mockBundles: BundleNested[] = [
 						messageId: "empty_matches_catchall_en",
 						matches: [],
 						pattern: [{ type: "text", value: "Any" }],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "numeric_input_match",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "input",
+			},
+		],
+		messages: [
+			{
+				id: "numeric_input_match_en",
+				bundleId: "numeric_input_match",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "numeric_input_match_en_variant_1",
+						messageId: "numeric_input_match_en",
+						matches: [{ type: "literal-match", key: "input", value: "1" }],
+						pattern: [{ type: "text", value: "Thing 1" }],
+					},
+					{
+						id: "numeric_input_match_en_variant_2",
+						messageId: "numeric_input_match_en",
+						matches: [{ type: "literal-match", key: "input", value: "2" }],
+						pattern: [{ type: "text", value: "Thing 2" }],
 					},
 				],
 			},
