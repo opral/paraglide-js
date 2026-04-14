@@ -72,6 +72,14 @@ export const compileCommand = new Command()
 		"--no-emit-readme",
 		"Do not emit README.md in the output directory"
 	)
+	.option(
+		"--is-server <expression>",
+		[
+			"JavaScript expression for runtime `isServer` (enables server/client tree-shaking).",
+			'Quote if the expression contains spaces, e.g. --is-server \'typeof window === "undefined"\'.',
+			"Vite SSR example: --is-server 'import.meta.env.SSR'",
+		].join(" ")
+	)
 	.option("--watch", "Watch project files and recompile on change", false)
 	.action(
 		async (options: {
@@ -83,6 +91,7 @@ export const compileCommand = new Command()
 			emitGitIgnore?: CompilerOptions["emitGitIgnore"];
 			emitPrettierIgnore?: CompilerOptions["emitPrettierIgnore"];
 			emitReadme?: CompilerOptions["emitReadme"];
+			isServer?: CompilerOptions["isServer"];
 			watch?: boolean;
 		}) => {
 			const logger = new Logger({ silent: options.silent, prefix: true });
@@ -101,6 +110,7 @@ export const compileCommand = new Command()
 					options.emitPrettierIgnore ??
 					defaultCompilerOptions.emitPrettierIgnore,
 				emitReadme: options.emitReadme ?? defaultCompilerOptions.emitReadme,
+				isServer: options.isServer ?? defaultCompilerOptions.isServer,
 			};
 
 			if (!options.watch) {
