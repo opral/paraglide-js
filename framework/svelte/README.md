@@ -4,7 +4,7 @@ Given this message in your source file (for example `messages/en.json`):
 
 ```json
 {
-	"cta": "{#link to=/docs}Read docs{/link}"
+	"cta": "{#link to=|/docs|}Read docs{/link}"
 }
 ```
 
