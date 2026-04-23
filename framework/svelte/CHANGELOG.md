@@ -1,5 +1,11 @@
 # @inlang/paraglide-js-svelte
 
+## 1.0.2
+
+### Patch Changes
+
+- 0040b02: Fix the Svelte README markup example to use pipe-delimited literal options, matching the current `@inlang/plugin-message-format` syntax.
+
 ## 1.0.1
 
 ### Patch Changes
