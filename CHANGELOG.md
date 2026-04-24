@@ -1,5 +1,11 @@
 # @inlang/paraglide-js
 
+## 2.16.1
+
+### Patch Changes
+
+- 3bb446a: Update `@inlang/sdk` to `2.9.2`.
+
 ## 2.16.0
 
 ### Minor Changes
