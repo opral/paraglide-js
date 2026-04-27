@@ -1,4 +1,4 @@
-import { Command } from "commander";
+import { Command, InvalidArgumentError } from "commander";
 import fs from "node:fs";
 import { resolve, relative } from "node:path";
 import { Logger } from "../../../services/logger/index.js";
@@ -12,6 +12,17 @@ import {
 	createTrackedFs,
 	getWatchTargets,
 } from "../../../services/file-watching/tracked-fs.js";
+
+const parseOutputStructure = (
+	value: string
+): NonNullable<CompilerOptions["outputStructure"]> => {
+	if (value === "message-modules" || value === "locale-modules") {
+		return value;
+	}
+	throw new InvalidArgumentError(
+		`Invalid output structure "${value}". Expected "message-modules" or "locale-modules".`
+	);
+};
 
 export const compileCommand = new Command()
 	.name("compile")
@@ -88,6 +99,7 @@ export const compileCommand = new Command()
 			'"message-modules" gives each message its own module (better tree-shaking).',
 			'"locale-modules" bundles messages per locale (fewer files, better for large projects in dev).',
 		].join("\n"),
+		parseOutputStructure,
 		defaultCompilerOptions.outputStructure
 	)
 	.option("--watch", "Watch project files and recompile on change", false)
