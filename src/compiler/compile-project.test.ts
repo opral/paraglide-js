@@ -233,6 +233,39 @@ test("emitTsDeclarations generates declaration files", async () => {
 	expect(output["messages/_index.d.ts"]).toContain("relative_time_dynamic");
 	expect(output["registry.d.ts"]).toContain("RelativeTimeFormatUnit");
 	expect(output["registry.d.ts"]).toContain("relativetime");
+
+	const tsProject = await typescriptProject({
+		useInMemoryFileSystem: true,
+		compilerOptions: {
+			module: ts.ModuleKind.Node16,
+			moduleResolution: ts.ModuleResolutionKind.Node16,
+			strict: true,
+		},
+	});
+
+	for (const [fileName, code] of Object.entries(output)) {
+		if (fileName.endsWith(".d.ts")) {
+			tsProject.createSourceFile(fileName, code);
+		}
+	}
+
+	tsProject.createSourceFile(
+		"test.ts",
+		`
+			import { relative_time_dynamic } from "./messages.js";
+			import { relativetime } from "./registry.js";
+
+			relative_time_dynamic({ duration: -3, unit: "hour" }) satisfies string;
+			relativetime("en", -3, { unit: "hour", style: "short" }) satisfies string;
+		`
+	);
+
+	const program = tsProject.createProgram();
+	const diagnostics = ts.getPreEmitDiagnostics(program);
+	for (const diagnostic of diagnostics) {
+		console.error(diagnostic.messageText, diagnostic.file?.fileName);
+	}
+	expect(diagnostics.length).toEqual(0);
 });
 
 test("handles message bundles with a : in the id", async () => {
