@@ -195,8 +195,8 @@ test("compiles relative time formatter with a literal unit", () => {
 						{ name: "unit", value: { type: "literal", value: "day" } },
 						{ name: "numeric", value: { type: "literal", value: "auto" } },
 						{
-							name: "numberingSystem",
-							value: { type: "literal", value: "latn" },
+							name: "style",
+							value: { type: "literal", value: "short" },
 						},
 					],
 				},
@@ -205,7 +205,7 @@ test("compiles relative time formatter with a literal unit", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: "day", numeric: "auto", numberingSystem: "latn" });'
+		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: "day", numeric: "auto", style: "short" });'
 	);
 });
 
@@ -226,6 +226,10 @@ test("compiles relative time formatter with a dynamic unit cast", () => {
 							name: "unit",
 							value: { type: "variable-reference", name: "unit" },
 						},
+						{
+							name: "numberingSystem",
+							value: { type: "literal", value: "latn" },
+						},
 					],
 				},
 			},
@@ -233,7 +237,7 @@ test("compiles relative time formatter with a dynamic unit cast", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit) });'
+		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit), numberingSystem: "latn" });'
 	);
 });
 
@@ -296,11 +300,64 @@ test("throws if relative time formatter has an invalid literal unit", () => {
 						type: "function-reference",
 						name: "relativetime",
 						options: [
-							{ name: "unit", value: { type: "literal", value: "weekday" } },
+							{ name: "unit", value: { type: "literal", value: "century" } },
 						],
 					},
 				},
 			},
 		})
-	).toThrow('Invalid "relativetime" unit "weekday".');
+	).toThrow('Invalid "relativetime" unit "century".');
+});
+
+test("accepts plural relative time formatter units", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declaration: {
+			type: "local-variable",
+			name: "formattedDuration",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "duration" },
+				annotation: {
+					type: "function-reference",
+					name: "relativetime",
+					options: [
+						{ name: "unit", value: { type: "literal", value: "days" } },
+					],
+				},
+			},
+		},
+	});
+
+	expect(code).toEqual(
+		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: "days" });'
+	);
+});
+
+test("accepts dynamic relative time formatter units", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declaration: {
+			type: "local-variable",
+			name: "formattedDuration",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "duration" },
+				annotation: {
+					type: "function-reference",
+					name: "relativetime",
+					options: [
+						{
+							name: "unit",
+							value: { type: "variable-reference", name: "unit" },
+						},
+					],
+				},
+			},
+		},
+	});
+
+	expect(code).toEqual(
+		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit) });'
+	);
 });

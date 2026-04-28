@@ -1,6 +1,11 @@
 import { test, expect } from "vitest";
 import { compileMessage } from "./compile-message.js";
-import type { Declaration, Message, Variant } from "@inlang/sdk";
+import type {
+	Declaration,
+	FunctionReference,
+	Message,
+	Variant,
+} from "@inlang/sdk";
 import { createRegistry } from "./registry.js";
 
 test("compiles a message with a single variant", async () => {
@@ -854,6 +859,213 @@ test("compiles messages that use datetime a function with options", async () => 
 	expect(deMessage({ date: "2022-03-31" })).toMatch(
 		/Today is \d{1,2}\. März\./
 	);
+});
+
+async function createRelativeTimeMessage(args: {
+	locale: string;
+	options: FunctionReference["options"];
+}) {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "duration" },
+		{ type: "input-variable", name: "unit" },
+		{
+			type: "local-variable",
+			name: "formattedDuration",
+			value: {
+				arg: { type: "variable-reference", name: "duration" },
+				annotation: {
+					type: "function-reference",
+					name: "relativetime",
+					options: args.options,
+				},
+				type: "expression",
+			},
+		},
+	];
+
+	const message: Message = {
+		locale: args.locale,
+		bundleId: "relative_time_test",
+		id: "message_id",
+		selectors: [],
+	};
+
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "message_id",
+			matches: [],
+			pattern: [
+				{ type: "text", value: "Updated " },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "formattedDuration" },
+				},
+				{ type: "text", value: "." },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	const { relative_time_test } = await import(
+		"data:text/javascript;base64," +
+			btoa(createRegistry()) +
+			btoa(
+				"export const relative_time_test = " +
+					compiled.code.replace("registry.", "")
+			)
+	);
+
+	return relative_time_test as (input: {
+		duration: number;
+		unit?: string;
+	}) => string;
+}
+
+function expectedRelativeTime(
+	locale: string,
+	duration: number,
+	unit: string,
+	options: Intl.RelativeTimeFormatOptions & { numberingSystem?: string } = {}
+) {
+	return `Updated ${new Intl.RelativeTimeFormat(locale, options).format(
+		duration,
+		unit as Intl.RelativeTimeFormatUnit
+	)}.`;
+}
+
+test("compiles messages that use relativetime() for past and future values", async () => {
+	const message = await createRelativeTimeMessage({
+		locale: "en",
+		options: [{ name: "unit", value: { type: "literal", value: "day" } }],
+	});
+
+	expect(message({ duration: -3 })).toBe(expectedRelativeTime("en", -3, "day"));
+	expect(message({ duration: 2 })).toBe(expectedRelativeTime("en", 2, "day"));
+});
+
+test("compiles messages that use relativetime() with numeric auto", async () => {
+	const message = await createRelativeTimeMessage({
+		locale: "en",
+		options: [
+			{ name: "unit", value: { type: "literal", value: "day" } },
+			{ name: "numeric", value: { type: "literal", value: "auto" } },
+		],
+	});
+
+	expect(message({ duration: -1 })).toBe(
+		expectedRelativeTime("en", -1, "day", { numeric: "auto" })
+	);
+});
+
+test("compiles messages that use relativetime() styles", async () => {
+	for (const style of ["long", "short", "narrow"] as const) {
+		const message = await createRelativeTimeMessage({
+			locale: "en",
+			options: [
+				{ name: "unit", value: { type: "literal", value: "hour" } },
+				{ name: "style", value: { type: "literal", value: style } },
+			],
+		});
+
+		expect(message({ duration: -4 })).toBe(
+			expectedRelativeTime("en", -4, "hour", { style })
+		);
+	}
+});
+
+test("compiles messages that use relativetime() numberingSystem", async () => {
+	const message = await createRelativeTimeMessage({
+		locale: "ar",
+		options: [
+			{ name: "unit", value: { type: "literal", value: "day" } },
+			{ name: "numberingSystem", value: { type: "literal", value: "latn" } },
+		],
+	});
+
+	expect(message({ duration: 12 })).toBe(
+		expectedRelativeTime("ar", 12, "day", { numberingSystem: "latn" })
+	);
+});
+
+test("compiles messages that use relativetime() singular and plural units", async () => {
+	const singularMessage = await createRelativeTimeMessage({
+		locale: "en",
+		options: [{ name: "unit", value: { type: "literal", value: "day" } }],
+	});
+	const pluralMessage = await createRelativeTimeMessage({
+		locale: "en",
+		options: [{ name: "unit", value: { type: "literal", value: "days" } }],
+	});
+
+	expect(singularMessage({ duration: 2 })).toBe(
+		expectedRelativeTime("en", 2, "day")
+	);
+	expect(pluralMessage({ duration: 2 })).toBe(
+		expectedRelativeTime("en", 2, "days")
+	);
+});
+
+test("compiles messages that use relativetime() dynamic units", async () => {
+	const message = await createRelativeTimeMessage({
+		locale: "en",
+		options: [
+			{ name: "unit", value: { type: "variable-reference", name: "unit" } },
+			{ name: "style", value: { type: "literal", value: "short" } },
+		],
+	});
+
+	expect(message({ duration: -3, unit: "hour" })).toBe(
+		expectedRelativeTime("en", -3, "hour", { style: "short" })
+	);
+});
+
+test("compiles relativetime() messages for caller-side threshold selection", async () => {
+	const message = await createRelativeTimeMessage({
+		locale: "en",
+		options: [
+			{ name: "unit", value: { type: "variable-reference", name: "unit" } },
+			{ name: "style", value: { type: "literal", value: "short" } },
+		],
+	});
+	const toRelativeDuration = (minutes: number) => {
+		const absoluteMinutes = Math.abs(minutes);
+
+		if (absoluteMinutes >= 60 * 24) {
+			return { duration: Math.round(minutes / (60 * 24)), unit: "day" };
+		}
+
+		if (absoluteMinutes >= 60) {
+			return { duration: Math.round(minutes / 60), unit: "hour" };
+		}
+
+		return { duration: minutes, unit: "minute" };
+	};
+
+	for (const minutes of [-45, -125, -60 * 24 * 2]) {
+		const input = toRelativeDuration(minutes);
+
+		expect(message(input)).toBe(
+			expectedRelativeTime("en", input.duration, input.unit, { style: "short" })
+		);
+	}
+});
+
+test("compiles messages that use relativetime() for multiple locales", async () => {
+	for (const locale of ["en", "de", "fr"]) {
+		const message = await createRelativeTimeMessage({
+			locale,
+			options: [
+				{ name: "unit", value: { type: "literal", value: "month" } },
+				{ name: "numeric", value: { type: "literal", value: "always" } },
+			],
+		});
+
+		expect(message({ duration: 1 })).toBe(
+			expectedRelativeTime(locale, 1, "month", { numeric: "always" })
+		);
+	}
 });
 
 test("does not throw when input is omitted for a single-variant message", async () => {
