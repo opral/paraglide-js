@@ -217,6 +217,34 @@ test("should delete files that have been removed from the output", async () => {
 	).rejects.toBeDefined();
 });
 
+test("hashDirectory matches the hashes writeOutput returns", async () => {
+	const { writeOutput, hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({});
+
+	const output = {
+		"a.txt": "alpha",
+		"nested/b.txt": "beta",
+		"nested/deep/c.txt": "gamma",
+	};
+
+	const writtenHashes = await writeOutput({
+		directory: "/output",
+		output,
+		fs,
+	});
+
+	const seededHashes = await hashDirectory("/output", fs);
+
+	expect(seededHashes).toEqual(writtenHashes);
+});
+
+test("hashDirectory returns undefined when directory does not exist", async () => {
+	const { hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({});
+
+	expect(await hashDirectory("/nope", fs)).toBeUndefined();
+});
+
 const mockFs = (files: memfs.DirectoryJSON) => {
 	const _memfs = memfs.createFsFromVolume(memfs.Volume.fromJSON(files));
 	return _memfs.promises as unknown as typeof fs;
