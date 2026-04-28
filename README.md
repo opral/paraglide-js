@@ -136,6 +136,7 @@ Paraglide supports locale-aware formatting via declaration formatters:
 - `plural` (`Intl.PluralRules`) for plural and ordinal categories
 - `number` (`Intl.NumberFormat`) for numbers, currency, compact notation, and more
 - `datetime` (`Intl.DateTimeFormat`) for dates/times with locale-aware output
+- `relativetime` (`Intl.RelativeTimeFormat`) for values like "yesterday", "in 2 days", or "3 hr. ago"
 
 Gender and custom selects are supported via the variants system.
 
@@ -205,7 +206,7 @@ Paraglide is built on the [open inlang format](https://github.com/opral/inlang-s
 - [Getting Started](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)
 - [Framework Guides](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/react-router) (React Router, SvelteKit, Astro, etc.)
 - [Message Syntax & Pluralization](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)
-- [Formatting (Number/Date)](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/formatting)
+- [Formatting (Number/Date/Relative Time)](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/formatting)
 - [Routing & SSR](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/server-side-rendering)
 - [API Reference](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)
 
