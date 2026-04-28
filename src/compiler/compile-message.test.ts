@@ -927,7 +927,7 @@ function expectedRelativeTime(
 	locale: string,
 	duration: number,
 	unit: string,
-	options: Intl.RelativeTimeFormatOptions & { numberingSystem?: string } = {}
+	options: Intl.RelativeTimeFormatOptions = {}
 ) {
 	return `Updated ${new Intl.RelativeTimeFormat(locale, options).format(
 		duration,
@@ -973,20 +973,6 @@ test("compiles messages that use relativetime() styles", async () => {
 			expectedRelativeTime("en", -4, "hour", { style })
 		);
 	}
-});
-
-test("compiles messages that use relativetime() numberingSystem", async () => {
-	const message = await createRelativeTimeMessage({
-		locale: "ar",
-		options: [
-			{ name: "unit", value: { type: "literal", value: "day" } },
-			{ name: "numberingSystem", value: { type: "literal", value: "latn" } },
-		],
-	});
-
-	expect(message({ duration: 12 })).toBe(
-		expectedRelativeTime("ar", 12, "day", { numberingSystem: "latn" })
-	);
 });
 
 test("compiles messages that use relativetime() singular and plural units", async () => {

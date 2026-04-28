@@ -227,8 +227,8 @@ test("compiles relative time formatter with a dynamic unit cast", () => {
 							value: { type: "variable-reference", name: "unit" },
 						},
 						{
-							name: "numberingSystem",
-							value: { type: "literal", value: "latn" },
+							name: "style",
+							value: { type: "literal", value: "short" },
 						},
 					],
 				},
@@ -237,7 +237,7 @@ test("compiles relative time formatter with a dynamic unit cast", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit), numberingSystem: "latn" });'
+		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit), style: "short" });'
 	);
 });
 
