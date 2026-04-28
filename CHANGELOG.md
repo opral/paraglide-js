@@ -1,5 +1,11 @@
 # @inlang/paraglide-js
 
+## 2.17.0
+
+### Minor Changes
+
+- 109e588: Add `--output-structure` option to the compile command.
+
 ## 2.16.1
 
 ### Patch Changes
