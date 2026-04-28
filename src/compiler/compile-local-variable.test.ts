@@ -178,3 +178,129 @@ test("keeps negative digit options as strings to avoid emitting invalid numeric 
 		'const formattedValue = registry.number("en", i?.value, { minimumFractionDigits: "-1" });'
 	);
 });
+
+test("compiles relative time formatter with a literal unit", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declaration: {
+			type: "local-variable",
+			name: "formattedDuration",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "duration" },
+				annotation: {
+					type: "function-reference",
+					name: "relativetime",
+					options: [
+						{ name: "unit", value: { type: "literal", value: "day" } },
+						{ name: "numeric", value: { type: "literal", value: "auto" } },
+						{
+							name: "numberingSystem",
+							value: { type: "literal", value: "latn" },
+						},
+					],
+				},
+			},
+		},
+	});
+
+	expect(code).toEqual(
+		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: "day", numeric: "auto", numberingSystem: "latn" });'
+	);
+});
+
+test("compiles relative time formatter with a dynamic unit cast", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declaration: {
+			type: "local-variable",
+			name: "formattedDuration",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "duration" },
+				annotation: {
+					type: "function-reference",
+					name: "relativetime",
+					options: [
+						{
+							name: "unit",
+							value: { type: "variable-reference", name: "unit" },
+						},
+					],
+				},
+			},
+		},
+	});
+
+	expect(code).toEqual(
+		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit) });'
+	);
+});
+
+test("throws if relative time formatter is missing a unit option", () => {
+	expect(() =>
+		compileLocalVariable({
+			locale: "en",
+			declaration: {
+				type: "local-variable",
+				name: "formattedDuration",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "duration" },
+					annotation: {
+						type: "function-reference",
+						name: "relativetime",
+						options: [],
+					},
+				},
+			},
+		})
+	).toThrow('The "relativetime" formatter requires a "unit" option.');
+});
+
+test("throws if relative time formatter has duplicate unit options", () => {
+	expect(() =>
+		compileLocalVariable({
+			locale: "en",
+			declaration: {
+				type: "local-variable",
+				name: "formattedDuration",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "duration" },
+					annotation: {
+						type: "function-reference",
+						name: "relativetime",
+						options: [
+							{ name: "unit", value: { type: "literal", value: "day" } },
+							{ name: "unit", value: { type: "literal", value: "hour" } },
+						],
+					},
+				},
+			},
+		})
+	).toThrow('The "relativetime" formatter requires exactly one "unit" option.');
+});
+
+test("throws if relative time formatter has an invalid literal unit", () => {
+	expect(() =>
+		compileLocalVariable({
+			locale: "en",
+			declaration: {
+				type: "local-variable",
+				name: "formattedDuration",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "duration" },
+					annotation: {
+						type: "function-reference",
+						name: "relativetime",
+						options: [
+							{ name: "unit", value: { type: "literal", value: "weekday" } },
+						],
+					},
+				},
+			},
+		})
+	).toThrow('Invalid "relativetime" unit "weekday".');
+});
