@@ -105,6 +105,14 @@ function compileOptionLiteralOrVarRef(
 		return compileInputAccess(value.name);
 	}
 
+	if (
+		annotationName === "relativetime" &&
+		optionName === "unit" &&
+		isDollarVariableReference(value.value)
+	) {
+		return `/** @type {import("../registry.js").RelativeTimeFormatUnit} */ (${compileInputAccess(value.value.slice(1))})`;
+	}
+
 	if (shouldEmitNumberLiteral(annotationName, optionName, value.value)) {
 		return value.value;
 	}
@@ -186,6 +194,10 @@ function validateRelativeTimeOptions(annotation: FunctionReference): void {
 		return;
 	}
 
+	if (isDollarVariableReference(unitOption.value.value)) {
+		return;
+	}
+
 	if (!relativeTimeUnits.has(unitOption.value.value)) {
 		throw new Error(
 			`Invalid "relativetime" unit "${unitOption.value.value}". Expected one of: ${Array.from(
@@ -193,4 +205,8 @@ function validateRelativeTimeOptions(annotation: FunctionReference): void {
 			).join(", ")}.`
 		);
 	}
+}
+
+function isDollarVariableReference(value: string): boolean {
+	return /^\$[A-Za-z_$][A-Za-z0-9_$]*$/.test(value);
 }
