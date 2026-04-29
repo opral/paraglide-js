@@ -48,3 +48,50 @@ test("formats dates using locale-specific ordering", async () => {
 	setLocale("de");
 	assert.strictEqual(m.purchase_date({ date }), "Kaufdatum: 01.04.2022.");
 });
+
+test("formats relative times with literal units and numeric auto", async () => {
+	setLocale("en");
+	assert.strictEqual(
+		m.last_seen({ duration: -1 }),
+		"Last seen yesterday."
+	);
+
+	setLocale("de");
+	assert.strictEqual(
+		m.last_seen({ duration: -1 }),
+		"Zuletzt gesehen: gestern."
+	);
+});
+
+test("formats relative times with dynamic units and style options", async () => {
+	setLocale("en");
+	assert.strictEqual(
+		m.relative_update({ duration: -3, unit: "hours" }),
+		"Updated 3 hr. ago."
+	);
+
+	setLocale("de");
+	assert.strictEqual(
+		m.relative_update({ duration: 2, unit: "week" }),
+		"Aktualisiert in 2 Wochen."
+	);
+});
+
+test("formats relative times after caller-side threshold selection", async () => {
+	setLocale("en");
+
+	assert.strictEqual(
+		m.relative_update({ duration: -45, unit: "minute" }),
+		"Updated 45 min. ago."
+	);
+
+	assert.strictEqual(
+		m.relative_update({ duration: -2, unit: "hour" }),
+		"Updated 2 hr. ago."
+	);
+
+	assert.strictEqual(
+		m.relative_update({ duration: -2, unit: "day" }),
+		"Updated 2 days ago."
+	);
+});

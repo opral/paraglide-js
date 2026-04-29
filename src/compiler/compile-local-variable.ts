@@ -41,6 +41,9 @@ function compileAnnotation(
 	if (!annotation) {
 		return str;
 	}
+	if (annotation.name === "relativetime") {
+		validateRelativeTimeOptions(annotation);
+	}
 	return `registry.${annotation.name}("${locale}", ${str}, ${compileOptions(annotation.name, annotation.options)})`;
 }
 
@@ -96,7 +99,18 @@ function compileOptionLiteralOrVarRef(
 	value: Literal | VariableReference
 ): string {
 	if (value.type === "variable-reference") {
+		if (annotationName === "relativetime" && optionName === "unit") {
+			return `/** @type {import("../registry.js").RelativeTimeFormatUnit} */ (${compileInputAccess(value.name)})`;
+		}
 		return compileInputAccess(value.name);
+	}
+
+	if (
+		annotationName === "relativetime" &&
+		optionName === "unit" &&
+		isDollarVariableReference(value.value)
+	) {
+		return `/** @type {import("../registry.js").RelativeTimeFormatUnit} */ (${compileInputAccess(value.value.slice(1))})`;
 	}
 
 	if (shouldEmitNumberLiteral(annotationName, optionName, value.value)) {
@@ -139,4 +153,60 @@ function compileLiteralOrVarRef(value: Literal | VariableReference): string {
 		case "variable-reference":
 			return compileInputAccess(value.name);
 	}
+}
+
+const relativeTimeUnits = new Set([
+	"year",
+	"years",
+	"quarter",
+	"quarters",
+	"month",
+	"months",
+	"week",
+	"weeks",
+	"day",
+	"days",
+	"hour",
+	"hours",
+	"minute",
+	"minutes",
+	"second",
+	"seconds",
+]);
+
+function validateRelativeTimeOptions(annotation: FunctionReference): void {
+	const unitOptions = annotation.options.filter(
+		(option) => option.name === "unit"
+	);
+
+	if (unitOptions.length === 0) {
+		throw new Error('The "relativetime" formatter requires a "unit" option.');
+	}
+
+	if (unitOptions.length > 1) {
+		throw new Error(
+			'The "relativetime" formatter requires exactly one "unit" option.'
+		);
+	}
+
+	const [unitOption] = unitOptions;
+	if (!unitOption || unitOption.value.type === "variable-reference") {
+		return;
+	}
+
+	if (isDollarVariableReference(unitOption.value.value)) {
+		return;
+	}
+
+	if (!relativeTimeUnits.has(unitOption.value.value)) {
+		throw new Error(
+			`Invalid "relativetime" unit "${unitOption.value.value}". Expected one of: ${Array.from(
+				relativeTimeUnits
+			).join(", ")}.`
+		);
+	}
+}
+
+function isDollarVariableReference(value: string): boolean {
+	return value.startsWith("$") && value.length > 1;
 }

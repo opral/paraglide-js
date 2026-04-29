@@ -31,5 +31,28 @@
 				"date=*": "Kaufdatum: {formattedDate}."
 			}
 		}
+	],
+	"last_seen": [
+		{
+			"declarations": [
+				"input duration",
+				"local formattedDuration = duration: relativetime unit=day numeric=auto"
+			],
+			"match": {
+				"duration=*": "Zuletzt gesehen: {formattedDuration}."
+			}
+		}
+	],
+	"relative_update": [
+		{
+			"declarations": [
+				"input duration",
+				"input unit",
+				"local formattedDuration = duration: relativetime unit=$unit style=short"
+			],
+			"match": {
+				"duration=*,unit=*": "Aktualisiert {formattedDuration}."
+			}
+		}
 	]
 }

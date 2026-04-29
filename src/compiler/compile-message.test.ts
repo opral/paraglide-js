@@ -856,6 +856,138 @@ test("compiles messages that use datetime a function with options", async () => 
 	);
 });
 
+test("compiles messages that use relativetime() with options", async () => {
+	const createMessage = async (locale: string) => {
+		const declarations: Declaration[] = [
+			{ type: "input-variable", name: "duration" },
+			{
+				type: "local-variable",
+				name: "formattedDuration",
+				value: {
+					arg: { type: "variable-reference", name: "duration" },
+					annotation: {
+						type: "function-reference",
+						name: "relativetime",
+						options: [
+							{ name: "unit", value: { type: "literal", value: "day" } },
+							{ name: "numeric", value: { type: "literal", value: "auto" } },
+							{ name: "style", value: { type: "literal", value: "short" } },
+						],
+					},
+					type: "expression",
+				},
+			},
+		];
+
+		const message: Message = {
+			locale,
+			bundleId: "relative_time_test",
+			id: "message_id",
+			selectors: [],
+		};
+
+		const variants: Variant[] = [
+			{
+				id: "1",
+				messageId: "message_id",
+				matches: [],
+				pattern: [
+					{ type: "text", value: "Updated " },
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "formattedDuration" },
+					},
+					{ type: "text", value: "." },
+				],
+			},
+		];
+
+		const compiled = compileMessage(declarations, message, variants);
+
+		const { relative_time_test } = await import(
+			"data:text/javascript;base64," +
+				// bundling the registry inline to avoid managing module imports here
+				btoa(createRegistry()) +
+				btoa(
+					"export const relative_time_test = " +
+						compiled.code.replace("registry.", "")
+				)
+		);
+		return relative_time_test;
+	};
+
+	const enMessage = await createMessage("en");
+	const deMessage = await createMessage("de");
+
+	expect(enMessage({ duration: -1 })).toBe("Updated yesterday.");
+	expect(deMessage({ duration: 2 })).toBe("Updated übermorgen.");
+});
+
+test("compiles messages that use relativetime() with dynamic units", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "duration" },
+		{ type: "input-variable", name: "unit" },
+		{
+			type: "local-variable",
+			name: "formattedDuration",
+			value: {
+				arg: { type: "variable-reference", name: "duration" },
+				annotation: {
+					type: "function-reference",
+					name: "relativetime",
+					options: [
+						{
+							name: "unit",
+							value: { type: "variable-reference", name: "unit" },
+						},
+						{ name: "style", value: { type: "literal", value: "short" } },
+					],
+				},
+				type: "expression",
+			},
+		},
+	];
+
+	const message: Message = {
+		locale: "en",
+		bundleId: "relative_time_test",
+		id: "message_id",
+		selectors: [],
+	};
+
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "message_id",
+			matches: [],
+			pattern: [
+				{ type: "text", value: "Updated " },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "formattedDuration" },
+				},
+				{ type: "text", value: "." },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	const { relative_time_test } = await import(
+		"data:text/javascript;base64," +
+			// bundling the registry inline to avoid managing module imports here
+			btoa(createRegistry()) +
+			btoa(
+				"export const relative_time_test = " +
+					compiled.code.replace("registry.", "")
+			)
+	);
+
+	expect(relative_time_test({ duration: -3, unit: "hour" })).toBe(
+		"Updated 3 hr. ago."
+	);
+});
+
 test("does not throw when input is omitted for a single-variant message", async () => {
 	const declarations: Declaration[] = [
 		{ type: "input-variable", name: "name" },

@@ -228,7 +228,44 @@ test("emitTsDeclarations generates declaration files", async () => {
 
 	expect(output).toHaveProperty("messages/_index.d.ts");
 	expect(output).toHaveProperty("messages.d.ts");
+	expect(output).toHaveProperty("registry.d.ts");
 	expect(output["messages/_index.d.ts"]).toContain("sad_penguin_bundle");
+	expect(output["messages/_index.d.ts"]).toContain("relative_time_dynamic");
+	expect(output["registry.d.ts"]).toContain("RelativeTimeFormatUnit");
+	expect(output["registry.d.ts"]).toContain("relativetime");
+
+	const tsProject = await typescriptProject({
+		useInMemoryFileSystem: true,
+		compilerOptions: {
+			module: ts.ModuleKind.Node16,
+			moduleResolution: ts.ModuleResolutionKind.Node16,
+			strict: true,
+		},
+	});
+
+	for (const [fileName, code] of Object.entries(output)) {
+		if (fileName.endsWith(".d.ts")) {
+			tsProject.createSourceFile(fileName, code);
+		}
+	}
+
+	tsProject.createSourceFile(
+		"test.ts",
+		`
+			import { relative_time_dynamic } from "./messages.js";
+			import { relativetime } from "./registry.js";
+
+			relative_time_dynamic({ duration: -3, unit: "hour" }) satisfies string;
+			relativetime("en", -3, { unit: "hour", style: "short" }) satisfies string;
+		`
+	);
+
+	const program = tsProject.createProgram();
+	const diagnostics = ts.getPreEmitDiagnostics(program);
+	for (const diagnostic of diagnostics) {
+		console.error(diagnostic.messageText, diagnostic.file?.fileName);
+	}
+	expect(diagnostics.length).toEqual(0);
 });
 
 test("handles message bundles with a : in the id", async () => {
@@ -658,6 +695,32 @@ describe.each([
 				);
 			});
 
+			test("relativetime formatter works with literal units and locale overrides", async () => {
+				const { m, runtime } = await importCode(code);
+
+				runtime.setLocale("de");
+				expect(m.relative_time_literal({ duration: -1 })).toBe(
+					"Updated gestern."
+				);
+				expect(
+					m.relative_time_literal({ duration: -1 }, { locale: "en" })
+				).toBe("Updated yesterday.");
+			});
+
+			test("relativetime formatter works with dynamic units", async () => {
+				const { m, runtime } = await importCode(code);
+
+				runtime.setLocale("en");
+				expect(m.relative_time_dynamic({ duration: -3, unit: "hour" })).toBe(
+					"Updated 3 hr. ago."
+				);
+
+				runtime.setLocale("de");
+				expect(m.relative_time_dynamic({ duration: 2, unit: "weeks" })).toBe(
+					"Updated in 2 Wochen."
+				);
+			});
+
 			test("runtime.isLocale should only return `true` if a locale is passed to it", async () => {
 				const { runtime } = await importCode(code);
 
@@ -852,6 +915,22 @@ describe.each([
 			});
 		});
 
+		test("relativetime dynamic unit casts generated options without narrowing public inputs", () => {
+			const relativeTimeDynamicFile =
+				compilerOptions.outputStructure === "locale-modules"
+					? "messages/en.js"
+					: "messages/relative_time_dynamic.js";
+
+			expect(output).toHaveProperty(relativeTimeDynamicFile);
+			const relativeTimeDynamicModule = output[relativeTimeDynamicFile]!;
+			expect(relativeTimeDynamicModule).toContain(
+				'unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit)'
+			);
+			expect(relativeTimeDynamicModule).toContain(
+				"{ duration: NonNullable<unknown>, unit: NonNullable<unknown> }"
+			);
+		});
+
 		test("case sensitivity handling for bundle IDs", async () => {
 			const project = await loadProjectInMemory({
 				blob: await newProject({
@@ -968,6 +1047,11 @@ describe.each([
 
     // a message without params shouldn't require params
     m.sad_penguin_bundle() satisfies string
+
+    // dynamic relativetime unit inputs stay consistent with other formatter inputs
+    m.relative_time_literal({ duration: -1 }) satisfies string
+    m.relative_time_dynamic({ duration: -3, unit: "hour" }) satisfies string
+    m.relative_time_dynamic({ duration: -3, unit: "not-a-relative-time-unit" }) satisfies string
 
 		// --------- MATCH TYPE INFERENCE ---------
 		// known match values should be accepted
@@ -1172,6 +1256,102 @@ describe.each([
 
 			const output = await compileProject({
 				project: projectWithNumberOptions,
+				compilerOptions,
+			});
+
+			const tsProject = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+
+			for (const [fileName, code] of Object.entries(output)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					tsProject.createSourceFile(fileName, code);
+				}
+			}
+
+			const program = tsProject.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+
+			for (const diagnostic of diagnostics) {
+				console.error(diagnostic.messageText, diagnostic.file?.fileName);
+			}
+			expect(diagnostics.length).toEqual(0);
+		});
+
+		test("relativetime formatter options should pass checkJs", async () => {
+			const projectWithRelativeTimeOptions = await loadProjectInMemory({
+				blob: await newProject({
+					settings: {
+						baseLocale: "en",
+						locales: ["en"],
+					},
+				}),
+			});
+
+			await insertBundleNested(
+				projectWithRelativeTimeOptions.db,
+				createBundleNested({
+					id: "formatted_relative_time",
+					declarations: [
+						{
+							type: "input-variable",
+							name: "duration",
+						},
+						{
+							type: "input-variable",
+							name: "unit",
+						},
+						{
+							type: "local-variable",
+							name: "formattedDuration",
+							value: {
+								type: "expression",
+								arg: { type: "variable-reference", name: "duration" },
+								annotation: {
+									type: "function-reference",
+									name: "relativetime",
+									options: [
+										{
+											name: "unit",
+											value: { type: "variable-reference", name: "unit" },
+										},
+										{
+											name: "style",
+											value: { type: "literal", value: "short" },
+										},
+									],
+								},
+							},
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							variants: [
+								{
+									pattern: [
+										{
+											type: "expression",
+											arg: {
+												type: "variable-reference",
+												name: "formattedDuration",
+											},
+										},
+									],
+								},
+							],
+						},
+					],
+				})
+			);
+
+			const output = await compileProject({
+				project: projectWithRelativeTimeOptions,
 				compilerOptions,
 			});
 
@@ -1408,6 +1588,139 @@ const mockBundles: BundleNested[] = [
 			},
 		],
 	},
+	createBundleNested({
+		id: "relative_time_literal",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "duration",
+			},
+			{
+				type: "local-variable",
+				name: "formattedDuration",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "duration" },
+					annotation: {
+						type: "function-reference",
+						name: "relativetime",
+						options: [
+							{ name: "unit", value: { type: "literal", value: "day" } },
+							{ name: "numeric", value: { type: "literal", value: "auto" } },
+						],
+					},
+				},
+			},
+		],
+		messages: [
+			{
+				locale: "en",
+				variants: [
+					{
+						pattern: [
+							{ type: "text", value: "Updated " },
+							{
+								type: "expression",
+								arg: {
+									type: "variable-reference",
+									name: "formattedDuration",
+								},
+							},
+							{ type: "text", value: "." },
+						],
+					},
+				],
+			},
+			{
+				locale: "de",
+				variants: [
+					{
+						pattern: [
+							{ type: "text", value: "Updated " },
+							{
+								type: "expression",
+								arg: {
+									type: "variable-reference",
+									name: "formattedDuration",
+								},
+							},
+							{ type: "text", value: "." },
+						],
+					},
+				],
+			},
+		],
+	}),
+	createBundleNested({
+		id: "relative_time_dynamic",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "duration",
+			},
+			{
+				type: "input-variable",
+				name: "unit",
+			},
+			{
+				type: "local-variable",
+				name: "formattedDuration",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "duration" },
+					annotation: {
+						type: "function-reference",
+						name: "relativetime",
+						options: [
+							{
+								name: "unit",
+								value: { type: "variable-reference", name: "unit" },
+							},
+							{ name: "style", value: { type: "literal", value: "short" } },
+						],
+					},
+				},
+			},
+		],
+		messages: [
+			{
+				locale: "en",
+				variants: [
+					{
+						pattern: [
+							{ type: "text", value: "Updated " },
+							{
+								type: "expression",
+								arg: {
+									type: "variable-reference",
+									name: "formattedDuration",
+								},
+							},
+							{ type: "text", value: "." },
+						],
+					},
+				],
+			},
+			{
+				locale: "de",
+				variants: [
+					{
+						pattern: [
+							{ type: "text", value: "Updated " },
+							{
+								type: "expression",
+								arg: {
+									type: "variable-reference",
+									name: "formattedDuration",
+								},
+							},
+							{ type: "text", value: "." },
+						],
+					},
+				],
+			},
+		],
+	}),
 	{
 		id: "auth_password_error",
 		declarations: [
