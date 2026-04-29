@@ -53,6 +53,14 @@
 		"unplugin": "^2.1.2",
 		"urlpattern-polyfill": "^10.0.0"
 	},
+	"peerDependencies": {
+		"typescript": ">=5"
+	},
+	"peerDependenciesMeta": {
+		"typescript": {
+			"optional": true
+		}
+	},
 	"devDependencies": {
 		"@changesets/cli": "^2.29.7",
 		"@inlang/plugin-message-format": "^4.3.0",
