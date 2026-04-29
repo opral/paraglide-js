@@ -53,15 +53,13 @@ test("formats relative times with literal units and numeric auto", async () => {
 	setLocale("en");
 	assert.strictEqual(
 		m.last_seen({ duration: -1 }),
-		`Last seen ${formatRelativeTime("en", -1, "day", { numeric: "auto" })}.`
+		"Last seen yesterday."
 	);
 
 	setLocale("de");
 	assert.strictEqual(
 		m.last_seen({ duration: -1 }),
-		`Zuletzt gesehen: ${formatRelativeTime("de", -1, "day", {
-			numeric: "auto",
-		})}.`
+		"Zuletzt gesehen: gestern."
 	);
 });
 
@@ -69,64 +67,31 @@ test("formats relative times with dynamic units and style options", async () => 
 	setLocale("en");
 	assert.strictEqual(
 		m.relative_update({ duration: -3, unit: "hours" }),
-		`Updated ${formatRelativeTime("en", -3, "hours", { style: "short" })}.`
+		"Updated 3 hr. ago."
 	);
 
 	setLocale("de");
 	assert.strictEqual(
 		m.relative_update({ duration: 2, unit: "week" }),
-		`Aktualisiert ${formatRelativeTime("de", 2, "week", {
-			style: "short",
-		})}.`
+		"Aktualisiert in 2 Wochen."
 	);
 });
 
 test("formats relative times after caller-side threshold selection", async () => {
 	setLocale("en");
 
-	for (const minutes of [-45, -125, -60 * 24 * 2]) {
-		const input = toRelativeDuration(minutes);
-
-		assert.strictEqual(
-			m.relative_update(input),
-			`Updated ${formatRelativeTime("en", input.duration, input.unit, {
-				style: "short",
-			})}.`
-		);
-	}
-});
-
-function toRelativeDuration(minutes: number) {
-	const absoluteMinutes = Math.abs(minutes);
-
-	if (absoluteMinutes >= 60 * 24) {
-		return {
-			duration: Math.round(minutes / (60 * 24)),
-			unit: "day",
-		};
-	}
-
-	if (absoluteMinutes >= 60) {
-		return {
-			duration: Math.round(minutes / 60),
-			unit: "hour",
-		};
-	}
-
-	return {
-		duration: minutes,
-		unit: "minute",
-	};
-}
-
-function formatRelativeTime(
-	locale: string,
-	duration: number,
-	unit: string,
-	options: Intl.RelativeTimeFormatOptions = {}
-) {
-	return new Intl.RelativeTimeFormat(locale, options).format(
-		duration,
-		unit as Intl.RelativeTimeFormatUnit
+	assert.strictEqual(
+		m.relative_update({ duration: -45, unit: "minute" }),
+		"Updated 45 min. ago."
 	);
-}
+
+	assert.strictEqual(
+		m.relative_update({ duration: -2, unit: "hour" }),
+		"Updated 2 hr. ago."
+	);
+
+	assert.strictEqual(
+		m.relative_update({ duration: -2, unit: "day" }),
+		"Updated 2 days ago."
+	);
+});
