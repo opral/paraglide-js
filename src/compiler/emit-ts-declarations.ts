@@ -2,6 +2,10 @@ import path from "node:path";
 
 type TypeScript = typeof import("typescript");
 
+const missingTypeScriptMessage = `Paraglide's "emitTsDeclarations" option requires the "typescript" package.
+
+Install TypeScript in your project, or disable "emitTsDeclarations".`;
+
 /**
  * Generates `.d.ts` files for the compiled Paraglide output using the TypeScript compiler.
  *
@@ -15,7 +19,7 @@ type TypeScript = typeof import("typescript");
 export async function emitTsDeclarations(
 	output: Record<string, string>
 ): Promise<Record<string, string>> {
-	const ts: TypeScript = await import("typescript");
+	const ts = await importTypeScript();
 
 	const jsEntries = Object.entries(output).filter(([fileName]) =>
 		fileName.endsWith(".js")
@@ -140,4 +144,12 @@ export async function emitTsDeclarations(
 	program.emit(undefined, undefined, undefined, true);
 
 	return declarations;
+}
+
+async function importTypeScript(): Promise<TypeScript> {
+	try {
+		return await import("typescript");
+	} catch {
+		throw new Error(missingTypeScriptMessage);
+	}
 }
