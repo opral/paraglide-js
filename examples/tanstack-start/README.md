@@ -1,23 +1,26 @@
 ---
-title: TanStack Start i18n - Full-Stack Internationalization
+title: TanStack Start i18n guide with Paraglide
 description: Add multi-language support to TanStack Start apps with Paraglide JS. Type-safe translations, server-side rendering, localized routing, and up to 70% smaller i18n bundle sizes.
 ---
 
-# TanStack Start example with Paraglide
+# TanStack Start i18n guide with Paraglide
 
-Paraglide JS is the best i18n library for TanStack Start.
+Paraglide JS is a compiler-first i18n library for TanStack Start apps.
 
-It's a compiler-based i18n library that emits tree-shakable translations, leading to up to 70% smaller i18n bundle sizes compared to runtime based libraries.
+TanStack Router keeps owning your route tree, loaders, server functions, navigation, and typed links. Paraglide adds locale detection, request-scoped SSR, localized URL mapping, and type-safe message functions.
 
-- Fully type-safe with IDE autocomplete
-- SEO-friendly localized URLs with the [i18n routing strategy](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url)
-- Works with CSR and SSR
+This guide covers:
 
-[Source code](https://github.com/opral/paraglide-js/tree/main/examples/tanstack-start) | [TanStack Router Docs](https://tanstack.com/router)
+- TanStack Router `rewrite` integration with `localizeUrl()` and `deLocalizeUrl()`
+- `paraglideMiddleware()` in the TanStack Start server entry
+- Locale-aware rendering in routes, loaders, and server functions
+- Type-safe translated pathnames from the generated TanStack route tree
+- Prerendering localized routes
+- CSR and SSR with request-scoped locale handling
 
-## Start a new project based on this example
+[Official TanStack example](https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide) | [TanStack Router Docs](https://tanstack.com/router)
 
-To start a new project based on this example, run:
+## Start from the official example
 
 ```sh
 npx gitpick TanStack/router/tree/main/examples/react/start-i18n-paraglide start-i18n-paraglide
@@ -80,9 +83,9 @@ setLocale("de"); // switches to German
 
 [Learn more about messages, parameters, and locale management →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/basics)
 
-## Rewrite URL
+## Compose with TanStack Router rewrite
 
-If you want to handle how the URL looks when the user changes the locale, you can rewrite the URL in the router.
+Keep your file routes canonical, such as `/about`, and let TanStack Router rewrite localized public URLs, such as `/de/ueber`, through Paraglide.
 
 ```diff
 import { createRouter } from "@tanstack/react-router";
