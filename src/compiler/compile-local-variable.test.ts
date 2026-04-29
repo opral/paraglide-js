@@ -194,10 +194,7 @@ test("compiles relative time formatter with a literal unit", () => {
 					options: [
 						{ name: "unit", value: { type: "literal", value: "day" } },
 						{ name: "numeric", value: { type: "literal", value: "auto" } },
-						{
-							name: "style",
-							value: { type: "literal", value: "short" },
-						},
+						{ name: "style", value: { type: "literal", value: "short" } },
 					],
 				},
 			},
@@ -226,10 +223,7 @@ test("compiles relative time formatter with a dynamic unit cast", () => {
 							name: "unit",
 							value: { type: "variable-reference", name: "unit" },
 						},
-						{
-							name: "style",
-							value: { type: "literal", value: "short" },
-						},
+						{ name: "style", value: { type: "literal", value: "short" } },
 					],
 				},
 			},

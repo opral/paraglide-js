@@ -920,9 +920,9 @@ describe.each([
 				compilerOptions.outputStructure === "locale-modules"
 					? "messages/en.js"
 					: "messages/relative_time_dynamic.js";
-			const relativeTimeDynamicModule = output[relativeTimeDynamicFile]!;
 
 			expect(output).toHaveProperty(relativeTimeDynamicFile);
+			const relativeTimeDynamicModule = output[relativeTimeDynamicFile]!;
 			expect(relativeTimeDynamicModule).toContain(
 				'unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit)'
 			);
@@ -1048,10 +1048,10 @@ describe.each([
     // a message without params shouldn't require params
     m.sad_penguin_bundle() satisfies string
 
-		// dynamic relativetime unit inputs stay consistent with other formatter inputs
-		m.relative_time_literal({ duration: -1 }) satisfies string
-		m.relative_time_dynamic({ duration: -3, unit: "hour" }) satisfies string
-		m.relative_time_dynamic({ duration: -3, unit: "fortnight" }) satisfies string
+    // dynamic relativetime unit inputs stay consistent with other formatter inputs
+    m.relative_time_literal({ duration: -1 }) satisfies string
+    m.relative_time_dynamic({ duration: -3, unit: "hour" }) satisfies string
+    m.relative_time_dynamic({ duration: -3, unit: "not-a-relative-time-unit" }) satisfies string
 
 		// --------- MATCH TYPE INFERENCE ---------
 		// known match values should be accepted
