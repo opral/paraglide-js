@@ -176,7 +176,12 @@ export async function hashDirectory(
 	const hashes: Record<string, string> = {};
 
 	async function walk(currentDir: string, relativePrefix: string) {
-		const entries = await fs.readdir(currentDir, { withFileTypes: true });
+		let entries;
+		try {
+			entries = await fs.readdir(currentDir, { withFileTypes: true });
+		} catch {
+			return;
+		}
 		for (const entry of entries) {
 			const entryAbsolutePath = path.resolve(currentDir, entry.name);
 			const relativePath = relativePrefix
@@ -185,10 +190,15 @@ export async function hashDirectory(
 			if (entry.isDirectory()) {
 				await walk(entryAbsolutePath, relativePath);
 			} else if (entry.isFile()) {
-				const fileContent = await fs.readFile(entryAbsolutePath, "utf-8");
-				const combinedContent =
-					fileContent + path.resolve(directory, relativePath);
-				hashes[relativePath] = await hashString(combinedContent);
+				try {
+					const fileContent = await fs.readFile(entryAbsolutePath, "utf-8");
+					const combinedContent =
+						fileContent + path.resolve(directory, relativePath);
+					hashes[relativePath] = await hashString(combinedContent);
+				} catch {
+					// Another compiler process may be rewriting this file. A partial
+					// seed is safe; the following compile will repair missing outputs.
+				}
 			}
 		}
 	}

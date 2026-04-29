@@ -106,9 +106,8 @@ test("vite plugin throws on compilation errors at build time", async () => {
 // concurrent reads (SSR/prerender modules, sibling Vite processes, the
 // config-watcher reload) and producing ENOENT/MISSING_EXPORT/ERR_LOAD_URL.
 test("vite plugin does not wipe outdir during first buildStart (#659)", async () => {
-	const { paraglideVitePlugin: vitePlugin } = await import(
-		"../bundler-plugins/vite.js"
-	);
+	const { paraglideVitePlugin: vitePlugin } =
+		await import("../bundler-plugins/vite.js");
 
 	const project = await loadProjectInMemory({
 		blob: await newProject({
@@ -137,6 +136,7 @@ test("vite plugin does not wipe outdir during first buildStart (#659)", async ()
 	const plugin = vitePlugin({
 		project: "/project.inlang",
 		outdir: "/test-output",
+		cleanOutdir: true,
 		fs: fs,
 	}) as any;
 
@@ -173,9 +173,8 @@ test("vite plugin warm-restart writes nothing when inputs unchanged (#659)", asy
 
 	// First process: compile and persist files to outdir.
 	{
-		const { paraglideVitePlugin: vitePlugin } = await import(
-			"../bundler-plugins/vite.js"
-		);
+		const { paraglideVitePlugin: vitePlugin } =
+			await import("../bundler-plugins/vite.js");
 		const plugin = vitePlugin({
 			project: "/project.inlang",
 			outdir: "/test-output",
@@ -188,9 +187,8 @@ test("vite plugin warm-restart writes nothing when inputs unchanged (#659)", asy
 	// the module-scoped `previousCompilation` is undefined again. The plugin
 	// should seed from on-disk hashes and write zero files (no race window).
 	vi.resetModules();
-	const { paraglideVitePlugin: vitePluginFresh } = await import(
-		"../bundler-plugins/vite.js"
-	);
+	const { paraglideVitePlugin: vitePluginFresh } =
+		await import("../bundler-plugins/vite.js");
 	const plugin2 = vitePluginFresh({
 		project: "/project.inlang",
 		outdir: "/test-output",

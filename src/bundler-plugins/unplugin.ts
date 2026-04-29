@@ -23,6 +23,14 @@ let isServer: string | undefined;
 let previousCompilation: CompilationResult | undefined;
 const { fs: trackedFs, readFiles, clearReadFiles } = createTrackedFs();
 
+function withoutCleanOutdir(
+	args: CompilerOptions
+): Omit<CompilerOptions, "cleanOutdir"> {
+	const { cleanOutdir, ...compileArgs } = args;
+	void cleanOutdir;
+	return compileArgs;
+}
+
 /**
  * Seed a synthetic `previousCompilation` from files already on disk in
  * `outdir`. This lets the first compile in a fresh process diff against
@@ -38,10 +46,7 @@ async function seedPreviousCompilation(
 ): Promise<CompilationResult | undefined> {
 	const absoluteOutdir = path.resolve(process.cwd(), outdir);
 	const resolvedFs = fs ?? (await import("node:fs"));
-	const outputHashes = await hashDirectory(
-		absoluteOutdir,
-		resolvedFs.promises
-	);
+	const outputHashes = await hashDirectory(absoluteOutdir, resolvedFs.promises);
 	if (!outputHashes) return undefined;
 	return { outputHashes };
 }
@@ -67,9 +72,9 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 				fs: trackedFs,
 				previousCompilation: seededPrevious,
 				outputStructure,
-				cleanOutdir: false,
 				isServer,
-				...args,
+				...withoutCleanOutdir(args),
+				cleanOutdir: false,
 			});
 			logger.success(`Compilation complete (${outputStructure})`);
 		} catch (error) {
@@ -122,9 +127,9 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 				fs: trackedFs,
 				previousCompilation,
 				outputStructure,
-				cleanOutdir: false,
 				isServer,
-				...args,
+				...withoutCleanOutdir(args),
+				cleanOutdir: false,
 			});
 
 			logger.success(`Re-compilation complete (${outputStructure})`);
@@ -184,8 +189,8 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 					fs: trackedFs,
 					previousCompilation: seededPrevious,
 					outputStructure,
+					...withoutCleanOutdir(args),
 					cleanOutdir: false,
-					...args,
 				});
 				logger.success(`Compilation complete (${outputStructure})`);
 			} catch (error) {
