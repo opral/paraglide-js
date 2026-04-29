@@ -6,6 +6,10 @@ const missingTypeScriptMessage = `Paraglide's "emitTsDeclarations" option requir
 
 Install TypeScript in your project, or disable "emitTsDeclarations".`;
 
+const failedToLoadTypeScriptMessage = `Paraglide's "emitTsDeclarations" option requires the "typescript" package.
+
+TypeScript appears to be installed, but failed to load. See the error cause for details.`;
+
 /**
  * Generates `.d.ts` files for the compiled Paraglide output using the TypeScript compiler.
  *
@@ -149,7 +153,20 @@ export async function emitTsDeclarations(
 async function importTypeScript(): Promise<TypeScript> {
 	try {
 		return await import("typescript");
-	} catch {
-		throw new Error(missingTypeScriptMessage);
+	} catch (cause) {
+		if (isMissingTypeScriptPackageError(cause)) {
+			throw new Error(missingTypeScriptMessage);
+		}
+		throw new Error(failedToLoadTypeScriptMessage, { cause });
 	}
+}
+
+function isMissingTypeScriptPackageError(cause: unknown): boolean {
+	if (cause instanceof Error === false) {
+		return false;
+	}
+	if ("code" in cause && cause.code !== "ERR_MODULE_NOT_FOUND") {
+		return false;
+	}
+	return cause.message.includes("Cannot find package 'typescript'");
 }
