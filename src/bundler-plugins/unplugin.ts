@@ -1,6 +1,6 @@
 import type { UnpluginFactory } from "unplugin";
 import { compile, type CompilationResult } from "../compiler/compile.js";
-import { relative } from "node:path";
+import path, { relative } from "node:path";
 import { Logger } from "../services/logger/index.js";
 import type { CompilerOptions } from "../compiler/compiler-options.js";
 import {
@@ -9,6 +9,7 @@ import {
 	isPathWithinDirectories,
 } from "../services/file-watching/tracked-fs.js";
 import { nodeNormalizePath } from "../utilities/node-normalize-path.js";
+import { hashDirectory } from "../services/file-handling/write-output.js";
 
 const PLUGIN_NAME = "unplugin-paraglide-js";
 
@@ -22,6 +23,34 @@ let isServer: string | undefined;
 let previousCompilation: CompilationResult | undefined;
 const { fs: trackedFs, readFiles, clearReadFiles } = createTrackedFs();
 
+function withoutCleanOutdir(
+	args: CompilerOptions
+): Omit<CompilerOptions, "cleanOutdir"> {
+	const { cleanOutdir, ...compileArgs } = args;
+	void cleanOutdir;
+	return compileArgs;
+}
+
+/**
+ * Seed a synthetic `previousCompilation` from files already on disk in
+ * `outdir`. This lets the first compile in a fresh process diff against
+ * the prior build's output instead of treating it as empty — so warm
+ * restarts produce zero writes and we never wipe `outdir` out from under
+ * concurrent readers (SSR/prerender, sibling Vite processes).
+ *
+ * See https://github.com/opral/inlang-paraglide-js/issues/659.
+ */
+async function seedPreviousCompilation(
+	outdir: string,
+	fs: typeof import("node:fs") | undefined
+): Promise<CompilationResult | undefined> {
+	const absoluteOutdir = path.resolve(process.cwd(), outdir);
+	const resolvedFs = fs ?? (await import("node:fs"));
+	const outputHashes = await hashDirectory(absoluteOutdir, resolvedFs.promises);
+	if (!outputHashes) return undefined;
+	return { outputHashes };
+}
+
 export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 	name: PLUGIN_NAME,
 	enforce: "pre",
@@ -33,16 +62,19 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 			args.outputStructure ??
 			(isProduction ? "message-modules" : "locale-modules");
 		try {
+			// On a fresh process, seed previousCompilation from on-disk hashes
+			// so the first compile is a no-op when inputs are unchanged. Avoids
+			// racing concurrent readers that wiping outdir would interrupt.
+			const seededPrevious =
+				previousCompilation ??
+				(await seedPreviousCompilation(args.outdir, args.fs));
 			previousCompilation = await compile({
 				fs: trackedFs,
-				previousCompilation,
+				previousCompilation: seededPrevious,
 				outputStructure,
-				// webpack invokes the `buildStart` api in watch mode,
-				// to avoid cleaning the output directory in watch mode,
-				// we only clean the output directory if there was no previous compilation
-				cleanOutdir: previousCompilation === undefined,
 				isServer,
-				...args,
+				...withoutCleanOutdir(args),
+				cleanOutdir: false,
 			});
 			logger.success(`Compilation complete (${outputStructure})`);
 		} catch (error) {
@@ -95,9 +127,9 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 				fs: trackedFs,
 				previousCompilation,
 				outputStructure,
-				cleanOutdir: false,
 				isServer,
-				...args,
+				...withoutCleanOutdir(args),
+				cleanOutdir: false,
 			});
 
 			logger.success(`Re-compilation complete (${outputStructure})`);
@@ -150,15 +182,15 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 				args.outputStructure ??
 				(isProduction ? "message-modules" : "locale-modules");
 			try {
+				const seededPrevious =
+					previousCompilation ??
+					(await seedPreviousCompilation(args.outdir, args.fs));
 				previousCompilation = await compile({
 					fs: trackedFs,
-					previousCompilation,
+					previousCompilation: seededPrevious,
 					outputStructure,
-					// clean dir needs to be false. otherwise webpack get's into a race condition
-					// of deleting the output directory and writing files at the same time for
-					// multi environment builds
+					...withoutCleanOutdir(args),
 					cleanOutdir: false,
-					...args,
 				});
 				logger.success(`Compilation complete (${outputStructure})`);
 			} catch (error) {

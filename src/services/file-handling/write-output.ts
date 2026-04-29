@@ -149,3 +149,60 @@ async function hashOutput(
 	}
 	return hashes;
 }
+
+/**
+ * Walk an existing output directory and produce the same hash map that
+ * {@link writeOutput} would have returned on a previous compile.
+ *
+ * Used by the bundler plugins to seed `previousCompilation` on a fresh
+ * process so the first compile's diff against unchanged inputs is empty
+ * and `writeOutput` short-circuits — letting us avoid wiping the directory
+ * out from under concurrent SSR/prerender readers (#659).
+ *
+ * Returns `undefined` if the directory does not exist. Keys are
+ * forward-slash relative paths to match {@link hashOutput}.
+ */
+export async function hashDirectory(
+	directory: string,
+	fs: typeof nodeFs
+): Promise<Record<string, string> | undefined> {
+	try {
+		const stat = await fs.stat(directory);
+		if (!stat.isDirectory()) return undefined;
+	} catch {
+		return undefined;
+	}
+
+	const hashes: Record<string, string> = {};
+
+	async function walk(currentDir: string, relativePrefix: string) {
+		let entries;
+		try {
+			entries = await fs.readdir(currentDir, { withFileTypes: true });
+		} catch {
+			return;
+		}
+		for (const entry of entries) {
+			const entryAbsolutePath = path.resolve(currentDir, entry.name);
+			const relativePath = relativePrefix
+				? `${relativePrefix}/${entry.name}`
+				: entry.name;
+			if (entry.isDirectory()) {
+				await walk(entryAbsolutePath, relativePath);
+			} else if (entry.isFile()) {
+				try {
+					const fileContent = await fs.readFile(entryAbsolutePath, "utf-8");
+					const combinedContent =
+						fileContent + path.resolve(directory, relativePath);
+					hashes[relativePath] = await hashString(combinedContent);
+				} catch {
+					// Another compiler process may be rewriting this file. A partial
+					// seed is safe; the following compile will repair missing outputs.
+				}
+			}
+		}
+	}
+
+	await walk(directory, "");
+	return hashes;
+}
