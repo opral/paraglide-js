@@ -5,7 +5,9 @@
 
 <h1 align="center">🪂 Paraglide JS</h1>
 <p align="center">
-  <strong>Compiler-based i18n library that emits tree-shakable translations, leading to up to 70% smaller i18n bundle sizes.</strong>
+  <strong>Compiler-first i18n for TanStack Start, SvelteKit, and Vite apps.</strong>
+  <br/>
+  Type-safe message functions, tree-shakable translations, and first-class SSR.
 </p>
 
 <p align="center">
@@ -29,9 +31,9 @@
 </p>
 
 <p align="center">
-  <sub>Trusted by framework authors</sub><br/><br/>
+  <sub>Framework-authored and framework-tested</sub><br/><br/>
   <a href="https://svelte.dev/docs/cli/paraglide"><img src="https://cdn.simpleicons.org/svelte/FF3E00" alt="Svelte" height="14" /> SvelteKit's official i18n integration</a><br/>
-  <a href="https://inlang.com/blog/tanstack-ci"><img src="https://tanstack.com/images/logos/logo-color-100.png" alt="TanStack" height="14" /> Part of TanStack's CI pipeline</a>
+  <a href="https://inlang.com/blog/tanstack-ci"><img src="https://tanstack.com/images/logos/logo-color-100.png" alt="TanStack" height="14" /> TanStack Router's e2e-tested i18n example</a>
 </p>
 
 ## Code Preview
@@ -49,20 +51,20 @@ import { m } from "./paraglide/messages.js";
 m.greeting({ name: "World" }); // "Hello World!" — fully typesafe
 ```
 
-The compiler generates typed message functions. Your bundler tree-shakes unused messages. Expect [**up to 70% smaller i18n bundle sizes**](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark) compared to runtime i18n libraries (e.g. 47 KB vs 205 KB).
+The compiler turns your messages into typed ESM functions. Vite, Rollup, and other modern bundlers can tree-shake unused translations before they reach the browser. Expect [**up to 70% smaller i18n bundle sizes**](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark) compared to runtime i18n libraries (e.g. 47 KB vs 205 KB).
 
 ## Why Paraglide?
 
 |                           |                                                                                                                                                                                                                |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Vite-Native**           | Designed for Vite and modern ESM bundlers. Works with TanStack Start, SvelteKit, React Router, Astro, Vue, Solid, and vanilla JS/TS.                                                                           |
 | **Smaller i18n Bundle**   | Up to 70% smaller i18n bundle size than runtime i18n libraries.                                                                                                                                                |
-| **Tree-Shakable**         | Unused messages are eliminated by your bundler.                                                                                                                                                                |
+| **Tree-Shakable**         | Messages compile to ESM functions, so unused translations are eliminated by your bundler.                                                                                                                       |
 | **Fully Typesafe**        | Autocomplete for message keys and parameters. Typos become compile errors.                                                                                                                                     |
-| **Framework Agnostic**    | Works with React, Vue, Svelte, Solid, TanStack, or vanilla JS/TS.                                                                                                                                              |
 | **Built-in i18n Routing** | URL-based locale detection and localized paths out of the box.                                                                                                                                                 |
-| **Built on inlang**       | Integrates with [Sherlock](https://inlang.com/m/r7kp499g/app-inlang-ideExtension) (VS Code extension), [Fink](https://inlang.com/m/tdozzpar/app-inlang-finkLocalizationEditor) (translation editor), and more. |
+| **Open Localization Format** | Built on inlang: `project.inlang/settings.json` configures locales, plugins, and file patterns while translations stay in version-controlled files like `messages/en.json`. |
 
-## Works With Your Stack
+## Get Started With Your Framework
 
 <p>
   <a href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="18" height="18" /> React</a> ·
@@ -74,8 +76,79 @@ The compiler generates typed message functions. Your bundler tree-shakes unused 
   <a href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vanilla-js-ts"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="18" height="18" /> Vanilla JS/TS</a>
 </p>
 
+- **[TanStack Start example](https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide)** — SSR, localized routing, and TanStack Router integration.
+- **[SvelteKit guide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/sveltekit)** — SvelteKit's official i18n integration.
+- **[React Router guide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/react-router)** — SSR and client routing.
+- **[Astro guide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/astro)** — static and server-rendered sites.
+- **[Vite guide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite)** — React, Vue, Solid, or vanilla JS/TS.
+
 > [!TIP]
-> <img src="https://vitejs.dev/logo.svg" alt="Vite" width="16" height="16" /> **Paraglide is ideal for any Vite based app.** Setup is just one plugin and Vite's tree-shaking eliminates unused messages automatically. [Get started →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite)
+> <img src="https://vitejs.dev/logo.svg" alt="Vite" width="16" height="16" /> **Paraglide is ideal for Vite-based apps.** Setup is one plugin, messages compile to ESM, and Vite's tree-shaking eliminates unused translations automatically. [Get started →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite)
+
+## SSR Ready
+
+Paraglide works in SSR apps with request-scoped locale handling. The server middleware detects the locale from each request and uses AsyncLocalStorage so `getLocale()` and message functions resolve the right locale even during concurrent requests.
+
+```ts
+import { paraglideMiddleware } from "./paraglide/server.js";
+import { getLocale } from "./paraglide/runtime.js";
+import { m } from "./paraglide/messages.js";
+
+export function handle(request: Request) {
+  return paraglideMiddleware(request, async () => {
+    const html = `
+      <html lang="${getLocale()}">
+        <body>${m.greeting({ name: "Ada" })}</body>
+      </html>
+    `;
+
+    return new Response(html, {
+      headers: { "content-type": "text/html" },
+    });
+  });
+}
+```
+
+**[SSR Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/server-side-rendering)** · **[Middleware Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/middleware)**
+
+## Router Composition
+
+Paraglide coexists with your router. Your app keeps canonical routes like `/about`, while Paraglide maps browser-facing localized URLs like `/en/about` or `/de/ueber` to those canonical routes.
+
+Use your framework or router for route definitions, loaders, navigation, and route typing. Use Paraglide for locale detection, localized URL generation, and message functions.
+
+```ts
+import { deLocalizeUrl, localizeUrl } from "./paraglide/runtime.js";
+
+// Incoming request: localized URL -> canonical app route
+deLocalizeUrl("https://example.com/de/ueber").href; // https://example.com/about
+
+// Outgoing link: canonical app route -> localized URL
+localizeUrl("https://example.com/about", { locale: "de" }).href; // https://example.com/de/ueber
+```
+
+For routers with rewrite hooks, call `deLocalizeUrl()` on incoming URLs and `localizeUrl()` on outgoing URLs. For file-based routers, keep your file routes canonical and localize at the routing boundary.
+
+**[i18n Routing Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing)**
+
+### TanStack Start
+
+TanStack Start uses the same boundary pattern: TanStack Router owns the route tree, loaders, navigation, and typed links. Paraglide handles locale detection, localized URL mapping, and message functions.
+
+```ts
+import { paraglideMiddleware } from "./paraglide/server.js";
+import handler from "@tanstack/react-start/server-entry";
+
+export default {
+  fetch(req: Request): Promise<Response> {
+    return paraglideMiddleware(req, () => handler.fetch(req));
+  },
+};
+```
+
+Route code stays TanStack-native: TanStack Router owns route trees, loaders, server functions, navigation, and typed links. TanStack runs Paraglide in e2e tests on every router commit, and the guide covers router rewrites, localized links, prerendering, and SSR behavior.
+
+**[TanStack Start i18n guide →](https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide)**
 
 ## Quick Start
 
@@ -105,6 +178,31 @@ setLocale("de"); // switches to German
 ```
 
 **[Full Getting Started Guide →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)**
+
+## Rich Text
+
+For `<Trans>`-style rich text and component interpolation, use typed markup with your framework adapter.
+
+```tsx
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
+import { m } from "./paraglide/messages.js";
+
+export function ContactCta() {
+  return (
+    <ParaglideMessage
+      message={m.cta}
+      markup={{
+        link: ({ children }) => <a href="/contact">{children}</a>,
+        strong: ({ children }) => <strong>{children}</strong>,
+      }}
+    />
+  );
+}
+```
+
+The markup names come from your message and are type-checked, so translators control where links and emphasis appear while your React app controls how they render.
+
+**[Markup Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/markup)** · **[React](https://www.npmjs.com/package/@inlang/paraglide-js-react)** · **[Svelte](https://www.npmjs.com/package/@inlang/paraglide-js-svelte)** · **[Vue](https://www.npmjs.com/package/@inlang/paraglide-js-vue)** · **[Solid](https://www.npmjs.com/package/@inlang/paraglide-js-solid)**
 
 ## How It Works
 
@@ -151,18 +249,44 @@ Message format is **plugin-based** — use the default inlang format, or switch 
 
 **[Formatting Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/formatting)** · **[Pluralization & Variants Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)**
 
+## Why Compiler-First?
+
+Runtime i18n libraries like i18next resolve message keys from dictionaries while your app runs. Paraglide compiles messages into typed ESM functions before your app ships.
+
+That means Vite can tree-shake unused translations, TypeScript can autocomplete message keys and parameters, and your components call plain functions instead of resolving strings through a runtime lookup layer.
+
+In the [Paraglide benchmark](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark), typical scenarios shipped **47-144 KB with Paraglide** vs **205-422 KB with i18next**. With 5 locales, 100 used messages, and 200 total messages, Paraglide shipped **47 KB** while i18next shipped **205 KB**.
+
+Tree-shaking also keeps Paraglide stable as your message catalog grows. In the benchmark, using 100 messages shipped **47 KB** with Paraglide whether the project had 200, 500, or 1,000 total messages. The i18next runtime bundle grew from **205 KB** to **414 KB**.
+
 ## Comparison
 
-| Feature                 | Paraglide                                                                        | i18next               | react-intl            |
-| ----------------------- | -------------------------------------------------------------------------------- | --------------------- | --------------------- |
-| **i18n bundle size**    | Up to 70% smaller via tree-shaking                                               | ❌ Ships all messages | ❌ Ships all messages |
-| **Tree-shakable**       | ✅                                                                               | ❌                    | ❌                    |
-| **Typesafe**            | ✅                                                                               | Partial               | ❌                    |
-| **Framework agnostic**  | ✅                                                                               | Wrappers needed       | React only            |
-| **i18n routing**        | ✅ Built-in                                                                      | ❌                    | ❌                    |
-| **ICU MessageFormat 1** | ✅ [Via plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1) | ✅                    | ✅                    |
+| Feature                 | Paraglide                                                                        | Lingui                       | i18next              |
+| ----------------------- | -------------------------------------------------------------------------------- | ---------------------------- | -------------------- |
+| **Architecture**        | Compiler-first ESM message functions                                             | Extraction + compiled catalogs | Runtime dictionaries |
+| **i18n bundle size**    | Up to 70% smaller via message-level tree-shaking                                  | Compiled catalogs            | Runtime dictionaries |
+| **Tree-shakable**       | ✅ Message functions                                                              | Catalog-based                | ❌                   |
+| **Typesafe**            | ✅ Generated message functions                                                    | Macro/component workflow     | Partial              |
+| **Framework support**   | TanStack Start, SvelteKit, React Router, Astro, Vue, Solid, vanilla JS/TS         | React, Vue, Astro, Svelte, Node.js, vanilla JS | Broad via wrappers |
+| **Routing + SSR**       | ✅ Middleware, request isolation, and URL helpers                                  | Use your framework/router    | Use your framework/router |
+| **Rich text**           | ✅ Typed markup adapters                                                          | ✅ Rich-text components       | Via framework wrappers |
+| **ICU MessageFormat 1** | ✅ [Via plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1) | ✅                           | Via plugin           |
 
 **[Full Comparison →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/comparison)**
+
+## FAQ
+
+### Does Paraglide support ICU MessageFormat?
+
+Yes. Paraglide's message format is plugin-based. You can use the default inlang format, JSON, i18next, XLIFF, or ICU MessageFormat 1 via the [ICU plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1).
+
+### What about dynamic or CMS-driven keys?
+
+Paraglide works best when message keys are known at build time, because that enables type safety and tree-shaking. For dynamic menus or CMS entries, use explicit mappings from CMS/content IDs to generated message functions, or let the CMS return already-localized content for the active locale. If most translations are only known at runtime, a runtime i18n library may be a better fit.
+
+### Can I migrate from i18next?
+
+Yes. Paraglide can compile existing i18next translation files through the [i18next plugin](https://inlang.com/m/3i8bor92/plugin-inlang-i18next), so you can keep your translation format while moving app code from `i18next.t("key")` to typed message functions over time.
 
 ## What Developers Say
 
@@ -189,7 +313,7 @@ Message format is **plugin-based** — use the default inlang format, or switch 
 
 ## Ecosystem
 
-Paraglide is built on the [open inlang format](https://github.com/opral/inlang-sdk). Works with:
+Paraglide compiles messages from [inlang](https://github.com/opral/inlang), the open project file format for localization. In concrete terms, `project.inlang/settings.json` defines your locales, plugins, and translation file patterns; your translations stay as version-controlled files in your repo, such as `messages/en.json`, `locales/en.json`, or XLIFF files. Existing formats can be imported/exported through plugins. No account required; inlang tools are optional:
 
 | Tool                                                                    | Description                                      |
 | ----------------------------------------------------------------------- | ------------------------------------------------ |
