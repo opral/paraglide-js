@@ -916,12 +916,17 @@ describe.each([
 		});
 
 		test("relativetime dynamic unit casts generated options without narrowing public inputs", () => {
-			const generatedOutput = Object.values(output).join("\n");
+			const relativeTimeDynamicFile =
+				compilerOptions.outputStructure === "locale-modules"
+					? "messages/en.js"
+					: "messages/relative_time_dynamic.js";
+			const relativeTimeDynamicModule = output[relativeTimeDynamicFile]!;
 
-			expect(generatedOutput).toContain(
+			expect(output).toHaveProperty(relativeTimeDynamicFile);
+			expect(relativeTimeDynamicModule).toContain(
 				'unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit)'
 			);
-			expect(generatedOutput).toContain(
+			expect(relativeTimeDynamicModule).toContain(
 				"{ duration: NonNullable<unknown>, unit: NonNullable<unknown> }"
 			);
 		});
