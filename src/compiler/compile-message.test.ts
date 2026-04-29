@@ -919,18 +919,8 @@ test("compiles messages that use relativetime() with options", async () => {
 	const enMessage = await createMessage("en");
 	const deMessage = await createMessage("de");
 
-	expect(enMessage({ duration: -1 })).toBe(
-		`Updated ${new Intl.RelativeTimeFormat("en", {
-			numeric: "auto",
-			style: "short",
-		}).format(-1, "day")}.`
-	);
-	expect(deMessage({ duration: 2 })).toBe(
-		`Updated ${new Intl.RelativeTimeFormat("de", {
-			numeric: "auto",
-			style: "short",
-		}).format(2, "day")}.`
-	);
+	expect(enMessage({ duration: -1 })).toBe("Updated yesterday.");
+	expect(deMessage({ duration: 2 })).toBe("Updated übermorgen.");
 });
 
 test("compiles messages that use relativetime() with dynamic units", async () => {
@@ -994,9 +984,7 @@ test("compiles messages that use relativetime() with dynamic units", async () =>
 	);
 
 	expect(relative_time_test({ duration: -3, unit: "hour" })).toBe(
-		`Updated ${new Intl.RelativeTimeFormat("en", {
-			style: "short",
-		}).format(-3, "hour")}.`
+		"Updated 3 hr. ago."
 	);
 });
 

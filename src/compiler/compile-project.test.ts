@@ -700,13 +700,11 @@ describe.each([
 
 				runtime.setLocale("de");
 				expect(m.relative_time_literal({ duration: -1 })).toBe(
-					expectedRelativeTimeMessage("de", -1, "day", { numeric: "auto" })
+					"Updated gestern."
 				);
 				expect(
 					m.relative_time_literal({ duration: -1 }, { locale: "en" })
-				).toBe(
-					expectedRelativeTimeMessage("en", -1, "day", { numeric: "auto" })
-				);
+				).toBe("Updated yesterday.");
 			});
 
 			test("relativetime formatter works with dynamic units", async () => {
@@ -714,16 +712,12 @@ describe.each([
 
 				runtime.setLocale("en");
 				expect(m.relative_time_dynamic({ duration: -3, unit: "hour" })).toBe(
-					expectedRelativeTimeMessage("en", -3, "hour", {
-						style: "short",
-					})
+					"Updated 3 hr. ago."
 				);
 
 				runtime.setLocale("de");
 				expect(m.relative_time_dynamic({ duration: 2, unit: "weeks" })).toBe(
-					expectedRelativeTimeMessage("de", 2, "weeks", {
-						style: "short",
-					})
+					"Updated in 2 Wochen."
 				);
 			});
 
@@ -1419,18 +1413,6 @@ async function importCode(code: string) {
 	return await import(
 		`data:application/javascript;base64,${Buffer.from(codeWithComment, "utf8").toString("base64")}`
 	);
-}
-
-function expectedRelativeTimeMessage(
-	locale: string,
-	duration: number,
-	unit: string,
-	options: Intl.RelativeTimeFormatOptions = {}
-) {
-	return `Updated ${new Intl.RelativeTimeFormat(locale, options).format(
-		duration,
-		unit as Intl.RelativeTimeFormatUnit
-	)}.`;
 }
 
 const project = await loadProjectInMemory({
