@@ -208,5 +208,5 @@ function validateRelativeTimeOptions(annotation: FunctionReference): void {
 }
 
 function isDollarVariableReference(value: string): boolean {
-	return /^\$[A-Za-z_$][A-Za-z0-9_$]*$/.test(value);
+	return value.startsWith("$") && value.length > 1;
 }

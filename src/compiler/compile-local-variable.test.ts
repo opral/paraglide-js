@@ -386,3 +386,31 @@ test("accepts dollar-prefixed relative time formatter unit options from message 
 		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit) });'
 	);
 });
+
+test("accepts dollar-prefixed relative time formatter unit options with non-identifier input names", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declaration: {
+			type: "local-variable",
+			name: "formattedDuration",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "duration" },
+				annotation: {
+					type: "function-reference",
+					name: "relativetime",
+					options: [
+						{
+							name: "unit",
+							value: { type: "literal", value: "$relative-unit" },
+						},
+					],
+				},
+			},
+		},
+	});
+
+	expect(code).toEqual(
+		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.["relative-unit"]) });'
+	);
+});
