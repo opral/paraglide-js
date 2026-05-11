@@ -44,7 +44,7 @@ export const maybeAddSherlock: CliStep<
 	) {
 		// add the m function matcher plugin
 		settings.modules.push(
-			"https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@latest/dist/index.js"
+			"https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@2.1.0/dist/index.js"
 		);
 		await ctx.project.settings.set(settings);
 	}
