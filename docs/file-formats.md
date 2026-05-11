@@ -88,7 +88,7 @@ Add the plugin URL to the `modules` array in your `project.inlang/settings.json`
   "baseLocale": "en",
   "locales": ["en", "de"],
   "modules": [
--    "https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4.3.0/dist/index.js"
+-    "https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4.4.0/dist/index.js"
 +    "https://cdn.jsdelivr.net/npm/@inlang/plugin-i18next@6.0.11/dist/index.js"
   ]
 }
@@ -103,7 +103,7 @@ You can use multiple plugins to support different file formats in the same proje
 	"baseLocale": "en",
 	"locales": ["en", "de"],
 	"modules": [
-		"https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4.3.0/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4.4.0/dist/index.js",
 		"https://cdn.jsdelivr.net/npm/@inlang/plugin-i18next@6.0.11/dist/index.js"
 	]
 }
