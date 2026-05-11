@@ -41,7 +41,7 @@ Paraglide uses [inlang plugins](https://inlang.com/c/plugins) to read translatio
   "locales": ["en", "de", "fr"],
   "modules": [
 -    "https://cdn.jsdelivr.net/npm/@inlang/message-format-plugin@latest/dist/index.js"
-+    "https://cdn.jsdelivr.net/npm/@inlang/plugin-i18next@latest/dist/index.js"
++    "https://cdn.jsdelivr.net/npm/@inlang/plugin-i18next@6.0.11/dist/index.js"
   ],
 +  "plugin.inlang.i18next": {
 +    "pathPattern": "./locales/{locale}.json"
