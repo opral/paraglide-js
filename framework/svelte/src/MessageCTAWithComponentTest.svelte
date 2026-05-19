@@ -4,7 +4,7 @@
 	import CustomLink from "./CustomLink.svelte";
 </script>
 
-<ParaglideMessage message={m.cta} inputs={{}}>
+<ParaglideMessage message={m.cta}>
 	{#snippet link({ children, options, attributes })}
 		<CustomLink to={options.to} track={attributes.track}>
 			{@render children?.()}

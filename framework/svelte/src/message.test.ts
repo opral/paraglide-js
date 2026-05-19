@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { compile } from "svelte/compiler";
 import { render } from "svelte/server";
 import { expect, test } from "vitest";
 import { m } from "./paraglide/messages.js";
@@ -44,10 +46,26 @@ test("renders compiled nested markup", () => {
 	);
 });
 
+test("keeps Message.svelte props reactive after parent updates", () => {
+	const source = readFileSync(new URL("./Message.svelte", import.meta.url), "utf8");
+	const compiled = compile(source, {
+		filename: "Message.svelte",
+		generate: "client",
+		dev: true,
+	});
+
+	expect(compiled.js.code).toContain("$$props.message");
+	expect(compiled.js.code).toContain("$$props.inputs");
+	expect(compiled.js.code).toContain("$$props.options");
+});
+
 test("enforces markup props at type level", () => {
 	if (false) {
 		// @ts-expect-error markup snippets are required for markup messages
-		renderMessage<typeof m.cta>({ message: m.cta, inputs: {} });
+		renderMessage<typeof m.cta>({ message: m.cta });
+		renderMessage<typeof m.cta>({ message: m.cta, link: undefined as any });
+		// @ts-expect-error inputs are required for messages with parameters
+		renderMessage<typeof m.hello>({ message: m.hello });
 		renderMessage<typeof m.hello>({
 			message: m.hello,
 			inputs: { name: "Ada" },
