@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { compile } from "svelte/compiler";
 import { render } from "svelte/server";
 import { expect, test } from "vitest";
 import { m } from "./paraglide/messages.js";
@@ -42,6 +44,19 @@ test("renders compiled nested markup", () => {
 	expect(normalizeSsrBody(body)).toBe(
 		'<a href="/docs"><strong>Read docs</strong></a>'
 	);
+});
+
+test("keeps Message.svelte props reactive after parent updates", () => {
+	const source = readFileSync(new URL("./Message.svelte", import.meta.url), "utf8");
+	const compiled = compile(source, {
+		filename: "Message.svelte",
+		generate: "client",
+		dev: true,
+	});
+
+	expect(compiled.js.code).toContain("$$props.message");
+	expect(compiled.js.code).toContain("$$props.inputs");
+	expect(compiled.js.code).toContain("$$props.options");
 });
 
 test("enforces markup props at type level", () => {

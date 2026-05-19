@@ -8,13 +8,12 @@
 		MessageProps,
 	} from "./message.js";
 
-	const props: MessageProps<TMessage> = $props();
 	const {
 		message,
 		inputs: rawInputs,
 		options,
 		...rest
-	} = props as MessageProps<TMessage> & { inputs?: MessageInputs<TMessage> };
+	}: MessageProps<TMessage> & { inputs?: MessageInputs<TMessage> } = $props();
 	const inputs = $derived(rawInputs ?? ({} as MessageInputs<TMessage>));
 	const markup = rest as unknown as MessageMarkupProps<TMessage>;
 
