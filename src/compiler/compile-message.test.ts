@@ -215,6 +215,103 @@ test("numeric literal matches accept number and string inputs without loose coer
 	expect(numeric_select_message({ input: true })).toBe("Fallback");
 });
 
+// https://github.com/opral/paraglide-js/issues/682
+test("infinity input matches accept number and string inputs", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "capacity" },
+		{ type: "input-variable", name: "pending" },
+		{ type: "input-variable", name: "count" },
+	];
+	const message: Message = {
+		locale: "en",
+		id: "group-member-count-id",
+		bundleId: "group_member_count",
+		selectors: [
+			{ type: "variable-reference", name: "capacity" },
+			{ type: "variable-reference", name: "pending" },
+		],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "group-member-count-id",
+			matches: [
+				{ type: "literal-match", key: "capacity", value: "Infinity" },
+				{ type: "catchall-match", key: "pending" },
+			],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+				},
+			],
+		},
+		{
+			id: "2",
+			messageId: "group-member-count-id",
+			matches: [
+				{ type: "catchall-match", key: "capacity" },
+				{ type: "literal-match", key: "pending", value: "0" },
+			],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+				},
+				{ type: "text", value: " / " },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "capacity" },
+				},
+			],
+		},
+		{
+			id: "3",
+			messageId: "group-member-count-id",
+			matches: [
+				{ type: "catchall-match", key: "capacity" },
+				{ type: "catchall-match", key: "pending" },
+			],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+				},
+				{ type: "text", value: " / " },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "capacity" },
+				},
+				{ type: "text", value: " (" },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "pending" },
+				},
+				{ type: "text", value: " pending)" },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { group_member_count } = await import(
+		"data:text/javascript;base64," +
+			btoa("export const group_member_count = " + compiled.code)
+	);
+
+	expect(group_member_count({ capacity: Infinity, pending: 5, count: 5 })).toBe(
+		"5"
+	);
+	expect(
+		group_member_count({ capacity: "Infinity", pending: 5, count: 5 })
+	).toBe("5");
+	expect(group_member_count({ capacity: 10, pending: 0, count: 5 })).toBe(
+		"5 / 10"
+	);
+	expect(group_member_count({ capacity: 10, pending: 5, count: 5 })).toBe(
+		"5 / 10 (5 pending)"
+	);
+});
+
 // https://github.com/opral/paraglide-js/issues/571
 test("compiles a message that can be parsed as JSON", async () => {
 	const declarations: Declaration[] = [];

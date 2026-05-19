@@ -1,4 +1,5 @@
-const UNSUPPORTED_NUMERIC_MATCH_PREFIX = /^(0[bBoOxX]|[+-]?Infinity$|NaN$)/;
+const UNSUPPORTED_NUMERIC_MATCH_PREFIX = /^(0[bBoOxX]|NaN$)/;
+const INFINITY_MATCH_LITERAL = /^[+]?Infinity$/;
 
 export function renderInputMatchCondition(
 	inputExpression: string,
@@ -20,7 +21,11 @@ export function renderInputMatchTypeVariants(literalValue: string): string[] {
 	const variants = new Set<string>();
 
 	if (numericLiteral !== undefined) {
-		variants.add(numericLiteral);
+		variants.add(
+			numericLiteral === "Infinity" || numericLiteral === "-Infinity"
+				? "number"
+				: numericLiteral
+		);
 	}
 
 	variants.add(JSON.stringify(literalValue));
@@ -35,6 +40,14 @@ function parseNumericMatchLiteral(literalValue: string): string | undefined {
 		UNSUPPORTED_NUMERIC_MATCH_PREFIX.test(literalValue)
 	) {
 		return undefined;
+	}
+
+	if (INFINITY_MATCH_LITERAL.test(literalValue)) {
+		return "Infinity";
+	}
+
+	if (literalValue === "-Infinity") {
+		return "-Infinity";
 	}
 
 	const parsed = Number(literalValue);

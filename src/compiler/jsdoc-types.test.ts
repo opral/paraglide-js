@@ -101,6 +101,24 @@ test("inputsType accepts both number and string forms for numeric match values",
 	expect(result).toBe('{ input: 1 | "1" | 2 | "2" }');
 });
 
+test("inputsType widens infinity match values to number and string forms", () => {
+	const inputs: InputVariable[] = [{ name: "input", type: "input-variable" }];
+
+	const matchTypes = new Map([
+		[
+			"input",
+			{
+				literals: new Set(["Infinity", "-Infinity"]),
+				hasCatchAll: false,
+			},
+		],
+	]);
+
+	const result = inputsType(inputs, matchTypes);
+
+	expect(result).toBe('{ input: number | "-Infinity" | "Infinity" }');
+});
+
 test("inputsType falls back to NonNullable<unknown> when catchall exists", () => {
 	const inputs: InputVariable[] = [{ name: "type", type: "input-variable" }];
 
