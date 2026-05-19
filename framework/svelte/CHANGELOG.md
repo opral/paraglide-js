@@ -1,5 +1,11 @@
 # @inlang/paraglide-js-svelte
 
+## 1.0.3
+
+### Patch Changes
+
+- 5caa30d: Allow `ParaglideMessage` inputs to be omitted for messages without parameters.
+
 ## 1.0.2
 
 ### Patch Changes
