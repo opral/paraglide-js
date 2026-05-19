@@ -1,5 +1,12 @@
 # @inlang/paraglide-js
 
+## 2.18.1
+
+### Patch Changes
+
+- 6eb7d02: Fix input match generation so `Infinity` selectors match both numeric `Infinity` values and string `"Infinity"` values.
+- c16730d: Pin default jsDelivr plugin URLs to exact versions in generated project settings.
+
 ## 2.18.0
 
 ### Minor Changes
