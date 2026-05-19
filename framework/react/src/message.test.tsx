@@ -16,7 +16,6 @@ test("renders compiled markup and exposes options/attributes as records", () => 
 	const html = renderToStaticMarkup(
 		<ParaglideMessage
 			message={m.cta}
-			inputs={{}}
 			markup={{
 				link: ({ children, options, attributes }) => (
 					<a
@@ -37,7 +36,6 @@ test("renders compiled nested markup", () => {
 	const html = renderToStaticMarkup(
 		<ParaglideMessage
 			message={m.nested_cta}
-			inputs={{}}
 			markup={{
 				link: ({ children, options }) => <a href={options.to}>{children}</a>,
 				strong: ({ children }) => <strong>{children}</strong>,
@@ -51,9 +49,19 @@ test("renders compiled nested markup", () => {
 test("enforces markup props at type level", () => {
 	if (false) {
 		// @ts-expect-error markup renderers are required for markup messages
-		ParaglideMessage<typeof m.cta>({ message: m.cta, inputs: {} });
-		// @ts-expect-error plain messages do not accept a markup prop
-		ParaglideMessage<typeof m.hello>({ message: m.hello, inputs: { name: "Ada" }, markup: { link: () => null } });
+		ParaglideMessage<typeof m.cta>({ message: m.cta });
+		ParaglideMessage<typeof m.cta>({
+			message: m.cta,
+			markup: { link: () => null },
+		});
+		// @ts-expect-error inputs are required for messages with parameters
+		ParaglideMessage<typeof m.hello>({ message: m.hello });
+			ParaglideMessage<typeof m.hello>({
+				message: m.hello,
+				inputs: { name: "Ada" },
+				// @ts-expect-error plain messages do not accept a markup prop
+				markup: { link: () => null },
+			});
 	}
 
 	expect(true).toBe(true);

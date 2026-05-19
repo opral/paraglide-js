@@ -3,11 +3,19 @@
 	import type {
 		Child,
 		MessageLike,
+		MessageInputs,
 		MessageMarkupProps,
 		MessageProps,
 	} from "./message.js";
 
-	const { message, inputs, options, ...rest }: MessageProps<TMessage> = $props();
+	const props: MessageProps<TMessage> = $props();
+	const {
+		message,
+		inputs: rawInputs,
+		options,
+		...rest
+	} = props as MessageProps<TMessage> & { inputs?: MessageInputs<TMessage> };
+	const inputs = $derived(rawInputs ?? ({} as MessageInputs<TMessage>));
 	const markup = rest as unknown as MessageMarkupProps<TMessage>;
 
 	const parts = $derived.by(() =>

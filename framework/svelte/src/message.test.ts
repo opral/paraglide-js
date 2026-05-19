@@ -47,7 +47,10 @@ test("renders compiled nested markup", () => {
 test("enforces markup props at type level", () => {
 	if (false) {
 		// @ts-expect-error markup snippets are required for markup messages
-		renderMessage<typeof m.cta>({ message: m.cta, inputs: {} });
+		renderMessage<typeof m.cta>({ message: m.cta });
+		renderMessage<typeof m.cta>({ message: m.cta, link: undefined as any });
+		// @ts-expect-error inputs are required for messages with parameters
+		renderMessage<typeof m.hello>({ message: m.hello });
 		renderMessage<typeof m.hello>({
 			message: m.hello,
 			inputs: { name: "Ada" },

@@ -20,7 +20,6 @@ test("renders compiled markup and exposes options/attributes as records", async 
 		createSSRApp(() =>
 			h(ParaglideMessage, {
 				message: m.cta,
-				inputs: {},
 				markup: {
 					link: ({ children, options, attributes }) =>
 						h(
@@ -44,7 +43,6 @@ test("renders compiled nested markup", async () => {
 		createSSRApp(() =>
 			h(ParaglideMessage, {
 				message: m.nested_cta,
-				inputs: {},
 				markup: {
 					link: ({ children, options }) =>
 						h("a", { href: options.to }, children ?? undefined),
@@ -60,9 +58,19 @@ test("renders compiled nested markup", async () => {
 test("enforces markup props at type level", () => {
 	if (false) {
 		// @ts-expect-error markup renderers are required for markup messages
-		renderMessage<typeof m.cta>({ message: m.cta, inputs: {} });
-		// @ts-expect-error plain messages do not accept a markup prop
-		renderMessage<typeof m.hello>({ message: m.hello, inputs: { name: "Ada" }, markup: { link: () => h("a") } });
+		renderMessage<typeof m.cta>({ message: m.cta });
+		renderMessage<typeof m.cta>({
+			message: m.cta,
+			markup: { link: () => h("a") },
+		});
+		// @ts-expect-error inputs are required for messages with parameters
+		renderMessage<typeof m.hello>({ message: m.hello });
+			renderMessage<typeof m.hello>({
+				message: m.hello,
+				inputs: { name: "Ada" },
+				// @ts-expect-error plain messages do not accept a markup prop
+				markup: { link: () => h("a") },
+			});
 	}
 
 	expect(true).toBe(true);

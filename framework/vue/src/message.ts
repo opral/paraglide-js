@@ -16,24 +16,17 @@ export type MessageLike<
 	TInputs = Record<string, never>,
 	TOptions extends MessageOptions = MessageOptions,
 	TMarkup extends MessageMarkupSchema = MessageMarkupSchema,
-> = ((
-	inputs: TInputs,
-	options?: TOptions
-) => string) & {
+> = ((inputs: TInputs, options?: TOptions) => string) & {
 	parts?: (inputs: TInputs, options?: TOptions) => MessagePart[];
 } & MessageMetadata<TInputs, TOptions, TMarkup>;
 
 type MessageMetadataOf<TMessage extends MessageLike<any, any, any>> =
-	TMessage extends MessageMetadata<
-		infer TInputs,
-		infer TOptions,
-		infer TMarkup
-	>
+	TMessage extends MessageMetadata<infer TInputs, infer TOptions, infer TMarkup>
 		? {
 				inputs: TInputs;
 				options: TOptions;
 				markup: TMarkup;
-		  }
+			}
 		: never;
 
 type MessageInputs<TMessage extends MessageLike<any, any, any>> =
@@ -54,11 +47,12 @@ type NormalizeOptions<TOptions> = [TOptions] extends [undefined]
 		? NonNullable<TOptions>
 		: MessageOptions;
 
-type MessageRuntimeOptions<TMessage extends MessageLike<any, any, any>> = NormalizeOptions<
-	MessageMetadataOf<TMessage> extends { options: infer TOptions }
-		? TOptions
-		: SignatureOptions<TMessage>
->;
+type MessageRuntimeOptions<TMessage extends MessageLike<any, any, any>> =
+	NormalizeOptions<
+		MessageMetadataOf<TMessage> extends { options: infer TOptions }
+			? TOptions
+			: SignatureOptions<TMessage>
+	>;
 
 type MessageMarkup<TMessage extends MessageLike<any, any, any>> =
 	MessageMetadataOf<TMessage> extends { markup: infer TMarkup }
@@ -88,9 +82,7 @@ export type MarkupRenderer<
 	TOptions extends MessageOptions = MessageOptions,
 	TTag extends MessageMarkupTag = MessageMarkupTag,
 	TName extends string = string,
-> = (
-	props: MarkupRendererProps<TInputs, TOptions, TTag, TName>
-) => VNodeChild;
+> = (props: MarkupRendererProps<TInputs, TOptions, TTag, TName>) => VNodeChild;
 
 type MarkupRenderersForSchema<
 	TInputs,
@@ -114,11 +106,14 @@ type AnyMarkupRenderer = MarkupRenderer<
 
 type AnyMarkupRenderers = Partial<Record<string, AnyMarkupRenderer>>;
 
+type MessageInputsProp<TInputs> = keyof TInputs extends never
+	? { inputs?: TInputs }
+	: { inputs: TInputs };
+
 type MessageBaseProps<TMessage extends MessageLike<any, any, any>> = {
 	message: TMessage;
-	inputs: MessageInputs<TMessage>;
 	options?: MessageRuntimeOptions<TMessage>;
-};
+} & MessageInputsProp<MessageInputs<TMessage>>;
 
 type MessageMarkupProps<TMessage extends MessageLike<any, any, any>> =
 	keyof MessageMarkup<TMessage> extends never
@@ -149,16 +144,19 @@ type MessageComponent = {
 	): VNodeChild;
 	(props: {
 		message: MessageLike<any, any, any>;
-		inputs: Record<string, unknown>;
+		inputs?: Record<string, unknown>;
 		options?: MessageOptions;
 		markup?: AnyMarkupRenderers;
 	}): VNodeChild;
 };
 
-export function renderMessage<
-	TMessage extends MessageLike<any, any, any>,
->(props: MessageProps<NoInfer<TMessage>> & { message: TMessage }): VNodeChild {
-	const { message, inputs, options: messageOptions } = props;
+export function renderMessage<TMessage extends MessageLike<any, any, any>>(
+	props: MessageProps<NoInfer<TMessage>> & { message: TMessage }
+): VNodeChild {
+	const { message, options: messageOptions } = props;
+	const inputs =
+		(props as { inputs?: MessageInputs<TMessage> }).inputs ??
+		({} as MessageInputs<TMessage>);
 	const markup = (props as { markup?: AnyMarkupRenderers }).markup;
 	const callableMessage = message as MessageLike<
 		MessageInputs<TMessage>,
@@ -189,7 +187,7 @@ export const ParaglideMessage = defineComponent({
 		},
 		inputs: {
 			type: Object as PropType<Record<string, unknown>>,
-			required: true,
+			required: false,
 		},
 		options: {
 			type: Object as PropType<MessageOptions>,
@@ -290,17 +288,18 @@ function renderParts<TInputs, TOptions extends MessageOptions = MessageOptions>(
 	return rootChildren;
 }
 
-function renderMarkup<TInputs, TOptions extends MessageOptions = MessageOptions>(
-	args: {
-		name: string;
-		children: VNodeChild[];
-		options: MessageMarkupOptions;
-		attributes: MessageMarkupAttributes;
-		inputs: TInputs;
-		messageOptions?: TOptions;
-		markup?: AnyMarkupRenderers;
-	}
-): VNodeChild {
+function renderMarkup<
+	TInputs,
+	TOptions extends MessageOptions = MessageOptions,
+>(args: {
+	name: string;
+	children: VNodeChild[];
+	options: MessageMarkupOptions;
+	attributes: MessageMarkupAttributes;
+	inputs: TInputs;
+	messageOptions?: TOptions;
+	markup?: AnyMarkupRenderers;
+}): VNodeChild {
 	const renderer = args.markup?.[args.name];
 	const children = toChildren(args.children);
 

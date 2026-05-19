@@ -16,27 +16,20 @@ export type MessageLike<
 	TInputs = Record<string, never>,
 	TOptions extends MessageOptions = MessageOptions,
 	TMarkup extends MessageMarkupSchema = MessageMarkupSchema,
-> = ((
-	inputs: TInputs,
-	options?: TOptions
-) => string) & {
+> = ((inputs: TInputs, options?: TOptions) => string) & {
 	parts?: (inputs: TInputs, options?: TOptions) => MessagePart[];
 } & MessageMetadata<TInputs, TOptions, TMarkup>;
 
 type MessageMetadataOf<TMessage extends MessageLike<any, any, any>> =
-	TMessage extends MessageMetadata<
-		infer TInputs,
-		infer TOptions,
-		infer TMarkup
-	>
+	TMessage extends MessageMetadata<infer TInputs, infer TOptions, infer TMarkup>
 		? {
 				inputs: TInputs;
 				options: TOptions;
 				markup: TMarkup;
-		  }
+			}
 		: never;
 
-type MessageInputs<TMessage extends MessageLike<any, any, any>> =
+export type MessageInputs<TMessage extends MessageLike<any, any, any>> =
 	MessageMetadataOf<TMessage> extends { inputs: infer TInputs }
 		? TInputs
 		: Parameters<TMessage> extends [infer TInputs, ...unknown[]]
@@ -54,11 +47,12 @@ type NormalizeOptions<TOptions> = [TOptions] extends [undefined]
 		? NonNullable<TOptions>
 		: MessageOptions;
 
-type MessageRuntimeOptions<TMessage extends MessageLike<any, any, any>> = NormalizeOptions<
-	MessageMetadataOf<TMessage> extends { options: infer TOptions }
-		? TOptions
-		: SignatureOptions<TMessage>
->;
+type MessageRuntimeOptions<TMessage extends MessageLike<any, any, any>> =
+	NormalizeOptions<
+		MessageMetadataOf<TMessage> extends { options: infer TOptions }
+			? TOptions
+			: SignatureOptions<TMessage>
+	>;
 
 type MessageMarkup<TMessage extends MessageLike<any, any, any>> =
 	MessageMetadataOf<TMessage> extends { markup: infer TMarkup }
@@ -69,10 +63,11 @@ type MessageMarkup<TMessage extends MessageLike<any, any, any>> =
 
 export type NoInfer<T> = [T][T extends any ? 0 : never];
 
-type MarkupRendererBaseProps<TTag extends MessageMarkupTag = MessageMarkupTag> = {
-	options: TTag["options"];
-	attributes: TTag["attributes"];
-};
+type MarkupRendererBaseProps<TTag extends MessageMarkupTag = MessageMarkupTag> =
+	{
+		options: TTag["options"];
+		attributes: TTag["attributes"];
+	};
 
 export type MarkupRendererProps<
 	TInputs,
@@ -102,20 +97,23 @@ type MarkupRenderersForSchema<
 	>;
 };
 
+type MessageInputsProp<TInputs> = keyof TInputs extends never
+	? { inputs?: TInputs }
+	: { inputs: TInputs };
+
 type MessageBaseProps<TMessage extends MessageLike<any, any, any>> = {
 	message: TMessage;
-	inputs: MessageInputs<TMessage>;
 	options?: MessageRuntimeOptions<TMessage>;
-};
+} & MessageInputsProp<MessageInputs<TMessage>>;
 
 export type MessageMarkupProps<TMessage extends MessageLike<any, any, any>> =
 	keyof MessageMarkup<TMessage> extends never
 		? Record<string, never>
 		: MarkupRenderersForSchema<
-					MessageInputs<TMessage>,
-					MessageRuntimeOptions<TMessage>,
-					MessageMarkup<TMessage>
-			  >;
+				MessageInputs<TMessage>,
+				MessageRuntimeOptions<TMessage>,
+				MessageMarkup<TMessage>
+			>;
 
 export type MessageProps<TMessage extends MessageLike<any, any, any>> =
 	MessageBaseProps<TMessage> & MessageMarkupProps<TMessage>;
@@ -146,7 +144,15 @@ export type OpenMarkupFrame<
 export function renderMessage<TMessage extends MessageLike<any, any, any>>(
 	props: MessageProps<NoInfer<TMessage>> & { message: TMessage }
 ): Child<MessageInputs<TMessage>, MessageRuntimeOptions<TMessage>>[] {
-	const { message, inputs, options, ...rest } = props;
+	const {
+		message,
+		inputs: rawInputs,
+		options,
+		...rest
+	} = props as MessageProps<NoInfer<TMessage>> & {
+		inputs?: MessageInputs<TMessage>;
+	};
+	const inputs = rawInputs ?? ({} as MessageInputs<TMessage>);
 	const markup = rest as unknown as MessageMarkupProps<TMessage>;
 	const callableMessage = message as MessageLike<
 		MessageInputs<TMessage>,

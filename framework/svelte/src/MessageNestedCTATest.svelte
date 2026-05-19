@@ -3,7 +3,7 @@
 	import ParaglideMessage from "./Message.svelte";
 </script>
 
-<ParaglideMessage message={m.nested_cta} inputs={{}}>
+<ParaglideMessage message={m.nested_cta}>
 	{#snippet link({ children, options })}
 		<a href={options.to}>
 			{@render children?.()}
