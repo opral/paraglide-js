@@ -112,7 +112,7 @@ setLocale('de'); // switches to German
 
 ## Static site generation (SSG)
 
-Enable [pre-renderering](https://svelte.dev/docs/kit/page-options#prerender) by adding the following line to `routes/+layout.ts`:
+Enable [pre-rendering](https://svelte.dev/docs/kit/page-options#prerender) by adding the following line to `routes/+layout.ts`:
 
 ```diff
 // routes/+layout.ts
