@@ -59,7 +59,7 @@ export const onRequest = defineMiddleware((context, next) => {
 });
 ```
 
-You can read more about about Astro's middleware [here](https://docs.astro.build/en/guides/middleware).
+You can read more about Astro's middleware [here](https://docs.astro.build/en/guides/middleware).
 
 ## Usage
 
