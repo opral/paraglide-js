@@ -26,8 +26,8 @@
   <a href="https://www.michelin.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/michelin.svg?raw=true" alt="Michelin" height="18"></a>&nbsp;&nbsp;&nbsp;
   <a href="https://www.idealista.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/idealista.svg?raw=true" alt="idealista" height="18"></a>&nbsp;&nbsp;&nbsp;
   <a href="https://www.architonic.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/architonic.png?raw=true" alt="Architonic" height="18"></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://www.finanzen100.de/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/finanzen100.png?raw=true" alt="Finanzen100" height="18"></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://0.email/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/zero-email.svg?raw=true" alt="0.email" height="18"></a>
+  <a href="https://lovable.dev/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/lovable.svg?raw=true" alt="Lovable" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://www.klaviyo.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/klaviyo.svg?raw=true" alt="Klaviyo" height="18"></a>
 </p>
 
 <p align="center">
