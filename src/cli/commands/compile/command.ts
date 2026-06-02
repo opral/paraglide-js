@@ -4,6 +4,7 @@ import { resolve, relative } from "node:path";
 import { Logger } from "../../../services/logger/index.js";
 import { DEFAULT_OUTDIR, DEFAULT_PROJECT_PATH } from "../../defaults.js";
 import { compile, type CompilationResult } from "../../../compiler/compile.js";
+import { seedPreviousCompilationFromOutdir } from "../../../compiler/seed-previous-compilation.js";
 import {
 	defaultCompilerOptions,
 	type CompilerOptions,
@@ -257,11 +258,17 @@ export const compileCommand = new Command()
 				}
 
 				try {
+					const seededPrevious =
+						previousCompilation ??
+						(await seedPreviousCompilationFromOutdir({
+							outdir: compileOptions.outdir,
+						}));
+
 					previousCompilation = await compile({
 						...compileOptions,
 						fs: trackedFs,
-						previousCompilation,
-						cleanOutdir: previousCompilation === undefined,
+						previousCompilation: seededPrevious,
+						cleanOutdir: false,
 					});
 
 					if (changedPath) {
