@@ -268,6 +268,82 @@ test("emitTsDeclarations generates declaration files", async () => {
 	expect(diagnostics.length).toEqual(0);
 });
 
+test("emitTsDeclarations quotes unsafe export aliases", async () => {
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: {
+				locales: ["en"],
+				baseLocale: "en",
+			},
+		}),
+	});
+
+	await insertBundleNested(
+		project.db,
+		createBundleNested({
+			id: "greeting.hello",
+			messages: [
+				{
+					locale: "en",
+					variants: [{ pattern: [{ type: "text", value: "Hello" }] }],
+				},
+			],
+		})
+	);
+
+	for (const outputStructure of [
+		"message-modules",
+		"locale-modules",
+	] as const) {
+		const output = await compileProject({
+			project,
+			compilerOptions: {
+				emitTsDeclarations: true,
+				outputStructure,
+			},
+		});
+		const declarationFile =
+			outputStructure === "message-modules"
+				? "messages/greeting_hello.d.ts"
+				: "messages/_index.d.ts";
+
+		expect(output[declarationFile]).toContain(
+			`export { greeting_hello as "greeting.hello" };`
+		);
+
+		const tsProject = await typescriptProject({
+			useInMemoryFileSystem: true,
+			compilerOptions: {
+				module: ts.ModuleKind.Node16,
+				moduleResolution: ts.ModuleResolutionKind.Node16,
+				strict: true,
+			},
+		});
+
+		for (const [fileName, code] of Object.entries(output)) {
+			if (fileName.endsWith(".d.ts")) {
+				tsProject.createSourceFile(fileName, code);
+			}
+		}
+
+		tsProject.createSourceFile(
+			"test.ts",
+			`
+				import { "greeting.hello" as greetingHello } from "./messages.js";
+
+				greetingHello() satisfies string;
+			`
+		);
+
+		const program = tsProject.createProgram();
+		const diagnostics = ts.getPreEmitDiagnostics(program);
+		for (const diagnostic of diagnostics) {
+			console.error(diagnostic.messageText, diagnostic.file?.fileName);
+		}
+		expect(diagnostics.length).toEqual(0);
+	}
+});
+
 test("handles message bundles with a : in the id", async () => {
 	const project = await loadProjectInMemory({
 		blob: await newProject({
