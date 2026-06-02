@@ -57,5 +57,7 @@ Paraglide has an [experimental locale splitting option](https://inlang.com/m/ger
 ## Further Reading
 
 - [Why I Replaced i18next with Paraglide JS](https://dropanote.de/en/blog/20250726-why-i-replaced-i18next-with-paraglide-js/) — A developer's experience reducing bundle size from 40KB to 2KB
+- [react-i18next Was Fine. Then I Found Paraglide.](https://brodin.dev/blog/paraglide-vs-react-i18n) — A developer's experience moving from react-i18next to Paraglide
+- [Inlang / ParaglideJS blew my mind](https://dev.to/robertosnap/inlang-paraglidejs-blew-my-mind-3984) — A developer's first impressions using Paraglide JS with Remix
 
 Ready to try Paraglide? [Get started](/m/gerre34r/library-inlang-paraglideJs/vite) in under 5 minutes.
