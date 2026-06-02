@@ -1,6 +1,6 @@
 import type { UnpluginFactory } from "unplugin";
 import { compile, type CompilationResult } from "../compiler/compile.js";
-import path, { relative } from "node:path";
+import { relative } from "node:path";
 import { Logger } from "../services/logger/index.js";
 import type { CompilerOptions } from "../compiler/compiler-options.js";
 import {
@@ -9,7 +9,7 @@ import {
 	isPathWithinDirectories,
 } from "../services/file-watching/tracked-fs.js";
 import { nodeNormalizePath } from "../utilities/node-normalize-path.js";
-import { hashDirectory } from "../services/file-handling/write-output.js";
+import { seedPreviousCompilationFromOutdir } from "../compiler/seed-previous-compilation.js";
 
 const PLUGIN_NAME = "unplugin-paraglide-js";
 
@@ -31,26 +31,6 @@ function withoutCleanOutdir(
 	return compileArgs;
 }
 
-/**
- * Seed a synthetic `previousCompilation` from files already on disk in
- * `outdir`. This lets the first compile in a fresh process diff against
- * the prior build's output instead of treating it as empty — so warm
- * restarts produce zero writes and we never wipe `outdir` out from under
- * concurrent readers (SSR/prerender, sibling Vite processes).
- *
- * See https://github.com/opral/inlang-paraglide-js/issues/659.
- */
-async function seedPreviousCompilation(
-	outdir: string,
-	fs: typeof import("node:fs") | undefined
-): Promise<CompilationResult | undefined> {
-	const absoluteOutdir = path.resolve(process.cwd(), outdir);
-	const resolvedFs = fs ?? (await import("node:fs"));
-	const outputHashes = await hashDirectory(absoluteOutdir, resolvedFs.promises);
-	if (!outputHashes) return undefined;
-	return { outputHashes };
-}
-
 export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 	name: PLUGIN_NAME,
 	enforce: "pre",
@@ -67,7 +47,10 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 			// racing concurrent readers that wiping outdir would interrupt.
 			const seededPrevious =
 				previousCompilation ??
-				(await seedPreviousCompilation(args.outdir, args.fs));
+				(await seedPreviousCompilationFromOutdir({
+					outdir: args.outdir,
+					fs: args.fs?.promises,
+				}));
 			previousCompilation = await compile({
 				fs: trackedFs,
 				previousCompilation: seededPrevious,
@@ -184,7 +167,10 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => ({
 			try {
 				const seededPrevious =
 					previousCompilation ??
-					(await seedPreviousCompilation(args.outdir, args.fs));
+					(await seedPreviousCompilationFromOutdir({
+						outdir: args.outdir,
+						fs: args.fs?.promises,
+					}));
 				previousCompilation = await compile({
 					fs: trackedFs,
 					previousCompilation: seededPrevious,
