@@ -81,7 +81,7 @@ getLocale();    // "en"
 setLocale("de"); // switches to German
 ```
 
-[Learn more about messages, parameters, and locale management →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/basics)
+[Learn more about messages, parameters, and locale management →](https://paraglidejs.com/basics)
 
 ## Compose with TanStack Router rewrite
 

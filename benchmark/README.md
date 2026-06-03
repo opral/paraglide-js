@@ -42,7 +42,7 @@ Runtime libraries like i18next rely on manual namespacing to reduce bundle size,
 
 ---
 
-For a feature comparison, see the [comparison table](/m/gerre34r/library-inlang-paraglideJs/comparison).
+For a feature comparison, see the [comparison table](/comparison).
 
 ## Interactive Benchmark
 
@@ -72,7 +72,7 @@ Each library is tested in different modes:
 
 - **Paraglide**:
   - **default**: Out of the box Paraglide JS with no additional compiler options.
-  - **<compiler-option>**: Mode with a [compiler option](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/compiler-options) that is being tested.
+  - **<compiler-option>**: Mode with a [compiler option](https://paraglidejs.com/compiler-options) that is being tested.
 - **i18next**:
   - **default**: The default i18next implementation [source](https://www.i18next.com/overview/getting-started#basic-sample).
   - **http-backend**: i18next implementation using HTTP backend for loading translations on demand [source](https://github.com/i18next/i18next-http-backend).

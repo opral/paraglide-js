@@ -8,7 +8,7 @@
 		"tag": "latest"
 	},
 	"author": "inlang <hello@inlang.com> (https://inlang.com/)",
-	"homepage": "https://inlang.com/m/gerre34r/library-inlang-paraglideJs",
+	"homepage": "https://paraglidejs.com",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/opral/paraglide-js"
@@ -27,17 +27,20 @@
 	},
 	"scripts": {
 		"dev": "tsc --watch",
+		"dev:website": "pnpm --filter @inlang/paraglide-js-website dev",
 		"bench": "vitest bench --run",
 		"build:framework": "pnpm -r --filter \"./framework/**\" --if-present --workspace-concurrency=1 build",
 		"build:examples": "pnpm -r --filter \"./examples/**\" --if-present --workspace-concurrency=1 build",
+		"build:website": "pnpm --filter @inlang/paraglide-js-website build",
 		"build": "npm run env-variables && tsc --build && npm run generate-api-docs",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
 		"generate-api-docs": "typedoc",
 		"test:framework": "pnpm -r --filter \"./framework/**\" --if-present --workspace-concurrency=1 test",
 		"test:examples": "pnpm -r --filter \"./examples/**\" --if-present test",
+		"test:website": "pnpm --filter @inlang/paraglide-js-website test",
 		"test": "npm run env-variables && tsc --noEmit && vitest run --coverage ./src/**/*",
-		"ci": "pnpm run build && pnpm run build:framework && pnpm run build:examples && pnpm run test && pnpm run test:framework && pnpm run test:examples",
+		"ci": "pnpm run build && pnpm run build:framework && pnpm run build:examples && pnpm run build:website && pnpm run test && pnpm run test:framework && pnpm run test:examples && pnpm run test:website",
 		"test:watch": "npm run env-variables && vitest --watch ./src/**/*",
 		"env-variables": "node ./src/services/env-variables/create-index-file.js",
 		"lint": "oxlint --config .oxlintrc.json --fix",

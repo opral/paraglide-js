@@ -11,7 +11,7 @@ Paraglide JS is SvelteKit's [official i18n integration](https://svelte.dev/docs/
 It's a compiler-based i18n library that emits tree-shakable translations, leading to up to 70% smaller i18n bundle sizes compared to runtime based libraries.
 
 - Fully type-safe with IDE autocomplete
-- SEO-friendly localized URLs with the [i18n routing strategy](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url)
+- SEO-friendly localized URLs with the [i18n routing strategy](https://paraglidejs.com/strategy#url)
 - Works with CSR, SSR, and SSG
 
 [Source code](https://github.com/opral/paraglide-js/tree/main/examples/sveltekit)
@@ -108,7 +108,7 @@ getLocale(); // "en"
 setLocale('de'); // switches to German
 ```
 
-[Learn more about messages, parameters, and locale management →](/m/gerre34r/library-inlang-paraglideJs/basics)
+[Learn more about messages, parameters, and locale management →](/basics)
 
 ## Static site generation (SSG)
 
@@ -175,7 +175,7 @@ can still redirect the first request based on `preferredLanguage` or `url` befor
 ["localStorage", "cookie", "preferredLanguage", "url", "baseLocale"]
 ```
 
-Use `shouldRedirect()` in the root `+layout.svelte` only if you also want to re-sync the URL after client-side navigations. It does not replace the server-side middleware for the first page load. See the [client-side redirects guide](/m/gerre34r/library-inlang-paraglideJs/i18n-routing#client-side-redirects).
+Use `shouldRedirect()` in the root `+layout.svelte` only if you also want to re-sync the URL after client-side navigations. It does not replace the server-side middleware for the first page load. See the [client-side redirects guide](/i18n-routing#client-side-redirects).
 
 ### Disabling AsyncLocalStorage
 
@@ -186,7 +186,7 @@ If you're deploying to Vercel Edge or to Cloudflare Workers with Node.js compati
 > [!WARNING]
 > Only use this fallback when your runtime guarantees per-request isolation. Using it in a multi-request server environment could leak locale state between concurrent requests.
 
-See [AsyncLocalStorage in the Middleware Guide](/m/gerre34r/library-inlang-paraglideJs/middleware#asynclocalstorage) if you need that escape hatch.
+See [AsyncLocalStorage in the Middleware Guide](/middleware#asynclocalstorage) if you need that escape hatch.
 
 ### No locale OR different locale when calling messages outside of .server.ts files
 

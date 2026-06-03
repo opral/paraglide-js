@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs"><strong>Documentation</strong></a> ·
+  <a href="https://paraglidejs.com"><strong>Documentation</strong></a> ·
   <a href="#quick-start"><strong>Quick Start</strong></a> ·
   <a href="https://github.com/opral/inlang-paraglide-js/issues"><strong>Report Bug</strong></a>
 </p>
@@ -51,7 +51,7 @@ import { m } from "./paraglide/messages.js";
 m.greeting({ name: "World" }); // "Hello World!" — fully typesafe
 ```
 
-The compiler turns your messages into typed ESM functions. Vite, Rollup, and other modern bundlers can tree-shake unused translations before they reach the browser. Expect [**up to 70% smaller i18n bundle sizes**](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark) compared to runtime i18n libraries (e.g. 47 KB vs 205 KB).
+The compiler turns your messages into typed ESM functions. Vite, Rollup, and other modern bundlers can tree-shake unused translations before they reach the browser. Expect [**up to 70% smaller i18n bundle sizes**](https://paraglidejs.com/benchmark) compared to runtime i18n libraries (e.g. 47 KB vs 205 KB).
 
 ## Why Paraglide?
 
@@ -67,23 +67,23 @@ The compiler turns your messages into typed ESM functions. Vite, Rollup, and oth
 ## Get Started With Your Framework
 
 <p>
-  <a href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="18" height="18" /> React</a> ·
-  <a href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue" width="18" height="18" /> Vue</a> ·
+  <a href="https://paraglidejs.com/vite"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="18" height="18" /> React</a> ·
+  <a href="https://paraglidejs.com/vite"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue" width="18" height="18" /> Vue</a> ·
   <a href="https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide"><img src="https://tanstack.com/images/logos/logo-color-100.png" alt="TanStack" width="18" height="18" /> TanStack Start</a> ·
-  <a href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs/sveltekit"><img src="https://cdn.simpleicons.org/svelte/FF3E00" alt="Svelte" width="18" height="18" /> SvelteKit</a> ·
-  <a href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs/react-router"><img src="https://cdn.simpleicons.org/reactrouter/CA4245" alt="React Router" width="18" height="18" /> React Router</a> ·
-  <a href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs/astro"><img src="https://cdn.simpleicons.org/astro/FF5D01" alt="Astro" width="18" height="18" /> Astro</a> ·
-  <a href="https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vanilla-js-ts"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="18" height="18" /> Vanilla JS/TS</a>
+  <a href="https://paraglidejs.com/sveltekit"><img src="https://cdn.simpleicons.org/svelte/FF3E00" alt="Svelte" width="18" height="18" /> SvelteKit</a> ·
+  <a href="https://paraglidejs.com/react-router"><img src="https://cdn.simpleicons.org/reactrouter/CA4245" alt="React Router" width="18" height="18" /> React Router</a> ·
+  <a href="https://paraglidejs.com/astro"><img src="https://cdn.simpleicons.org/astro/FF5D01" alt="Astro" width="18" height="18" /> Astro</a> ·
+  <a href="https://paraglidejs.com/vanilla-js-ts"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="18" height="18" /> Vanilla JS/TS</a>
 </p>
 
 - **[TanStack Start example](https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide)** — SSR, localized routing, and TanStack Router integration.
-- **[SvelteKit guide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/sveltekit)** — SvelteKit's official i18n integration.
-- **[React Router guide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/react-router)** — SSR and client routing.
-- **[Astro guide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/astro)** — static and server-rendered sites.
-- **[Vite guide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite)** — React, Vue, Solid, or vanilla JS/TS.
+- **[SvelteKit guide](https://paraglidejs.com/sveltekit)** — SvelteKit's official i18n integration.
+- **[React Router guide](https://paraglidejs.com/react-router)** — SSR and client routing.
+- **[Astro guide](https://paraglidejs.com/astro)** — static and server-rendered sites.
+- **[Vite guide](https://paraglidejs.com/vite)** — React, Vue, Solid, or vanilla JS/TS.
 
 > [!TIP]
-> <img src="https://vitejs.dev/logo.svg" alt="Vite" width="16" height="16" /> **Paraglide is ideal for Vite-based apps.** Setup is one plugin, messages compile to ESM, and Vite's tree-shaking eliminates unused translations automatically. [Get started →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite)
+> <img src="https://vitejs.dev/logo.svg" alt="Vite" width="16" height="16" /> **Paraglide is ideal for Vite-based apps.** Setup is one plugin, messages compile to ESM, and Vite's tree-shaking eliminates unused translations automatically. [Get started →](https://paraglidejs.com/vite)
 
 ## SSR Ready
 
@@ -109,7 +109,7 @@ export function handle(request: Request) {
 }
 ```
 
-**[SSR Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/server-side-rendering)** · **[Middleware Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/middleware)**
+**[SSR Docs →](https://paraglidejs.com/server-side-rendering)** · **[Middleware Docs →](https://paraglidejs.com/middleware)**
 
 ## Router Composition
 
@@ -129,7 +129,7 @@ localizeUrl("https://example.com/about", { locale: "de" }).href; // https://exam
 
 For routers with rewrite hooks, call `deLocalizeUrl()` on incoming URLs and `localizeUrl()` on outgoing URLs. For file-based routers, keep your file routes canonical and localize at the routing boundary.
 
-**[i18n Routing Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing)**
+**[i18n Routing Docs →](https://paraglidejs.com/i18n-routing)**
 
 ### TanStack Start
 
@@ -177,7 +177,7 @@ getLocale(); // "en"
 setLocale("de"); // switches to German
 ```
 
-**[Full Getting Started Guide →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)**
+**[Full Getting Started Guide →](https://paraglidejs.com)**
 
 ## Rich Text
 
@@ -202,7 +202,7 @@ export function ContactCta() {
 
 The markup names come from your message and are type-checked, so translators control where links and emphasis appear while your React app controls how they render.
 
-**[Markup Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/markup)** · **[React](https://www.npmjs.com/package/@inlang/paraglide-js-react)** · **[Svelte](https://www.npmjs.com/package/@inlang/paraglide-js-svelte)** · **[Vue](https://www.npmjs.com/package/@inlang/paraglide-js-vue)** · **[Solid](https://www.npmjs.com/package/@inlang/paraglide-js-solid)**
+**[Markup Docs →](https://paraglidejs.com/markup)** · **[React](https://www.npmjs.com/package/@inlang/paraglide-js-react)** · **[Svelte](https://www.npmjs.com/package/@inlang/paraglide-js-svelte)** · **[Vue](https://www.npmjs.com/package/@inlang/paraglide-js-vue)** · **[Solid](https://www.npmjs.com/package/@inlang/paraglide-js-solid)**
 
 ## How It Works
 
@@ -248,7 +248,7 @@ m.items_in_cart({ count: 5 }); // "5 items in cart"
 
 Message format is **plugin-based** — use the default inlang format, or switch to i18next, JSON, or ICU MessageFormat via [plugins](https://inlang.com/c/plugins). If your team relies on ICU MessageFormat 1 syntax, use the [inlang-icu-messageformat-1 plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1).
 
-**[Formatting Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/formatting)** · **[Pluralization & Variants Docs →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)**
+**[Formatting Docs →](https://paraglidejs.com/formatting)** · **[Pluralization & Variants Docs →](https://paraglidejs.com/variants)**
 
 ## Why Compiler-First?
 
@@ -256,7 +256,7 @@ Runtime i18n libraries like i18next resolve message keys from dictionaries while
 
 That means Vite can tree-shake unused translations, TypeScript can autocomplete message keys and parameters, and your components call plain functions instead of resolving strings through a runtime lookup layer.
 
-In the [Paraglide benchmark](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark), typical scenarios shipped **47-144 KB with Paraglide** vs **205-422 KB with i18next**. With 5 locales, 100 used messages, and 200 total messages, Paraglide shipped **47 KB** while i18next shipped **205 KB**.
+In the [Paraglide benchmark](https://paraglidejs.com/benchmark), typical scenarios shipped **47-144 KB with Paraglide** vs **205-422 KB with i18next**. With 5 locales, 100 used messages, and 200 total messages, Paraglide shipped **47 KB** while i18next shipped **205 KB**.
 
 Tree-shaking also keeps Paraglide stable as your message catalog grows. In the benchmark, using 100 messages shipped **47 KB** with Paraglide whether the project had 200, 500, or 1,000 total messages. The i18next runtime bundle grew from **205 KB** to **414 KB**.
 
@@ -273,7 +273,7 @@ Tree-shaking also keeps Paraglide stable as your message catalog grows. In the b
 | **Rich text**           | ✅ Typed markup adapters                                                          | ✅ Rich-text components       | Via framework wrappers |
 | **ICU MessageFormat 1** | ✅ [Via plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1) | ✅                           | Via plugin           |
 
-**[Full Comparison →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/comparison)**
+**[Full Comparison →](https://paraglidejs.com/comparison)**
 
 ## FAQ
 
@@ -333,12 +333,12 @@ Paraglide compiles messages from [inlang](https://github.com/opral/inlang), the 
 
 ## Documentation
 
-- [Getting Started](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)
-- [Framework Guides](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/react-router) (React Router, SvelteKit, Astro, etc.)
-- [Message Syntax & Pluralization](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)
-- [Formatting (Number/Date/Relative Time)](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/formatting)
-- [Routing & SSR](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/server-side-rendering)
-- [API Reference](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)
+- [Getting Started](https://paraglidejs.com)
+- [Framework Guides](https://paraglidejs.com/react-router) (React Router, SvelteKit, Astro, etc.)
+- [Message Syntax & Pluralization](https://paraglidejs.com/variants)
+- [Formatting (Number/Date/Relative Time)](https://paraglidejs.com/formatting)
+- [Routing & SSR](https://paraglidejs.com/server-side-rendering)
+- [API Reference](https://paraglidejs.com)
 
 ## Contributing
 

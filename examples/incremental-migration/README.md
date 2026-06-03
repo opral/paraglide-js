@@ -66,10 +66,10 @@ m.greeting({ name: 'World' });              // Paraglide (compiled, typesafe)
 
 Use Paraglide in new code. Existing i18next code keeps working unchanged.
 
-[Learn more about messages, parameters, and locale management →](/m/gerre34r/library-inlang-paraglideJs/basics)
+[Learn more about messages, parameters, and locale management →](/basics)
 
 ## Further reading
 
-- [Translation File Formats](/m/gerre34r/library-inlang-paraglideJs/file-formats) — All supported formats and plugins
-- [Comparison with i18next](/m/gerre34r/library-inlang-paraglideJs/comparison) — Feature-by-feature comparison
+- [Translation File Formats](/file-formats) — All supported formats and plugins
+- [Comparison with i18next](/comparison) — Feature-by-feature comparison
 - [Why I Replaced i18next with Paraglide JS](https://dropanote.de/en/blog/20250726-why-i-replaced-i18next-with-paraglide-js/) — One developer's experience

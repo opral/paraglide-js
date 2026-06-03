@@ -44,5 +44,5 @@ console.log(getLocale()); // "de"
 
 ## Next steps
 
-1. Use a [bundler plugin](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/compiling-messages#via-a-bundler-plugin) if applicable. 
-2. Read the [basics documentation](/m/gerre34r/library-inlang-paraglideJs/basics) for more information on how to use Paraglide's messages, parameters, and locale management.
+1. Use a [bundler plugin](https://paraglidejs.com/compiling-messages#via-a-bundler-plugin) if applicable. 
+2. Read the [basics documentation](/basics) for more information on how to use Paraglide's messages, parameters, and locale management.

@@ -11,7 +11,7 @@ Paraglide JS is the ideal i18n library for Astro's content-focused sites.
 It's a compiler-based i18n library that emits tree-shakable translations, leading to up to 70% smaller i18n bundle sizes compared to runtime based libraries.
 
 - Fully type-safe with IDE autocomplete
-- SEO-friendly localized URLs with the [i18n routing strategy](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url)
+- SEO-friendly localized URLs with the [i18n routing strategy](https://paraglidejs.com/strategy#url)
 - Works with CSR and SSR
 
 [Source code](https://github.com/opral/paraglide-js/tree/main/examples/astro)
@@ -76,7 +76,7 @@ getTextDirection(); // "ltr" | "rtl" for current locale
 setLocale("de"); // switches to German
 ```
 
-[Learn more about messages, parameters, and locale management →](/m/gerre34r/library-inlang-paraglideJs/basics)
+[Learn more about messages, parameters, and locale management →](/basics)
 
 ## Disabling AsyncLocalStorage
 
@@ -87,4 +87,4 @@ If you're deploying Astro to Vercel Edge or to Cloudflare Workers with Node.js c
 > [!WARNING]
 > Only use this fallback when your runtime guarantees per-request isolation. Using it in a multi-request server environment could leak locale state between concurrent requests.
 
-See [AsyncLocalStorage in the Middleware Guide](/m/gerre34r/library-inlang-paraglideJs/middleware#asynclocalstorage) if you need that escape hatch.
+See [AsyncLocalStorage in the Middleware Guide](/middleware#asynclocalstorage) if you need that escape hatch.

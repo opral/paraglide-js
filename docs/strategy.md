@@ -216,7 +216,7 @@ The steps are usually the same, irrespective of the strategy and framework you u
 1. Use `overwriteGetLocale()` function that reads the locale from a cookie, HTTP header, or i18n routing.
 2. Handle any side effects of changing the locale and trigger a re-render in your application via `overwriteSetLocale()` (for many apps, this may only be required on the client side).
 
-_Read the [architecture documentation](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/architecture) to learn more about's Paraglide's inner workings._
+_Read the [architecture documentation](https://paraglidejs.com/architecture) to learn more about's Paraglide's inner workings._
 
 ### Dynamically resolving the locale (cookies, http headers, i18n routing, etc.)
 
