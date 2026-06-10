@@ -33,7 +33,7 @@
 <p align="center">
   <sub>Framework-authored and framework-tested</sub><br/><br/>
   <a href="https://svelte.dev/docs/cli/paraglide"><img src="https://cdn.simpleicons.org/svelte/FF3E00" alt="Svelte" height="14" /> SvelteKit's official i18n integration</a><br/>
-  <a href="https://inlang.com/blog/tanstack-ci"><img src="https://tanstack.com/images/logos/logo-color-100.png" alt="TanStack" height="14" /> TanStack Router's e2e-tested i18n example</a>
+  <a href="https://paraglidejs.com/blog/tanstack-ci"><img src="https://tanstack.com/images/logos/logo-color-100.png" alt="TanStack" height="14" /> TanStack Router's e2e-tested i18n example</a>
 </p>
 
 ## Code Preview

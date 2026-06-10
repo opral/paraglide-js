@@ -44,7 +44,7 @@ export const compileCommand = new Command()
 			"The strategy to be used.",
 			"",
 			"Example: --strategy cookie globalVariable baseLocale",
-			"Read more on https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy",
+			"Read more on https://paraglidejs.com/strategy",
 		].join("\n")
 	)
 	.requiredOption("--silent", "Only log errors to the console", false)

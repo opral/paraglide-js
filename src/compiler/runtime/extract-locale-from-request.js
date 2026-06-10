@@ -97,7 +97,7 @@ export const extractLocaleFromRequestWithStrategies = (
 		}
 	}
 	throw new Error(
-		"No locale found. There is an error in your strategy. Try adding 'baseLocale' as the very last strategy. Read more here https://inlang.com/m/gerre34r/library-inlang-paraglideJs/errors#no-locale-found"
+		"No locale found. There is an error in your strategy. Try adding 'baseLocale' as the very last strategy. Read more here https://paraglidejs.com/errors#no-locale-found"
 	);
 };
 

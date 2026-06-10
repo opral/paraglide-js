@@ -33,7 +33,7 @@ import { getStrategyForUrl, isExcludedByRouteStrategy } from "./variables.js";
  *
  * When called in the browser without arguments, the current `window.location.href` is used.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing#client-side-redirects
+ * @see https://paraglidejs.com/i18n-routing#redirects
  *
  * @example
  * // Client side usage (e.g. TanStack Router beforeLoad hook)

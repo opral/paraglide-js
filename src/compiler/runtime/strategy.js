@@ -43,7 +43,7 @@ export function isCustomStrategy(strategy) {
 /**
  * Defines a custom strategy that is executed on the server.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#write-your-own-strategy
+ * @see https://paraglidejs.com/strategy#write-your-own-strategy
  *
  * @param {string} strategy The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
  * @param {CustomServerStrategyHandler} handler The handler for the custom strategy, which should implement
@@ -63,7 +63,7 @@ export function defineCustomServerStrategy(strategy, handler) {
 /**
  * Defines a custom strategy that is executed on the client.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#write-your-own-strategy
+ * @see https://paraglidejs.com/strategy#write-your-own-strategy
  *
  * @param {string} strategy The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
  * @param {CustomClientStrategyHandler} handler The handler for the custom strategy, which should implement the

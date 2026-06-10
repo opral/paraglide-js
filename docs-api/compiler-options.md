@@ -503,7 +503,7 @@ Custom strategies with the pattern `custom-[A-Za-z0-9]+` are supported.
 
 Defined in: [compiler-options.ts:296](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url
+https://paraglidejs.com/strategy#url
 
 ***
 

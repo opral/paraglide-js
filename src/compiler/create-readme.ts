@@ -88,7 +88,7 @@ await compile({
 });
 \`\`\`
 
-See the [strategy documentation](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy) for details.
+See the [strategy documentation](https://paraglidejs.com/strategy) for details.
 
 ## Markup (Rich Text)
 
@@ -156,18 +156,18 @@ import { ParaglideMessage } from "@inlang/paraglide-js-react"; // or -vue, -svel
 
 The available renderer/snippet names come from the message itself. You can inspect them through \`message.parts()\`, and TypeScript uses the same names to type-check your markup renderers.
 
-See the [markup documentation](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/markup) for details.
+See the [markup documentation](https://paraglidejs.com/markup) for details.
 
 ## Key concepts
 
-- **Tree-shakeable**: Each message is a function, enabling [up to 70% smaller i18n bundle sizes](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark) than traditional i18n libraries.
+- **Tree-shakeable**: Each message is a function, enabling [up to 70% smaller i18n bundle sizes](https://paraglidejs.com/benchmark) than traditional i18n libraries.
 - **Typesafe**: Full TypeScript/JSDoc support with autocomplete.
 - **Variants**: Messages can have variants for pluralization, gender, etc.
 - **Fallbacks**: Missing translations fall back to the base locale.
 
 ## Links
 
-- [Paraglide JS Documentation](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)
+- [Paraglide JS Documentation](https://paraglidejs.com)
 - [Source Repository](https://github.com/opral/paraglide-js)
 `;
 }

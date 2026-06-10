@@ -68,7 +68,7 @@ Options to control middleware behavior. `effectiveRequestUrl` sets the effective
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/middleware
+https://paraglidejs.com/middleware
 
 ### Examples
 

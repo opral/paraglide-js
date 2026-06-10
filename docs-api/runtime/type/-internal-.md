@@ -468,7 +468,7 @@ methods getLocale and setLocale.
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#write-your-own-strategy
+https://paraglidejs.com/strategy#write-your-own-strategy
 
 ***
 
@@ -501,7 +501,7 @@ the method getLocale.
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#write-your-own-strategy
+https://paraglidejs.com/strategy#write-your-own-strategy
 
 ***
 
@@ -536,7 +536,7 @@ The de-localized href, relative if input was relative
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing
+https://paraglidejs.com/i18n-routing
 
 ### Example
 
@@ -597,7 +597,7 @@ The de-localized URL, always absolute
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing
+https://paraglidejs.com/i18n-routing
 
 ### Examples
 
@@ -862,7 +862,7 @@ Array of URL objects representing all localized variants.
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/static-site-generation
+https://paraglidejs.com/static-site-generation
 
 ### Examples
 
@@ -916,7 +916,7 @@ The current locale.
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy - Configure locale detection strategies
+https://paraglidejs.com/strategy - Configure locale detection strategies
 
 ### Example
 
@@ -1098,7 +1098,7 @@ The localized href, relative if input was relative
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing
+https://paraglidejs.com/i18n-routing
 
 ### Example
 
@@ -1166,7 +1166,7 @@ The localized URL, always absolute
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing
+https://paraglidejs.com/i18n-routing
 
 ### Examples
 
@@ -1222,7 +1222,7 @@ The new implementation for `getLocale()`.
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy
+https://paraglidejs.com/strategy
 
 ### Example
 
@@ -1350,7 +1350,7 @@ will become async as well.
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy
+https://paraglidejs.com/strategy
 
 ### Examples
 
@@ -1390,7 +1390,7 @@ When called in the browser without arguments, the current `window.location.href`
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing#client-side-redirects
+https://paraglidejs.com/i18n-routing#redirects
 
 ### Examples
 

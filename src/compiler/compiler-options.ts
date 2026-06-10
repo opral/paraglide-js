@@ -291,7 +291,7 @@ export type CompilerOptions = {
 	 */
 	emitTsDeclarations?: boolean;
 	/**
-	 * https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url
+	 * https://paraglidejs.com/strategy#url
 	 */
 	urlPatterns?: Runtime["urlPatterns"];
 	/**

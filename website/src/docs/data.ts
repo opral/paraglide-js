@@ -87,7 +87,7 @@ const mirrorPages: Record<string, MirrorSpec> = {
 			"- Fully type-safe with IDE autocomplete",
 			"- SEO-friendly localized URLs",
 			"- Works with CSR, SSR, and SSG",
-			"- Tested as part of [TanStack's CI/CD pipeline](https://inlang.com/blog/tanstack-ci)",
+			"- Tested as part of [TanStack's CI/CD pipeline](https://paraglidejs.com/blog/tanstack-ci)",
 		].join("\n"),
 	},
 	"/tanstack-start": {
@@ -106,7 +106,7 @@ const mirrorPages: Record<string, MirrorSpec> = {
 			"- Fully type-safe with IDE autocomplete",
 			"- SEO-friendly localized URLs",
 			"- Works with CSR, SSR, and SSG",
-			"- Tested as part of [TanStack's CI/CD pipeline](https://inlang.com/blog/tanstack-ci)",
+			"- Tested as part of [TanStack's CI/CD pipeline](https://paraglidejs.com/blog/tanstack-ci)",
 		].join("\n"),
 	},
 };
