@@ -125,6 +125,139 @@ test("plain string mode strips markup wrappers", () => {
 	expect(code).toBe("`Hello ${i?.name}!`");
 });
 
+test("compiles a pattern expression annotation to a registry call", () => {
+	// https://github.com/opral/paraglide-js/issues/694
+	const pattern: Pattern = [
+		{
+			type: "expression",
+			arg: { type: "variable-reference", name: "count" },
+			annotation: { type: "function-reference", name: "number", options: [] },
+		},
+		{ type: "text", value: " views" },
+	];
+
+	const { code } = compilePattern({
+		pattern,
+		declarations: [{ type: "input-variable", name: "count" }],
+		locale: "en",
+	});
+
+	expect(code).toBe('`${registry.number("en", i?.count, {})} views`');
+});
+
+test("compiles pattern expression annotation options like local variable annotations", () => {
+	const pattern: Pattern = [
+		{
+			type: "expression",
+			arg: { type: "variable-reference", name: "price" },
+			annotation: {
+				type: "function-reference",
+				name: "number",
+				options: [
+					{
+						name: "minimumFractionDigits",
+						value: { type: "literal", value: "2" },
+					},
+					{ name: "style", value: { type: "literal", value: "percent" } },
+				],
+			},
+		},
+	];
+
+	const { code } = compilePattern({
+		pattern,
+		declarations: [{ type: "input-variable", name: "price" }],
+		locale: "de",
+	});
+
+	expect(code).toBe(
+		'`${registry.number("de", i?.price, { minimumFractionDigits: 2, style: "percent" })}`'
+	);
+});
+
+test("parts mode compiles pattern expression annotations to registry calls", () => {
+	const pattern: Pattern = [
+		{
+			type: "expression",
+			arg: { type: "variable-reference", name: "count" },
+			annotation: { type: "function-reference", name: "number", options: [] },
+		},
+		{ type: "text", value: " views" },
+	];
+
+	const { code } = compilePattern({
+		mode: "parts",
+		pattern,
+		declarations: [{ type: "input-variable", name: "count" }],
+		locale: "en",
+	});
+
+	expect(code).toBe(
+		'[{ type: "text", value: String(registry.number("en", i?.count, {})) }, { type: "text", value: " views" }]'
+	);
+});
+
+test("falls back to plain interpolation for unknown formatters", () => {
+	const pattern: Pattern = [
+		{
+			type: "expression",
+			arg: { type: "variable-reference", name: "name" },
+			annotation: {
+				type: "function-reference",
+				name: "uppercase",
+				options: [],
+			},
+		},
+	];
+
+	const { code } = compilePattern({
+		pattern,
+		declarations: [{ type: "input-variable", name: "name" }],
+		locale: "en",
+	});
+
+	expect(code).toBe("`${i?.name}`");
+});
+
+test("throws when a pattern annotation is compiled without a locale", () => {
+	const pattern: Pattern = [
+		{
+			type: "expression",
+			arg: { type: "variable-reference", name: "count" },
+			annotation: { type: "function-reference", name: "number", options: [] },
+		},
+	];
+
+	expect(() =>
+		compilePattern({
+			pattern,
+			declarations: [{ type: "input-variable", name: "count" }],
+		})
+	).toThrow('requires a locale to compile the formatter "number"');
+});
+
+test("validates relativetime options on pattern annotations", () => {
+	const pattern: Pattern = [
+		{
+			type: "expression",
+			arg: { type: "variable-reference", name: "days" },
+			annotation: {
+				type: "function-reference",
+				name: "relativetime",
+				options: [],
+			},
+		},
+	];
+
+	expect(() =>
+		compilePattern({
+			pattern,
+			declarations: [{ type: "input-variable", name: "days" }],
+			locale: "en",
+		})
+	).toThrow('The "relativetime" formatter requires a "unit" option.');
+});
+
 test("parts mode compiles text, markup, options and attributes", () => {
 	const pattern: Pattern = [
 		{ type: "text", value: "Read " },

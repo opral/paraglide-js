@@ -9,6 +9,12 @@ import type {
 import type { Compiled } from "./types.js";
 import { escapeForTemplateLiteral } from "../services/codegen/escape.js";
 import { compileInputAccess } from "./variable-access.js";
+import {
+	compileAnnotation,
+	isRegistryFunction,
+	registryFunctionNamesForDisplay,
+} from "./compile-annotation.js";
+import { Logger } from "../services/logger/index.js";
 
 export type CompilePatternMode = "string" | "parts";
 
@@ -29,6 +35,14 @@ export const compilePattern = (args: {
 	pattern: Pattern;
 	declarations: Declaration[];
 	mode?: CompilePatternMode;
+	/**
+	 * The locale of the message the pattern belongs to.
+	 *
+	 * Required to compile expressions with annotations like
+	 * `{ annotation: { type: "function-reference", name: "number" } }`
+	 * into `registry.number(locale, ...)` calls.
+	 */
+	locale?: string;
 }): Compiled<Pattern> => {
 	const mode = args.mode ?? "string";
 
@@ -42,6 +56,7 @@ export const compilePattern = (args: {
 function compilePatternToString(args: {
 	pattern: Pattern;
 	declarations: Declaration[];
+	locale?: string;
 }): Compiled<Pattern> {
 	let result = "";
 
@@ -51,7 +66,7 @@ function compilePatternToString(args: {
 				result += escapeForTemplateLiteral(part.value);
 				break;
 			case "expression":
-				result += `\${${compileExpressionValue(part, args.declarations)}}`;
+				result += `\${${compileExpression(part, args.declarations, args.locale)}}`;
 				break;
 			case "markup-start":
 			case "markup-end":
@@ -70,6 +85,7 @@ function compilePatternToString(args: {
 function compilePatternToParts(args: {
 	pattern: Pattern;
 	declarations: Declaration[];
+	locale?: string;
 }): Compiled<Pattern> {
 	const compiledParts: string[] = [];
 
@@ -82,9 +98,10 @@ function compilePatternToParts(args: {
 				break;
 			case "expression":
 				compiledParts.push(
-					`{ type: "text", value: String(${compileExpressionValue(
+					`{ type: "text", value: String(${compileExpression(
 						part,
-						args.declarations
+						args.declarations,
+						args.locale
 					)}) }`
 				);
 				break;
@@ -107,6 +124,55 @@ function compilePatternToParts(args: {
 		code: `[${compiledParts.join(", ")}]`,
 		node: args.pattern,
 	};
+}
+
+const logger = new Logger();
+
+/**
+ * Tracks annotation names that have already been warned about to avoid
+ * spamming the console when the same unsupported formatter is used in
+ * many messages (or across watch-mode recompiles).
+ */
+const warnedUnsupportedAnnotations = new Set<string>();
+
+/**
+ * Compiles a pattern expression including its annotation (if any).
+ *
+ * Annotations referencing a registry function compile to a `registry.*`
+ * call, identical to annotations on local variable declarations. Unknown
+ * annotations fall back to plain interpolation with a warning to avoid
+ * breaking compilation of messages imported from other i18n libraries
+ * (e.g. i18next's `{{value, customFormat}}`).
+ */
+function compileExpression(
+	expression: Expression,
+	declarations: Declaration[],
+	locale?: string
+): string {
+	const value = compileExpressionValue(expression, declarations);
+	const annotation = expression.annotation;
+
+	if (!annotation) {
+		return value;
+	}
+
+	if (!isRegistryFunction(annotation.name)) {
+		if (!warnedUnsupportedAnnotations.has(annotation.name)) {
+			warnedUnsupportedAnnotations.add(annotation.name);
+			logger.warn(
+				`The formatter "${annotation.name}" is unknown and will be ignored. The value is interpolated without formatting. Supported formatters: ${registryFunctionNamesForDisplay()}.`
+			);
+		}
+		return value;
+	}
+
+	if (locale === undefined) {
+		throw new Error(
+			`compilePattern() requires a locale to compile the formatter "${annotation.name}".`
+		);
+	}
+
+	return compileAnnotation(value, locale, annotation);
 }
 
 function compileExpressionValue(

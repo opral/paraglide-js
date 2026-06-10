@@ -1359,6 +1359,88 @@ describe.each([
 			expect(diagnostics.length).toEqual(0);
 		});
 
+		test("#694: pattern-level annotations compile to registry calls and pass checkJs", async () => {
+			const projectWithPatternAnnotation = await loadProjectInMemory({
+				blob: await newProject({
+					settings: {
+						baseLocale: "en",
+						locales: ["en"],
+					},
+				}),
+			});
+
+			await insertBundleNested(
+				projectWithPatternAnnotation.db,
+				createBundleNested({
+					id: "views",
+					declarations: [
+						{
+							type: "input-variable",
+							name: "count",
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							variants: [
+								{
+									pattern: [
+										{
+											type: "expression",
+											arg: { type: "variable-reference", name: "count" },
+											annotation: {
+												type: "function-reference",
+												name: "number",
+												options: [
+													{
+														name: "maximumFractionDigits",
+														value: { type: "literal", value: "1" },
+													},
+												],
+											},
+										},
+										{ type: "text", value: " views" },
+									],
+								},
+							],
+						},
+					],
+				})
+			);
+
+			const output = await compileProject({
+				project: projectWithPatternAnnotation,
+				compilerOptions,
+			});
+
+			expect(Object.values(output).join("\n")).toContain(
+				'registry.number("en", i?.count, { maximumFractionDigits: 1 })'
+			);
+
+			const tsProject = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+
+			for (const [fileName, code] of Object.entries(output)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					tsProject.createSourceFile(fileName, code);
+				}
+			}
+
+			const program = tsProject.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+
+			for (const diagnostic of diagnostics) {
+				console.error(diagnostic.messageText, diagnostic.file?.fileName);
+			}
+			expect(diagnostics.length).toEqual(0);
+		});
+
 		test("relativetime formatter options should pass checkJs", async () => {
 			const projectWithRelativeTimeOptions = await loadProjectInMemory({
 				blob: await newProject({
