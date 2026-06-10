@@ -175,7 +175,7 @@ can still redirect the first request based on `preferredLanguage` or `url` befor
 ["localStorage", "cookie", "preferredLanguage", "url", "baseLocale"]
 ```
 
-Use `shouldRedirect()` in the root `+layout.svelte` only if you also want to re-sync the URL after client-side navigations. It does not replace the server-side middleware for the first page load. See the [client-side redirects guide](/i18n-routing#client-side-redirects).
+Use `shouldRedirect()` in the root `+layout.svelte` only if you also want to re-sync the URL after client-side navigations. It does not replace the server-side middleware for the first page load. See the [client-side redirects guide](/i18n-routing#redirects).
 
 ### Disabling AsyncLocalStorage
 

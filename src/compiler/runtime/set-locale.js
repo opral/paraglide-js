@@ -45,7 +45,7 @@ const navigateOrReload = (newLocation) => {
  * If any custom strategy's `setLocale` function is async, then this function
  * will become async as well.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy
+ * @see https://paraglidejs.com/strategy
  *
  * @example
  *   setLocale('en');

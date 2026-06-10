@@ -717,9 +717,9 @@ Paraglide JS 2.0 had three main goals which have all been achieved:
 2. Unify the API across any framework [#217](https://github.com/opral/inlang-paraglide-js/issues/217).
 3. Support any i18n strategy (cookie, url, domain, session, etc).
 
-- 🌐 **Variants (pluralization) are now supported** [docs](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)
+- 🌐 **Variants (pluralization) are now supported** [docs](https://paraglidejs.com/variants)
 - 😍 **No more adapters or providers are needed** (!)
-- 🛣️ **Any strategy (url, cookie, local storage) is now supported** [docs](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy)
+- 🛣️ **Any strategy (url, cookie, local storage) is now supported** [docs](https://paraglidejs.com/strategy)
 
 In addition, Paraglide JS 2.0 comes with:
 
@@ -737,9 +737,9 @@ In addition, Paraglide JS 2.0 comes with:
 
 #### Interactive benchmark
 
-Check out the [benchmark](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark) to see how Paraglide JS compares to other libraries like i18next.
+Check out the [benchmark](https://paraglidejs.com/benchmark) to see how Paraglide JS compares to other libraries like i18next.
 
-[![Benchmark Visualization](https://cdn.jsdelivr.net/gh/opral/paraglide-js@main/assets/interactive-benchmark.png)](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark)
+[![Benchmark Visualization](https://cdn.jsdelivr.net/gh/opral/paraglide-js@main/assets/interactive-benchmark.png)](https://paraglidejs.com/benchmark)
 
 #### No more adapters are needed
 
@@ -751,7 +751,7 @@ Check out the [benchmark](https://inlang.com/m/gerre34r/library-inlang-paraglide
 
 #### 🚀 Framework-Agnostic Server Middleware
 
-Docs are [here](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/server-side-rendering)
+Docs are [here](https://paraglidejs.com/server-side-rendering)
 
 - **New**: Universal `paraglideMiddleware()` works in any SSR framework
 - **Built-in**: Automatic locale redirects when user preference detected
@@ -767,7 +767,7 @@ export const handle = ({ event, resolve }) => {
 
 #### 🛣️ Configurable Routing Strategies
 
-Read more about strategies on the [docs](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy).
+Read more about strategies on the [docs](https://paraglidejs.com/strategy).
 
 Literally anything is now possible. URL-based, domain-based, path-based, cookie-based, etc.
 
@@ -819,7 +819,7 @@ m["🍌"]();
 
 #### 🔄 Incrementally migrating to Paraglide JS
 
-Paraglide JS 2.0 can load multiple [translation file formats](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/file-formats). As such, you can incrementally migrate to Paraglide JS with existing translation file formats.
+Paraglide JS 2.0 can load multiple [translation file formats](https://paraglidejs.com/file-formats). As such, you can incrementally migrate to Paraglide JS with existing translation file formats.
 
 ```js
 // In this example, Paraglide JS compiles i18next translation files
@@ -834,7 +834,7 @@ console.log(m.greeting({ name: "World" }));
 
 #### 🏘️ Multi-tenancy support
 
-Paraglide JS 2.0 supports multi-tenant applications. Read more about it [here](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/multi-tenancy).
+Paraglide JS 2.0 supports multi-tenant applications. Read more about it [here](https://paraglidejs.com/multi-tenancy).
 
 ```
 # Domain-based with sub-locale
@@ -856,11 +856,11 @@ app.example.com/fr/about   → French
 
 If problems arise, please refer to the framework-specific getting started guide:
 
-- [SvelteKit](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/sveltekit)
-- [Next.js](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/next)
-- [Astro](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/astro)
-- [Vite](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite)
-- [React Router](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/react-router)
+- [SvelteKit](https://paraglidejs.com/sveltekit)
+- [Next.js](https://paraglidejs.com/next-js)
+- [Astro](https://paraglidejs.com/astro)
+- [Vite](https://paraglidejs.com/vite)
+- [React Router](https://paraglidejs.com/react-router)
 
 #### `LanguageTag` got renamed to `locale`
 
@@ -929,7 +929,7 @@ function App() {
 
 #### Shorten key names longer than 255 characters
 
-Paraglide JS 2.0 build output now defaults to [message-modules](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/compiler-options#outputstructure) to improve tree-shaking. Some filesystem's limitations require key names to be shorter than 255 characters.
+Paraglide JS 2.0 build output now defaults to [message-modules](https://paraglidejs.com/compiler-options#outputstructure) to improve tree-shaking. Some filesystem's limitations require key names to be shorter than 255 characters.
 
 Upvote [#423](https://github.com/opral/inlang-paraglide-js/issues/423) to remove this limitation.
 
@@ -1044,7 +1044,7 @@ The `localizedNamedGroups` and `deLocalizedNamedGroups` API has been replaced wi
 
 #### Migration Guide:
 
-**Refer to the updated documentation [here](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url).**
+**Refer to the updated documentation [here](https://paraglidejs.com/strategy#url).**
 
 Before
 
@@ -1164,7 +1164,7 @@ Renames and splits the `serverMiddleware()` into a dedicated `server.js` file to
 
 NO MORE ADAPTERS NEEDED.
 
-If you have code from an adapter, remove it and follow the examples in the documentation. https://inlang.com/m/gerre34r/library-inlang-paraglideJs/sveltekit
+If you have code from an adapter, remove it and follow the examples in the documentation. https://paraglidejs.com/sveltekit
 
 ```diff
 -@inlang/paraglide-sveltekit
@@ -1186,7 +1186,7 @@ Added URLPatterns as a replacement for the beta 17 pathnames API.
 
 The URLPattern API is extremly powerful. You can express base paths, translated pathnames, domain based localization, and even multi-tenancy.
 
-Read the docs [here](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url) and make PRs to improve the documentation.
+Read the docs [here](https://paraglidejs.com/strategy#url) and make PRs to improve the documentation.
 
 ```diff
 await compile({

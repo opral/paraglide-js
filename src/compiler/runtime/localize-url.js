@@ -18,7 +18,7 @@ import {
  * For client-side UI components, use `localizeHref()` instead, which provides
  * a more convenient API with relative paths and automatic locale detection.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing
+ * @see https://paraglidejs.com/i18n-routing
  *
  * @example
  * ```typescript
@@ -157,7 +157,7 @@ function localizeUrlDefaultPattern(url, locale) {
  * For client-side UI components, use `deLocalizeHref()` instead, which provides
  * a more convenient API with relative paths.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing
+ * @see https://paraglidejs.com/i18n-routing
  *
  * @example
  * ```typescript

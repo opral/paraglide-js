@@ -39,7 +39,7 @@ let localeInitiallySet = false;
  * in the order they are defined. In SSR contexts, the locale is retrieved from AsyncLocalStorage
  * which is set by the `paraglideMiddleware()`.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy - Configure locale detection strategies
+ * @see https://paraglidejs.com/strategy - Configure locale detection strategies
  *
  * @example
  *   if (getLocale() === 'de') {
@@ -84,7 +84,7 @@ export let getLocale = () => {
 	}
 
 	throw new Error(
-		"No locale found. Read the docs https://inlang.com/m/gerre34r/library-inlang-paraglideJs/errors#no-locale-found"
+		"No locale found. Read the docs https://paraglidejs.com/errors#no-locale-found"
 	);
 };
 
@@ -109,7 +109,7 @@ export function getLocaleForUrl(url) {
 	}
 
 	throw new Error(
-		"No locale found. Read the docs https://inlang.com/m/gerre34r/library-inlang-paraglideJs/errors#no-locale-found"
+		"No locale found. Read the docs https://paraglidejs.com/errors#no-locale-found"
 	);
 }
 
@@ -182,7 +182,7 @@ function resolveLocaleWithStrategies(strategyToUse, urlForUrlStrategy) {
  * Use this function to overwrite how the locale is resolved. This is useful
  * for custom locale resolution or advanced use cases like SSG with concurrent rendering.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy
+ * @see https://paraglidejs.com/strategy
  *
  * @example
  *   overwriteGetLocale(() => {

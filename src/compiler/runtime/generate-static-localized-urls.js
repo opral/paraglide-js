@@ -16,7 +16,7 @@ import {
  * The function respects your `urlPatterns` configuration - if you have translated pathnames
  * (e.g., `/about` → `/ueber-uns` for German), it will generate the correct localized paths.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/static-site-generation
+ * @see https://paraglidejs.com/static-site-generation
  *
  * @example
  * // Basic usage - generate all locale variants for a list of paths
