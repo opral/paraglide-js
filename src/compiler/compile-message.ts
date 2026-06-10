@@ -59,6 +59,7 @@ function compileMessageWithOneVariant(
 	const compiledPattern = compilePattern({
 		pattern: variant.pattern,
 		declarations,
+		locale: message.locale,
 	});
 
 	const compiledLocalVariables = [];
@@ -83,6 +84,7 @@ function compileMessageWithOneVariant(
 		pattern: variant.pattern,
 		declarations,
 		mode: "parts",
+		locale: message.locale,
 	});
 	const localVariablesCode = compiledLocalVariables.length
 		? compiledLocalVariables.join("\n\t") + "\n\t"
@@ -134,12 +136,14 @@ function compileMessageWithMultipleVariants(
 		const compiledPattern = compilePattern({
 			pattern: variant.pattern,
 			declarations,
+			locale: message.locale,
 		});
 		const compiledPartsPattern = hasMarkup
 			? compilePattern({
 					pattern: variant.pattern,
 					declarations,
 					mode: "parts",
+					locale: message.locale,
 				})
 			: undefined;
 

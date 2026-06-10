@@ -30,6 +30,104 @@ test("compiles a message with a single variant", async () => {
 	expect(some_message()).toBe("Hello");
 });
 
+test("compiles pattern-level annotations to registry calls", async () => {
+	// https://github.com/opral/paraglide-js/issues/694
+	// i18next's `{{count, number}}` imports as an expression with a
+	// function-reference annotation directly on the pattern.
+	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const message: Message = {
+		locale: "en",
+		bundleId: "views",
+		id: "message-id",
+		selectors: [],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "message-id",
+			matches: [],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [],
+					},
+				},
+				{ type: "text", value: " views" },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	expect(compiled.code).toContain('registry.number("en", i?.count, {})');
+
+	const { views } = await import(
+		"data:text/javascript;base64," +
+			// bundling the registry inline to avoid managing module imports here
+			btoa(
+				createRegistry() +
+					"\nexport const views = " +
+					compiled.code.replaceAll("registry.", "")
+			)
+	);
+
+	expect(views({ count: 1234567.891 })).toBe("1,234,567.891 views");
+});
+
+test("compiles pattern-level annotations in multi-variant messages", async () => {
+	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const message: Message = {
+		locale: "en",
+		bundleId: "views_multi",
+		id: "message-id",
+		selectors: [{ type: "variable-reference", name: "count" }],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "message-id",
+			matches: [{ type: "literal-match", key: "count", value: "1" }],
+			pattern: [{ type: "text", value: "One view" }],
+		},
+		{
+			id: "2",
+			messageId: "message-id",
+			matches: [{ type: "catchall-match", key: "count" }],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [],
+					},
+				},
+				{ type: "text", value: " views" },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	const { views_multi } = await import(
+		"data:text/javascript;base64," +
+			// bundling the registry inline to avoid managing module imports here
+			btoa(
+				createRegistry() +
+					"\nexport const views_multi = " +
+					compiled.code.replaceAll("registry.", "")
+			)
+	);
+
+	expect(views_multi({ count: 1 })).toBe("One view");
+	expect(views_multi({ count: 1234567.891 })).toBe("1,234,567.891 views");
+});
+
 test("compiles a markup message with .parts()", async () => {
 	const declarations: Declaration[] = [
 		{ type: "input-variable", name: "amount" },
