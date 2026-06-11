@@ -58,7 +58,9 @@ export function getWatchTargets(
 
 	const isIgnoredPath = (path: string) => {
 		const normalizedPath = nodeNormalizePath(path);
-		if (ignoreCache && normalizedPath.includes("cache")) {
+		// match whole path segments only — a project under e.g. /cachet-app/
+		// must not have its inputs ignored
+		if (ignoreCache && /(^|\/)cache(\/|$)/.test(normalizedPath)) {
 			return true;
 		}
 		if (
