@@ -12,8 +12,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1
       '@inlang/sdk':
-        specifier: ^2.9.3
-        version: 2.9.3(babel-plugin-macros@3.1.0)
+        specifier: ^2.10.0
+        version: 2.10.0(babel-plugin-macros@3.1.0)
       commander:
         specifier: 11.1.0
         version: 11.1.0
@@ -1669,13 +1669,13 @@ packages:
   '@inlang/recommend-sherlock@0.2.1':
     resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
 
+  '@inlang/sdk@2.10.0':
+    resolution: {integrity: sha512-xLVRHAI9Jw6L/NrlK6s1mXCvbFwzk5INEL4i3By4jW9yjIMchJ+JGSw4WgFpiLlcoBuR/qIMmSn6te/Jozuybg==}
+    engines: {node: '>=20.0.0'}
+
   '@inlang/sdk@2.4.9':
     resolution: {integrity: sha512-cvz/C1rF5WBxzHbEoiBoI6Sz6q6M+TdxfWkEGBYTD77opY8i8WN01prUWXEM87GPF4SZcyIySez9U0Ccm12oFQ==}
     engines: {node: '>=18.0.0'}
-
-  '@inlang/sdk@2.9.3':
-    resolution: {integrity: sha512-E/SxcSji8WIt4DqQG9APlOs6tVtJxrrOUS3dE4ho3pWRCLLIY0PIVzgNwSukuFT+m8LuJDFwpRY5VY3ryzyGWQ==}
-    engines: {node: '>=20.0.0'}
 
   '@inquirer/external-editor@1.0.3':
     resolution: {integrity: sha512-RWbSrDiYmO4LbejWY7ttpxczuwQyZLBUyygsA9Nsv95hpzUWwnNTVQmAq3xuh7vNwCp07UTmE5i11XAEExx4RA==}
@@ -8016,6 +8016,16 @@ snapshots:
     dependencies:
       comment-json: 4.5.1
 
+  '@inlang/sdk@2.10.0(babel-plugin-macros@3.1.0)':
+    dependencies:
+      '@lix-js/sdk': 0.4.10(babel-plugin-macros@3.1.0)
+      '@sinclair/typebox': 0.31.28
+      kysely: 0.28.16
+      sqlite-wasm-kysely: 0.3.0(kysely@0.28.16)
+      uuid: 14.0.0
+    transitivePeerDependencies:
+      - babel-plugin-macros
+
   '@inlang/sdk@2.4.9(babel-plugin-macros@3.1.0)':
     dependencies:
       '@lix-js/sdk': 0.4.7(babel-plugin-macros@3.1.0)
@@ -8023,16 +8033,6 @@ snapshots:
       kysely: 0.27.6
       sqlite-wasm-kysely: 0.3.0(kysely@0.27.6)
       uuid: 10.0.0
-    transitivePeerDependencies:
-      - babel-plugin-macros
-
-  '@inlang/sdk@2.9.3(babel-plugin-macros@3.1.0)':
-    dependencies:
-      '@lix-js/sdk': 0.4.10(babel-plugin-macros@3.1.0)
-      '@sinclair/typebox': 0.31.28
-      kysely: 0.28.16
-      sqlite-wasm-kysely: 0.3.0(kysely@0.28.16)
-      uuid: 14.0.0
     transitivePeerDependencies:
       - babel-plugin-macros
 
