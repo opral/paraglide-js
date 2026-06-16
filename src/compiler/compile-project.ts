@@ -101,6 +101,18 @@ export const compileProject = async (args: {
 		output["README.md"] = createReadme({ projectPath: args.projectPath });
 	}
 
+	// Declare the generated message modules side-effect-free so bundlers can drop
+	// unused re-exports from the `m` barrel per entry, instead of bundling every
+	// message used anywhere in the app into one shared chunk that every entry
+	// downloads. Scoped to `messages/` so `runtime.js` (one level up, which has
+	// real side effects) is unaffected. Only relevant for `message-modules`,
+	// the structure with the re-export barrel.
+	// See https://github.com/opral/paraglide-js/issues/668
+	if (optionsWithDefaults.outputStructure === "message-modules") {
+		output["messages/package.json"] =
+			JSON.stringify({ sideEffects: false }, undefined, "\t") + "\n";
+	}
+
 	for (const [filename, content] of Object.entries(
 		optionsWithDefaults.additionalFiles ?? {}
 	)) {
