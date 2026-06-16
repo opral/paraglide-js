@@ -94,9 +94,11 @@ test("emits messages/package.json with sideEffects:false for message-modules", a
 
 	// message-modules: the message modules are side-effect-free, so bundlers can
 	// drop unused re-exports from the `m` barrel per entry instead of emitting one
-	// shared chunk with every message.
+	// shared chunk with every message. `type: "module"` keeps the generated ESM
+	// files in the new `messages/` package scope from defaulting to CommonJS.
 	expect(messageModules).toHaveProperty("messages/package.json");
 	expect(JSON.parse(messageModules["messages/package.json"]!)).toEqual({
+		type: "module",
 		sideEffects: false,
 	});
 
