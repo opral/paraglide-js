@@ -1188,8 +1188,7 @@ test("falls back to original request when cloning a rewritten request fails", as
 		value: class extends NativeRequest {
 			constructor(input: RequestInfo | URL, init?: RequestInit) {
 				if (
-					(typeof input === "string" &&
-						input === "https://example.com/page") ||
+					(typeof input === "string" && input === "https://example.com/page") ||
 					(input instanceof URL && input.href === "https://example.com/page")
 				) {
 					throw new TypeError("Simulated rewritten request clone failure");
@@ -1299,4 +1298,43 @@ test("middleware works with multiple async custom strategies", async () => {
 
 	expect(userPrefCallCount).toBe(2);
 	expect(regionCallCount).toBe(1);
+});
+
+test("injected script reuses the Content-Security-Policy nonce when present and omits it otherwise", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["globalVariable", "baseLocale"],
+		experimentalMiddlewareLocaleSplitting: true,
+	});
+
+	const request = new Request(new URL("https://example.com/page"), {
+		headers: { "Sec-Fetch-Dest": "document" },
+	});
+
+	// With a CSP nonce -> the injected script reuses it.
+	const responseWithCsp = await runtime.paraglideMiddleware(request, () => {
+		return new Response("<html><head></head><body></body></html>", {
+			headers: {
+				"Content-Type": "text/html",
+				"Content-Security-Policy":
+					"default-src 'self'; script-src 'nonce-abc123' 'strict-dynamic'",
+			},
+		});
+	});
+	expect(await responseWithCsp.text()).toContain('<script nonce="abc123">');
+
+	// Without a CSP header -> the script is still injected, without a nonce.
+	const responseWithoutCsp = await runtime.paraglideMiddleware(request, () => {
+		return new Response("<html><head></head><body></body></html>", {
+			headers: { "Content-Type": "text/html" },
+		});
+	});
+	const html = await responseWithoutCsp.text();
+	expect(html).toContain("globalThis.__paraglide.ssr");
+	expect(html).not.toContain("nonce=");
 });
