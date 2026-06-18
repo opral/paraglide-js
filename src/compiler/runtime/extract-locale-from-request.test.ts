@@ -22,6 +22,26 @@ test("returns the locale from the cookie", async () => {
 	expect(locale).toBe("fr");
 });
 
+test("returns the locale from a cookie header without whitespace after semicolons", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie"],
+		cookieName: "PARAGLIDE_LOCALE",
+	});
+	const request = new Request("http://example.com", {
+		headers: {
+			cookie: `PARAGLIDE_LOCALE=fr;session=abc`,
+		},
+	});
+	const locale = runtime.extractLocaleFromRequest(request);
+	expect(locale).toBe("fr");
+});
+
 test("returns the locale from the pathname for document requests", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
