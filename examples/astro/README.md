@@ -17,7 +17,10 @@ It's a compiler-based i18n library that emits tree-shakable translations, leadin
 [Source code](https://github.com/opral/paraglide-js/tree/main/examples/astro)
 
 > [!NOTE]
-> SSG is not yet supported out of the box. You can integrate Paraglide JS yourself to achieve SSG. PR with an example is welcome.
+> This example uses Astro's server output and Paraglide's server middleware.
+> If you use Astro SSG with `getStaticPaths()`, use `output: "static"` and set
+> the locale during prerendering instead of using `paraglideMiddleware()`. See
+> [Static Site Generation](/static-site-generation#astro-getstaticpaths).
 
 ## Setup
 
@@ -60,6 +63,12 @@ export const onRequest = defineMiddleware((context, next) => {
 ```
 
 You can read more about about Astro's middleware [here](https://docs.astro.build/en/guides/middleware).
+
+> [!IMPORTANT]
+> `output: "server"` makes Astro treat dynamic routes as server-rendered. Astro
+> will ignore `getStaticPaths()` for those routes unless the route opts into
+> prerendering. For fully static localized pages, follow the Astro SSG setup
+> instead of the server middleware setup above.
 
 ## Usage
 

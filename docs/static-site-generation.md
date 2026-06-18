@@ -107,6 +107,11 @@ export function generateStaticParams() {
 
 #### Astro (getStaticPaths)
 
+Astro only uses `getStaticPaths()` for static or prerendered routes. If your
+Astro project uses `output: "server"` with Paraglide's server middleware, Astro
+will ignore `getStaticPaths()` for dynamic pages unless the page exports
+`prerender = true`.
+
 ```ts
 // src/pages/[locale]/index.astro
 import { locales } from "../paraglide/runtime.js";
@@ -149,24 +154,43 @@ The recommended approach for Astro SSG is middleware that sets the locale before
 ```ts
 // src/middleware.ts
 import { defineMiddleware } from "astro:middleware";
-import { setLocale, assertIsLocale } from "./paraglide/runtime.js";
+import { assertIsLocale, baseLocale, setLocale } from "./paraglide/runtime.js";
 
 export const onRequest = defineMiddleware((context, next) => {
-  if (context.currentLocale) {
-    setLocale(assertIsLocale(context.currentLocale));
-  }
+  setLocale(assertIsLocale(context.currentLocale ?? baseLocale), {
+    reload: false,
+  });
+
   return next();
 });
 ```
 
-Make sure your `astro.config.mjs` has i18n configured with the same locales defined in your `project.inlang`:
+Do not use `paraglideMiddleware()` for Astro SSG. The server middleware
+de-localizes request URLs for SSR, while static pages need Astro to render each
+localized path directly.
+
+Make sure your `astro.config.mjs` has i18n configured with the same locales
+defined in your `project.inlang`, and include `globalVariable` before
+`baseLocale` so `setLocale()` can store the locale during static rendering:
 
 ```js
+import { defineConfig } from "astro/config";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
+
 export default defineConfig({
   output: "static",
   i18n: {
     defaultLocale: "en",
     locales: ["en", "de", "fr"], // Must match your project.inlang locales
+  },
+  vite: {
+    plugins: [
+      paraglideVitePlugin({
+        project: "./project.inlang",
+        outdir: "./src/paraglide",
+        strategy: ["url", "globalVariable", "baseLocale"],
+      }),
+    ],
   },
 });
 ```
@@ -229,7 +253,7 @@ SSG typically requires all locales to have a URL prefix so each locale generates
 compile({
   project: "./project.inlang",
   outdir: "./src/paraglide",
-  strategy: ["url", "baseLocale"],
+  strategy: ["url", "globalVariable", "baseLocale"],
   urlPatterns: [
     {
       pattern: "/:path(.*)?",
