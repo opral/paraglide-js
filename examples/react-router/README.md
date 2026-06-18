@@ -112,6 +112,49 @@ export default [
 
 Now you can use `getLocale` function anywhere in your project.
 
+### Translated pathnames
+
+React Router matches the incoming URL against the routes you define in
+`routes.ts`. The middleware can set the locale and request context, but React
+Router's middleware API does not let Paraglide pass a rewritten request to
+`next()` before route matching.
+
+If you use translated pathnames, define localized route aliases in `routes.ts`
+and point them at the same route module. Give each alias a unique route `id`
+when multiple entries use the same file.
+
+```ts
+import { type RouteConfig, index, route } from "@react-router/dev/routes";
+
+export default [
+	index("routes/home.tsx"),
+	route("en/pricing", "routes/pricing.tsx", { id: "pricing-en" }),
+	route("de/preise", "routes/pricing.tsx", { id: "pricing-de" }),
+	route("pl/cennik", "routes/pricing.tsx", { id: "pricing-pl" }),
+] satisfies RouteConfig;
+```
+
+Keep the corresponding Paraglide `urlPatterns` so helpers like
+`localizeHref("/pricing")` generate the public URL that React Router can match:
+
+```ts
+paraglideVitePlugin({
+	project: "./project.inlang",
+	outdir: "./app/paraglide",
+	strategy: ["url", "baseLocale"],
+	urlPatterns: [
+		{
+			pattern: "/pricing",
+			localized: [
+				["en", "/en/pricing"],
+				["de", "/de/preise"],
+				["pl", "/pl/cennik"],
+			],
+		},
+	],
+});
+```
+
 ## Server side rendering without middleware (legacy)
 
 If you can't use middleware yet, you can still wire SSR manually:
