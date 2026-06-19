@@ -10,6 +10,9 @@ Paraglide's compiler approach enables optimizations that are not possible with r
 
 If you are looking for a benchmark, check out the [interactive benchmark](/benchmark).
 
+> [!TIP]
+> Coming from a specific library? See the focused guides: [Paraglide JS vs react-i18next](/paraglide-vs-react-i18next) and [react-i18next alternatives](/react-i18next-alternatives).
+
 > [!NOTE]
 > Please open a pull request if the comparison is outdated, incorrect, or can be improved.
 
