@@ -1,5 +1,11 @@
 # @inlang/paraglide-js
 
+## 2.20.1
+
+### Patch Changes
+
+- 8c3493d: Fix server cookie locale parsing when Cookie headers omit whitespace after semicolons.
+
 ## 2.20.0
 
 ### Minor Changes
