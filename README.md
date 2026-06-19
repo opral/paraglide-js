@@ -5,7 +5,7 @@
 
 <h1 align="center">🪂 Paraglide JS</h1>
 <p align="center">
-  <strong>Compiler-first i18n for TanStack Start, SvelteKit, and Vite apps.</strong>
+  <strong>Compiler-first i18n for React, TanStack Start, SvelteKit, and any Vite app.</strong>
   <br/>
   Type-safe message functions, tree-shakable translations, and first-class SSR.
 </p>
@@ -45,19 +45,34 @@
 }
 ```
 
-```js
+```tsx
+// The examples use React. The same m.* API works in SvelteKit, TanStack
+// Start, React Router, Vue, Solid, Astro, and vanilla JS/TS — only the
+// surrounding component code changes.
 import { m } from "./paraglide/messages.js";
+import { locales, setLocale } from "./paraglide/runtime.js";
 
-m.greeting({ name: "World" }); // "Hello World!" — fully typesafe
+export function Greeting() {
+  return (
+    <>
+      <h1>{m.greeting({ name: "World" })}</h1> {/* fully typesafe */}
+      {locales.map((locale) => (
+        <button key={locale} onClick={() => setLocale(locale)}>
+          {locale}
+        </button>
+      ))}
+    </>
+  );
+}
 ```
 
-The compiler turns your messages into typed ESM functions. Vite, Rollup, and other modern bundlers can tree-shake unused translations before they reach the browser. Expect [**up to 70% smaller i18n bundle sizes**](https://paraglidejs.com/benchmark) compared to runtime i18n libraries (e.g. 47 KB vs 205 KB).
+The compiler turns your messages into typed ESM functions. Vite, Rollup, and other modern bundlers can tree-shake unused translations before they reach the browser. Expect [**up to 70% smaller i18n bundle sizes**](https://paraglidejs.com/benchmark) compared to runtime i18n libraries (e.g. 47 KB vs 205 KB for 5 locales and 200 messages — [methodology](https://paraglidejs.com/benchmark)).
 
 ## Why Paraglide?
 
 |                           |                                                                                                                                                                                                                |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Vite-Native**           | Designed for Vite and modern ESM bundlers. Works with TanStack Start, SvelteKit, React Router, Astro, Vue, Solid, and vanilla JS/TS.                                                                           |
+| **Vite-Native**           | Designed for Vite and modern ESM bundlers. Works with React, TanStack Start, SvelteKit, React Router, Astro, Vue, Solid, and vanilla JS/TS.                                                                    |
 | **Smaller i18n Bundle**   | Up to 70% smaller i18n bundle size than runtime i18n libraries.                                                                                                                                                |
 | **Tree-Shakable**         | Messages compile to ESM functions, so unused translations are eliminated by your bundler.                                                                                                                       |
 | **Fully Typesafe**        | Autocomplete for message keys and parameters. Typos become compile errors.                                                                                                                                     |
@@ -67,7 +82,7 @@ The compiler turns your messages into typed ESM functions. Vite, Rollup, and oth
 ## Get Started With Your Framework
 
 <p>
-  <a href="https://paraglidejs.com/vite"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="18" height="18" /> React</a> ·
+  <a href="#react--vite"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="18" height="18" /> React</a> ·
   <a href="https://paraglidejs.com/vite"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue" width="18" height="18" /> Vue</a> ·
   <a href="https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide"><img src="https://tanstack.com/images/logos/logo-color-100.png" alt="TanStack" width="18" height="18" /> TanStack Start</a> ·
   <a href="https://paraglidejs.com/sveltekit"><img src="https://cdn.simpleicons.org/svelte/FF3E00" alt="Svelte" width="18" height="18" /> SvelteKit</a> ·
@@ -76,6 +91,7 @@ The compiler turns your messages into typed ESM functions. Vite, Rollup, and oth
   <a href="https://paraglidejs.com/vanilla-js-ts"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="18" height="18" /> Vanilla JS/TS</a>
 </p>
 
+- **[React + Vite example](https://github.com/opral/paraglide-js/tree/main/examples/react)** — plain React SPA with the Vite plugin, messages, and a language switcher.
 - **[TanStack Start example](https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide)** — SSR, localized routing, and TanStack Router integration.
 - **[SvelteKit guide](https://paraglidejs.com/sveltekit)** — SvelteKit's official i18n integration.
 - **[React Router guide](https://paraglidejs.com/react-router)** — SSR and client routing.
@@ -84,6 +100,28 @@ The compiler turns your messages into typed ESM functions. Vite, Rollup, and oth
 
 > [!TIP]
 > <img src="https://vitejs.dev/logo.svg" alt="Vite" width="16" height="16" /> **Paraglide is ideal for Vite-based apps.** Setup is one plugin, messages compile to ESM, and Vite's tree-shaking eliminates unused translations automatically. [Get started →](https://paraglidejs.com/vite)
+
+### React + Vite
+
+Add the Vite plugin, then import message functions and call them — no provider or context to set up:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
+
+export default defineConfig({
+  plugins: [
+    react(),
+    paraglideVitePlugin({ project: "./project.inlang", outdir: "./src/paraglide" }),
+  ],
+});
+```
+
+The `Greeting` component shown above is all the app code you need. `setLocale()` reloads the page by default so every message re-renders — a deliberate design choice: a user switches language once, so a reload keeps things simple and avoids framework-specific state/scroll-preservation logic (the same approach YouTube and others take). Pass `setLocale("de", { reload: false })` to drive re-rendering yourself.
+
+**[Full React + Vite example →](https://github.com/opral/paraglide-js/tree/main/examples/react)** · **[React Router (SSR) guide →](https://paraglidejs.com/react-router)**
 
 ## SSR Ready
 
@@ -156,6 +194,8 @@ Route code stays TanStack-native: TanStack Router owns route trees, loaders, ser
 npx @inlang/paraglide-js init
 ```
 
+Stable and production-ready — `@inlang/paraglide-js` is on v2 (MIT-licensed), with framework adapters like `@inlang/paraglide-js-react` at v1.
+
 The CLI sets up everything:
 
 - Creates your message files
@@ -181,7 +221,7 @@ setLocale("de"); // switches to German
 
 ## Rich Text
 
-For `<Trans>`-style rich text and component interpolation, use typed markup with your framework adapter.
+Coming from react-i18next's `<Trans>`? Use a typed markup adapter — `@inlang/paraglide-js-react` (stable, v1) for React, with equivalents for Svelte, Vue, and Solid.
 
 ```tsx
 import { ParaglideMessage } from "@inlang/paraglide-js-react";
@@ -246,7 +286,7 @@ m.items_in_cart({ count: 5 }); // "5 items in cart"
 // Works correctly for complex locales (Russian, Arabic, etc.)
 ```
 
-Message format is **plugin-based** — use the default inlang format, or switch to i18next, JSON, or ICU MessageFormat via [plugins](https://inlang.com/c/plugins). If your team relies on ICU MessageFormat 1 syntax, use the [inlang-icu-messageformat-1 plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1).
+Message format is **plugin-based**: prefer the familiar **ICU MessageFormat** syntax (`{count, plural, one {# item} other {# items}}`) via the [ICU plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1), keep your existing **i18next** or **JSON** files, or use the default inlang format. See [message syntax & pluralization](https://paraglidejs.com/variants).
 
 **[Formatting Docs →](https://paraglidejs.com/formatting)** · **[Pluralization & Variants Docs →](https://paraglidejs.com/variants)**
 
