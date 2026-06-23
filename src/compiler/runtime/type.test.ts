@@ -50,6 +50,20 @@ test("createRuntimeFile throws if urlPatterns contains an unknown locale", () =>
 	);
 });
 
+test("cookie cache clearer remains internal in the generated runtime", () => {
+	const jsdocRuntime = createRuntimeFile({
+		baseLocale: "en",
+		locales: ["en", "de"],
+		compilerOptions: {
+			...defaultCompilerOptions,
+			strategy: ["cookie", "baseLocale"],
+		},
+	});
+
+	expect(jsdocRuntime).toContain("function clearLocaleCookieCache");
+	expect(jsdocRuntime).not.toContain("export function clearLocaleCookieCache");
+});
+
 test("runtime type", async () => {
 	const project = await typescriptProject({
 		useInMemoryFileSystem: true,

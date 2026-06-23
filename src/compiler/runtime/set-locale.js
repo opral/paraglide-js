@@ -1,4 +1,5 @@
 import { getLocale } from "./get-locale.js";
+import { clearLocaleCookieCache } from "./extract-locale-from-cookie.js";
 import { localizeUrl } from "./localize-url.js";
 import { customClientStrategies, isCustomStrategy } from "./strategy.js";
 import {
@@ -99,6 +100,7 @@ export let setLocale = (newLocale, options) => {
 			document.cookie = cookieDomain
 				? `${cookieString}; domain=${cookieDomain}`
 				: cookieString;
+			clearLocaleCookieCache();
 		} else if (strat === "baseLocale") {
 			// nothing to be set here. baseLocale is only a fallback
 			continue;

@@ -163,7 +163,9 @@ ${injectCode("./extract-locale-from-request.js")}
 
 ${injectCode("./extract-locale-from-request-async.js")}
 
-${injectCode("./extract-locale-from-cookie.js")}
+${injectCode("./extract-locale-from-cookie.js", {
+	privateExports: ["clearLocaleCookieCache"],
+})}
 
 ${injectCode("./extract-locale-from-header.js")}
 
@@ -199,17 +201,28 @@ ${injectCode("./type-definitions.js").replace(
  * self-contained.
  *
  * @param {string} path
+ * @param {{ privateExports?: string[] }} [options]
  * @returns {string}
  */
-function injectCode(path: string): string {
+function injectCode(
+	path: string,
+	options?: { privateExports?: string[] }
+): string {
 	const code = fs.readFileSync(new URL(path, import.meta.url), "utf-8");
 	// Regex to match single-line and multi-line imports
 	const importRegex = /import\s+[\s\S]*?from\s+['"][^'"]+['"]\s*;?/g;
 	const sourceMapRegex = /\/\/# sourceMappingURL=.*$/gm;
 	const blockSourceMapRegex = /\/\*# sourceMappingURL=.*?\*\//g;
-	return code
+	let injected = code
 		.replace(importRegex, "")
 		.replace(sourceMapRegex, "")
 		.replace(blockSourceMapRegex, "")
 		.trim();
+	for (const exportName of options?.privateExports ?? []) {
+		injected = injected.replace(
+			new RegExp(`\\bexport\\s+function\\s+${exportName}\\b`, "g"),
+			`function ${exportName}`
+		);
+	}
+	return injected;
 }
