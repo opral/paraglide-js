@@ -1,5 +1,11 @@
 # @inlang/paraglide-js
 
+## 2.20.2
+
+### Patch Changes
+
+- a48e767: Cache client cookie locale extraction for synchronous message bursts.
+
 ## 2.20.1
 
 ### Patch Changes
