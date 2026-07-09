@@ -1,5 +1,5 @@
 ---
-"@inlang/paraglide-js": patch
+"@inlang/paraglide-js": minor
 ---
 
 fix `emitTsDeclarations` with TypeScript 7 https://github.com/opral/paraglide-js/issues/711
