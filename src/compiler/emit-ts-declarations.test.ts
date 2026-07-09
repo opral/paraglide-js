@@ -139,8 +139,18 @@ test("emitTsDeclarations works with TypeScript 7 (tsgo)", async () => {
 			compilerOptions: {
 				emitTsDeclarations: true,
 				outputStructure,
+				// path-traversing keys (incl. Windows separators) must be
+				// silently skipped like on the compiler-API path — neither
+				// escaping the temp dir nor failing the completeness check
+				additionalFiles: {
+					"../escape.js": "export const escape = 1;",
+					"foo\\..\\..\\escape.js": "export const escape = 1;",
+				},
 			},
 		});
+
+		expect(output["../escape.d.ts"]).toBeUndefined();
+		expect(output["foo\\..\\..\\escape.d.ts"]).toBeUndefined();
 
 		expect(output).toHaveProperty("runtime.d.ts");
 		expect(output).toHaveProperty("messages.d.ts");

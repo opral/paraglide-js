@@ -219,14 +219,18 @@ async function emitWithTscCli(
 	jsEntries: [string, string][]
 ): Promise<Record<string, string>> {
 	// entries escaping the output root cannot be declared safely; the
-	// compiler-API path silently drops them too (see the writeFile hook)
-	const safeEntries = jsEntries.filter(([fileName]) => {
-		const normalized = path.posix.normalize(fileName);
-		return (
-			normalized.startsWith("..") === false &&
-			path.posix.isAbsolute(normalized) === false
-		);
-	});
+	// compiler-API path silently drops them too (see the writeFile hook).
+	// Checked against both separator conventions because path.join interprets
+	// backslashes on Windows (`foo\..\..\x.js` would escape the temp dir).
+	const safeEntries = jsEntries.filter(([fileName]) =>
+		[path.posix, path.win32].every((platformPath) => {
+			const normalized = platformPath.normalize(fileName);
+			return (
+				normalized.startsWith("..") === false &&
+				platformPath.isAbsolute(normalized) === false
+			);
+		})
+	);
 
 	// resolved before spawning so a missing tsc entry point surfaces its own
 	// pointed error instead of the generic "no declaration files" one
