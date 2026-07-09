@@ -141,6 +141,9 @@ paraglideVitePlugin({
 > [!NOTE]
 > Emitting declarations requires the `typescript` package and is slower than JSDoc-based types. Use `allowJs: true` when possible for faster compilation.
 
+> [!NOTE]
+> With TypeScript 5 and 6, declarations are generated with the in-process compiler API. TypeScript 7+ no longer provides that API, so Paraglide invokes its `tsc` CLI in a child process instead. The output is semantically equivalent, but differs cosmetically between the two (quote style, declaration ordering, `export declare const` vs `export const`) — expect `.d.ts` churn when switching TypeScript majors.
+
 ## Generated Output
 
 The compiler generates the following file structure in your `outdir`:
