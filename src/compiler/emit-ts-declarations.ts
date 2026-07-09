@@ -1,4 +1,11 @@
 import path from "node:path";
+import fs from "node:fs/promises";
+import os from "node:os";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+import { resolveTscJsPath } from "./resolve-tsc-js-path.js";
+
+const execFileAsync = promisify(execFile);
 
 type TypeScript = typeof import("typescript");
 
@@ -33,6 +40,44 @@ export async function emitTsDeclarations(
 		return {};
 	}
 
+	// TypeScript 7+ (the Go-based compiler) no longer ships the in-process
+	// compiler API — its main entry point only exports version metadata.
+	// https://github.com/opral/paraglide-js/issues/711
+	const compilerApi = resolveCompilerApi(ts);
+	if (compilerApi === undefined) {
+		return emitWithTscCli(jsEntries);
+	}
+
+	return emitWithCompilerApi(compilerApi, jsEntries);
+}
+
+/**
+ * Returns the in-process compiler API (TypeScript 5/6), or `undefined` when
+ * the installed TypeScript does not provide one (TypeScript 7+).
+ *
+ * Unwraps default-only interop shapes (`{ default: ts }`) that bundlers and
+ * CJS interop can produce. Without the unwrap, TypeScript 5/6 would be
+ * misrouted to the CLI path, whose TypeScript 5 declaration emitter produces
+ * syntactically invalid quoted export aliases.
+ */
+function resolveCompilerApi(ts: TypeScript): TypeScript | undefined {
+	if (typeof ts.createProgram === "function") {
+		return ts;
+	}
+	const defaultExport = (ts as { default?: TypeScript }).default;
+	if (defaultExport && typeof defaultExport.createProgram === "function") {
+		return defaultExport;
+	}
+	return undefined;
+}
+
+/**
+ * Emits declarations with the in-process TypeScript compiler API (TypeScript 5/6).
+ */
+async function emitWithCompilerApi(
+	ts: TypeScript,
+	jsEntries: [string, string][]
+): Promise<Record<string, string>> {
 	const virtualRoot = path.join(process.cwd(), "__paraglide_virtual_output");
 	const normalizeFileName = (fileName: string) =>
 		path.normalize(
@@ -157,6 +202,142 @@ export async function emitTsDeclarations(
 	});
 
 	return declarations;
+}
+
+const failedToEmitWithTscMessage = `Paraglide's "emitTsDeclarations" option failed to generate declaration files with the installed TypeScript version.
+
+TypeScript 7+ no longer provides the in-process compiler API, so Paraglide invokes its "tsc" CLI instead — which did not produce a declaration file for every compiled file. As a workaround, install TypeScript 5 or 6, or disable "emitTsDeclarations".`;
+
+/**
+ * Emits declarations by invoking the `tsc` CLI of the installed TypeScript
+ * package (TypeScript 7+, where the in-process compiler API is unavailable).
+ *
+ * The compiled output is written to a temporary directory because the
+ * Go-based compiler cannot read from a virtual filesystem.
+ */
+async function emitWithTscCli(
+	jsEntries: [string, string][]
+): Promise<Record<string, string>> {
+	// entries escaping the output root cannot be declared safely; the
+	// compiler-API path silently drops them too (see the writeFile hook)
+	const safeEntries = jsEntries.filter(([fileName]) => {
+		const normalized = path.posix.normalize(fileName);
+		return (
+			normalized.startsWith("..") === false &&
+			path.posix.isAbsolute(normalized) === false
+		);
+	});
+
+	// resolved before spawning so a missing tsc entry point surfaces its own
+	// pointed error instead of the generic "no declaration files" one
+	const tscJsPath = resolveTscJsPath();
+
+	const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "paraglide-dts-"));
+
+	try {
+		const srcDir = path.join(tempDir, "src");
+		const outDir = path.join(tempDir, "dist");
+		await fs.mkdir(outDir, { recursive: true });
+
+		for (const [fileName, content] of safeEntries) {
+			const filePath = path.join(srcDir, fileName);
+			await fs.mkdir(path.dirname(filePath), { recursive: true });
+			await fs.writeFile(filePath, content);
+		}
+
+		const tsconfigPath = path.join(tempDir, "tsconfig.json");
+		await fs.writeFile(
+			tsconfigPath,
+			JSON.stringify({
+				compilerOptions: {
+					allowJs: true,
+					checkJs: true,
+					declaration: true,
+					emitDeclarationOnly: true,
+					esModuleInterop: true,
+					lib: ["ESNext", "DOM"],
+					module: "ESNext",
+					moduleResolution: "bundler",
+					// Declaration emit does not need a typecheck; skipping it also
+					// suppresses diagnostics about the project's environment (e.g.
+					// a missing @types/node) that are irrelevant to the output.
+					noCheck: true,
+					noEmitOnError: false,
+					outDir: "./dist",
+					rootDir: "./src",
+					skipLibCheck: true,
+					target: "ESNext",
+				},
+				files: safeEntries.map(([fileName]) => `./src/${fileName}`),
+			})
+		);
+
+		let tscError: unknown;
+		try {
+			await execFileAsync(
+				process.execPath,
+				[tscJsPath, "--project", tsconfigPath],
+				{
+					maxBuffer: 64 * 1024 * 1024,
+					// Electron-based hosts must execute tsc with their embedded
+					// Node instead of launching another instance of the host app.
+					// Harmless under node and bun.
+					env: { ...process.env, ELECTRON_RUN_AS_NODE: "1" },
+				}
+			);
+		} catch (error) {
+			// tsc exits non-zero when the input has diagnostics even though the
+			// declaration files are still emitted (noEmitOnError is false).
+			// Success is judged by the presence of declaration files below.
+			tscError = error;
+		}
+
+		const declarations: Record<string, string> = {};
+
+		for (const entry of await fs.readdir(outDir, { recursive: true })) {
+			if (entry.endsWith(".d.ts")) {
+				declarations[entry.split(path.sep).join(path.posix.sep)] =
+					await fs.readFile(path.join(outDir, entry), "utf-8");
+			}
+		}
+
+		// tsc emits exactly one .d.ts per input .js (even for inputs with
+		// syntax errors), so a count mismatch means the compiler died mid-emit
+		// and the result would be silently incomplete.
+		if (Object.keys(declarations).length !== safeEntries.length) {
+			throw new Error(withTscOutput(failedToEmitWithTscMessage, tscError), {
+				cause: tscError,
+			});
+		}
+
+		return declarations;
+	} finally {
+		await fs.rm(tempDir, { recursive: true, force: true });
+	}
+}
+
+/**
+ * Appends the spawned compiler's output to the error message.
+ *
+ * tsc writes diagnostics to stdout, which `execFile` errors expose only as a
+ * property — not in the message — so error reporters that print only
+ * message/stack would otherwise hide the reason the emit failed.
+ */
+function withTscOutput(message: string, tscError: unknown): string {
+	const { stdout, stderr } = (tscError ?? {}) as {
+		stdout?: unknown;
+		stderr?: unknown;
+	};
+	const output = [stdout, stderr]
+		.filter((value): value is string => typeof value === "string")
+		.join("\n")
+		.trim();
+	if (output === "") {
+		return message;
+	}
+	const truncated =
+		output.length > 4000 ? output.slice(0, 4000) + "\n… (truncated)" : output;
+	return `${message}\n\nCompiler output:\n${truncated}`;
 }
 
 type QuotedExportAliases = Map<string, Map<string, Set<string>>>;

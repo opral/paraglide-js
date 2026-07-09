@@ -278,6 +278,11 @@ export type CompilerOptions = {
 	 * **Note:** Enabling this option reduces compiler speed because TypeScript
 	 * needs to generate declaration files for all output modules.
 	 *
+	 * **Note:** With TypeScript 5/6 the declarations are generated in-process.
+	 * TypeScript 7+ no longer provides the compiler API, so its `tsc` CLI is
+	 * invoked in a child process instead; the emitted declarations are
+	 * semantically equivalent but differ cosmetically between the two.
+	 *
 	 * @example
 	 * ```ts
 	 * await compile({
