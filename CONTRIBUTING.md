@@ -13,10 +13,10 @@
 ### Getting started
 
 1. Clone the repo.
-2. Run `pnpm i`
+2. Run `pnpm i`.
 3. Run `pnpm dev`, `pnpm build`, and `pnpm test`.
 
 ## Opening a PR
 
-1. run `pnpm run ci` to run all tests and checks
-2. run `npx changeset` to write a changelog and trigger a version bumb. watch this loom video to see how to use changesets: https://www.loom.com/share/1c5467ae3a5243d79040fc3eb5aa12d6
+1. Run `pnpm run ci` to run all tests and checks.
+2. Run `npx changeset` to write a changelog and trigger a version bump. Watch [this video](https://www.loom.com/share/1c5467ae3a5243d79040fc3eb5aa12d6) to see how to use changesets.

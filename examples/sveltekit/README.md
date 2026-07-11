@@ -18,13 +18,20 @@ It's a compiler-based i18n library that emits tree-shakable translations, leadin
 
 ## Getting started
 
-### Install paraglide js
+### Via the [Svelte CLI](https://svelte.dev/docs/cli/paraglide)
 
+```bash
+npx sv add paraglide
+```
+
+### Manually
+
+Install paraglide js
 ```bash
 npx @inlang/paraglide-js@latest init
 ```
 
-### Add the `paraglideVitePlugin()` to `vite.config.js`.
+#### Add the `paraglideVitePlugin()` to `vite.config.js`.
 
 > [!NOTE]
 > You can define strategy however you need.
@@ -46,7 +53,7 @@ export default defineConfig({
 });
 ```
 
-### Add `%lang%` and `%dir%` to `src/app.html`.
+#### Add `%lang%` and `%dir%` to `src/app.html`.
 
 See https://svelte.dev/docs/kit/accessibility#The-lang-attribute for more information.
 
@@ -58,7 +65,7 @@ See https://svelte.dev/docs/kit/accessibility#The-lang-attribute for more inform
 </html>
 ```
 
-### Add the `paraglideMiddleware()` to `src/hooks.server.ts`
+#### Add the `paraglideMiddleware()` to `src/hooks.server.ts`
 
 ```typescript
 import type { Handle } from '@sveltejs/kit';
@@ -81,7 +88,7 @@ const paraglideHandle: Handle = ({ event, resolve }) =>
 export const handle: Handle = paraglideHandle;
 ```
 
-### Add a reroute hook in `src/hooks.ts`
+#### Add a reroute hook in `src/hooks.ts`
 
 IMPORTANT: The `reroute()` function must be exported from the `src/hooks.ts` file, not `src/hooks.server.ts`.
 
