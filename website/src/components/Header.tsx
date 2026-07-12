@@ -4,12 +4,12 @@ import { GITHUB_REPOSITORY, NPM_URL } from "../site";
 
 const SOCIAL_PROOF = {
 	npmWeeklyDownloads: {
-		label: "303k weekly downloads",
-		title: "303,000 weekly npm downloads",
+		label: ">400k weekly downloads",
+		title: "More than 400,000 weekly npm downloads",
 	},
 	githubStars: {
-		label: "442 stars",
-		title: "442 GitHub stars",
+		label: ">500 stars",
+		title: "More than 500 GitHub stars",
 	},
 };
 
