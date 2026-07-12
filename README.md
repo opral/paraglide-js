@@ -27,7 +27,8 @@
   <a href="https://www.idealista.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/idealista.svg?raw=true" alt="idealista" height="18"></a>&nbsp;&nbsp;&nbsp;
   <a href="https://www.architonic.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/architonic.png?raw=true" alt="Architonic" height="18"></a>&nbsp;&nbsp;&nbsp;
   <a href="https://lovable.dev/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/lovable.svg?raw=true" alt="Lovable" height="18"></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://www.klaviyo.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/klaviyo.svg?raw=true" alt="Klaviyo" height="18"></a>
+  <a href="https://www.klaviyo.com/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/klaviyo.svg?raw=true" alt="Klaviyo" height="18"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://reland.com.br/"><img src="https://github.com/opral/paraglide-js/blob/main/assets/used-by/reland.svg?raw=true" alt="Reland" height="18"></a>
 </p>
 
 <p align="center">
