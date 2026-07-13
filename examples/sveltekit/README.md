@@ -24,19 +24,23 @@ It's a compiler-based i18n library that emits tree-shakable translations, leadin
 npx sv add paraglide
 ```
 
+The CLI will do all the scaffolding for you. Or you can set it up manually in the following section.
+
 ### Manually
 
-Install paraglide js
+#### Install `paraglide-js`
+
 ```bash
 npx @inlang/paraglide-js@latest init
 ```
 
-#### Add the `paraglideVitePlugin()` to `vite.config.js`.
+#### Add the vite plugin.
 
 > [!NOTE]
 > You can define strategy however you need.
 
 ```diff
+// vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 +import { paraglideVitePlugin } from '@inlang/paraglide-js';
@@ -47,58 +51,100 @@ export default defineConfig({
 +		paraglideVitePlugin({
 +			project: './project.inlang',
 +			outdir: './src/lib/paraglide',
-+			strategy: ['url', 'cookie', 'baseLocale'],
++			strategy: ['url'],
 +		})
 	]
 });
 ```
 
-#### Add `%lang%` and `%dir%` to `src/app.html`.
+#### Add lang attribute
 
 See https://svelte.dev/docs/kit/accessibility#The-lang-attribute for more information.
 
-```diff
-<!doctype html>
--<html lang="en">
-+<html lang="%lang%" dir="%dir%">
-	...
-</html>
-```
-
-#### Add the `paraglideMiddleware()` to `src/hooks.server.ts`
-
 ```typescript
+// src/hooks.server.ts
 import type { Handle } from '@sveltejs/kit';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import { getTextDirection } from '$lib/paraglide/runtime';
 
 // creating a handle to use the paraglide middleware
 const paraglideHandle: Handle = ({ event, resolve }) =>
-	paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
-		event.request = localizedRequest;
+	paraglideMiddleware(event.request, ({ request, locale }) => {
+		event.request = request;
 		return resolve(event, {
-			transformPageChunk: ({ html }) => {
-				return html
-					.replace('%lang%', locale)
-					.replace('%dir%', getTextDirection(locale));
-			}
+			transformPageChunk: ({ html }) => 
+				html
+					.replace('%paraglide.lang%', locale)
+					.replace('%paraglide.dir%', getTextDirection(locale))
 		});
 	});
 
 export const handle: Handle = paraglideHandle;
 ```
 
-#### Add a reroute hook in `src/hooks.ts`
+```diff
+<!-- src/app.html -->
+<!doctype html>
+-<html lang="en">
++<html lang="%paraglide.lang%" dir="%paraglide.dir%">
+  ...
+</html>
+```
 
-IMPORTANT: The `reroute()` function must be exported from the `src/hooks.ts` file, not `src/hooks.server.ts`.
+#### Resolve i18n routes to their delocalized routes
 
 ```typescript
+// src/hooks.ts
 import type { Reroute } from '@sveltejs/kit';
 import { deLocalizeUrl } from '$lib/paraglide/runtime';
 
-export const reroute: Reroute = (request) => {
-	return deLocalizeUrl(request.url).pathname;
+export const reroute: Reroute = (request) => deLocalizeUrl(request.url).pathname;
+```
+
+> [!IMPORTANT]
+> The `reroute()` function must be exported from the `src/hooks.ts` file, not `src/hooks.server.ts`.
+
+
+#### Overwrite default behaviour with reactivity
+
+```typescript
+// src/lib/paraglide.svelte.ts
+import type { Locale as _Locale } from '$lib/paraglide/runtime';
+import { browser } from '$app/environment';
+import { goto } from '$app/navigation';
+import { page } from '$app/state';
+
+import {
+  baseLocale,
+  localizeUrl,
+  overwriteGetLocale,
+  overwriteSetLocale,
+  toLocale
+} from '$lib/paraglide/runtime';
+
+export class Locale {
+  #current: _Locale = $state(toLocale(browser && document.querySelector('html')?.lang) ?? baseLocale);
+
+  constructor() {
+    overwriteGetLocale(() => this.#current);
+
+    overwriteSetLocale((locale) => {
+      this.#current = locale;
+      goto(localizeUrl(page.url.pathname, { locale }).href);
+    });
+  }
+}
+```
+
+```typescript
+// src/hooks.client.ts
+import type { ClientInit } from '@sveltejs/kit';
+import { Locale } from '$lib/paraglide.svelte';
+
+export const init: ClientInit = () => {
+  new Locale();
 };
+
 ```
 
 ## Usage
@@ -121,49 +167,51 @@ setLocale('de'); // switches to German
 
 Enable [pre-rendering](https://svelte.dev/docs/kit/page-options#prerender) by adding the following line to `routes/+layout.ts`:
 
-```diff
+```typescript
 // routes/+layout.ts
-+export const prerender = true;
+export const prerender = true;
 ```
 
-Then add a locale switcher in `routes/+layout.svelte` to generate all pages during build time. SvelteKit crawls anchor tags during the build and is, thereby, able to generate all pages statically. If you already have a visible locale switcher that links to every locale variant, nothing extra is required. Add `data-sveltekit-reload` (see [paraglide-js#472](https://github.com/opral/paraglide-js/issues/472)) so locale switches trigger a full reload and the new locale is applied.
+SvelteKit crawls anchor tags during the build to generate all pages statically. We can ensure this happens by adding a locale switcher in `routes/+layout.svelte`. 
 
-```diff
-<script>
-	import { page } from '$app/state';
-	import { resolve } from '$app/paths';
-	import { locales, localizeHref } from '$lib/paraglide/runtime';
+```svelte
+<!-- routes/+layout.svelte -->
+<script lang="ts">
+  import type { Pathname } from '$app/types'
+  import { resolve } from '$app/paths';
+  import { page } from '$app/state';
+  import { locales, localizeHref } from '$lib/paraglide/runtime';
+
+  let { children } = $props();
 </script>
 
 <nav class="locale-switcher" aria-label="Languages">
-	{#each locales as locale}
-		<a href={resolve(localizeHref(page.url.pathname, { locale }))} data-sveltekit-reload>
-			{locale}
-		</a>
-	{/each}
+  {#each locales as locale}
+    <a href={resolve(localizeHref(page.url.pathname, { locale }) as Pathname )}>
+      {locale}
+    </a>
+  {/each}
 </nav>
 
-<slot></slot>
+{@render children()}
 ```
 
 If you use the static adapter with `ssr = false` (SPA mode), make asset paths absolute to avoid locale-prefixed 404s (see [paraglide-js#503](https://github.com/opral/paraglide-js/issues/503)):
 
 ```diff
-// svelte.config.js
-import adapter from '@sveltejs/adapter-static';
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+// vite.config.ts
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
 
-const config = {
-	preprocess: vitePreprocess(),
-	kit: {
-		adapter: adapter(),
-+		paths: {
-+			relative: false
-+		}
-	}
-};
-
-export default config;
+export default defineConfig({
+  // ...
+  plugins: [
+    sveltekit({
+      // ...
++      paths: { relative:false },
+    })
+  }
+});
 ```
 
 ## Troubleshooting
