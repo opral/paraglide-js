@@ -57,6 +57,10 @@ export const compileProject = async (args: {
 			settings,
 			experimentalMiddlewareLocaleSplitting:
 				optionsWithDefaults.experimentalMiddlewareLocaleSplitting,
+			experimentalStaticLocale:
+				optionsWithDefaults.outputStructure === "message-modules"
+					? optionsWithDefaults.experimentalStaticLocale
+					: undefined,
 		})
 	);
 

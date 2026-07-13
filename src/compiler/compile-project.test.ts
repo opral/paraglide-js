@@ -17,6 +17,8 @@ import {
 import { compileProject, getFallbackMap } from "./compile-project.js";
 import virtual from "@rollup/plugin-virtual";
 import { rolldown } from "rolldown";
+import { minify, transformWithOxc } from "vite";
+import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 
 beforeEach(() => {
 	// reset the imports to make sure that the runtime is reloaded
@@ -104,6 +106,38 @@ test("emits messages/package.json with sideEffects:false for message-modules", a
 
 	// scoped to message-modules (the structure with the re-export barrel)
 	expect(localeModules).not.toHaveProperty("messages/package.json");
+});
+
+test("Oxc specializes a bundled message to one locale", async () => {
+	const expression = perLocaleBuildStaticLocaleExpression;
+	const output = await compileProject({
+		project,
+		compilerOptions: {
+			experimentalStaticLocale: expression,
+		},
+	});
+	const bundled = await bundleCode(
+		output,
+		`import { sad_penguin_bundle } from "./paraglide/messages.js";
+		console.log(sad_penguin_bundle());`
+	);
+	const transformed = await transformWithOxc(bundled, "message-chunk.js", {
+		lang: "js",
+		sourceType: "module",
+		define: {
+			"globalThis.__PARAGLIDE_STATIC_LOCALE__": JSON.stringify("de"),
+		},
+		sourcemap: false,
+	});
+	const specialized = await minify("message-chunk.js", transformed.code, {
+		module: true,
+		compress: true,
+		mangle: true,
+	});
+
+	expect(specialized.errors).toEqual([]);
+	expect(specialized.code).toContain("Eine einfache Nachricht.");
+	expect(specialized.code).not.toContain("A simple message.");
 });
 
 test("emitPrettierIgnore", async () => {

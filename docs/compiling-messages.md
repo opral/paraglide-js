@@ -76,6 +76,63 @@ export default defineConfig({
 });
 ```
 
+#### Experimental per-locale builds
+
+On Vite 8.x, TanStack Start and SvelteKit can emit a separate client asset graph
+for every project locale. Paraglide detects the framework, reads the locale
+list automatically, and specializes the compiled message functions at build
+time, so each graph contains only one locale's translations.
+
+```ts
+paraglideVitePlugin({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	experimentalPerLocaleBuild: true,
+});
+```
+
+TanStack Start must use the generated server entry:
+
+```ts
+// src/server.ts
+export { default } from "./paraglide/tanstack-start.server.js";
+```
+
+SvelteKit keeps using its normal `paraglideMiddleware` server hook. Paraglide
+integrates with SvelteKit's renderer automatically, including SSR, prerendered
+HTML, preload headers, and client bootstrap imports.
+
+The base locale keeps the canonical asset URLs. TanStack Start locale trees
+are emitted under `/__paraglide/<locale-id>/`; SvelteKit locale trees stay
+inside its immutable cache directory at
+`/_app/immutable/__paraglide/<locale-id>/`.
+The emitted `paraglide-per-locale.json` indexes the locale prefixes and asset
+mappings.
+
+Locale switching must use full navigation (the default behavior of
+`setLocale()`), because a hydrated page cannot mix two specialized graphs. In
+SvelteKit, add `data-sveltekit-reload` to links which can change locale. If a
+client message call supplies a different `options.locale`, Paraglide warns and
+uses the locale already selected for that client graph.
+
+The experiment intentionally supports a narrow, fail-fast configuration:
+
+- Vite 8.x and a tested framework version: TanStack Start 1.168.x or SvelteKit
+  2.69.x.
+- A global locale strategy whose first entry is `url` or `cookie`, without
+  `routeStrategies`.
+- Root/default asset hosting. Do not configure Vite `base`, source maps,
+  `build.minify: false`, or `experimental.renderBuiltUrl`.
+- TanStack Start must use the generated server entry shown above.
+- SvelteKit must use the default `_app`, empty `kit.paths.base` and
+  `kit.paths.assets`, `bundleStrategy: "split"`, and client router resolution.
+  Service workers and SPA fallback pages are not supported; use SSR or
+  prerender every localized page.
+
+Paraglide rejects unsupported combinations during configuration or build. It
+performs the required final Oxc minification itself and does not emit client
+source maps.
+
 ### Webpack
 
 ```js
@@ -164,11 +221,11 @@ paraglide/
 
 **Key files:**
 
-| File | Purpose |
-|------|---------|
+| File          | Purpose                                                                  |
+| ------------- | ------------------------------------------------------------------------ |
 | `messages.js` | Import message functions: `import * as m from "./paraglide/messages.js"` |
-| `runtime.js` | Locale utilities: `getLocale()`, `setLocale()`, `locales`, `baseLocale` |
-| `server.js` | Server middleware: `paraglideMiddleware()` |
+| `runtime.js`  | Locale utilities: `getLocale()`, `setLocale()`, `locales`, `baseLocale`  |
+| `server.js`   | Server middleware: `paraglideMiddleware()`                               |
 
 The `outputStructure` option controls how messages are organized. See [Compiler Options](./compiler-options) for details.
 

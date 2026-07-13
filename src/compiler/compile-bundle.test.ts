@@ -2,6 +2,7 @@ import { test, expect } from "vitest";
 import { compileBundle, toBundleInputTypeAliasName } from "./compile-bundle.js";
 import type { BundleNested, ProjectSettings } from "@inlang/sdk";
 import { toSafeModuleId } from "./safe-module-id.js";
+import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 
 test("compiles to jsdoc", async () => {
 	const mockBundle: BundleNested = {
@@ -74,7 +75,9 @@ test("emits middleware locale splitting hooks when enabled", () => {
 				bundleId: "blue_moon_bottle",
 				locale: "en",
 				selectors: [],
-				variants: [{ id: "1", messageId: "message-id", matches: [], pattern: [] }],
+				variants: [
+					{ id: "1", messageId: "message-id", matches: [], pattern: [] },
+				],
 			},
 		],
 	};
@@ -93,8 +96,65 @@ test("emits middleware locale splitting hooks when enabled", () => {
 	expect(result.bundle.code).toContain(
 		"if (experimentalMiddlewareLocaleSplitting && isServer === false)"
 	);
-	expect(result.bundle.code).toContain("trackMessageCall(\"blue_moon_bottle\", locale)");
-	expect(result.bundle.code).toContain("globalThis).__paraglide.ssr.blue_moon_bottle(inputs)");
+	expect(result.bundle.code).toContain(
+		'trackMessageCall("blue_moon_bottle", locale)'
+	);
+	expect(result.bundle.code).toContain(
+		"globalThis).__paraglide.ssr.blue_moon_bottle(inputs)"
+	);
+});
+
+test("emits the per-locale build marker inside the message function", () => {
+	const mockBundle: BundleNested = {
+		id: "greeting",
+		declarations: [],
+		messages: [
+			{
+				id: "greeting-en",
+				bundleId: "greeting",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "greeting-en-variant",
+						messageId: "greeting-en",
+						matches: [],
+						pattern: [{ type: "text", value: "hello" }],
+					},
+				],
+			},
+			{
+				id: "greeting-de",
+				bundleId: "greeting",
+				locale: "de",
+				selectors: [],
+				variants: [
+					{
+						id: "greeting-de-variant",
+						messageId: "greeting-de",
+						matches: [],
+						pattern: [{ type: "text", value: "hallo" }],
+					},
+				],
+			},
+		],
+	};
+	const expression = perLocaleBuildStaticLocaleExpression;
+	const result = compileBundle({
+		bundle: mockBundle,
+		fallbackMap: { en: undefined, de: "en" },
+		messageReferenceExpression: (locale) => `${locale}_greeting`,
+		settings: { locales: ["en", "de"] } as ProjectSettings,
+		experimentalStaticLocale: expression,
+	});
+
+	expect(result.bundle.code).toContain(
+		`const locale = ${expression} ?? options.locale ?? getLocale()`
+	);
+	expect(result.bundle.code).toContain(
+		`if (${expression} !== undefined && options.locale !== undefined && options.locale !== ${expression}) console.warn(`
+	);
+	expect(result.bundle.code).toContain("full document navigation");
 });
 
 test("compiles to jsdoc with missing translation", async () => {
@@ -255,9 +315,7 @@ test("handles message pattern with duplicate variable references", async () => {
 	});
 
 	// The JSDoc should not have duplicate parameters
-	expect(result.bundle.code).toContain(
-		"@param {Date_Last_DaysInputs} inputs"
-	);
+	expect(result.bundle.code).toContain("@param {Date_Last_DaysInputs} inputs");
 	expect(result.bundle.code).not.toContain(
 		"days: NonNullable<unknown>, days: NonNullable<unknown>"
 	);
@@ -286,13 +344,23 @@ test("adds .parts() to bundle functions when markup exists", async () => {
 						messageId: "notice-id",
 						matches: [],
 						pattern: [
-							{ type: "markup-start", name: "strong", options: [], attributes: [] },
+							{
+								type: "markup-start",
+								name: "strong",
+								options: [],
+								attributes: [],
+							},
 							{
 								type: "expression",
 								arg: { type: "variable-reference", name: "count" },
 							},
 							{ type: "text", value: " items" },
-							{ type: "markup-end", name: "strong", options: [], attributes: [] },
+							{
+								type: "markup-end",
+								name: "strong",
+								options: [],
+								attributes: [],
+							},
 						],
 					},
 				],

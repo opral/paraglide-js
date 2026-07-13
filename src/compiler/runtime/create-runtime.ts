@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import type { CompilerOptions } from "../compiler-options.js";
+import { perLocaleBuildStaticLocaleExpression } from "../per-locale-build.js";
 
 /**
  * Returns the code for the `runtime.js` module
@@ -132,7 +133,12 @@ ${injectCode("./variables.js")
 	.replace(
 		`export const experimentalStaticLocale = undefined;`,
 		args.compilerOptions.experimentalStaticLocale
-			? `export const experimentalStaticLocale = assertIsLocale(${args.compilerOptions.experimentalStaticLocale});`
+			? `export const experimentalStaticLocale = ${
+					args.compilerOptions.experimentalStaticLocale ===
+					perLocaleBuildStaticLocaleExpression
+						? args.compilerOptions.experimentalStaticLocale
+						: `assertIsLocale(${args.compilerOptions.experimentalStaticLocale})`
+				};`
 			: `export const experimentalStaticLocale = undefined;`
 	)
 	.replace(
