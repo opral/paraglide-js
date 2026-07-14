@@ -39,11 +39,11 @@ describe("per-locale build paths", () => {
 });
 
 describe("TanStack Start request locale propagation", () => {
-	test("uses a same-origin Referer for a non-document request", () => {
+	test("uses a same-origin Referer for a TanStack server-function request", () => {
 		const request = new Request("https://example.com/_serverFn/example", {
 			headers: {
 				Referer: "https://example.com/de/produkte?from=server-fn",
-				"Sec-Fetch-Dest": "empty",
+				"x-tsr-serverFn": "true",
 			},
 		});
 		expect(getTanStackStartEffectiveRequestUrl(request).href).toBe(
@@ -51,12 +51,9 @@ describe("TanStack Start request locale propagation", () => {
 		);
 	});
 
-	test("never replaces a document URL with its Referer", () => {
+	test("does not use Referer for an unmarked navigation without Fetch Metadata", () => {
 		const request = new Request("https://example.com/en/products", {
-			headers: {
-				Referer: "https://example.com/de/produkte",
-				"Sec-Fetch-Dest": "document",
-			},
+			headers: { Referer: "https://example.com/de/produkte" },
 		});
 		expect(getTanStackStartEffectiveRequestUrl(request).href).toBe(request.url);
 	});
@@ -66,7 +63,7 @@ describe("TanStack Start request locale propagation", () => {
 		["an invalid Referer", "not a url"],
 	])("ignores %s", (_label, referer) => {
 		const request = new Request("https://example.com/_serverFn/example", {
-			headers: { Referer: referer, "Sec-Fetch-Dest": "empty" },
+			headers: { Referer: referer, "x-tsr-serverFn": "true" },
 		});
 		expect(getTanStackStartEffectiveRequestUrl(request).href).toBe(request.url);
 	});

@@ -20,7 +20,7 @@ export function prefixPerLocaleAssetUrl(url: string, prefix: string): string {
 
 export function getTanStackStartEffectiveRequestUrl(request: Request): URL {
 	const requestUrl = new URL(request.url);
-	if (request.headers.get("Sec-Fetch-Dest") === "document") return requestUrl;
+	if (request.headers.get("x-tsr-serverFn") !== "true") return requestUrl;
 	const referer = request.headers.get("Referer");
 	if (referer === null) return requestUrl;
 	try {
