@@ -16,6 +16,8 @@ import {
 import { isValidIdentifier, quotePropertyKey } from "./variable-access.js";
 import { toSafeModuleId } from "./safe-module-id.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
+import type { CompilerOptions } from "./compiler-options.js";
+import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 
 export type CompiledBundleWithMessages = {
 	/** The compilation result for the bundle index */
@@ -39,6 +41,7 @@ export const compileBundle = (args: {
 	messageReferenceExpression: (locale: string, bundleId: string) => string;
 	settings?: ProjectSettings;
 	experimentalMiddlewareLocaleSplitting?: boolean;
+	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 }): CompiledBundleWithMessages => {
 	const compiledMessages: Record<string, Compiled<Message>> = {};
 	const safeBundleId = toSafeModuleId(args.bundle.id);
@@ -73,6 +76,7 @@ export const compileBundle = (args: {
 			hasMarkup,
 			experimentalMiddlewareLocaleSplitting:
 				args.experimentalMiddlewareLocaleSplitting ?? false,
+			experimentalStaticLocale: args.experimentalStaticLocale,
 			inputTypeAliasName,
 		}),
 		messages: compiledMessages,
@@ -110,6 +114,11 @@ const compileBundleFunction = (args: {
 	 * Whether middleware locale splitting runtime hooks should be emitted.
 	 */
 	experimentalMiddlewareLocaleSplitting: boolean;
+	/**
+	 * Static locale expression emitted inside the message function so a
+	 * chunk-local minifier can specialize its locale branches.
+	 */
+	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 	/**
 	 * Shared typedef name for bundle input types used across emitted JSDoc.
 	 */
@@ -197,16 +206,25 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 		return `\n${indent}trackMessageCall("${safeBundleId}", locale)`;
 	};
 
+	const perLocaleBuild =
+		args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression;
 	const localeResolutionStatement = (indent: string): string => {
+		const localeExpression = perLocaleBuild
+			? `${perLocaleBuildStaticLocaleExpression} ?? options.locale ?? getLocale()`
+			: "experimentalStaticLocale ?? options.locale ?? getLocale()";
+		const overrideWarning = perLocaleBuild
+			? `\n${indent}if (${perLocaleBuildStaticLocaleExpression} !== undefined && options.locale !== undefined && options.locale !== ${perLocaleBuildStaticLocaleExpression}) console.warn("Paraglide: options.locale cannot override a locale-specialized client bundle; use a full document navigation to switch locales.")`
+			: "";
+
 		if (
 			isFullyTranslated &&
 			args.availableLocales.length === 1 &&
 			!args.experimentalMiddlewareLocaleSplitting
 		) {
-			return `${indent}experimentalStaticLocale ?? options.locale ?? getLocale()`;
+			return `${indent}${localeExpression}${overrideWarning}`;
 		}
 
-		return `${indent}const locale = experimentalStaticLocale ?? options.locale ?? getLocale()${maybeTrackMessageCall(
+		return `${indent}const locale = ${localeExpression}${overrideWarning}${maybeTrackMessageCall(
 			indent
 		)}`;
 	};

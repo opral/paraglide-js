@@ -11,5 +11,5 @@
 
 <br />
 <br />
-<a href={resolve(localizeHref('/about', { locale: 'en' }))}>go to about in en</a>
-<a href={resolve(localizeHref('/about', { locale: 'de' }))}>go to about in de</a>
+<a href={resolve(localizeHref('/about', { locale: 'en' }) as '/about')} data-sveltekit-reload>go to about in en</a>
+<a href={resolve(localizeHref('/about', { locale: 'de' }) as '/about')} data-sveltekit-reload>go to about in de</a>

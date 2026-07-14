@@ -3,14 +3,12 @@ import { defineConfig } from 'vite';
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
 
 export default defineConfig({
-	build: {
-		minify: false
-	},
 	plugins: [
 		sveltekit(),
 		paraglideVitePlugin({
 			project: './project.inlang',
 			outdir: './src/lib/paraglide',
+			experimentalPerLocaleBuild: true,
 			strategy: ['url', 'cookie', 'baseLocale']
 		})
 	]

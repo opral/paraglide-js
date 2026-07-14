@@ -337,6 +337,40 @@ test("should not reload when setting locale to current locale", async () => {
 	expect(globalThis.window.location.reload).toBeCalled();
 });
 
+test("static locale builds force a document reload when switching locales", async () => {
+	// @ts-expect-error - browser shim for tests
+	globalThis.document = { cookie: "" };
+	globalThis.window = {
+		location: {
+			href: "https://example.com/en",
+			hostname: "example.com",
+			reload: vi.fn(),
+		},
+	} as any;
+	const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+
+	try {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: {
+					baseLocale: "en",
+					locales: ["en", "de"],
+				},
+			}),
+			strategy: ["cookie"],
+			isServer: "false",
+			experimentalStaticLocale: JSON.stringify("en"),
+		});
+
+		runtime.setLocale("de", { reload: false });
+
+		expect(warn).toHaveBeenCalledOnce();
+		expect(globalThis.window.location.reload).toHaveBeenCalledOnce();
+	} finally {
+		warn.mockRestore();
+	}
+});
+
 test("sets the locale to localStorage", async () => {
 	// @ts-expect-error - global variable definition
 	globalThis.localStorage = {

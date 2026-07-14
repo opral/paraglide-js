@@ -117,8 +117,12 @@ test("emits minimal runtime imports when middleware splitting is disabled", () =
 	expect(output["messages/happy_elephant.js"]).toContain(
 		"import { getLocale, experimentalStaticLocale } from '../runtime.js';"
 	);
-	expect(output["messages/happy_elephant.js"]).not.toContain("trackMessageCall");
-	expect(output["messages/happy_elephant.js"]).not.toContain("experimentalMiddlewareLocaleSplitting");
+	expect(output["messages/happy_elephant.js"]).not.toContain(
+		"trackMessageCall"
+	);
+	expect(output["messages/happy_elephant.js"]).not.toContain(
+		"experimentalMiddlewareLocaleSplitting"
+	);
 	expect(output["messages/happy_elephant.js"]).not.toContain("isServer");
 });
 

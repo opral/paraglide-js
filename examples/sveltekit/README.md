@@ -47,6 +47,7 @@ export default defineConfig({
 +		paraglideVitePlugin({
 +			project: './project.inlang',
 +			outdir: './src/lib/paraglide',
++			experimentalPerLocaleBuild: true,
 +			strategy: ['url', 'cookie', 'baseLocale'],
 +		})
 	]
@@ -88,6 +89,22 @@ const paraglideHandle: Handle = ({ event, resolve }) =>
 export const handle: Handle = paraglideHandle;
 ```
 
+With `experimentalPerLocaleBuild: true`, this same hook also gives SvelteKit's
+renderer the request-local locale used to select the client asset graph. No
+additional SvelteKit adapter option is needed. The feature requires Vite 8 and
+is currently tested with SvelteKit 2.69.x. The base locale keeps the normal
+`_app/immutable` URLs; other locales are emitted below
+`_app/immutable/__paraglide/<locale-id>/` so SvelteKit adapters retain their
+immutable caching behavior.
+
+The experiment intentionally supports SvelteKit's default asset and router
+layout: Vite 8.x, `kit.appDir: "_app"`, empty `kit.paths.base` and
+`kit.paths.assets`, `kit.output.bundleStrategy: "split"`, and
+`kit.router.resolution: "client"`. The global locale strategy must start with
+`url` or `cookie`; `routeStrategies`, service workers, Vite `base`, source
+maps, and `build.minify: false` are rejected. Unsupported combinations fail
+during configuration or build.
+
 #### Add a reroute hook in `src/hooks.ts`
 
 IMPORTANT: The `reroute()` function must be exported from the `src/hooks.ts` file, not `src/hooks.server.ts`.
@@ -128,6 +145,11 @@ Enable [pre-rendering](https://svelte.dev/docs/kit/page-options#prerender) by ad
 
 Then add a locale switcher in `routes/+layout.svelte` to generate all pages during build time. SvelteKit crawls anchor tags during the build and is, thereby, able to generate all pages statically. If you already have a visible locale switcher that links to every locale variant, nothing extra is required. Add `data-sveltekit-reload` (see [paraglide-js#472](https://github.com/opral/paraglide-js/issues/472)) so locale switches trigger a full reload and the new locale is applied.
 
+Full reloads are required by `experimentalPerLocaleBuild`: client-side
+navigation must not mix one locale's hydrated graph with another locale's
+messages. Add `data-sveltekit-reload` to every link that can cross locales;
+`setLocale()` already reloads by default.
+
 ```diff
 <script>
 	import { page } from '$app/state';
@@ -146,7 +168,11 @@ Then add a locale switcher in `routes/+layout.svelte` to generate all pages duri
 <slot></slot>
 ```
 
-If you use the static adapter with `ssr = false` (SPA mode), make asset paths absolute to avoid locale-prefixed 404s (see [paraglide-js#503](https://github.com/opral/paraglide-js/issues/503)):
+`experimentalPerLocaleBuild` does not support the static adapter's SPA fallback
+mode (`ssr = false` with a fallback page): one fallback document cannot select
+a locale-specific client graph. Use SSR or prerender every localized page. If
+you disable `experimentalPerLocaleBuild` and use SPA mode, make asset paths
+absolute to avoid locale-prefixed 404s (see [paraglide-js#503](https://github.com/opral/paraglide-js/issues/503)):
 
 ```diff
 // svelte.config.js
@@ -165,6 +191,9 @@ const config = {
 
 export default config;
 ```
+
+Non-default bundle strategies and SvelteKit service workers are not compatible
+with this experiment.
 
 ## Troubleshooting
 

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { locales, localizeHref } from '$lib/paraglide/runtime';
@@ -6,7 +6,10 @@
 
 <nav class="locale-switcher" aria-label="Languages">
 	{#each locales as locale}
-		<a href={resolve(localizeHref(page.url.pathname, { locale }))} data-sveltekit-reload>
+		<a
+			href={resolve(localizeHref(page.url.pathname, { locale }) as '/' | '/about')}
+			data-sveltekit-reload
+		>
 			{locale}
 		</a>
 	{/each}
