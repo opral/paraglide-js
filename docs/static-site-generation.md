@@ -188,6 +188,7 @@ export default defineConfig({
       paraglideVitePlugin({
         project: "./project.inlang",
         outdir: "./src/paraglide",
+        emitTsDeclarations: true,
         strategy: ["url", "globalVariable", "baseLocale"],
       }),
     ],
@@ -253,6 +254,7 @@ SSG typically requires all locales to have a URL prefix so each locale generates
 compile({
   project: "./project.inlang",
   outdir: "./src/paraglide",
+  emitTsDeclarations: true,
   strategy: ["url", "globalVariable", "baseLocale"],
   urlPatterns: [
     {

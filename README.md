@@ -114,10 +114,16 @@ import { paraglideVitePlugin } from "@inlang/paraglide-js";
 export default defineConfig({
   plugins: [
     react(),
-    paraglideVitePlugin({ project: "./project.inlang", outdir: "./src/paraglide" }),
+    paraglideVitePlugin({
+      project: "./project.inlang",
+      outdir: "./src/paraglide",
+      emitTsDeclarations: true,
+    }),
   ],
 });
 ```
+
+`emitTsDeclarations` requires TypeScript 5.6 or newer and keeps editor types in sync when message files change. Set it to `false` to use the faster JavaScript/JSDoc inference path instead.
 
 The `Greeting` component shown above is all the app code you need. `setLocale()` reloads the page by default so every message re-renders — a deliberate design choice: a user switches language once, so a reload keeps things simple and avoids framework-specific state/scroll-preservation logic (the same approach YouTube and others take). Pass `setLocale("de", { reload: false })` to drive re-rendering yourself.
 

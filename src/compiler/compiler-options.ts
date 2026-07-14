@@ -271,7 +271,8 @@ export type CompilerOptions = {
 	 * Emit `.d.ts` files for the generated output using the TypeScript compiler.
 	 *
 	 * Useful when `allowJs: true` cannot be set in your `tsconfig.json`
-	 * (e.g., due to project constraints or conflicting compiler options).
+	 * (e.g., due to project constraints or conflicting compiler options), or when
+	 * an editor language server caches stale JSDoc types for generated messages.
 	 *
 	 * Requires `typescript` to be resolvable in your toolchain.
 	 *
