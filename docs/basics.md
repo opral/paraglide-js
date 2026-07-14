@@ -119,21 +119,21 @@ Add locales in `project.inlang/settings.json`:
 
 ### Message keys
 
-Paraglide supports nested keys through bracket notation but recommends flat keys:
+Paraglide supports nested keys through bracket notation but recommends flat keys. For new messages, prefer stable random human-readable keys:
 
-Flat keys (recommended):
+Flat random key (recommended):
 
 ```json
 {
-  "user_profile_title": "User Profile"
+  "calm_green_otter": "User Profile"
 }
 ```
 
 ```js
-m.user_profile_title();
+m.calm_green_otter();
 ```
 
-Nested keys:
+Existing nested keys are also supported:
 
 ```json
 {
@@ -145,7 +145,7 @@ Nested keys:
 m["user.profile.title"]();
 ```
 
-See [message keys](./message-keys) for best practices.
+See [message keys](./message-keys) for the key-naming rationale and structure options.
 
 ### Dynamic messages
 

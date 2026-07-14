@@ -1,0 +1,84 @@
+<svg width="900" height="260" viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 600; fill: #64748b; letter-spacing: 0.1em; text-transform: uppercase; }
+    .key { font-family: ui-monospace, 'SF Mono', monospace; font-size: 16px; font-weight: 600; fill: #1e293b; }
+    .key-broken { font-family: ui-monospace, 'SF Mono', monospace; font-size: 16px; font-weight: 600; fill: #991b1b; }
+    .tree { font-family: ui-monospace, 'SF Mono', monospace; font-size: 14px; fill: #94a3b8; }
+    .tree-broken { font-family: ui-monospace, 'SF Mono', monospace; font-size: 14px; fill: #fca5a5; }
+    .label { font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; fill: #64748b; }
+    .value { font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; fill: #059669; }
+    .value-missing { font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; fill: #dc2626; }
+    .check { fill: #059669; font-family: system-ui, sans-serif; font-size: 14px; }
+    .cross { fill: #dc2626; font-family: system-ui, sans-serif; font-size: 14px; }
+    .rename-label { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 500; fill: #475569; }
+  </style>
+
+  <!-- Before title -->
+  <text x="170" y="24" text-anchor="middle" class="title">Before</text>
+
+  <!-- After title -->
+  <text x="730" y="24" text-anchor="middle" class="title">After</text>
+
+  <!-- Before key box -->
+  <rect x="50" y="40" width="240" height="44" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="170" y="68" text-anchor="middle" class="key">"login-button-label"</text>
+
+  <!-- Rename arrow at top -->
+  <text x="460" y="58" text-anchor="middle" class="rename-label">rename</text>
+  <path d="M300 62 L425 62" stroke="#cbd5e1" stroke-width="2"/>
+  <path d="M495 62 L610 62" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#cbd5e1"/>
+    </marker>
+  </defs>
+
+  <!-- After key box -->
+  <rect x="610" y="40" width="260" height="44" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+  <text x="740" y="68" text-anchor="middle" class="key-broken">"signup-button-label"</text>
+
+  <!-- Before tree -->
+  <text x="70" y="115" class="tree">│</text>
+  <text x="70" y="145" class="tree">├──</text>
+  <text x="115" y="145" class="label">EN</text>
+  <text x="155" y="145" class="value">"Log in"</text>
+  <text x="240" y="145" class="check">✓</text>
+
+  <text x="70" y="175" class="tree">├──</text>
+  <text x="115" y="175" class="label">DE</text>
+  <text x="155" y="175" class="value">"Anmelden"</text>
+  <text x="270" y="175" class="check">✓</text>
+
+  <text x="70" y="205" class="tree">├──</text>
+  <text x="115" y="205" class="label">FR</text>
+  <text x="155" y="205" class="value">"Connexion"</text>
+  <text x="275" y="205" class="check">✓</text>
+
+  <text x="70" y="235" class="tree">└──</text>
+  <text x="115" y="235" class="label">ES</text>
+  <text x="155" y="235" class="value">"Iniciar sesión"</text>
+  <text x="305" y="235" class="check">✓</text>
+
+  <!-- After tree -->
+  <text x="630" y="115" class="tree-broken">│</text>
+  <text x="630" y="145" class="tree-broken">├──</text>
+  <text x="675" y="145" class="label">EN</text>
+  <text x="715" y="145" class="value-missing">???</text>
+  <text x="755" y="145" class="cross">✗</text>
+
+  <text x="630" y="175" class="tree-broken">├──</text>
+  <text x="675" y="175" class="label">DE</text>
+  <text x="715" y="175" class="value-missing">???</text>
+  <text x="755" y="175" class="cross">✗</text>
+
+  <text x="630" y="205" class="tree-broken">├──</text>
+  <text x="675" y="205" class="label">FR</text>
+  <text x="715" y="205" class="value-missing">???</text>
+  <text x="755" y="205" class="cross">✗</text>
+
+  <text x="630" y="235" class="tree-broken">└──</text>
+  <text x="675" y="235" class="label">ES</text>
+  <text x="715" y="235" class="value-missing">???</text>
+  <text x="755" y="235" class="cross">✗</text>
+</svg>
