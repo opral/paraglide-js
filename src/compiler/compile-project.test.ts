@@ -319,9 +319,10 @@ test("emitTsDeclarations generates declaration files", async () => {
 	tsProject.createSourceFile(
 		"test.ts",
 		`
-			import { relative_time_dynamic } from "./messages.js";
+			import { m, relative_time_dynamic } from "./messages.js";
 			import { relativetime } from "./registry.js";
 
+			m.sad_penguin_bundle() satisfies string;
 			relative_time_dynamic({ duration: -3, unit: "hour" }) satisfies string;
 			relativetime("en", -3, { unit: "hour", style: "short" }) satisfies string;
 		`
@@ -333,6 +334,13 @@ test("emitTsDeclarations generates declaration files", async () => {
 		console.error(diagnostic.messageText, diagnostic.file?.fileName);
 	}
 	expect(diagnostics.length).toEqual(0);
+});
+
+test("emitTsDeclarations remains opt-in", async () => {
+	const output = await compileProject({ project });
+	expect(
+		Object.keys(output).some((fileName) => fileName.endsWith(".d.ts"))
+	).toBe(false);
 });
 
 test("emitTsDeclarations quotes unsafe export aliases", async () => {

@@ -47,12 +47,15 @@ export default defineConfig({
 +		paraglideVitePlugin({
 +			project: './project.inlang',
 +			outdir: './src/lib/paraglide',
++			emitTsDeclarations: true,
 +			experimentalPerLocaleBuild: true,
 +			strategy: ['url', 'cookie', 'baseLocale'],
 +		})
 	]
 });
 ```
+
+`emitTsDeclarations` keeps the Svelte and TypeScript language servers in sync when you add or rename message keys while the dev server is running.
 
 #### Add `%lang%` and `%dir%` to `src/app.html`.
 

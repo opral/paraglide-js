@@ -21,16 +21,18 @@ For all available options, see the [Compiler Options Reference](./compiler-optio
 > [!TIP]
 > For a complete setup guide using CLI compilation with Express, Hono, Fastify, or Elysia, see [Standalone Servers](./standalone-servers). For monorepo setups, see [Monorepo Setup](./monorepo).
 
+The recommended commands below emit `.d.ts` files for reliable editor updates and require TypeScript 5.6 or newer. Omit `--emit-ts-declarations` to use JavaScript/JSDoc inference instead.
+
 To compile your messages via the CLI, run the following command:
 
 ```bash
-npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/paraglide
+npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations
 ```
 
 To watch files and recompile on change, add the `--watch` flag:
 
 ```bash
-npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --watch
+npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations --watch
 ```
 
 Use `--help` to see all available options:
@@ -71,6 +73,7 @@ export default defineConfig({
 		paraglideVitePlugin({
 			project: "./project.inlang",
 			outdir: "./src/paraglide",
+			emitTsDeclarations: true,
 		}),
 	],
 });
@@ -144,6 +147,7 @@ module.exports = {
 		paraglideWebpackPlugin({
 			project: "./project.inlang",
 			outdir: "./src/paraglide",
+			emitTsDeclarations: true,
 		}),
 	],
 };
@@ -160,6 +164,7 @@ export default {
 		paraglideRollupPlugin({
 			project: "./project.inlang",
 			outdir: "./src/paraglide",
+			emitTsDeclarations: true,
 		}),
 	],
 };
@@ -167,7 +172,9 @@ export default {
 
 ## TypeScript Configuration
 
-Paraglide compiles to JavaScript with JSDoc type annotations, providing full type safety without a separate build step. To enable TypeScript support for JSDoc types, add `allowJs` to your `tsconfig.json`:
+Paraglide compiles to JavaScript with JSDoc type annotations. The recommended configurations above also emit `.d.ts` files so editors reliably refresh message keys when generated files change. Declaration emission requires TypeScript 5.6 or newer.
+
+If you disable declaration emission for faster compilation, enable TypeScript support for the generated JSDoc types with `allowJs` in your `tsconfig.json`:
 
 ```json
 {
@@ -179,10 +186,10 @@ Paraglide compiles to JavaScript with JSDoc type annotations, providing full typ
 
 ### Emitting `.d.ts` declarations
 
-If your project doesn't support `allowJs` (e.g., publishing a library), you can emit TypeScript declaration files instead:
+Emit TypeScript declaration files when your project doesn't support `allowJs` (e.g., publishing a library), or when your editor reports newly added message functions as missing until its language server restarts:
 
 ```bash
-npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emitTsDeclarations
+npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations
 ```
 
 Or via bundler plugin / programmatic API:
@@ -196,7 +203,7 @@ paraglideVitePlugin({
 ```
 
 > [!NOTE]
-> Emitting declarations requires the `typescript` package and is slower than JSDoc-based types. Use `allowJs: true` when possible for faster compilation.
+> Emitting declarations requires TypeScript 5.6 or newer and is slower than JSDoc-based types. The framework setup examples enable it for reliable language-server updates. Set `emitTsDeclarations: false` (or use `--no-emit-ts-declarations`) and `allowJs: true` when faster compilation matters more in your project.
 
 > [!NOTE]
 > With TypeScript 5 and 6, declarations are generated with the in-process compiler API. TypeScript 7+ no longer provides that API, so Paraglide invokes its `tsc` CLI in a child process instead. The output is semantically equivalent, but differs cosmetically between the two (quote style, declaration ordering, `export declare const` vs `export const`) — expect `.d.ts` churn when switching TypeScript majors.
@@ -239,6 +246,7 @@ import { compile } from "@inlang/paraglide-js";
 await compile({
 	project: "./project.inlang",
 	outdir: "./src/paraglide",
+	emitTsDeclarations: true,
 });
 ```
 

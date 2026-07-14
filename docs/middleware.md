@@ -294,6 +294,7 @@ Request A (locale: de) ───────────────────
 paraglideVitePlugin({
 	project: "./project.inlang",
 	outdir: "./src/paraglide",
+	emitTsDeclarations: true,
 	disableAsyncLocalStorage: true, // Compatibility fallback
 });
 ```
@@ -373,6 +374,7 @@ Ensure AsyncLocalStorage is enabled (the default):
 paraglideVitePlugin({
 	project: "./project.inlang",
 	outdir: "./src/paraglide",
+	emitTsDeclarations: true,
 	// Don't set this to true unless your runtime lacks AsyncLocalStorage
 	// and guarantees per-request isolation
 	// disableAsyncLocalStorage: true,
@@ -449,6 +451,7 @@ defineCustomServerStrategy("custom-database", {
 paraglideVitePlugin({
 	project: "./project.inlang",
 	outdir: "./src/paraglide",
+	emitTsDeclarations: true,
 	strategy: ["custom-header", "url", "cookie", "baseLocale"],
 });
 ```

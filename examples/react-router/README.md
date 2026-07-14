@@ -36,6 +36,7 @@ export default defineConfig({
 +		paraglideVitePlugin({
 +			project: "./project.inlang",
 +			outdir: "./app/paraglide",
++			emitTsDeclarations: true,
 +		}),
 	],
 });
@@ -141,6 +142,7 @@ Keep the corresponding Paraglide `urlPatterns` so helpers like
 paraglideVitePlugin({
 	project: "./project.inlang",
 	outdir: "./app/paraglide",
+	emitTsDeclarations: true,
 	strategy: ["url", "baseLocale"],
 	urlPatterns: [
 		{
