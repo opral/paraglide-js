@@ -68,7 +68,7 @@ export function extractLocaleFromUrl(url) {
  * @returns {Locale | undefined} The extracted locale, or undefined if no locale is found.
  */
 function defaultUrlPatternExtractLocale(url) {
-	const urlObj = new URL(url, "http://dummy.com");
+	const urlObj = new URL(url, "http://example.com");
 	const pathSegments = urlObj.pathname.split("/").filter(Boolean);
 	return toLocale(pathSegments[0]) || baseLocale;
 }

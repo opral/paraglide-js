@@ -228,7 +228,7 @@ Defined in: [runtime/variables.js:132](https://github.com/opral/paraglide-js/tre
 
 > **SetLocaleFn**\<\> = (`newLocale`, `options?`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [runtime/set-locale.js:34](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
+Defined in: [runtime/set-locale.js:36](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
 
 ### Type Parameters
 
@@ -629,7 +629,7 @@ deLocalizeUrl(url); // => URL("https://example.com/store")
 
 > **extractLocaleFromCookie**(): `undefined` \| `string`
 
-Defined in: [runtime/extract-locale-from-cookie.js:12](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-cookie.js)
+Defined in: [runtime/extract-locale-from-cookie.js:36](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/extract-locale-from-cookie.js)
 
 Extracts a cookie from the document.
 
@@ -994,7 +994,7 @@ Defined in: [runtime/get-url-origin.js:12](https://github.com/opral/paraglide-js
 
 The origin of the current URL.
 
-Defaults to "http://y.com" in non-browser environments. If this
+Defaults to "http://example.com" in non-browser environments. If this
 behavior is not desired, the implementation can be overwritten
 by `overwriteGetUrlOrigin()`.
 
@@ -1288,7 +1288,7 @@ avoid a circular import between `runtime.js` and
 
 > **overwriteSetLocale**(`fn`): `void`
 
-Defined in: [runtime/set-locale.js:181](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
+Defined in: [runtime/set-locale.js:194](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
 
 Overwrite the `setLocale()` function.
 
@@ -1320,7 +1320,7 @@ overwriteSetLocale((newLocale) => {
 
 > **setLocale**(`newLocale`, `options?`): `void` \| `Promise`\<`void`\>
 
-Defined in: [runtime/set-locale.js:58](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
+Defined in: [runtime/set-locale.js:60](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
 
 Set the locale.
 
