@@ -74,7 +74,7 @@ function findMatchingRouteStrategy(url) {
 		return cachedRouteStrategy;
 	}
 
-	const urlObject = new URL(urlString, "http://dummy.com");
+	const urlObject = new URL(urlString, "http://example.com");
 	let match;
 	for (const routeStrategy of routeStrategies) {
 		const pattern = new URLPattern(routeStrategy.match, urlObject.href);
