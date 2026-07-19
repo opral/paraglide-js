@@ -126,7 +126,9 @@ export default defineConfig({
 
 `emitTsDeclarations` requires TypeScript 5.6 or newer and keeps editor types in sync when message files change. Set it to `false` to use the faster JavaScript/JSDoc inference path instead.
 
-The `Greeting` component shown above is all the app code you need. `setLocale()` reloads the page by default so every message re-renders — a deliberate design choice: a user switches language once, so a reload keeps things simple and avoids framework-specific state/scroll-preservation logic (the same approach YouTube and others take). Pass `setLocale("de", { reload: false })` to drive re-rendering yourself.
+The `Greeting` component shown above is all the app code you need. By default, `setLocale()` updates the selection through your configured strategies and performs a full document navigation: it navigates to the localized URL when URL routing is enabled, or reloads the current document otherwise. The new document renders the app and any document-level locale settings together, with no i18n provider or framework reactivity to wire up.
+
+For the deliberately narrow browser-only `setLocale(locale, { reload: false })` escape hatch, see [the warning in Basics](https://paraglidejs.com/basics#advanced-stay-on-the-current-document). It is for a fully client-rendered, non-URL surface that must preserve non-restorable in-memory work and transfers all reactive and document-state updates to the application.
 
 **[Full React + Vite example →](https://github.com/opral/paraglide-js/tree/main/examples/react)** · **[React Router (SSR) guide →](https://paraglidejs.com/react-router)**
 
@@ -221,7 +223,7 @@ m.greeting({ name: "Ada" });
 
 // Get/set locale
 getLocale(); // "en"
-setLocale("de"); // switches to German
+setLocale("de"); // loads the German document
 ```
 
 **[Full Getting Started Guide →](https://paraglidejs.com)**

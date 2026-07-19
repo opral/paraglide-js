@@ -204,17 +204,18 @@ Rules:
 
 Write your own cookie, http header, or i18n routing based locale strategy to integrate Paraglide into any framework or app.
 
-Only two APIs are needed to define this behaviour and adapt Paraglide JS to your requirements:
+Two override APIs are available to adapt Paraglide JS to your requirements:
 
 - `overwriteGetLocale` defines the `getLocale()` function that messages use to determine the locale
-- `overwriteSetLocale` defines the `setLocale()` function that apps call to change the locale
+- `overwriteSetLocale` replaces the `setLocale()` function that apps call to change the locale
 
 Because the client and server have separate Paraglide runtimes, you will need to define these behaviours separately on the client and server.
 
-The steps are usually the same, irrespective of the strategy and framework you use:
+Use `overwriteGetLocale()` to read the locale from a cookie, HTTP header, or i18n routing. On the client, keep the default `setLocale()` behavior whenever possible: it updates the configured strategies and then performs a full document navigation or reload.
 
-1. Use `overwriteGetLocale()` function that reads the locale from a cookie, HTTP header, or i18n routing.
-2. Handle any side effects of changing the locale and trigger a re-render in your application via `overwriteSetLocale()` (for many apps, this may only be required on the client side).
+If you need `overwriteSetLocale()` to persist a locale outside the configured strategies, make the client-side locale change a full document navigation after persisting it. Do not use an override to turn ordinary URL-routed or SSR locale changes into a reactive application re-render; document navigation keeps document-level state, server rendering, and client state in sync.
+
+The built-in `setLocale(locale, { reload: false })` option is a deliberately narrow escape hatch for a fully client-rendered surface whose active strategy does not include `url` and that owns its complete reactive shell. It is not a reason to recreate reactive locale switching with an override; see [the warning in Basics](./basics#advanced-stay-on-the-current-document).
 
 _Read the [architecture documentation](https://paraglidejs.com/architecture) to learn more about's Paraglide's inner workings._
 
