@@ -409,9 +409,11 @@ export const beforeLoad = async ({ location }) => {
 
 If you need to re-sync the URL after client-side navigations in SvelteKit, put `shouldRedirect()` in the root `+layout.svelte`. This only affects the client after hydration. The initial SSR document request is still handled by `paraglideMiddleware()`.
 
+Treat every resulting redirect as a document navigation, including same-origin URLs. Do not use SvelteKit's `goto()` for a locale-changing redirect: a full navigation ensures document-level state such as `<html lang>` and `dir`, server-rendered data, and client state all match the new locale.
+
 ```svelte
 <script lang="ts">
-	import { afterNavigate, goto } from "$app/navigation";
+	import { afterNavigate } from "$app/navigation";
 	import { onMount } from "svelte";
 	import { shouldRedirect } from "$lib/paraglide/runtime";
 
@@ -419,12 +421,7 @@ If you need to re-sync the URL after client-side navigations in SvelteKit, put `
 		const decision = await shouldRedirect({ url });
 
 		if (decision.shouldRedirect && decision.redirectUrl) {
-			if (decision.redirectUrl.origin !== window.location.origin) {
-				window.location.href = decision.redirectUrl.href;
-				return;
-			}
-
-			await goto(decision.redirectUrl, { invalidateAll: true });
+			window.location.href = decision.redirectUrl.href;
 		}
 	}
 
@@ -438,6 +435,7 @@ If you need to re-sync the URL after client-side navigations in SvelteKit, put `
 		}
 	});
 </script>
+```
 
 #### Server Behind a Proxy
 

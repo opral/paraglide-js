@@ -73,9 +73,9 @@ Paraglide generates the message functions, so keys and parameters are typed by d
 
 ## Locale switching in React
 
-react-i18next re-renders subscribed components via `useTranslation()` when you call `i18n.changeLanguage()`.
+react-i18next changes the language in the running React tree when you call `i18n.changeLanguage()`.
 
-Paraglide's `setLocale()` **reloads the page by default** so every message re-renders in the new locale — no provider or context to wire up. This is a deliberate design choice: a user switches language once, so a reload keeps the implementation simple and avoids framework-specific logic for preserving form state, scroll position, and the like (the same approach YouTube and other large sites take). If you'd rather drive re-rendering yourself, pass `setLocale("de", { reload: false })`. See [the basics](https://paraglidejs.com/basics).
+Paraglide treats a locale change as a **full document navigation**. By default, `setLocale()` updates the configured locale strategies, then navigates to the localized URL when URL routing is enabled or reloads the current document otherwise. The new document renders the app and any document-level locale settings together, without an i18n provider or reactive locale state in React. See [the basics](https://paraglidejs.com/basics).
 
 ## Rich text (the `<Trans>` use case)
 

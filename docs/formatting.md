@@ -216,24 +216,20 @@ m.relative_update(relative);
 
 Paraglide uses the platform `Intl.RelativeTimeFormat`. Older runtimes need a polyfill.
 
-## Locale changes and reactivity
+## Formatting across locales
 
-Formatting runs when message functions are called. If locale changes, formatted values update the next time the message is evaluated.
+Formatting runs when a message function is called. On a page, messages use the current document's locale. Changing the user's locale starts a new document navigation, so formatting runs again as the new document renders.
+
+To format a value for a locale other than the current document—for example, in a preview or server response—pass that locale to the message call:
 
 ```ts
 import { m } from "./paraglide/messages.js";
-import { setLocale } from "./paraglide/runtime.js";
 
-setLocale("en");
-m.personal_balance({ amount: 1000.57 }); // "Your balance is 1,000.57."
-
-setLocale("de");
-m.personal_balance({ amount: 1000.57 }); // "Your balance is 1.000,57."
+m.personal_balance({ amount: 1000.57 }, { locale: "en" }); // "Your balance is 1,000.57."
+m.personal_balance({ amount: 1000.57 }, { locale: "de" }); // "Ihr Kontostand ist 1.000,57."
 ```
 
-By default, `setLocale()` reloads the page. If you pass `{ reload: false }`, trigger re-rendering with your framework's own reactivity.
-
-See [Basics](./basics#getting-and-setting-the-locale) for details.
+For a locale picker, use `setLocale()` and let it navigate to the locale's document. See [Basics](./basics#getting-and-setting-the-locale).
 
 ## Common mistakes
 

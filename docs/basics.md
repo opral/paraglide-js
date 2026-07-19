@@ -34,19 +34,11 @@ import { getLocale, getTextDirection, setLocale } from "./paraglide/runtime.js";
 
 getLocale(); // "en"
 getTextDirection(); // "ltr" or "rtl" for current locale
-setLocale("de"); // Changes locale and reloads page
+setLocale("de"); // Updates the locale and starts a document navigation
 ```
 
 > [!NOTE]
-> `setLocale()` triggers a page reload by default. This is a deliberate design choice that keeps the implementation simple without framework-specific logic for preserving form state, scroll position, etc. A user switches the language once, so optimizing for instant locale switching is a poor trade-off. YouTube and other major sites work the same way.
-
-To change without reload:
-
-```js
-setLocale("de", { reload: false });
-```
-
-You'll need to trigger a re-render of your component tree using your framework's reactivity (e.g., React state, Svelte stores, Vue refs).
+> Locale switching uses a full document navigation, not framework reactivity. By default, `setLocale()` updates the configured locale strategies and then navigates to the localized URL when URL routing is enabled; otherwise, it reloads the current document. The new document renders the app and any document-level locale settings together.
 
 ## Forcing a locale
 
