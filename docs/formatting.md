@@ -218,7 +218,7 @@ Paraglide uses the platform `Intl.RelativeTimeFormat`. Older runtimes need a pol
 
 ## Formatting across locales
 
-Formatting runs when a message function is called. On a page, messages use the current document's locale. Changing the user's locale starts a new document navigation, so formatting runs again as the new document renders.
+Formatting runs when a message function is called. On a page, messages use the current document's locale. By default, changing the user's locale starts a new document navigation, so formatting runs again as the new document renders. The rare browser-only `setLocale(locale, { reload: false })` escape hatch stays on the current document instead; it does not automatically re-run formatting calls, so the application must update its locale-dependent UI. See [the warning in Basics](./basics#advanced-stay-on-the-current-document).
 
 To format a value for a locale other than the current document—for example, in a preview or server response—pass that locale to the message call:
 
