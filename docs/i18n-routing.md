@@ -411,6 +411,9 @@ If you need to re-sync the URL after client-side navigations in SvelteKit, put `
 
 Treat every resulting redirect as a document navigation, including same-origin URLs. Do not use SvelteKit's `goto()` for a locale-changing redirect: a full navigation ensures document-level state such as `<html lang>` and `dir`, server-rendered data, and client state all match the new locale.
 
+> [!WARNING]
+> This is intentionally not a use case for `setLocale(..., { reload: false })`. A locale-changing URL must load a new document; that escape hatch or SvelteKit's `goto()` can retain a stale document shell.
+
 ```svelte
 <script lang="ts">
 	import { afterNavigate } from "$app/navigation";

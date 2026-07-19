@@ -75,7 +75,9 @@ Paraglide generates the message functions, so keys and parameters are typed by d
 
 react-i18next changes the language in the running React tree when you call `i18n.changeLanguage()`.
 
-Paraglide treats a locale change as a **full document navigation**. By default, `setLocale()` updates the configured locale strategies, then navigates to the localized URL when URL routing is enabled or reloads the current document otherwise. The new document renders the app and any document-level locale settings together, without an i18n provider or reactive locale state in React. See [the basics](https://paraglidejs.com/basics).
+Paraglide treats a locale change as a **full document navigation**. By default, `setLocale()` updates the configured locale strategies, then navigates to the localized URL when URL routing is enabled or reloads the current document otherwise. The new document renders the app and any document-level locale settings together, without an i18n provider or reactive locale state in React.
+
+The rare browser-only `reload: false` escape hatch is for a fully client-rendered, non-URL surface that must preserve non-restorable in-memory work; it makes React reactivity and document-state synchronization the application's responsibility. See [the warning in Basics](https://paraglidejs.com/basics#advanced-stay-on-the-current-document).
 
 ## Rich text (the `<Trans>` use case)
 

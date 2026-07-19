@@ -128,6 +128,8 @@ export default defineConfig({
 
 The `Greeting` component shown above is all the app code you need. By default, `setLocale()` updates the selection through your configured strategies and performs a full document navigation: it navigates to the localized URL when URL routing is enabled, or reloads the current document otherwise. The new document renders the app and any document-level locale settings together, with no i18n provider or framework reactivity to wire up.
 
+For the deliberately narrow browser-only `setLocale(locale, { reload: false })` escape hatch, see [the warning in Basics](https://paraglidejs.com/basics#advanced-stay-on-the-current-document). It is for a fully client-rendered, non-URL surface that must preserve non-restorable in-memory work and transfers all reactive and document-state updates to the application.
+
 **[Full React + Vite example →](https://github.com/opral/paraglide-js/tree/main/examples/react)** · **[React Router (SSR) guide →](https://paraglidejs.com/react-router)**
 
 ## SSR Ready

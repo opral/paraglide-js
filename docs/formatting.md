@@ -229,7 +229,7 @@ m.personal_balance({ amount: 1000.57 }, { locale: "en" }); // "Your balance is 1
 m.personal_balance({ amount: 1000.57 }, { locale: "de" }); // "Ihr Kontostand ist 1.000,57."
 ```
 
-For a locale picker, use `setLocale()` and let it navigate to the locale's document. See [Basics](./basics#getting-and-setting-the-locale).
+For a locale picker, use `setLocale()` and let it navigate to the locale's document. Do not use `reload: false` for a preview: the per-message `locale` option above is designed for that. See [Basics](./basics#getting-and-setting-the-locale).
 
 ## Common mistakes
 

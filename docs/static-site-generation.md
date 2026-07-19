@@ -157,13 +157,13 @@ import { defineMiddleware } from "astro:middleware";
 import { assertIsLocale, baseLocale, setLocale } from "./paraglide/runtime.js";
 
 export const onRequest = defineMiddleware((context, next) => {
-  setLocale(assertIsLocale(context.currentLocale ?? baseLocale), {
-    reload: false,
-  });
+  setLocale(assertIsLocale(context.currentLocale ?? baseLocale));
 
   return next();
 });
 ```
+
+This runs during server-side static rendering, so `setLocale()` does not navigate a browser. The browser-only `reload: false` escape hatch is not needed here.
 
 Do not use `paraglideMiddleware()` for Astro SSG. The server middleware
 de-localizes request URLs for SSR, while static pages need Astro to render each

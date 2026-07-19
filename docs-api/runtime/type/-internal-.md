@@ -1288,7 +1288,7 @@ avoid a circular import between `runtime.js` and
 
 > **overwriteSetLocale**(`fn`): `void`
 
-Defined in: [runtime/set-locale.js:194](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
+Defined in: [runtime/set-locale.js:197](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
 
 Overwrite the `setLocale()` function.
 
@@ -1320,14 +1320,17 @@ overwriteSetLocale((newLocale) => {
 
 > **setLocale**(`newLocale`, `options?`): `void` \| `Promise`\<`void`\>
 
-Defined in: [runtime/set-locale.js:60](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
+Defined in: [runtime/set-locale.js:63](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/set-locale.js)
 
 Set the locale.
 
 Updates the locale using your configured strategies (cookie, localStorage, URL, etc.).
-By default, this reloads the page on the client to reflect the new locale. Reloading
-can be disabled by passing `reload: false` as an option, but you'll need to ensure
-the UI updates to reflect the new locale.
+By default, this navigates the client to the localized URL or reloads the current
+document to reflect the new locale. `reload: false` is a narrow browser-only escape
+hatch for a fully client-rendered, non-URL-routed surface that owns its reactive
+updates and document state. It does not re-render the UI or update the document.
+Do not use it for normal locale pickers, URL-routed pages, or switching an SSR,
+SSG, or hydrated document. It is incompatible with per-locale builds.
 
 If any custom strategy's `setLocale` function is async, then this function
 will become async as well.

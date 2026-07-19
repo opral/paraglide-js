@@ -213,7 +213,9 @@ Because the client and server have separate Paraglide runtimes, you will need to
 
 Use `overwriteGetLocale()` to read the locale from a cookie, HTTP header, or i18n routing. On the client, keep the default `setLocale()` behavior whenever possible: it updates the configured strategies and then performs a full document navigation or reload.
 
-If you need `overwriteSetLocale()` to persist a locale outside the configured strategies, make the client-side locale change a full document navigation after persisting it. Do not use the override to trigger a reactive application re-render; document navigation keeps document-level state, server rendering, and client state in sync.
+If you need `overwriteSetLocale()` to persist a locale outside the configured strategies, make the client-side locale change a full document navigation after persisting it. Do not use an override to turn ordinary URL-routed or SSR locale changes into a reactive application re-render; document navigation keeps document-level state, server rendering, and client state in sync.
+
+The built-in `setLocale(locale, { reload: false })` option is a deliberately narrow escape hatch for a fully client-rendered surface whose active strategy does not include `url` and that owns its complete reactive shell. It is not a reason to recreate reactive locale switching with an override; see [the warning in Basics](./basics#advanced-stay-on-the-current-document).
 
 _Read the [architecture documentation](https://paraglidejs.com/architecture) to learn more about's Paraglide's inner workings._
 
