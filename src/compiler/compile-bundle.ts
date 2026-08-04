@@ -18,6 +18,10 @@ import { toSafeModuleId } from "./safe-module-id.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
 import type { CompilerOptions } from "./compiler-options.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
+import {
+	getEffectiveDeclarations,
+	getInputVariables,
+} from "./input-variables.js";
 
 export type CompiledBundleWithMessages = {
 	/** The compilation result for the bundle index */
@@ -44,10 +48,19 @@ export const compileBundle = (args: {
 	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 }): CompiledBundleWithMessages => {
 	const compiledMessages: Record<string, Compiled<Message>> = {};
+	const effectiveBundle = {
+		...args.bundle,
+		declarations: getEffectiveDeclarations(
+			args.bundle.declarations,
+			args.bundle.messages.flatMap((message) =>
+				message.variants.map((variant) => variant.pattern)
+			)
+		),
+	};
 	const safeBundleId = toSafeModuleId(args.bundle.id);
 	const inputTypeAliasName = toBundleInputTypeAliasName(safeBundleId);
-	const matchTypes = collectInputMatchTypes(args.bundle);
-	const hasMarkup = bundleHasMarkup(args.bundle);
+	const matchTypes = collectInputMatchTypes(effectiveBundle);
+	const hasMarkup = bundleHasMarkup(effectiveBundle);
 
 	for (const message of args.bundle.messages) {
 		if (compiledMessages[message.locale]) {
@@ -55,7 +68,7 @@ export const compileBundle = (args: {
 		}
 
 		const compiledMessage = compileMessage(
-			args.bundle.declarations,
+			effectiveBundle.declarations,
 			message,
 			message.variants,
 			matchTypes,
@@ -68,7 +81,7 @@ export const compileBundle = (args: {
 
 	return {
 		bundle: compileBundleFunction({
-			bundle: args.bundle,
+			bundle: effectiveBundle,
 			availableLocales: Object.keys(args.fallbackMap),
 			messageReferenceExpression: args.messageReferenceExpression,
 			settings: args.settings,
@@ -124,9 +137,7 @@ const compileBundleFunction = (args: {
 	 */
 	inputTypeAliasName: string;
 }): Compiled<Bundle> => {
-	const inputs = args.bundle.declarations.filter(
-		(decl) => decl.type === "input-variable"
-	);
+	const inputs = getInputVariables(args.bundle.declarations);
 	const hasInputs = inputs.length > 0;
 	const safeBundleId = toSafeModuleId(args.bundle.id);
 
@@ -450,9 +461,9 @@ function buildMarkupSchemaType(
 ): string {
 	const tagAccumulators = new Map<string, MarkupTagAccumulator>();
 	const inputVariableNames = new Set(
-		bundle.declarations
-			.filter((declaration) => declaration.type === "input-variable")
-			.map((declaration) => declaration.name)
+		getInputVariables(bundle.declarations).map(
+			(declaration) => declaration.name
+		)
 	);
 
 	for (const message of bundle.messages) {
@@ -643,9 +654,7 @@ function renderTypeObjectKey(name: string): string {
 
 function collectInputMatchTypes(bundle: BundleNested): InputMatchTypes {
 	const inputNames = new Set(
-		bundle.declarations
-			?.filter((decl) => decl.type === "input-variable")
-			.map((decl) => decl.name) ?? []
+		getInputVariables(bundle.declarations).map((decl) => decl.name)
 	);
 	const matchTypes: InputMatchTypes = new Map();
 

@@ -4,6 +4,7 @@ import { escapeForSingleQuoteString } from "../../services/codegen/escape.js";
 import { toSafeModuleId } from "../safe-module-id.js";
 import { inputsType } from "../jsdoc-types.js";
 import { toBundleInputTypeAliasName } from "../compile-bundle.js";
+import { getInputVariables } from "../input-variables.js";
 
 export function messageReferenceExpression(locale: string, bundleId: string) {
 	return `${toSafeModuleId(locale)}_${toSafeModuleId(bundleId)}`;
@@ -22,10 +23,9 @@ export function generateOutput(
 	for (const compiledBundle of compiledBundles) {
 		const bundleId = compiledBundle.bundle.node.id;
 		const safeModuleId = toSafeModuleId(compiledBundle.bundle.node.id);
-		const inputs =
-			compiledBundle.bundle.node.declarations?.filter(
-				(decl) => decl.type === "input-variable"
-			) ?? [];
+		const inputs = getInputVariables(
+			compiledBundle.bundle.node.declarations ?? []
+		);
 		const matchTypes = compiledBundle.matchTypes;
 		const inputTypeAliasName =
 			compiledBundle.inputTypeAliasName ??

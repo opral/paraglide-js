@@ -2,9 +2,13 @@ import type { Declaration, Message, Pattern, Variant } from "@inlang/sdk";
 import { compilePattern } from "./compile-pattern.js";
 import type { Compiled } from "./types.js";
 import { inputsType, type InputMatchTypes } from "./jsdoc-types.js";
-import { compileLocalVariable } from "./compile-local-variable.js";
+import { compileLocalVariables } from "./compile-local-variable.js";
 import { renderInputMatchCondition } from "./match-literals.js";
 import { compileInputAccess } from "./variable-access.js";
+import {
+	getEffectiveDeclarations,
+	getInputVariables,
+} from "./input-variables.js";
 
 /**
  * Returns the compiled message as a string
@@ -21,18 +25,22 @@ export const compileMessage = (
 	if (variants.length == 0) {
 		throw new Error("Message must have at least one variant");
 	}
+	const effectiveDeclarations = getEffectiveDeclarations(
+		declarations,
+		variants.map((variant) => variant.pattern)
+	);
 
 	const hasMultipleVariants = variants.length > 1;
 	return hasMultipleVariants
 		? compileMessageWithMultipleVariants(
-				declarations,
+				effectiveDeclarations,
 				message,
 				variants,
 				matchTypes,
 				inputTypeAliasName
 			)
 		: compileMessageWithOneVariant(
-				declarations,
+				effectiveDeclarations,
 				message,
 				variants,
 				matchTypes,
@@ -53,7 +61,7 @@ function compileMessageWithOneVariant(
 	}
 
 	const hasMarkup = patternHasMarkup(variant.pattern);
-	const inputs = declarations.filter((decl) => decl.type === "input-variable");
+	const inputs = getInputVariables(declarations);
 	const hasInputs = inputs.length > 0;
 	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
 	const compiledPattern = compilePattern({
@@ -62,15 +70,10 @@ function compileMessageWithOneVariant(
 		locale: message.locale,
 	});
 
-	const compiledLocalVariables = [];
-
-	for (const declaration of declarations) {
-		if (declaration.type === "local-variable") {
-			compiledLocalVariables.push(
-				compileLocalVariable({ declaration, locale: message.locale })
-			);
-		}
-	}
+	const compiledLocalVariables = compileLocalVariables({
+		declarations,
+		locale: message.locale,
+	});
 
 	if (!hasMarkup) {
 		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {
@@ -122,7 +125,7 @@ function compileMessageWithMultipleVariants(
 	const hasMarkup = variants.some((variant) =>
 		patternHasMarkup(variant.pattern)
 	);
-	const inputs = declarations.filter((decl) => decl.type === "input-variable");
+	const inputs = getInputVariables(declarations);
 	const hasInputs = inputs.length > 0;
 	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
 
@@ -193,15 +196,10 @@ function compileMessageWithMultipleVariants(
 		}
 	}
 
-	const compiledLocalVariables = [];
-
-	for (const declaration of declarations) {
-		if (declaration.type === "local-variable") {
-			compiledLocalVariables.push(
-				compileLocalVariable({ declaration, locale: message.locale })
-			);
-		}
-	}
+	const compiledLocalVariables = compileLocalVariables({
+		declarations,
+		locale: message.locale,
+	});
 
 	if (!hasMarkup) {
 		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {${compiledLocalVariables.join("\n\t")}

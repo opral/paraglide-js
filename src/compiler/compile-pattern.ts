@@ -172,7 +172,7 @@ function compileExpression(
 		);
 	}
 
-	return compileAnnotation(value, locale, annotation);
+	return compileAnnotation(value, locale, annotation, declarations);
 }
 
 function compileExpressionValue(
@@ -232,7 +232,9 @@ function compileMarkupAttributes(attributes: Attribute[]): string {
 	return `{ ${attributes
 		.map((attribute) => {
 			const value =
-				attribute.value === true ? "true" : stringLiteral(attribute.value.value);
+				attribute.value === true
+					? "true"
+					: stringLiteral(attribute.value.value);
 			return `${stringLiteral(attribute.name)}: ${value}`;
 		})
 		.join(", ")} }`;

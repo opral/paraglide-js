@@ -28,6 +28,34 @@ test("compiles a variable reference local variable", () => {
 	expect(code).toEqual("const myVar = i?.name;");
 });
 
+test("compiles a local variable reference as a local access", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declarations: [
+			{
+				type: "local-variable",
+				name: "base",
+				value: { type: "expression", arg: { type: "literal", value: "42" } },
+			},
+		],
+		declaration: {
+			type: "local-variable",
+			name: "formatted",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "base" },
+				annotation: {
+					type: "function-reference",
+					name: "number",
+					options: [],
+				},
+			},
+		},
+	});
+
+	expect(code).toBe('const formatted = registry.number("en", base, {});');
+});
+
 test("compiles a variable reference local variable with a non-identifier name", () => {
 	const code = compileLocalVariable({
 		locale: "en",

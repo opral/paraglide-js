@@ -3,6 +3,7 @@ import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import { toSafeModuleId } from "../safe-module-id.js";
 import { inputsType } from "../jsdoc-types.js";
 import { toBundleInputTypeAliasName } from "../compile-bundle.js";
+import { getInputVariables } from "../input-variables.js";
 
 const localeImportPrefix = "__";
 
@@ -29,10 +30,9 @@ export function generateOutput(
 			const inputTypeAliasName =
 				compiledBundle.inputTypeAliasName ??
 				toBundleInputTypeAliasName(bundleModuleId);
-			const inputs =
-				compiledBundle.bundle.node.declarations?.filter(
-					(decl) => decl.type === "input-variable"
-				) ?? [];
+			const inputs = getInputVariables(
+				compiledBundle.bundle.node.declarations ?? []
+			);
 			return `/** @typedef {${inputsType(inputs, compiledBundle.matchTypes)}} ${inputTypeAliasName} */`;
 		}),
 		settings.locales
@@ -59,10 +59,9 @@ export function generateOutput(
 			const compiledMessage = compiledBundle.messages[locale];
 			const bundleModuleId = toSafeModuleId(compiledBundle.bundle.node.id);
 			const bundleId = compiledBundle.bundle.node.id;
-			const inputs =
-				compiledBundle.bundle.node.declarations?.filter(
-					(decl) => decl.type === "input-variable"
-				) ?? [];
+			const inputs = getInputVariables(
+				compiledBundle.bundle.node.declarations ?? []
+			);
 			const matchTypes = compiledBundle.matchTypes;
 			const inputTypeAliasName =
 				compiledBundle.inputTypeAliasName ??

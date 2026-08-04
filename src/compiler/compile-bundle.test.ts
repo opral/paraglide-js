@@ -65,6 +65,60 @@ test("compiles to jsdoc", async () => {
 	);
 });
 
+test("propagates inferred pattern formatter inputs through the bundle", () => {
+	const mockBundle: BundleNested = {
+		id: "formatted",
+		declarations: [],
+		messages: [
+			{
+				id: "message-id",
+				bundleId: "formatted",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "variant-id",
+						messageId: "message-id",
+						matches: [],
+						pattern: [
+							{
+								type: "expression",
+								arg: { type: "variable-reference", name: "count" },
+								annotation: {
+									type: "function-reference",
+									name: "number",
+									options: [
+										{
+											name: "minimumFractionDigits",
+											value: {
+												type: "variable-reference",
+												name: "digits",
+											},
+										},
+									],
+								},
+							},
+						],
+					},
+				],
+			},
+		],
+	};
+
+	const result = compileBundle({
+		bundle: mockBundle,
+		fallbackMap: { en: "en" },
+		messageReferenceExpression: (locale) => `${locale}_formatted`,
+		settings: { locales: ["en"] } as ProjectSettings,
+	});
+
+	expect(
+		result.bundle.node.declarations?.map((declaration) => declaration.name)
+	).toEqual(["count", "digits"]);
+	expect(result.messages.en?.code).toContain("i?.digits");
+	expect(result.bundle.code).toContain("((inputs, options = {})");
+});
+
 test("uses the base locale as the exhaustive locale branch", () => {
 	const mockBundle: BundleNested = {
 		id: "greeting",

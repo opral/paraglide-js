@@ -30,11 +30,159 @@ test("compiles a message with a single variant", async () => {
 	expect(some_message()).toBe("Hello");
 });
 
+test("infers inputs referenced by formatter declarations", async () => {
+	const declarations: Declaration[] = [
+		{
+			type: "local-variable",
+			name: "formatted",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "count" },
+				annotation: {
+					type: "function-reference",
+					name: "number",
+					options: [
+						{ name: "style", value: { type: "literal", value: "unit" } },
+						{ name: "unit", value: { type: "literal", value: "minute" } },
+						{
+							name: "unitDisplay",
+							value: { type: "literal", value: "long" },
+						},
+					],
+				},
+			},
+		},
+	];
+	const message: Message = {
+		locale: "en",
+		bundleId: "with_number",
+		id: "message-id",
+		selectors: [],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "message-id",
+			matches: [],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "formatted" },
+				},
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	const { with_number } = await import(
+		"data:text/javascript;base64," +
+			btoa(
+				createRegistry() +
+					"\nexport const with_number = " +
+					compiled.code.replaceAll("registry.", "")
+			)
+	);
+
+	expect(with_number({ count: 120 })).toBe("120 minutes");
+});
+
+test("infers pattern formatter option inputs", () => {
+	const compiled = compileMessage(
+		[],
+		{
+			locale: "en",
+			bundleId: "formatted",
+			id: "message-id",
+			selectors: [],
+		},
+		[
+			{
+				id: "1",
+				messageId: "message-id",
+				matches: [],
+				pattern: [
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "count" },
+						annotation: {
+							type: "function-reference",
+							name: "number",
+							options: [
+								{
+									name: "minimumFractionDigits",
+									value: {
+										type: "variable-reference",
+										name: "digits",
+									},
+								},
+							],
+						},
+					},
+				],
+			},
+		]
+	);
+
+	expect(compiled.code).toContain("(i) =>");
+	expect(compiled.code).toContain("i?.digits");
+});
+
+test("emits local declaration dependencies before their consumers", () => {
+	const compiled = compileMessage(
+		[
+			{
+				type: "local-variable",
+				name: "formatted",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "base" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [],
+					},
+				},
+			},
+			{
+				type: "local-variable",
+				name: "base",
+				value: { type: "expression", arg: { type: "literal", value: "42" } },
+			},
+		],
+		{
+			locale: "en",
+			bundleId: "formatted",
+			id: "message-id",
+			selectors: [],
+		},
+		[
+			{
+				id: "1",
+				messageId: "message-id",
+				matches: [],
+				pattern: [
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "formatted" },
+					},
+				],
+			},
+		]
+	);
+
+	expect(compiled.code.indexOf("const base")).toBeLessThan(
+		compiled.code.indexOf("const formatted")
+	);
+});
+
 test("compiles pattern-level annotations to registry calls", async () => {
 	// https://github.com/opral/paraglide-js/issues/694
 	// i18next's `{{count, number}}` imports as an expression with a
 	// function-reference annotation directly on the pattern.
-	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "count" },
+	];
 	const message: Message = {
 		locale: "en",
 		bundleId: "views",
@@ -79,7 +227,9 @@ test("compiles pattern-level annotations to registry calls", async () => {
 });
 
 test("compiles pattern-level annotations in multi-variant messages", async () => {
-	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "count" },
+	];
 	const message: Message = {
 		locale: "en",
 		bundleId: "views_multi",
@@ -673,6 +823,7 @@ test("compiles messages that use plural()", async () => {
 	];
 
 	const compiled = compileMessage(declarations, message, variants);
+	expect(compiled.code).toContain("count: NonNullable<unknown>");
 
 	const { plural_test } = await import(
 		"data:text/javascript;base64," +
