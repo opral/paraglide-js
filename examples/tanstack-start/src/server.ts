@@ -10,8 +10,7 @@ const fetch = createStartHandler({
 
 export default {
   fetch(request: Request) {
-    return paraglideMiddleware(request, ({ request: localizedRequest }) =>
-      fetch(localizedRequest),
-    )
+    // TanStack Router owns URL rewriting, so keep the original request URL.
+    return paraglideMiddleware(request, () => fetch(request))
   },
 }
