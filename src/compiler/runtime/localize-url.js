@@ -65,6 +65,20 @@ export function localizeUrl(url, options) {
 
 	// Iterate over URL patterns
 	for (const element of urlPatterns) {
+		// Most applications use a locale prefix (and sometimes a fixed domain)
+		// with a trailing catch-all path. Those routes do not need URLPattern's
+		// parser or matcher on every call. Keep the generic matcher below as the
+		// fallback for every other URLPattern shape. This stays inside the outer
+		// loop so specific patterns retain precedence over a later catch-all.
+		const fastPathLocalized = localizeUrlFastPath(
+			urlObj,
+			targetLocale,
+			element
+		);
+		if (fastPathLocalized !== undefined) {
+			return fastPathLocalized;
+		}
+
 		// match localized patterns
 		for (const [, localizedPattern] of element.localized) {
 			const match = getUrlPattern(localizedPattern, urlObj).exec(urlObj.href);
@@ -193,6 +207,11 @@ export function deLocalizeUrl(url) {
 
 	// Iterate over URL patterns
 	for (const element of urlPatterns) {
+		const fastPathDeLocalized = deLocalizeUrlFastPath(urlObj, element);
+		if (fastPathDeLocalized !== undefined) {
+			return fastPathDeLocalized;
+		}
+
 		// Iterate over localized versions
 		for (const [, localizedPattern] of element.localized) {
 			const match = getUrlPattern(localizedPattern, urlObj).exec(urlObj.href);
@@ -426,4 +445,330 @@ function getUrlPattern(pattern, url) {
 	}
 	urlPatternCache.set(key, compiled);
 	return compiled;
+}
+
+/**
+ * A small, deliberately conservative subset of URLPattern routing.
+ *
+ * The compiler emits routes such as `/:path(.*)?`, `/de/:path*`, or
+ * `https://example.com/:path*`. For those routes matching is equivalent to a
+ * pathname prefix check and (optionally) an origin check. Everything that has
+ * a dynamic host, a custom path regexp, or another URLPattern modifier keeps
+ * using the generic implementation above.
+ *
+ * @typedef {{
+ *   protocol: string | undefined;
+ *   hostname: string | undefined;
+ *   port: string | undefined;
+ *   pathnamePrefix: string;
+ *   pathMode: "segments" | "catch-all-optional" | "catch-all-required";
+ * }} FastPathPattern
+ * @typedef {{
+ *   base: FastPathPattern;
+ *   localized: Array<{ locale: string; pattern: FastPathPattern }>;
+ * }} FastPathRoute
+ */
+
+/** @type {WeakMap<object, FastPathRoute | null>} */
+const fastPathRouteCache = new WeakMap();
+
+/**
+ * @param {URL} urlObj
+ * @param {string} targetLocale
+ * @param {{ pattern: string; localized: Array<[string, string]> }} element
+ * @returns {URL | undefined}
+ */
+function localizeUrlFastPath(urlObj, targetLocale, element) {
+	const route = getFastPathRoute(element);
+	if (route === null) return undefined;
+
+	// Preserve URLPattern's ordering: localized patterns are checked before
+	// the unlocalized pattern, and the first matching pattern wins.
+	for (const localized of route.localized) {
+		const suffix = matchFastPathPattern(localized.pattern, urlObj);
+		if (suffix === undefined) continue;
+
+		const target = route.localized.find(
+			(candidate) => candidate.locale === targetLocale
+		)?.pattern;
+		if (target === undefined) continue;
+
+		return applyFastPathPattern(target, suffix, urlObj);
+	}
+
+	const suffix = matchFastPathPattern(route.base, urlObj);
+	if (suffix !== undefined) {
+		const target = route.localized.find(
+			(candidate) => candidate.locale === targetLocale
+		)?.pattern;
+		if (target !== undefined) {
+			return applyFastPathPattern(target, suffix, urlObj);
+		}
+	}
+
+	return undefined;
+}
+
+/**
+ * @param {URL} urlObj
+ * @param {{ pattern: string; localized: Array<[string, string]> }} element
+ * @returns {URL | undefined}
+ */
+function deLocalizeUrlFastPath(urlObj, element) {
+	const route = getFastPathRoute(element);
+	if (route === null) return undefined;
+
+	for (const localized of route.localized) {
+		const suffix = matchFastPathPattern(localized.pattern, urlObj);
+		if (suffix !== undefined) {
+			return applyFastPathPattern(route.base, suffix, urlObj);
+		}
+	}
+
+	const suffix = matchFastPathPattern(route.base, urlObj);
+	if (suffix !== undefined) {
+		return applyFastPathPattern(route.base, suffix, urlObj);
+	}
+
+	return undefined;
+}
+
+/**
+ * @param {{ pattern: string; localized: Array<[string, string]> }} element
+ * @returns {FastPathRoute | null}
+ */
+function getFastPathRoute(element) {
+	const cached = fastPathRouteCache.get(element);
+	if (cached !== undefined) return cached;
+
+	const base = parseFastPathPattern(element.pattern);
+	if (base === undefined) {
+		fastPathRouteCache.set(element, null);
+		return null;
+	}
+
+	const localized = [];
+	for (const [locale, pattern] of element.localized) {
+		const parsed = parseFastPathPattern(pattern);
+		if (parsed === undefined || parsed.pathMode !== base.pathMode) {
+			fastPathRouteCache.set(element, null);
+			return null;
+		}
+		localized.push({ locale, pattern: parsed });
+	}
+
+	const route = { base, localized };
+	fastPathRouteCache.set(element, route);
+	return route;
+}
+
+/**
+ * Parse only catch-all path patterns. In particular, do not treat `:path(.)?`
+ * as a catch-all: URLPattern's `(.)` means exactly one character and cannot be
+ * represented by this prefix matcher without changing routing semantics.
+ *
+ * @param {string} pattern
+ * @returns {FastPathPattern | undefined}
+ */
+function parseFastPathPattern(pattern) {
+	const wildcard = pattern.match(/\/:path(?:\(\.\*\)(?:\?)?|\*)$/);
+	if (wildcard === null || wildcard.index === undefined) return undefined;
+
+	const prefix = pattern.slice(0, wildcard.index);
+	const originAndPath = parseFastPathOriginAndPath(prefix);
+	if (originAndPath === undefined) return undefined;
+	const pathMode = wildcard[0].endsWith("*")
+		? "segments"
+		: wildcard[0].endsWith("?")
+			? "catch-all-optional"
+			: "catch-all-required";
+
+	return { ...originAndPath, pathMode };
+}
+
+/**
+ * @param {string} prefix
+ * @returns {FastPathPattern | undefined}
+ */
+function parseFastPathOriginAndPath(prefix) {
+	if (prefix === "" || prefix.startsWith("/")) {
+		if (hasUrlPatternSyntax(prefix)) return undefined;
+		return {
+			protocol: undefined,
+			hostname: undefined,
+			port: undefined,
+			pathnamePrefix: normalizePathPrefix(prefix),
+			pathMode: "catch-all-optional",
+		};
+	}
+
+	// A `:protocol://host` pattern is common in generated configurations. The
+	// protocol is intentionally left unconstrained, just like URLPattern.
+	const dynamicProtocol = prefix.match(/^:protocol:\/\/([^/]+)(\/.*)?$/);
+	const staticOrigin = prefix.match(
+		/^([A-Za-z][A-Za-z\d+.-]*):\/\/([^/]+)(\/.*)?$/
+	);
+	if (dynamicProtocol !== null) {
+		const dynamicHost = dynamicProtocol[1] ?? "";
+		const hostMatch = dynamicHost.match(/^([^:(){}?*+]+)(?::(\d+))?$/);
+		if (
+			hostMatch === null ||
+			(dynamicProtocol[2] !== undefined &&
+				hasUrlPatternSyntax(dynamicProtocol[2]))
+		) {
+			return undefined;
+		}
+		return {
+			protocol: undefined,
+			hostname: (hostMatch[1] ?? "").toLowerCase(),
+			port: hostMatch[2],
+			pathnamePrefix: normalizePathPrefix(dynamicProtocol[2] ?? ""),
+			pathMode: "catch-all-optional",
+		};
+	}
+
+	if (staticOrigin === null) return undefined;
+
+	const host = staticOrigin[2] ?? "";
+	const pathname = staticOrigin[3];
+	const hostMatch = host.match(/^([^:(){}?*+]+)(?::(\d+))?$/);
+	if (
+		hostMatch === null ||
+		(pathname !== undefined && hasUrlPatternSyntax(pathname))
+	) {
+		return undefined;
+	}
+
+	return {
+		protocol: `${staticOrigin[1]}:`,
+		hostname: (hostMatch[1] ?? "").toLowerCase(),
+		port: normalizePatternPort(hostMatch[2], `${staticOrigin[1]}:`),
+		pathnamePrefix: normalizePathPrefix(pathname ?? ""),
+		pathMode: "catch-all-optional",
+	};
+}
+
+/**
+ * @param {string | undefined} port
+ * @param {string} protocol
+ * @returns {string | undefined}
+ */
+function normalizePatternPort(port, protocol) {
+	if (port === "80" && protocol === "http:") return "";
+	if (port === "443" && protocol === "https:") return "";
+	return port;
+}
+
+/**
+ * @param {string} value
+ * @returns {boolean}
+ */
+function hasUrlPatternSyntax(value) {
+	return /[:(){}?*+]/.test(value);
+}
+
+/**
+ * @param {string} pathname
+ * @returns {string}
+ */
+function normalizePathPrefix(pathname) {
+	if (pathname === "" || pathname === "/") return "/";
+	return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+}
+
+/**
+ * @param {FastPathPattern} pattern
+ * @param {URL} urlObj
+ * @returns {string | undefined}
+ */
+function matchFastPathPattern(pattern, urlObj) {
+	if (pattern.protocol !== undefined && pattern.protocol !== urlObj.protocol) {
+		return undefined;
+	}
+	if (
+		pattern.hostname !== undefined &&
+		pattern.hostname !== urlObj.hostname.toLowerCase()
+	) {
+		return undefined;
+	}
+	if (pattern.hostname !== undefined) {
+		const expectedPort =
+			pattern.port ?? defaultPortForProtocol(pattern.protocol ?? urlObj.protocol);
+		if (expectedPort !== urlObj.port) return undefined;
+	}
+
+	const prefix = pattern.pathnamePrefix;
+	if (prefix === "/") {
+		if (urlObj.pathname.startsWith("//")) return undefined;
+		if (pattern.pathMode === "segments") {
+			return isNonEmptyPathSegments(urlObj.pathname)
+				? urlObj.pathname
+				: undefined;
+		}
+		return urlObj.pathname;
+	}
+	if (urlObj.pathname === prefix) {
+		return pattern.pathMode === "catch-all-required" ? undefined : "";
+	}
+	if (urlObj.pathname.startsWith(`${prefix}/`)) {
+		const suffix = urlObj.pathname.slice(prefix.length);
+		if (suffix.startsWith("//")) return undefined;
+		if (
+			pattern.pathMode === "segments" &&
+			!isNonEmptyPathSegments(suffix)
+		) {
+			return undefined;
+		}
+		return suffix;
+	}
+	return undefined;
+}
+
+/**
+ * @param {string} pathname
+ * @returns {boolean}
+ */
+function isNonEmptyPathSegments(pathname) {
+	return pathname.length > 1 && !pathname.endsWith("/") && !pathname.includes("//");
+}
+
+/**
+ * URLPattern treats the default port as empty in URL instances.
+ *
+ * @param {string} protocol
+ * @returns {string}
+ */
+function defaultPortForProtocol(protocol) {
+	if (protocol === "http:") return "";
+	if (protocol === "https:") return "";
+	return "";
+}
+
+/**
+ * @param {FastPathPattern} pattern
+ * @param {string} suffix
+ * @param {URL} source
+ * @returns {URL}
+ */
+function applyFastPathPattern(pattern, suffix, source) {
+	const localized = new URL(source.href);
+	if (pattern.protocol !== undefined) localized.protocol = pattern.protocol;
+	if (pattern.hostname !== undefined) {
+		localized.hostname = pattern.hostname;
+		localized.port =
+			pattern.port ?? defaultPortForProtocol(localized.protocol);
+	}
+	localized.pathname = joinFastPathPrefix(pattern.pathnamePrefix, suffix);
+	return localized;
+}
+
+/**
+ * @param {string} prefix
+ * @param {string} suffix
+ * @returns {string}
+ */
+function joinFastPathPrefix(prefix, suffix) {
+	if (prefix === "/") return suffix === "" ? "/" : suffix;
+	if (suffix === "") return prefix;
+	return `${prefix}${suffix.startsWith("/") ? suffix : `/${suffix}`}`;
 }

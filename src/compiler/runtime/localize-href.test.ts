@@ -209,3 +209,29 @@ test("normalizes mixed-case explicit locales in localizeHref", async () => {
 
 	expect(runtime.localizeHref("/de/about", { locale: "EN" })).toBe("/about");
 });
+
+test("keeps custom URLPattern path expressions on the generic fallback", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url"],
+		urlPatterns: [
+			{
+				pattern: "/:slug(.)?",
+				localized: [
+					["en", "/:slug(.)?"],
+					["de", "/de/:slug(.)?"],
+				],
+			},
+		],
+	});
+
+	// `(.)` matches exactly one character in URLPattern. A prefix-only
+	// implementation must not broaden this route into a catch-all.
+	expect(runtime.localizeHref("/a", { locale: "de" })).toBe("/de/a");
+	expect(runtime.localizeHref("/about", { locale: "de" })).toBe("/about");
+});

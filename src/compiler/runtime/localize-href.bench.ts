@@ -33,8 +33,34 @@ const runtime = await createParaglide({
 	],
 });
 
+const genericRuntime = await createParaglide({
+	blob: await newProject({
+		settings: {
+			baseLocale: "en",
+			locales: ["en", "de", "fr", "es"],
+		},
+	}),
+	isServer: "false",
+	strategy: ["url"],
+	urlPatterns: [
+		{
+			// A custom group name intentionally keeps this route on the generic
+			// URLPattern fallback while matching the same URLs.
+			pattern: "/:slug(.*)?",
+			localized: [
+				["en", "/:slug(.*)?"],
+				["de", "/de/:slug(.*)?"],
+				["fr", "/fr/:slug(.*)?"],
+				["es", "/es/:slug(.*)?"],
+			],
+		},
+	],
+});
+
 runtime.overwriteGetLocale(() => "en");
 runtime.overwriteGetUrlOrigin(() => "https://example.com");
+genericRuntime.overwriteGetLocale(() => "en");
+genericRuntime.overwriteGetUrlOrigin(() => "https://example.com");
 
 for (let i = 0; i < 1000; i++) {
 	runtime.localizeHref(`/page-${i % 100}.html`, { locale: "de" });
@@ -45,6 +71,20 @@ bench(
 	() => {
 		for (let i = 0; i < 1000; i++) {
 			runtime.localizeHref(`/page-${i % 100}.html`, { locale: "de" });
+		}
+	},
+	{ time: 1000 }
+);
+
+for (let i = 0; i < 1000; i++) {
+	genericRuntime.localizeHref(`/page-${i % 100}.html`, { locale: "de" });
+}
+
+bench(
+	"localizeHref with generic URLPattern fallback",
+	() => {
+		for (let i = 0; i < 1000; i++) {
+			genericRuntime.localizeHref(`/page-${i % 100}.html`, { locale: "de" });
 		}
 	},
 	{ time: 1000 }
