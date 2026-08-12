@@ -1,4 +1,5 @@
 import path from "node:path";
+import { createHash } from "node:crypto";
 import type nodeFs from "node:fs/promises";
 
 export async function writeOutput(args: {
@@ -11,7 +12,7 @@ export async function writeOutput(args: {
 	const currentOutputHashes = await hashOutput(args.output, args.directory);
 
 	// if the output hasn't changed, don't write it
-	const changedFiles = new Set();
+	const changedFiles = new Set<string>();
 
 	for (const [filePath, hash] of Object.entries(currentOutputHashes)) {
 		if (args.previousOutputHashes?.[filePath] !== hash) {
@@ -39,8 +40,6 @@ export async function writeOutput(args: {
 	// and re-enabled because of https://github.com/opral/inlang-paraglide-js/issues/420
 	if (args.cleanDirectory) {
 		await args.fs.rm(args.directory, { recursive: true, force: true });
-	} else {
-		await args.fs.mkdir(args.directory, { recursive: true });
 	}
 	// Delete files that have been removed
 	// ignore if cleanDirectory is true because the directory will be cleaned anyway
@@ -48,13 +47,20 @@ export async function writeOutput(args: {
 		await deleteRemovedFiles(args.fs, args.directory, filesToDelete);
 	}
 
-	//Create missing directories inside the output directory
+	// Create only the directories needed by files that are about to be written.
+	// On incremental compiles, `output` can contain thousands of unchanged
+	// message modules; creating every parent directory again adds avoidable
+	// filesystem work even though only a handful of files changed.
+	const directoriesToCreate = new Set<string>();
+	for (const filePath of changedFiles) {
+		directoriesToCreate.add(
+			path.dirname(path.resolve(args.directory, filePath))
+		);
+	}
 	await Promise.allSettled(
-		Object.keys(args.output).map(async (filePath) => {
-			const fullPath = path.resolve(args.directory, filePath);
-			const directory = path.dirname(fullPath);
-			await args.fs.mkdir(directory, { recursive: true });
-		})
+		Array.from(directoriesToCreate, (directory) =>
+			args.fs.mkdir(directory, { recursive: true })
+		)
 	);
 
 	//Write files
@@ -129,25 +135,20 @@ async function deleteRemovedFiles(
 	}
 }
 
-async function hashString(input: string): Promise<string> {
-	const encoder = new TextEncoder();
-	const data = encoder.encode(input);
-	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-	const hashArray = Array.from(new Uint8Array(hashBuffer));
-	return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+function hashString(input: string): string {
+	return createHash("sha256").update(input).digest("hex");
 }
 
 async function hashOutput(
 	output: Record<string, string>,
 	outputDirectory: string
 ): Promise<Record<string, string>> {
-	const hashes: Record<string, string> = {};
-	for (const [filePath, fileContent] of Object.entries(output)) {
+	const entries = Object.entries(output).map(([filePath, fileContent]) => {
 		const combinedContent =
 			fileContent + path.resolve(outputDirectory, filePath);
-		hashes[filePath] = await hashString(combinedContent);
-	}
-	return hashes;
+		return [filePath, hashString(combinedContent)] as const;
+	});
+	return Object.fromEntries(entries);
 }
 
 /**
