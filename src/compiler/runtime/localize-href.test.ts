@@ -229,6 +229,8 @@ test("keeps custom URLPattern path expressions on the generic fallback", async (
 			},
 		],
 	});
+	runtime.overwriteGetLocale(() => "en");
+	runtime.overwriteGetUrlOrigin(() => "https://example.com");
 
 	// `(.)` matches exactly one character in URLPattern. A prefix-only
 	// implementation must not broaden this route into a catch-all.
