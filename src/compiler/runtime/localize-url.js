@@ -408,7 +408,7 @@ export function aggregateGroups(match) {
 const urlPatternCache = new Map();
 
 const URL_PATTERN_CACHE_LIMIT = 128;
-const ABSOLUTE_URL_PATTERN = /^[A-Za-z][A-Za-z\d+.-]*:\/\//;
+const ABSOLUTE_URL_PATTERN = /^(?:[A-Za-z][A-Za-z\d+.-]*|:[A-Za-z][A-Za-z\d_-]*):\/\//;
 
 /**
  * URLPattern's base URL affects relative patterns. Absolute patterns only
