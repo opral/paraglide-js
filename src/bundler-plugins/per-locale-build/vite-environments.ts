@@ -1,17 +1,12 @@
 import nodeFs from "node:fs/promises";
 import nodePath from "node:path";
 import type { EnvironmentOptions, Plugin, UserConfig, ViteBuilder } from "vite";
-import * as vite from "vite";
 import { PER_LOCALE_BUILD_DEFINE } from "./constants.js";
 import { getPerLocaleBuildLocaleId } from "./locale-id.js";
 import type { PerLocaleBuildSettings } from "./types.js";
 
 export const VITE_LOCALE_BUILD_MANIFEST = "paraglide-vite-locales.json";
 export const VITE_LOCALE_ENVIRONMENT_PREFIX = "paraglide_client_";
-const viteVersion = vite.version;
-const detectedRolldownVersion = (
-	vite as unknown as { rolldownVersion?: unknown }
-).rolldownVersion;
 
 export type ViteLocaleBuildPlan = {
 	outputDirectory: string;
@@ -103,6 +98,14 @@ export function createViteLocaleEnvironmentPlugin(args: {
 		enforce: "post",
 		async config(config, env) {
 			if (env.command !== "build") return;
+			// Vite is an optional peer dependency. Only resolve it when this
+			// experimental Vite-specific build path is actually used so importing
+			// the package's compiler API does not require Vite to be installed.
+			const vite = await import("vite");
+			const viteVersion = vite.version;
+			const detectedRolldownVersion = (
+				vite as unknown as { rolldownVersion?: unknown }
+			).rolldownVersion;
 			if (Number.parseInt(viteVersion, 10) < 8) {
 				throw new Error(
 					`experimentalPerLocaleBuild Vite environments require Vite 8 or newer; found ${viteVersion}.`
@@ -131,6 +134,11 @@ export function createViteLocaleEnvironmentPlugin(args: {
 					builder,
 					plan: plan!,
 					settings: settings!,
+					viteVersion,
+					rolldownVersion:
+						typeof detectedRolldownVersion === "string"
+							? detectedRolldownVersion
+							: "unknown",
 				});
 			};
 			return {
@@ -182,6 +190,8 @@ async function buildViteLocaleEnvironments(args: {
 	builder: ViteBuilder;
 	plan: ViteLocaleBuildPlan;
 	settings: PerLocaleBuildSettings;
+	viteVersion: string;
+	rolldownVersion: string;
 }): Promise<void> {
 	const outputRoot = nodePath.resolve(
 		args.builder.config.root,
@@ -218,11 +228,8 @@ async function buildViteLocaleEnvironments(args: {
 	const manifest: ViteLocaleBuildManifest = {
 		version: 1,
 		backend: "vite-rolldown-environments",
-		viteVersion,
-		rolldownVersion:
-			typeof detectedRolldownVersion === "string"
-				? detectedRolldownVersion
-				: "unknown",
+		viteVersion: args.viteVersion,
+		rolldownVersion: args.rolldownVersion,
 		baseLocale: args.settings.baseLocale,
 		locales: {},
 	};
