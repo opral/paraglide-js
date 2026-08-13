@@ -208,6 +208,97 @@ test("vite plugin warm-restart writes nothing when inputs unchanged (#659)", asy
 	expect(writeFileSpy).not.toHaveBeenCalled();
 });
 
+// Regression test for https://github.com/opral/paraglide-js/issues/741:
+// a new Vite process should validate the persisted inputs and output instead
+// of loading the project and compiling every message again.
+test("vite plugin skips compile on an unchanged fresh process (#741)", async () => {
+	const actualCompileModule = await vi.importActual<
+		typeof import("../compiler/compile.js")
+	>("../compiler/compile.js");
+	const compileSpy = vi.fn(actualCompileModule.compile);
+	vi.doMock("../compiler/compile.js", () => ({
+		...actualCompileModule,
+		compile: compileSpy,
+	}));
+
+	try {
+		const project = await loadProjectInMemory({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "de"] },
+			}),
+		});
+		const fs = memfs().fs as unknown as typeof import("node:fs");
+		await saveProjectToDirectory({
+			project,
+			path: "/project.inlang",
+			fs: fs.promises,
+		});
+
+		const options = {
+			project: "/project.inlang",
+			outdir: "/test-output",
+			emitReadme: true,
+			fs,
+		};
+		const mockContext = { addWatchFile: () => {} };
+		const startFreshProcess = async () => {
+			vi.resetModules();
+			const { paraglideVitePlugin } =
+				await import("../bundler-plugins/vite.js");
+			const plugin = paraglideVitePlugin(options) as any;
+			await plugin.buildStart?.call(mockContext);
+		};
+
+		await startFreshProcess();
+		expect(compileSpy).toHaveBeenCalledTimes(1);
+
+		// The persisted cache makes the unchanged cold restart skip compile().
+		await startFreshProcess();
+		expect(compileSpy).toHaveBeenCalledTimes(1);
+
+		// A file added beside a tracked project input invalidates the cache.
+		await fs.promises.writeFile("/project.inlang/new-project-input.txt", "new");
+		await startFreshProcess();
+		expect(compileSpy).toHaveBeenCalledTimes(2);
+
+		// Compiler options are part of the cache key.
+		options.emitReadme = false;
+		await startFreshProcess();
+		expect(compileSpy).toHaveBeenCalledTimes(3);
+
+		// Generated output is validated too, so edited output self-repairs.
+		await fs.promises.writeFile("/test-output/runtime.js", "tampered");
+		await startFreshProcess();
+		expect(compileSpy).toHaveBeenCalledTimes(4);
+		expect(
+			await fs.promises.readFile("/test-output/runtime.js", "utf8")
+		).not.toBe("tampered");
+
+		// A compiler version change invalidates the persisted cache.
+		const cacheDirectory = "/project.inlang/cache/paraglide-js";
+		for (const cacheFile of await fs.promises.readdir(cacheDirectory)) {
+			const cachePath = `${cacheDirectory}/${cacheFile}`;
+			const cache = JSON.parse(await fs.promises.readFile(cachePath, "utf8"));
+			cache.compilerVersion = "0.0.0-stale";
+			await fs.promises.writeFile(cachePath, JSON.stringify(cache));
+		}
+		await startFreshProcess();
+		expect(compileSpy).toHaveBeenCalledTimes(5);
+
+		// A syntactically valid but malformed cache is treated as a miss.
+		for (const cacheFile of await fs.promises.readdir(cacheDirectory)) {
+			const cachePath = `${cacheDirectory}/${cacheFile}`;
+			const cache = JSON.parse(await fs.promises.readFile(cachePath, "utf8"));
+			cache.outputHashes = null;
+			await fs.promises.writeFile(cachePath, JSON.stringify(cache));
+		}
+		await startFreshProcess();
+		expect(compileSpy).toHaveBeenCalledTimes(6);
+	} finally {
+		vi.doUnmock("../compiler/compile.js");
+	}
+});
+
 // Regression test for https://github.com/opral/paraglide-js/issues/693:
 // `vite build` fires buildStart once per environment (client, ssr) and each
 // run used to do a full compile() — project loading + message compilation —

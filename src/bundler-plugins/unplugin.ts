@@ -1,9 +1,10 @@
 import type { UnpluginFactory } from "unplugin";
 import { compile, type CompilationResult } from "../compiler/compile.js";
-import { relative } from "node:path";
+import { dirname, relative, resolve } from "node:path";
 import { createHash } from "node:crypto";
 import nodeFs from "node:fs";
 import { Logger } from "../services/logger/index.js";
+import { ENV_VARIABLES } from "../services/env-variables/index.js";
 import type { CompilerOptions } from "../compiler/compiler-options.js";
 import {
 	createTrackedFs,
@@ -16,6 +17,25 @@ import { seedPreviousCompilationFromOutdir } from "../compiler/seed-previous-com
 const PLUGIN_NAME = "unplugin-paraglide-js";
 
 const logger = new Logger();
+
+const PERSISTENT_CACHE_VERSION = 1;
+
+type PersistentCompilationCache = {
+	version: typeof PERSISTENT_CACHE_VERSION;
+	compilerVersion: string;
+	inputsDigest: string;
+	readFiles: string[];
+	outputHashes: Record<string, string>;
+};
+
+function isStringRecord(value: unknown): value is Record<string, string> {
+	return (
+		typeof value === "object" &&
+		value !== null &&
+		!Array.isArray(value) &&
+		Object.values(value).every((entry) => typeof entry === "string")
+	);
+}
 
 /**
  * Default isServer which differs per bundler.
@@ -71,6 +91,20 @@ function withoutCleanOutdir(
 	return compileArgs;
 }
 
+function getCompilerConfig(
+	args: CompilerOptions,
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+) {
+	const { fs: _fs, ...serializableArgs } = args;
+	void _fs;
+	return {
+		...serializableArgs,
+		outputStructure,
+		isServer,
+		compilerVersion: ENV_VARIABLES.PARJS_PACKAGE_VERSION,
+	};
+}
+
 /**
  * Hashes the files (and directory listings) the last compilation read,
  * together with the options that affect the output. Returns `undefined`
@@ -102,11 +136,7 @@ async function computeInputsDigest(
 	const fsp = (args.fs ?? nodeFs).promises;
 	const hash = createHash("sha256");
 	try {
-		const { fs: _fs, ...serializableArgs } = args;
-		void _fs;
-		hash.update(
-			JSON.stringify({ ...serializableArgs, outputStructure, isServer })
-		);
+		hash.update(JSON.stringify(getCompilerConfig(args, outputStructure)));
 		for (const directoryPath of [...targets.directories].sort()) {
 			const entries = await fsp
 				.readdir(directoryPath)
@@ -139,6 +169,154 @@ async function computeInputsDigest(
 	return hash.digest("hex");
 }
 
+function getPersistentCachePath(
+	args: CompilerOptions,
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+): string {
+	const absoluteOutdir = resolve(process.cwd(), args.outdir);
+	const cacheKey = createHash("sha256")
+		.update(
+			JSON.stringify({
+				absoluteOutdir,
+				compilerConfig: getCompilerConfig(args, outputStructure),
+			})
+		)
+		.digest("hex")
+		.slice(0, 16);
+	return resolve(
+		process.cwd(),
+		args.project,
+		"cache",
+		"paraglide-js",
+		`${cacheKey}.json`
+	);
+}
+
+async function readPersistentCache(
+	args: CompilerOptions,
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+): Promise<PersistentCompilationCache | undefined> {
+	const fsp = (args.fs ?? nodeFs).promises;
+	try {
+		const parsed = JSON.parse(
+			await fsp.readFile(getPersistentCachePath(args, outputStructure), "utf8")
+		) as Partial<PersistentCompilationCache>;
+		if (
+			parsed.version !== PERSISTENT_CACHE_VERSION ||
+			parsed.compilerVersion !== ENV_VARIABLES.PARJS_PACKAGE_VERSION ||
+			typeof parsed.inputsDigest !== "string" ||
+			!Array.isArray(parsed.readFiles) ||
+			parsed.readFiles.some((file) => typeof file !== "string") ||
+			!isStringRecord(parsed.outputHashes)
+		) {
+			return undefined;
+		}
+		return parsed as PersistentCompilationCache;
+	} catch {
+		return undefined;
+	}
+}
+
+async function preparePersistentCacheDirectory(
+	args: CompilerOptions,
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+): Promise<void> {
+	try {
+		await (args.fs ?? nodeFs).promises.mkdir(
+			dirname(getPersistentCachePath(args, outputStructure)),
+			{ recursive: true }
+		);
+	} catch {
+		// The cache is an optimization. Read-only projects must still compile.
+	}
+}
+
+async function writePersistentCache(
+	state: PluginState,
+	args: CompilerOptions,
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+): Promise<void> {
+	if (
+		state.previousInputsDigest === undefined ||
+		state.previousCompilation?.outputHashes === undefined
+	) {
+		return;
+	}
+	const cachePath = getPersistentCachePath(args, outputStructure);
+	const cache: PersistentCompilationCache = {
+		version: PERSISTENT_CACHE_VERSION,
+		compilerVersion: ENV_VARIABLES.PARJS_PACKAGE_VERSION,
+		inputsDigest: state.previousInputsDigest,
+		readFiles: [...state.readFiles].sort(),
+		outputHashes: state.previousCompilation.outputHashes,
+	};
+	const fsp = (args.fs ?? nodeFs).promises;
+	try {
+		await fsp.mkdir(dirname(cachePath), { recursive: true });
+		await fsp.writeFile(cachePath, JSON.stringify(cache));
+	} catch {
+		// The cache is an optimization. Read-only projects must still compile.
+	}
+}
+
+function outputHashesMatch(
+	left: Record<string, string> | undefined,
+	right: Record<string, string>
+): boolean {
+	if (left === undefined) return false;
+	const leftEntries = Object.entries(left);
+	const rightEntries = Object.entries(right);
+	if (leftEntries.length !== rightEntries.length) return false;
+	return leftEntries.every(([file, hash]) => right[file] === hash);
+}
+
+async function restorePersistentCache(args: {
+	state: PluginState;
+	compilerOptions: CompilerOptions;
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
+}): Promise<boolean> {
+	const cached = await readPersistentCache(
+		args.compilerOptions,
+		args.outputStructure
+	);
+	if (cached === undefined) return false;
+
+	const cachedReadFiles = new Set<string>();
+	for (const file of cached.readFiles) {
+		cachedReadFiles.add(file);
+	}
+	const validationState: PluginState = {
+		...args.state,
+		readFiles: cachedReadFiles,
+		clearReadFiles: () => cachedReadFiles.clear(),
+	};
+	const [inputsDigest, previousCompilation] = await Promise.all([
+		computeInputsDigest(
+			validationState,
+			args.compilerOptions,
+			args.outputStructure
+		),
+		seedPreviousCompilationFromOutdir({
+			outdir: args.compilerOptions.outdir,
+			fs: args.compilerOptions.fs?.promises,
+		}),
+	]);
+	if (
+		inputsDigest !== cached.inputsDigest ||
+		!outputHashesMatch(previousCompilation?.outputHashes, cached.outputHashes)
+	) {
+		return false;
+	}
+
+	args.state.clearReadFiles();
+	for (const file of cachedReadFiles) {
+		args.state.readFiles.add(file);
+	}
+	args.state.previousCompilation = previousCompilation;
+	args.state.previousInputsDigest = inputsDigest;
+	return true;
+}
+
 function rethrowUnlessEnoent(error: unknown): undefined {
 	if ((error as NodeJS.ErrnoException)?.code === "ENOENT") {
 		return undefined;
@@ -160,6 +338,22 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => {
 				args.outputStructure ??
 				(isProduction ? "message-modules" : "locale-modules");
 			try {
+				// Stabilize project directory listings before the first digest. The
+				// ignored cache directory must not invalidate the cache that creates it.
+				await preparePersistentCacheDirectory(args, outputStructure);
+				if (
+					state.previousCompilation === undefined &&
+					(await restorePersistentCache({
+						state,
+						compilerOptions: args,
+						outputStructure,
+					}))
+				) {
+					logger.info(
+						`Compilation skipped — inputs unchanged (${outputStructure})`
+					);
+					return;
+				}
 				// `vite build` calls buildStart once per environment (client, ssr).
 				// Skip the expensive compile when the inputs haven't changed.
 				if (state.previousCompilation && state.previousInputsDigest) {
@@ -199,6 +393,7 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => {
 					args,
 					outputStructure
 				);
+				await writePersistentCache(state, args, outputStructure);
 				logger.success(`Compilation complete (${outputStructure})`);
 			} catch (error) {
 				state.previousInputsDigest = undefined;
@@ -260,6 +455,7 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => {
 					args,
 					outputStructure
 				);
+				await writePersistentCache(state, args, outputStructure);
 
 				logger.success(`Re-compilation complete (${outputStructure})`);
 
