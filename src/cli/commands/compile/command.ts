@@ -144,7 +144,15 @@ export const compileCommand = new Command()
 				logger.info(`Compiling inlang project ...`);
 
 				try {
-					await compile(compileOptions);
+					const previousCompilation = await seedPreviousCompilationFromOutdir({
+						outdir: compileOptions.outdir,
+					});
+
+					await compile({
+						...compileOptions,
+						previousCompilation,
+						cleanOutdir: false,
+					});
 				} catch (e) {
 					logger.error("Error while compiling inlang project.");
 					logger.error(e);
