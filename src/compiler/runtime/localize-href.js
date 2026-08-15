@@ -13,7 +13,7 @@ import { deLocalizeUrl, localizeUrl } from "./localize-url.js";
  * - Automatically detects current locale if not specified
  * - Handles string input/output instead of URL objects
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing
+ * @see https://paraglidejs.com/i18n-routing
  *
  * @example
  * ```typescript
@@ -38,8 +38,8 @@ import { deLocalizeUrl, localizeUrl } from "./localize-url.js";
  * which provides more precise control over URL handling.
  *
  * @param {string} href - The href to localize (can be relative or absolute)
- * @param {Object} [options] - Options for localization
- * @param {string} [options.locale] - Target locale. If not provided, uses `getLocale()`
+ * @param {object} [options] - Options for localization
+ * @param {Locale} [options.locale] - Target locale. If not provided, uses `getLocale()`
  * @returns {string} The localized href, relative if input was relative
  */
 export function localizeHref(href, options) {
@@ -77,7 +77,7 @@ export function localizeHref(href, options) {
  * - Returns relative paths when possible
  * - Handles string input/output instead of URL objects
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing
+ * @see https://paraglidejs.com/i18n-routing
  *
  * @example
  * ```typescript

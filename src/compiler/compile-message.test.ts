@@ -30,6 +30,386 @@ test("compiles a message with a single variant", async () => {
 	expect(some_message()).toBe("Hello");
 });
 
+test("compiles pattern-level annotations to registry calls", async () => {
+	// https://github.com/opral/paraglide-js/issues/694
+	// i18next's `{{count, number}}` imports as an expression with a
+	// function-reference annotation directly on the pattern.
+	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const message: Message = {
+		locale: "en",
+		bundleId: "views",
+		id: "message-id",
+		selectors: [],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "message-id",
+			matches: [],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [],
+					},
+				},
+				{ type: "text", value: " views" },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	expect(compiled.code).toContain('registry.number("en", i?.count, {})');
+
+	const { views } = await import(
+		"data:text/javascript;base64," +
+			// bundling the registry inline to avoid managing module imports here
+			btoa(
+				createRegistry() +
+					"\nexport const views = " +
+					compiled.code.replaceAll("registry.", "")
+			)
+	);
+
+	expect(views({ count: 1234567.891 })).toBe("1,234,567.891 views");
+});
+
+test("compiles pattern-level annotations in multi-variant messages", async () => {
+	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const message: Message = {
+		locale: "en",
+		bundleId: "views_multi",
+		id: "message-id",
+		selectors: [{ type: "variable-reference", name: "count" }],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "message-id",
+			matches: [{ type: "literal-match", key: "count", value: "1" }],
+			pattern: [{ type: "text", value: "One view" }],
+		},
+		{
+			id: "2",
+			messageId: "message-id",
+			matches: [{ type: "catchall-match", key: "count" }],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [],
+					},
+				},
+				{ type: "text", value: " views" },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	const { views_multi } = await import(
+		"data:text/javascript;base64," +
+			// bundling the registry inline to avoid managing module imports here
+			btoa(
+				createRegistry() +
+					"\nexport const views_multi = " +
+					compiled.code.replaceAll("registry.", "")
+			)
+	);
+
+	expect(views_multi({ count: 1 })).toBe("One view");
+	expect(views_multi({ count: 1234567.891 })).toBe("1,234,567.891 views");
+});
+
+test("compiles a markup message with .parts()", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "amount" },
+		{ type: "input-variable", name: "relationship" },
+	];
+	const message: Message = {
+		locale: "en",
+		bundleId: "balance",
+		id: "balance-id",
+		selectors: [],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "balance-id",
+			matches: [],
+			pattern: [
+				{ type: "text", value: "You have " },
+				{
+					type: "markup-start",
+					name: "tooltip",
+					options: [
+						{
+							name: "rel",
+							value: { type: "variable-reference", name: "relationship" },
+						},
+					],
+					attributes: [{ name: "track", value: true }],
+				},
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "amount" },
+				},
+				{ type: "text", value: " coins" },
+				{
+					type: "markup-end",
+					name: "tooltip",
+					options: [],
+					attributes: [],
+				},
+				{ type: "text", value: "." },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	const { balance } = await import(
+		"data:text/javascript;base64," +
+			btoa("export const balance =" + compiled.code)
+	);
+
+	expect(balance({ amount: 5, relationship: "noopener" })).toBe(
+		"You have 5 coins."
+	);
+	expect(balance.parts({ amount: 5, relationship: "noopener" })).toEqual([
+		{ type: "text", value: "You have " },
+		{
+			type: "markup-start",
+			name: "tooltip",
+			options: { rel: "noopener" },
+			attributes: { track: true },
+		},
+		{ type: "text", value: "5" },
+		{ type: "text", value: " coins" },
+		{
+			type: "markup-end",
+			name: "tooltip",
+			options: {},
+			attributes: {},
+		},
+		{ type: "text", value: "." },
+	]);
+});
+
+test("does not add .parts() for plain messages", async () => {
+	const declarations: Declaration[] = [];
+	const message: Message = {
+		locale: "en",
+		bundleId: "plain",
+		id: "plain-id",
+		selectors: [],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "plain-id",
+			matches: [],
+			pattern: [{ type: "text", value: "Hello" }],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { plain } = await import(
+		"data:text/javascript;base64," +
+			btoa("export const plain = " + compiled.code)
+	);
+
+	expect(plain()).toBe("Hello");
+	expect("parts" in plain).toBe(false);
+});
+
+test("compiles multi-variant markup messages with .parts()", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "count" },
+	];
+	const message: Message = {
+		locale: "en",
+		id: "select-id",
+		bundleId: "select_message",
+		selectors: [{ type: "variable-reference", name: "count" }],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "select-id",
+			matches: [{ type: "literal-match", key: "count", value: "1" }],
+			pattern: [
+				{ type: "markup-start", name: "strong", options: [], attributes: [] },
+				{ type: "text", value: "One item" },
+				{ type: "markup-end", name: "strong", options: [], attributes: [] },
+			],
+		},
+		{
+			id: "2",
+			messageId: "select-id",
+			matches: [{ type: "catchall-match", key: "count" }],
+			pattern: [{ type: "text", value: "Many items" }],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { select_message } = await import(
+		"data:text/javascript;base64," +
+			btoa("export const select_message = " + compiled.code)
+	);
+
+	expect(select_message({ count: 1 })).toBe("One item");
+	expect(select_message.parts({ count: 1 })).toEqual([
+		{ type: "markup-start", name: "strong", options: {}, attributes: {} },
+		{ type: "text", value: "One item" },
+		{ type: "markup-end", name: "strong", options: {}, attributes: {} },
+	]);
+	expect(select_message({ count: 2 })).toBe("Many items");
+	expect(select_message.parts({ count: 2 })).toEqual([
+		{ type: "text", value: "Many items" },
+	]);
+});
+
+test("numeric literal matches accept number and string inputs without loose coercion", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "input" },
+	];
+	const message: Message = {
+		locale: "en",
+		id: "numeric-select-id",
+		bundleId: "numeric_select_message",
+		selectors: [{ type: "variable-reference", name: "input" }],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "numeric-select-id",
+			matches: [{ type: "literal-match", key: "input", value: "1" }],
+			pattern: [{ type: "text", value: "Thing 1" }],
+		},
+		{
+			id: "2",
+			messageId: "numeric-select-id",
+			matches: [{ type: "catchall-match", key: "input" }],
+			pattern: [{ type: "text", value: "Fallback" }],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { numeric_select_message } = await import(
+		"data:text/javascript;base64," +
+			btoa("export const numeric_select_message = " + compiled.code)
+	);
+
+	expect(numeric_select_message({ input: 1 })).toBe("Thing 1");
+	expect(numeric_select_message({ input: "1" })).toBe("Thing 1");
+	expect(numeric_select_message({ input: true })).toBe("Fallback");
+});
+
+// https://github.com/opral/paraglide-js/issues/682
+test("infinity input matches accept number and string inputs", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "capacity" },
+		{ type: "input-variable", name: "pending" },
+		{ type: "input-variable", name: "count" },
+	];
+	const message: Message = {
+		locale: "en",
+		id: "group-member-count-id",
+		bundleId: "group_member_count",
+		selectors: [
+			{ type: "variable-reference", name: "capacity" },
+			{ type: "variable-reference", name: "pending" },
+		],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "group-member-count-id",
+			matches: [
+				{ type: "literal-match", key: "capacity", value: "Infinity" },
+				{ type: "catchall-match", key: "pending" },
+			],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+				},
+			],
+		},
+		{
+			id: "2",
+			messageId: "group-member-count-id",
+			matches: [
+				{ type: "catchall-match", key: "capacity" },
+				{ type: "literal-match", key: "pending", value: "0" },
+			],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+				},
+				{ type: "text", value: " / " },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "capacity" },
+				},
+			],
+		},
+		{
+			id: "3",
+			messageId: "group-member-count-id",
+			matches: [
+				{ type: "catchall-match", key: "capacity" },
+				{ type: "catchall-match", key: "pending" },
+			],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+				},
+				{ type: "text", value: " / " },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "capacity" },
+				},
+				{ type: "text", value: " (" },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "pending" },
+				},
+				{ type: "text", value: " pending)" },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { group_member_count } = await import(
+		"data:text/javascript;base64," +
+			btoa("export const group_member_count = " + compiled.code)
+	);
+
+	expect(group_member_count({ capacity: Infinity, pending: 5, count: 5 })).toBe(
+		"5"
+	);
+	expect(
+		group_member_count({ capacity: "Infinity", pending: 5, count: 5 })
+	).toBe("5");
+	expect(group_member_count({ capacity: 10, pending: 0, count: 5 })).toBe(
+		"5 / 10"
+	);
+	expect(group_member_count({ capacity: 10, pending: 5, count: 5 })).toBe(
+		"5 / 10 (5 pending)"
+	);
+});
+
 // https://github.com/opral/paraglide-js/issues/571
 test("compiles a message that can be parsed as JSON", async () => {
 	const declarations: Declaration[] = [];
@@ -250,7 +630,7 @@ test("only emits input arguments when inputs exist", async () => {
 // https://github.com/opral/inlang-paraglide-js/issues/379
 test("compiles messages that use plural()", async () => {
 	const declarations: Declaration[] = [
-		{ type: "input-variable", name: "count" },
+		{ type: "input-variable", name: "date" },
 		{
 			type: "local-variable",
 			name: "countPlural",
@@ -401,10 +781,143 @@ test("compiles messages that use plural() with ordinal type", async () => {
 	expect(ordinal_test({ count: 4 })).toBe("4th place");
 });
 
+test("compiles messages that use number()", async () => {
+	const createMessage = async (locale: string) => {
+		const declarations: Declaration[] = [
+			{ type: "input-variable", name: "amount" },
+			{
+				type: "local-variable",
+				name: "formattedAmount",
+				value: {
+					arg: { type: "variable-reference", name: "amount" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [],
+					},
+					type: "expression",
+				},
+			},
+		];
+
+		const message: Message = {
+			locale,
+			bundleId: "number_test",
+			id: "message_id",
+			selectors: [],
+		};
+
+		const variants: Variant[] = [
+			{
+				id: "1",
+				messageId: "message_id",
+				matches: [],
+				pattern: [
+					{ type: "text", value: "Your balance is " },
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "formattedAmount" },
+					},
+					{ type: "text", value: "." },
+				],
+			},
+		];
+
+		const compiled = compileMessage(declarations, message, variants);
+
+		const { number_test } = await import(
+			"data:text/javascript;base64," +
+				// bundling the registry inline to avoid managing module imports here
+				btoa(createRegistry()) +
+				btoa(
+					"export const number_test = " + compiled.code.replace("registry.", "")
+				)
+		);
+		return number_test;
+	};
+
+	const enMessage = await createMessage("en");
+	const deMessage = await createMessage("de");
+
+	expect(enMessage({ amount: 1000.57 })).toBe("Your balance is 1,000.57.");
+	expect(deMessage({ amount: 1000.57 })).toBe("Your balance is 1.000,57.");
+});
+
+test("compiles messages that use number() with options", async () => {
+	const createMessage = async (locale: string) => {
+		const declarations: Declaration[] = [
+			{ type: "input-variable", name: "amount" },
+			{
+				type: "local-variable",
+				name: "formattedAmount",
+				value: {
+					arg: { type: "variable-reference", name: "amount" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [
+							{
+								name: "minimumFractionDigits",
+								value: { type: "literal", value: "2" },
+							},
+							{
+								name: "maximumFractionDigits",
+								value: { type: "literal", value: "2" },
+							},
+						],
+					},
+					type: "expression",
+				},
+			},
+		];
+
+		const message: Message = {
+			locale,
+			bundleId: "number_test",
+			id: "message_id",
+			selectors: [],
+		};
+
+		const variants: Variant[] = [
+			{
+				id: "1",
+				messageId: "message_id",
+				matches: [],
+				pattern: [
+					{ type: "text", value: "Balance: " },
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "formattedAmount" },
+					},
+					{ type: "text", value: "." },
+				],
+			},
+		];
+
+		const compiled = compileMessage(declarations, message, variants);
+
+		const { number_test } = await import(
+			"data:text/javascript;base64," +
+				// bundling the registry inline to avoid managing module imports here
+				btoa(createRegistry()) +
+				btoa(
+					"export const number_test = " + compiled.code.replace("registry.", "")
+				)
+		);
+		return number_test;
+	};
+
+	const enMessage = await createMessage("en");
+	const deMessage = await createMessage("de");
+
+	expect(enMessage({ amount: 1000.5 })).toBe("Balance: 1,000.50.");
+	expect(deMessage({ amount: 1000.5 })).toBe("Balance: 1.000,50.");
+});
+
 test("compiles messages that use datetime()", async () => {
 	const createMessage = async (locale: string) => {
 		const declarations: Declaration[] = [
-			{ type: "input-variable", name: "count" },
+			{ type: "input-variable", name: "date" },
 			{
 				type: "local-variable",
 				name: "formattedDate",
@@ -472,7 +985,7 @@ test("compiles messages that use datetime()", async () => {
 test("compiles messages that use datetime a function with options", async () => {
 	const createMessage = async (locale: string) => {
 		const declarations: Declaration[] = [
-			{ type: "input-variable", name: "count" },
+			{ type: "input-variable", name: "date" },
 			{
 				type: "local-variable",
 				name: "formattedDate",
@@ -535,6 +1048,138 @@ test("compiles messages that use datetime a function with options", async () => 
 	expect(enMessage({ date: "2022-03-31" })).toMatch(/Today is March \d{1,2}\./);
 	expect(deMessage({ date: "2022-03-31" })).toMatch(
 		/Today is \d{1,2}\. März\./
+	);
+});
+
+test("compiles messages that use relativetime() with options", async () => {
+	const createMessage = async (locale: string) => {
+		const declarations: Declaration[] = [
+			{ type: "input-variable", name: "duration" },
+			{
+				type: "local-variable",
+				name: "formattedDuration",
+				value: {
+					arg: { type: "variable-reference", name: "duration" },
+					annotation: {
+						type: "function-reference",
+						name: "relativetime",
+						options: [
+							{ name: "unit", value: { type: "literal", value: "day" } },
+							{ name: "numeric", value: { type: "literal", value: "auto" } },
+							{ name: "style", value: { type: "literal", value: "short" } },
+						],
+					},
+					type: "expression",
+				},
+			},
+		];
+
+		const message: Message = {
+			locale,
+			bundleId: "relative_time_test",
+			id: "message_id",
+			selectors: [],
+		};
+
+		const variants: Variant[] = [
+			{
+				id: "1",
+				messageId: "message_id",
+				matches: [],
+				pattern: [
+					{ type: "text", value: "Updated " },
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "formattedDuration" },
+					},
+					{ type: "text", value: "." },
+				],
+			},
+		];
+
+		const compiled = compileMessage(declarations, message, variants);
+
+		const { relative_time_test } = await import(
+			"data:text/javascript;base64," +
+				// bundling the registry inline to avoid managing module imports here
+				btoa(createRegistry()) +
+				btoa(
+					"export const relative_time_test = " +
+						compiled.code.replace("registry.", "")
+				)
+		);
+		return relative_time_test;
+	};
+
+	const enMessage = await createMessage("en");
+	const deMessage = await createMessage("de");
+
+	expect(enMessage({ duration: -1 })).toBe("Updated yesterday.");
+	expect(deMessage({ duration: 2 })).toBe("Updated übermorgen.");
+});
+
+test("compiles messages that use relativetime() with dynamic units", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "duration" },
+		{ type: "input-variable", name: "unit" },
+		{
+			type: "local-variable",
+			name: "formattedDuration",
+			value: {
+				arg: { type: "variable-reference", name: "duration" },
+				annotation: {
+					type: "function-reference",
+					name: "relativetime",
+					options: [
+						{
+							name: "unit",
+							value: { type: "variable-reference", name: "unit" },
+						},
+						{ name: "style", value: { type: "literal", value: "short" } },
+					],
+				},
+				type: "expression",
+			},
+		},
+	];
+
+	const message: Message = {
+		locale: "en",
+		bundleId: "relative_time_test",
+		id: "message_id",
+		selectors: [],
+	};
+
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "message_id",
+			matches: [],
+			pattern: [
+				{ type: "text", value: "Updated " },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "formattedDuration" },
+				},
+				{ type: "text", value: "." },
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	const { relative_time_test } = await import(
+		"data:text/javascript;base64," +
+			// bundling the registry inline to avoid managing module imports here
+			btoa(createRegistry()) +
+			btoa(
+				"export const relative_time_test = " +
+					compiled.code.replace("registry.", "")
+			)
+	);
+
+	expect(relative_time_test({ duration: -3, unit: "hour" })).toBe(
+		"Updated 3 hr. ago."
 	);
 });
 

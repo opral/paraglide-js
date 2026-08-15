@@ -1,10 +1,11 @@
-import { assertIsLocale } from "./assert-is-locale.js";
-import { isLocale } from "./is-locale.js";
+import { toLocale } from "./check-locale.js";
 import {
 	baseLocale,
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
 	urlPatterns,
 } from "./variables.js";
+import { normalizeTrailingSlash } from "./normalize-trailing-slash.js";
+import { execUrlPattern } from "./exec-url-pattern.js";
 
 /**
  * If extractLocaleFromUrl is called many times on the same page and the URL
@@ -20,6 +21,10 @@ let cachedLocale;
 /**
  * Extracts the locale from a given URL using native URLPattern.
  *
+ * The built-in default `/:locale/...` routing is case-insensitive because it
+ * canonicalizes the first path segment with `toLocale()`. Custom `urlPatterns`
+ * keep URLPattern's normal exact matching semantics for path segments.
+ *
  * @param {URL|string} url - The full URL from which to extract the locale.
  * @returns {Locale|undefined} The extracted locale, or undefined if no locale is found.
  */
@@ -30,25 +35,28 @@ export function extractLocaleFromUrl(url) {
 		return cachedLocale;
 	}
 
+	/** @type {Locale | undefined} */
 	let result;
 	if (TREE_SHAKE_DEFAULT_URL_PATTERN_USED) {
-		result = defaultUrlPatternExtractLocale(url);
+		const urlObj =
+			typeof url === "string"
+				? new URL(url, "http://example.com")
+				: new URL(url);
+		result = defaultUrlPatternExtractLocale(normalizeTrailingSlash(urlObj));
 	} else {
-		const urlObj = typeof url === "string" ? new URL(url) : url;
+		const urlObj = normalizeTrailingSlash(
+			typeof url === "string" ? new URL(url) : new URL(url)
+		);
 
 		// Iterate over URL patterns
 		for (const element of urlPatterns) {
 			for (const [locale, localizedPattern] of element.localized) {
-				const match = new URLPattern(localizedPattern, urlObj.href).exec(
-					urlObj.href
+				const match = execUrlPattern(
+					new URLPattern(localizedPattern, urlObj.href),
+					urlObj
 				);
 
-				if (!match) {
-					continue;
-				}
-
-				// Check if the locale is valid
-				if (assertIsLocale(locale)) {
+				if (match) {
 					result = locale;
 					break;
 				}
@@ -65,18 +73,11 @@ export function extractLocaleFromUrl(url) {
 /**
  * https://github.com/opral/inlang-paraglide-js/issues/381
  *
- * @param {URL|string} url - The full URL from which to extract the locale.
- * @returns {Locale|undefined} The extracted locale, or undefined if no locale is found.
+ * @param {URL | string} url - The full URL from which to extract the locale.
+ * @returns {Locale | undefined} The extracted locale, or undefined if no locale is found.
  */
 function defaultUrlPatternExtractLocale(url) {
-	const urlObj = new URL(url, "http://dummy.com");
+	const urlObj = new URL(url, "http://example.com");
 	const pathSegments = urlObj.pathname.split("/").filter(Boolean);
-	if (pathSegments.length > 0) {
-		const potentialLocale = pathSegments[0];
-		if (isLocale(potentialLocale)) {
-			return potentialLocale;
-		}
-	}
-	// everything else has to be the base locale
-	return baseLocale;
+	return toLocale(pathSegments[0]) || baseLocale;
 }

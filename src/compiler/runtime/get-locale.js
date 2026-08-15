@@ -1,7 +1,8 @@
-import { assertIsLocale } from "./assert-is-locale.js";
+import { assertIsLocale, toLocale } from "./check-locale.js";
 import { extractLocaleFromCookie } from "./extract-locale-from-cookie.js";
 import { extractLocaleFromNavigator } from "./extract-locale-from-navigator.js";
 import { extractLocaleFromUrl } from "./extract-locale-from-url.js";
+import { getStrategyForUrl } from "./route-strategy.js";
 import { setLocale } from "./set-locale.js";
 import { customClientStrategies, isCustomStrategy } from "./strategy.js";
 import {
@@ -23,9 +24,9 @@ import {
  * strategy and avoid type errors.
  *
  * The implementation is overwritten
- * by \`overwriteGetLocale()\` and \`defineSetLocale()\`.
+ * by `overwriteGetLocale()` and `defineSetLocale()`.
  *
- * @type {Locale|undefined}
+ * @type {Locale | undefined}
  */
 let _locale;
 
@@ -38,7 +39,7 @@ let localeInitiallySet = false;
  * in the order they are defined. In SSR contexts, the locale is retrieved from AsyncLocalStorage
  * which is set by the `paraglideMiddleware()`.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy - Configure locale detection strategies
+ * @see https://paraglidejs.com/strategy - Configure locale detection strategies
  *
  * @example
  *   if (getLocale() === 'de') {
@@ -47,15 +48,12 @@ let localeInitiallySet = false;
  *     console.log('Netherlands 🇳🇱');
  *   }
  *
- * @type {() => Locale}
+ * @returns {Locale} The current locale.
  */
 export let getLocale = () => {
 	if (experimentalStaticLocale !== undefined) {
-		return assertIsLocale(experimentalStaticLocale);
+		return experimentalStaticLocale;
 	}
-
-	/** @type {string | undefined} */
-	let locale;
 
 	// if running in a server-side rendering context
 	// retrieve the locale from the async local storage
@@ -66,7 +64,65 @@ export let getLocale = () => {
 		}
 	}
 
-	for (const strat of strategy) {
+	let strategyToUse = strategy;
+	if (!isServer && typeof window !== "undefined" && window.location?.href) {
+		strategyToUse = getStrategyForUrl(window.location.href);
+	}
+
+	const resolved = resolveLocaleWithStrategies(
+		strategyToUse,
+		typeof window !== "undefined" ? window.location?.href : undefined
+	);
+	if (resolved) {
+		if (!localeInitiallySet) {
+			_locale = resolved;
+			// https://github.com/opral/inlang-paraglide-js/issues/455
+			localeInitiallySet = true;
+			setLocale(resolved, { reload: false });
+		}
+		return resolved;
+	}
+
+	throw new Error(
+		"No locale found. Read the docs https://paraglidejs.com/errors#no-locale-found"
+	);
+};
+
+/**
+ * Resolve locale for a given URL using route-aware strategies.
+ *
+ * @param {string | URL} url
+ * @returns {Locale}
+ */
+export function getLocaleForUrl(url) {
+	if (experimentalStaticLocale !== undefined) {
+		return experimentalStaticLocale;
+	}
+
+	const strategyToUse = getStrategyForUrl(url);
+	const resolved = resolveLocaleWithStrategies(
+		strategyToUse,
+		typeof url === "string" ? url : url.href
+	);
+	if (resolved) {
+		return resolved;
+	}
+
+	throw new Error(
+		"No locale found. Read the docs https://paraglidejs.com/errors#no-locale-found"
+	);
+}
+
+/**
+ * @param {typeof strategy} strategyToUse
+ * @param {string | undefined} urlForUrlStrategy
+ * @returns {Locale | undefined}
+ */
+function resolveLocaleWithStrategies(strategyToUse, urlForUrlStrategy) {
+	/** @type {string | undefined} */
+	let locale;
+
+	for (const strat of strategyToUse) {
 		if (TREE_SHAKE_COOKIE_STRATEGY_USED && strat === "cookie") {
 			locale = extractLocaleFromCookie();
 		} else if (strat === "baseLocale") {
@@ -75,9 +131,9 @@ export let getLocale = () => {
 			TREE_SHAKE_URL_STRATEGY_USED &&
 			strat === "url" &&
 			!isServer &&
-			typeof window !== "undefined"
+			typeof urlForUrlStrategy === "string"
 		) {
-			locale = extractLocaleFromUrl(window.location.href);
+			locale = extractLocaleFromUrl(urlForUrlStrategy);
 		} else if (
 			TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED &&
 			strat === "globalVariable" &&
@@ -105,26 +161,20 @@ export let getLocale = () => {
 					// Can't await in sync function, skip async strategies
 					continue;
 				}
-				locale = result;
+				if (result !== undefined) {
+					return assertIsLocale(result);
+				}
 			}
 		}
-		// check if match, else continue loop
-		if (locale !== undefined) {
-			const asserted = assertIsLocale(locale);
-			if (!localeInitiallySet) {
-				_locale = asserted;
-				// https://github.com/opral/inlang-paraglide-js/issues/455
-				localeInitiallySet = true;
-				setLocale(asserted, { reload: false });
-			}
-			return asserted;
+
+		const matchedLocale = toLocale(locale);
+		if (matchedLocale) {
+			return matchedLocale;
 		}
 	}
 
-	throw new Error(
-		"No locale found. Read the docs https://inlang.com/m/gerre34r/library-inlang-paraglideJs/errors#no-locale-found"
-	);
-};
+	return undefined;
+}
 
 /**
  * Overwrite the `getLocale()` function.
@@ -132,14 +182,14 @@ export let getLocale = () => {
  * Use this function to overwrite how the locale is resolved. This is useful
  * for custom locale resolution or advanced use cases like SSG with concurrent rendering.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy
+ * @see https://paraglidejs.com/strategy
  *
  * @example
  *   overwriteGetLocale(() => {
  *     return Cookies.get('locale') ?? baseLocale
  *   });
  *
- * @type {(fn: () => Locale) => void}
+ * @param {() => Locale} fn - The new implementation for `getLocale()`.
  */
 export const overwriteGetLocale = (fn) => {
 	getLocale = fn;

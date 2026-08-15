@@ -2,6 +2,7 @@ import {
 	assertIsLocale,
 	baseLocale,
 	getLocale,
+	getTextDirection,
 	overwriteGetLocale,
 } from "../../paraglide/runtime";
 import ClientSideLocaleSwitch from "./ClientSideLocaleSwitch";
@@ -32,7 +33,7 @@ export default async function RootLayout({
 	// this is something nextjs has to fix
 	ssrLocale().locale = params.locale;
 	return (
-		<html lang={getLocale()}>
+		<html lang={getLocale()} dir={getTextDirection()}>
 			<body>
 				<b>
 					<p>{m.programmatic_locale_switching_info()}</p>

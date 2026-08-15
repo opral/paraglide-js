@@ -1,8 +1,16 @@
-import { paraglideMiddleware } from "./paraglide/server.js";
-import handler from "@tanstack/react-start/server-entry";
+import {
+  createStartHandler,
+  defaultStreamHandler,
+} from '@tanstack/react-start/server'
+import { paraglideMiddleware } from './paraglide/server.js'
+
+const fetch = createStartHandler({
+  handler: defaultStreamHandler,
+})
 
 export default {
-	fetch(req: Request): Promise<Response> {
-		return paraglideMiddleware(req, () => handler.fetch(req));
-	},
-};
+  fetch(request: Request) {
+    // TanStack Router owns URL rewriting, so keep the original request URL.
+    return paraglideMiddleware(request, () => fetch(request))
+  },
+}

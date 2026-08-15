@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import type { CompilerOptions } from "../compiler-options.js";
+import { perLocaleBuildStaticLocaleExpression } from "../per-locale-build.js";
 
 /**
  * Returns the code for the `runtime.js` module
@@ -9,10 +10,12 @@ export function createRuntimeFile(args: {
 	locales: string[];
 	compilerOptions: {
 		strategy: NonNullable<CompilerOptions["strategy"]>;
+		routeStrategies?: CompilerOptions["routeStrategies"];
 		cookieName: NonNullable<CompilerOptions["cookieName"]>;
 		cookieMaxAge: NonNullable<CompilerOptions["cookieMaxAge"]>;
 		cookieDomain: CompilerOptions["cookieDomain"];
 		urlPatterns?: CompilerOptions["urlPatterns"];
+		trailingSlash?: CompilerOptions["trailingSlash"];
 		experimentalMiddlewareLocaleSplitting: CompilerOptions["experimentalMiddlewareLocaleSplitting"];
 		isServer: CompilerOptions["isServer"];
 		experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
@@ -23,6 +26,7 @@ export function createRuntimeFile(args: {
 	};
 }): string {
 	const urlPatterns = args.compilerOptions.urlPatterns ?? [];
+	const routeStrategies = args.compilerOptions.routeStrategies ?? [];
 
 	let defaultUrlPatternUsed = false;
 
@@ -47,8 +51,29 @@ export function createRuntimeFile(args: {
 			`:protocol://:domain(.*)::port?/:path(.*)?`,
 		]);
 	}
+	const strategiesUsedByRoutes = routeStrategies.flatMap((routeStrategy) =>
+		"strategy" in routeStrategy ? routeStrategy.strategy : []
+	);
+	const allUsedStrategies = new Set([
+		...args.compilerOptions.strategy,
+		...strategiesUsedByRoutes,
+	]);
+	const needsUrlPatternPolyfill =
+		!defaultUrlPatternUsed || routeStrategies.length > 0;
+
+	// verify that urlPatterns' locales are valid
+	for (const urlPattern of urlPatterns) {
+		for (const [locale] of urlPattern.localized) {
+			if (!args.locales.includes(locale)) {
+				throw new Error(
+					`Invalid locale "${locale}" in urlPatterns. It must be one of the locales defined in the "locales" array.`
+				);
+			}
+		}
+	}
+
 	const code = `
-${defaultUrlPatternUsed ? "/** @type {any} */\nconst URLPattern = {}" : `import "@inlang/paraglide-js/urlpattern-polyfill";`}
+${needsUrlPatternPolyfill ? `import "@inlang/paraglide-js/urlpattern-polyfill";` : "/** @type {any} */\nconst URLPattern = {}"}
 
 ${injectCode("./variables.js")
 	.replace(
@@ -56,8 +81,8 @@ ${injectCode("./variables.js")
 		`export const baseLocale = "${args.baseLocale}";`
 	)
 	.replace(
-		`export const locales = /** @type {const} */ (["en", "de"]);`,
-		`export const locales = /** @type {const} */ (["${args.locales.join('", "')}"]);`
+		`export const locales = /** @type {readonly string[]} */ (["en", "de"]);`,
+		`export const locales = /** @type {const} */ (${JSON.stringify(args.locales)});`
 	)
 	.replace(
 		`export const strategy = ["globalVariable"];`,
@@ -67,24 +92,36 @@ ${injectCode("./variables.js")
 	.replace(`60 * 60 * 24 * 400`, `${args.compilerOptions.cookieMaxAge}`)
 	.replace(`<cookie-domain>`, `${args.compilerOptions.cookieDomain}`)
 	.replace(
+		`export const routeStrategies = [];`,
+		`export const routeStrategies = ${JSON.stringify(routeStrategies, null, 2)};`
+	)
+	.replace(
 		`export const TREE_SHAKE_COOKIE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_COOKIE_STRATEGY_USED = ${args.compilerOptions.strategy.includes("cookie")};`
+		`const TREE_SHAKE_COOKIE_STRATEGY_USED = ${allUsedStrategies.has("cookie")};`
 	)
 	.replace(
 		`export const TREE_SHAKE_URL_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_URL_STRATEGY_USED = ${args.compilerOptions.strategy.includes("url")};`
+		`const TREE_SHAKE_URL_STRATEGY_USED = ${allUsedStrategies.has("url")};`
 	)
 	.replace(
 		`export const TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED = ${args.compilerOptions.strategy.includes("globalVariable")};`
+		`const TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED = ${allUsedStrategies.has("globalVariable")};`
 	)
 	.replace(
 		`export const TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED = ${args.compilerOptions.strategy.includes("preferredLanguage")};`
+		`const TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED = ${allUsedStrategies.has("preferredLanguage")};`
 	)
 	.replace(
 		`export const urlPatterns = [];`,
 		`export const urlPatterns = ${JSON.stringify(urlPatterns, null, 2)};`
+	)
+	.replace(
+		`export const trailingSlash = undefined;`,
+		`export const trailingSlash = ${
+			args.compilerOptions.trailingSlash === undefined
+				? "undefined"
+				: JSON.stringify(args.compilerOptions.trailingSlash)
+		};`
 	)
 	.replace(
 		`export const disableAsyncLocalStorage = false;`,
@@ -104,7 +141,14 @@ ${injectCode("./variables.js")
 	)
 	.replace(
 		`export const experimentalStaticLocale = undefined;`,
-		`export const experimentalStaticLocale = ${args.compilerOptions.experimentalStaticLocale ?? "undefined"};`
+		args.compilerOptions.experimentalStaticLocale
+			? `export const experimentalStaticLocale = ${
+					args.compilerOptions.experimentalStaticLocale ===
+					perLocaleBuildStaticLocaleExpression
+						? args.compilerOptions.experimentalStaticLocale
+						: `assertIsLocale(${args.compilerOptions.experimentalStaticLocale})`
+				};`
+			: `export const experimentalStaticLocale = undefined;`
 	)
 	.replace(
 		`export const localStorageKey = "PARAGLIDE_LOCALE";`,
@@ -112,26 +156,39 @@ ${injectCode("./variables.js")
 	)
 	.replace(
 		`export const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${args.compilerOptions.strategy.includes("localStorage")};`
+		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${allUsedStrategies.has("localStorage")};`
 	)}
 
-globalThis.__paraglide = {}
+/** @type {any} */ (globalThis).__paraglide =
+	/** @type {any} */ (globalThis).__paraglide ?? {};
+/** @type {any} */ (globalThis).__paraglide.ssr =
+	/** @type {any} */ (globalThis).__paraglide.ssr ?? {};
 
 ${injectCode("./get-locale.js")}
+
+${injectCode("./get-text-direction.js")}
 
 ${injectCode("./set-locale.js")}
 
 ${injectCode("./get-url-origin.js")}
 
-${injectCode("./is-locale.js")}
+${injectCode("./check-locale.js")}
 
-${injectCode("./assert-is-locale.js")}
+${injectCode("./normalize-trailing-slash.js", {
+	privateExports: ["normalizeTrailingSlash"],
+})}
+
+${injectCode("./exec-url-pattern.js", {
+	privateExports: ["execUrlPattern"],
+})}
 
 ${injectCode("./extract-locale-from-request.js")}
 
 ${injectCode("./extract-locale-from-request-async.js")}
 
-${injectCode("./extract-locale-from-cookie.js")}
+${injectCode("./extract-locale-from-cookie.js", {
+	privateExports: ["clearLocaleCookieCache"],
+})}
 
 ${injectCode("./extract-locale-from-header.js")}
 
@@ -140,6 +197,8 @@ ${injectCode("./extract-locale-from-navigator.js")}
 ${injectCode("./extract-locale-from-url.js")}
 
 ${injectCode("./localize-url.js")}
+
+${injectCode("./route-strategy.js")}
 
 ${injectCode("./should-redirect.js")}
 
@@ -151,59 +210,10 @@ ${injectCode("./generate-static-localized-urls.js")}
 
 ${injectCode("./strategy.js")}
 
-// ------ TYPES ------
-
-/**
- * A locale that is available in the project.
- *
- * @example
- *   setLocale(request.locale as Locale)
- *
- * @typedef {(typeof locales)[number]} Locale
- */
-
-/**
- * A branded type representing a localized string.
- *
- * Message functions return this type instead of \`string\`, enabling TypeScript
- * to distinguish translated strings from regular strings at compile time.
- * This allows you to enforce that only properly localized content is used
- * in your UI components.
- *
- * Since \`LocalizedString\` is a branded subtype of \`string\`, it remains fully
- * backward compatible—you can pass it anywhere a \`string\` is expected.
- *
- * @example
- *   // Enforce localized strings in your components
- *   function PageTitle(props: { title: LocalizedString }) {
- *     return <h1>{props.title}</h1>
- *   }
- *
- *   // ✅ Correct: using a message function
- *   <PageTitle title={m.welcome_title()} />
- *
- *   // ❌ Type error: raw strings are not LocalizedString
- *   <PageTitle title="Welcome" />
- *
- * @example
- *   // LocalizedString is assignable to string (backward compatible)
- *   const localized: LocalizedString = m.greeting()
- *   const str: string = localized  // ✅ works fine
- *
- *   // But string is not assignable to LocalizedString
- *   const raw: LocalizedString = "Hello"  // ❌ Type error
- *
- * @example
- *   // Catches accidental string concatenation
- *   function showMessage(msg: LocalizedString) { ... }
- *
- *   showMessage(m.hello())                    // ✅
- *   showMessage("Hello " + userName)          // ❌ Type error
- *   showMessage(m.hello_user({ name: userName }))  // ✅ use params instead
- *
- * @typedef {string & { readonly __brand: 'LocalizedString' }} LocalizedString
- */
-
+${injectCode("./type-definitions.js").replace(
+	`@typedef {string} Locale`,
+	`@typedef {typeof locales[number]} Locale`
+)}
 `;
 
 	return code;
@@ -216,17 +226,28 @@ ${injectCode("./strategy.js")}
  * self-contained.
  *
  * @param {string} path
+ * @param {{ privateExports?: string[] }} [options]
  * @returns {string}
  */
-function injectCode(path: string): string {
+function injectCode(
+	path: string,
+	options?: { privateExports?: string[] }
+): string {
 	const code = fs.readFileSync(new URL(path, import.meta.url), "utf-8");
 	// Regex to match single-line and multi-line imports
 	const importRegex = /import\s+[\s\S]*?from\s+['"][^'"]+['"]\s*;?/g;
 	const sourceMapRegex = /\/\/# sourceMappingURL=.*$/gm;
 	const blockSourceMapRegex = /\/\*# sourceMappingURL=.*?\*\//g;
-	return code
+	let injected = code
 		.replace(importRegex, "")
 		.replace(sourceMapRegex, "")
 		.replace(blockSourceMapRegex, "")
 		.trim();
+	for (const exportName of options?.privateExports ?? []) {
+		injected = injected.replace(
+			new RegExp(`\\bexport\\s+function\\s+${exportName}\\b`, "g"),
+			`function ${exportName}`
+		);
+	}
+	return injected;
 }

@@ -36,6 +36,147 @@ test("shouldRedirect redirects to the strategy-preferred locale on the server", 
 	expect(decision.locale).toBe("fr");
 });
 
+test("shouldRedirect enforces the configured trailing slash policy", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		trailingSlash: "never",
+		urlPatterns: [
+			{
+				pattern: "/about",
+				localized: [
+					["de", "/de/ueber"],
+					["en", "/about"],
+				],
+			},
+		],
+	});
+
+	const decision = await runtime.shouldRedirect({
+		request: new Request("https://example.com/de/ueber/"),
+	});
+
+	expect(decision.locale).toBe("de");
+	expect(decision.shouldRedirect).toBe(true);
+	expect(decision.redirectUrl?.href).toBe("https://example.com/de/ueber");
+});
+
+test("shouldRedirect uses the provided public url when the transport request url differs", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url"],
+		cookieName: "PARAGLIDE_LOCALE",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("http://internal.example.com/en/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		},
+	});
+
+	const decision = await runtime.shouldRedirect({
+		request,
+		effectiveRequestUrl: "https://example.com/en/dashboard",
+	});
+
+	expect(decision.shouldRedirect).toBe(true);
+	expect(decision.redirectUrl?.href).toBe("https://example.com/fr/dashboard");
+	expect(decision.locale).toBe("fr");
+});
+
+test("shouldRedirect resolves relative effectiveRequestUrl strings against request.url", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url"],
+		cookieName: "PARAGLIDE_LOCALE",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/en/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		},
+	});
+
+	const decision = await runtime.shouldRedirect({
+		request,
+		effectiveRequestUrl: "/en/dashboard",
+	});
+
+	expect(decision.shouldRedirect).toBe(true);
+	expect(decision.redirectUrl?.href).toBe("https://example.com/fr/dashboard");
+	expect(decision.locale).toBe("fr");
+});
+
+test("shouldRedirect keeps request precedence over url on the server", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie", "url"],
+		cookieName: "PARAGLIDE_LOCALE",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/en/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		},
+	});
+
+	const decision = await runtime.shouldRedirect({
+		request,
+		url: "/dashboard",
+	} as any);
+
+	expect(decision.shouldRedirect).toBe(true);
+	expect(decision.redirectUrl?.href).toBe("https://example.com/fr/dashboard");
+	expect(decision.locale).toBe("fr");
+});
+
 test("shouldRedirect does nothing when the URL already matches", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
@@ -108,6 +249,70 @@ test("shouldRedirect falls back to the browser URL when no input is provided", a
 	}
 });
 
+test("shouldRedirect({ url }) resolves locale using target URL routeStrategies on client", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		isServer: "false",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+		routeStrategies: [
+			{
+				match: "/dashboard",
+				strategy: ["cookie", "baseLocale"],
+			},
+		],
+	});
+
+	const originalWindow = globalThis.window;
+	const originalDocument = globalThis.document;
+
+	try {
+		globalThis.window = {
+			location: {
+				href: "https://example.com/dashboard",
+				origin: "https://example.com",
+			},
+		} as any;
+		globalThis.document = {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		} as any;
+
+		const decision = await runtime.shouldRedirect({
+			url: "https://example.com/en/profile",
+		});
+
+		expect(decision.shouldRedirect).toBe(false);
+		expect(decision.redirectUrl).toBeUndefined();
+		expect(decision.locale).toBe("en");
+	} finally {
+		if (originalWindow === undefined) {
+			Reflect.deleteProperty(globalThis, "window");
+		} else {
+			globalThis.window = originalWindow;
+		}
+
+		if (originalDocument === undefined) {
+			Reflect.deleteProperty(globalThis, "document");
+		} else {
+			globalThis.document = originalDocument;
+		}
+	}
+});
+
 test("shouldRedirect never suggests a redirect without the url strategy", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
@@ -121,6 +326,38 @@ test("shouldRedirect never suggests a redirect without the url strategy", async 
 	});
 
 	const request = new Request("https://example.com/en/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=fr",
+		},
+	});
+
+	const decision = await runtime.shouldRedirect({ request });
+
+	expect(decision.shouldRedirect).toBe(false);
+	expect(decision.redirectUrl).toBeUndefined();
+	expect(decision.locale).toBe("fr");
+});
+
+test("shouldRedirect respects routeStrategies that disable url strategy per route", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		trailingSlash: "never",
+		routeStrategies: [
+			{
+				match: "/dashboard/:path(.*)?",
+				strategy: ["cookie", "baseLocale"],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/dashboard/", {
 		headers: {
 			cookie: "PARAGLIDE_LOCALE=fr",
 		},

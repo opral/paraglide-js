@@ -16,7 +16,7 @@ export const baseLocale = "en";
  *     throw new Error('Locale is not available');
  *   }
  */
-export const locales = /** @type {const} */ (["en", "de"]);
+export const locales = /** @type {readonly string[]} */ (["en", "de"]);
 
 /** @type {string} */
 export const cookieName = "<cookie-name>";
@@ -36,11 +36,31 @@ export const localStorageKey = "PARAGLIDE_LOCALE";
 export const strategy = ["globalVariable"];
 
 /**
+ * Route-level strategy overrides.
+ *
+ * `match` uses URLPattern syntax.
+ *
+ * @type {Array<{
+ *   match: string;
+ *   strategy?: Array<"cookie" | "baseLocale" | "globalVariable" | "url" | "preferredLanguage" | "localStorage" | `custom-${string}`>;
+ *   exclude?: boolean;
+ * }>}
+ */
+export const routeStrategies = [];
+
+/**
  * The used URL patterns.
  *
- * @type {Array<{ pattern: string, localized: Array<[Locale, string]> }> }
+ * @type {Array<{ pattern: string, localized: Array<[Locale, string]> }>}
  */
 export const urlPatterns = [];
+
+/**
+ * Controls trailing slash canonicalization for localized URLs.
+ *
+ * @type {"always" | "never" | undefined}
+ */
+export const trailingSlash = undefined;
 
 /**
  * @typedef {{
@@ -64,6 +84,18 @@ export const urlPatterns = [];
  */
 export let serverAsyncLocalStorage = undefined;
 
+/**
+ * Returns the current server-side async local storage instance.
+ *
+ * Accessing the mutable value through a function keeps it observable when
+ * module interceptors wrap exported bindings and snapshot their initial value.
+ *
+ * @returns {ParaglideAsyncLocalStorage | undefined}
+ */
+export function getServerAsyncLocalStorage() {
+	return serverAsyncLocalStorage;
+}
+
 export const disableAsyncLocalStorage = false;
 
 export const experimentalMiddlewareLocaleSplitting = false;
@@ -71,7 +103,6 @@ export const experimentalMiddlewareLocaleSplitting = false;
 export const isServer = typeof window === "undefined";
 
 /** @type {Locale | undefined} */
-// @ts-ignore - injected by bundlers at compile time
 export const experimentalStaticLocale = undefined;
 
 /**

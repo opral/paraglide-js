@@ -30,6 +30,40 @@ const superStrictRuleOutAnyErrorTsSettings: ProjectOptions["compilerOptions"] =
 		strict: true,
 	};
 
+test("createRuntimeFile throws if urlPatterns contains an unknown locale", () => {
+	expect(() =>
+		createRuntimeFile({
+			baseLocale: "en",
+			locales: ["en", "de"],
+			compilerOptions: {
+				...defaultCompilerOptions,
+				urlPatterns: [
+					{
+						pattern: "https://example.com/:path*",
+						localized: [["fr", "https://example.com/fr/:path*"]],
+					},
+				],
+			},
+		})
+	).toThrow(
+		'Invalid locale "fr" in urlPatterns. It must be one of the locales defined in the "locales" array.'
+	);
+});
+
+test("cookie cache clearer remains internal in the generated runtime", () => {
+	const jsdocRuntime = createRuntimeFile({
+		baseLocale: "en",
+		locales: ["en", "de"],
+		compilerOptions: {
+			...defaultCompilerOptions,
+			strategy: ["cookie", "baseLocale"],
+		},
+	});
+
+	expect(jsdocRuntime).toContain("function clearLocaleCookieCache");
+	expect(jsdocRuntime).not.toContain("export function clearLocaleCookieCache");
+});
+
 test("runtime type", async () => {
 	const project = await typescriptProject({
 		useInMemoryFileSystem: true,
@@ -81,6 +115,9 @@ test("runtime type", async () => {
     // setLocale() should not fail if the given language tag is included in locales
     runtime.setLocale("de")
 
+		// getTextDirection() should return a strict direction union
+		runtime.getTextDirection() satisfies "ltr" | "rtl"
+
 		// isLocale should narrow the type of it's argument
 		const thing = 5;
 
@@ -94,6 +131,9 @@ test("runtime type", async () => {
 		}
 
 		// to make ts not complain about unused variables
+		runtime.toLocale("EN") satisfies "de" | "en" | "en-US" | undefined
+		runtime.toLocale(123) satisfies "de" | "en" | "en-US" | undefined
+
 		console.log(a)
     `
 	);

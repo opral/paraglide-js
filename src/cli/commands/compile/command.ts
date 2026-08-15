@@ -1,9 +1,10 @@
-import { Command } from "commander";
+import { Command, InvalidArgumentError } from "commander";
 import fs from "node:fs";
 import { resolve, relative } from "node:path";
 import { Logger } from "../../../services/logger/index.js";
 import { DEFAULT_OUTDIR, DEFAULT_PROJECT_PATH } from "../../defaults.js";
 import { compile, type CompilationResult } from "../../../compiler/compile.js";
+import { seedPreviousCompilationFromOutdir } from "../../../compiler/seed-previous-compilation.js";
 import {
 	defaultCompilerOptions,
 	type CompilerOptions,
@@ -12,6 +13,17 @@ import {
 	createTrackedFs,
 	getWatchTargets,
 } from "../../../services/file-watching/tracked-fs.js";
+
+const parseOutputStructure = (
+	value: string
+): NonNullable<CompilerOptions["outputStructure"]> => {
+	if (value === "message-modules" || value === "locale-modules") {
+		return value;
+	}
+	throw new InvalidArgumentError(
+		`Invalid output structure "${value}". Expected "message-modules" or "locale-modules".`
+	);
+};
 
 export const compileCommand = new Command()
 	.name("compile")
@@ -32,7 +44,7 @@ export const compileCommand = new Command()
 			"The strategy to be used.",
 			"",
 			"Example: --strategy cookie globalVariable baseLocale",
-			"Read more on https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy",
+			"Read more on https://paraglidejs.com/strategy",
 		].join("\n")
 	)
 	.requiredOption("--silent", "Only log errors to the console", false)
@@ -40,6 +52,56 @@ export const compileCommand = new Command()
 		"--emit-ts-declarations",
 		"Emit .d.ts files for the generated output (requires the typescript package)",
 		defaultCompilerOptions.emitTsDeclarations
+	)
+	.option(
+		"--no-emit-ts-declarations",
+		"Do not emit .d.ts files for the generated output"
+	)
+	.option(
+		"--emit-git-ignore",
+		"Emit a .gitignore in the output directory",
+		defaultCompilerOptions.emitGitIgnore
+	)
+	.option(
+		"--no-emit-git-ignore",
+		"Do not emit a .gitignore in the output directory"
+	)
+	.option(
+		"--emit-prettier-ignore",
+		"Emit a .prettierignore in the output directory",
+		defaultCompilerOptions.emitPrettierIgnore
+	)
+	.option(
+		"--no-emit-prettier-ignore",
+		"Do not emit a .prettierignore in the output directory"
+	)
+	.option(
+		"--emit-readme",
+		"Emit a README.md in the output directory (helps LLMs understand the generated code)",
+		defaultCompilerOptions.emitReadme
+	)
+	.option(
+		"--no-emit-readme",
+		"Do not emit README.md in the output directory"
+	)
+	.option(
+		"--is-server <expression>",
+		[
+			"JavaScript expression for runtime `isServer` (enables server/client tree-shaking).",
+			'Quote if the expression contains spaces, e.g. --is-server \'typeof window === "undefined"\'.',
+			"Vite SSR example: --is-server 'import.meta.env.SSR'",
+		].join(" ")
+	)
+	.option(
+		"--output-structure <structure>",
+		[
+			'The output structure for compiled messages. Either "message-modules" or "locale-modules".',
+			"",
+			'"message-modules" gives each message its own module (better tree-shaking).',
+			'"locale-modules" bundles messages per locale (fewer files, better for large projects in dev).',
+		].join("\n"),
+		parseOutputStructure,
+		defaultCompilerOptions.outputStructure
 	)
 	.option("--watch", "Watch project files and recompile on change", false)
 	.action(
@@ -49,6 +111,11 @@ export const compileCommand = new Command()
 			outdir: string;
 			strategy?: CompilerOptions["strategy"];
 			emitTsDeclarations?: CompilerOptions["emitTsDeclarations"];
+			emitGitIgnore?: CompilerOptions["emitGitIgnore"];
+			emitPrettierIgnore?: CompilerOptions["emitPrettierIgnore"];
+			emitReadme?: CompilerOptions["emitReadme"];
+			isServer?: CompilerOptions["isServer"];
+			outputStructure?: CompilerOptions["outputStructure"];
 			watch?: boolean;
 		}) => {
 			const logger = new Logger({ silent: options.silent, prefix: true });
@@ -61,13 +128,31 @@ export const compileCommand = new Command()
 				emitTsDeclarations:
 					options.emitTsDeclarations ??
 					defaultCompilerOptions.emitTsDeclarations,
+				emitGitIgnore:
+					options.emitGitIgnore ?? defaultCompilerOptions.emitGitIgnore,
+				emitPrettierIgnore:
+					options.emitPrettierIgnore ??
+					defaultCompilerOptions.emitPrettierIgnore,
+				emitReadme: options.emitReadme ?? defaultCompilerOptions.emitReadme,
+				isServer: options.isServer ?? defaultCompilerOptions.isServer,
+				outputStructure:
+					options.outputStructure ??
+					defaultCompilerOptions.outputStructure,
 			};
 
 			if (!options.watch) {
 				logger.info(`Compiling inlang project ...`);
 
 				try {
-					await compile(compileOptions);
+					const previousCompilation = await seedPreviousCompilationFromOutdir({
+						outdir: compileOptions.outdir,
+					});
+
+					await compile({
+						...compileOptions,
+						previousCompilation,
+						cleanOutdir: false,
+					});
 				} catch (e) {
 					logger.error("Error while compiling inlang project.");
 					logger.error(e);
@@ -181,11 +266,17 @@ export const compileCommand = new Command()
 				}
 
 				try {
+					const seededPrevious =
+						previousCompilation ??
+						(await seedPreviousCompilationFromOutdir({
+							outdir: compileOptions.outdir,
+						}));
+
 					previousCompilation = await compile({
 						...compileOptions,
 						fs: trackedFs,
-						previousCompilation,
-						cleanOutdir: previousCompilation === undefined,
+						previousCompilation: seededPrevious,
+						cleanOutdir: false,
 					});
 
 					if (changedPath) {

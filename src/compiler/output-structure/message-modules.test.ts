@@ -22,6 +22,7 @@ test("should emit per locale message files", () => {
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 	];
 
@@ -57,6 +58,7 @@ test("handles case senstivity by creating directories and files only in lowercas
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 		{
 			bundle: {
@@ -71,6 +73,7 @@ test("handles case senstivity by creating directories and files only in lowercas
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 	];
 	const settings: Pick<ProjectSettings, "locales" | "baseLocale"> = {
@@ -83,6 +86,44 @@ test("handles case senstivity by creating directories and files only in lowercas
 	expect(output).toHaveProperty("messages/happyelephant.js");
 	expect(output).toHaveProperty("messages/happyelephant2.js");
 	expect(output).not.toHaveProperty("messages/HappyElephant.js");
+});
+
+test("emits minimal runtime imports when middleware splitting is disabled", () => {
+	const resources: CompiledBundleWithMessages[] = [
+		{
+			bundle: {
+				code: "export const happy_elephant = () => en_happy_elephant()",
+				node: {
+					id: "happy_elephant",
+				} as unknown as Bundle,
+			},
+			messages: {
+				en: {
+					code: '() => "happy"',
+					node: {} as unknown as Message,
+				},
+			},
+			matchTypes: new Map(),
+		},
+	];
+
+	const output = generateOutput(
+		resources,
+		{ locales: ["en"], baseLocale: "en" },
+		{},
+		false
+	);
+
+	expect(output["messages/happy_elephant.js"]).toContain(
+		"import { getLocale, experimentalStaticLocale } from '../runtime.js';"
+	);
+	expect(output["messages/happy_elephant.js"]).not.toContain(
+		"trackMessageCall"
+	);
+	expect(output["messages/happy_elephant.js"]).not.toContain(
+		"experimentalMiddlewareLocaleSplitting"
+	);
+	expect(output["messages/happy_elephant.js"]).not.toContain("isServer");
 });
 
 // Regression test for https://github.com/opral/inlang-paraglide-js/issues/507
@@ -102,6 +143,7 @@ test("emits fallback definitions after their dependencies", () => {
 					node: {} as unknown as Message,
 				},
 			},
+			matchTypes: new Map(),
 		},
 	];
 

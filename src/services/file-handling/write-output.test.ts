@@ -109,6 +109,37 @@ test("should write again if the output has changed", async () => {
 	expect(writeFileSpy).toHaveBeenCalledTimes(2);
 });
 
+test("should only create directories for files that changed", async () => {
+	const { writeOutput } = await import("./write-output.js");
+	const fs = mockFs({});
+	const mkdirSpy = vi.spyOn(fs, "mkdir");
+
+	const hashes = await writeOutput({
+		directory: "/output",
+		output: {
+			"messages/first.js": "first",
+			"messages/second.js": "second",
+		},
+		fs,
+	});
+	mkdirSpy.mockClear();
+
+	await writeOutput({
+		directory: "/output",
+		output: {
+			"messages/first.js": "changed",
+			"messages/second.js": "second",
+		},
+		fs,
+		previousOutputHashes: hashes,
+	});
+
+	expect(mkdirSpy).toHaveBeenCalledTimes(1);
+	expect(mkdirSpy).toHaveBeenCalledWith("/output/messages", {
+		recursive: true,
+	});
+});
+
 test("should write files if output has partially changed", async () => {
 	const { writeOutput } = await import("./write-output.js");
 	const fs = mockFs({});
@@ -215,6 +246,73 @@ test("should delete files that have been removed from the output", async () => {
 	await expect(
 		async () => await fs.readdir("/output/subdir")
 	).rejects.toBeDefined();
+});
+
+test("hashDirectory matches the hashes writeOutput returns", async () => {
+	const { writeOutput, hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({});
+
+	const output = {
+		"a.txt": "alpha",
+		"nested/b.txt": "beta",
+		"nested/deep/c.txt": "gamma",
+	};
+
+	const writtenHashes = await writeOutput({
+		directory: "/output",
+		output,
+		fs,
+	});
+
+	const seededHashes = await hashDirectory("/output", fs);
+
+	expect(seededHashes).toEqual(writtenHashes);
+});
+
+test("hashDirectory returns undefined when directory does not exist", async () => {
+	const { hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({});
+
+	expect(await hashDirectory("/nope", fs)).toBeUndefined();
+});
+
+test("hashDirectory skips files that disappear while walking", async () => {
+	const { hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({
+		"/output/a.txt": "alpha",
+		"/output/b.txt": "beta",
+	});
+	const readFile = fs.readFile.bind(fs);
+	vi.spyOn(fs, "readFile").mockImplementation((async (...args) => {
+		if (args[0] === "/output/b.txt") {
+			throw new Error("file disappeared");
+		}
+		return readFile(args[0], args[1]);
+	}) as typeof fs.readFile);
+
+	const seededHashes = await hashDirectory("/output", fs);
+
+	expect(seededHashes).toEqual({
+		"a.txt": expect.any(String),
+	});
+});
+
+test("hashDirectory skips directories that disappear while walking", async () => {
+	const { hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({
+		"/output/nested/b.txt": "beta",
+	});
+	const readdir = fs.readdir.bind(fs);
+	vi.spyOn(fs, "readdir").mockImplementation((async (...args) => {
+		if (args[0] === "/output/nested") {
+			throw new Error("directory disappeared");
+		}
+		return readdir(args[0], args[1] as never);
+	}) as typeof fs.readdir);
+
+	const seededHashes = await hashDirectory("/output", fs);
+
+	expect(seededHashes).toEqual({});
 });
 
 const mockFs = (files: memfs.DirectoryJSON) => {

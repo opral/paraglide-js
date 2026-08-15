@@ -1,0 +1,37 @@
+{
+	"name": "@inlang/paraglide-js-website",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev --port 3000",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "vitest run",
+		"lint": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@opral/markdown-wc": "0.8.1",
+		"@tailwindcss/vite": "^4.0.6",
+		"@tanstack/react-router": "^1.132.0",
+		"@tanstack/react-router-ssr-query": "^1.131.7",
+		"@tanstack/react-start": "^1.132.0",
+		"@tanstack/router-plugin": "^1.132.0",
+		"@vitejs/plugin-react": "^5.0.4",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
+		"tailwindcss": "^4.0.6",
+		"vite": "^7.1.7",
+		"vite-plugin-static-copy": "^2.3.2",
+		"vite-tsconfig-paths": "^6.0.2"
+	},
+	"devDependencies": {
+		"@testing-library/dom": "^10.4.0",
+		"@testing-library/react": "^16.2.0",
+		"@types/node": "^22.10.6",
+		"@types/react": "^19.2.0",
+		"@types/react-dom": "^19.2.0",
+		"jsdom": "^27.0.0",
+		"typescript": "5.9.2",
+		"vitest": "3.1.4"
+	}
+}

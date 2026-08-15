@@ -11,13 +11,16 @@ Paraglide JS is the ideal i18n library for Astro's content-focused sites.
 It's a compiler-based i18n library that emits tree-shakable translations, leading to up to 70% smaller i18n bundle sizes compared to runtime based libraries.
 
 - Fully type-safe with IDE autocomplete
-- SEO-friendly localized URLs with the [i18n routing strategy](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url)
+- SEO-friendly localized URLs with the [i18n routing strategy](https://paraglidejs.com/strategy#url)
 - Works with CSR and SSR
 
 [Source code](https://github.com/opral/paraglide-js/tree/main/examples/astro)
 
 > [!NOTE]
-> SSG is not yet supported out of the box. You can integrate Paraglide JS yourself to achieve SSG. PR with an example is welcome.
+> This example uses Astro's server output and Paraglide's server middleware.
+> If you use Astro SSG with `getStaticPaths()`, use `output: "static"` and set
+> the locale during prerendering instead of using `paraglideMiddleware()`. See
+> [Static Site Generation](/static-site-generation#astro-getstaticpaths).
 
 ## Setup
 
@@ -41,6 +44,7 @@ export default defineConfig({
 +			paraglideVitePlugin({
 +				project: "./project.inlang",
 +				outdir: "./src/paraglide",
++				emitTsDeclarations: true,
 +			}),
 +		],
 	},
@@ -61,38 +65,36 @@ export const onRequest = defineMiddleware((context, next) => {
 
 You can read more about about Astro's middleware [here](https://docs.astro.build/en/guides/middleware).
 
+> [!IMPORTANT]
+> `output: "server"` makes Astro treat dynamic routes as server-rendered. Astro
+> will ignore `getStaticPaths()` for those routes unless the route opts into
+> prerendering. For fully static localized pages, follow the Astro SSG setup
+> instead of the server middleware setup above.
+
 ## Usage
 
 ```js
 import { m } from "./paraglide/messages.js";
-import { getLocale, setLocale } from "./paraglide/runtime.js";
+import { getLocale, getTextDirection, setLocale } from "./paraglide/runtime.js";
 
 // Use messages
 m.greeting({ name: "World" }); // "Hello World!"
 
 // Get and set locale
 getLocale();    // "en"
+getTextDirection(); // "ltr" | "rtl" for current locale
 setLocale("de"); // switches to German
 ```
 
-[Learn more about messages, parameters, and locale management →](/m/gerre34r/library-inlang-paraglideJs/basics)
+[Learn more about messages, parameters, and locale management →](/basics)
 
-## Disabling AsyncLocalStorage in serverless environments
+## Disabling AsyncLocalStorage
 
-You can disable async local storage in serverless environments by using the `disableAsyncLocalStorage` option.
+If you're deploying Astro to Vercel Edge or to Cloudflare Workers with Node.js compatibility enabled, keep AsyncLocalStorage enabled. Those runtimes support it today, so `disableAsyncLocalStorage` is no longer part of the recommended setup.
+
+`disableAsyncLocalStorage` remains available as a compatibility fallback for runtimes that do not provide `AsyncLocalStorage` or `node:async_hooks` but still isolate each request.
 
 > [!WARNING]
-> This is only safe in serverless environments where each request gets its own isolated runtime context. Using it in multi-request server environments could lead to data leakage between concurrent requests.
+> Only use this fallback when your runtime guarantees per-request isolation. Using it in a multi-request server environment could leak locale state between concurrent requests.
 
-
-```diff
-	vite: {
-		plugins: [
-			paraglideVitePlugin({
-				project: "./project.inlang",
-				outdir: "./src/paraglide",
-+				disableAsyncLocalStorage: true,
-			}),
-		],
-	},
-```
+See [AsyncLocalStorage in the Middleware Guide](/middleware#asynclocalstorage) if you need that escape hatch.

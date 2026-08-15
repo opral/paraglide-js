@@ -1,0 +1,42 @@
+{
+	"name": "@inlang/paraglide-js-vue",
+	"type": "module",
+	"version": "1.0.3",
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public",
+		"tag": "latest"
+	},
+	"author": "inlang <hello@inlang.com> (https://inlang.com/)",
+	"homepage": "https://paraglidejs.com",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/opral/paraglide-js"
+	},
+	"files": [
+		"./dist"
+	],
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./dist/index.js"
+	},
+	"scripts": {
+		"compile:messages": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations",
+		"prebuild": "pnpm run compile:messages",
+		"build": "tsc --project tsconfig.json",
+		"pretest": "pnpm run compile:messages",
+		"test": "tsc --noEmit && vitest run"
+	},
+	"peerDependencies": {
+		"@inlang/paraglide-js": ">=2.11.0 <3",
+		"vue": "^3.4.0"
+	},
+	"devDependencies": {
+		"@inlang/paraglide-js": "workspace:*",
+		"@inlang/plugin-message-format": "^4.3.0",
+		"@vue/server-renderer": "^3.5.13",
+		"typescript": "5.8.3",
+		"vitest": "3.1.4",
+		"vue": "^3.5.13"
+	}
+}

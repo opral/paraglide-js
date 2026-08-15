@@ -95,7 +95,7 @@ urlPatterns: [
 | Subdomains                | `example.com`, `de.example.com` | `["en", "https://example.com/:path(.*)?"]`, `["de", "https://de.example.com/:path(.*)?"]` |
 | No prefix (cookie/header) | `/dashboard`                    | `["en", "/dashboard/:path(.*)?"]`, `["de", "/dashboard/:path(.*)?"]`                      |
 
-*"No prefix" is useful for authenticated areas like dashboards where the URL stays the same but content is localized based on user preferences stored in cookies or headers.*
+_"No prefix" is useful for authenticated areas like dashboards where the URL stays the same but content is localized based on user preferences stored in cookies or headers._
 
 ### Locale prefixing
 
@@ -123,6 +123,9 @@ compile({
 ```
 
 **Why the wildcard pattern always resolves**: The pattern `/:path(.*)?` matches **any** path. When a user visits `/about` (without a locale prefix), it matches the English pattern and resolves to `en`. This is also the default behavior if you don't specify `urlPatterns` at all.
+
+> [!NOTE]
+> `extractLocaleFromUrl()` is case-insensitive only for Paraglide's built-in default routing mode, where the locale is read from the first path segment and canonicalized (so `/DE/about` resolves to `de`). Once you provide custom `urlPatterns`, matching follows normal `URLPattern` semantics instead, so path casing must match your configured patterns exactly.
 
 #### Prefixing all locales (SvelteKit, Next.js)
 
@@ -191,7 +194,7 @@ With this setup:
 - Other routes like `/about` use URL-based locale (`/de/about`)
 
 > [!TIP]
-> For routes that don't need i18n at all (like `/api`), bypass the middleware entirely instead. See [Excluding Routes from Middleware](./middleware-guide#excluding-routes-from-middleware).
+> For routes that don't need i18n at all (like `/api`), bypass the middleware entirely instead. See [Excluding Routes from Middleware](./middleware#excluding-routes-from-middleware).
 
 ### Translated pathnames
 
@@ -361,11 +364,14 @@ When a German user visits `/specific-path`, they'll be redirected to `/de/404`. 
 
 For SaaS platforms with different domains or subdomains per customer, each needing different default locales or supported languages, see the [Multi-Tenancy Guide](./multi-tenancy).
 
-## Client-side redirects
+## Redirects
 
-The server-side `paraglideMiddleware()` uses the `shouldRedirect()` helper to keep URLs and locales in sync. Single-page apps can call the same helper on the client to mirror that behaviour.
+The server-side `paraglideMiddleware()` already uses the `shouldRedirect()` helper to keep document requests canonical. Call the same helper on the client when you need to mirror that behaviour in a single-page app, or after client-side navigations in an SSR app.
 
-`shouldRedirect()` accepts either a `Request` (server) or a URL string (client). It evaluates your configured strategies in order, returning both the winning locale and the canonical URL.
+Use `{ url }` in the browser and `{ request }` on the server. If a proxy or load balancer changes the browser-facing URL before the request reaches your app, also pass `effectiveRequestUrl`.
+
+> [!NOTE]
+> Client-side `shouldRedirect()` is not a replacement for server-side locale detection on the first document request. If your SSR app stores the locale only in `localStorage`, the server cannot see that value before hydration. In that case the initial URL may still be canonicalized from `preferredLanguage`, `cookie`, or `url`. Use a server-visible strategy such as `cookie` if the first request must respect the stored override.
 
 #### Generic SPA
 
@@ -397,6 +403,63 @@ export const beforeLoad = async ({ location }) => {
 		throw redirect({ to: decision.redirectUrl.href });
 	}
 };
+```
+
+#### SvelteKit
+
+If you need to re-sync the URL after client-side navigations in SvelteKit, put `shouldRedirect()` in the root `+layout.svelte`. This only affects the client after hydration. The initial SSR document request is still handled by `paraglideMiddleware()`.
+
+Treat every resulting redirect as a document navigation, including same-origin URLs. Do not use SvelteKit's `goto()` for a locale-changing redirect: a full navigation ensures document-level state such as `<html lang>` and `dir`, server-rendered data, and client state all match the new locale.
+
+> [!WARNING]
+> This is intentionally not a use case for `setLocale(..., { reload: false })`. A locale-changing URL must load a new document; that escape hatch or SvelteKit's `goto()` can retain a stale document shell.
+
+```svelte
+<script lang="ts">
+	import { afterNavigate } from "$app/navigation";
+	import { onMount } from "svelte";
+	import { shouldRedirect } from "$lib/paraglide/runtime";
+
+	async function syncLocaleUrl(url: string) {
+		const decision = await shouldRedirect({ url });
+
+		if (decision.shouldRedirect && decision.redirectUrl) {
+			window.location.href = decision.redirectUrl.href;
+		}
+	}
+
+	onMount(() => {
+		void syncLocaleUrl(window.location.href);
+	});
+
+	afterNavigate((navigation) => {
+		if (navigation.to) {
+			void syncLocaleUrl(navigation.to.url.href);
+		}
+	});
+</script>
+```
+
+#### Server Behind a Proxy
+
+Pass the browser-facing URL as `effectiveRequestUrl`. Derive it from trusted proxy or framework metadata.
+
+```ts
+import { shouldRedirect } from "./paraglide/runtime.js";
+
+export async function handle(request: Request) {
+	const effectiveRequestUrl = new URL(request.url);
+	effectiveRequestUrl.protocol = "https:";
+	effectiveRequestUrl.host = "app.example.com";
+
+	const decision = await shouldRedirect({ request, effectiveRequestUrl });
+
+	if (decision.shouldRedirect) {
+		return Response.redirect(decision.redirectUrl, 307);
+	}
+
+	return render(request, decision.locale);
+}
 ```
 
 ## Troubleshooting
@@ -440,17 +503,33 @@ strategy: ["localStorage", "preferredLanguage", "url"];
 strategy: ["url", "localStorage", "preferredLanguage"];
 ```
 
-### Excluding paths is not supported
+In SSR apps, this only applies to strategies the server can actually read on the initial document request. `localStorage` participates only after hydration, while `cookie` and `preferredLanguage` are available to the server immediately.
 
-[URLPattern](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API#regex_matchers_limitations) does not support negative lookahead regex patterns, so you cannot exclude paths like `/api/*` directly in your URL patterns.
+### Excluding paths in URL patterns
 
-Instead, filter routes manually in your request handler before calling the middleware. See [Excluding Routes from Middleware](./middleware-guide#excluding-routes-from-middleware) for examples.
+[URLPattern](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API#regex_matchers_limitations) does not support negative lookahead regex patterns, so you cannot exclude paths like `/api/*` directly inside `urlPatterns`.
+
+Use `routeStrategies` instead. This pattern is common when public pages are localized by URL, while unprefixed private pages (like `/dashboard`) should resolve locale from cookies.
+
+```ts
+compile({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	strategy: ["url", "cookie", "baseLocale"],
+	routeStrategies: [
+		{ match: "/dashboard/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+		{ match: "/api/:path(.*)?", exclude: true },
+	],
+});
+```
+
+See [Excluding Routes from Middleware](./middleware#excluding-routes-from-middleware) for details.
 
 ### Pattern order matters
 
 URL patterns are evaluated in the order they appear in the `urlPatterns` array. The first pattern that matches a URL will be used. More specific patterns should come before general ones.
 
-*Examples below show `urlPatterns` arrays only, omitting the `compile()` wrapper for brevity.*
+_Examples below show `urlPatterns` arrays only, omitting the `compile()` wrapper for brevity._
 
 ```js
 urlPatterns: [
@@ -537,6 +616,18 @@ This is especially important for path-based localization where one locale has a 
 
 ### Trailing slashes
 
-URLPattern treats `/about` and `/about/` as different paths. To handle both consistently, your framework or server should normalize trailing slashes before the middleware runs. Most frameworks (Next.js, SvelteKit, Astro) handle this automatically.
+URLPattern treats `/about` and `/about/` as different paths. You can make Paraglide canonicalize localized URLs before matching and after generation with the `trailingSlash` compiler option:
 
-If you're seeing redirect loops involving trailing slashes, check your framework's trailing slash configuration.
+```ts
+paraglideVitePlugin({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	trailingSlash: "never", // or "always"
+});
+```
+
+`"never"` removes trailing slashes and `"always"` adds them. The root path `/` always remains `/`, while query parameters and hashes are preserved. Existing custom `urlPatterns` can keep their trailing slash style; Paraglide treats the other terminal-slash form as an alias when this option is set. Unmatched custom patterns remain unchanged.
+
+Omitting `trailingSlash` preserves the existing exact URLPattern behavior. This is useful when your framework already owns trailing slash normalization.
+
+If both Paraglide and your framework normalize trailing slashes, configure them with the same policy to avoid redirect loops.

@@ -8,11 +8,14 @@ description: Configure Paraglide JS locale detection - URL, cookies, localStorag
 Paraglide JS comes with various strategies to determine the locale of a user.
 
 > [!TIP]
-> For server-side integration details and framework examples, see the [Middleware Guide](./middleware-guide).
+> For server-side integration details and framework examples, see the [Middleware Guide](./middleware).
 
 The strategy is defined with the `strategy` option. **Strategies are evaluated in order** - the first strategy that successfully returns a locale will be used, and subsequent strategies won't be checked. Think of the array as a simple fallback chain: each strategy is attempted until one succeeds, keeping the API predictable.
 
 In the example below, the `cookie` strategy first determines the locale. If no cookie is found (returns `undefined`), the `baseLocale` is used as a fallback.
+
+> [!NOTE]
+> Add this to your compiler config. It will look slightly different depending on how you compile (bundler plugin, CLI, or programmatic). See [Compiling Messages](./compiling-messages) for the relevant setup.
 
 ```diff
 compile({
@@ -44,6 +47,8 @@ strategy: ["localStorage", "cookie", "url", "baseLocale"];
 
 Use this when you want returning visitors to see content in their previously selected language, regardless of the URL they land on. The URL only determines locale if no preference is stored.
 
+In SSR apps, the initial document request cannot read `localStorage`. If the first request must respect the stored preference, include a server-visible strategy such as `cookie`.
+
 ### Automatic language detection with persistent override
 
 ```js
@@ -54,6 +59,13 @@ Use this when you want first-time visitors to see content in their browser's lan
 
 The fallback chain flows left to right: `localStorage → preferredLanguage → url → baseLocale`.
 Because `localStorage` is first, a stored selection overrides the browser setting. If it's missing, the arrow falls through to `preferredLanguage`, then `url`, and finally `baseLocale`.
+
+> [!NOTE]
+> In SSR apps that also localize the URL, `localStorage` is not available on the initial document request. The server will fall through to `preferredLanguage` or `url`, which can redirect to a locale that differs from the hydrated client locale. If the persisted override must affect the first request too, add a server-visible strategy such as `cookie`:
+>
+> ```js
+> strategy: ["localStorage", "cookie", "preferredLanguage", "url", "baseLocale"];
+> ```
 
 ## Built-in strategies
 
@@ -134,6 +146,8 @@ compile({
 })
 ```
 
+This strategy is browser-only. On the server, `localStorage` is skipped and the next strategy is used instead. In SSR apps, pair it with a server-visible strategy such as `cookie` if the initial request should respect the persisted locale.
+
 ### url
 
 Determine the locale from the URL (pathname, domain, etc) using the `urlPatterns` configuration.
@@ -155,23 +169,55 @@ The URL-based strategy uses the web standard [URLPattern](https://developer.mozi
 > [!NOTE]
 > **Default URL Patterns**: If you don't specify `urlPatterns`, Paraglide uses a default pattern with a wildcard `/:path(.*)?` that matches any path. For paths without a locale prefix, this resolves to your base locale. This is why the `url` strategy always finds a match by default.
 
+## Route-level strategy overrides
+
+You can override strategy behavior per route with `routeStrategies`.
+
+Common use case:
+
+- Public pages use URL prefixes (`/de/...`) and keep `url` in the global strategy.
+- Private routes like `/dashboard` are never prefixed and should read locale from cookie.
+- API/RPC routes should skip i18n middleware behavior entirely.
+
+Without route-level overrides, `url` with wildcard patterns resolves unprefixed routes to `baseLocale` before cookie fallback.
+
+```ts
+compile({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	strategy: ["url", "cookie", "baseLocale"],
+	routeStrategies: [
+		{ match: "/dashboard/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+		{ match: "/rpc/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+		{ match: "/api/:path(.*)?", exclude: true },
+	],
+});
+```
+
+Rules:
+
+- Route rules are checked in declaration order.
+- The first matching rule wins.
+- `exclude: true` disables i18n middleware behavior for the matched route.
+
 ## Write your own strategy
 
 Write your own cookie, http header, or i18n routing based locale strategy to integrate Paraglide into any framework or app.
 
-Only two APIs are needed to define this behaviour and adapt Paraglide JS to your requirements:
+Two override APIs are available to adapt Paraglide JS to your requirements:
 
 - `overwriteGetLocale` defines the `getLocale()` function that messages use to determine the locale
-- `overwriteSetLocale` defines the `setLocale()` function that apps call to change the locale
+- `overwriteSetLocale` replaces the `setLocale()` function that apps call to change the locale
 
 Because the client and server have separate Paraglide runtimes, you will need to define these behaviours separately on the client and server.
 
-The steps are usually the same, irrespective of the strategy and framework you use:
+Use `overwriteGetLocale()` to read the locale from a cookie, HTTP header, or i18n routing. On the client, keep the default `setLocale()` behavior whenever possible: it updates the configured strategies and then performs a full document navigation or reload.
 
-1. Use `overwriteGetLocale()` function that reads the locale from a cookie, HTTP header, or i18n routing.
-2. Handle any side effects of changing the locale and trigger a re-render in your application via `overwriteSetLocale()` (for many apps, this may only be required on the client side).
+If you need `overwriteSetLocale()` to persist a locale outside the configured strategies, make the client-side locale change a full document navigation after persisting it. Do not use an override to turn ordinary URL-routed or SSR locale changes into a reactive application re-render; document navigation keeps document-level state, server rendering, and client state in sync.
 
-_Read the [architecture documentation](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/architecture) to learn more about's Paraglide's inner workings._
+The built-in `setLocale(locale, { reload: false })` option is a deliberately narrow escape hatch for a fully client-rendered surface whose active strategy does not include `url` and that owns its complete reactive shell. It is not a reason to recreate reactive locale switching with an override; see [the warning in Basics](./basics#advanced-stay-on-the-current-document).
+
+_Read the [architecture documentation](https://paraglidejs.com/architecture) to learn more about's Paraglide's inner workings._
 
 ### Dynamically resolving the locale (cookies, http headers, i18n routing, etc.)
 

@@ -1,7 +1,7 @@
-import { assertIsLocale } from "./assert-is-locale.js";
+import { toLocale } from "./check-locale.js";
 import { extractLocaleFromHeader } from "./extract-locale-from-header.js";
 import { extractLocaleFromUrl } from "./extract-locale-from-url.js";
-import { isLocale } from "./is-locale.js";
+import { getStrategyForUrl } from "./route-strategy.js";
 import { isCustomStrategy } from "./strategy.js";
 import {
 	baseLocale,
@@ -11,6 +11,11 @@ import {
 	TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED,
 	TREE_SHAKE_URL_STRATEGY_USED,
 } from "./variables.js";
+
+/**
+ * @typedef {object} ExtractLocaleFromRequestOptions
+ * @property {string | URL} [effectiveRequestUrl] - Effective request URL to use for route matching and locale detection with the URL strategy.
+ */
 
 /**
  * Extracts a locale from a request.
@@ -28,21 +33,51 @@ import {
  * @example
  *   const locale = extractLocaleFromRequest(request);
  *
- * @type {(request: Request) => Locale}
+ * @param {Request} request
+ * @param {ExtractLocaleFromRequestOptions} [options]
+ * @returns {Locale}
  */
-export const extractLocaleFromRequest = (request) => {
+export const extractLocaleFromRequest = (request, options = {}) => {
+	const effectiveRequestUrl = resolveEffectiveRequestUrl(
+		request,
+		options.effectiveRequestUrl
+	);
+	return extractLocaleFromRequestWithStrategies(
+		request,
+		getStrategyForUrl(effectiveRequestUrl),
+		effectiveRequestUrl
+	);
+};
+
+/**
+ * Extracts a locale from a request using the provided strategy order.
+ *
+ * @param {Request} request
+ * @param {typeof strategy} strategies
+ * @param {string | URL} [url]
+ * @returns {Locale}
+ */
+export const extractLocaleFromRequestWithStrategies = (
+	request,
+	strategies,
+	url = request.url
+) => {
+	const effectiveRequestUrl = resolveEffectiveRequestUrl(request, url);
 	/** @type {string|undefined} */
 	let locale;
 
-	for (const strat of strategy) {
+	for (const strat of strategies) {
 		if (TREE_SHAKE_COOKIE_STRATEGY_USED && strat === "cookie") {
+			const cookiePrefix = cookieName + "=";
+
 			locale = request.headers
 				.get("cookie")
-				?.split("; ")
-				.find((c) => c.startsWith(cookieName + "="))
-				?.split("=")[1];
+				?.split(";")
+				.map((c) => c.trim())
+				.find((c) => c.startsWith(cookiePrefix))
+				?.slice(cookiePrefix.length);
 		} else if (TREE_SHAKE_URL_STRATEGY_USED && strat === "url") {
-			locale = extractLocaleFromUrl(request.url);
+			locale = extractLocaleFromUrl(effectiveRequestUrl);
 		} else if (
 			TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED &&
 			strat === "preferredLanguage"
@@ -59,15 +94,28 @@ export const extractLocaleFromRequest = (request) => {
 			// Use extractLocaleFromRequestAsync for custom server strategies
 			continue;
 		}
-		if (locale !== undefined) {
-			if (!isLocale(locale)) {
-				locale = undefined;
-			} else {
-				return assertIsLocale(locale);
-			}
+		const matchedLocale = toLocale(locale);
+		if (matchedLocale) {
+			return matchedLocale;
 		}
 	}
 	throw new Error(
-		"No locale found. There is an error in your strategy. Try adding 'baseLocale' as the very last strategy. Read more here https://inlang.com/m/gerre34r/library-inlang-paraglideJs/errors#no-locale-found"
+		"No locale found. There is an error in your strategy. Try adding 'baseLocale' as the very last strategy. Read more here https://paraglidejs.com/errors#no-locale-found"
 	);
 };
+
+/**
+ * @param {Request} request
+ * @param {string | URL | undefined} effectiveRequestUrl
+ * @returns {URL}
+ */
+function resolveEffectiveRequestUrl(
+	request,
+	effectiveRequestUrl = request.url
+) {
+	if (effectiveRequestUrl instanceof URL) {
+		return new URL(effectiveRequestUrl.href);
+	}
+
+	return new URL(effectiveRequestUrl, request.url);
+}

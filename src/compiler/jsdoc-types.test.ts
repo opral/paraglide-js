@@ -20,9 +20,7 @@ test("inputsType generates unique parameter types even when the same input appea
 });
 
 test("inputsType quotes non-identifier input names", () => {
-	const inputs: InputVariable[] = [
-		{ name: "half!", type: "input-variable" },
-	];
+	const inputs: InputVariable[] = [{ name: "half!", type: "input-variable" }];
 
 	const result = inputsType(inputs);
 
@@ -59,4 +57,84 @@ test("jsDocBundleFunctionTypes returns LocalizedString type", () => {
 
 	// It should not return plain string
 	expect(result).not.toContain("@returns {string}");
+});
+
+test("inputsType emits literal unions for match values", () => {
+	const inputs: InputVariable[] = [
+		{ name: "type", type: "input-variable" },
+		{ name: "status", type: "input-variable" },
+	];
+
+	const matchTypes = new Map([
+		[
+			"type",
+			{
+				literals: new Set(["invalid", "empty", "min_length"]),
+				hasCatchAll: false,
+			},
+		],
+		["status", { literals: new Set(["ready", "done"]), hasCatchAll: false }],
+	]);
+
+	const result = inputsType(inputs, matchTypes);
+
+	expect(result).toBe(
+		'{ type: "empty" | "invalid" | "min_length", status: "done" | "ready" }'
+	);
+});
+
+test("inputsType accepts both number and string forms for numeric match values", () => {
+	const inputs: InputVariable[] = [{ name: "input", type: "input-variable" }];
+
+	const matchTypes = new Map([
+		[
+			"input",
+			{
+				literals: new Set(["1", "2"]),
+				hasCatchAll: false,
+			},
+		],
+	]);
+
+	const result = inputsType(inputs, matchTypes);
+
+	expect(result).toBe('{ input: 1 | "1" | 2 | "2" }');
+});
+
+test("inputsType widens infinity match values to number and string forms", () => {
+	const inputs: InputVariable[] = [{ name: "input", type: "input-variable" }];
+
+	const matchTypes = new Map([
+		[
+			"input",
+			{
+				literals: new Set(["Infinity", "-Infinity"]),
+				hasCatchAll: false,
+			},
+		],
+	]);
+
+	const result = inputsType(inputs, matchTypes);
+
+	expect(result).toBe('{ input: number | "-Infinity" | "Infinity" }');
+});
+
+test("inputsType falls back to NonNullable<unknown> when catchall exists", () => {
+	const inputs: InputVariable[] = [{ name: "type", type: "input-variable" }];
+
+	const matchTypes = new Map([
+		["type", { literals: new Set(["invalid"]), hasCatchAll: true }],
+	]);
+
+	const result = inputsType(inputs, matchTypes);
+
+	expect(result).toBe("{ type: NonNullable<unknown> }");
+});
+
+test("inputsType falls back to NonNullable<unknown> when no match info exists", () => {
+	const inputs: InputVariable[] = [{ name: "type", type: "input-variable" }];
+
+	const result = inputsType(inputs);
+
+	expect(result).toBe("{ type: NonNullable<unknown> }");
 });

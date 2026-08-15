@@ -202,3 +202,53 @@ test("generates localized URLs from paths", async () => {
 	// All URLs should be URL objects
 	expect(urls.every((url) => url instanceof URL)).toBe(true);
 });
+
+test("applies trailing slash canonicalization to default pattern output", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url"],
+		trailingSlash: "never",
+	});
+
+	const urls = runtime.generateStaticLocalizedUrls(["/", "/about/"]);
+	expect(urls.map((url) => url.pathname).sort()).toEqual([
+		"/",
+		"/about",
+		"/de",
+		"/de/about",
+	]);
+});
+
+test("canonicalizes custom pattern input but preserves unmatched URLs", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url"],
+		trailingSlash: "never",
+		urlPatterns: [
+			{
+				pattern: "/about",
+				localized: [
+					["en", "/about"],
+					["de", "/de/ueber"],
+				],
+			},
+		],
+	});
+
+	const urls = runtime.generateStaticLocalizedUrls(["/about/", "/asset/"]);
+	expect(urls.map((url) => url.pathname).sort()).toEqual([
+		"/about",
+		"/asset/",
+		"/de/ueber",
+	]);
+});

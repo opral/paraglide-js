@@ -37,10 +37,12 @@
 			"/basics": "./docs/basics.md",
 			"/compiling-messages": "./docs/compiling-messages.md",
 			"/message-keys": "./docs/message-keys.md",
+			"/markup": "./docs/markup.md",
 			"/strategy": "./docs/strategy.md",
 			"/i18n-routing": "./docs/i18n-routing.md",
-			"/middleware": "./docs/middleware-guide.md",
+			"/middleware": "./docs/middleware.md",
 			"/variants": "./docs/variants.md",
+			"/formatting": "./docs/formatting.md",
 			"/objects-and-arrays": "./docs/objects-and-arrays.md",
 			"/file-formats": "./docs/file-formats.md",
 			"/monorepo": "./docs/monorepo.md",
@@ -60,6 +62,10 @@
 			"Sherlock VSCode extension": "/m/r7kp499g/app-inlang-ideExtension",
 			"CLI for automation": "/m/2qj2w8pu/app-inlang-cli",
 			"Fink web editor": "/m/tdozzpar/app-inlang-finkLocalizationEditor"
+		},
+		"Appendix": {
+			"/paraglide-vs-react-i18next": "./docs/paraglide-vs-react-i18next.md",
+			"/react-i18next-alternatives": "./docs/react-i18next-alternatives.md"
 		}
 	},
 	"repository": "https://github.com/opral/paraglide-js",

@@ -30,22 +30,28 @@ m.greeting({ name: "Samuel" }); // "Hello Samuel!"
 ## Getting and setting the locale
 
 ```js
-import { getLocale, setLocale } from "./paraglide/runtime.js";
+import { getLocale, getTextDirection, setLocale } from "./paraglide/runtime.js";
 
 getLocale(); // "en"
-setLocale("de"); // Changes locale and reloads page
+getTextDirection(); // "ltr" or "rtl" for current locale
+setLocale("de"); // Updates the locale and starts a document navigation
 ```
 
 > [!NOTE]
-> `setLocale()` triggers a page reload by default. This is a deliberate design choice that keeps the implementation simple without framework-specific logic for preserving form state, scroll position, etc. A user switches the language once, so optimizing for instant locale switching is a poor trade-off. YouTube and other major sites work the same way.
+> Locale switching uses a full document navigation, not framework reactivity. By default, `setLocale()` updates the configured locale strategies and then navigates to the localized URL when URL routing is enabled; otherwise, it reloads the current document. The new document renders the app and any document-level locale settings together.
 
-To change without reload:
+### Advanced: stay on the current document
+
+> [!WARNING]
+> `setLocale(locale, { reload: false })` is a client-only escape hatch, not a normal locale picker. It updates the configured locale strategies but does not re-render your framework, navigate to the localized URL, or update document state such as `<html lang>`, `dir`, title, or metadata.
+>
+> Use it only for a fully client-rendered surface that you own and that must preserve non-restorable in-memory work—for example, an embedded widget, browser-extension options page, or persistent authoring or real-time workspace. If a custom strategy makes `setLocale()` asynchronous, await it before triggering every locale-dependent UI update through your own reactive state and synchronizing the document or root state you own.
+>
+> Do **not** use it for an ordinary locale picker or to switch an SSR-, SSG-, or hydrated document. Never use it on a route whose active locale strategy includes `url`, or with `experimentalPerLocaleBuild`. With the `url` strategy, it leaves the old URL and document shell in place, so `getLocale()` can keep resolving the old locale; use a full document navigation instead.
 
 ```js
-setLocale("de", { reload: false });
+await setLocale("de", { reload: false });
 ```
-
-You'll need to trigger a re-render of your component tree using your framework's reactivity (e.g., React state, Svelte stores, Vue refs).
 
 ## Forcing a locale
 
@@ -118,21 +124,21 @@ Add locales in `project.inlang/settings.json`:
 
 ### Message keys
 
-Paraglide supports nested keys through bracket notation but recommends flat keys:
+Paraglide supports nested keys through bracket notation but recommends flat keys. For new messages, prefer stable random human-readable keys:
 
-Flat keys (recommended):
+Flat random key (recommended):
 
 ```json
 {
-  "user_profile_title": "User Profile"
+  "calm_green_otter": "User Profile"
 }
 ```
 
 ```js
-m.user_profile_title();
+m.calm_green_otter();
 ```
 
-Nested keys:
+Existing nested keys are also supported:
 
 ```json
 {
@@ -144,7 +150,7 @@ Nested keys:
 m["user.profile.title"]();
 ```
 
-See [message keys](./message-keys) for best practices.
+See [message keys](./message-keys) for the key-naming rationale and structure options.
 
 ### Dynamic messages
 
@@ -176,8 +182,9 @@ function PageTitle(props: { title: LocalizedString }) {
 
 ## Next steps
 
+- [Formatting](./formatting) - Number/date formatting with `number` and `datetime`
 - [Strategy](./strategy) - Configure locale detection
 - [i18n Routing](./i18n-routing) - URL patterns, translated pathnames, domain-based routing
-- [Middleware](./middleware-guide) - Server-side integration
+- [Middleware](./middleware) - Server-side integration
 - [Server-Side Rendering](./server-side-rendering) - Dynamic rendering with middleware
 - [Static Site Generation](./static-site-generation) - Build-time page generation

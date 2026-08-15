@@ -19,23 +19,21 @@ test("tracks readFile and promises.readFile calls", async () => {
 	const tracked = createTrackedFs({ baseDir, fs: memFs });
 
 	await new Promise<void>((resolvePromise, rejectPromise) => {
-		tracked.fs.readFile(
-			"/messages.json",
-			null,
-			(error, data) => {
-				if (error) {
-					rejectPromise(error);
-					return;
-				}
-				expect(data.toString()).toBe("test");
-				resolvePromise();
+		tracked.fs.readFile("/messages.json", null, (error, data) => {
+			if (error) {
+				rejectPromise(error);
+				return;
 			}
-		);
+			expect(data.toString()).toBe("test");
+			resolvePromise();
+		});
 	});
 
 	await tracked.fs.promises.readFile("/messages.json");
 
-	const normalizedPath = nodeNormalizePath(path.resolve(baseDir, "messages.json"));
+	const normalizedPath = nodeNormalizePath(
+		path.resolve(baseDir, "messages.json")
+	);
 	expect(tracked.readFiles.has(normalizedPath)).toBe(true);
 });
 
@@ -81,12 +79,12 @@ test("getWatchTargets ignores outdir and descendants", () => {
 		outdir: "src/paraglide",
 	});
 
-	expect(targets.files.has(nodeNormalizePath("/project/src/paraglide/index.js"))).toBe(
-		false
-	);
-	expect(targets.files.has(nodeNormalizePath("/project/messages/en.json"))).toBe(
-		true
-	);
+	expect(
+		targets.files.has(nodeNormalizePath("/project/src/paraglide/index.js"))
+	).toBe(false);
+	expect(
+		targets.files.has(nodeNormalizePath("/project/messages/en.json"))
+	).toBe(true);
 	expect(targets.isIgnoredPath("/project/src/paraglide/new.js")).toBe(true);
 	expect(targets.directories).toEqual(
 		new Set([nodeNormalizePath("/project/messages")])
@@ -111,7 +109,9 @@ test("getWatchTargets respects ignorePath predicate", () => {
 		ignorePath: (path) => path.endsWith("extra.txt"),
 	});
 
-	expect(targets.files.has(nodeNormalizePath("/project/extra.txt"))).toBe(false);
+	expect(targets.files.has(nodeNormalizePath("/project/extra.txt"))).toBe(
+		false
+	);
 	expect(targets.directories).toEqual(
 		new Set([nodeNormalizePath("/project/messages")])
 	);
@@ -125,18 +125,12 @@ test("getWatchTargets can omit directories", () => {
 });
 
 test("isPathWithinDirectories matches nested paths", () => {
-	const directories = new Set<string>([
-		"/project/messages",
-		"/project/other",
-	]);
+	const directories = new Set<string>(["/project/messages", "/project/other"]);
 
 	expect(
-		isPathWithinDirectories(
-			"/project/messages/nested/file.json",
-			directories
-		)
+		isPathWithinDirectories("/project/messages/nested/file.json", directories)
 	).toBe(true);
-	expect(isPathWithinDirectories("/project/unknown/file.json", directories)).toBe(
-		false
-	);
+	expect(
+		isPathWithinDirectories("/project/unknown/file.json", directories)
+	).toBe(false);
 });

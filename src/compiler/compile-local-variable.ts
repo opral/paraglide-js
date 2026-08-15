@@ -1,10 +1,7 @@
-import type {
-	FunctionReference,
-	Literal,
-	LocalVariable,
-	VariableReference,
-} from "@inlang/sdk";
+import type { Literal, LocalVariable, VariableReference } from "@inlang/sdk";
 import { compileInputAccess } from "./variable-access.js";
+import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
+import { compileAnnotation } from "./compile-annotation.js";
 
 /**
  * Compiles a local variable.
@@ -32,33 +29,10 @@ export function compileLocalVariable(args: {
 	return `const ${args.declaration.name} = ${value};`;
 }
 
-function compileAnnotation(
-	str: string,
-	locale: string,
-	annotation?: LocalVariable["value"]["annotation"]
-): string {
-	if (!annotation) {
-		return str;
-	}
-	return `registry.${annotation.name}("${locale}", ${str}, ${compileOptions(annotation.options)})`;
-}
-
-function compileOptions(options: FunctionReference["options"]): string {
-	if (options.length === 0) {
-		return "{}";
-	}
-	const entries: string[] = options.map(
-		(option) => `${option.name}: ${compileLiteralOrVarRef(option.value)}`
-	);
-	const code = "{ " + entries.join(", ") + " }";
-
-	return code;
-}
-
 function compileLiteralOrVarRef(value: Literal | VariableReference): string {
 	switch (value.type) {
 		case "literal":
-			return `"${value.value}"`;
+			return `"${escapeForDoubleQuoteString(value.value)}"`;
 		case "variable-reference":
 			return compileInputAccess(value.name);
 	}

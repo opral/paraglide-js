@@ -1,5 +1,4 @@
 import { expect, test, describe, vi, beforeEach } from "vitest";
-import { AsyncLocalStorage } from "async_hooks";
 import {
 	createProject as typescriptProject,
 	ts,
@@ -18,6 +17,7 @@ import {
 import { compileProject, getFallbackMap } from "./compile-project.js";
 import virtual from "@rollup/plugin-virtual";
 import { rolldown } from "rolldown";
+import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 
 beforeEach(() => {
 	// reset the imports to make sure that the runtime is reloaded
@@ -72,6 +72,52 @@ test("emitGitignore", async () => {
 	expect(_default).toHaveProperty(".gitignore");
 	expect(_true).toHaveProperty(".gitignore");
 	expect(_false).not.toHaveProperty(".gitignore");
+});
+
+test("marks tree-shakeable generated message layouts as side-effect-free", async () => {
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: {
+				locales: ["en", "de"],
+				baseLocale: "en",
+			},
+		}),
+	});
+
+	const messageModules = await compileProject({
+		project,
+	});
+
+	const localeModules = await compileProject({
+		project,
+		compilerOptions: { outputStructure: "locale-modules" },
+	});
+	const specializedLocaleModules = await compileProject({
+		project,
+		compilerOptions: {
+			outputStructure: "locale-modules",
+			experimentalStaticLocale: perLocaleBuildStaticLocaleExpression,
+		},
+	});
+
+	// message-modules: the message modules are side-effect-free, so bundlers can
+	// drop unused re-exports from the `m` barrel per entry instead of emitting one
+	// shared chunk with every message. `type: "module"` keeps the generated ESM
+	// files in the new `messages/` package scope from defaulting to CommonJS.
+	expect(messageModules).toHaveProperty("messages/package.json");
+	expect(JSON.parse(messageModules["messages/package.json"]!)).toEqual({
+		type: "module",
+		sideEffects: false,
+	});
+
+	expect(localeModules).not.toHaveProperty("messages/package.json");
+	expect(specializedLocaleModules).toHaveProperty("messages/package.json");
+	expect(
+		JSON.parse(specializedLocaleModules["messages/package.json"]!)
+	).toEqual({
+		type: "module",
+		sideEffects: false,
+	});
 });
 
 test("emitPrettierIgnore", async () => {
@@ -167,6 +213,26 @@ test("emitReadme includes project path", async () => {
 	expect(output["README.md"]).toContain("Paraglide JS");
 });
 
+test("throws during compile for invalid routeStrategies match patterns", async () => {
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: {
+				locales: ["en", "de"],
+				baseLocale: "en",
+			},
+		}),
+	});
+
+	await expect(
+		compileProject({
+			project,
+			compilerOptions: {
+				routeStrategies: [{ match: "/api/:path(.*", exclude: true }],
+			},
+		})
+	).rejects.toThrow(`Invalid routeStrategies[0].match "/api/:path(.*"`);
+});
+
 // https://github.com/opral/paraglide-js/issues/539
 test("omits async_hooks import when disableAsyncLocalStorage is true", async () => {
 	const project = await loadProjectInMemory({
@@ -209,7 +275,128 @@ test("emitTsDeclarations generates declaration files", async () => {
 
 	expect(output).toHaveProperty("messages/_index.d.ts");
 	expect(output).toHaveProperty("messages.d.ts");
+	expect(output).toHaveProperty("registry.d.ts");
 	expect(output["messages/_index.d.ts"]).toContain("sad_penguin_bundle");
+	expect(output["messages/_index.d.ts"]).toContain("relative_time_dynamic");
+	expect(output["registry.d.ts"]).toContain("RelativeTimeFormatUnit");
+	expect(output["registry.d.ts"]).toContain("relativetime");
+
+	const tsProject = await typescriptProject({
+		useInMemoryFileSystem: true,
+		compilerOptions: {
+			module: ts.ModuleKind.Node16,
+			moduleResolution: ts.ModuleResolutionKind.Node16,
+			strict: true,
+		},
+	});
+
+	for (const [fileName, code] of Object.entries(output)) {
+		if (fileName.endsWith(".d.ts")) {
+			tsProject.createSourceFile(fileName, code);
+		}
+	}
+
+	tsProject.createSourceFile(
+		"test.ts",
+		`
+			import { m, relative_time_dynamic } from "./messages.js";
+			import { relativetime } from "./registry.js";
+
+			m.sad_penguin_bundle() satisfies string;
+			relative_time_dynamic({ duration: -3, unit: "hour" }) satisfies string;
+			relativetime("en", -3, { unit: "hour", style: "short" }) satisfies string;
+		`
+	);
+
+	const program = tsProject.createProgram();
+	const diagnostics = ts.getPreEmitDiagnostics(program);
+	for (const diagnostic of diagnostics) {
+		console.error(diagnostic.messageText, diagnostic.file?.fileName);
+	}
+	expect(diagnostics.length).toEqual(0);
+});
+
+test("emitTsDeclarations remains opt-in", async () => {
+	const output = await compileProject({ project });
+	expect(
+		Object.keys(output).some((fileName) => fileName.endsWith(".d.ts"))
+	).toBe(false);
+});
+
+test("emitTsDeclarations quotes unsafe export aliases", async () => {
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: {
+				locales: ["en"],
+				baseLocale: "en",
+			},
+		}),
+	});
+
+	await insertBundleNested(
+		project.db,
+		createBundleNested({
+			id: "greeting.hello",
+			messages: [
+				{
+					locale: "en",
+					variants: [{ pattern: [{ type: "text", value: "Hello" }] }],
+				},
+			],
+		})
+	);
+
+	for (const outputStructure of [
+		"message-modules",
+		"locale-modules",
+	] as const) {
+		const output = await compileProject({
+			project,
+			compilerOptions: {
+				emitTsDeclarations: true,
+				outputStructure,
+			},
+		});
+		const declarationFile =
+			outputStructure === "message-modules"
+				? "messages/greeting_hello.d.ts"
+				: "messages/_index.d.ts";
+
+		expect(output[declarationFile]).toContain(
+			`export { greeting_hello as "greeting.hello" };`
+		);
+
+		const tsProject = await typescriptProject({
+			useInMemoryFileSystem: true,
+			compilerOptions: {
+				module: ts.ModuleKind.Node16,
+				moduleResolution: ts.ModuleResolutionKind.Node16,
+				strict: true,
+			},
+		});
+
+		for (const [fileName, code] of Object.entries(output)) {
+			if (fileName.endsWith(".d.ts")) {
+				tsProject.createSourceFile(fileName, code);
+			}
+		}
+
+		tsProject.createSourceFile(
+			"test.ts",
+			`
+				import { "greeting.hello" as greetingHello } from "./messages.js";
+
+				greetingHello() satisfies string;
+			`
+		);
+
+		const program = tsProject.createProgram();
+		const diagnostics = ts.getPreEmitDiagnostics(program);
+		for (const diagnostic of diagnostics) {
+			console.error(diagnostic.messageText, diagnostic.file?.fileName);
+		}
+		expect(diagnostics.length).toEqual(0);
+	}
 });
 
 test("handles message bundles with a : in the id", async () => {
@@ -248,6 +435,81 @@ test("handles message bundles with a : in the id", async () => {
 	const { m } = await importCode(code);
 
 	expect(m["hello:world"]()).toBe("Hello world!");
+});
+
+test("emits .parts() on bundle functions for markup messages", async () => {
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: {
+				locales: ["en", "de"],
+				baseLocale: "en",
+			},
+		}),
+	});
+
+	await insertBundleNested(
+		project.db,
+		createBundleNested({
+			id: "balance",
+			declarations: [
+				{
+					type: "input-variable",
+					name: "amount",
+				},
+			],
+			messages: [
+				{
+					locale: "en",
+					variants: [
+						{
+							pattern: [
+								{ type: "text", value: "You have " },
+								{
+									type: "markup-start",
+									name: "strong",
+									options: [],
+									attributes: [],
+								},
+								{
+									type: "expression",
+									arg: { type: "variable-reference", name: "amount" },
+								},
+								{ type: "text", value: " coins" },
+								{
+									type: "markup-end",
+									name: "strong",
+									options: [],
+									attributes: [],
+								},
+								{ type: "text", value: "." },
+							],
+						},
+					],
+				},
+			],
+		})
+	);
+
+	const output = await compileProject({
+		project,
+	});
+
+	const code = await bundleCode(
+		output,
+		`export * as m from "./paraglide/messages.js"
+		 export * as runtime from "./paraglide/runtime.js"`
+	);
+	const { m } = await importCode(code);
+
+	expect(m.balance({ amount: 7 }, { locale: "en" })).toBe("You have 7 coins.");
+	expect(m.balance.parts({ amount: 7 }, { locale: "en" })).toEqual([
+		{ type: "text", value: "You have " },
+		{ type: "markup-start", name: "strong", options: {}, attributes: {} },
+		{ type: "text", value: "7" },
+		{ type: "text", value: " coins" },
+		{ type: "markup-end", name: "strong", options: {}, attributes: {} },
+		{ type: "text", value: "." },
+	]);
 });
 
 // https://github.com/opral/inlang-paraglide-js/issues/347
@@ -564,6 +826,32 @@ describe.each([
 				);
 			});
 
+			test("relativetime formatter works with literal units and locale overrides", async () => {
+				const { m, runtime } = await importCode(code);
+
+				runtime.setLocale("de");
+				expect(m.relative_time_literal({ duration: -1 })).toBe(
+					"Updated gestern."
+				);
+				expect(
+					m.relative_time_literal({ duration: -1 }, { locale: "en" })
+				).toBe("Updated yesterday.");
+			});
+
+			test("relativetime formatter works with dynamic units", async () => {
+				const { m, runtime } = await importCode(code);
+
+				runtime.setLocale("en");
+				expect(m.relative_time_dynamic({ duration: -3, unit: "hour" })).toBe(
+					"Updated 3 hr. ago."
+				);
+
+				runtime.setLocale("de");
+				expect(m.relative_time_dynamic({ duration: 2, unit: "weeks" })).toBe(
+					"Updated in 2 Wochen."
+				);
+			});
+
 			test("runtime.isLocale should only return `true` if a locale is passed to it", async () => {
 				const { runtime } = await importCode(code);
 
@@ -614,166 +902,6 @@ describe.each([
 
 				runtime.setLocale("en-US");
 				expect(m.missingInGerman()).toBe("A simple message.");
-			});
-
-			test("message tracking works", async () => {
-				const project = await loadProjectInMemory({
-					blob: await newProject({
-						settings: { locales: ["en", "de", "fr"], baseLocale: "en" },
-					}),
-				});
-
-				// Add test messages
-				await insertBundleNested(
-					project.db,
-					createBundleNested({
-						id: "greeting",
-						messages: [
-							{
-								locale: "en",
-								variants: [{ pattern: [{ type: "text", value: "Hello" }] }],
-							},
-							{
-								locale: "de",
-								variants: [{ pattern: [{ type: "text", value: "Hallo" }] }],
-							},
-							{
-								locale: "fr",
-								variants: [{ pattern: [{ type: "text", value: "Bonjour" }] }],
-							},
-						],
-					})
-				);
-
-				await insertBundleNested(
-					project.db,
-					createBundleNested({
-						id: "farewell",
-						messages: [
-							{
-								locale: "en",
-								variants: [{ pattern: [{ type: "text", value: "Goodbye" }] }],
-							},
-							{
-								locale: "de",
-								variants: [
-									{ pattern: [{ type: "text", value: "Auf Wiedersehen" }] },
-								],
-							},
-							{
-								locale: "fr",
-								variants: [{ pattern: [{ type: "text", value: "Au revoir" }] }],
-							},
-						],
-					})
-				);
-
-				// Compile the project
-				const output = await compileProject({
-					project,
-					compilerOptions,
-				});
-
-				const code = await bundleCode(
-					output,
-					`export * as m from "./paraglide/messages.js"
-					export * as runtime from "./paraglide/runtime.js"`
-				);
-
-				const { m, runtime } = await importCode(code);
-
-				// Setup AsyncLocalStorage for tracking
-				runtime.overwriteServerAsyncLocalStorage(new AsyncLocalStorage());
-
-				// Test tracking in English
-				runtime.setLocale("en");
-				const messageCalls1 = new Set();
-				const result1 = await runtime.serverAsyncLocalStorage.run(
-					{ messageCalls: messageCalls1 },
-					() => {
-						const greeting = m.greeting();
-						const farewell = m.farewell();
-
-						expect(greeting).toBe("Hello");
-						expect(farewell).toBe("Goodbye");
-
-						return "english";
-					}
-				);
-
-				expect(result1).toBe("english");
-				expect(messageCalls1).toEqual(new Set(["greeting:en", "farewell:en"]));
-
-				// Test tracking in German
-				runtime.setLocale("de");
-				const messageCalls2 = new Set();
-				const result2 = await runtime.serverAsyncLocalStorage.run(
-					{ messageCalls: messageCalls2 },
-					() => {
-						const greeting = m.greeting();
-
-						expect(greeting).toBe("Hallo");
-
-						return "german";
-					}
-				);
-
-				expect(result2).toBe("german");
-				expect(messageCalls2).toEqual(new Set(["greeting:de"]));
-				expect(messageCalls2.has("farewell:de")).toBe(false);
-
-				// Test tracking with explicit locale
-				const messageCalls3 = new Set();
-				const result3 = await runtime.serverAsyncLocalStorage.run(
-					{ messageCalls: messageCalls3 },
-					() => {
-						const greeting = m.greeting(undefined, { locale: "fr" });
-
-						expect(greeting).toBe("Bonjour");
-
-						return "explicit";
-					}
-				);
-
-				expect(result3).toBe("explicit");
-				expect(messageCalls3).toEqual(new Set(["greeting:fr"]));
-
-				// Test nested tracking contexts
-				const messageCalls4 = new Set();
-				const result4 = await runtime.serverAsyncLocalStorage.run(
-					{ messageCalls: messageCalls4 },
-					() => {
-						// Access a message in the outer context
-						const outerGreeting = m.greeting();
-						expect(outerGreeting).toBe("Hallo"); // Still in German locale
-
-						// Create a nested tracking context
-						const nestedMessageCalls = new Set();
-						const nestedResult = runtime.serverAsyncLocalStorage.run(
-							{ messageCalls: nestedMessageCalls },
-							() => {
-								// Access different messages in the nested context
-								const nestedFarewell = m.farewell();
-								expect(nestedFarewell).toBe("Auf Wiedersehen");
-
-								return "nested";
-							}
-						);
-
-						// Verify nested tracking
-						expect(nestedResult).toBe("nested");
-						expect(nestedMessageCalls).toEqual(new Set(["farewell:de"]));
-						expect(nestedMessageCalls.has("greeting:de")).toBe(false); // Not accessed in nested context
-
-						return "outer";
-					}
-				);
-
-				// Verify outer context only contains its own calls
-				expect(result4).toBe("outer");
-				expect(messageCalls4).toEqual(new Set(["greeting:de"]));
-				// The farewell message should not be in the outer context
-				expect(messageCalls4.has("farewell:de")).toBe(false);
 			});
 
 			test("arbitrary module identifiers work", async () => {
@@ -918,6 +1046,22 @@ describe.each([
 			});
 		});
 
+		test("relativetime dynamic unit casts generated options without narrowing public inputs", () => {
+			const relativeTimeDynamicFile =
+				compilerOptions.outputStructure === "locale-modules"
+					? "messages/en.js"
+					: "messages/relative_time_dynamic.js";
+
+			expect(output).toHaveProperty(relativeTimeDynamicFile);
+			const relativeTimeDynamicModule = output[relativeTimeDynamicFile]!;
+			expect(relativeTimeDynamicModule).toContain(
+				'unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit)'
+			);
+			expect(relativeTimeDynamicModule).toContain(
+				"{ duration: NonNullable<unknown>, unit: NonNullable<unknown> }"
+			);
+		});
+
 		test("case sensitivity handling for bundle IDs", async () => {
 			const project = await loadProjectInMemory({
 				blob: await newProject({
@@ -1035,6 +1179,62 @@ describe.each([
     // a message without params shouldn't require params
     m.sad_penguin_bundle() satisfies string
 
+    // dynamic relativetime unit inputs stay consistent with other formatter inputs
+    m.relative_time_literal({ duration: -1 }) satisfies string
+    m.relative_time_dynamic({ duration: -3, unit: "hour" }) satisfies string
+    m.relative_time_dynamic({ duration: -3, unit: "not-a-relative-time-unit" }) satisfies string
+
+		// --------- MATCH TYPE INFERENCE ---------
+		// known match values should be accepted
+		m.auth_password_error({ type: "invalid" }) satisfies string
+		m.auth_password_error({ type: "empty" }) satisfies string
+		m.auth_password_error({ type: "min_length" }) satisfies string
+		m.auth_password_error({ type: "secure" }) satisfies string
+
+		// @ts-expect-error - unknown match value
+		m.auth_password_error({ type: "typo" })
+
+		// quoted keys should still get literal unions
+		m.error_with_dash({ "error-type": "network" }) satisfies string
+		m.error_with_dash({ "error-type": "timeout" }) satisfies string
+
+		// @ts-expect-error - unknown match value for quoted key
+		m.error_with_dash({ "error-type": "offline" })
+
+		// catchall should widen match value typing
+		m.auth_password_error_catchall({ type: "invalid" }) satisfies string
+		m.auth_password_error_catchall({ type: "typo" }) satisfies string
+
+		// multiple match keys should each get literal unions
+		m.multi_key_status_type({ type: "invalid", status: "ready" }) satisfies string
+		m.multi_key_status_type({ type: "empty", status: "done" }) satisfies string
+		m.multi_key_status_type({ type: "secure", status: "failed" }) satisfies string
+
+		// @ts-expect-error - invalid type literal
+		m.multi_key_status_type({ type: "typo", status: "ready" })
+
+		// @ts-expect-error - invalid status literal
+		m.multi_key_status_type({ type: "invalid", status: "pending" })
+
+		// numeric matches should accept both number and string forms
+		m.numeric_input_match({ input: 1 }) satisfies string
+		m.numeric_input_match({ input: 2 }) satisfies string
+		m.numeric_input_match({ input: "1" }) satisfies string
+		m.numeric_input_match({ input: "2" }) satisfies string
+
+		// @ts-expect-error - invalid numeric literal
+		m.numeric_input_match({ input: 3 })
+
+		// @ts-expect-error - invalid string literal
+		m.numeric_input_match({ input: "3" })
+
+		// @ts-expect-error - no loose boolean coercion
+		m.numeric_input_match({ input: true })
+
+		// empty matches should widen to NonNullable<unknown>
+		m.empty_matches_catchall({ type: "invalid" }) satisfies string
+		m.empty_matches_catchall({ type: "typo" }) satisfies string
+
 		// --------- MESSAGE OPTIONS ---------
 		// the locale option should be optional
 		m.sad_penguin_bundle({}, {}) satisfies string
@@ -1055,6 +1255,337 @@ describe.each([
 					.toString()
 					.includes("Cannot find module 'async_hooks'");
 			});
+			for (const diagnostic of diagnostics) {
+				console.error(diagnostic.messageText, diagnostic.file?.fileName);
+			}
+			expect(diagnostics.length).toEqual(0);
+		});
+
+		test("./messages.js types (single locale should not emit TS6133)", async () => {
+			const singleLocaleProject = await loadProjectInMemory({
+				blob: await newProject({
+					settings: { locales: ["en"], baseLocale: "en" },
+				}),
+			});
+
+			await insertBundleNested(
+				singleLocaleProject.db,
+				createBundleNested({
+					id: "single_locale_message",
+					messages: [
+						{
+							locale: "en",
+							variants: [{ pattern: [{ type: "text", value: "Hello" }] }],
+						},
+					],
+				})
+			);
+
+			const singleLocaleOutput = await compileProject({
+				project: singleLocaleProject,
+				compilerOptions,
+			});
+
+			const project = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+
+			for (const [fileName, code] of Object.entries(singleLocaleOutput)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					project.createSourceFile(fileName, code);
+				}
+			}
+
+			project.createSourceFile(
+				"test.ts",
+				`import { single_locale_message } from "./messages.js"; single_locale_message();`
+			);
+
+			const program = project.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+
+			const ts6133LocaleDiagnostics = diagnostics.filter((d) => {
+				return (
+					d.code === 6133 &&
+					d.messageText
+						.toString()
+						.includes("'locale' is declared but its value is never read")
+				);
+			});
+
+			expect(ts6133LocaleDiagnostics.length).toEqual(0);
+		});
+
+		test("#625: number formatter digit options should pass checkJs", async () => {
+			const projectWithNumberOptions = await loadProjectInMemory({
+				blob: await newProject({
+					settings: {
+						baseLocale: "en",
+						locales: ["en"],
+					},
+				}),
+			});
+
+			await insertBundleNested(
+				projectWithNumberOptions.db,
+				createBundleNested({
+					id: "formatted_percentage",
+					declarations: [
+						{
+							type: "input-variable",
+							name: "value",
+						},
+						{
+							type: "local-variable",
+							name: "formattedValue",
+							value: {
+								type: "expression",
+								arg: { type: "variable-reference", name: "value" },
+								annotation: {
+									type: "function-reference",
+									name: "number",
+									options: [
+										{
+											name: "minimumFractionDigits",
+											value: { type: "literal", value: "1" },
+										},
+										{
+											name: "maximumFractionDigits",
+											value: { type: "literal", value: "1" },
+										},
+									],
+								},
+							},
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							variants: [
+								{
+									pattern: [
+										{
+											type: "expression",
+											arg: {
+												type: "variable-reference",
+												name: "formattedValue",
+											},
+										},
+										{ type: "text", value: "%" },
+									],
+								},
+							],
+						},
+					],
+				})
+			);
+
+			const output = await compileProject({
+				project: projectWithNumberOptions,
+				compilerOptions,
+			});
+
+			const tsProject = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+
+			for (const [fileName, code] of Object.entries(output)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					tsProject.createSourceFile(fileName, code);
+				}
+			}
+
+			const program = tsProject.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+
+			for (const diagnostic of diagnostics) {
+				console.error(diagnostic.messageText, diagnostic.file?.fileName);
+			}
+			expect(diagnostics.length).toEqual(0);
+		});
+
+		test("#694: pattern-level annotations compile to registry calls and pass checkJs", async () => {
+			const projectWithPatternAnnotation = await loadProjectInMemory({
+				blob: await newProject({
+					settings: {
+						baseLocale: "en",
+						locales: ["en"],
+					},
+				}),
+			});
+
+			await insertBundleNested(
+				projectWithPatternAnnotation.db,
+				createBundleNested({
+					id: "views",
+					declarations: [
+						{
+							type: "input-variable",
+							name: "count",
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							variants: [
+								{
+									pattern: [
+										{
+											type: "expression",
+											arg: { type: "variable-reference", name: "count" },
+											annotation: {
+												type: "function-reference",
+												name: "number",
+												options: [
+													{
+														name: "maximumFractionDigits",
+														value: { type: "literal", value: "1" },
+													},
+												],
+											},
+										},
+										{ type: "text", value: " views" },
+									],
+								},
+							],
+						},
+					],
+				})
+			);
+
+			const output = await compileProject({
+				project: projectWithPatternAnnotation,
+				compilerOptions,
+			});
+
+			expect(Object.values(output).join("\n")).toContain(
+				'registry.number("en", i?.count, { maximumFractionDigits: 1 })'
+			);
+
+			const tsProject = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+
+			for (const [fileName, code] of Object.entries(output)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					tsProject.createSourceFile(fileName, code);
+				}
+			}
+
+			const program = tsProject.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+
+			for (const diagnostic of diagnostics) {
+				console.error(diagnostic.messageText, diagnostic.file?.fileName);
+			}
+			expect(diagnostics.length).toEqual(0);
+		});
+
+		test("relativetime formatter options should pass checkJs", async () => {
+			const projectWithRelativeTimeOptions = await loadProjectInMemory({
+				blob: await newProject({
+					settings: {
+						baseLocale: "en",
+						locales: ["en"],
+					},
+				}),
+			});
+
+			await insertBundleNested(
+				projectWithRelativeTimeOptions.db,
+				createBundleNested({
+					id: "formatted_relative_time",
+					declarations: [
+						{
+							type: "input-variable",
+							name: "duration",
+						},
+						{
+							type: "input-variable",
+							name: "unit",
+						},
+						{
+							type: "local-variable",
+							name: "formattedDuration",
+							value: {
+								type: "expression",
+								arg: { type: "variable-reference", name: "duration" },
+								annotation: {
+									type: "function-reference",
+									name: "relativetime",
+									options: [
+										{
+											name: "unit",
+											value: { type: "variable-reference", name: "unit" },
+										},
+										{
+											name: "style",
+											value: { type: "literal", value: "short" },
+										},
+									],
+								},
+							},
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							variants: [
+								{
+									pattern: [
+										{
+											type: "expression",
+											arg: {
+												type: "variable-reference",
+												name: "formattedDuration",
+											},
+										},
+									],
+								},
+							],
+						},
+					],
+				})
+			);
+
+			const output = await compileProject({
+				project: projectWithRelativeTimeOptions,
+				compilerOptions,
+			});
+
+			const tsProject = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+
+			for (const [fileName, code] of Object.entries(output)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					tsProject.createSourceFile(fileName, code);
+				}
+			}
+
+			const program = tsProject.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+
 			for (const diagnostic of diagnostics) {
 				console.error(diagnostic.messageText, diagnostic.file?.fileName);
 			}
@@ -1265,6 +1796,400 @@ const mockBundles: BundleNested[] = [
 							},
 							{ type: "text", value: " Nachrichten." },
 						],
+					},
+				],
+			},
+		],
+	},
+	createBundleNested({
+		id: "relative_time_literal",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "duration",
+			},
+			{
+				type: "local-variable",
+				name: "formattedDuration",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "duration" },
+					annotation: {
+						type: "function-reference",
+						name: "relativetime",
+						options: [
+							{ name: "unit", value: { type: "literal", value: "day" } },
+							{ name: "numeric", value: { type: "literal", value: "auto" } },
+						],
+					},
+				},
+			},
+		],
+		messages: [
+			{
+				locale: "en",
+				variants: [
+					{
+						pattern: [
+							{ type: "text", value: "Updated " },
+							{
+								type: "expression",
+								arg: {
+									type: "variable-reference",
+									name: "formattedDuration",
+								},
+							},
+							{ type: "text", value: "." },
+						],
+					},
+				],
+			},
+			{
+				locale: "de",
+				variants: [
+					{
+						pattern: [
+							{ type: "text", value: "Updated " },
+							{
+								type: "expression",
+								arg: {
+									type: "variable-reference",
+									name: "formattedDuration",
+								},
+							},
+							{ type: "text", value: "." },
+						],
+					},
+				],
+			},
+		],
+	}),
+	createBundleNested({
+		id: "relative_time_dynamic",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "duration",
+			},
+			{
+				type: "input-variable",
+				name: "unit",
+			},
+			{
+				type: "local-variable",
+				name: "formattedDuration",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "duration" },
+					annotation: {
+						type: "function-reference",
+						name: "relativetime",
+						options: [
+							{
+								name: "unit",
+								value: { type: "variable-reference", name: "unit" },
+							},
+							{ name: "style", value: { type: "literal", value: "short" } },
+						],
+					},
+				},
+			},
+		],
+		messages: [
+			{
+				locale: "en",
+				variants: [
+					{
+						pattern: [
+							{ type: "text", value: "Updated " },
+							{
+								type: "expression",
+								arg: {
+									type: "variable-reference",
+									name: "formattedDuration",
+								},
+							},
+							{ type: "text", value: "." },
+						],
+					},
+				],
+			},
+			{
+				locale: "de",
+				variants: [
+					{
+						pattern: [
+							{ type: "text", value: "Updated " },
+							{
+								type: "expression",
+								arg: {
+									type: "variable-reference",
+									name: "formattedDuration",
+								},
+							},
+							{ type: "text", value: "." },
+						],
+					},
+				],
+			},
+		],
+	}),
+	{
+		id: "auth_password_error",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "type",
+			},
+		],
+		messages: [
+			{
+				id: "auth_password_error_en",
+				bundleId: "auth_password_error",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "auth_password_error_en_variant_invalid",
+						messageId: "auth_password_error_en",
+						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
+						pattern: [
+							{
+								type: "text",
+								value: "The password provided is not valid",
+							},
+						],
+					},
+					{
+						id: "auth_password_error_en_variant_empty",
+						messageId: "auth_password_error_en",
+						matches: [{ type: "literal-match", key: "type", value: "empty" }],
+						pattern: [
+							{
+								type: "text",
+								value: "You must provide a password",
+							},
+						],
+					},
+					{
+						id: "auth_password_error_en_variant_min",
+						messageId: "auth_password_error_en",
+						matches: [
+							{
+								type: "literal-match",
+								key: "type",
+								value: "min_length",
+							},
+						],
+						pattern: [
+							{
+								type: "text",
+								value: "Your password is not secure enough",
+							},
+						],
+					},
+					{
+						id: "auth_password_error_en_variant_secure",
+						messageId: "auth_password_error_en",
+						matches: [{ type: "literal-match", key: "type", value: "secure" }],
+						pattern: [
+							{
+								type: "text",
+								value: "Your password is not secure enough",
+							},
+						],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "error_with_dash",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "error-type",
+			},
+		],
+		messages: [
+			{
+				id: "error_with_dash_en",
+				bundleId: "error_with_dash",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "error_with_dash_en_variant_network",
+						messageId: "error_with_dash_en",
+						matches: [
+							{ type: "literal-match", key: "error-type", value: "network" },
+						],
+						pattern: [{ type: "text", value: "Network error" }],
+					},
+					{
+						id: "error_with_dash_en_variant_timeout",
+						messageId: "error_with_dash_en",
+						matches: [
+							{
+								type: "literal-match",
+								key: "error-type",
+								value: "timeout",
+							},
+						],
+						pattern: [{ type: "text", value: "Timeout error" }],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "auth_password_error_catchall",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "type",
+			},
+		],
+		messages: [
+			{
+				id: "auth_password_error_catchall_en",
+				bundleId: "auth_password_error_catchall",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "auth_password_error_catchall_en_variant_invalid",
+						messageId: "auth_password_error_catchall_en",
+						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
+						pattern: [
+							{
+								type: "text",
+								value: "The password provided is not valid",
+							},
+						],
+					},
+					{
+						id: "auth_password_error_catchall_en_variant_catchall",
+						messageId: "auth_password_error_catchall_en",
+						matches: [{ type: "catchall-match", key: "type" }],
+						pattern: [
+							{
+								type: "text",
+								value: "Unknown password error",
+							},
+						],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "multi_key_status_type",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "type",
+			},
+			{
+				type: "input-variable",
+				name: "status",
+			},
+		],
+		messages: [
+			{
+				id: "multi_key_status_type_en",
+				bundleId: "multi_key_status_type",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "multi_key_status_type_en_variant_ready_invalid",
+						messageId: "multi_key_status_type_en",
+						matches: [
+							{ type: "literal-match", key: "type", value: "invalid" },
+							{ type: "literal-match", key: "status", value: "ready" },
+						],
+						pattern: [{ type: "text", value: "Ready invalid" }],
+					},
+					{
+						id: "multi_key_status_type_en_variant_done_empty",
+						messageId: "multi_key_status_type_en",
+						matches: [
+							{ type: "literal-match", key: "type", value: "empty" },
+							{ type: "literal-match", key: "status", value: "done" },
+						],
+						pattern: [{ type: "text", value: "Done empty" }],
+					},
+					{
+						id: "multi_key_status_type_en_variant_failed_secure",
+						messageId: "multi_key_status_type_en",
+						matches: [
+							{ type: "literal-match", key: "type", value: "secure" },
+							{ type: "literal-match", key: "status", value: "failed" },
+						],
+						pattern: [{ type: "text", value: "Failed secure" }],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "empty_matches_catchall",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "type",
+			},
+		],
+		messages: [
+			{
+				id: "empty_matches_catchall_en",
+				bundleId: "empty_matches_catchall",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "empty_matches_catchall_en_variant_invalid",
+						messageId: "empty_matches_catchall_en",
+						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
+						pattern: [{ type: "text", value: "Invalid" }],
+					},
+					{
+						id: "empty_matches_catchall_en_variant_any",
+						messageId: "empty_matches_catchall_en",
+						matches: [],
+						pattern: [{ type: "text", value: "Any" }],
+					},
+				],
+			},
+		],
+	},
+	{
+		id: "numeric_input_match",
+		declarations: [
+			{
+				type: "input-variable",
+				name: "input",
+			},
+		],
+		messages: [
+			{
+				id: "numeric_input_match_en",
+				bundleId: "numeric_input_match",
+				locale: "en",
+				selectors: [],
+				variants: [
+					{
+						id: "numeric_input_match_en_variant_1",
+						messageId: "numeric_input_match_en",
+						matches: [{ type: "literal-match", key: "input", value: "1" }],
+						pattern: [{ type: "text", value: "Thing 1" }],
+					},
+					{
+						id: "numeric_input_match_en_variant_2",
+						messageId: "numeric_input_match_en",
+						matches: [{ type: "literal-match", key: "input", value: "2" }],
+						pattern: [{ type: "text", value: "Thing 2" }],
 					},
 				],
 			},

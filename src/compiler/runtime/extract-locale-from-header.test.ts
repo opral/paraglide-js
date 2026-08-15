@@ -55,3 +55,22 @@ test("returns undefined if no Accept-Language header is present", async () => {
 	const locale = runtime.extractLocaleFromHeader(request);
 	expect(locale).toBeUndefined();
 });
+
+test("canonicalizes matched locale from Accept-Language header", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "pt-BR"],
+			},
+		}),
+	});
+
+	const request = new Request("http://example.com", {
+		headers: {
+			"Accept-Language": "pt-br, en;q=0.8",
+		},
+	});
+
+	expect(runtime.extractLocaleFromHeader(request)).toBe("pt-BR");
+});

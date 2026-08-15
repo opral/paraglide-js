@@ -1,8 +1,7 @@
 import { customServerStrategies, isCustomStrategy } from "./strategy.js";
-import { strategy } from "./variables.js";
-import { assertIsLocale } from "./assert-is-locale.js";
-import { isLocale } from "./is-locale.js";
-import { extractLocaleFromRequest } from "./extract-locale-from-request.js";
+import { getStrategyForUrl } from "./route-strategy.js";
+import { toLocale } from "./check-locale.js";
+import { extractLocaleFromRequestWithStrategies } from "./extract-locale-from-request.js";
 
 /**
  * Asynchronously extracts a locale from a request.
@@ -31,11 +30,18 @@ import { extractLocaleFromRequest } from "./extract-locale-from-request.js";
  *
  *   const locale = await extractLocaleFromRequestAsync(request);
  *
- * @type {(request: Request) => Promise<Locale>}
+ * @param {Request} request - The request object to extract the locale from.
+ * @param {{ effectiveRequestUrl?: string | URL }} [options] - Effective request URL to use for route matching and locale detection with the URL strategy.
+ * @returns {Promise<Locale>} The extracted locale.
  */
-export const extractLocaleFromRequestAsync = async (request) => {
+export const extractLocaleFromRequestAsync = async (request, options = {}) => {
 	/** @type {string|undefined} */
 	let locale;
+	const effectiveRequestUrl = resolveEffectiveRequestUrlFromRequestAsync(
+		request,
+		options.effectiveRequestUrl
+	);
+	const strategy = getStrategyForUrl(effectiveRequestUrl);
 
 	// Process custom strategies first, in order
 	for (const strat of strategy) {
@@ -47,13 +53,33 @@ export const extractLocaleFromRequestAsync = async (request) => {
 			}
 
 			// If we got a valid locale from this custom strategy, use it
-			if (locale !== undefined && isLocale(locale)) {
-				return assertIsLocale(locale);
+			const matchedLocale = toLocale(locale);
+			if (matchedLocale) {
+				return matchedLocale;
 			}
 		}
 	}
 
 	// If no custom strategy provided a valid locale, fall back to sync version
-	locale = extractLocaleFromRequest(request);
-	return assertIsLocale(locale);
+	return extractLocaleFromRequestWithStrategies(
+		request,
+		strategy,
+		effectiveRequestUrl
+	);
 };
+
+/**
+ * @param {Request} request
+ * @param {string | URL | undefined} effectiveRequestUrl
+ * @returns {URL}
+ */
+function resolveEffectiveRequestUrlFromRequestAsync(
+	request,
+	effectiveRequestUrl = request.url
+) {
+	if (effectiveRequestUrl instanceof URL) {
+		return new URL(effectiveRequestUrl.href);
+	}
+
+	return new URL(effectiveRequestUrl, request.url);
+}

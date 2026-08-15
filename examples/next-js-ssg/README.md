@@ -10,7 +10,7 @@ Paraglide JS brings type-safe, tree-shakable translations to statically generate
 It's a compiler-based i18n library that emits tree-shakable translations, leading to up to 70% smaller i18n bundle sizes compared to runtime based libraries.
 
 - Fully type-safe with IDE autocomplete
-- SEO-friendly localized URLs with the [i18n routing strategy](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url)
+- SEO-friendly localized URLs with the [i18n routing strategy](https://paraglidejs.com/strategy#url)
 - Works with CSR, SSR, and SSG
 
 [Source code](https://github.com/opral/monorepo/tree/main/inlang/packages/paraglide/paraglide-js/examples/next-js-ssg)
@@ -46,6 +46,7 @@ export default {
 +			paraglideWebpackPlugin({
 +				outdir: "./src/paraglide",
 +				project: "./project.inlang",
++				emitTsDeclarations: true,
 +       strategy: ["url", "cookie", "baseLocale"],
 +				urlPatterns: [
 +					{
@@ -85,6 +86,14 @@ app/
 ```
 
 ```diff
++import { cache } from "react";
++import {
++	assertIsLocale,
++	baseLocale,
++	getLocale,
++	getTextDirection,
++	overwriteGetLocale,
++} from "../paraglide/runtime.js";
 
 // needed for SSG
 +export function generateStaticParams() {
@@ -109,13 +118,13 @@ export default async function RootLayout({
 	// can't use async params because the execution order get's screwed up.
 	// this is something nextjs has to fix
 +	ssrLocale().locale = params.locale;
-	return (
-		<html lang={getLocale()}>
-			<body>
-				{children}
-			</body>
-		</html>
-	);
+		return (
+			<html lang={getLocale()} dir={getTextDirection()}>
+				<body>
+					{children}
+				</body>
+			</html>
+		);
 }
 ```
 
@@ -133,4 +142,4 @@ getLocale();    // "en"
 setLocale("de"); // switches to German
 ```
 
-[Learn more about messages, parameters, and locale management →](/m/gerre34r/library-inlang-paraglideJs/basics)
+[Learn more about messages, parameters, and locale management →](/basics)

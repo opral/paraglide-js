@@ -12,13 +12,16 @@ export const promptForOutdir: CliStep<
 		outdir: string;
 	}
 > = async (ctx) => {
-	const response = await prompt("Which outdir should Paraglide write generated files to?", {
-		type: "text",
-		initial: DEFAULT_OUTDIR,
-		default: DEFAULT_OUTDIR,
-		placeholder:
-			"Relative path from the package root to the desired compiler output directory",
-	});
+	const response = await prompt(
+		"Which outdir should Paraglide write generated files to?",
+		{
+			type: "text",
+			initial: DEFAULT_OUTDIR,
+			default: DEFAULT_OUTDIR,
+			placeholder:
+				"Relative path from the package root to the desired compiler output directory",
+		}
+	);
 
 	if (!response.startsWith("./")) {
 		ctx.logger.warn(

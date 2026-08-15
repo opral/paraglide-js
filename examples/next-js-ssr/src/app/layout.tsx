@@ -2,6 +2,7 @@ import {
 	assertIsLocale,
 	baseLocale,
 	getLocale,
+	getTextDirection,
 	Locale,
 	overwriteGetLocale,
 	overwriteGetUrlOrigin,
@@ -33,7 +34,7 @@ export default async function RootLayout({
 	ssrLocale().origin = new URL(headers().get("x-paraglide-request-url")).origin;
 
 	return (
-		<html lang={getLocale()}>
+		<html lang={getLocale()} dir={getTextDirection()}>
 			<body>
 				<b>
 					<p>{m.programmatic_locale_switching_info()}</p>

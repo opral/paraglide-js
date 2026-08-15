@@ -1,5 +1,7 @@
 import { getLocale } from "./get-locale.js";
+import { clearLocaleCookieCache } from "./extract-locale-from-cookie.js";
 import { localizeUrl } from "./localize-url.js";
+import { getStrategyForUrl } from "./route-strategy.js";
 import { customClientStrategies, isCustomStrategy } from "./strategy.js";
 import {
 	cookieDomain,
@@ -7,6 +9,7 @@ import {
 	cookieName,
 	isServer,
 	localStorageKey,
+	experimentalStaticLocale,
 	strategy,
 	TREE_SHAKE_COOKIE_STRATEGY_USED,
 	TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED,
@@ -18,7 +21,6 @@ import {
  * Navigates to the localized URL, or reloads the current page
  *
  * @param {string} [newLocation] The new location
- * @return {undefined}
  */
 const navigateOrReload = (newLocation) => {
 	if (newLocation) {
@@ -38,14 +40,17 @@ const navigateOrReload = (newLocation) => {
  * Set the locale.
  *
  * Updates the locale using your configured strategies (cookie, localStorage, URL, etc.).
- * By default, this reloads the page on the client to reflect the new locale. Reloading
- * can be disabled by passing `reload: false` as an option, but you'll need to ensure
- * the UI updates to reflect the new locale.
+ * By default, this navigates the client to the localized URL or reloads the current
+ * document to reflect the new locale. `reload: false` is a narrow browser-only escape
+ * hatch for a fully client-rendered, non-URL-routed surface that owns its reactive
+ * updates and document state. It does not re-render the UI or update the document.
+ * Do not use it for normal locale pickers, URL-routed pages, or switching an SSR,
+ * SSG, or hydrated document. It is incompatible with per-locale builds.
  *
  * If any custom strategy's `setLocale` function is async, then this function
  * will become async as well.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy
+ * @see https://paraglidejs.com/strategy
  *
  * @example
  *   setLocale('en');
@@ -60,6 +65,16 @@ export let setLocale = (newLocale, options) => {
 		reload: true,
 		...options,
 	};
+	if (
+		experimentalStaticLocale !== undefined &&
+		newLocale !== experimentalStaticLocale &&
+		optionsWithDefaults.reload === false
+	) {
+		console.warn(
+			`Paraglide: setLocale(${JSON.stringify(newLocale)}, { reload: false }) cannot switch away from the statically built locale ${JSON.stringify(experimentalStaticLocale)}. A document navigation is required; reload has been forced to true.`
+		);
+		optionsWithDefaults.reload = true;
+	}
 	// locale is already set
 	// https://github.com/opral/inlang-paraglide-js/issues/430
 	/** @type {Locale | undefined} */
@@ -69,11 +84,15 @@ export let setLocale = (newLocale, options) => {
 	} catch {
 		// do nothing, no locale has been set yet.
 	}
-	/** @type {Array<Promise<any>>} */
+	/** @type {Array<Promise<void>>} */
 	const customSetLocalePromises = [];
 	/** @type {string | undefined} */
 	let newLocation = undefined;
-	for (const strat of strategy) {
+	let strategyToUse = strategy;
+	if (!isServer && typeof window !== "undefined" && window.location?.href) {
+		strategyToUse = getStrategyForUrl(window.location.href);
+	}
+	for (const strat of strategyToUse) {
 		if (
 			TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED &&
 			strat === "globalVariable"
@@ -95,6 +114,7 @@ export let setLocale = (newLocale, options) => {
 			document.cookie = cookieDomain
 				? `${cookieString}; domain=${cookieDomain}`
 				: cookieString;
+			clearLocaleCookieCache();
 		} else if (strat === "baseLocale") {
 			// nothing to be set here. baseLocale is only a fallback
 			continue;
@@ -161,7 +181,7 @@ export let setLocale = (newLocale, options) => {
 };
 
 /**
- * Overwrite the \`setLocale()\` function.
+ * Overwrite the `setLocale()` function.
  *
  * Use this function to overwrite how the locale is set. For example,
  * modify a cookie, env variable, or a user's preference.
@@ -175,5 +195,5 @@ export let setLocale = (newLocale, options) => {
  * @param {SetLocaleFn} fn
  */
 export const overwriteSetLocale = (fn) => {
-	setLocale = /** @type {SetLocaleFn} */ (fn);
+	setLocale = fn;
 };

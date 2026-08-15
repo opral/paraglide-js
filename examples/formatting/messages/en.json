@@ -1,0 +1,58 @@
+{
+	"personal_balance": [
+		{
+			"declarations": [
+				"input amount",
+				"local formattedAmount = amount: number"
+			],
+			"match": {
+				"amount=*": "Your balance is {formattedAmount}."
+			}
+		}
+	],
+	"personal_balance_fixed_decimals": [
+		{
+			"declarations": [
+				"input amount",
+				"local formattedAmount = amount: number minimumFractionDigits=2 maximumFractionDigits=2"
+			],
+			"match": {
+				"amount=*": "Balance: {formattedAmount}."
+			}
+		}
+	],
+	"purchase_date": [
+		{
+			"declarations": [
+				"input date",
+				"local formattedDate = date: datetime day=2-digit month=2-digit year=numeric timeZone=UTC"
+			],
+			"match": {
+				"date=*": "Purchase date: {formattedDate}."
+			}
+		}
+	],
+	"last_seen": [
+		{
+			"declarations": [
+				"input duration",
+				"local formattedDuration = duration: relativetime unit=day numeric=auto"
+			],
+			"match": {
+				"duration=*": "Last seen {formattedDuration}."
+			}
+		}
+	],
+	"relative_update": [
+		{
+			"declarations": [
+				"input duration",
+				"input unit",
+				"local formattedDuration = duration: relativetime unit=$unit style=short"
+			],
+			"match": {
+				"duration=*,unit=*": "Updated {formattedDuration}."
+			}
+		}
+	]
+}

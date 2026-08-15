@@ -15,4 +15,4 @@ Paraglide JS can be used with NextJS for both SSR and SSG modes. Below are examp
 
 ## Usage
 
-Once you've set up Paraglide with Next.js using either the SSR or SSG approach, see the [basics documentation](/m/gerre34r/library-inlang-paraglideJs/basics) for more information on how to use Paraglide's messages, parameters, and locale management.
+Once you've set up Paraglide with Next.js using either the SSR or SSG approach, see the [basics documentation](/basics) for more information on how to use Paraglide's messages, parameters, and locale management.

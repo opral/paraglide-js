@@ -1,0 +1,73 @@
+<svg width="900" height="220" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 600; fill: #64748b; letter-spacing: 0.1em; text-transform: uppercase; }
+    .key { font-family: ui-monospace, 'SF Mono', monospace; font-size: 16px; font-weight: 600; fill: #1e293b; }
+    .key-broken { font-family: ui-monospace, 'SF Mono', monospace; font-size: 16px; font-weight: 600; fill: #991b1b; }
+    .month { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: #94a3b8; }
+    .history-text { font-family: ui-monospace, 'SF Mono', monospace; font-size: 12px; fill: #64748b; }
+    .empty-text { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #dc2626; font-style: italic; }
+    .rename-label { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 500; fill: #475569; }
+  </style>
+
+  <!-- Before section -->
+  <text x="170" y="24" text-anchor="middle" class="title">Before</text>
+
+  <rect x="50" y="40" width="240" height="44" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="170" y="68" text-anchor="middle" class="key">"login-button-label"</text>
+
+  <!-- Rename arrow -->
+  <text x="460" y="58" text-anchor="middle" class="rename-label">rename</text>
+  <path d="M300 62 L425 62" stroke="#cbd5e1" stroke-width="2"/>
+  <path d="M495 62 L610 62" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#cbd5e1"/>
+    </marker>
+  </defs>
+
+  <!-- After section -->
+  <text x="730" y="24" text-anchor="middle" class="title">After</text>
+
+  <rect x="610" y="40" width="260" height="44" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+  <text x="740" y="68" text-anchor="middle" class="key-broken">"signup-button-label"</text>
+
+  <!-- Before timeline -->
+  <line x1="70" y1="120" x2="290" y2="120" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Timeline dots -->
+  <circle cx="90" cy="120" r="6" fill="#059669"/>
+  <circle cx="140" cy="120" r="6" fill="#059669"/>
+  <circle cx="190" cy="120" r="6" fill="#059669"/>
+  <circle cx="240" cy="120" r="6" fill="#059669"/>
+  <circle cx="290" cy="120" r="6" fill="#059669"/>
+
+  <!-- Cut off X -->
+  <text x="310" y="126" font-family="system-ui" font-size="18" fill="#dc2626" font-weight="bold">✕</text>
+
+  <!-- Month labels -->
+  <text x="90" y="145" text-anchor="middle" class="month">Mar</text>
+  <text x="140" y="145" text-anchor="middle" class="month">Apr</text>
+  <text x="190" y="145" text-anchor="middle" class="month">May</text>
+  <text x="240" y="145" text-anchor="middle" class="month">Jun</text>
+  <text x="290" y="145" text-anchor="middle" class="month">Jul</text>
+
+  <!-- History evolution text -->
+  <text x="70" y="175" class="history-text">"Login"</text>
+  <text x="120" y="175" class="history-text">→</text>
+  <text x="135" y="175" class="history-text">"Log in"</text>
+  <text x="195" y="175" class="history-text">→</text>
+  <text x="210" y="175" class="history-text">"Sign in"</text>
+  <text x="280" y="175" class="history-text">→ ...</text>
+
+  <!-- After timeline -->
+  <circle cx="630" cy="120" r="6" fill="none" stroke="#fca5a5" stroke-width="2"/>
+  <line x1="640" y1="120" x2="860" y2="120" stroke="#fca5a5" stroke-width="2" stroke-dasharray="6,4"/>
+  <polygon points="860,116 870,120 860,124" fill="#fca5a5"/>
+
+  <!-- Month label for after -->
+  <text x="630" y="145" text-anchor="middle" class="month">Jul</text>
+
+  <!-- Empty history text -->
+  <text x="630" y="175" class="empty-text">(no history)</text>
+</svg>

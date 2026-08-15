@@ -1,10 +1,16 @@
 ## paraglideMiddleware()
 
-> **paraglideMiddleware**\<`T`\>(`request`, `resolve`, `callbacks?`): `Promise`\<`Response`\>
+> **paraglideMiddleware**\<`T`\>(`request`, `resolve`, `options?`): `Promise`\<`Response`\>
 
-Defined in: [server/middleware.js:102](https://github.com/opral/paraglide-js/tree/main/src/compiler/server/middleware.js)
+Defined in: [server/middleware.js:94](https://github.com/opral/paraglide-js/tree/main/src/compiler/server/middleware.js)
 
 Server middleware that handles locale-based routing and request processing.
+
+Configure `disableAsyncLocalStorage` when generating Paraglide with
+`paraglideVitePlugin()` or `compile()`, not when calling
+`paraglideMiddleware()`. Keep AsyncLocalStorage enabled by default and
+only disable it for runtimes that lack `AsyncLocalStorage` support and
+guarantee request isolation.
 
 This middleware performs several key functions:
 
@@ -44,11 +50,15 @@ Function to handle the request. The callback receives:
      request instead to avoid redirect loops.
   - `locale`: The determined locale for this request.
 
-#### callbacks?
+#### options?
 
-Callbacks to handle events from middleware
+Options to control middleware behavior. `effectiveRequestUrl` sets the effective request URL used for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
 
-##### onRedirect
+##### effectiveRequestUrl?
+
+`string` \| `URL` \| (`request`) => `string` \| `URL`
+
+##### onRedirect?
 
 (`response`) => `void`
 
@@ -58,7 +68,7 @@ Callbacks to handle events from middleware
 
 ### See
 
-https://inlang.com/m/gerre34r/library-inlang-paraglideJs/middleware
+https://paraglidejs.com/middleware
 
 ### Examples
 
@@ -80,22 +90,6 @@ app.use(async (req, res, next) => {
     return next(request);
   });
 });
-```
-
-```typescript
-// Usage in serverless environments like Cloudflare Workers
-// ⚠️ WARNING: This should ONLY be used in serverless environments like Cloudflare Workers.
-// Disabling AsyncLocalStorage in traditional server environments risks cross-request pollution where state from
-// one request could leak into another concurrent request.
-export default {
-  fetch: async (request) => {
-    return paraglideMiddleware(
-      request,
-      ({ request, locale }) => handleRequest(request, locale),
-      { disableAsyncLocalStorage: true }
-    );
-  }
-};
 ```
 
 ```typescript

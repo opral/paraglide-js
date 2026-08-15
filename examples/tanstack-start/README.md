@@ -1,23 +1,26 @@
 ---
-title: TanStack Start i18n - Full-Stack Internationalization
+title: TanStack Start i18n guide with Paraglide
 description: Add multi-language support to TanStack Start apps with Paraglide JS. Type-safe translations, server-side rendering, localized routing, and up to 70% smaller i18n bundle sizes.
 ---
 
-# TanStack Start example with Paraglide
+# TanStack Start i18n guide with Paraglide
 
-Paraglide JS is the best i18n library for TanStack Start.
+Paraglide JS is a compiler-first i18n library for TanStack Start apps.
 
-It's a compiler-based i18n library that emits tree-shakable translations, leading to up to 70% smaller i18n bundle sizes compared to runtime based libraries.
+TanStack Router keeps owning your route tree, loaders, server functions, navigation, and typed links. Paraglide adds locale detection, request-scoped SSR, localized URL mapping, and type-safe message functions.
 
-- Fully type-safe with IDE autocomplete
-- SEO-friendly localized URLs with the [i18n routing strategy](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url)
-- Works with CSR and SSR
+This guide covers:
 
-[Source code](https://github.com/opral/paraglide-js/tree/main/examples/tanstack-start) | [TanStack Router Docs](https://tanstack.com/router)
+- TanStack Router `rewrite` integration with `localizeUrl()` and `deLocalizeUrl()`
+- Request middleware and request-scoped locale selection
+- Locale-aware rendering in routes, loaders, and server functions
+- Type-safe translated pathnames from the generated TanStack route tree
+- Prerendering localized routes
+- CSR and SSR with request-scoped locale handling
 
-## Start a new project based on this example
+[Official TanStack example](https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide) | [TanStack Router Docs](https://tanstack.com/router)
 
-To start a new project based on this example, run:
+## Start from the official example
 
 ```sh
 npx gitpick TanStack/router/tree/main/examples/react/start-i18n-paraglide start-i18n-paraglide
@@ -45,8 +48,8 @@ export default defineConfig({
     react(),
 +              paraglideVitePlugin({
 +                      project: "./project.inlang",
-+                      outdir: "./app/paraglide",
-+     outputStructure: "message-modules",
++                      outdir: "./src/paraglide",
++     emitTsDeclarations: true,
 +     cookieName: "PARAGLIDE_LOCALE",
 +     strategy: ["url", "cookie", "preferredLanguage", "baseLocale"],
 +      urlPatterns: [
@@ -62,7 +65,31 @@ export default defineConfig({
 });
 ```
 
-3. Done :)
+3. Wrap the TanStack Start handler with `paraglideMiddleware` in
+   `src/server.ts`:
+
+```ts
+import {
+  createStartHandler,
+  defaultStreamHandler,
+} from "@tanstack/react-start/server";
+import { paraglideMiddleware } from "./paraglide/server.js";
+
+const fetch = createStartHandler({ handler: defaultStreamHandler });
+
+export default {
+  fetch(request: Request) {
+    // TanStack Router owns URL rewriting, so keep the original request URL.
+    return paraglideMiddleware(request, () => fetch(request));
+  },
+};
+```
+
+The middleware preserves the request locale while rendering. TanStack Router
+still receives the original URL, so its `rewrite` configuration remains the
+only routing rewrite.
+
+4. Done :)
 
 ## Usage
 
@@ -78,11 +105,11 @@ getLocale();    // "en"
 setLocale("de"); // switches to German
 ```
 
-[Learn more about messages, parameters, and locale management →](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/basics)
+[Learn more about messages, parameters, and locale management →](https://paraglidejs.com/basics)
 
-## Rewrite URL
+## Compose with TanStack Router rewrite
 
-If you want to handle how the URL looks when the user changes the locale, you can rewrite the URL in the router.
+Keep your file routes canonical, such as `/about`, and let TanStack Router rewrite localized public URLs, such as `/de/ueber`, through Paraglide.
 
 ```diff
 import { createRouter } from "@tanstack/react-router";
@@ -98,30 +125,18 @@ const router = createRouter({
 });
 ```
 
-In `server.ts` intercept the request with the paraglideMiddleware.
-
-> **Important:** Since TanStack Router handles URL localization/delocalization via its `rewrite` option, you must pass the original `req` to the handler instead of the modified `request` from the callback. Using the modified request would cause a redirect loop because both the middleware and the router would attempt to delocalize the URL. The middleware still handles locale detection, cookies, and AsyncLocalStorage context.
-
-```ts
-import { paraglideMiddleware } from './paraglide/server.js'
-import handler from '@tanstack/react-start/server-entry'
-export default {
-  fetch(req: Request): Promise<Response> {
-    // Pass original `req` - NOT the modified `request` from the callback
-    // TanStack Router handles URL rewriting via deLocalizeUrl/localizeUrl
-    return paraglideMiddleware(req, () => handler.fetch(req))
-  },
-}
-```
+Locale changes should normally use the default full-page navigation behavior
+of `setLocale()` so the URL, server-rendered document, and runtime locale stay
+in sync.
 
 In `__root.tsx` change the HTML lang attribute to the current locale.
 
 ```tsx
-import { getLocale } from '../paraglide/runtime.js'
+import { getLocale, getTextDirection } from '../paraglide/runtime.js'
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={getLocale()}>
+    <html lang={getLocale()} dir={getTextDirection()}>
       <head>
         <HeadContent />
       </head>

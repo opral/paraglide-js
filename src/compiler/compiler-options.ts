@@ -1,5 +1,35 @@
 import type { Runtime } from "./runtime/type.js";
 
+export type RouteStrategy =
+	| {
+			/**
+			 * URLPattern-compatible matcher.
+			 */
+			match: string;
+			/**
+			 * Strategy override for matching requests.
+			 */
+			strategy: Runtime["strategy"];
+			/**
+			 * Prevent mutually exclusive configuration (`exclude` + `strategy`).
+			 */
+			exclude?: never;
+	  }
+	| {
+			/**
+			 * URLPattern-compatible matcher.
+			 */
+			match: string;
+			/**
+			 * Exclude matching requests from i18n middleware behavior.
+			 */
+			exclude: true;
+			/**
+			 * Prevent mutually exclusive configuration (`exclude` + `strategy`).
+			 */
+			strategy?: never;
+	  };
+
 export const defaultCompilerOptions = {
 	outputStructure: "message-modules",
 	emitGitIgnore: true,
@@ -61,6 +91,24 @@ export type CompilerOptions = {
 	 * @default ["cookie", "globalVariable", "baseLocale"]
 	 */
 	strategy?: Runtime["strategy"];
+	/**
+	 * Route-level strategy overrides.
+	 *
+	 * Routes are matched in declaration order. The first matching rule wins.
+	 * `match` uses URLPattern syntax.
+	 *
+	 * - `strategy`: Override locale resolution for the matched route.
+	 * - `exclude: true`: Skip i18n middleware behavior for the matched route.
+	 *
+	 * @example
+	 * ```ts
+	 * routeStrategies: [
+	 *   { match: "/dashboard/:path(.*)?", strategy: ["cookie", "baseLocale"] },
+	 *   { match: "/api/:path(.*)?", exclude: true }
+	 * ]
+	 * ```
+	 */
+	routeStrategies?: RouteStrategy[];
 	/**
 	 * Whether or not to use experimental middleware locale splitting.
 	 *
@@ -223,12 +271,18 @@ export type CompilerOptions = {
 	 * Emit `.d.ts` files for the generated output using the TypeScript compiler.
 	 *
 	 * Useful when `allowJs: true` cannot be set in your `tsconfig.json`
-	 * (e.g., due to project constraints or conflicting compiler options).
+	 * (e.g., due to project constraints or conflicting compiler options), or when
+	 * an editor language server caches stale JSDoc types for generated messages.
 	 *
 	 * Requires `typescript` to be resolvable in your toolchain.
 	 *
 	 * **Note:** Enabling this option reduces compiler speed because TypeScript
 	 * needs to generate declaration files for all output modules.
+	 *
+	 * **Note:** With TypeScript 5/6 the declarations are generated in-process.
+	 * TypeScript 7+ no longer provides the compiler API, so its `tsc` CLI is
+	 * invoked in a child process instead; the emitted declarations are
+	 * semantically equivalent but differ cosmetically between the two.
 	 *
 	 * @example
 	 * ```ts
@@ -243,9 +297,17 @@ export type CompilerOptions = {
 	 */
 	emitTsDeclarations?: boolean;
 	/**
-	 * https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url
+	 * https://paraglidejs.com/strategy#url
 	 */
 	urlPatterns?: Runtime["urlPatterns"];
+	/**
+	 * Controls trailing slash canonicalization for localized URLs.
+	 *
+	 * Canonicalization happens before URL pattern matching and after URL
+	 * localization. If omitted, Paraglide keeps its existing trailing slash
+	 * behavior.
+	 */
+	trailingSlash?: "always" | "never";
 	/**
 	 * Whether to include an eslint-disable comment at the top of each .js file.
 	 *
@@ -255,12 +317,14 @@ export type CompilerOptions = {
 	/**
 	 * Replaces AsyncLocalStorage with a synchronous implementation.
 	 *
-	 * ⚠️ WARNING: This should ONLY be used in serverless environments
-	 * like Cloudflare Workers.
+	 * Leave AsyncLocalStorage enabled by default. This option is a
+	 * compatibility fallback for runtimes that do not provide
+	 * AsyncLocalStorage or `node:async_hooks`.
 	 *
-	 * Disabling AsyncLocalStorage in traditional server environments
-	 * risks cross-request pollution where state from one request could
-	 * leak into another concurrent request.
+	 * ⚠️ WARNING: Only use this option when your runtime also guarantees
+	 * request isolation. Disabling AsyncLocalStorage in multi-request
+	 * server environments risks cross-request pollution where state from
+	 * one request could leak into another concurrent request.
 	 */
 	disableAsyncLocalStorage?: boolean;
 	/**

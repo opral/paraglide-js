@@ -10,7 +10,6 @@ import type { CliStep } from "../utils.js";
 import { DEFAULT_PROJECT_PATH, getNewProjectTemplate } from "../defaults.js";
 import nodePath from "node:path";
 import fs from "node:fs";
-import { ENV_VARIABLES } from "../../services/env-variables/index.js";
 
 export const initializeInlangProject: CliStep<
 	{
@@ -87,7 +86,6 @@ export const initializeInlangProject: CliStep<
 // 	const project = await loadProjectFromDirectory({
 // 		path: projectPath,
 // 		fs: ctx.syncFs,
-// 		appId: ENV_VARIABLES.PARJS_APP_ID,
 // 	});
 
 // 	if ((await project.errors.get()).length > 0) {
@@ -227,7 +225,6 @@ export const createNewProjectFlow = async (ctx: {
 	const project = await loadProjectFromDirectory({
 		path: projectPath,
 		fs: ctx.syncFs,
-		appId: ENV_VARIABLES.PARJS_APP_ID,
 	});
 
 	if ((await project.errors.get()).length > 0) {

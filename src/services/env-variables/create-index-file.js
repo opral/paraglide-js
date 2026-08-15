@@ -21,8 +21,6 @@ await fs.writeFile(
 	dirname + "/index.ts",
 	`
 export const ENV_VARIABLES = {
-  PARJS_APP_ID: "library.inlang.paraglideJs",
-  PARJS_POSTHOG_TOKEN: ${ifDefined(process.env.PUBLIC_POSTHOG_TOKEN)},
 	PARJS_PACKAGE_VERSION: ${ifDefined(packageJson.version)},
 }
 `

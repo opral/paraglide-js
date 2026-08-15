@@ -10,7 +10,7 @@ Paraglide JS is the best i18n library for React Router v7 in framework mode (usi
 It's a compiler-based i18n library that emits tree-shakable translations, leading to up to 70% smaller i18n bundle sizes compared to runtime based libraries.
 
 - Fully type-safe with IDE autocomplete
-- SEO-friendly localized URLs with the [i18n routing strategy](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url)
+- SEO-friendly localized URLs with the [i18n routing strategy](https://paraglidejs.com/strategy#url)
 - Works with CSR and SSR
 
 [Source code](https://github.com/opral/monorepo/tree/main/inlang/packages/paraglide/paraglide-js/examples/react-router)
@@ -36,6 +36,7 @@ export default defineConfig({
 +		paraglideVitePlugin({
 +			project: "./project.inlang",
 +			outdir: "./app/paraglide",
++			emitTsDeclarations: true,
 +		}),
 	],
 });
@@ -57,7 +58,7 @@ getLocale();    // "en"
 setLocale("de"); // switches to German
 ```
 
-[Learn more about messages, parameters, and locale management →](/m/gerre34r/library-inlang-paraglideJs/basics)
+[Learn more about messages, parameters, and locale management →](/basics)
 
 ## Server side rendering using middleware
 
@@ -111,6 +112,50 @@ export default [
 ```
 
 Now you can use `getLocale` function anywhere in your project.
+
+### Translated pathnames
+
+React Router matches the incoming URL against the routes you define in
+`routes.ts`. The middleware can set the locale and request context, but React
+Router's middleware API does not let Paraglide pass a rewritten request to
+`next()` before route matching.
+
+If you use translated pathnames, define localized route aliases in `routes.ts`
+and point them at the same route module. Give each alias a unique route `id`
+when multiple entries use the same file.
+
+```ts
+import { type RouteConfig, index, route } from "@react-router/dev/routes";
+
+export default [
+	index("routes/home.tsx"),
+	route("en/pricing", "routes/pricing.tsx", { id: "pricing-en" }),
+	route("de/preise", "routes/pricing.tsx", { id: "pricing-de" }),
+	route("pl/cennik", "routes/pricing.tsx", { id: "pricing-pl" }),
+] satisfies RouteConfig;
+```
+
+Keep the corresponding Paraglide `urlPatterns` so helpers like
+`localizeHref("/pricing")` generate the public URL that React Router can match:
+
+```ts
+paraglideVitePlugin({
+	project: "./project.inlang",
+	outdir: "./app/paraglide",
+	emitTsDeclarations: true,
+	strategy: ["url", "baseLocale"],
+	urlPatterns: [
+		{
+			pattern: "/pricing",
+			localized: [
+				["en", "/en/pricing"],
+				["de", "/de/preise"],
+				["pl", "/pl/cennik"],
+			],
+		},
+	],
+});
+```
 
 ## Server side rendering without middleware (legacy)
 

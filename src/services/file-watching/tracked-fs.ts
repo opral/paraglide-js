@@ -58,7 +58,9 @@ export function getWatchTargets(
 
 	const isIgnoredPath = (path: string) => {
 		const normalizedPath = nodeNormalizePath(path);
-		if (ignoreCache && normalizedPath.includes("cache")) {
+		// match whole path segments only — a project under e.g. /cachet-app/
+		// must not have its inputs ignored
+		if (ignoreCache && /(^|\/)cache(\/|$)/.test(normalizedPath)) {
 			return true;
 		}
 		if (
@@ -101,9 +103,7 @@ export function createTrackedFs(options: TrackedFsOptions = {}): TrackedFs {
 	const readFiles = new Set<string>();
 
 	const trackRead = (path: fs.PathLike | number) => {
-		readFiles.add(
-			nodeNormalizePath(resolve(baseDir, path.toString()))
-		);
+		readFiles.add(nodeNormalizePath(resolve(baseDir, path.toString())));
 	};
 
 	const wrappedFs: typeof import("node:fs") = {

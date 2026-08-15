@@ -62,7 +62,7 @@ export const initCommand = new Command()
 
 		const successMessage = [
 			"Setup complete! Run `npm install` and then `npm run build`.",
-			`Docs: https://inlang.com/m/gerre34r/library-inlang-paraglideJs/basics`,
+			`Docs: https://paraglidejs.com/basics`,
 			"\n",
 			"For questions and feedback, visit",
 			"https://github.com/opral/paraglide-js/issues",
@@ -132,7 +132,7 @@ const addCompileStepToPackageJSON: CliStep<
 				"Added the compile command to the build step in package.json."
 			);
 			ctx.logger.info(
-				`Visit https://inlang.com/m/gerre34r/library-inlang-paraglideJs/compiling-messages for more information.`
+				`Visit https://paraglidejs.com/compiling-messages for more information.`
 			);
 			return scripts;
 		},

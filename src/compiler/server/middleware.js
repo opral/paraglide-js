@@ -3,6 +3,12 @@ import * as runtime from "./runtime.js";
 /**
  * Server middleware that handles locale-based routing and request processing.
  *
+ * Configure `disableAsyncLocalStorage` when generating Paraglide with
+ * `paraglideVitePlugin()` or `compile()`, not when calling
+ * `paraglideMiddleware()`. Keep AsyncLocalStorage enabled by default and
+ * only disable it for runtimes that lack `AsyncLocalStorage` support and
+ * guarantee request isolation.
+ *
  * This middleware performs several key functions:
  *
  * 1. Determines the locale for the incoming request using configured strategies
@@ -15,7 +21,7 @@ import * as runtime from "./runtime.js";
  * - If URL doesn't match the determined locale, redirects to localized URL (only for document requests)
  * - De-localizes URLs before passing to server (e.g., `/fr/about` → `/about`)
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/middleware
+ * @see https://paraglidejs.com/middleware
  *
  * @template T - The return type of the resolve function
  *
@@ -25,7 +31,10 @@ import * as runtime from "./runtime.js";
  *      If your framework handles URL localization itself (e.g., TanStack Router's `rewrite` option), use the original
  *      request instead to avoid redirect loops.
  *   - `locale`: The determined locale for this request.
- * @param {{ onRedirect:(response: Response) => void }} [callbacks] - Callbacks to handle events from middleware
+ * @param {{
+ *   effectiveRequestUrl?: string | URL | ((request: Request) => string | URL),
+ *   onRedirect?: (response: Response) => void
+ * }} [options] - Options to control middleware behavior. `effectiveRequestUrl` sets the effective request URL used for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
  * @returns {Promise<Response>}
  *
  * @example
@@ -48,23 +57,6 @@ import * as runtime from "./runtime.js";
  *     return next(request);
  *   });
  * });
- * ```
- *
- * @example
- * ```typescript
- * // Usage in serverless environments like Cloudflare Workers
- * // ⚠️ WARNING: This should ONLY be used in serverless environments like Cloudflare Workers.
- * // Disabling AsyncLocalStorage in traditional server environments risks cross-request pollution where state from
- * // one request could leak into another concurrent request.
- * export default {
- *   fetch: async (request) => {
- *     return paraglideMiddleware(
- *       request,
- *       ({ request, locale }) => handleRequest(request, locale),
- *       { disableAsyncLocalStorage: true }
- *     );
- *   }
- * };
  * ```
  *
  * @example
@@ -99,12 +91,31 @@ import * as runtime from "./runtime.js";
  * }
  * ```
  */
-export async function paraglideMiddleware(request, resolve, callbacks) {
+export async function paraglideMiddleware(request, resolve, options) {
+	let requestAsyncLocalStorage = runtime.serverAsyncLocalStorage;
 	// %async-local-storage
+	const url = resolveMiddlewareUrl(request, options?.effectiveRequestUrl);
+	const origin = url.origin;
 
-	const decision = await runtime.shouldRedirect({ request });
+	if (runtime.isExcludedByRouteStrategy(url.href)) {
+		const locale = runtime.baseLocale;
+		const newRequest = cloneRequestWithFallback(request, url);
+		/** @type {Set<string>} */
+		const messageCalls = new Set();
+		return /** @type {Response} */ (
+			await requestAsyncLocalStorage?.run(
+				{ locale, origin, messageCalls },
+				() => resolve({ locale, request: newRequest })
+			)
+		);
+	}
+
+	const strategy = runtime.getStrategyForUrl(url.href);
+	const decision = await runtime.shouldRedirect({
+		request,
+		effectiveRequestUrl: url,
+	});
 	const locale = decision.locale;
-	const origin = new URL(request.url).origin;
 
 	// if the client makes a request to a URL that doesn't match
 	// the localizedUrl, redirect the client to the localized URL
@@ -116,7 +127,7 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 		// Create headers object with Vary header if preferredLanguage strategy is used
 		/** @type {Record<string, string>} */
 		const headers = {};
-		if (runtime.strategy.includes("preferredLanguage")) {
+		if (strategy.includes("preferredLanguage")) {
 			headers["Vary"] = "Accept-Language";
 		}
 
@@ -128,7 +139,7 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 			},
 		});
 
-		callbacks?.onRedirect(response);
+		options?.onRedirect?.(response);
 		return response;
 	}
 
@@ -138,44 +149,18 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 	// The middleware is responsible for mapping a localized URL to the
 	// de-localized URL e.g. `/en/about` to `/about`. Otherwise,
 	// the server can't render the correct page.
-	// Avoid consuming the original request body when URL strategy rewraps it.
-	// https://github.com/opral/paraglide-js/issues/564
-	let requestForParaglide = request;
-	const method = request.method?.toUpperCase();
-	const hasBody = method && method !== "GET" && method !== "HEAD";
-	if (hasBody) {
-		try {
-			requestForParaglide = request.clone();
-		} catch {
-			requestForParaglide = request;
-		}
-	}
-
 	let newRequest;
-	if (runtime.strategy.includes("url")) {
-		newRequest = new Request(
-			runtime.deLocalizeUrl(request.url),
-			requestForParaglide
-		);
+	if (strategy.includes("url")) {
+		newRequest = cloneRequestWithFallback(request, runtime.deLocalizeUrl(url));
 	} else {
-		// Some metaframeworks (NextJS) require a new Request object
-		// https://github.com/opral/inlang-paraglide-js/issues/411
-		// However, some frameworks (TanStack Start 1.143+) use custom Request
-		// implementations that cannot be cloned with `new Request(request)`
-		// https://github.com/opral/paraglide-js/issues/573
-		// Try to clone the request, but fall back to the original if cloning fails
-		try {
-			newRequest = new Request(requestForParaglide);
-		} catch {
-			newRequest = requestForParaglide;
-		}
+		newRequest = cloneRequestWithFallback(request, url);
 	}
 
 	// the message functions that have been called in this request
 	/** @type {Set<string>} */
 	const messageCalls = new Set();
 
-	const response = await runtime.serverAsyncLocalStorage?.run(
+	const response = await requestAsyncLocalStorage?.run(
 		{ locale, origin, messageCalls },
 		() => resolve({ locale, request: newRequest })
 	);
@@ -199,7 +184,16 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 			messages.push(`${id}: ${compiledBundles[id]?.[locale]}`);
 		}
 
-		const script = `<script>globalThis.__paraglide_ssr = { ${messages.join(",")} }</script>`;
+		// Prevent translated content from terminating the inline script tag.
+		const escapedMessages = messages
+			.join(",")
+			.replace(/<\/(script)/gi, "<\\/$1");
+		// Reuse the request's CSP nonce (if any) so the injected script is allowed under a strict CSP
+		const nonce = response.headers
+			.get("Content-Security-Policy")
+			?.match(/'nonce-([\w+/=-]+)'/)?.[1];
+		const nonceAttr = nonce ? `nonce="${nonce}"` : "";
+		const script = `<script ${nonceAttr}>globalThis.__paraglide = globalThis.__paraglide ?? {}; globalThis.__paraglide.ssr = { ${escapedMessages} }</script>`;
 
 		// Insert the script before the closing head tag
 		const newBody = body.replace("</head>", `${script}</head>`);
@@ -220,12 +214,74 @@ export async function paraglideMiddleware(request, resolve, callbacks) {
 }
 
 /**
+ * @param {Request} request
+ * @param {string | URL | ((request: Request) => string | URL) | undefined} effectiveRequestUrl
+ * @returns {URL}
+ */
+function resolveMiddlewareUrl(request, effectiveRequestUrl) {
+	if (typeof effectiveRequestUrl === "function") {
+		return new URL(effectiveRequestUrl(request), request.url);
+	}
+
+	if (
+		typeof effectiveRequestUrl === "string" ||
+		effectiveRequestUrl instanceof URL
+	) {
+		return new URL(effectiveRequestUrl, request.url);
+	}
+
+	return new URL(request.url);
+}
+
+/**
+ * Some metaframeworks (NextJS) require a new Request object.
+ * https://github.com/opral/inlang-paraglide-js/issues/411
+ *
+ * However, some frameworks (TanStack Start 1.143+) use custom Request
+ * implementations that cannot be cloned with `new Request(request)`.
+ * https://github.com/opral/paraglide-js/issues/573
+ *
+ * Effective request URL overrides behind proxies:
+ * https://github.com/opral/paraglide-js/issues/652
+ *
+ * @param {Request} request
+ * @param {string | URL} [url]
+ * @returns {Request}
+ */
+function cloneRequestWithFallback(request, url = request.url) {
+	const targetUrl = typeof url === "string" ? url : url.href;
+	if (targetUrl === request.url) {
+		try {
+			// Clone first so building a new Request does not consume the original body stream.
+			return new Request(request.clone());
+		} catch {
+			try {
+				return new Request(request);
+			} catch {
+				return request;
+			}
+		}
+	}
+
+	try {
+		// Clone first so building a new Request does not consume the original body stream.
+		return new Request(targetUrl, request.clone());
+	} catch {
+		try {
+			return new Request(targetUrl, request);
+		} catch {
+			return request;
+		}
+	}
+}
+
+/**
  * Creates a mock AsyncLocalStorage implementation for environments where
  * native AsyncLocalStorage is not available or disabled.
  *
  * This mock implementation mimics the behavior of the native AsyncLocalStorage
- * but doesn't require the async_hooks module. It's designed to be used in
- * environments like Cloudflare Workers where AsyncLocalStorage is not available.
+ * but doesn't require the async_hooks module. It's used as a fallback when
+ * the runtime does not expose AsyncLocalStorage or when it has been disabled.
  *
  * @returns {import("./runtime.js").ParaglideAsyncLocalStorage}
  */

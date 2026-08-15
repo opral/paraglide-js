@@ -1,4 +1,5 @@
 import path from "node:path";
+import { createHash } from "node:crypto";
 import type nodeFs from "node:fs/promises";
 
 export async function writeOutput(args: {
@@ -11,7 +12,7 @@ export async function writeOutput(args: {
 	const currentOutputHashes = await hashOutput(args.output, args.directory);
 
 	// if the output hasn't changed, don't write it
-	const changedFiles = new Set();
+	const changedFiles = new Set<string>();
 
 	for (const [filePath, hash] of Object.entries(currentOutputHashes)) {
 		if (args.previousOutputHashes?.[filePath] !== hash) {
@@ -39,8 +40,6 @@ export async function writeOutput(args: {
 	// and re-enabled because of https://github.com/opral/inlang-paraglide-js/issues/420
 	if (args.cleanDirectory) {
 		await args.fs.rm(args.directory, { recursive: true, force: true });
-	} else {
-		await args.fs.mkdir(args.directory, { recursive: true });
 	}
 	// Delete files that have been removed
 	// ignore if cleanDirectory is true because the directory will be cleaned anyway
@@ -48,13 +47,20 @@ export async function writeOutput(args: {
 		await deleteRemovedFiles(args.fs, args.directory, filesToDelete);
 	}
 
-	//Create missing directories inside the output directory
+	// Create only the directories needed by files that are about to be written.
+	// On incremental compiles, `output` can contain thousands of unchanged
+	// message modules; creating every parent directory again adds avoidable
+	// filesystem work even though only a handful of files changed.
+	const directoriesToCreate = new Set<string>();
+	for (const filePath of changedFiles) {
+		directoriesToCreate.add(
+			path.dirname(path.resolve(args.directory, filePath))
+		);
+	}
 	await Promise.allSettled(
-		Object.keys(args.output).map(async (filePath) => {
-			const fullPath = path.resolve(args.directory, filePath);
-			const directory = path.dirname(fullPath);
-			await args.fs.mkdir(directory, { recursive: true });
-		})
+		Array.from(directoriesToCreate, (directory) =>
+			args.fs.mkdir(directory, { recursive: true })
+		)
 	);
 
 	//Write files
@@ -129,23 +135,75 @@ async function deleteRemovedFiles(
 	}
 }
 
-async function hashString(input: string): Promise<string> {
-	const encoder = new TextEncoder();
-	const data = encoder.encode(input);
-	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-	const hashArray = Array.from(new Uint8Array(hashBuffer));
-	return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+function hashString(input: string): string {
+	return createHash("sha256").update(input).digest("hex");
 }
 
 async function hashOutput(
 	output: Record<string, string>,
 	outputDirectory: string
 ): Promise<Record<string, string>> {
-	const hashes: Record<string, string> = {};
-	for (const [filePath, fileContent] of Object.entries(output)) {
+	const entries = Object.entries(output).map(([filePath, fileContent]) => {
 		const combinedContent =
 			fileContent + path.resolve(outputDirectory, filePath);
-		hashes[filePath] = await hashString(combinedContent);
+		return [filePath, hashString(combinedContent)] as const;
+	});
+	return Object.fromEntries(entries);
+}
+
+/**
+ * Walk an existing output directory and produce the same hash map that
+ * {@link writeOutput} would have returned on a previous compile.
+ *
+ * Used by the bundler plugins to seed `previousCompilation` on a fresh
+ * process so the first compile's diff against unchanged inputs is empty
+ * and `writeOutput` short-circuits — letting us avoid wiping the directory
+ * out from under concurrent SSR/prerender readers (#659).
+ *
+ * Returns `undefined` if the directory does not exist. Keys are
+ * forward-slash relative paths to match {@link hashOutput}.
+ */
+export async function hashDirectory(
+	directory: string,
+	fs: typeof nodeFs
+): Promise<Record<string, string> | undefined> {
+	try {
+		const stat = await fs.stat(directory);
+		if (!stat.isDirectory()) return undefined;
+	} catch {
+		return undefined;
 	}
+
+	const hashes: Record<string, string> = {};
+
+	async function walk(currentDir: string, relativePrefix: string) {
+		let entries;
+		try {
+			entries = await fs.readdir(currentDir, { withFileTypes: true });
+		} catch {
+			return;
+		}
+		for (const entry of entries) {
+			const entryAbsolutePath = path.resolve(currentDir, entry.name);
+			const relativePath = relativePrefix
+				? `${relativePrefix}/${entry.name}`
+				: entry.name;
+			if (entry.isDirectory()) {
+				await walk(entryAbsolutePath, relativePath);
+			} else if (entry.isFile()) {
+				try {
+					const fileContent = await fs.readFile(entryAbsolutePath, "utf-8");
+					const combinedContent =
+						fileContent + path.resolve(directory, relativePath);
+					hashes[relativePath] = await hashString(combinedContent);
+				} catch {
+					// Another compiler process may be rewriting this file. A partial
+					// seed is safe; the following compile will repair missing outputs.
+				}
+			}
+		}
+	}
+
+	await walk(directory, "");
 	return hashes;
 }

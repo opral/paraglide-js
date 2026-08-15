@@ -22,6 +22,26 @@ test("returns the locale from the cookie", async () => {
 	expect(locale).toBe("fr");
 });
 
+test("returns the locale from a cookie header without whitespace after semicolons", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["cookie"],
+		cookieName: "PARAGLIDE_LOCALE",
+	});
+	const request = new Request("http://example.com", {
+		headers: {
+			cookie: `PARAGLIDE_LOCALE=fr;session=abc`,
+		},
+	});
+	const locale = runtime.extractLocaleFromRequest(request);
+	expect(locale).toBe("fr");
+});
+
 test("returns the locale from the pathname for document requests", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
@@ -45,6 +65,70 @@ test("returns the locale from the pathname for document requests", async () => {
 	});
 	const locale = runtime.extractLocaleFromRequest(request);
 	expect(locale).toBe("en");
+});
+
+test("uses the provided public url for url strategy matching", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+	const request = new Request("http://internal.example.com/en/home", {
+		headers: {
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const locale = runtime.extractLocaleFromRequest(request, {
+		effectiveRequestUrl: "https://example.com/fr/home",
+	});
+
+	expect(locale).toBe("fr");
+});
+
+test("resolves relative effectiveRequestUrl strings against request.url", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "fr"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path(.*)?",
+				localized: [
+					["en", "https://example.com/en/:path(.*)?"],
+					["fr", "https://example.com/fr/:path(.*)?"],
+				],
+			},
+		],
+	});
+	const request = new Request("https://example.com/en/home", {
+		headers: {
+			"Sec-Fetch-Dest": "document",
+		},
+	});
+
+	const locale = runtime.extractLocaleFromRequest(request, {
+		effectiveRequestUrl: "/fr/home",
+	});
+
+	expect(locale).toBe("fr");
 });
 
 test("returns the baseLocale if no other strategy matches", async () => {
@@ -228,6 +312,33 @@ test("cookie strategy precedes URL strategy for API requests with wildcards", as
 	});
 	const fallbackLocale = runtime.extractLocaleFromRequest(apiRequestNoMatch);
 	expect(fallbackLocale).toBe("en");
+});
+
+test("routeStrategies can override strategy order for matching routes", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url", "cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		routeStrategies: [
+			{
+				match: "/dashboard/:path(.*)?",
+				strategy: ["cookie", "baseLocale"],
+			},
+		],
+	});
+
+	const request = new Request("https://example.com/dashboard", {
+		headers: {
+			cookie: "PARAGLIDE_LOCALE=de",
+		},
+	});
+
+	expect(runtime.extractLocaleFromRequest(request)).toBe("de");
 });
 
 // https://github.com/opral/inlang-paraglide-js/issues/436

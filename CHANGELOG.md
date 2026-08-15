@@ -1,5 +1,328 @@
 # @inlang/paraglide-js
 
+## 2.23.2
+
+### Patch Changes
+
+- b8af4b1: Embed TypeScript sources in published JavaScript sourcemaps and stop emitting declaration sourcemaps that reference unpublished source files.
+
+## 2.23.1
+
+### Patch Changes
+
+- 6f9b062: Keep the server middleware's AsyncLocalStorage available when module instrumentation snapshots mutable exports.
+
+## 2.23.0
+
+### Minor Changes
+
+- c2b9c17: Replace the experimental per-locale framework-output specialization with a
+  Vite 8+ environment architecture. `experimentalPerLocaleBuild: true` now
+  generates locale source modules before bundling, builds independent native
+  Rolldown graphs, supports unminified builds and source maps, and emits
+  `paraglide-vite-locales.json` without rewriting completed chunks or framework
+  output.
+
+  Remove the private TanStack Start and SvelteKit renderer integrations. Those
+  frameworks now require public client-variant build and render-selection APIs
+  before they can compose with experimental per-locale builds.
+
+### Patch Changes
+
+- 608385f: Use `baseLocale` as the exhaustive branch in generated message functions.
+
+## 2.22.0
+
+### Minor Changes
+
+- 2571af2: Add experimental Vite 8 per-locale client builds for TanStack Start and SvelteKit. Enable the same `experimentalPerLocaleBuild: true` flag in either framework; Paraglide detects the framework and serves compiler-specialized client assets for each locale.
+
+## 2.21.0
+
+### Minor Changes
+
+- ab5bfc7: fix `emitTsDeclarations` with TypeScript 7 https://github.com/opral/paraglide-js/issues/711
+
+  TypeScript 7 (the Go-based compiler) no longer ships the in-process compiler API that Paraglide used to generate `.d.ts` files, which made `paraglide-js compile --emit-ts-declarations` fail with `TypeError: Cannot read properties of undefined (reading 'ESNext')`. Paraglide now detects this and invokes TypeScript's `tsc` CLI instead. TypeScript 5 and 6 keep using the compiler API as before.
+
+  Note that the declaration output of TypeScript 7 differs cosmetically from TypeScript 5/6 (quote style, declaration ordering, `export declare const` vs `export const`) but is semantically equivalent.
+
+## 2.20.2
+
+### Patch Changes
+
+- a48e767: Cache client cookie locale extraction for synchronous message bursts.
+
+## 2.20.1
+
+### Patch Changes
+
+- 8c3493d: Fix server cookie locale parsing when Cookie headers omit whitespace after semicolons.
+
+## 2.20.0
+
+### Minor Changes
+
+- 2c34351: Emit `messages/package.json` with `{ "type": "module", "sideEffects": false }` for `message-modules` output, declaring the generated message modules side-effect-free.
+
+  This lets bundlers (notably Vite 8 / Rolldown) drop unused re-exports from the `m` barrel per entry, instead of bundling every message used anywhere in the app into one shared chunk that every entry downloads. Without it, per-page JS scales with the union of all messages used across the app rather than with the messages a given route actually uses.
+
+  The declaration is scoped to `messages/`, so `runtime.js` (which has real side effects) is unaffected. `type: "module"` is included because the package.json creates a new module scope for `messages/`; without it, the generated ESM files would default to CommonJS (a package.json without `type` is CJS in Node, even when the consuming project is `type: "module"`).
+
+  See https://github.com/opral/paraglide-js/issues/668
+
+### Patch Changes
+
+- 921c3be: `experimentalMiddlewareLocaleSplitting`: the injected inline script now reuses the nonce from the response's `Content-Security-Policy` header, so it is allowed under a strict CSP instead of being blocked and breaking hydration. Automatic - no configuration needed.
+
+## 2.19.0
+
+### Minor Changes
+
+- 67a8942: Compile pattern-level function-reference annotations to registry calls
+
+  Annotations attached directly to pattern expressions (e.g. i18next's `{{count, number}}` imported via plugin-i18next) were silently dropped and compiled to plain interpolation. They now compile through the same `registry.*` path as local-variable annotations:
+
+  ```js
+  // before
+  const en_views = (i) => `${i?.count} views`;
+  // after
+  const en_views = (i) => `${registry.number("en", i?.count, {})} views`;
+  ```
+
+  Unknown formatter names fall back to plain interpolation with a compile-time warning instead of failing or staying silent. `compilePattern()` gained an optional `locale` parameter, required to compile annotations.
+
+  Fixes https://github.com/opral/paraglide-js/issues/694
+
+- d57efa1: Skip recompilation when inputs are unchanged across bundler runs in the same process
+
+  `vite build` fires `buildStart` once per environment (client, ssr, ...) and each run did a full `compile()` — project loading and message compilation — even though the inputs hadn't changed. The plugin now hashes the tracked input files, their directory listings, and the output-affecting options after a successful compile, and skips `compile()` entirely when the digest matches on the next run. The second and later environments become near-free:
+
+  ```
+  vite v6.4.1 building for production...
+  ✔ [paraglide-js] Compilation complete (locale-modules)
+  ✓ built in 634ms
+  vite v6.4.1 building SSR bundle for production...
+  ℹ [paraglide-js] Compilation skipped — inputs unchanged (locale-modules)
+  ✓ built in 15ms
+  ```
+
+  The digest fails open: any state it can't certify (missing files, read errors, changed options, a failed compile) forces a recompile. Multi-compiler webpack setups (client + server) benefit the same way via `beforeRun`.
+
+  Also fixed along the way:
+  - A user-provided `fs` option silently bypassed the plugin's file-read tracking (the args spread overrode the tracked fs wrapper), which left file watching inert for custom-fs setups.
+  - The watch-target filter ignored any path _containing_ the substring "cache" — a project under e.g. `/cachet-app/` had its inputs excluded from file watching. It now matches whole path segments only.
+
+  Fixes https://github.com/opral/paraglide-js/issues/693
+
+### Patch Changes
+
+- 6010611: Update `@inlang/sdk` to 2.10.0.
+
+## 2.18.2
+
+### Patch Changes
+
+- 4bea31a: Prevent `paraglide-js compile --watch` from cleaning the output directory on the initial compile.
+- 4dfa099: Fix emitted TypeScript declarations for message keys that require quoted export aliases, such as dotted nested keys.
+
+  `emitTsDeclarations` now preserves quoted aliases from the generated JavaScript so `.d.ts` output remains valid for keys like `greeting.hello`. The optional TypeScript peer dependency now requires TypeScript 5.6 or newer, which supports arbitrary quoted module export names.
+
+## 2.18.1
+
+### Patch Changes
+
+- 6eb7d02: Fix input match generation so `Infinity` selectors match both numeric `Infinity` values and string `"Infinity"` values.
+- c16730d: Pin default jsDelivr plugin URLs to exact versions in generated project settings.
+
+## 2.18.0
+
+### Minor Changes
+
+- 62d37f0: Add a `relativetime` declaration formatter backed by `Intl.RelativeTimeFormat`.
+
+### Patch Changes
+
+- a5f31bc: Update `@inlang/sdk` to 2.9.3.
+- d2bf729: Mark `typescript` as an optional peer dependency and show a clear error when `emitTsDeclarations` is enabled without TypeScript installed.
+- ea8343f: Fix race condition where `paraglideVitePlugin` (and the rollup/rolldown/rspack/esbuild plugins) wiped the output directory on every fresh process, racing concurrent reads from SSR/prerender modules and sibling Vite instances. The plugin now seeds `previousCompilation` from existing on-disk hashes on the first compile, so warm restarts are a no-op (zero writes when inputs haven't changed) and the recursive wipe is gone. The webpack plugin's wipe behavior is unchanged but now also deletes orphaned files on its first compile. Closes #659.
+
+## 2.17.0
+
+### Minor Changes
+
+- 109e588: Add `--output-structure` option to the compile command.
+
+## 2.16.1
+
+### Patch Changes
+
+- 3bb446a: Update `@inlang/sdk` to `2.9.2`.
+
+## 2.16.0
+
+### Minor Changes
+
+- 8401dae: Add new `paraglide-js compile` CLI flags for compiler options that were
+  previously only available through the programmatic API or bundler plugins.
+
+  You can now:
+  - enable or disable emitted `.gitignore`, `.prettierignore`, and `README.md`
+  - explicitly enable or disable emitted `.d.ts` files
+  - pass a custom `isServer` expression for runtime tree-shaking
+
+  These options are forwarded through regular and `--watch` compiles so the CLI
+  matches the existing compiler behavior more closely.
+
+## 2.15.3
+
+### Patch Changes
+
+- b10186d: Fix numeric input match inference so generated message typings accept both numeric and string literal forms for values like `input=1`, matching runtime behavior without relying on broad loose coercion.
+
+## 2.15.2
+
+### Patch Changes
+
+- c716c6d: Fix proxy-aware URL handling in `paraglideMiddleware()`, `shouldRedirect()`, and locale extraction by adding an `effectiveRequestUrl` override for browser-facing URLs behind TLS-terminating proxies and load balancers. Addresses [#652](https://github.com/opral/paraglide-js/issues/652).
+
+## 2.15.1
+
+### Patch Changes
+
+- 2e8b5a1: Add markup documentation and message format plugin references to compiled README
+- 8964e8b: Update `@inlang/sdk` to `2.9.1`.
+
+## 2.15.0
+
+### Minor Changes
+
+- 862433c: Add `toLocale()` for case-insensitive locale normalization, make `isLocale()`
+  strictly match canonical project locales, and return canonical locale values
+  across runtime locale helpers.
+
+  ```ts
+  // configured locales: ["fr", "en-US"]
+
+  isLocale("FR"); // false
+  toLocale("FR"); // "fr"
+
+  isLocale("en-us"); // false
+  toLocale("en-us"); // "en-US"
+  ```
+
+  Runtime helpers that resolve locales from external input now return canonical
+  project locale values as well.
+
+## 2.14.1
+
+### Patch Changes
+
+- 7d29058: Remove dead JSDoc `@import` stripping from the runtime generator.
+- 46ac447: Upgrade `@inlang/sdk` to v2.8.0.
+
+## 2.14.0
+
+### Minor Changes
+
+- 067509d: Improve generated runtime typing by centralizing shared type definitions, avoiding strict `checkJs` locale type errors, and moving middleware locale-splitting state under `globalThis.__paraglide.ssr`.
+
+### Patch Changes
+
+- a17af28: Remove stale telemetry internals that were no longer used by the CLI or compiler.
+
+## 2.13.2
+
+### Patch Changes
+
+- 2e18cc0: Fix compiler code generation for formatter option literals so Intl numeric and boolean options are emitted with the correct literal types.
+
+  This resolves strict `checkJs`/`svelte-check` errors where generated `number()` options like `minimumFractionDigits` were emitted as strings and caused `Type 'string' is not assignable to type 'number'`.
+
+## 2.13.1
+
+### Patch Changes
+
+- 9d79aff: Fix single-locale message generation to avoid emitting an unused `locale` variable in strict TypeScript `checkJs` setups. This removes `TS6133` (`'locale' is declared but its value is never read`) warnings for generated message files when only one locale is configured.
+
+  Add a regression type test that asserts single-locale generated messages do not produce this warning.
+
+## 2.13.0
+
+### Minor Changes
+
+- 7185902: Add a new runtime utility: `getTextDirection(locale?)`.
+  - Returns `"ltr"` or `"rtl"` for a given locale.
+  - Defaults to the current locale from `getLocale()` when no locale is provided.
+  - Uses `Intl.Locale` text info when available, with a safe RTL fallback for runtimes without that API.
+
+  Also updates SvelteKit example/docs to show setting both `%lang%` and `%dir%` in `app.html` using runtime APIs.
+
+## 2.12.0
+
+### Minor Changes
+
+- af0084e: Add route-level locale strategy overrides via `routeStrategies`.
+
+  You can now define per-route strategy behavior (first match wins), including:
+  - `strategy` overrides for paths like `/dashboard/*` and `/rpc/*`
+  - `exclude: true` to skip i18n middleware behavior for paths like `/api/*`
+
+## 2.11.0
+
+### Minor Changes
+
+- d1c86fb: Improve emitted message-module output by gating middleware locale-splitting hooks behind `experimentalMiddlewareLocaleSplitting`.
+
+  When the option is disabled (default), generated message functions no longer emit:
+  - `if (experimentalMiddlewareLocaleSplitting && isServer === false) { ...__paraglide.ssr... }`
+  - `trackMessageCall(...)`
+  - related runtime imports (`experimentalMiddlewareLocaleSplitting`, `isServer`, `trackMessageCall`)
+
+  When `experimentalMiddlewareLocaleSplitting` is enabled, the existing SSR/middleware injection flow is preserved.
+
+- 90a1580: Add compiler support for markup messages with a new `message.parts()` API.
+
+  Messages that contain markup now compile to framework-neutral parts (`text`, `markup-start`, `markup-end`, and `markup-standalone`) while `message()` continues to return plain strings.
+
+## 2.10.0
+
+### Minor Changes
+
+- fc66ee1: Add type-safe literal unions for match variants in generated message typings https://github.com/opral/paraglide-js/issues/538.
+
+  For example, the following minimal message definition:
+
+  ```json
+  {
+  	"auth_password_error": [
+  		{
+  			"match": {
+  				"type=empty": "You must provide a password"
+  			}
+  		}
+  	]
+  }
+  ```
+
+  Before:
+
+  ```ts
+  m.auth_password_error({ type: "typo" }); // ✅ OK (typed as NonNullable<unknown>)
+  ```
+
+  After:
+
+  ```ts
+  m.auth_password_error({ type: "typo" }); // 💥 Type error
+  ```
+
+## 2.9.1
+
+### Patch Changes
+
+- c43effb: Update `@inlang/sdk` to v2.6.2, which removes a file queue settlement that could prevent the compiler from exiting in some environments. See https://github.com/opral/paraglide-js/issues/598.
+
 ## 2.9.0
 
 ### Minor Changes
@@ -513,9 +836,9 @@ Paraglide JS 2.0 had three main goals which have all been achieved:
 2. Unify the API across any framework [#217](https://github.com/opral/inlang-paraglide-js/issues/217).
 3. Support any i18n strategy (cookie, url, domain, session, etc).
 
-- 🌐 **Variants (pluralization) are now supported** [docs](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/variants)
+- 🌐 **Variants (pluralization) are now supported** [docs](https://paraglidejs.com/variants)
 - 😍 **No more adapters or providers are needed** (!)
-- 🛣️ **Any strategy (url, cookie, local storage) is now supported** [docs](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy)
+- 🛣️ **Any strategy (url, cookie, local storage) is now supported** [docs](https://paraglidejs.com/strategy)
 
 In addition, Paraglide JS 2.0 comes with:
 
@@ -533,9 +856,9 @@ In addition, Paraglide JS 2.0 comes with:
 
 #### Interactive benchmark
 
-Check out the [benchmark](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark) to see how Paraglide JS compares to other libraries like i18next.
+Check out the [benchmark](https://paraglidejs.com/benchmark) to see how Paraglide JS compares to other libraries like i18next.
 
-[![Benchmark Visualization](https://cdn.jsdelivr.net/gh/opral/paraglide-js@main/assets/interactive-benchmark.png)](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/benchmark)
+[![Benchmark Visualization](https://cdn.jsdelivr.net/gh/opral/paraglide-js@main/assets/interactive-benchmark.png)](https://paraglidejs.com/benchmark)
 
 #### No more adapters are needed
 
@@ -547,7 +870,7 @@ Check out the [benchmark](https://inlang.com/m/gerre34r/library-inlang-paraglide
 
 #### 🚀 Framework-Agnostic Server Middleware
 
-Docs are [here](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/server-side-rendering)
+Docs are [here](https://paraglidejs.com/server-side-rendering)
 
 - **New**: Universal `paraglideMiddleware()` works in any SSR framework
 - **Built-in**: Automatic locale redirects when user preference detected
@@ -563,7 +886,7 @@ export const handle = ({ event, resolve }) => {
 
 #### 🛣️ Configurable Routing Strategies
 
-Read more about strategies on the [docs](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy).
+Read more about strategies on the [docs](https://paraglidejs.com/strategy).
 
 Literally anything is now possible. URL-based, domain-based, path-based, cookie-based, etc.
 
@@ -615,7 +938,7 @@ m["🍌"]();
 
 #### 🔄 Incrementally migrating to Paraglide JS
 
-Paraglide JS 2.0 can load multiple [translation file formats](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/file-formats). As such, you can incrementally migrate to Paraglide JS with existing translation file formats.
+Paraglide JS 2.0 can load multiple [translation file formats](https://paraglidejs.com/file-formats). As such, you can incrementally migrate to Paraglide JS with existing translation file formats.
 
 ```js
 // In this example, Paraglide JS compiles i18next translation files
@@ -630,7 +953,7 @@ console.log(m.greeting({ name: "World" }));
 
 #### 🏘️ Multi-tenancy support
 
-Paraglide JS 2.0 supports multi-tenant applications. Read more about it [here](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/multi-tenancy).
+Paraglide JS 2.0 supports multi-tenant applications. Read more about it [here](https://paraglidejs.com/multi-tenancy).
 
 ```
 # Domain-based with sub-locale
@@ -652,11 +975,11 @@ app.example.com/fr/about   → French
 
 If problems arise, please refer to the framework-specific getting started guide:
 
-- [SvelteKit](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/sveltekit)
-- [Next.js](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/next)
-- [Astro](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/astro)
-- [Vite](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/vite)
-- [React Router](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/react-router)
+- [SvelteKit](https://paraglidejs.com/sveltekit)
+- [Next.js](https://paraglidejs.com/next-js)
+- [Astro](https://paraglidejs.com/astro)
+- [Vite](https://paraglidejs.com/vite)
+- [React Router](https://paraglidejs.com/react-router)
 
 #### `LanguageTag` got renamed to `locale`
 
@@ -725,7 +1048,7 @@ function App() {
 
 #### Shorten key names longer than 255 characters
 
-Paraglide JS 2.0 build output now defaults to [message-modules](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/compiler-options#outputstructure) to improve tree-shaking. Some filesystem's limitations require key names to be shorter than 255 characters.
+Paraglide JS 2.0 build output now defaults to [message-modules](https://paraglidejs.com/compiler-options#outputstructure) to improve tree-shaking. Some filesystem's limitations require key names to be shorter than 255 characters.
 
 Upvote [#423](https://github.com/opral/inlang-paraglide-js/issues/423) to remove this limitation.
 
@@ -840,7 +1163,7 @@ The `localizedNamedGroups` and `deLocalizedNamedGroups` API has been replaced wi
 
 #### Migration Guide:
 
-**Refer to the updated documentation [here](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url).**
+**Refer to the updated documentation [here](https://paraglidejs.com/strategy#url).**
 
 Before
 
@@ -960,7 +1283,7 @@ Renames and splits the `serverMiddleware()` into a dedicated `server.js` file to
 
 NO MORE ADAPTERS NEEDED.
 
-If you have code from an adapter, remove it and follow the examples in the documentation. https://inlang.com/m/gerre34r/library-inlang-paraglideJs/sveltekit
+If you have code from an adapter, remove it and follow the examples in the documentation. https://paraglidejs.com/sveltekit
 
 ```diff
 -@inlang/paraglide-sveltekit
@@ -982,7 +1305,7 @@ Added URLPatterns as a replacement for the beta 17 pathnames API.
 
 The URLPattern API is extremly powerful. You can express base paths, translated pathnames, domain based localization, and even multi-tenancy.
 
-Read the docs [here](https://inlang.com/m/gerre34r/library-inlang-paraglideJs/strategy#url) and make PRs to improve the documentation.
+Read the docs [here](https://paraglidejs.com/strategy#url) and make PRs to improve the documentation.
 
 ```diff
 await compile({

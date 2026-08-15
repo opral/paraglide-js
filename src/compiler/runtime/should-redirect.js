@@ -1,26 +1,30 @@
 import { localizeUrl } from "./localize-url.js";
-import { getLocale } from "./get-locale.js";
+import { toLocale } from "./check-locale.js";
+import { getLocale, getLocaleForUrl } from "./get-locale.js";
 import { getUrlOrigin } from "./get-url-origin.js";
 import { extractLocaleFromRequestAsync } from "./extract-locale-from-request-async.js";
-import { assertIsLocale } from "./assert-is-locale.js";
-import { strategy } from "./variables.js";
+import {
+	getStrategyForUrl,
+	isExcludedByRouteStrategy,
+} from "./route-strategy.js";
+import { trailingSlash } from "./variables.js";
 
 /**
  * @typedef {object} ShouldRedirectServerInput
  * @property {Request} request
- * @property {string | URL} [url]
- * @property {ReturnType<typeof assertIsLocale>} [locale]
+ * @property {string | URL} [effectiveRequestUrl] - Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
+ * @property {Locale} [locale]
  *
  * @typedef {object} ShouldRedirectClientInput
  * @property {undefined} [request]
  * @property {string | URL} [url]
- * @property {ReturnType<typeof assertIsLocale>} [locale]
+ * @property {Locale} [locale]
  *
  * @typedef {ShouldRedirectServerInput | ShouldRedirectClientInput} ShouldRedirectInput
  *
  * @typedef {object} ShouldRedirectResult
  * @property {boolean} shouldRedirect - Indicates whether the consumer should perform a redirect.
- * @property {ReturnType<typeof assertIsLocale>} locale - Locale resolved using the configured strategies.
+ * @property {Locale} locale - Locale resolved using the configured strategies.
  * @property {URL | undefined} redirectUrl - Destination URL when a redirect is required.
  */
 
@@ -33,7 +37,7 @@ import { strategy } from "./variables.js";
  *
  * When called in the browser without arguments, the current `window.location.href` is used.
  *
- * @see https://inlang.com/m/gerre34r/library-inlang-paraglideJs/i18n-routing#client-side-redirects
+ * @see https://paraglidejs.com/i18n-routing#redirects
  *
  * @example
  * // Client side usage (e.g. TanStack Router beforeLoad hook)
@@ -57,19 +61,35 @@ import { strategy } from "./variables.js";
  *   return render(request, decision.locale);
  * }
  *
+ * @example
+ * // Server side usage behind a proxy where request.url is not public-facing
+ * export async function handle(request) {
+ *   const effectiveRequestUrl = new URL(request.url);
+ *   effectiveRequestUrl.protocol = "https:";
+ *   effectiveRequestUrl.host = "example.com";
+ *
+ *   const decision = await shouldRedirect({
+ *     request,
+ *     effectiveRequestUrl,
+ *   });
+ *
+ *   if (decision.shouldRedirect) {
+ *     return Response.redirect(decision.redirectUrl, 307);
+ *   }
+ * }
+ *
  * @param {ShouldRedirectInput} [input]
  * @returns {Promise<ShouldRedirectResult>}
  */
 export async function shouldRedirect(input = {}) {
-	const locale = /** @type {ReturnType<typeof assertIsLocale>} */ (
-		await resolveLocale(input)
-	);
+	const currentUrl = resolveUrl(input);
+	const locale = await resolveLocale(input, currentUrl);
+	const strategy = getStrategyForUrl(currentUrl.href);
 
-	if (!strategy.includes("url")) {
+	if (isExcludedByRouteStrategy(currentUrl.href) || !strategy.includes("url")) {
 		return { shouldRedirect: false, locale, redirectUrl: undefined };
 	}
 
-	const currentUrl = resolveUrl(input);
 	const localizedUrl = localizeUrl(currentUrl.href, { locale });
 
 	const shouldRedirectToLocalizedUrl =
@@ -86,15 +106,23 @@ export async function shouldRedirect(input = {}) {
  * Resolves the locale either from the provided input or by using the configured strategies.
  *
  * @param {ShouldRedirectInput} input
- * @returns {Promise<ReturnType<typeof assertIsLocale>>}
+ * @param {URL} currentUrl
+ * @returns {Promise<Locale>}
  */
-async function resolveLocale(input) {
-	if (input.locale) {
-		return assertIsLocale(input.locale);
+async function resolveLocale(input, currentUrl) {
+	const locale = toLocale(input.locale);
+	if (locale) {
+		return locale;
 	}
 
 	if (input.request) {
-		return extractLocaleFromRequestAsync(input.request);
+		return extractLocaleFromRequestAsync(input.request, {
+			effectiveRequestUrl: currentUrl,
+		});
+	}
+
+	if ("url" in input && typeof input.url !== "undefined") {
+		return getLocaleForUrl(currentUrl.href);
 	}
 
 	return getLocale();
@@ -107,15 +135,32 @@ async function resolveLocale(input) {
  * @returns {URL}
  */
 function resolveUrl(input) {
+	if (
+		"effectiveRequestUrl" in input &&
+		input.effectiveRequestUrl instanceof URL
+	) {
+		return new URL(input.effectiveRequestUrl.href);
+	}
+
+	if (
+		"effectiveRequestUrl" in input &&
+		typeof input.effectiveRequestUrl === "string"
+	) {
+		return new URL(
+			input.effectiveRequestUrl,
+			input.request ? input.request.url : getUrlOrigin()
+		);
+	}
+
 	if (input.request) {
 		return new URL(input.request.url);
 	}
 
-	if (input.url instanceof URL) {
+	if ("url" in input && input.url instanceof URL) {
 		return new URL(input.url.href);
 	}
 
-	if (typeof input.url === "string") {
+	if ("url" in input && typeof input.url === "string") {
 		return new URL(input.url, getUrlOrigin());
 	}
 
@@ -136,6 +181,8 @@ function resolveUrl(input) {
  */
 function normalizeUrl(url) {
 	const urlObj = new URL(url);
-	urlObj.pathname = urlObj.pathname.replace(/\/$/, "");
+	if (trailingSlash === undefined) {
+		urlObj.pathname = urlObj.pathname.replace(/\/$/, "");
+	}
 	return urlObj.href;
 }

@@ -7,7 +7,7 @@ import {
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import styles from '../styles.css?url'
-import { getLocale, locales, setLocale } from '@/paraglide/runtime'
+import { getLocale, getTextDirection, locales, setLocale } from '@/paraglide/runtime'
 import { m } from '@/paraglide/messages'
 
 export const Route = createRootRoute({
@@ -32,7 +32,7 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={getLocale()}>
+    <html lang={getLocale()} dir={getTextDirection()}>
       <head>
         <HeadContent />
       </head>

@@ -133,6 +133,75 @@ test("url pattern strategy sets the window location", async () => {
 	expect(globalThis.window.location.reload).not.toBeCalled();
 });
 
+test("url strategy setLocale normalizes mixed-case explicit locales", async () => {
+	// @ts-expect-error - global variable definition
+	globalThis.window = {};
+	// @ts-expect-error - global variable definition
+	globalThis.window.location = {};
+	globalThis.window.location.hostname = "example.com";
+	globalThis.window.location.reload = vi.fn();
+
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "de"] },
+		}),
+		strategy: ["url"],
+		urlPatterns: [
+			{
+				pattern: "https://example.:tld/:path*",
+				localized: [
+					["en", "https://example.com/:path*"],
+					["de", "https://example.de/:path*"],
+				],
+			},
+		],
+	});
+
+	globalThis.window.location.href = "https://example.com/page";
+
+	runtime.setLocale("DE" as any);
+
+	expect(globalThis.window.location.href).toBe("https://example.de/page");
+	// setting window.location.hostname automatically reloads the page
+	expect(globalThis.window.location.reload).not.toBeCalled();
+});
+
+test("routeStrategies can disable url navigation on matching routes", async () => {
+	// @ts-expect-error - global variable definition
+	globalThis.window = {};
+	// @ts-expect-error - global variable definition
+	globalThis.document = {};
+	// @ts-expect-error - global variable definition
+	globalThis.window.location = {
+		href: "https://example.com/dashboard",
+		hostname: "example.com",
+		reload: vi.fn(),
+	};
+
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+		strategy: ["url", "cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		routeStrategies: [
+			{
+				match: "/dashboard/:path(.*)?",
+				strategy: ["cookie", "baseLocale"],
+			},
+		],
+	});
+
+	globalThis.document.cookie = "PARAGLIDE_LOCALE=en";
+	runtime.setLocale("fr");
+
+	expect(globalThis.document.cookie).toBe(
+		"PARAGLIDE_LOCALE=fr; path=/; max-age=34560000"
+	);
+	expect(globalThis.window.location.href).toBe("https://example.com/dashboard");
+	expect(globalThis.window.location.reload).toBeCalled();
+});
+
 // `!document.cookie` was used which returned false for an empty string
 test("sets the cookie when it's an empty string", async () => {
 	const runtime = await createParaglide({
@@ -266,6 +335,40 @@ test("should not reload when setting locale to current locale", async () => {
 		"PARAGLIDE_LOCALE=de; path=/; max-age=34560000"
 	);
 	expect(globalThis.window.location.reload).toBeCalled();
+});
+
+test("static locale builds force a document reload when switching locales", async () => {
+	// @ts-expect-error - browser shim for tests
+	globalThis.document = { cookie: "" };
+	globalThis.window = {
+		location: {
+			href: "https://example.com/en",
+			hostname: "example.com",
+			reload: vi.fn(),
+		},
+	} as any;
+	const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+
+	try {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: {
+					baseLocale: "en",
+					locales: ["en", "de"],
+				},
+			}),
+			strategy: ["cookie"],
+			isServer: "false",
+			experimentalStaticLocale: JSON.stringify("en"),
+		});
+
+		runtime.setLocale("de", { reload: false });
+
+		expect(warn).toHaveBeenCalledOnce();
+		expect(globalThis.window.location.reload).toHaveBeenCalledOnce();
+	} finally {
+		warn.mockRestore();
+	}
 });
 
 test("sets the locale to localStorage", async () => {

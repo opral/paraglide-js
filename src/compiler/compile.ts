@@ -1,6 +1,5 @@
 import { loadProjectFromDirectory } from "@inlang/sdk";
 import path from "node:path";
-import { ENV_VARIABLES } from "../services/env-variables/index.js";
 import { compileProject } from "./compile-project.js";
 import { writeOutput } from "../services/file-handling/write-output.js";
 // import {
@@ -66,7 +65,6 @@ export async function compile(
 				path: withDefaultOptions.project,
 				fs,
 				// account: localAccount,
-				appId: ENV_VARIABLES.PARJS_APP_ID,
 			});
 
 			const output = await compileProject({
