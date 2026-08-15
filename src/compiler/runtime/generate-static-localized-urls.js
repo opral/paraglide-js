@@ -1,8 +1,11 @@
 import { localizeUrl } from "./localize-url.js";
+import { normalizeTrailingSlash } from "./normalize-trailing-slash.js";
+import { execUrlPattern } from "./exec-url-pattern.js";
 import {
 	locales,
 	baseLocale,
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
+	trailingSlash,
 	urlPatterns,
 } from "./variables.js";
 
@@ -56,10 +59,14 @@ export function generateStaticLocalizedUrls(urls) {
 	// For default URL pattern, we can optimize the generation
 	if (TREE_SHAKE_DEFAULT_URL_PATTERN_USED) {
 		for (const urlInput of urls) {
-			const url =
+			const originalUrl =
 				urlInput instanceof URL
 					? urlInput
 					: new URL(urlInput, "http://localhost");
+			const url =
+				trailingSlash === undefined
+					? originalUrl
+					: normalizeTrailingSlash(new URL(originalUrl));
 
 			// Base locale doesn't get a prefix
 			localizedUrls.add(url);
@@ -69,7 +76,7 @@ export function generateStaticLocalizedUrls(urls) {
 				if (locale !== baseLocale) {
 					const localizedPath = `/${locale}${url.pathname}${url.search}${url.hash}`;
 					const localizedUrl = new URL(localizedPath, url.origin);
-					localizedUrls.add(localizedUrl);
+					localizedUrls.add(normalizeTrailingSlash(localizedUrl));
 				}
 			}
 		}
@@ -78,18 +85,20 @@ export function generateStaticLocalizedUrls(urls) {
 
 	// For custom URL patterns, we need to use localizeUrl for each URL and locale
 	for (const urlInput of urls) {
-		const url =
+		const originalUrl =
 			urlInput instanceof URL
 				? urlInput
 				: new URL(urlInput, "http://localhost");
+		const url = normalizeTrailingSlash(new URL(originalUrl));
 
 		// Try each URL pattern to find one that matches
 		let patternFound = false;
 		for (const pattern of urlPatterns) {
 			try {
 				// Try to match the unlocalized pattern
-				const unlocalizedMatch = new URLPattern(pattern.pattern, url.href).exec(
-					url.href
+				const unlocalizedMatch = execUrlPattern(
+					new URLPattern(pattern.pattern, url.href),
+					url
 				);
 
 				if (!unlocalizedMatch) continue;
@@ -124,7 +133,7 @@ export function generateStaticLocalizedUrls(urls) {
 
 		// If no pattern matched, use the URL as is
 		if (!patternFound) {
-			localizedUrls.add(url);
+			localizedUrls.add(originalUrl);
 		}
 	}
 

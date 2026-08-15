@@ -194,6 +194,28 @@ test("default url patterns to improve out of the box experience", async () => {
 	);
 });
 
+test("normalizes localized root hrefs and anchors", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		isServer: "false",
+		strategy: ["url"],
+		trailingSlash: "never",
+	});
+
+	globalThis.window = { location: new URL("http://example.com") } as any;
+
+	expect(runtime.localizeHref("/", { locale: "de" })).toBe("/de");
+	expect(runtime.localizeHref("/#section", { locale: "de" })).toBe(
+		"/de#section"
+	);
+	expect(runtime.deLocalizeHref("/de/")).toBe("/");
+});
+
 test("normalizes mixed-case explicit locales in localizeHref", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
@@ -208,4 +230,32 @@ test("normalizes mixed-case explicit locales in localizeHref", async () => {
 	expect(runtime.localizeHref("/about", { locale: "DE" })).toBe("/de/about");
 
 	expect(runtime.localizeHref("/de/about", { locale: "EN" })).toBe("/about");
+});
+
+test("keeps custom URLPattern path expressions on the generic fallback", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url"],
+		urlPatterns: [
+			{
+				pattern: "/:slug(.)?",
+				localized: [
+					["en", "/:slug(.)?"],
+					["de", "/de/:slug(.)?"],
+				],
+			},
+		],
+	});
+	runtime.overwriteGetLocale(() => "en");
+	runtime.overwriteGetUrlOrigin(() => "https://example.com");
+
+	// `(.)` matches exactly one character in URLPattern. A prefix-only
+	// implementation must not broaden this route into a catch-all.
+	expect(runtime.localizeHref("/a", { locale: "de" })).toBe("/de/a");
+	expect(runtime.localizeHref("/about", { locale: "de" })).toBe("/about");
 });

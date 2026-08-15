@@ -56,6 +56,13 @@ export const routeStrategies = [];
 export const urlPatterns = [];
 
 /**
+ * Controls trailing slash canonicalization for localized URLs.
+ *
+ * @type {"always" | "never" | undefined}
+ */
+export const trailingSlash = undefined;
+
+/**
  * @typedef {{
  * 		getStore(): {
  *   		locale?: Locale,

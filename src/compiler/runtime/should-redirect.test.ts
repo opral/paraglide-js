@@ -36,6 +36,36 @@ test("shouldRedirect redirects to the strategy-preferred locale on the server", 
 	expect(decision.locale).toBe("fr");
 });
 
+test("shouldRedirect enforces the configured trailing slash policy", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		trailingSlash: "never",
+		urlPatterns: [
+			{
+				pattern: "/about",
+				localized: [
+					["de", "/de/ueber"],
+					["en", "/about"],
+				],
+			},
+		],
+	});
+
+	const decision = await runtime.shouldRedirect({
+		request: new Request("https://example.com/de/ueber/"),
+	});
+
+	expect(decision.locale).toBe("de");
+	expect(decision.shouldRedirect).toBe(true);
+	expect(decision.redirectUrl?.href).toBe("https://example.com/de/ueber");
+});
+
 test("shouldRedirect uses the provided public url when the transport request url differs", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
@@ -241,7 +271,7 @@ test("shouldRedirect({ url }) resolves locale using target URL routeStrategies o
 		],
 		routeStrategies: [
 			{
-				match: "/dashboard/:path(.*)?",
+				match: "/dashboard",
 				strategy: ["cookie", "baseLocale"],
 			},
 		],
@@ -318,6 +348,7 @@ test("shouldRedirect respects routeStrategies that disable url strategy per rout
 		}),
 		strategy: ["url", "cookie", "baseLocale"],
 		cookieName: "PARAGLIDE_LOCALE",
+		trailingSlash: "never",
 		routeStrategies: [
 			{
 				match: "/dashboard/:path(.*)?",
@@ -326,7 +357,7 @@ test("shouldRedirect respects routeStrategies that disable url strategy per rout
 		],
 	});
 
-	const request = new Request("https://example.com/dashboard", {
+	const request = new Request("https://example.com/dashboard/", {
 		headers: {
 			cookie: "PARAGLIDE_LOCALE=fr",
 		},

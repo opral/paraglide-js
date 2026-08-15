@@ -109,6 +109,37 @@ test("should write again if the output has changed", async () => {
 	expect(writeFileSpy).toHaveBeenCalledTimes(2);
 });
 
+test("should only create directories for files that changed", async () => {
+	const { writeOutput } = await import("./write-output.js");
+	const fs = mockFs({});
+	const mkdirSpy = vi.spyOn(fs, "mkdir");
+
+	const hashes = await writeOutput({
+		directory: "/output",
+		output: {
+			"messages/first.js": "first",
+			"messages/second.js": "second",
+		},
+		fs,
+	});
+	mkdirSpy.mockClear();
+
+	await writeOutput({
+		directory: "/output",
+		output: {
+			"messages/first.js": "changed",
+			"messages/second.js": "second",
+		},
+		fs,
+		previousOutputHashes: hashes,
+	});
+
+	expect(mkdirSpy).toHaveBeenCalledTimes(1);
+	expect(mkdirSpy).toHaveBeenCalledWith("/output/messages", {
+		recursive: true,
+	});
+});
+
 test("should write files if output has partially changed", async () => {
 	const { writeOutput } = await import("./write-output.js");
 	const fs = mockFs({});

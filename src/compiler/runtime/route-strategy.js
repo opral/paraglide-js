@@ -1,4 +1,6 @@
 import { deLocalizeUrl } from "./localize-url.js";
+import { normalizeTrailingSlash } from "./normalize-trailing-slash.js";
+import { execUrlPattern } from "./exec-url-pattern.js";
 import { routeStrategies, strategy } from "./variables.js";
 
 /** @type {string | undefined} */
@@ -25,7 +27,9 @@ export function findMatchingRouteStrategy(url) {
 		return cachedRouteStrategy;
 	}
 
-	const publicUrl = new URL(urlString, "http://example.com");
+	const publicUrl = normalizeTrailingSlash(
+		new URL(urlString, "http://example.com")
+	);
 	const canonicalUrl = deLocalizeUrl(publicUrl);
 	const candidateUrls =
 		canonicalUrl.href === publicUrl.href
@@ -35,7 +39,7 @@ export function findMatchingRouteStrategy(url) {
 	for (const candidateUrl of candidateUrls) {
 		for (const routeStrategy of routeStrategies) {
 			const pattern = new URLPattern(routeStrategy.match, candidateUrl.href);
-			if (pattern.exec(candidateUrl.href)) {
+			if (execUrlPattern(pattern, candidateUrl)) {
 				match = routeStrategy;
 				break;
 			}

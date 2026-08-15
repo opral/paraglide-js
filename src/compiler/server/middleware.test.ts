@@ -887,6 +887,50 @@ test("prevents redirect loops by normalizing URLs with trailing slashes in diffe
 	);
 });
 
+// https://github.com/opral/paraglide-js/issues/473
+test("canonicalizes translated pathnames with the configured trailing slash policy", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url", "baseLocale"],
+		trailingSlash: "never",
+		urlPatterns: [
+			{
+				pattern: "/about",
+				localized: [
+					["en", "/about"],
+					["de", "/de/ueber"],
+				],
+			},
+		],
+	});
+
+	const response = await runtime.paraglideMiddleware(
+		new Request("https://example.com/de/ueber/", {
+			headers: { "Sec-Fetch-Dest": "document" },
+		}),
+		() => {
+			throw new Error("canonical document requests should redirect first");
+		}
+	);
+
+	expect(response.status).toBe(307);
+	expect(response.headers.get("Location")).toBe("https://example.com/de/ueber");
+
+	await runtime.paraglideMiddleware(
+		new Request("https://example.com/de/ueber/"),
+		({ locale, request }) => {
+			expect(locale).toBe("de");
+			expect(request.url).toBe("https://example.com/about");
+			return new Response();
+		}
+	);
+});
+
 // not implemented because users should disable redirects by
 // making another strategy preceed the url strategy
 //

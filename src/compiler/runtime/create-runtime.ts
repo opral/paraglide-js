@@ -15,6 +15,7 @@ export function createRuntimeFile(args: {
 		cookieMaxAge: NonNullable<CompilerOptions["cookieMaxAge"]>;
 		cookieDomain: CompilerOptions["cookieDomain"];
 		urlPatterns?: CompilerOptions["urlPatterns"];
+		trailingSlash?: CompilerOptions["trailingSlash"];
 		experimentalMiddlewareLocaleSplitting: CompilerOptions["experimentalMiddlewareLocaleSplitting"];
 		isServer: CompilerOptions["isServer"];
 		experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
@@ -115,6 +116,14 @@ ${injectCode("./variables.js")
 		`export const urlPatterns = ${JSON.stringify(urlPatterns, null, 2)};`
 	)
 	.replace(
+		`export const trailingSlash = undefined;`,
+		`export const trailingSlash = ${
+			args.compilerOptions.trailingSlash === undefined
+				? "undefined"
+				: JSON.stringify(args.compilerOptions.trailingSlash)
+		};`
+	)
+	.replace(
 		`export const disableAsyncLocalStorage = false;`,
 		`export const disableAsyncLocalStorage = ${args.compilerOptions.disableAsyncLocalStorage};`
 	)
@@ -164,6 +173,14 @@ ${injectCode("./set-locale.js")}
 ${injectCode("./get-url-origin.js")}
 
 ${injectCode("./check-locale.js")}
+
+${injectCode("./normalize-trailing-slash.js", {
+	privateExports: ["normalizeTrailingSlash"],
+})}
+
+${injectCode("./exec-url-pattern.js", {
+	privateExports: ["execUrlPattern"],
+})}
 
 ${injectCode("./extract-locale-from-request.js")}
 

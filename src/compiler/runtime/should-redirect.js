@@ -7,6 +7,7 @@ import {
 	getStrategyForUrl,
 	isExcludedByRouteStrategy,
 } from "./route-strategy.js";
+import { trailingSlash } from "./variables.js";
 
 /**
  * @typedef {object} ShouldRedirectServerInput
@@ -180,6 +181,8 @@ function resolveUrl(input) {
  */
 function normalizeUrl(url) {
 	const urlObj = new URL(url);
-	urlObj.pathname = urlObj.pathname.replace(/\/$/, "");
+	if (trailingSlash === undefined) {
+		urlObj.pathname = urlObj.pathname.replace(/\/$/, "");
+	}
 	return urlObj.href;
 }

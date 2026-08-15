@@ -14,6 +14,7 @@ export declare const {
 	routeStrategies,
 	cookieName,
 	urlPatterns,
+	trailingSlash,
 	serverAsyncLocalStorage,
 	getServerAsyncLocalStorage,
 	experimentalMiddlewareLocaleSplitting,

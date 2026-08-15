@@ -4,6 +4,8 @@ import {
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
 	urlPatterns,
 } from "./variables.js";
+import { normalizeTrailingSlash } from "./normalize-trailing-slash.js";
+import { execUrlPattern } from "./exec-url-pattern.js";
 
 /**
  * If extractLocaleFromUrl is called many times on the same page and the URL
@@ -36,15 +38,22 @@ export function extractLocaleFromUrl(url) {
 	/** @type {Locale | undefined} */
 	let result;
 	if (TREE_SHAKE_DEFAULT_URL_PATTERN_USED) {
-		result = defaultUrlPatternExtractLocale(url);
+		const urlObj =
+			typeof url === "string"
+				? new URL(url, "http://example.com")
+				: new URL(url);
+		result = defaultUrlPatternExtractLocale(normalizeTrailingSlash(urlObj));
 	} else {
-		const urlObj = typeof url === "string" ? new URL(url) : url;
+		const urlObj = normalizeTrailingSlash(
+			typeof url === "string" ? new URL(url) : new URL(url)
+		);
 
 		// Iterate over URL patterns
 		for (const element of urlPatterns) {
 			for (const [locale, localizedPattern] of element.localized) {
-				const match = new URLPattern(localizedPattern, urlObj.href).exec(
-					urlObj.href
+				const match = execUrlPattern(
+					new URLPattern(localizedPattern, urlObj.href),
+					urlObj
 				);
 
 				if (match) {

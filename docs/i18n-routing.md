@@ -629,16 +629,26 @@ This is especially important for path-based localization where one locale has a 
 
 ### Trailing slashes
 
-URLPattern treats `/about` and `/about/` as different paths. Your framework or
-server should choose and enforce a consistent canonical form for incoming URLs.
-Most frameworks provide trailing-slash handling for this.
+URLPattern treats `/about` and `/about/` as different paths. You can make Paraglide canonicalize localized URLs before matching and after generation with the `trailingSlash` compiler option:
+
+```ts
+paraglideVitePlugin({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	trailingSlash: "never", // or "always"
+});
+```
+
+`"never"` removes trailing slashes and `"always"` adds them. The root path `/` always remains `/`, while query parameters and hashes are preserved. Existing custom `urlPatterns` can keep their trailing slash style; Paraglide treats the other terminal-slash form as an alias when this option is set. Unmatched custom patterns remain unchanged.
+
+Omitting `trailingSlash` preserves the existing exact URLPattern behavior. This is useful when your framework already owns trailing slash normalization.
 
 Framework normalization does not change URLs produced by `localizeHref()` or
-`localizeUrl()`. If Paraglide generates `/de/` while your framework considers
-`/de` canonical, following a link such as `/de/#section` can cause an
-unnecessary navigation or redirect instead of a fragment-only update. Use an
-exact root pattern before the wildcard, as shown in
-[Locale prefixing](#locale-prefixing), to make the generated URL match your
-framework's canonical URL.
+`localizeUrl()`. If you omit `trailingSlash` and Paraglide generates `/de/`
+while your framework considers `/de` canonical, following `/de/#section` can
+cause an unnecessary navigation or redirect instead of a fragment-only update.
+Use an exact root pattern before the wildcard, as shown in
+[Locale prefixing](#locale-prefixing), or configure `trailingSlash` to match the
+framework's canonical URL policy.
 
-If you're seeing redirect loops involving trailing slashes, check your framework's trailing slash configuration.
+If both Paraglide and your framework normalize trailing slashes, configure them with the same policy to avoid redirect loops.

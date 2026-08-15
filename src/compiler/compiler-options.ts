@@ -301,6 +301,14 @@ export type CompilerOptions = {
 	 */
 	urlPatterns?: Runtime["urlPatterns"];
 	/**
+	 * Controls trailing slash canonicalization for localized URLs.
+	 *
+	 * Canonicalization happens before URL pattern matching and after URL
+	 * localization. If omitted, Paraglide keeps its existing trailing slash
+	 * behavior.
+	 */
+	trailingSlash?: "always" | "never";
+	/**
 	 * Whether to include an eslint-disable comment at the top of each .js file.
 	 *
 	 * @default true
