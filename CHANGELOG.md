@@ -1,5 +1,11 @@
 # @inlang/paraglide-js
 
+## 2.24.1
+
+### Patch Changes
+
+- d2aeb93: Update the inlang SDK dependency to 3.0.1, which includes the Lix WASM fallback for musl-based Node.js environments.
+
 ## 2.24.0
 
 ### Minor Changes
