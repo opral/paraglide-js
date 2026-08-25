@@ -67,7 +67,11 @@ function compileMessageWithOneVariant(
 	for (const declaration of declarations) {
 		if (declaration.type === "local-variable") {
 			compiledLocalVariables.push(
-				compileLocalVariable({ declaration, locale: message.locale })
+				compileLocalVariable({
+					declaration,
+					declarations,
+					locale: message.locale,
+				})
 			);
 		}
 	}
@@ -198,7 +202,11 @@ function compileMessageWithMultipleVariants(
 	for (const declaration of declarations) {
 		if (declaration.type === "local-variable") {
 			compiledLocalVariables.push(
-				compileLocalVariable({ declaration, locale: message.locale })
+				compileLocalVariable({
+					declaration,
+					declarations,
+					locale: message.locale,
+				})
 			);
 		}
 	}

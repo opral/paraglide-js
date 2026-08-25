@@ -175,6 +175,42 @@ test("compiles pattern expression annotation options like local variable annotat
 	);
 });
 
+test("compiles pattern annotation options that reference local variables", () => {
+	const pattern: Pattern = [
+		{
+			type: "expression",
+			arg: { type: "variable-reference", name: "price" },
+			annotation: {
+				type: "function-reference",
+				name: "number",
+				options: [
+					{
+						name: "minimumFractionDigits",
+						value: { type: "variable-reference", name: "digits" },
+					},
+				],
+			},
+		},
+	];
+
+	const { code } = compilePattern({
+		pattern,
+		declarations: [
+			{ type: "input-variable", name: "price" },
+			{
+				type: "local-variable",
+				name: "digits",
+				value: { type: "expression", arg: { type: "literal", value: "2" } },
+			},
+		],
+		locale: "en",
+	});
+
+	expect(code).toBe(
+		'`${registry.number("en", i?.price, { minimumFractionDigits: digits })}`'
+	);
+});
+
 test("parts mode compiles pattern expression annotations to registry calls", () => {
 	const pattern: Pattern = [
 		{

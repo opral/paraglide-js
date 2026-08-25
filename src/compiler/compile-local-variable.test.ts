@@ -28,6 +28,29 @@ test("compiles a variable reference local variable", () => {
 	expect(code).toEqual("const myVar = i?.name;");
 });
 
+test("compiles a variable reference to an earlier local variable", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declarations: [
+			{
+				type: "local-variable",
+				name: "earlierLocal",
+				value: { type: "expression", arg: { type: "literal", value: "42" } },
+			},
+		],
+		declaration: {
+			type: "local-variable",
+			name: "myVar",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "earlierLocal" },
+			},
+		},
+	});
+
+	expect(code).toEqual("const myVar = earlierLocal;");
+});
+
 test("compiles a variable reference local variable with a non-identifier name", () => {
 	const code = compileLocalVariable({
 		locale: "en",
@@ -88,6 +111,42 @@ test("compiles a local variable with an annotation and options", () => {
 	});
 	expect(code).toEqual(
 		'const myVar = registry.myFunction("en", "Hello", { option1: "value1", option2: i?.varRef });'
+	);
+});
+
+test("compiles formatter options referencing earlier local variables", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declarations: [
+			{ type: "input-variable", name: "amount" },
+			{
+				type: "local-variable",
+				name: "digits",
+				value: { type: "expression", arg: { type: "literal", value: "2" } },
+			},
+		],
+		declaration: {
+			type: "local-variable",
+			name: "formattedAmount",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "amount" },
+				annotation: {
+					type: "function-reference",
+					name: "number",
+					options: [
+						{
+							name: "minimumFractionDigits",
+							value: { type: "variable-reference", name: "digits" },
+						},
+					],
+				},
+			},
+		},
+	});
+
+	expect(code).toEqual(
+		'const formattedAmount = registry.number("en", i?.amount, { minimumFractionDigits: digits });'
 	);
 });
 
@@ -378,6 +437,39 @@ test("accepts dollar-prefixed relative time formatter unit options from message 
 
 	expect(code).toEqual(
 		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit) });'
+	);
+});
+
+test("compiles dollar-prefixed relative time units referencing local variables", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declarations: [
+			{ type: "input-variable", name: "duration" },
+			{
+				type: "local-variable",
+				name: "localUnit",
+				value: { type: "expression", arg: { type: "literal", value: "day" } },
+			},
+		],
+		declaration: {
+			type: "local-variable",
+			name: "formattedDuration",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "duration" },
+				annotation: {
+					type: "function-reference",
+					name: "relativetime",
+					options: [
+						{ name: "unit", value: { type: "literal", value: "$localUnit" } },
+					],
+				},
+			},
+		},
+	});
+
+	expect(code).toEqual(
+		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (localUnit) });'
 	);
 });
 

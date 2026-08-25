@@ -1,9 +1,10 @@
 import type {
+	Declaration,
 	FunctionReference,
 	Literal,
 	VariableReference,
 } from "@inlang/sdk";
-import { compileInputAccess } from "./variable-access.js";
+import { compileVariableAccess } from "./variable-access.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
 
 /**
@@ -37,7 +38,8 @@ export function registryFunctionNamesForDisplay(): string {
 export function compileAnnotation(
 	str: string,
 	locale: string,
-	annotation?: FunctionReference
+	annotation?: FunctionReference,
+	declarations?: Declaration[]
 ): string {
 	if (!annotation) {
 		return str;
@@ -45,12 +47,13 @@ export function compileAnnotation(
 	if (annotation.name === "relativetime") {
 		validateRelativeTimeOptions(annotation);
 	}
-	return `registry.${annotation.name}("${locale}", ${str}, ${compileOptions(annotation.name, annotation.options)})`;
+	return `registry.${annotation.name}("${locale}", ${str}, ${compileOptions(annotation.name, annotation.options, declarations)})`;
 }
 
 function compileOptions(
 	annotationName: string,
-	options: FunctionReference["options"]
+	options: FunctionReference["options"],
+	declarations?: Declaration[]
 ): string {
 	if (options.length === 0) {
 		return "{}";
@@ -60,7 +63,8 @@ function compileOptions(
 			`${option.name}: ${compileOptionLiteralOrVarRef(
 				annotationName,
 				option.name,
-				option.value
+				option.value,
+				declarations
 			)}`
 	);
 	const code = "{ " + entries.join(", ") + " }";
@@ -97,13 +101,14 @@ const jsNonNegativeIntegerPattern = /^(?:0|[1-9]\d*)$/;
 function compileOptionLiteralOrVarRef(
 	annotationName: string,
 	optionName: string,
-	value: Literal | VariableReference
+	value: Literal | VariableReference,
+	declarations?: Declaration[]
 ): string {
 	if (value.type === "variable-reference") {
 		if (annotationName === "relativetime" && optionName === "unit") {
-			return `/** @type {import("../registry.js").RelativeTimeFormatUnit} */ (${compileInputAccess(value.name)})`;
+			return `/** @type {import("../registry.js").RelativeTimeFormatUnit} */ (${compileVariableAccess(value.name, declarations)})`;
 		}
-		return compileInputAccess(value.name);
+		return compileVariableAccess(value.name, declarations);
 	}
 
 	if (
@@ -111,7 +116,7 @@ function compileOptionLiteralOrVarRef(
 		optionName === "unit" &&
 		isDollarVariableReference(value.value)
 	) {
-		return `/** @type {import("../registry.js").RelativeTimeFormatUnit} */ (${compileInputAccess(value.value.slice(1))})`;
+		return `/** @type {import("../registry.js").RelativeTimeFormatUnit} */ (${compileVariableAccess(value.value.slice(1), declarations)})`;
 	}
 
 	if (shouldEmitNumberLiteral(annotationName, optionName, value.value)) {

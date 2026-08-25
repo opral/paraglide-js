@@ -30,11 +30,163 @@ test("compiles a message with a single variant", async () => {
 	expect(some_message()).toBe("Hello");
 });
 
+test.each(["single", "multiple"])(
+	"compiles chained local variables in %s-variant messages",
+	async (variantCount) => {
+		const declarations: Declaration[] = [
+			{ type: "input-variable", name: "count" },
+			{
+				type: "local-variable",
+				name: "zebra",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "count" },
+				},
+			},
+			{
+				type: "local-variable",
+				name: "alpha",
+				value: {
+					type: "expression",
+					arg: { type: "variable-reference", name: "zebra" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [],
+					},
+				},
+			},
+		];
+		const message: Message = {
+			locale: "en",
+			bundleId: "chained_locals",
+			id: "chained-locals-id",
+			selectors:
+				variantCount === "multiple"
+					? [{ type: "variable-reference", name: "count" }]
+					: [],
+		};
+		const variants: Variant[] = [
+			{
+				id: "1",
+				messageId: "chained-locals-id",
+				matches:
+					variantCount === "multiple"
+						? [{ type: "literal-match", key: "count", value: "1" }]
+						: [],
+				pattern: [
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "alpha" },
+					},
+				],
+			},
+		];
+
+		if (variantCount === "multiple") {
+			variants.push({
+				id: "2",
+				messageId: "chained-locals-id",
+				matches: [{ type: "catchall-match", key: "count" }],
+				pattern: [
+					{
+						type: "expression",
+						arg: { type: "variable-reference", name: "alpha" },
+					},
+				],
+			});
+		}
+
+		const compiled = compileMessage(declarations, message, variants);
+
+		expect(compiled.code).toContain(
+			'const alpha = registry.number("en", zebra, {});'
+		);
+
+		const { chained_locals } = await import(
+			"data:text/javascript;base64," +
+				btoa(
+					createRegistry() +
+						"\nexport const chained_locals = " +
+						compiled.code.replaceAll("registry.", "")
+				)
+		);
+
+		expect(chained_locals({ count: 42 })).toBe("42");
+	}
+);
+
+test("evaluates formatter options that reference earlier local variables", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "amount" },
+		{ type: "input-variable", name: "precision" },
+		{
+			type: "local-variable",
+			name: "digits",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "precision" },
+			},
+		},
+		{
+			type: "local-variable",
+			name: "formatted",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "amount" },
+				annotation: {
+					type: "function-reference",
+					name: "number",
+					options: [
+						{
+							name: "minimumFractionDigits",
+							value: { type: "variable-reference", name: "digits" },
+						},
+					],
+				},
+			},
+		},
+	];
+	const message: Message = {
+		locale: "en",
+		bundleId: "local_options",
+		id: "local-options-id",
+		selectors: [],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "local-options-id",
+			matches: [],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "formatted" },
+				},
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const { local_options } = await import(
+		"data:text/javascript;base64," +
+			btoa(
+				createRegistry() +
+					"\nexport const local_options = " +
+					compiled.code.replaceAll("registry.", "")
+			)
+	);
+
+	expect(local_options({ amount: 42, precision: 2 })).toBe("42.00");
+});
+
 test("compiles pattern-level annotations to registry calls", async () => {
 	// https://github.com/opral/paraglide-js/issues/694
 	// i18next's `{{count, number}}` imports as an expression with a
 	// function-reference annotation directly on the pattern.
-	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "count" },
+	];
 	const message: Message = {
 		locale: "en",
 		bundleId: "views",
@@ -79,7 +231,9 @@ test("compiles pattern-level annotations to registry calls", async () => {
 });
 
 test("compiles pattern-level annotations in multi-variant messages", async () => {
-	const declarations: Declaration[] = [{ type: "input-variable", name: "count" }];
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "count" },
+	];
 	const message: Message = {
 		locale: "en",
 		bundleId: "views_multi",

@@ -1,5 +1,10 @@
-import type { Literal, LocalVariable, VariableReference } from "@inlang/sdk";
-import { compileInputAccess } from "./variable-access.js";
+import type {
+	Declaration,
+	Literal,
+	LocalVariable,
+	VariableReference,
+} from "@inlang/sdk";
+import { compileVariableAccess } from "./variable-access.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
 import { compileAnnotation } from "./compile-annotation.js";
 
@@ -17,23 +22,28 @@ import { compileAnnotation } from "./compile-annotation.js";
 export function compileLocalVariable(args: {
 	locale: string;
 	declaration: LocalVariable;
+	declarations?: Declaration[];
 }): string {
 	const annotation = args.declaration.value.annotation;
 
 	const value = compileAnnotation(
-		compileLiteralOrVarRef(args.declaration.value.arg),
+		compileLiteralOrVarRef(args.declaration.value.arg, args.declarations),
 		args.locale,
-		annotation
+		annotation,
+		args.declarations
 	);
 
 	return `const ${args.declaration.name} = ${value};`;
 }
 
-function compileLiteralOrVarRef(value: Literal | VariableReference): string {
+function compileLiteralOrVarRef(
+	value: Literal | VariableReference,
+	declarations?: Declaration[]
+): string {
 	switch (value.type) {
 		case "literal":
 			return `"${escapeForDoubleQuoteString(value.value)}"`;
 		case "variable-reference":
-			return compileInputAccess(value.name);
+			return compileVariableAccess(value.name, declarations);
 	}
 }
