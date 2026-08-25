@@ -1,5 +1,5 @@
 import type { Logger } from "../../services/logger/index.js";
-import { DEFAULT_OUTDIR } from "../defaults.js";
+import { DEFAULT_OUTDIR } from "../../services/config/defaults.js";
 import { prompt } from "../utils.js";
 import type { CliStep } from "../utils.js";
 

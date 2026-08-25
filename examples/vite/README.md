@@ -52,7 +52,7 @@ Unused messages are automatically removed from the bundle. [See the benchmark](h
 npx @inlang/paraglide-js@latest init
 ```
 
-Add the vite plugin to your `vite.config.ts`:
+Add the vite plugin to your `vite.config.ts` and the options to a `paraglide.config.js` file inside your project directory (`project.inlang/`):
 
 ```diff
 import { defineConfig } from "vite";
@@ -60,13 +60,17 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [
-+    paraglideVitePlugin({
-+      project: "./project.inlang",
-+      outdir: "./src/paraglide",
-+      emitTsDeclarations: true,
-+    }),
++    paraglideVitePlugin({ project: "./project.inlang" }),
   ],
 });
+```
+
+```js
+// project.inlang/paraglide.config.js
+export default {
+  outdir: "./src/paraglide",
+  emitTsDeclarations: true,
+};
 ```
 
 ## Usage

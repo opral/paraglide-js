@@ -1,6 +1,6 @@
 import type { UnpluginFactory } from "unplugin";
 import { compile, type CompilationResult } from "../compiler/compile.js";
-import { dirname, relative, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { createHash } from "node:crypto";
 import nodeFs from "node:fs";
 import { Logger } from "../services/logger/index.js";
@@ -13,8 +13,53 @@ import {
 } from "../services/file-watching/tracked-fs.js";
 import { nodeNormalizePath } from "../utilities/node-normalize-path.js";
 import { seedPreviousCompilationFromOutdir } from "../compiler/seed-previous-compilation.js";
+import {
+	CONFIG_FILE_NAMES,
+	clearParaglideConfigCache,
+	isConfigFileName,
+	loadParaglideConfig,
+	resolveCompilerOptions,
+	resolveConfigCandidate,
+	type LoadedParaglideConfig,
+} from "../services/config/index.js";
 
 const PLUGIN_NAME = "unplugin-paraglide-js";
+
+/**
+ * The options accepted by the paraglide bundler plugins.
+ *
+ * `project` is required — the path to your inlang project directory, which
+ * also hosts the paraglide config file (`<project>/paraglide.config.*`).
+ * Relative paths are resolved against the tool's project root (Vite `root`,
+ * webpack/rspack `context`, else the process working directory).
+ *
+ * Every other property is optional: values that are not provided are read
+ * from the config file, and anything still missing falls back to the
+ * built-in defaults.
+ *
+ * @example
+ * ```ts
+ * paraglideVitePlugin({ project: "./project.inlang" })
+ *
+ * // Explicit options win over the config file
+ * paraglideVitePlugin({
+ *   project: "./project.inlang",
+ *   outdir: "./src/paraglide-custom",
+ * })
+ * ```
+ */
+export type ParaglidePluginOptions = Omit<
+	Partial<CompilerOptions>,
+	"project"
+> & {
+	/**
+	 * Required — the path to your inlang project directory, which also
+	 * hosts the paraglide config file (`<project>/paraglide.config.*`).
+	 * Relative paths are resolved against the tool's project root (Vite
+	 * `root`, webpack/rspack `context`, else the process working directory).
+	 */
+	project: string;
+};
 
 const logger = new Logger();
 
@@ -60,6 +105,8 @@ type PluginState = {
 	 * https://github.com/opral/paraglide-js/issues/693
 	 */
 	previousInputsDigest: string | undefined;
+	previousProject: string | undefined;
+	previousOutdir: string | undefined;
 };
 
 // Module-scoped so the warm state survives plugin re-instantiation within
@@ -68,7 +115,7 @@ type PluginState = {
 // only valid for the filesystem they were produced from.
 let pluginState: PluginState | undefined;
 
-function getPluginState(args: CompilerOptions): PluginState {
+function getPluginState(args: Pick<CompilerOptions, "fs">): PluginState {
 	if (pluginState === undefined || pluginState.baseFs !== args.fs) {
 		const tracked = createTrackedFs({ fs: args.fs });
 		pluginState = {
@@ -78,6 +125,8 @@ function getPluginState(args: CompilerOptions): PluginState {
 			clearReadFiles: tracked.clearReadFiles,
 			previousCompilation: undefined,
 			previousInputsDigest: undefined,
+			previousProject: undefined,
+			previousOutdir: undefined,
 		};
 	}
 	return pluginState;
@@ -324,158 +373,387 @@ function rethrowUnlessEnoent(error: unknown): undefined {
 	throw error;
 }
 
-export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => {
-	const state = getPluginState(args);
-	const { trackedFs, readFiles, clearReadFiles } = state;
+// default to locale-modules for development to speed up the dev server
+// https://github.com/opral/inlang-paraglide-js/issues/486
+function resolveOutputStructure(
+	options: CompilerOptions
+): "message-modules" | "locale-modules" {
+	const isProduction = process.env.NODE_ENV === "production";
+	return (
+		options.outputStructure ??
+		(isProduction ? "message-modules" : "locale-modules")
+	);
+}
+
+function hasUnchangedInputs(args: {
+	state: PluginState;
+	compilerOptions: CompilerOptions;
+	outputStructure: "message-modules" | "locale-modules";
+}): Promise<boolean> {
+	if (args.state.previousCompilation === undefined) {
+		return Promise.resolve(false);
+	}
+	if (args.state.previousInputsDigest === undefined) {
+		return Promise.resolve(false);
+	}
+	return computeInputsDigest(
+		args.state,
+		args.compilerOptions,
+		args.outputStructure
+	).then((currentDigest) => currentDigest === args.state.previousInputsDigest);
+}
+
+function maybeInvalidateForOptionsChange(
+	state: PluginState,
+	compilerOptions: CompilerOptions
+): void {
+	if (
+		state.previousProject !== undefined &&
+		(state.previousProject !== compilerOptions.project ||
+			state.previousOutdir !== compilerOptions.outdir)
+	) {
+		state.previousCompilation = undefined;
+		state.previousInputsDigest = undefined;
+		state.clearReadFiles();
+	}
+	state.previousProject = compilerOptions.project;
+	state.previousOutdir = compilerOptions.outdir;
+}
+
+// Compiles and stores the result plus its inputs digest on the plugin
+// state. Callers decide whether to persist the compilation cache.
+async function compileAndUpdateState(args: {
+	state: PluginState;
+	compilerOptions: CompilerOptions;
+	outputStructure: "message-modules" | "locale-modules";
+	previousCompilation: CompilationResult | undefined;
+	/**
+	 * The `isServer` expression to bake into the compiled runtime.
+	 * Webpack omits it and relies on the compiler default.
+	 */
+	isServer: string | undefined;
+}): Promise<void> {
+	args.state.previousCompilation = await compile({
+		previousCompilation: args.previousCompilation,
+		outputStructure: args.outputStructure,
+		isServer: args.isServer,
+		...withoutCleanOutdir(args.compilerOptions),
+		cleanOutdir: false,
+		// after the options spread so a user-provided fs doesn't bypass
+		// the read tracking (trackedFs wraps options.fs when provided)
+		fs: args.state.trackedFs,
+	});
+	args.state.previousInputsDigest = await computeInputsDigest(
+		args.state,
+		args.compilerOptions,
+		args.outputStructure
+	);
+}
+
+/**
+ * Runs the compilation with the given, already-resolved options. Shared by
+ * buildStart and watch-mode rebuilds.
+ */
+async function runCompilation(args: {
+	state: PluginState;
+	compilerOptions: CompilerOptions;
+}): Promise<void> {
+	const compilerOptions = args.compilerOptions;
+	const { state } = args;
+	const outputStructure = resolveOutputStructure(compilerOptions);
+	maybeInvalidateForOptionsChange(state, compilerOptions);
+	try {
+		// Stabilize project directory listings before the first digest. The
+		// ignored cache directory must not invalidate the cache that creates it.
+		await preparePersistentCacheDirectory(compilerOptions, outputStructure);
+		if (
+			state.previousCompilation === undefined &&
+			(await restorePersistentCache({
+				state,
+				compilerOptions,
+				outputStructure,
+			}))
+		) {
+			logger.info(
+				`Compilation skipped — inputs unchanged (${outputStructure})`
+			);
+			return;
+		}
+		if (
+			await hasUnchangedInputs({
+				state,
+				compilerOptions,
+				outputStructure,
+			})
+		) {
+			logger.info(
+				`Compilation skipped — inputs unchanged (${outputStructure})`
+			);
+			return;
+		}
+		// On a fresh process, seed previousCompilation from on-disk hashes
+		// so the first compile is a no-op when inputs are unchanged. Avoids
+		// racing concurrent readers that wiping outdir would interrupt.
+		const seededPrevious =
+			state.previousCompilation ??
+			(await seedPreviousCompilationFromOutdir({
+				outdir: compilerOptions.outdir,
+				fs: compilerOptions.fs?.promises,
+			}));
+		await compileAndUpdateState({
+			state,
+			compilerOptions,
+			outputStructure,
+			previousCompilation: seededPrevious,
+			isServer,
+		});
+		await writePersistentCache(state, compilerOptions, outputStructure);
+		logger.success(`Compilation complete (${outputStructure})`);
+	} catch (error) {
+		state.previousInputsDigest = undefined;
+		logger.error("Failed to compile project:", (error as Error).message);
+		logger.info("Please check your translation files for syntax errors.");
+		if (process.env.NODE_ENV === "production") throw error;
+	}
+}
+
+// The return type preserves literal option types (`enforce: "pre"`, ...)
+// while `project` stays required on the input side.
+type UnpluginFactoryWithOptions = (
+	userArgs: ParaglidePluginOptions
+) => ReturnType<UnpluginFactory<ParaglidePluginOptions>>;
+
+export const unpluginFactory: UnpluginFactoryWithOptions = (userArgs) => {
+	const state = getPluginState(userArgs);
+	const { readFiles, clearReadFiles } = state;
+	// Project root as reported by the bundler (vite `root`, webpack/rspack
+	// `context`). Falls back to the process working directory when the
+	// bundler doesn't provide one. The config file is resolved inside the
+	// project directory.
+	let discoveryRoot: string | undefined;
+	// Bound to the hook context in buildStart so that watchChange can
+	// register additional files.
+	let addWatchFile: ((path: string) => void) | undefined;
+	// A new plugin instance must not be served by config cache entries
+	// from a previous instance (e.g. vite.config.ts reloads reuse the
+	// process). Wiping the cache here makes every instance perform one
+	// fresh load; subsequent loads within the instance stay cached.
+	clearParaglideConfigCache();
+
+	function safeAddWatchFile(
+		thisArg: { addWatchFile: (path: string) => void } | undefined,
+		path: string
+	): void {
+		const fn = thisArg?.addWatchFile ?? addWatchFile;
+		if (!fn) return;
+		if (watchRegistrationUnsupported) return;
+		try {
+			fn.call(thisArg ?? undefined, path);
+		} catch (error) {
+			// Watch-file registration is best-effort: backends differ in what
+			// they support (unplugin's esbuild context throws for every call),
+			// and watcher resource limits can surface as errors. A failed
+			// registration must never fail the build.
+			watchRegistrationUnsupported = true;
+			logger.warn(
+				`Registering additional watch files is not supported by this bundler context — skipping further registrations (${(error as Error)?.message ?? String(error)})`
+			);
+		}
+	}
+
+	// Whether a config file was present at the last load — drives the
+	// one-time warning when every config candidate disappears.
+	let hadActiveConfig = false;
+	// Watch-rebuild serialization state (see watchChange).
+	let compiling = false;
+	const pendingWatchPaths = new Set<string>();
+	// Options from the most recent successful resolution — reused by input
+	// events that cannot have changed them.
+	let lastOptions: CompilerOptions | undefined;
+	// Set once a bundler context rejects watch-file registrations (esbuild);
+	// further registration attempts are skipped to avoid warning floods.
+	let watchRegistrationUnsupported = false;
+
+	const getProjectDir = () =>
+		nodeNormalizePath(
+			resolve(discoveryRoot ?? process.cwd(), userArgs.project)
+		);
+
+	const resolveOptionsWith = (
+		loaded: LoadedParaglideConfig | undefined
+	): CompilerOptions =>
+		resolveCompilerOptions({
+			config: loaded?.config,
+			overrides: userArgs,
+			root: discoveryRoot ?? process.cwd(),
+		});
+
+	/**
+	 * Loads the active config, following candidate renames and keeping the
+	 * last known-good configuration while the file is missing or invalid.
+	 * Callers that know the config content changed should clear the cache
+	 * for the project directory first.
+	 */
+	async function loadActiveConfig(): Promise<
+		LoadedParaglideConfig | undefined
+	> {
+		const dir = getProjectDir();
+		const winner = await resolveConfigCandidate(dir);
+		if (winner === undefined) {
+			if (hadActiveConfig) {
+				hadActiveConfig = false;
+				logger.warn(
+					"Paraglide config file was removed, continuing with default options."
+				);
+			}
+			return undefined;
+		}
+		hadActiveConfig = true;
+		// Throws when the file exists but is invalid — callers decide the
+		// policy: watch modes skip and surface the error in development,
+		// build paths fail loudly in production.
+		return loadParaglideConfig({ projectDir: dir, logger });
+	}
+
+	/**
+	 * Rebuild for a single watch event. Config-named events reload the
+	 * config; input events reuse the last known options — options cannot
+	 * have changed without a config event.
+	 */
+	async function performWatchRecompile(path: string): Promise<void> {
+		const normalizedPath = nodeNormalizePath(path);
+		const projectDir = getProjectDir();
+		const withinProjectDir =
+			normalizedPath === projectDir ||
+			normalizedPath.startsWith(`${projectDir}/`);
+		const configEvent = withinProjectDir && isConfigFileName(normalizedPath);
+
+		let args: CompilerOptions;
+		if (!configEvent && lastOptions !== undefined) {
+			args = lastOptions;
+			const targets = getWatchTargets(readFiles, { outdir: args.outdir });
+			if (targets.isIgnoredPath(normalizedPath)) return;
+			const shouldCompile =
+				targets.files.has(normalizedPath) ||
+				isPathWithinDirectories(normalizedPath, targets.directories);
+			if (!shouldCompile) return;
+		} else {
+			if (configEvent) {
+				logger.info("Paraglide configuration changed, re-compiling.");
+				clearParaglideConfigCache({ projectDir });
+			}
+			try {
+				const loaded = await loadActiveConfig();
+				args = resolveOptionsWith(loaded);
+			} catch (error) {
+				// Invalid config: skip the compilation entirely and surface
+				// the problem. The previously compiled output stays on disk.
+				logger.error((error as Error).message);
+				logger.error(
+					"Skipping compilation because of the invalid paraglide config."
+				);
+				return;
+			}
+			lastOptions = args;
+		}
+
+		maybeInvalidateForOptionsChange(state, args);
+		const outputStructure = resolveOutputStructure(args);
+		const previouslyReadFiles = new Set(readFiles);
+
+		try {
+			if (!configEvent) {
+				logger.info(
+					`Re-compiling inlang project... File "${relative(process.cwd(), path)}" has changed.`
+				);
+			}
+
+			clearReadFiles();
+			await compileAndUpdateState({
+				state,
+				compilerOptions: args,
+				outputStructure,
+				previousCompilation: state.previousCompilation,
+				isServer,
+			});
+			await writePersistentCache(state, args, outputStructure);
+			logger.success(`Re-compilation complete (${outputStructure})`);
+
+			const nextTargets = getWatchTargets(readFiles, { outdir: args.outdir });
+			for (const filePath of nextTargets.files)
+				safeAddWatchFile(undefined, filePath);
+			for (const directoryPath of nextTargets.directories)
+				safeAddWatchFile(undefined, directoryPath);
+		} catch (e) {
+			clearReadFiles();
+			for (const filePath of previouslyReadFiles) readFiles.add(filePath);
+			state.previousCompilation = undefined;
+			state.previousInputsDigest = undefined;
+			logger.warn("Failed to re-compile project:", (e as Error).message);
+		}
+	}
+
 	return {
 		name: PLUGIN_NAME,
 		enforce: "pre",
 		async buildStart() {
-			const isProduction = process.env.NODE_ENV === "production";
-			// default to locale-modules for development to speed up the dev server
-			// https://github.com/opral/inlang-paraglide-js/issues/486
-			const outputStructure =
-				args.outputStructure ??
-				(isProduction ? "message-modules" : "locale-modules");
+			addWatchFile = this.addWatchFile?.bind(this);
 			try {
-				// Stabilize project directory listings before the first digest. The
-				// ignored cache directory must not invalidate the cache that creates it.
-				await preparePersistentCacheDirectory(args, outputStructure);
-				if (
-					state.previousCompilation === undefined &&
-					(await restorePersistentCache({
-						state,
-						compilerOptions: args,
-						outputStructure,
-					}))
-				) {
-					logger.info(
-						`Compilation skipped — inputs unchanged (${outputStructure})`
-					);
-					return;
-				}
-				// `vite build` calls buildStart once per environment (client, ssr).
-				// Skip the expensive compile when the inputs haven't changed.
-				if (state.previousCompilation && state.previousInputsDigest) {
-					const currentDigest = await computeInputsDigest(
-						state,
-						args,
-						outputStructure
-					);
-					if (currentDigest === state.previousInputsDigest) {
-						logger.info(
-							`Compilation skipped — inputs unchanged (${outputStructure})`
-						);
-						return;
-					}
-				}
-				// On a fresh process, seed previousCompilation from on-disk hashes
-				// so the first compile is a no-op when inputs are unchanged. Avoids
-				// racing concurrent readers that wiping outdir would interrupt.
-				const seededPrevious =
-					state.previousCompilation ??
-					(await seedPreviousCompilationFromOutdir({
-						outdir: args.outdir,
-						fs: args.fs?.promises,
-					}));
-				state.previousCompilation = await compile({
-					previousCompilation: seededPrevious,
-					outputStructure,
-					isServer,
-					...withoutCleanOutdir(args),
-					cleanOutdir: false,
-					// after the args spread so a user-provided fs doesn't bypass
-					// the read tracking (trackedFs wraps args.fs when provided)
-					fs: trackedFs,
-				});
-				state.previousInputsDigest = await computeInputsDigest(
-					state,
-					args,
-					outputStructure
-				);
-				await writePersistentCache(state, args, outputStructure);
-				logger.success(`Compilation complete (${outputStructure})`);
+				const loaded = await loadActiveConfig();
+				const args = resolveOptionsWith(loaded);
+				lastOptions = args;
+				await runCompilation({ state, compilerOptions: args });
 			} catch (error) {
-				state.previousInputsDigest = undefined;
-				logger.error("Failed to compile project:", (error as Error).message);
-				logger.info("Please check your translation files for syntax errors.");
-				if (isProduction) throw error;
+				// Config errors are converted to last-good options by
+				// loadActiveConfig; compilation errors are handled inside
+				// runCompilation. Anything escaping is unexpected — fail the
+				// build in production, keep serving in development.
+				if (process.env.NODE_ENV === "production") throw error;
+				logger.error(
+					"Failed to prepare paraglide compilation:",
+					(error as Error).message
+				);
+				return;
 			} finally {
-				// in any case add the files to watch
-				const targets = getWatchTargets(readFiles, { outdir: args.outdir });
-				for (const filePath of targets.files) {
-					this.addWatchFile(filePath);
+				if (lastOptions !== undefined) {
+					const targets = getWatchTargets(readFiles, {
+						outdir: lastOptions.outdir,
+					});
+					for (const filePath of targets.files)
+						safeAddWatchFile(this, filePath);
+					for (const directoryPath of targets.directories)
+						safeAddWatchFile(this, directoryPath);
 				}
-				for (const directoryPath of targets.directories) {
-					this.addWatchFile(directoryPath);
+				// Register every config candidate inside the project directory
+				// so renames and format switches are reported even by backends
+				// that only report watched files (webpack's modifiedFiles).
+				const projectDir = getProjectDir();
+				for (const name of CONFIG_FILE_NAMES) {
+					safeAddWatchFile(
+						this as unknown as { addWatchFile: (p: string) => void },
+						join(projectDir, name)
+					);
 				}
 			}
 		},
 		async watchChange(path) {
-			const normalizedPath = nodeNormalizePath(path);
-			const targets = getWatchTargets(readFiles, { outdir: args.outdir });
-			if (targets.isIgnoredPath(normalizedPath)) {
-				return;
-			}
-			const shouldCompile =
-				targets.files.has(normalizedPath) ||
-				isPathWithinDirectories(normalizedPath, targets.directories);
-			if (shouldCompile === false) {
-				return;
-			}
-
-			const isProduction = process.env.NODE_ENV === "production";
-
-			// default to locale-modules for development to speed up the dev server
-			// https://github.com/opral/inlang-paraglide-js/issues/486
-			const outputStructure =
-				args.outputStructure ??
-				(isProduction ? "message-modules" : "locale-modules");
-
-			const previouslyReadFiles = new Set(readFiles);
-
+			// Serialize rebuilds: bundlers may deliver several watchChange
+			// events concurrently (webpack fires once per modified file).
+			// Every path is queued — a config event must never be starved by
+			// later input events.
+			pendingWatchPaths.add(nodeNormalizePath(path));
+			if (compiling) return;
+			compiling = true;
 			try {
-				logger.info(
-					`Re-compiling inlang project... File "${relative(process.cwd(), path)}" has changed.`
-				);
-
-				// Clear readFiles to track fresh file reads
-				clearReadFiles();
-
-				state.previousCompilation = await compile({
-					previousCompilation: state.previousCompilation,
-					outputStructure,
-					isServer,
-					...withoutCleanOutdir(args),
-					cleanOutdir: false,
-					fs: trackedFs,
-				});
-				state.previousInputsDigest = await computeInputsDigest(
-					state,
-					args,
-					outputStructure
-				);
-				await writePersistentCache(state, args, outputStructure);
-
-				logger.success(`Re-compilation complete (${outputStructure})`);
-
-				// Add any new files to watch
-				const nextTargets = getWatchTargets(readFiles, { outdir: args.outdir });
-				for (const filePath of nextTargets.files) {
-					this.addWatchFile(filePath);
+				while (pendingWatchPaths.size > 0) {
+					const batch = [...pendingWatchPaths];
+					pendingWatchPaths.clear();
+					for (const current of batch) {
+						await performWatchRecompile(current);
+					}
 				}
-				for (const directoryPath of nextTargets.directories) {
-					this.addWatchFile(directoryPath);
-				}
-			} catch (e) {
-				clearReadFiles();
-				for (const filePath of previouslyReadFiles) {
-					readFiles.add(filePath);
-				}
-				// Reset compilation result on error
-				state.previousCompilation = undefined;
-				state.previousInputsDigest = undefined;
-				logger.warn("Failed to re-compile project:", (e as Error).message);
+			} finally {
+				compiling = false;
 			}
 		},
 		vite: {
@@ -489,8 +767,14 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => {
 					isServer = "import.meta.env?.SSR ?? typeof window === 'undefined'";
 				},
 			},
+			configResolved: {
+				handler: (config: { root?: string }) => {
+					discoveryRoot = config.root;
+				},
+			},
 		},
 		webpack(compiler) {
+			discoveryRoot = compiler.context;
 			compiler.options.resolve = {
 				...compiler.options.resolve,
 				fallback: {
@@ -501,27 +785,51 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => {
 			};
 
 			compiler.hooks.beforeRun.tapPromise(PLUGIN_NAME, async () => {
-				const isProduction = process.env.NODE_ENV === "production";
-				// default to locale-modules for development to speed up the dev server
-				// https://github.com/opral/inlang-paraglide-js/issues/486
-				const outputStructure =
-					args.outputStructure ??
-					(isProduction ? "message-modules" : "locale-modules");
+				let args: CompilerOptions;
 				try {
+					const loaded = await loadActiveConfig();
+					args = resolveOptionsWith(loaded);
+					lastOptions = args;
+				} catch (error) {
+					state.previousInputsDigest = undefined;
+					state.previousCompilation = undefined;
+					logger.error(
+						"Failed to load paraglide config:",
+						(error as Error).message
+					);
+					if (process.env.NODE_ENV === "production") throw error;
+					return;
+				}
+				const outputStructure = resolveOutputStructure(args);
+				maybeInvalidateForOptionsChange(state, args);
+				try {
+					await preparePersistentCacheDirectory(args, outputStructure);
+					if (
+						state.previousCompilation === undefined &&
+						(await restorePersistentCache({
+							state,
+							compilerOptions: args,
+							outputStructure,
+						}))
+					) {
+						logger.info(
+							`Compilation skipped — inputs unchanged (${outputStructure})`
+						);
+						return;
+					}
 					// Multi-compiler webpack setups (client + server) trigger
 					// beforeRun once per compiler — skip when inputs are unchanged.
-					if (state.previousCompilation && state.previousInputsDigest) {
-						const currentDigest = await computeInputsDigest(
+					if (
+						await hasUnchangedInputs({
 							state,
-							args,
-							outputStructure
+							compilerOptions: args,
+							outputStructure,
+						})
+					) {
+						logger.info(
+							`Compilation skipped — inputs unchanged (${outputStructure})`
 						);
-						if (currentDigest === state.previousInputsDigest) {
-							logger.info(
-								`Compilation skipped — inputs unchanged (${outputStructure})`
-							);
-							return;
-						}
+						return;
 					}
 					const seededPrevious =
 						state.previousCompilation ??
@@ -529,24 +837,105 @@ export const unpluginFactory: UnpluginFactory<CompilerOptions> = (args) => {
 							outdir: args.outdir,
 							fs: args.fs?.promises,
 						}));
-					state.previousCompilation = await compile({
-						previousCompilation: seededPrevious,
-						outputStructure,
-						...withoutCleanOutdir(args),
-						cleanOutdir: false,
-						fs: trackedFs,
-					});
-					state.previousInputsDigest = await computeInputsDigest(
+					await compileAndUpdateState({
 						state,
-						args,
-						outputStructure
-					);
+						compilerOptions: args,
+						outputStructure,
+						previousCompilation: seededPrevious,
+						// webpack has no vite-style SSR expression; rely on the
+						// compiler default.
+						isServer: undefined,
+					});
+					await writePersistentCache(state, args, outputStructure);
 					logger.success(`Compilation complete (${outputStructure})`);
 				} catch (error) {
 					state.previousInputsDigest = undefined;
 					logger.warn("Failed to compile project:", (error as Error).message);
 					logger.warn("Please check your translation files for syntax errors.");
-					if (isProduction) throw error;
+					if (process.env.NODE_ENV === "production") throw error;
+				}
+			});
+		},
+		rspack(compiler) {
+			discoveryRoot = compiler.context;
+			// Rspack mirrors webpack's hook API but ships no usable types,
+			// so hooks are tapped structurally.
+			const tapRspackBeforeRun = (fn: () => Promise<void>): void => {
+				const target = (
+					compiler as unknown as {
+						hooks: Record<
+							string,
+							{ tapPromise?: (n: string, fn: () => Promise<void>) => void }
+						>;
+					}
+				).hooks?.beforeRun;
+				target?.tapPromise?.(PLUGIN_NAME, fn);
+			};
+			tapRspackBeforeRun(async () => {
+				let args: CompilerOptions;
+				try {
+					const loaded = await loadActiveConfig();
+					args = resolveOptionsWith(loaded);
+					lastOptions = args;
+				} catch (error) {
+					state.previousInputsDigest = undefined;
+					state.previousCompilation = undefined;
+					logger.error(
+						"Failed to load paraglide config:",
+						(error as Error).message
+					);
+					if (process.env.NODE_ENV === "production") throw error;
+					return;
+				}
+				const outputStructure = resolveOutputStructure(args);
+				maybeInvalidateForOptionsChange(state, args);
+				try {
+					await preparePersistentCacheDirectory(args, outputStructure);
+					if (
+						state.previousCompilation === undefined &&
+						(await restorePersistentCache({
+							state,
+							compilerOptions: args,
+							outputStructure,
+						}))
+					) {
+						logger.info(
+							`Compilation skipped — inputs unchanged (${outputStructure})`
+						);
+						return;
+					}
+					if (
+						await hasUnchangedInputs({
+							state,
+							compilerOptions: args,
+							outputStructure,
+						})
+					) {
+						logger.info(
+							`Compilation skipped — inputs unchanged (${outputStructure})`
+						);
+						return;
+					}
+					const seededPrevious =
+						state.previousCompilation ??
+						(await seedPreviousCompilationFromOutdir({
+							outdir: args.outdir,
+							fs: args.fs?.promises,
+						}));
+					await compileAndUpdateState({
+						state,
+						compilerOptions: args,
+						outputStructure,
+						previousCompilation: seededPrevious,
+						isServer: undefined,
+					});
+					await writePersistentCache(state, args, outputStructure);
+					logger.success(`Compilation complete (${outputStructure})`);
+				} catch (error) {
+					state.previousInputsDigest = undefined;
+					logger.warn("Failed to compile project:", (error as Error).message);
+					logger.warn("Please check your translation files for syntax errors.");
+					if (process.env.NODE_ENV === "production") throw error;
 				}
 			});
 		},

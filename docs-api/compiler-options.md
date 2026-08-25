@@ -495,7 +495,7 @@ The default ensures that the browser takes a cookie approach,
 server-side takes the globalVariable (because cookie is unavailable),
 whereas both fallback to the base locale if not available.
 
-Custom strategies with the pattern `custom-[A-Za-z0-9]+` are supported.
+Custom strategies with the pattern `custom-[A-Za-z0-9_-]+` are supported.
 
 ##### Default
 

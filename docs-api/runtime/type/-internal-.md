@@ -580,7 +580,7 @@ which provides more precise control over URL handling.
 
 > **deLocalizeUrl**(`url`): `URL`
 
-Defined in: [runtime/localize-url.js:201](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/localize-url.js)
+Defined in: [runtime/localize-url.js:215](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/localize-url.js)
 
 Low-level URL de-localization function, primarily used in server contexts.
 

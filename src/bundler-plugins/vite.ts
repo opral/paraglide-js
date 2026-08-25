@@ -1,10 +1,10 @@
 import { createVitePlugin } from "unplugin";
 import type { Plugin } from "vite";
-import type { CompilerOptions } from "../compiler/compiler-options.js";
+import type { ParaglidePluginOptions } from "./unplugin.js";
 import { createPerLocaleBuildPlugins } from "./per-locale-build/index.js";
 import { unpluginFactory } from "./unplugin.js";
 
-export type ParaglideVitePluginOptions = CompilerOptions & {
+export type ParaglideVitePluginOptions = ParaglidePluginOptions & {
 	/**
 	 * Emit one compiler-specialized client asset tree per project locale.
 	 *

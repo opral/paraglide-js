@@ -46,6 +46,7 @@ export class Logger {
 	}
 
 	public warn(message: any, ...args: any[]): Logger {
+		if (this.options.silent) return this;
 		const prefix = this.options.prefix
 			? colors.bold(colors.yellow("[paraglide-js] "))
 			: "";

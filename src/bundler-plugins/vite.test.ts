@@ -33,11 +33,12 @@ test("experimentalPerLocaleBuild generates locale source modules and installs th
 		throw new Error("Expected multiple Vite plugins");
 	}
 	expect(plugins.map((plugin) => plugin.name)).toEqual([
+		"paraglide-config-discovery-root",
 		"unplugin-paraglide-js",
 		"paraglide-vite-locale-environments",
 	]);
 
-	const compiler = plugins[0]!;
+	const compiler = plugins[1]!;
 	if (typeof compiler.buildStart !== "function") {
 		throw new Error("Expected the compiler buildStart hook");
 	}

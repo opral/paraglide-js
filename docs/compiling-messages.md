@@ -14,7 +14,7 @@ There are three ways to invoke the Paraglide JS compiler:
 > [!TIP]
 > **Bundler plugins are recommended** because they automatically recompile when translation files change, integrate with your existing build process, and require no separate watch command. CLI compilation is better suited for CI/CD pipelines or projects without a bundler.
 
-For all available options, see the [Compiler Options Reference](./compiler-options).
+For all available options, see the [Compiler Options Reference](./compiler-options). Options can also be centralized in a `paraglide.config.js/ts` file that is used by the CLI and all bundler plugins — see [Configuration File](./configuration).
 
 ## Via the Paraglide CLI
 

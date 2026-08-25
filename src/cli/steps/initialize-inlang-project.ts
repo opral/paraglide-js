@@ -7,7 +7,8 @@ import {
 } from "@inlang/sdk";
 import type { Logger } from "../../services/logger/index.js";
 import type { CliStep } from "../utils.js";
-import { DEFAULT_PROJECT_PATH, getNewProjectTemplate } from "../defaults.js";
+import { getNewProjectTemplate } from "../defaults.js";
+import { DEFAULT_PROJECT_PATH } from "../../services/config/defaults.js";
 import nodePath from "node:path";
 import fs from "node:fs";
 
