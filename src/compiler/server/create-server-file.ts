@@ -68,9 +68,19 @@ ${injectCode("./middleware.js")}
 		code.slice(endOfMarkerLine);
 
 	if (args.compilerOptions.experimentalMiddlewareLocaleSplitting) {
+		// Use a replacer function, not a replacement string. `String.replace()`
+		// treats a string replacement as a pattern where `$&`, `` $` ``, `$'`,
+		// `$$`, and `$<name>` have special meaning. A translated message value
+		// that contains a literal `$` (a price, a currency symbol) can produce
+		// one of these sequences inside the JSON payload, which `String.replace`
+		// then expands - e.g. `` $` `` is replaced with "everything before the
+		// match", splicing the file's own header into the string being built and
+		// corrupting the generated server file. A function's return value is
+		// used literally, with no pattern expansion.
 		code = code.replace(
 			"const compiledBundles = {};",
-			`const compiledBundles = ${JSON.stringify(createCompiledMessagesObject(args.compiledBundles))};`
+			() =>
+				`const compiledBundles = ${JSON.stringify(createCompiledMessagesObject(args.compiledBundles))};`
 		);
 	}
 
