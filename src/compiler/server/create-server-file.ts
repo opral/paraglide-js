@@ -85,13 +85,18 @@ function createCompiledMessagesObject(
 	for (const compiledBundle of compiledBundles) {
 		const bundleId = compiledBundle.bundle.node.id;
 		const safeModuleId = toSafeModuleId(bundleId);
-		if (result[bundleId] === undefined) {
-			result[bundleId] = {};
+		// Key by the safe module id, not the raw bundle id: trackMessageCall()
+		// records calls under safeModuleId, the client reads
+		// globalThis.__paraglide.ssr[safeModuleId], and middleware.js looks up
+		// compiledBundles[id] with that same safe id. Keying by the raw
+		// bundleId here made every split-mode lookup miss.
+		if (result[safeModuleId] === undefined) {
+			result[safeModuleId] = {};
 		}
 		for (const [locale, compiledMessage] of Object.entries(
 			compiledBundle.messages
 		)) {
-			result[bundleId][locale] = compiledMessage.code
+			result[safeModuleId][locale] = compiledMessage.code
 				.replace(`export const ${safeModuleId} = `, "")
 				.replace(/;$/, "");
 		}
