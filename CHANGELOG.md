@@ -1,5 +1,39 @@
 # @inlang/paraglide-js
 
+## 2.25.0
+
+### Minor Changes
+
+- f719e1f: Expose `cleanOutdir`, `experimentalStaticLocale`, and `disableAsyncLocalStorage` as `paraglide-js compile` CLI flags.
+- 5ed1745: Add support for a `paraglide.config.js` (or `.mjs`, `.ts`, `.cjs`)
+  configuration file inside the inlang project directory.
+
+  The CLI and all bundler plugins now pick up compiler options from
+  `<project>/paraglide.config.*`. The project directory comes from `--project`
+  or the plugin's `project` option and defaults to the conventional
+  `./project.inlang` — which means every bundler plugin can now be
+  instantiated without arguments. Since the config lives inside the project it
+  configures, it cannot set `project` itself. Explicit flags and plugin
+  options win over the config file, which wins over the built-in defaults.
+  Existing setups keep working unchanged.
+
+  Also included:
+  - A new `defineConfig` helper exported from `@inlang/paraglide-js` for type
+    inference and autocompletion in config files.
+  - Watch modes reload when the active config file changes, including renames
+    between the supported file names. Deleting all config files falls back to
+    the built-in defaults; an invalid config skips the compilation with an
+    error — watch modes keep serving the previous output, production builds
+    fail loudly. (esbuild does not support config watching.)
+  - `cleanOutdir` is accepted but ignored: watch integrations always preserve
+    the output directory for incremental compilation.
+
+### Patch Changes
+
+- aa4ffd3: Resolve references to earlier local variables correctly in message declarations and formatter options.
+- 3634877: Fix `experimentalMiddlewareLocaleSplitting` corrupting the generated server file when a compiled message value contains a literal `$` (e.g. a price or currency symbol) that forms a `String.replace()` special replacement pattern such as `` $` ``.
+- 1bacc27: Fix `experimentalMiddlewareLocaleSplitting` keying `compiledBundles` by the raw bundle id instead of the safe module id, so every SSR message lookup missed and threw `globalThis.__paraglide.ssr.<id> is not a function` on hydration.
+
 ## 2.24.1
 
 ### Patch Changes
