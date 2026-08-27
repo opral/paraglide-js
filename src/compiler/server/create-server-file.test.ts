@@ -3,6 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { afterEach, expect, test } from "vitest";
+import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import { createServerFile } from "./create-server-file.js";
 
 const temporaryDirectories: string[] = [];
@@ -64,4 +65,63 @@ export const isExcludedByRouteStrategy = runtime.isExcludedByRouteStrategy;`
 
 	expect(response.status).toBe(200);
 	expect(await response.text()).toBe("ready");
+});
+
+test("a literal '$' in a compiled message does not corrupt the generated file (experimentalMiddlewareLocaleSplitting)", async () => {
+	const directory = await mkdtemp(join(tmpdir(), "paraglide-server-dollar-"));
+	temporaryDirectories.push(directory);
+
+	// The compiled message source for locale "en" evaluates to the literal
+	// text "$", wrapped in a template literal by the compiler (i.e. it
+	// contains a backtick immediately followed by a `$` immediately followed
+	// by another backtick). Passed as a *string* to `code.replace()`, `` $` ``
+	// is a special replacement pattern ("insert everything before the
+	// match"), which splices the file's own header into the string being
+	// built and corrupts the generated server file.
+	const compiledBundles = [
+		{
+			bundle: { node: { id: "price_symbol" } },
+			messages: {
+				en: { code: "export const price_symbol = () => `$`;" },
+			},
+		},
+	] as unknown as CompiledBundleWithMessages[];
+
+	const serverCode = createServerFile({
+		compiledBundles,
+		compilerOptions: {
+			disableAsyncLocalStorage: false,
+			experimentalMiddlewareLocaleSplitting: true,
+		},
+	});
+
+	// The message value must survive JSON serialization untouched.
+	expect(serverCode).toContain('"price_symbol":{"en":"() => `$`"}');
+
+	// The generated file must still be syntactically valid and importable
+	// (the bug produces an unterminated string / invalid JS).
+	await writeFile(
+		join(directory, "runtime.js"),
+		`export const serverAsyncLocalStorage = undefined;
+export const disableAsyncLocalStorage = false;
+export const experimentalMiddlewareLocaleSplitting = true;
+export const baseLocale = "en";
+export function isExcludedByRouteStrategy() {
+  return true;
+}
+export function getStrategyForUrl() {
+  return [];
+}
+export async function shouldRedirect() {
+  return { locale: "en", shouldRedirect: false };
+}
+export function deLocalizeUrl(url) {
+  return url;
+}`
+	);
+	await writeFile(join(directory, "server.mjs"), serverCode);
+
+	await expect(
+		import(pathToFileURL(join(directory, "server.mjs")).href)
+	).resolves.toBeDefined();
 });
