@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { afterEach, expect, test } from "vitest";
 import type { CompiledBundleWithMessages } from "../compile-bundle.js";
+import { toSafeModuleId } from "../safe-module-id.js";
 import { createServerFile } from "./create-server-file.js";
 
 const temporaryDirectories: string[] = [];
@@ -65,6 +66,37 @@ export const isExcludedByRouteStrategy = runtime.isExcludedByRouteStrategy;`
 
 	expect(response.status).toBe(200);
 	expect(await response.text()).toBe("ready");
+});
+
+test("keys compiledBundles by the safe module id, not the raw bundle id (experimentalMiddlewareLocaleSplitting)", () => {
+	// A bundle id that changes under toSafeModuleId (case-folded + a numeric
+	// suffix appended for the uppercase letters). trackMessageCall(), the
+	// client's SSR message guard, and middleware.js all look up
+	// compiledBundles by this safe id - only createCompiledMessagesObject
+	// (inside createServerFile) used the raw id instead.
+	const bundleId = "GREETING";
+	const safeModuleId = toSafeModuleId(bundleId);
+	expect(safeModuleId).not.toBe(bundleId);
+
+	const compiledBundles = [
+		{
+			bundle: { node: { id: bundleId } },
+			messages: {
+				en: { code: `export const ${safeModuleId} = () => "hello";` },
+			},
+		},
+	] as unknown as CompiledBundleWithMessages[];
+
+	const serverCode = createServerFile({
+		compiledBundles,
+		compilerOptions: {
+			disableAsyncLocalStorage: false,
+			experimentalMiddlewareLocaleSplitting: true,
+		},
+	});
+
+	expect(serverCode).toContain(`"${safeModuleId}":{"en":`);
+	expect(serverCode).not.toContain(`"${bundleId}":{"en":`);
 });
 
 test("a literal '$' in a compiled message does not corrupt the generated file (experimentalMiddlewareLocaleSplitting)", async () => {
