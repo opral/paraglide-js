@@ -1,5 +1,11 @@
 # @inlang/paraglide-js
 
+## 2.25.2
+
+### Patch Changes
+
+- b26bada: Upgrade Inlang SDK to 3.0.5 with Lix 0.16.1 to fix compilation of sorted message files above 512 tracked-state rows. Includes transaction error handling and snapshot restoration fixes.
+
 ## 2.25.1
 
 ### Patch Changes
