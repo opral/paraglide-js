@@ -295,3 +295,25 @@ test.each([undefined, "always", "never"] as const)(
 		).toBe("/about" + suffix + "?q=test#section");
 	}
 );
+
+test("default routes remove detected locales after repeated leading separators", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "de", "fr"] },
+		}),
+		strategy: ["url", "baseLocale"],
+	});
+	for (const suffix of ["", "/"]) {
+		const input = `https://example.com//de/about${suffix}?q=test#section`;
+		expect(runtime.extractLocaleFromUrl(input)).toBe("de");
+		expect(runtime.localizeUrl(input, { locale: "en" }).href).toBe(
+			`https://example.com/about${suffix}?q=test#section`
+		);
+		expect(runtime.localizeUrl(input, { locale: "fr" }).href).toBe(
+			`https://example.com/fr/about${suffix}?q=test#section`
+		);
+		expect(runtime.deLocalizeUrl(input).href).toBe(
+			`https://example.com/about${suffix}?q=test#section`
+		);
+	}
+});

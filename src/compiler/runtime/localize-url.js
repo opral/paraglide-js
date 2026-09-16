@@ -155,8 +155,8 @@ function localizeUrlDefaultPattern(url, locale) {
 		return normalizeTrailingSlash(urlObj);
 	}
 
-	// Remove only the leading separator; empty segments preserve the path's slashes.
-	const pathSegments = urlObj.pathname.slice(1).split("/");
+	// Ignore leading separators like locale detection, preserving the remaining path.
+	const pathSegments = urlObj.pathname.replace(/^\/+/, "").split("/");
 
 	// If current path starts with a locale, remove it
 	if (pathSegments.length > 0 && toLocale(pathSegments[0])) {
@@ -275,8 +275,8 @@ function deLocalizeUrlDefaultPattern(url) {
 	const urlObj = normalizeTrailingSlash(
 		typeof url === "string" ? new URL(url, getUrlOrigin()) : new URL(url)
 	);
-	// Remove only the leading separator; empty segments preserve the path's slashes.
-	const pathSegments = urlObj.pathname.slice(1).split("/");
+	// Ignore leading separators like locale detection, preserving the remaining path.
+	const pathSegments = urlObj.pathname.replace(/^\/+/, "").split("/");
 
 	// If first segment is a locale, remove it
 	if (pathSegments.length > 0 && toLocale(pathSegments[0])) {
