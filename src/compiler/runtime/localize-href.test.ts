@@ -259,3 +259,39 @@ test("keeps custom URLPattern path expressions on the generic fallback", async (
 	expect(runtime.localizeHref("/a", { locale: "de" })).toBe("/de/a");
 	expect(runtime.localizeHref("/about", { locale: "de" })).toBe("/about");
 });
+
+test.each([undefined, "always", "never"] as const)(
+	"default hrefs preserve slashes unless trailingSlash is %s",
+	async (trailingSlash) => {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "de", locales: ["de", "en"] },
+			}),
+			strategy: ["url", "baseLocale"],
+			trailingSlash,
+		});
+		const paths = ["/", "/about/", "/contact/"];
+		const suffix = trailingSlash === "never" ? "" : "/";
+		expect(
+			paths.flatMap((path) =>
+				runtime.locales.map((locale) => runtime.localizeHref(path, { locale }))
+			)
+		).toEqual([
+			"/",
+			"/en" + suffix,
+			"/about" + suffix,
+			"/en/about" + suffix,
+			"/contact" + suffix,
+			"/en/contact" + suffix,
+		]);
+		expect(runtime.localizeHref("/about", { locale: "en" })).toBe(
+			"/en/about" + (trailingSlash === "always" ? "/" : "")
+		);
+		expect(runtime.deLocalizeHref("/en/about/?q=test#section")).toBe(
+			"/about" + suffix + "?q=test#section"
+		);
+		expect(
+			runtime.localizeHref("/en/about/?q=test#section", { locale: "de" })
+		).toBe("/about" + suffix + "?q=test#section");
+	}
+);

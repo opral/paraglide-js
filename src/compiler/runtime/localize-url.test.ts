@@ -692,6 +692,27 @@ test.each([
 	expect(runtime.deLocalizeUrl("https://example.com/about").href).toBe(
 		"https://example.com/about"
 	);
+	for (const path of [
+		"/about/",
+		"/about",
+		"/nested/page/",
+		"/about/?ref=docs#section",
+		"/",
+	]) {
+		const original = new URL(path, "https://example.com");
+		const localized = new URL(original);
+		localized.pathname = "/de" + original.pathname;
+		expect(runtime.localizeUrl(original, { locale: "de" }).href).toBe(
+			localized.href
+		);
+		expect(runtime.localizeUrl(localized, { locale: "en" }).href).toBe(
+			original.href
+		);
+		expect(runtime.deLocalizeUrl(localized).href).toBe(original.href);
+		expect(runtime.localizeUrl(localized, { locale: "de" }).href).toBe(
+			localized.href
+		);
+	}
 });
 
 test("auto fills the url base path", async () => {

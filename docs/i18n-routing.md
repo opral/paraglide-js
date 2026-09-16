@@ -641,7 +641,7 @@ paraglideVitePlugin({
 
 `"never"` removes trailing slashes and `"always"` adds them. The root path `/` always remains `/`, while query parameters and hashes are preserved. Existing custom `urlPatterns` can keep their trailing slash style; Paraglide treats the other terminal-slash form as an alias when this option is set. Unmatched custom patterns remain unchanged.
 
-Omitting `trailingSlash` preserves the existing exact URLPattern behavior. This is useful when your framework already owns trailing slash normalization.
+Omitting `trailingSlash` preserves trailing slashes with default routing (`/about/` becomes `/de/about/`, while `/about` becomes `/de/about`). With custom `urlPatterns`, matching remains exact and the configured patterns determine the generated path. This is useful when your framework already owns trailing slash normalization.
 
 Framework normalization does not change URLs produced by `localizeHref()` or
 `localizeUrl()`. If you omit `trailingSlash` and Paraglide generates `/de/`
