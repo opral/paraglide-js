@@ -1,5 +1,11 @@
 # @inlang/paraglide-js
 
+## 2.25.3
+
+### Patch Changes
+
+- e1e6e61: Upgrade the inlang SDK to 3.0.6 with Lix 0.17.0.
+
 ## 2.25.2
 
 ### Patch Changes
