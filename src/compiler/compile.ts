@@ -7,6 +7,7 @@ import {
 	type CompilerOptions,
 } from "./compiler-options.js";
 import { Logger } from "../services/logger/index.js";
+import { ensureConfigIsTracked } from "../services/file-handling/ensure-config-is-tracked.js";
 
 // This is a workaround to prevent multiple compilations from running at the same time.
 // https://github.com/opral/inlang-paraglide-js/issues/320#issuecomment-2596951222
@@ -58,6 +59,10 @@ export async function compile(
 			const project = await loadProjectFromDirectory({
 				path: withDefaultOptions.project,
 				fs,
+			});
+			await ensureConfigIsTracked({
+				projectDir: withDefaultOptions.project,
+				fs: fs.promises,
 			});
 
 			const output = await compileProject({

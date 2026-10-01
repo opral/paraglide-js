@@ -35,6 +35,25 @@ The project directory itself comes from:
 If no config file exists inside the project directory, everything keeps
 working via command line flags, plugin options, and built-in defaults.
 
+### Version control
+
+Commit your `paraglide.config.*` file so clones and CI use the same options.
+The inlang SDK generates a `.gitignore` inside the project directory that
+ignores everything except `settings.json`. Paraglide adds exceptions for
+the four supported config filenames during compilation, including when
+an SDK upgrade regenerates the ignore file. Run a compilation before
+adding a new config file to Git.
+
+For older Paraglide versions, add these exceptions to
+`project.inlang/.gitignore` manually (SDK upgrades may overwrite them):
+
+```gitignore
+!paraglide.config.js
+!paraglide.config.mjs
+!paraglide.config.ts
+!paraglide.config.cjs
+```
+
 Because the config lives inside the project it configures, it cannot set
 the `project` option itself. TypeScript rejects the key at compile time; in
 plain-JS configs it shows up as an unknown option.

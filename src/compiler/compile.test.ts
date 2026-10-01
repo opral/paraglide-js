@@ -9,6 +9,7 @@ import { compile } from "./compile.js";
 import type { Runtime } from "./runtime/type.js";
 import { defaultCompilerOptions } from "./compiler-options.js";
 import consola from "consola";
+import { CONFIG_FILE_NAMES } from "../services/config/discover-config-file.js";
 
 test("loads a project and compiles it", async () => {
 	const project = await loadProjectInMemory({
@@ -41,6 +42,28 @@ test("loads a project and compiles it", async () => {
 	expect(files).toEqual(
 		expect.arrayContaining(["runtime.js", "server.js", "messages.js"])
 	);
+});
+
+test("repairs project config ignore rules after SDK metadata regeneration (#775)", async () => {
+	const fs = memfs({
+		"/project.inlang/settings.json": JSON.stringify({
+			baseLocale: "en",
+			locales: ["en"],
+		}),
+		"/project.inlang/.gitignore": "*\n!settings.json",
+	}).fs as unknown as typeof import("node:fs");
+	for (let attempt = 0; attempt < 2; attempt++) {
+		await compile({ project: "/project.inlang", outdir: "/output", fs });
+		const ignore = await fs.promises.readFile(
+			"/project.inlang/.gitignore",
+			"utf8"
+		);
+		for (const name of CONFIG_FILE_NAMES) {
+			expect(ignore.split("\n")).toContain(`!${name}`);
+		}
+		// Missing SDK metadata triggers regeneration on the next load.
+		await fs.promises.unlink("/project.inlang/.meta.json");
+	}
 });
 
 test("cleans the output directory", async () => {
