@@ -68,6 +68,22 @@ export const isExcludedByRouteStrategy = runtime.isExcludedByRouteStrategy;`
 	expect(await response.text()).toBe("ready");
 });
 
+test("import statements in JSDoc examples survive in the generated server file", () => {
+	const serverCode = createServerFile({
+		compiledBundles: [],
+		compilerOptions: {
+			disableAsyncLocalStorage: false,
+			experimentalMiddlewareLocaleSplitting: false,
+		},
+	});
+
+	expect(serverCode).toContain(
+		` * import { paraglideMiddleware } from './paraglide/server.js'\n * import handler from '@tanstack/react-start/server-entry'\n *\n * export default {`
+	);
+	// only the `import * as runtime` line that createServerFile itself prepends
+	expect(serverCode.match(/^\s*import\s/gm)).toHaveLength(1);
+});
+
 test("keys compiledBundles by the safe module id, not the raw bundle id (experimentalMiddlewareLocaleSplitting)", () => {
 	// A bundle id that changes under toSafeModuleId (case-folded + a numeric
 	// suffix appended for the uppercase letters). trackMessageCall(), the

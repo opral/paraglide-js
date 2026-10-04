@@ -126,7 +126,7 @@ function createCompiledMessagesObject(
 function injectCode(path: string): string {
 	const code = fs.readFileSync(new URL(path, import.meta.url), "utf-8");
 	// Regex to match single-line and multi-line imports
-	const importRegex = /import\s+[\s\S]*?from\s+['"][^'"]+['"]\s*;?/g;
+	const importRegex = /^\s*import\s+[\s\S]*?from\s+['"][^'"]+['"]\s*;?/gm;
 	const sourceMapRegex = /\/\/# sourceMappingURL=.*$/gm;
 	const blockSourceMapRegex = /\/\*# sourceMappingURL=.*?\*\//g;
 	return code
