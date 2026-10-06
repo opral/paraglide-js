@@ -64,6 +64,19 @@ test("cookie cache clearer remains internal in the generated runtime", () => {
 	expect(jsdocRuntime).not.toContain("export function clearLocaleCookieCache");
 });
 
+test("import statements in JSDoc examples survive in the generated runtime", () => {
+	const runtime = createRuntimeFile({
+		baseLocale: "en",
+		locales: ["en", "de"],
+		compilerOptions: defaultCompilerOptions,
+	});
+
+	expect(runtime).toContain(
+		` *   import { m } from './messages.js'\n *   m.hello({ name: 'world' }, { locale: "en" })`
+	);
+	expect(runtime).not.toMatch(/^\s*import\s/m);
+});
+
 test("runtime type", async () => {
 	const project = await typescriptProject({
 		useInMemoryFileSystem: true,
