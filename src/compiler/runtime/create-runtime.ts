@@ -178,6 +178,31 @@ ${injectCode("./normalize-trailing-slash.js", {
 	privateExports: ["normalizeTrailingSlash"],
 })}
 
+${
+	needsUrlPatternPolyfill
+		? injectCode("./url-pattern-cache.js", {
+				privateExports: ["getUrlPattern"],
+			}) +
+			"\n\n" +
+			injectCode("./url-pattern-index.js", {
+				privateExports: [
+					"getRoutingConfigVersion",
+					"currentRoutingConfigVersion",
+					"getUrlPatternCandidates",
+					"getRouteStrategyCandidates",
+				],
+			})
+		: `// Default routing does not need a matcher cache or candidate index.
+/** @param {string} pattern @param {URL} url @returns {URLPattern} */
+function getUrlPattern(pattern, url) { return new URLPattern(pattern, url.href); }
+function getRoutingConfigVersion() { return 0; }
+function currentRoutingConfigVersion() { return 0; }
+/** @param {URL} _url @returns {typeof urlPatterns} */
+function getUrlPatternCandidates(_url) { return urlPatterns; }
+/** @param {URL} _url @returns {typeof routeStrategies} */
+function getRouteStrategyCandidates(_url) { return routeStrategies; }`
+}
+
 ${injectCode("./exec-url-pattern.js", {
 	privateExports: ["execUrlPattern"],
 })}
