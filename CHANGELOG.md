@@ -1,5 +1,16 @@
 # @inlang/paraglide-js
 
+## 2.26.0
+
+### Minor Changes
+
+- 58b570a: Speed up custom URL routing by skipping unrelated literal path prefixes and sharing a bounded compiled URLPattern cache across localization, locale extraction, route strategies, and static URL generation. Preserve pattern order and native matching, and refresh routing indexes and memoized results after configuration edits.
+
+### Patch Changes
+
+- 0cb8daa: Fix the generated `runtime.js` and `server.js` losing `import` lines from JSDoc `@example` blocks. The compiler strips each runtime module's own imports before inlining it, but the matcher was not anchored to the start of a line, so it also removed `import ... from '...'` text inside doc comments together with the following newline, merging the remaining comment lines (for example ` *   *   m.hello(...)`). The matcher is now anchored to the start of a line, so `*`-prefixed doc comment lines are kept while the modules' own imports are still stripped.
+- 9cc4ce1: Update the Inlang SDK dependency to 3.1.0.
+
 ## 2.25.4
 
 ### Patch Changes
