@@ -1,7 +1,14 @@
 import { deLocalizeUrl } from "./localize-url.js";
 import { normalizeTrailingSlash } from "./normalize-trailing-slash.js";
 import { execUrlPattern } from "./exec-url-pattern.js";
+import { getUrlPattern } from "./url-pattern-cache.js";
+import {
+	getRouteStrategyCandidates,
+	getRoutingConfigVersion,
+} from "./url-pattern-index.js";
 import { routeStrategies, strategy } from "./variables.js";
+
+let cachedRouteConfigVersion = -1;
 
 /** @type {string | undefined} */
 let cachedRouteStrategyUrl;
@@ -23,7 +30,11 @@ export function findMatchingRouteStrategy(url) {
 	}
 
 	const urlString = typeof url === "string" ? url : url.href;
-	if (cachedRouteStrategyUrl === urlString) {
+	const configVersion = getRoutingConfigVersion();
+	if (
+		cachedRouteStrategyUrl === urlString &&
+		cachedRouteConfigVersion === configVersion
+	) {
 		return cachedRouteStrategy;
 	}
 
@@ -37,8 +48,8 @@ export function findMatchingRouteStrategy(url) {
 			: [publicUrl, canonicalUrl];
 	let match;
 	for (const candidateUrl of candidateUrls) {
-		for (const routeStrategy of routeStrategies) {
-			const pattern = new URLPattern(routeStrategy.match, candidateUrl.href);
+		for (const routeStrategy of getRouteStrategyCandidates(candidateUrl)) {
+			const pattern = getUrlPattern(routeStrategy.match, candidateUrl);
 			if (execUrlPattern(pattern, candidateUrl)) {
 				match = routeStrategy;
 				break;
@@ -47,6 +58,7 @@ export function findMatchingRouteStrategy(url) {
 		if (match) break;
 	}
 
+	cachedRouteConfigVersion = configVersion;
 	cachedRouteStrategyUrl = urlString;
 	cachedRouteStrategy = match;
 	return match;

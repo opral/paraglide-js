@@ -1,12 +1,13 @@
 import { localizeUrl } from "./localize-url.js";
 import { normalizeTrailingSlash } from "./normalize-trailing-slash.js";
 import { execUrlPattern } from "./exec-url-pattern.js";
+import { getUrlPattern } from "./url-pattern-cache.js";
+import { getUrlPatternCandidates } from "./url-pattern-index.js";
 import {
 	locales,
 	baseLocale,
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
 	trailingSlash,
-	urlPatterns,
 } from "./variables.js";
 
 /**
@@ -93,11 +94,11 @@ export function generateStaticLocalizedUrls(urls) {
 
 		// Try each URL pattern to find one that matches
 		let patternFound = false;
-		for (const pattern of urlPatterns) {
+		for (const pattern of getUrlPatternCandidates(url)) {
 			try {
 				// Try to match the unlocalized pattern
 				const unlocalizedMatch = execUrlPattern(
-					new URLPattern(pattern.pattern, url.href),
+					getUrlPattern(pattern.pattern, url),
 					url
 				);
 

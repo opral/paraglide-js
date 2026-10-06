@@ -2,10 +2,16 @@ import { toLocale } from "./check-locale.js";
 import {
 	baseLocale,
 	TREE_SHAKE_DEFAULT_URL_PATTERN_USED,
-	urlPatterns,
 } from "./variables.js";
 import { normalizeTrailingSlash } from "./normalize-trailing-slash.js";
 import { execUrlPattern } from "./exec-url-pattern.js";
+import { getUrlPattern } from "./url-pattern-cache.js";
+import {
+	getUrlPatternCandidates,
+	getRoutingConfigVersion,
+} from "./url-pattern-index.js";
+
+let cachedLocaleConfigVersion = -1;
 
 /**
  * If extractLocaleFromUrl is called many times on the same page and the URL
@@ -31,7 +37,10 @@ let cachedLocale;
 export function extractLocaleFromUrl(url) {
 	const urlString = typeof url === "string" ? url : url.href;
 
-	if (cachedUrl === urlString) {
+	const configVersion = TREE_SHAKE_DEFAULT_URL_PATTERN_USED
+		? 0
+		: getRoutingConfigVersion();
+	if (cachedUrl === urlString && cachedLocaleConfigVersion === configVersion) {
 		return cachedLocale;
 	}
 
@@ -49,10 +58,10 @@ export function extractLocaleFromUrl(url) {
 		);
 
 		// Iterate over URL patterns
-		for (const element of urlPatterns) {
+		for (const element of getUrlPatternCandidates(urlObj)) {
 			for (const [locale, localizedPattern] of element.localized) {
 				const match = execUrlPattern(
-					new URLPattern(localizedPattern, urlObj.href),
+					getUrlPattern(localizedPattern, urlObj),
 					urlObj
 				);
 
@@ -65,6 +74,7 @@ export function extractLocaleFromUrl(url) {
 		}
 	}
 
+	cachedLocaleConfigVersion = configVersion;
 	cachedUrl = urlString;
 	cachedLocale = result;
 	return result;
