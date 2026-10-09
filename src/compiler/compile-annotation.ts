@@ -21,6 +21,10 @@ const registryFunctionByAnnotation = new Map([
 	["relativetime", "relativetime"],
 	// `#` in ICU MessageFormat 1 plurals, as imported by the ICU1 plugin
 	["icu:pound", "icuPound"],
+	// `{d, date, short}` and `{d, time, short}` in ICU MessageFormat 1, as
+	// imported by the ICU1 plugin, see icuStyleAnnotation()
+	["date", "datetime"],
+	["time", "datetime"],
 ]);
 
 const displayedRegistryFunctions = [
@@ -97,7 +101,106 @@ export function compileAnnotation(
 	const functionName =
 		registryFunctionByAnnotation.get(annotation.name) ?? annotation.name;
 	registryUsage?.add(functionName);
-	return `registry.${functionName}("${locale}", ${str}, ${compileOptions(annotation.name, annotation.options, declarations)})`;
+	const options = icuStyleAnnotation(annotation).options;
+	// the options of `date` and `time` are those of `datetime`
+	const optionsOf = functionName === "datetime" ? "datetime" : annotation.name;
+	return `registry.${functionName}("${locale}", ${str}, ${compileOptions(optionsOf, options, declarations)})`;
+}
+
+const icuDateTimeStyles = new Set(["short", "medium", "long", "full"]);
+
+const intlNumberStyles = new Set(["decimal", "percent", "currency", "unit"]);
+
+/**
+ * Translates the ICU MessageFormat 1 `style` of an annotation to the options
+ * of the registry function.
+ *
+ * The ICU1 plugin imports `{n, number, integer}` as `{$n :number style=integer}`
+ * and `{d, date, short}` as `{$d :date style=short}`. Intl knows the number
+ * styles "decimal", "percent", "currency" (with a `currency`) and "unit", and
+ * throws for others. The date and time styles are Intl's `dateStyle` and
+ * `timeStyle`. A style without an Intl equivalent, like an ICU skeleton
+ * (`::currency/EUR`), is left out with a warning.
+ *
+ * @example
+ *   icuStyleAnnotation({ name: "date", options: [{ name: "style", value: "short" }] })
+ *   >> { name: "date", options: [{ name: "dateStyle", value: "short" }] }
+ */
+export function icuStyleAnnotation(
+	annotation: FunctionReference
+): FunctionReference {
+	const style = annotation.options.find((option) => option.name === "style");
+	const others = annotation.options.filter((option) => option !== style);
+	const literal = (name: string, value: string) => ({
+		name,
+		value: { type: "literal" as const, value },
+	});
+
+	if (annotation.name === "date" || annotation.name === "time") {
+		const optionName = annotation.name === "date" ? "dateStyle" : "timeStyle";
+		if (style?.value.type === "literal") {
+			if (icuDateTimeStyles.has(style.value.value)) {
+				return {
+					...annotation,
+					options: [literal(optionName, style.value.value), ...others],
+				};
+			}
+			ignoreUnknownStyle(annotation.name, style.value.value);
+		} else if (style) {
+			return {
+				...annotation,
+				options: [{ name: optionName, value: style.value }, ...others],
+			};
+		}
+		// ICU's default time style is "medium". The default date is Intl's.
+		return {
+			...annotation,
+			options:
+				annotation.name === "time"
+					? [literal(optionName, "medium"), ...others]
+					: others,
+		};
+	}
+
+	if (annotation.name === "number" && style?.value.type === "literal") {
+		const value = style.value.value;
+		if (value === "integer") {
+			const hasFractionDigits = others.some(
+				(option) => option.name === "maximumFractionDigits"
+			);
+			return {
+				...annotation,
+				options: hasFractionDigits
+					? others
+					: [literal("maximumFractionDigits", "0"), ...others],
+			};
+		}
+		const hasCurrency = others.some((option) => option.name === "currency");
+		if (
+			!intlNumberStyles.has(value) ||
+			(value === "currency" && !hasCurrency)
+		) {
+			ignoreUnknownStyle(annotation.name, value);
+			return { ...annotation, options: others };
+		}
+	}
+
+	return annotation;
+}
+
+const warnedUnknownStyles = new Set<string>();
+
+function ignoreUnknownStyle(name: string, style: string): void {
+	const key = `${name} ${style}`;
+	if (warnedUnknownStyles.has(key)) return;
+	warnedUnknownStyles.add(key);
+	logger.warn(
+		`The style "${style}" of the formatter "${name}" is not supported and will be ignored.${
+			name === "number" && style === "currency"
+				? ' The "currency" style needs a "currency" option.'
+				: ""
+		}`
+	);
 }
 
 /**

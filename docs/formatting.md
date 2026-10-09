@@ -216,6 +216,22 @@ m.relative_update(relative);
 
 Paraglide uses the platform `Intl.RelativeTimeFormat`. Older runtimes need a polyfill.
 
+## ICU MessageFormat 1 styles
+
+The ICU MessageFormat 1 plugin imports ICU arguments with their ICU names and styles. Paraglide formats them like ICU:
+
+| ICU | Imported as | Formats as |
+| --- | --- | --- |
+| `{n, number}` | `{n: number}` | `number` |
+| `{n, number, percent}` | `{n: number style=percent}` | `number style=percent` |
+| `{n, number, integer}` | `{n: number style=integer}` | `number maximumFractionDigits=0` |
+| `{d, date, short}` | `{d: date style=short}` | `datetime dateStyle=short` (also `medium`, `long`, `full`) |
+| `{d, date}` | `{d: date}` | `datetime` |
+| `{d, time, short}` | `{d: time style=short}` | `datetime timeStyle=short` (also `medium`, `long`, `full`) |
+| `{d, time}` | `{d: time}` | `datetime timeStyle=medium` |
+
+A style without an `Intl` equivalent, like an ICU skeleton (`{n, number, ::currency/EUR}`) or `currency` without a `currency` option, is ignored with a warning: the value is formatted without it.
+
 ## Formatting across locales
 
 Formatting runs when a message function is called. On a page, messages use the current document's locale. By default, changing the user's locale starts a new document navigation, so formatting runs again as the new document renders. The rare browser-only `setLocale(locale, { reload: false })` escape hatch stays on the current document instead; it does not automatically re-run formatting calls, so the application must update its locale-dependent UI. See [the warning in Basics](./basics#advanced-stay-on-the-current-document).
