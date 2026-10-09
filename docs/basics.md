@@ -165,6 +165,8 @@ const messages = {
 messages["greeting"](); // "Hello World!"
 ```
 
+Referencing each message directly also lets [`inlang check`](./checking-translations#unused-messages) find unused messages. A key built at runtime, such as ``m[`${name}_label`]``, can't be resolved.
+
 ### Type-safe localized strings
 
 Message functions return `LocalizedString`, a special string type that TypeScript uses to distinguish translated text from regular strings:

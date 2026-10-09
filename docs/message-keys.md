@@ -156,6 +156,9 @@ console.log(m[key]());
 ```
 
 > [!NOTE]
+> A variable key like `m[key]` makes the [unused messages check](./checking-translations#unused-messages) incomplete. Literal keys like `m["nav.home"]` are resolved.
+
+> [!NOTE]
 > Bracket notation uses TypeScript's template literal types to maintain type safety. At runtime, these are still individual functions.
 
 ### Recommended flat structure

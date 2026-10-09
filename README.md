@@ -375,7 +375,7 @@ Paraglide compiles messages from [inlang](https://github.com/opral/inlang), the 
 | Tool                                                                    | Description                                      |
 | ----------------------------------------------------------------------- | ------------------------------------------------ |
 | [Sherlock](https://inlang.com/m/r7kp499g/app-inlang-ideExtension)       | VS Code extension for inline translation editing |
-| [CLI](https://inlang.com/m/2qj2w8pu/app-inlang-cli)                     | Machine translate from the terminal              |
+| [CLI](https://inlang.com/m/2qj2w8pu/app-inlang-cli)                     | Machine translate and check translations in CI   |
 | [Fink](https://inlang.com/m/tdozzpar/app-inlang-finkLocalizationEditor) | Translation editor for non-developers            |
 | [Parrot](https://inlang.com/m/gkrpgoir/app-parrot-figmaPlugin)          | Manage translations in Figma                     |
 
