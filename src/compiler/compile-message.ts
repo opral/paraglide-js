@@ -18,7 +18,37 @@ import {
 	resolveMessageLocals,
 } from "./message-locals.js";
 
-export type CompiledMessage = Compiled<Message> & {
+/**
+ * The message fields the compiler reads.
+ *
+ * `selectBundleNested()` of `@inlang/sdk` 3 returns the bundle id as
+ * `bundleId`, `@inlang/sdk` 4 as `bundle_id` (the database column). Both are
+ * accepted so that Paraglide compiles with either SDK version.
+ */
+export type CompilableMessage = Pick<Message, "id" | "locale" | "selectors"> &
+	({ bundleId: string } | { bundle_id: string });
+
+/**
+ * The variant fields the compiler reads. `messageId` (SDK 3) or `message_id`
+ * (SDK 4) are not needed.
+ */
+export type CompilableVariant = Pick<Variant, "id" | "matches" | "pattern">;
+
+/**
+ * The bundle id of a message with either SDK version.
+ */
+export function messageBundleId(message: CompilableMessage): string {
+	const ids = message as { bundle_id?: string; bundleId?: string };
+	const bundleId = ids.bundle_id ?? ids.bundleId;
+	if (typeof bundleId !== "string") {
+		throw new Error(
+			`Message ${JSON.stringify(message.id)} (locale ${JSON.stringify(message.locale)}) has no bundle id`
+		);
+	}
+	return bundleId;
+}
+
+export type CompiledMessage = Compiled<CompilableMessage> & {
 	/**
 	 * The registry functions the compiled code calls, e.g. `["plural"]`.
 	 * The output imports the registry only if a message calls it.
@@ -32,8 +62,8 @@ export type CompiledMessage = Compiled<Message> & {
  */
 export const compileMessage = (
 	declarations: Declaration[],
-	message: Message,
-	variants: Variant[],
+	message: CompilableMessage,
+	variants: CompilableVariant[],
 	matchTypes?: InputMatchTypes,
 	inputTypeAliasName?: string
 ): CompiledMessage => {
@@ -62,8 +92,8 @@ export const compileMessage = (
 
 function compileMessageWithOneVariant(
 	declarations: Declaration[],
-	message: Message,
-	variants: Variant[],
+	message: CompilableMessage,
+	variants: CompilableVariant[],
 	matchTypes?: InputMatchTypes,
 	inputTypeAliasName?: string
 ): CompiledMessage {
@@ -143,8 +173,8 @@ function compileMessageWithOneVariant(
 
 function compileMessageWithMultipleVariants(
 	declarations: Declaration[],
-	message: Message,
-	variants: Variant[],
+	message: CompilableMessage,
+	variants: CompilableVariant[],
 	matchTypes?: InputMatchTypes,
 	inputTypeAliasName?: string
 ): CompiledMessage {
@@ -278,7 +308,7 @@ function compileMessageWithMultipleVariants(
 	if (!hasMarkup) {
 		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${stringLocals.readsInput ? "i" : ""}) => {${stringLocals.code.join("\n\t")}
 	${compiledVariants.join("\n\t")}
-	${hasCatchAll ? "" : `return /** @type {LocalizedString} */ ("${message.bundleId}");`}
+	${hasCatchAll ? "" : `return /** @type {LocalizedString} */ ("${messageBundleId(message)}");`}
 };`;
 
 		return { code, node: message, registryFunctions: [...registryUsage] };
@@ -293,7 +323,7 @@ function compileMessageWithMultipleVariants(
 		? compiledPartsVariants.join("\n\t") + "\n\t"
 		: "";
 	const inputType = messageInputType;
-	const fallbackParts = `[{ type: "text", value: ${JSON.stringify(message.bundleId)} }]`;
+	const fallbackParts = `[{ type: "text", value: ${JSON.stringify(messageBundleId(message))} }]`;
 	// only declare the input parameter where it is read (noUnusedParameters)
 	const messageInput = stringLocals.readsInput ? "i" : "";
 	const partsMessageInput = partsLocals.readsInput ? "i" : "";
@@ -304,7 +334,7 @@ function compileMessageWithMultipleVariants(
 			${localVariablesCode}${stringVariantsCode}${
 				hasCatchAll
 					? ""
-					: `return /** @type {LocalizedString} */ (${JSON.stringify(message.bundleId)});`
+					: `return /** @type {LocalizedString} */ (${JSON.stringify(messageBundleId(message))});`
 			}
 		}),
 		{
@@ -330,13 +360,13 @@ function compileMessageWithMultipleVariants(
 function compileLocalVariables(
 	reads: string[],
 	declarations: Declaration[],
-	message: Message,
+	message: CompilableMessage,
 	registryUsage: RegistryUsage
 ): { code: string[]; readsInput: boolean } {
 	const { locals, readsInput } = resolveMessageLocals({
 		reads,
 		declarations,
-		bundleId: message.bundleId,
+		bundleId: messageBundleId(message),
 		locale: message.locale,
 	});
 	return {
@@ -369,14 +399,14 @@ function joinLocalVariables(compiledLocalVariables: string[]): string {
  * `countPluralExact=* × countPlural=one` for French count 0 regardless of the
  * order the variants are stored in.
  */
-function sortVariantsBySelectorPreference(
-	variants: Variant[],
+function sortVariantsBySelectorPreference<V extends CompilableVariant>(
+	variants: V[],
 	selectors: Message["selectors"]
-): Variant[] {
+): V[] {
 	if (selectors.length === 0) {
 		return variants;
 	}
-	const rank = (variant: Variant) =>
+	const rank = (variant: CompilableVariant) =>
 		selectors.map((selector) =>
 			variant.matches.some(
 				(match) => match.key === selector.name && match.type === "literal-match"
