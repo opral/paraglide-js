@@ -416,6 +416,13 @@ describe("ICU MessageFormat 1 styles, as imported by the ICU1 plugin", () => {
 		["number", "::currency/EUR", 1234.5, "1,234.5"],
 		// "currency" needs a "currency" option
 		["number", "currency", 1234.5, "1,234.5"],
+		// ICU time skeletons format like {d, time}
+		[
+			"time",
+			"::HHmm",
+			date,
+			new Intl.DateTimeFormat("en", { timeStyle: "medium" }).format(date),
+		],
 		// ICU date skeletons format like {d, date}
 		[
 			"date",
@@ -501,4 +508,31 @@ describe("default date and time styles", () => {
 			expect(output).toBe(expected);
 		}
 	);
+});
+
+test("a style from a variable replaces the default date style", () => {
+	const { code } = compilePattern({
+		pattern: [
+			{
+				type: "expression",
+				arg: { type: "variable-reference", name: "d" },
+				annotation: {
+					type: "function-reference",
+					name: "date",
+					options: [
+						{
+							name: "style",
+							value: { type: "variable-reference", name: "s" },
+						},
+					],
+				},
+			},
+		],
+		declarations: [
+			{ type: "input-variable", name: "d" },
+			{ type: "input-variable", name: "s" },
+		],
+		locale: "en",
+	});
+	expect(code).toBe('`${registry.datetime("en", i?.d, { dateStyle: i?.s })}`');
 });

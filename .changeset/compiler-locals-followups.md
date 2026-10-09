@@ -2,7 +2,7 @@
 "@inlang/paraglide-js": minor
 ---
 
-**Upgrade note:** compilation now fails with `… references the variable "count" in the local variable "countPlural", but "count" is not declared` when a local variable reads a variable that has no `input` declaration, such as `local countPlural = count: plural` without `input count`. The inlang message format plugin before 4.4.1 imports such a local without adding the `input`. These messages used to compile, and worked at runtime as long as the message had another input. Fix: add the missing `input count` declaration, or update the inlang message format plugin to 4.4.1 or later, which adds it.
+**Upgrade note:** compilation now fails with `… references the variable "count" in the local variable "countPlural", but "count" is not declared` when a local variable that the message uses reads a variable that has no `input` declaration, such as `local countPlural = count: plural` without `input count`. The inlang message format plugin before 4.4.1 imports such a local without adding the `input`. These messages used to compile, and worked at runtime as long as the message had another input. Fix: add the missing `input count` declaration, or update the inlang message format plugin to 4.4.1 or later, which adds it.
 
 Fix local variable compilation and support ICU plural offsets.
 
