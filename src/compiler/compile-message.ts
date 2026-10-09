@@ -9,6 +9,7 @@ import { compilePattern } from "./compile-pattern.js";
 import type { Compiled } from "./types.js";
 import { inputsType, type InputMatchTypes } from "./jsdoc-types.js";
 import { compileLocalVariable } from "./compile-local-variable.js";
+import type { RegistryUsage } from "./compile-annotation.js";
 import { renderInputMatchCondition } from "./match-literals.js";
 import { compileInputAccess } from "./variable-access.js";
 import { resolveInputAlias } from "./input-alias.js";
@@ -16,6 +17,14 @@ import {
 	patternVariableReferences,
 	resolveMessageLocals,
 } from "./message-locals.js";
+
+export type CompiledMessage = Compiled<Message> & {
+	/**
+	 * The registry functions the compiled code calls, e.g. `["plural"]`.
+	 * The output imports the registry only if a message calls it.
+	 */
+	registryFunctions: string[];
+};
 
 /**
  * Returns the compiled message as a string
@@ -27,7 +36,7 @@ export const compileMessage = (
 	variants: Variant[],
 	matchTypes?: InputMatchTypes,
 	inputTypeAliasName?: string
-): Compiled<Message> => {
+): CompiledMessage => {
 	// return empty string instead?
 	if (variants.length == 0) {
 		throw new Error("Message must have at least one variant");
@@ -57,7 +66,7 @@ function compileMessageWithOneVariant(
 	variants: Variant[],
 	matchTypes?: InputMatchTypes,
 	inputTypeAliasName?: string
-): Compiled<Message> {
+): CompiledMessage {
 	const variant = variants[0];
 	if (!variant || variants.length !== 1) {
 		throw new Error("Message must have exactly one variant");
@@ -65,25 +74,29 @@ function compileMessageWithOneVariant(
 
 	const hasMarkup = patternHasMarkup(variant.pattern);
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
+	const registryUsage: RegistryUsage = new Set();
 	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
 	// resolve before compiling the pattern to report undeclared variables
 	// with the bundle id and locale
 	const stringLocals = compileLocalVariables(
 		patternVariableReferences(variant.pattern, "string"),
 		declarations,
-		message
+		message,
+		registryUsage
 	);
 	const partsLocals = hasMarkup
 		? compileLocalVariables(
 				patternVariableReferences(variant.pattern, "parts"),
 				declarations,
-				message
+				message,
+				registryUsage
 			)
 		: { code: [], readsInput: false };
 	const compiledPattern = compilePattern({
 		pattern: variant.pattern,
 		declarations,
 		locale: message.locale,
+		registryUsage,
 	});
 
 	if (!hasMarkup) {
@@ -91,7 +104,7 @@ function compileMessageWithOneVariant(
 	${stringLocals.code.join("\n\t")}return /** @type {LocalizedString} */ (${compiledPattern.code})
 };`;
 
-		return { code, node: message };
+		return { code, node: message, registryFunctions: [...registryUsage] };
 	}
 
 	const compiledPartsPattern = compilePattern({
@@ -99,6 +112,7 @@ function compileMessageWithOneVariant(
 		declarations,
 		mode: "parts",
 		locale: message.locale,
+		registryUsage,
 	});
 	const localVariablesCode = joinLocalVariables(stringLocals.code);
 	const partsLocalVariablesCode = joinLocalVariables(partsLocals.code);
@@ -120,7 +134,11 @@ function compileMessageWithOneVariant(
 	)
 );`;
 
-	return { code: partsCode, node: message };
+	return {
+		code: partsCode,
+		node: message,
+		registryFunctions: [...registryUsage],
+	};
 }
 
 function compileMessageWithMultipleVariants(
@@ -129,7 +147,7 @@ function compileMessageWithMultipleVariants(
 	variants: Variant[],
 	matchTypes?: InputMatchTypes,
 	inputTypeAliasName?: string
-): Compiled<Message> {
+): CompiledMessage {
 	if (variants.length <= 1) {
 		throw new Error("Message must have more than one variant");
 	}
@@ -138,6 +156,7 @@ function compileMessageWithMultipleVariants(
 		patternHasMarkup(variant.pattern)
 	);
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
+	const registryUsage: RegistryUsage = new Set();
 	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
 
 	// The variants the function checks, in preference order. A variant without
@@ -208,7 +227,8 @@ function compileMessageWithMultipleVariants(
 			),
 		],
 		declarations,
-		message
+		message,
+		registryUsage
 	);
 	const partsLocals = hasMarkup
 		? compileLocalVariables(
@@ -219,7 +239,8 @@ function compileMessageWithMultipleVariants(
 					),
 				],
 				declarations,
-				message
+				message,
+				registryUsage
 			)
 		: { code: [], readsInput: false };
 
@@ -231,6 +252,7 @@ function compileMessageWithMultipleVariants(
 			pattern: step.pattern,
 			declarations,
 			locale: message.locale,
+			registryUsage,
 		});
 		compiledVariants.push(
 			step.condition === undefined
@@ -243,6 +265,7 @@ function compileMessageWithMultipleVariants(
 				declarations,
 				mode: "parts",
 				locale: message.locale,
+				registryUsage,
 			});
 			compiledPartsVariants.push(
 				step.condition === undefined
@@ -258,7 +281,7 @@ function compileMessageWithMultipleVariants(
 	${hasCatchAll ? "" : `return /** @type {LocalizedString} */ ("${message.bundleId}");`}
 };`;
 
-		return { code, node: message };
+		return { code, node: message, registryFunctions: [...registryUsage] };
 	}
 
 	const localVariablesCode = joinLocalVariables(stringLocals.code);
@@ -296,7 +319,7 @@ function compileMessageWithMultipleVariants(
 	)
 );`;
 
-	return { code, node: message };
+	return { code, node: message, registryFunctions: [...registryUsage] };
 }
 
 /**
@@ -307,7 +330,8 @@ function compileMessageWithMultipleVariants(
 function compileLocalVariables(
 	reads: string[],
 	declarations: Declaration[],
-	message: Message
+	message: Message,
+	registryUsage: RegistryUsage
 ): { code: string[]; readsInput: boolean } {
 	const { locals, readsInput } = resolveMessageLocals({
 		reads,
@@ -321,6 +345,7 @@ function compileLocalVariables(
 				declaration,
 				declarations,
 				locale: message.locale,
+				registryUsage,
 			})
 		),
 		readsInput,

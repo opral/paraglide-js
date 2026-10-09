@@ -3,10 +3,9 @@ import type {
 	BundleNested,
 	MarkupStandalone,
 	MarkupStart,
-	Message,
 	ProjectSettings,
 } from "@inlang/sdk";
-import { compileMessage } from "./compile-message.js";
+import { compileMessage, type CompiledMessage } from "./compile-message.js";
 import type { Compiled } from "./types.js";
 import {
 	inputTypeForName,
@@ -25,7 +24,7 @@ export type CompiledBundleWithMessages = {
 	bundle: Compiled<Bundle>;
 	/** The compilation results for the languages */
 	messages: {
-		[locale: string]: Compiled<Message>;
+		[locale: string]: CompiledMessage;
 	};
 	/** Match literal types inferred from bundle variants */
 	matchTypes: InputMatchTypes;
@@ -44,7 +43,7 @@ export const compileBundle = (args: {
 	experimentalMiddlewareLocaleSplitting?: boolean;
 	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 }): CompiledBundleWithMessages => {
-	const compiledMessages: Record<string, Compiled<Message>> = {};
+	const compiledMessages: Record<string, CompiledMessage> = {};
 	const safeBundleId = toSafeModuleId(args.bundle.id);
 	const inputTypeAliasName = toBundleInputTypeAliasName(safeBundleId);
 	const matchTypes = collectInputMatchTypes(args.bundle);

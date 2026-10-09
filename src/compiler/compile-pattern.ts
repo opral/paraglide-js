@@ -13,6 +13,7 @@ import {
 	compileAnnotation,
 	isRegistryFunction,
 	registryFunctionNamesForDisplay,
+	type RegistryUsage,
 } from "./compile-annotation.js";
 import { Logger } from "../services/logger/index.js";
 
@@ -43,6 +44,10 @@ export const compilePattern = (args: {
 	 * into `registry.number(locale, ...)` calls.
 	 */
 	locale?: string;
+	/**
+	 * Collects the registry functions the compiled pattern calls.
+	 */
+	registryUsage?: RegistryUsage;
 }): Compiled<Pattern> => {
 	const mode = args.mode ?? "string";
 
@@ -57,6 +62,7 @@ function compilePatternToString(args: {
 	pattern: Pattern;
 	declarations: Declaration[];
 	locale?: string;
+	registryUsage?: RegistryUsage;
 }): Compiled<Pattern> {
 	let result = "";
 
@@ -66,7 +72,12 @@ function compilePatternToString(args: {
 				result += escapeForTemplateLiteral(part.value);
 				break;
 			case "expression":
-				result += `\${${compileExpression(part, args.declarations, args.locale)}}`;
+				result += `\${${compileExpression(
+					part,
+					args.declarations,
+					args.locale,
+					args.registryUsage
+				)}}`;
 				break;
 			case "markup-start":
 			case "markup-end":
@@ -86,6 +97,7 @@ function compilePatternToParts(args: {
 	pattern: Pattern;
 	declarations: Declaration[];
 	locale?: string;
+	registryUsage?: RegistryUsage;
 }): Compiled<Pattern> {
 	const compiledParts: string[] = [];
 
@@ -101,7 +113,8 @@ function compilePatternToParts(args: {
 					`{ type: "text", value: String(${compileExpression(
 						part,
 						args.declarations,
-						args.locale
+						args.locale,
+						args.registryUsage
 					)}) }`
 				);
 				break;
@@ -147,7 +160,8 @@ const warnedUnsupportedAnnotations = new Set<string>();
 function compileExpression(
 	expression: Expression,
 	declarations: Declaration[],
-	locale?: string
+	locale?: string,
+	registryUsage?: RegistryUsage
 ): string {
 	const value = compileExpressionValue(expression, declarations);
 	const annotation = expression.annotation;
@@ -172,7 +186,13 @@ function compileExpression(
 		);
 	}
 
-	return compileAnnotation(value, locale, annotation, declarations);
+	return compileAnnotation(
+		value,
+		locale,
+		annotation,
+		declarations,
+		registryUsage
+	);
 }
 
 function compileExpressionValue(

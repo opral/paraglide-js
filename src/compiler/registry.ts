@@ -42,6 +42,19 @@ export function number(locale, input, options) {
 };
 
 /**
+ * Formats "#" in ICU MessageFormat 1 plurals: the number "input - options.offset",
+ * formatted like number(). The offset comes from "{count, plural, offset:1 ...}".
+ *
+ * @param {import("./runtime.js").Locale} locale
+ * @param {unknown} input
+ * @param {{ offset?: number }} [options]
+ * @returns {string}
+ */
+export function icuPound(locale, input, options) {
+	return number(locale, Number(input) - Number(options?.offset ?? 0))
+};
+
+/**
  * @param {import("./runtime.js").Locale} locale
  * @param {unknown} input
  * @param {Intl.DateTimeFormatOptions} [options]

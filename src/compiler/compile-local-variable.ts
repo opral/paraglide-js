@@ -6,7 +6,7 @@ import type {
 } from "@inlang/sdk";
 import { compileVariableAccess } from "./variable-access.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
-import { compileAnnotation } from "./compile-annotation.js";
+import { compileAnnotation, type RegistryUsage } from "./compile-annotation.js";
 
 /**
  * Compiles a local variable.
@@ -23,6 +23,8 @@ export function compileLocalVariable(args: {
 	locale: string;
 	declaration: LocalVariable;
 	declarations?: Declaration[];
+	/** Collects the registry functions the compiled local calls. */
+	registryUsage?: RegistryUsage;
 }): string {
 	const annotation = args.declaration.value.annotation;
 
@@ -30,7 +32,8 @@ export function compileLocalVariable(args: {
 		compileLiteralOrVarRef(args.declaration.value.arg, args.declarations),
 		args.locale,
 		annotation,
-		args.declarations
+		args.declarations,
+		args.registryUsage
 	);
 
 	return `const ${args.declaration.name} = ${value};`;

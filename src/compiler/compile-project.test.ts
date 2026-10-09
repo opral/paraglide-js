@@ -2126,6 +2126,253 @@ describe.each([
 				"Bonjour"
 			);
 		});
+
+		test("imports the registry only where a message calls it, and formats ICU # with offset under checkJs", async () => {
+			const compileChecked = async (
+				bundles: Parameters<typeof createBundleNested>[0][]
+			) => {
+				const icuProject = await loadProjectInMemory({
+					blob: await newProject({
+						settings: { baseLocale: "en", locales: ["en", "de"] },
+					}),
+				});
+				for (const bundle of bundles) {
+					await insertBundleNested(icuProject.db, createBundleNested(bundle));
+				}
+				const output = await compileProject({
+					project: icuProject,
+					compilerOptions,
+				});
+				const tsProject = await typescriptProject({
+					useInMemoryFileSystem: true,
+					compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+				});
+				for (const [fileName, code] of Object.entries(output)) {
+					if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+						tsProject.createSourceFile(fileName, code);
+					}
+				}
+				const diagnostics = ts
+					.getPreEmitDiagnostics(tsProject.createProgram())
+					.filter(
+						(d) =>
+							!d.messageText
+								.toString()
+								.includes("Cannot find module 'async_hooks'")
+					);
+				for (const diagnostic of diagnostics) {
+					console.error(diagnostic.messageText, diagnostic.file?.fileName);
+				}
+				expect(diagnostics.length).toEqual(0);
+				return output;
+			};
+
+			const ref = (name: string) =>
+				({ type: "variable-reference", name }) as const;
+			const literal = (key: string, value: string) =>
+				({ type: "literal-match", key, value }) as const;
+			const catchall = (key: string) =>
+				({ type: "catchall-match", key }) as const;
+			const text = (value: string) => ({ type: "text" as const, value });
+			const pound = (offset?: string): Pattern[number] => ({
+				type: "expression",
+				arg: ref("count"),
+				annotation: {
+					type: "function-reference",
+					name: "icu:pound",
+					options:
+						offset === undefined
+							? []
+							: [
+									{
+										name: "offset",
+										value: { type: "literal", value: offset },
+									},
+								],
+				},
+			});
+
+			// message text that contains "registry." must not import the registry
+			const textOnly = await compileChecked([
+				{
+					id: "registry_text",
+					declarations: [],
+					messages: [
+						{
+							locale: "en",
+							selectors: [],
+							variants: [
+								{ matches: [], pattern: [text("Open the registry. Now.")] },
+							],
+						},
+						{
+							locale: "de",
+							selectors: [],
+							variants: [
+								{
+									matches: [],
+									pattern: [text("Öffne die registry. Jetzt.")],
+								},
+							],
+						},
+					],
+				},
+			]);
+			for (const [fileName, code] of Object.entries(textOnly)) {
+				if (fileName.startsWith("messages/")) {
+					expect(code).not.toContain("import * as registry");
+				}
+			}
+			const { m: textMessages } = await importCode(
+				await bundleCode(
+					textOnly,
+					`export * as m from "./paraglide/messages.js"`
+				)
+			);
+			expect(textMessages.registry_text({}, { locale: "en" })).toBe(
+				"Open the registry. Now."
+			);
+
+			// {count, plural, offset:1 =0 {Nobody} =1 {You} one {You and # other} other {You and # others}}
+			// as the ICU1 plugin imports it, and `#` without an offset
+			const output = await compileChecked([
+				{
+					id: "guest_count",
+					declarations: [
+						{ type: "input-variable", name: "count" },
+						{
+							type: "local-variable",
+							name: "countPluralOffset1",
+							value: {
+								type: "expression",
+								arg: ref("count"),
+								annotation: {
+									type: "function-reference",
+									name: "plural",
+									options: [
+										{ name: "offset", value: { type: "literal", value: "1" } },
+									],
+								},
+							},
+						},
+						{
+							type: "local-variable",
+							name: "countPluralOffset1Exact",
+							value: { type: "expression", arg: ref("count") },
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [
+								ref("countPluralOffset1Exact"),
+								ref("countPluralOffset1"),
+							],
+							variants: [
+								{
+									matches: [
+										literal("countPluralOffset1Exact", "0"),
+										catchall("countPluralOffset1"),
+									],
+									pattern: [text("Nobody")],
+								},
+								{
+									matches: [
+										literal("countPluralOffset1Exact", "1"),
+										catchall("countPluralOffset1"),
+									],
+									pattern: [text("You")],
+								},
+								{
+									matches: [
+										catchall("countPluralOffset1Exact"),
+										literal("countPluralOffset1", "one"),
+									],
+									pattern: [text("You and "), pound("1"), text(" other")],
+								},
+								{
+									matches: [
+										catchall("countPluralOffset1Exact"),
+										catchall("countPluralOffset1"),
+									],
+									pattern: [text("You and "), pound("1"), text(" others")],
+								},
+							],
+						},
+					],
+				},
+				{
+					id: "item_total",
+					declarations: [
+						{ type: "input-variable", name: "count" },
+						{
+							type: "local-variable",
+							name: "countPlural",
+							value: {
+								type: "expression",
+								arg: ref("count"),
+								annotation: {
+									type: "function-reference",
+									name: "plural",
+									options: [],
+								},
+							},
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [ref("countPlural")],
+							variants: [
+								{
+									matches: [literal("countPlural", "one")],
+									pattern: [pound(), text(" item")],
+								},
+								{
+									matches: [catchall("countPlural")],
+									pattern: [pound(), text(" items")],
+								},
+							],
+						},
+						{
+							locale: "de",
+							selectors: [ref("countPlural")],
+							variants: [
+								{
+									matches: [literal("countPlural", "one")],
+									pattern: [pound(), text(" Artikel")],
+								},
+								{
+									matches: [catchall("countPlural")],
+									pattern: [pound(), text(" Artikel")],
+								},
+							],
+						},
+					],
+				},
+			]);
+
+			const { m } = await importCode(
+				await bundleCode(output, `export * as m from "./paraglide/messages.js"`)
+			);
+			expect(
+				[0, 1, 2, 3, 1234].map((count) =>
+					m.guest_count({ count }, { locale: "en" })
+				)
+			).toEqual([
+				"Nobody",
+				"You",
+				"You and 1 other",
+				"You and 2 others",
+				"You and 1,233 others",
+			]);
+			expect(
+				[1, 2, 1234].map((count) => m.item_total({ count }, { locale: "en" }))
+			).toEqual(["1 item", "2 items", "1,234 items"]);
+			expect(m.item_total({ count: 1234 }, { locale: "de" })).toBe(
+				"1.234 Artikel"
+			);
+		});
 	}
 );
 
