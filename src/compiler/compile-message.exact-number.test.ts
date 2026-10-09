@@ -507,61 +507,123 @@ describe("exact number matches on the input itself (i18next _zero import)", () =
 	});
 });
 
-test("alias literal matches widen an input type narrowed by direct matches", () => {
-	const bundle: BundleNested = {
-		id: "status_message",
-		declarations: [
-			{ type: "input-variable", name: "status" },
-			{
-				type: "local-variable",
-				name: "statusExact",
-				value: {
-					type: "expression",
-					arg: { type: "variable-reference", name: "status" },
+describe("variant preference follows selector order", () => {
+	test("literal keys win over catchalls selector by selector, not by storage order", async () => {
+		const { message } = await compileAndImport({
+			locale: "en",
+			declarations: [
+				{ type: "input-variable", name: "platform" },
+				{ type: "input-variable", name: "gender" },
+			],
+			selectors: ["platform", "gender"],
+			variants: [
+				{
+					matches: [catchall("platform"), literal("gender", "male")],
+					pattern: text("*,male"),
 				},
-			},
-		],
-		messages: [
-			{
-				id: "en-id",
-				bundleId: "status_message",
-				locale: "en",
-				selectors: [{ type: "variable-reference", name: "status" }],
-				variants: [
-					{
-						id: "1",
-						messageId: "en-id",
-						matches: [literal("status", "active")],
-						pattern: text("Active"),
-					},
-				],
-			},
-			{
-				id: "de-id",
-				bundleId: "status_message",
-				locale: "de",
-				selectors: [{ type: "variable-reference", name: "statusExact" }],
-				variants: [
-					{
-						id: "2",
-						messageId: "de-id",
-						matches: [literal("statusExact", "0")],
-						pattern: text("Null"),
-					},
-				],
-			},
-		],
-	};
+				{
+					matches: [literal("platform", "android"), catchall("gender")],
+					pattern: text("android,*"),
+				},
+				{
+					matches: [catchall("platform"), catchall("gender")],
+					pattern: text("*,*"),
+				},
+			],
+		});
 
-	const result = compileBundle({
-		fallbackMap: { en: "en", de: "de" },
-		bundle,
-		messageReferenceExpression: (locale) =>
-			`${toSafeModuleId(locale)}.status_message`,
-		settings: { locales: ["en", "de"] } as ProjectSettings,
+		expect(message({ platform: "android", gender: "male" })).toBe("android,*");
+		expect(message({ platform: "ios", gender: "male" })).toBe("*,male");
+		expect(message({ platform: "ios", gender: "female" })).toBe("*,*");
 	});
 
-	expect(result.matchTypes.get("status")?.literals).toEqual(
-		new Set(["active", "0"])
-	);
+	test("an ICU select with `other` stored first still reaches the other cases", async () => {
+		// {gender, select, other {They} female {She} male {He}}
+		const { message } = await compileAndImport({
+			locale: "en",
+			declarations: [{ type: "input-variable", name: "gender" }],
+			selectors: ["gender"],
+			variants: [
+				{ matches: [catchall("gender")], pattern: text("They") },
+				{ matches: [literal("gender", "female")], pattern: text("She") },
+				{ matches: [literal("gender", "male")], pattern: text("He") },
+			],
+		});
+
+		expect(message({ gender: "female" })).toBe("She");
+		expect(message({ gender: "male" })).toBe("He");
+		expect(message({ gender: "other" })).toBe("They");
+	});
+});
+
+describe("input match types with alias matches", () => {
+	const statusBundle = (fr: Array<{ matches: Match[]; pattern: Pattern }>) => {
+		const bundle: BundleNested = {
+			id: "status_message",
+			declarations: [
+				{ type: "input-variable", name: "status" },
+				{
+					type: "local-variable",
+					name: "statusExact",
+					value: {
+						type: "expression",
+						arg: { type: "variable-reference", name: "status" },
+					},
+				},
+			],
+			messages: [
+				{
+					id: "en-id",
+					bundleId: "status_message",
+					locale: "en",
+					selectors: [{ type: "variable-reference", name: "status" }],
+					variants: [
+						{
+							id: "1",
+							messageId: "en-id",
+							matches: [literal("status", "active")],
+							pattern: text("Active"),
+						},
+					],
+				},
+				{
+					id: "fr-id",
+					bundleId: "status_message",
+					locale: "fr",
+					selectors: [{ type: "variable-reference", name: "statusExact" }],
+					variants: fr.map((variant, index) => ({
+						id: `fr-${index}`,
+						messageId: "fr-id",
+						...variant,
+					})),
+				},
+			],
+		};
+		return compileBundle({
+			fallbackMap: { en: "en", fr: "fr" },
+			bundle,
+			messageReferenceExpression: (locale) =>
+				`${toSafeModuleId(locale)}.status_message`,
+			settings: { locales: ["en", "fr"] } as ProjectSettings,
+		}).matchTypes.get("status");
+	};
+
+	test("alias literal matches widen an input type narrowed by direct matches", () => {
+		const info = statusBundle([
+			{ matches: [literal("statusExact", "0")], pattern: text("Zéro") },
+		]);
+
+		expect(info?.literals).toEqual(new Set(["active", "0"]));
+		expect(info?.hasCatchAll).toBe(false);
+	});
+
+	test("an alias catchall widens the input type to any value", () => {
+		const info = statusBundle([
+			{ matches: [literal("statusExact", "0")], pattern: text("Zéro") },
+			{ matches: [catchall("statusExact")], pattern: text("Autre") },
+		]);
+
+		// status: "inactive" must type-check, fr handles any status
+		expect(info?.hasCatchAll).toBe(true);
+	});
 });

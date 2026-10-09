@@ -681,20 +681,24 @@ function collectInputMatchTypes(bundle: BundleNested): InputMatchTypes {
 		}
 	}
 
-	// Literal matches on un-annotated aliases of an input compare against the
-	// input value too. Widen an input type that was narrowed by direct matches
-	// so the generated comparisons stay type-correct. Inputs that are only
-	// matched through aliases keep their unnarrowed type.
+	// Matches on un-annotated aliases of an input match the input value too.
+	// Widen an input type that was narrowed by direct matches: alias literals
+	// join the union and an alias catchall accepts any value. Inputs that are
+	// only matched through aliases keep their unnarrowed type.
 	const declarations = bundle.declarations ?? [];
 	for (const message of bundle.messages) {
 		for (const variant of message.variants) {
 			for (const match of variant.matches ?? []) {
-				if (match.type !== "literal-match" || inputNames.has(match.key)) {
-					continue;
-				}
+				if (inputNames.has(match.key)) continue;
 				const inputName = resolveInputAlias(match.key, declarations);
 				if (inputName === undefined) continue;
-				matchTypes.get(inputName)?.literals.add(match.value);
+				const info = matchTypes.get(inputName);
+				if (!info) continue;
+				if (match.type === "catchall-match") {
+					info.hasCatchAll = true;
+				} else if (match.type === "literal-match") {
+					info.literals.add(match.value);
+				}
 			}
 		}
 	}
