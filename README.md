@@ -283,6 +283,7 @@ Paraglide supports locale-aware formatting via declaration formatters:
 - `plural` (`Intl.PluralRules`) for plural and ordinal categories
 - `number` (`Intl.NumberFormat`) for numbers, currency, compact notation, and more
 - `datetime` (`Intl.DateTimeFormat`) for dates/times with locale-aware output
+- `date`, `time` and `icu:pound` for ICU MessageFormat 1 `{d, date}`, `{d, time}` and `#`, see [Formatting](https://paraglidejs.com/formatting#icu-messageformat-1-styles)
 - `relativetime` (`Intl.RelativeTimeFormat`) for values like "yesterday", "in 2 days", or "3 hr. ago"
 
 Gender and custom selects are supported via the variants system.

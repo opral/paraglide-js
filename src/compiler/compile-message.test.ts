@@ -1131,12 +1131,18 @@ test("compiles messages that use datetime()", async () => {
 	const enMessage = await createMessage("en");
 	const deMessage = await createMessage("de");
 
-	expect(enMessage({ date: "2022-04-01" })).toMatch(
-		/Today is \d{1,2}\/\d{1,2}\/2022\./
+	// MessageFormat 2's default: dateStyle=medium timeStyle=short. Compared
+	// with Intl to avoid the timezone affecting the unit test.
+	const date = new Date("2022-04-01");
+	const options = { dateStyle: "medium", timeStyle: "short" } as const;
+	expect(enMessage({ date: "2022-04-01" })).toBe(
+		`Today is ${new Intl.DateTimeFormat("en", options).format(date)}.`
 	);
-
-	expect(deMessage({ date: "2022-04-01" })).toMatch(
-		/Today is \d{1,2}\.\d{1,2}\.2022\./
+	expect(enMessage({ date: "2022-04-01" })).toMatch(
+		/Today is (Mar 31|Apr 1), 2022, \d{1,2}:\d{2}\s[AP]M\./
+	);
+	expect(deMessage({ date: "2022-04-01" })).toBe(
+		`Today is ${new Intl.DateTimeFormat("de", options).format(date)}.`
 	);
 });
 

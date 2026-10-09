@@ -522,3 +522,25 @@ test("accepts dollar-prefixed relative time formatter unit options with non-iden
 		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.["relative-unit"]) });'
 	);
 });
+
+test.each([
+	["date", '{ dateStyle: "medium" }'],
+	["time", '{ timeStyle: "medium" }'],
+	["datetime", '{ dateStyle: "medium", timeStyle: "short" }'],
+])("compiles a %s local variable with its default style", (name, options) => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declaration: {
+			type: "local-variable",
+			name: "formatted",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "d" },
+				annotation: { type: "function-reference", name, options: [] },
+			},
+		},
+	});
+	expect(code).toBe(
+		`const formatted = registry.datetime("en", i?.d, ${options});`
+	);
+});
