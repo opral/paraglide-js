@@ -18,6 +18,7 @@ import { toSafeModuleId } from "./safe-module-id.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
 import type { CompilerOptions } from "./compiler-options.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
+import { resolveInputAlias } from "./input-alias.js";
 
 export type CompiledBundleWithMessages = {
 	/** The compilation result for the bundle index */
@@ -676,6 +677,24 @@ function collectInputMatchTypes(bundle: BundleNested): InputMatchTypes {
 				if (match.type === "literal-match") {
 					info.literals.add(match.value);
 				}
+			}
+		}
+	}
+
+	// Literal matches on un-annotated aliases of an input compare against the
+	// input value too. Widen an input type that was narrowed by direct matches
+	// so the generated comparisons stay type-correct. Inputs that are only
+	// matched through aliases keep their unnarrowed type.
+	const declarations = bundle.declarations ?? [];
+	for (const message of bundle.messages) {
+		for (const variant of message.variants) {
+			for (const match of variant.matches ?? []) {
+				if (match.type !== "literal-match" || inputNames.has(match.key)) {
+					continue;
+				}
+				const inputName = resolveInputAlias(match.key, declarations);
+				if (inputName === undefined) continue;
+				matchTypes.get(inputName)?.literals.add(match.value);
 			}
 		}
 	}

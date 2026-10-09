@@ -5,6 +5,7 @@ import { inputsType, type InputMatchTypes } from "./jsdoc-types.js";
 import { compileLocalVariable } from "./compile-local-variable.js";
 import { renderInputMatchCondition } from "./match-literals.js";
 import { compileInputAccess } from "./variable-access.js";
+import { resolveInputAlias } from "./input-alias.js";
 
 /**
  * Returns the compiled message as a string
@@ -136,7 +137,10 @@ function compileMessageWithMultipleVariants(
 
 	let hasCatchAll = false;
 
-	for (const variant of variants) {
+	for (const variant of sortVariantsBySelectorPreference(
+		variants,
+		message.selectors
+	)) {
 		const compiledPattern = compilePattern({
 			pattern: variant.pattern,
 			declarations,
@@ -182,7 +186,15 @@ function compileMessageWithMultipleVariants(
 					renderInputMatchCondition(compileInputAccess(match.key), match.value)
 				);
 			} else if (variableType === "local-variable") {
-				conditions.push(`${match.key} === ${JSON.stringify(match.value)}`);
+				// An un-annotated local that aliases an input holds the raw input
+				// value (e.g. ICU `=0` imports as `.local countPluralExact = {$count}`)
+				// and must match like the input itself, numerically for numbers.
+				// Annotated locals hold the function's result and match as strings.
+				conditions.push(
+					resolveInputAlias(match.key, declarations) !== undefined
+						? renderInputMatchCondition(match.key, match.value)
+						: `${match.key} === ${JSON.stringify(match.value)}`
+				);
 			}
 		}
 
@@ -255,6 +267,44 @@ function compileMessageWithMultipleVariants(
 );`;
 
 	return { code, node: message };
+}
+
+/**
+ * Orders variants by key preference in selector order, as in MessageFormat 2
+ * variant selection: for the first selector, variants with a literal key come
+ * before variants with a catchall key, then the next selector breaks ties, and
+ * so on. Ties keep their original order.
+ *
+ * The compiled message returns the first variant whose conditions hold, so
+ * this makes `countPluralExact=0 × countPlural=*` win over
+ * `countPluralExact=* × countPlural=one` for French count 0 regardless of the
+ * order the variants are stored in.
+ */
+function sortVariantsBySelectorPreference(
+	variants: Variant[],
+	selectors: Message["selectors"]
+): Variant[] {
+	if (selectors.length === 0) {
+		return variants;
+	}
+	const rank = (variant: Variant) =>
+		selectors.map((selector) =>
+			variant.matches.some(
+				(match) => match.key === selector.name && match.type === "literal-match"
+			)
+				? 0
+				: 1
+		);
+	return variants
+		.map((variant, index) => ({ variant, index, rank: rank(variant) }))
+		.sort((left, right) => {
+			for (let i = 0; i < selectors.length; i++) {
+				const diff = left.rank[i]! - right.rank[i]!;
+				if (diff !== 0) return diff;
+			}
+			return left.index - right.index;
+		})
+		.map((entry) => entry.variant);
 }
 
 function patternHasMarkup(pattern: Pattern): boolean {
