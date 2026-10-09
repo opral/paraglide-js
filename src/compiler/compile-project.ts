@@ -100,7 +100,10 @@ export const compileProject = async (args: {
 	}
 
 	if (optionsWithDefaults.emitReadme) {
-		output["README.md"] = createReadme({ projectPath: args.projectPath });
+		output["README.md"] = createReadme({
+			projectPath: args.projectPath,
+			gitignored: optionsWithDefaults.emitGitIgnore,
+		});
 	}
 
 	// Declare the generated message modules side-effect-free so bundlers can drop

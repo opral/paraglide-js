@@ -212,6 +212,10 @@ test("emitReadme includes project path", async () => {
 	expect(output["README.md"]).toContain(projectPath);
 	expect(output["README.md"]).toContain("Compiled from:");
 	expect(output["README.md"]).toContain("Paraglide JS");
+	expect(output["README.md"]).toContain(
+		`npx @inlang/paraglide-js compile --project ${projectPath}`
+	);
+	expect(output["README.md"]).toContain("npx @inlang/cli check");
 });
 
 test("throws during compile for invalid routeStrategies match patterns", async () => {
@@ -3349,3 +3353,21 @@ function createBundleNested(args: {
 		})),
 	};
 }
+
+test("emitReadme only claims the output is git-ignored when a .gitignore is emitted", async () => {
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: { locales: ["en"], baseLocale: "en" },
+		}),
+	});
+
+	const withGitignore = await compileProject({ project });
+	const withoutGitignore = await compileProject({
+		project,
+		compilerOptions: { emitGitIgnore: false },
+	});
+
+	expect(withGitignore["README.md"]).toContain("git-ignored");
+	expect(withoutGitignore).not.toHaveProperty(".gitignore");
+	expect(withoutGitignore["README.md"]).not.toContain("git-ignored");
+});
