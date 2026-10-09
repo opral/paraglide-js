@@ -212,6 +212,10 @@ test("emitReadme includes project path", async () => {
 	expect(output["README.md"]).toContain(projectPath);
 	expect(output["README.md"]).toContain("Compiled from:");
 	expect(output["README.md"]).toContain("Paraglide JS");
+	expect(output["README.md"]).toContain(
+		`npx @inlang/paraglide-js compile --project ${projectPath}`
+	);
+	expect(output["README.md"]).toContain("npx @inlang/cli check");
 });
 
 test("throws during compile for invalid routeStrategies match patterns", async () => {
