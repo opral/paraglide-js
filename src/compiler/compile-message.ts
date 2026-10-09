@@ -1,4 +1,10 @@
-import type { Declaration, Message, Pattern, Variant } from "@inlang/sdk";
+import type {
+	Declaration,
+	LocalVariable,
+	Message,
+	Pattern,
+	Variant,
+} from "@inlang/sdk";
 import { compilePattern } from "./compile-pattern.js";
 import type { Compiled } from "./types.js";
 import { inputsType, type InputMatchTypes } from "./jsdoc-types.js";
@@ -6,6 +12,10 @@ import { compileLocalVariable } from "./compile-local-variable.js";
 import { renderInputMatchCondition } from "./match-literals.js";
 import { compileInputAccess } from "./variable-access.js";
 import { resolveInputAlias } from "./input-alias.js";
+import {
+	patternVariableReferences,
+	resolveMessageLocals,
+} from "./message-locals.js";
 
 /**
  * Returns the compiled message as a string
@@ -55,31 +65,30 @@ function compileMessageWithOneVariant(
 
 	const hasMarkup = patternHasMarkup(variant.pattern);
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
-	const hasInputs = inputs.length > 0;
 	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
+	// resolve before compiling the pattern to report undeclared variables
+	// with the bundle id and locale
+	const stringLocals = compileLocalVariables(
+		patternVariableReferences(variant.pattern, "string"),
+		declarations,
+		message
+	);
+	const partsLocals = hasMarkup
+		? compileLocalVariables(
+				patternVariableReferences(variant.pattern, "parts"),
+				declarations,
+				message
+			)
+		: { code: [], readsInput: false };
 	const compiledPattern = compilePattern({
 		pattern: variant.pattern,
 		declarations,
 		locale: message.locale,
 	});
 
-	const compiledLocalVariables = [];
-
-	for (const declaration of declarations) {
-		if (declaration.type === "local-variable") {
-			compiledLocalVariables.push(
-				compileLocalVariable({
-					declaration,
-					declarations,
-					locale: message.locale,
-				})
-			);
-		}
-	}
-
 	if (!hasMarkup) {
-		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {
-	${compiledLocalVariables.join("\n\t")}return /** @type {LocalizedString} */ (${compiledPattern.code})
+		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${stringLocals.readsInput ? "i" : ""}) => {
+	${stringLocals.code.join("\n\t")}return /** @type {LocalizedString} */ (${compiledPattern.code})
 };`;
 
 		return { code, node: message };
@@ -91,11 +100,12 @@ function compileMessageWithOneVariant(
 		mode: "parts",
 		locale: message.locale,
 	});
-	const localVariablesCode = compiledLocalVariables.length
-		? compiledLocalVariables.join("\n\t") + "\n\t"
-		: "";
+	const localVariablesCode = joinLocalVariables(stringLocals.code);
+	const partsLocalVariablesCode = joinLocalVariables(partsLocals.code);
 	const inputType = messageInputType;
-	const messageInput = hasInputs ? "i" : "";
+	// only declare the input parameter where it is read (noUnusedParameters)
+	const messageInput = stringLocals.readsInput ? "i" : "";
+	const partsMessageInput = partsLocals.readsInput ? "i" : "";
 
 	const partsCode = `/** @type {((inputs: ${inputType}) => LocalizedString) & { parts: (inputs: ${inputType}) => import('../runtime.js').MessagePart[] }} */ (
 	/* @__PURE__ */ Object.assign(
@@ -103,8 +113,8 @@ function compileMessageWithOneVariant(
 			${localVariablesCode}return /** @type {LocalizedString} */ (${compiledPattern.code})
 		}),
 		{
-			parts: /** @type {(inputs: ${inputType}) => import('../runtime.js').MessagePart[]} */ ((${messageInput}) => {
-				${localVariablesCode}return /** @type {import('../runtime.js').MessagePart[]} */ (${compiledPartsPattern.code})
+			parts: /** @type {(inputs: ${inputType}) => import('../runtime.js').MessagePart[]} */ ((${partsMessageInput}) => {
+				${partsLocalVariablesCode}return /** @type {import('../runtime.js').MessagePart[]} */ (${compiledPartsPattern.code})
 			})
 		}
 	)
@@ -128,12 +138,13 @@ function compileMessageWithMultipleVariants(
 		patternHasMarkup(variant.pattern)
 	);
 	const inputs = declarations.filter((decl) => decl.type === "input-variable");
-	const hasInputs = inputs.length > 0;
 	const messageInputType = inputTypeAliasName ?? inputsType(inputs, matchTypes);
 
-	// TODO make sure that matchers use keys instead of indexes
-	const compiledVariants = [];
-	const compiledPartsVariants = [];
+	// The variants the function checks, in preference order. A variant without
+	// a condition is a catchall and returns unconditionally.
+	const steps: Array<{ pattern: Pattern; condition?: string }> = [];
+	// variables the match conditions read
+	const conditionReads: string[] = [];
 
 	let hasCatchAll = false;
 
@@ -141,34 +152,14 @@ function compileMessageWithMultipleVariants(
 		variants,
 		message.selectors
 	)) {
-		const compiledPattern = compilePattern({
-			pattern: variant.pattern,
-			declarations,
-			locale: message.locale,
-		});
-		const compiledPartsPattern = hasMarkup
-			? compilePattern({
-					pattern: variant.pattern,
-					declarations,
-					mode: "parts",
-					locale: message.locale,
-				})
-			: undefined;
-
 		const isCatchAll = variant.matches.every(
 			(match) => match.type === "catchall-match"
 		);
 
 		if (isCatchAll) {
-			compiledVariants.push(
-				`return /** @type {LocalizedString} */ (${compiledPattern.code})`
-			);
-			if (compiledPartsPattern) {
-				compiledPartsVariants.push(
-					`return /** @type {import('../runtime.js').MessagePart[]} */ (${compiledPartsPattern.code})`
-				);
-			}
+			steps.push({ pattern: variant.pattern });
 			hasCatchAll = true;
+			continue;
 		}
 
 		const conditions: string[] = [];
@@ -182,10 +173,12 @@ function compileMessageWithMultipleVariants(
 				(decl) => decl.name === match.key
 			)?.type;
 			if (variableType === "input-variable") {
+				conditionReads.push(match.key);
 				conditions.push(
 					renderInputMatchCondition(compileInputAccess(match.key), match.value)
 				);
 			} else if (variableType === "local-variable") {
+				conditionReads.push(match.key);
 				// An un-annotated local that aliases an input holds the raw input
 				// value (e.g. ICU `=0` imports as `.local countPluralExact = {$count}`)
 				// and must match like the input itself, numerically for numbers.
@@ -199,32 +192,68 @@ function compileMessageWithMultipleVariants(
 		}
 
 		if (conditions.length === 0) continue;
-		compiledVariants.push(
-			`if (${conditions.join(" && ")}) return /** @type {LocalizedString} */ (${compiledPattern.code});`
-		);
-		if (compiledPartsPattern) {
-			compiledPartsVariants.push(
-				`if (${conditions.join(" && ")}) return /** @type {import('../runtime.js').MessagePart[]} */ (${compiledPartsPattern.code});`
-			);
-		}
+		steps.push({
+			pattern: variant.pattern,
+			condition: conditions.join(" && "),
+		});
 	}
 
-	const compiledLocalVariables = [];
+	// resolve before compiling the patterns to report undeclared variables
+	// with the bundle id and locale
+	const stringLocals = compileLocalVariables(
+		[
+			...conditionReads,
+			...steps.flatMap((step) =>
+				patternVariableReferences(step.pattern, "string")
+			),
+		],
+		declarations,
+		message
+	);
+	const partsLocals = hasMarkup
+		? compileLocalVariables(
+				[
+					...conditionReads,
+					...steps.flatMap((step) =>
+						patternVariableReferences(step.pattern, "parts")
+					),
+				],
+				declarations,
+				message
+			)
+		: { code: [], readsInput: false };
 
-	for (const declaration of declarations) {
-		if (declaration.type === "local-variable") {
-			compiledLocalVariables.push(
-				compileLocalVariable({
-					declaration,
-					declarations,
-					locale: message.locale,
-				})
+	const compiledVariants: string[] = [];
+	const compiledPartsVariants: string[] = [];
+
+	for (const step of steps) {
+		const compiledPattern = compilePattern({
+			pattern: step.pattern,
+			declarations,
+			locale: message.locale,
+		});
+		compiledVariants.push(
+			step.condition === undefined
+				? `return /** @type {LocalizedString} */ (${compiledPattern.code})`
+				: `if (${step.condition}) return /** @type {LocalizedString} */ (${compiledPattern.code});`
+		);
+		if (hasMarkup) {
+			const compiledPartsPattern = compilePattern({
+				pattern: step.pattern,
+				declarations,
+				mode: "parts",
+				locale: message.locale,
+			});
+			compiledPartsVariants.push(
+				step.condition === undefined
+					? `return /** @type {import('../runtime.js').MessagePart[]} */ (${compiledPartsPattern.code})`
+					: `if (${step.condition}) return /** @type {import('../runtime.js').MessagePart[]} */ (${compiledPartsPattern.code});`
 			);
 		}
 	}
 
 	if (!hasMarkup) {
-		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${hasInputs ? "i" : ""}) => {${compiledLocalVariables.join("\n\t")}
+		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${stringLocals.readsInput ? "i" : ""}) => {${stringLocals.code.join("\n\t")}
 	${compiledVariants.join("\n\t")}
 	${hasCatchAll ? "" : `return /** @type {LocalizedString} */ ("${message.bundleId}");`}
 };`;
@@ -232,9 +261,8 @@ function compileMessageWithMultipleVariants(
 		return { code, node: message };
 	}
 
-	const localVariablesCode = compiledLocalVariables.length
-		? compiledLocalVariables.join("\n\t") + "\n\t"
-		: "";
+	const localVariablesCode = joinLocalVariables(stringLocals.code);
+	const partsLocalVariablesCode = joinLocalVariables(partsLocals.code);
 	const stringVariantsCode = compiledVariants.length
 		? compiledVariants.join("\n\t") + "\n\t"
 		: "";
@@ -243,7 +271,9 @@ function compileMessageWithMultipleVariants(
 		: "";
 	const inputType = messageInputType;
 	const fallbackParts = `[{ type: "text", value: ${JSON.stringify(message.bundleId)} }]`;
-	const messageInput = hasInputs ? "i" : "";
+	// only declare the input parameter where it is read (noUnusedParameters)
+	const messageInput = stringLocals.readsInput ? "i" : "";
+	const partsMessageInput = partsLocals.readsInput ? "i" : "";
 
 	const code = `/** @type {((inputs: ${inputType}) => LocalizedString) & { parts: (inputs: ${inputType}) => import('../runtime.js').MessagePart[] }} */ (
 	/* @__PURE__ */ Object.assign(
@@ -255,8 +285,8 @@ function compileMessageWithMultipleVariants(
 			}
 		}),
 		{
-			parts: /** @type {(inputs: ${inputType}) => import('../runtime.js').MessagePart[]} */ ((${messageInput}) => {
-				${localVariablesCode}${partsVariantsCode}${
+			parts: /** @type {(inputs: ${inputType}) => import('../runtime.js').MessagePart[]} */ ((${partsMessageInput}) => {
+				${partsLocalVariablesCode}${partsVariantsCode}${
 					hasCatchAll
 						? ""
 						: `return /** @type {import('../runtime.js').MessagePart[]} */ (${fallbackParts});`
@@ -267,6 +297,40 @@ function compileMessageWithMultipleVariants(
 );`;
 
 	return { code, node: message };
+}
+
+/**
+ * Compiles the local variables a message function reads, directly or through
+ * other locals, in dependency order. Unread locals are left out. `readsInput`
+ * tells whether the function reads its inputs parameter.
+ */
+function compileLocalVariables(
+	reads: string[],
+	declarations: Declaration[],
+	message: Message
+): { code: string[]; readsInput: boolean } {
+	const { locals, readsInput } = resolveMessageLocals({
+		reads,
+		declarations,
+		bundleId: message.bundleId,
+		locale: message.locale,
+	});
+	return {
+		code: locals.map((declaration: LocalVariable) =>
+			compileLocalVariable({
+				declaration,
+				declarations,
+				locale: message.locale,
+			})
+		),
+		readsInput,
+	};
+}
+
+function joinLocalVariables(compiledLocalVariables: string[]): string {
+	return compiledLocalVariables.length
+		? compiledLocalVariables.join("\n\t") + "\n\t"
+		: "";
 }
 
 /**

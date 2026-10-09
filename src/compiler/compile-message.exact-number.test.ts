@@ -627,3 +627,156 @@ describe("input match types with alias matches", () => {
 		expect(info?.hasCatchAll).toBe(true);
 	});
 });
+
+describe("ICU plural offset (`{count, plural, offset:1 …}`)", () => {
+	/**
+	 * The shape inlang's ICU MessageFormat 1 plugin imports
+	 * `{count, plural, offset:1 =0 {…} =1 {…} one {…} other {…}}` as.
+	 */
+	const offsetDeclarations = (offset = "1"): Declaration[] => [
+		{ type: "input-variable", name: "count" },
+		{
+			type: "local-variable",
+			name: "countPluralOffset1",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "count" },
+				annotation: {
+					type: "function-reference",
+					name: "plural",
+					options: [
+						{ name: "offset", value: { type: "literal", value: offset } },
+					],
+				},
+			},
+		},
+		{
+			type: "local-variable",
+			name: "countPluralOffset1Exact",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "count" },
+			},
+		},
+	];
+	const offsetSelectors = ["countPluralOffset1Exact", "countPluralOffset1"];
+	const exactOffset = (value: string, pattern: Pattern) => ({
+		matches: [
+			literal("countPluralOffset1Exact", value),
+			catchall("countPluralOffset1"),
+		],
+		pattern,
+	});
+	const categoryOffset = (value: string, pattern: Pattern) => ({
+		matches: [
+			catchall("countPluralOffset1Exact"),
+			literal("countPluralOffset1", value),
+		],
+		pattern,
+	});
+	const otherOffset = (pattern: Pattern) => ({
+		matches: [
+			catchall("countPluralOffset1Exact"),
+			catchall("countPluralOffset1"),
+		],
+		pattern,
+	});
+
+	test("en: the category is selected on count - offset, exact matches on count", async () => {
+		const { message, code } = await compileAndImport({
+			locale: "en",
+			declarations: offsetDeclarations(),
+			selectors: offsetSelectors,
+			variants: [
+				exactOffset("0", text("Nobody")),
+				exactOffset("1", text("Only you")),
+				categoryOffset("one", text("You and one other")),
+				otherOffset(text("You and others")),
+			],
+		});
+
+		// a number, not the string "1"
+		expect(code).toContain('registry.plural("en", i?.count, { offset: 1 })');
+		expect(render(message, [0, 1, 2, 3, 22, "1", "2"])).toEqual({
+			"0": "Nobody",
+			"1": "Only you",
+			// 2 - 1 = 1 is "one"
+			"2": "You and one other",
+			"3": "You and others",
+			"22": "You and others",
+			'"1"': "Only you",
+			'"2"': "You and one other",
+		});
+	});
+
+	test("ru: one/few/many follow count - offset", async () => {
+		const { message } = await compileAndImport({
+			locale: "ru",
+			declarations: offsetDeclarations(),
+			selectors: offsetSelectors,
+			variants: [
+				exactOffset("1", text("only you")),
+				categoryOffset("one", text("one")),
+				categoryOffset("few", text("few")),
+				categoryOffset("many", text("many")),
+				otherOffset(text("other")),
+			],
+		});
+
+		expect(render(message, [1, 2, 3, 6, 22, 23])).toEqual({
+			"1": "only you",
+			"2": "one", // 1
+			"3": "few", // 2
+			"6": "many", // 5
+			"22": "one", // 21
+			"23": "few", // 22
+		});
+	});
+
+	test("an offset of 0 and no offset select the same category", async () => {
+		const withZero = await compileAndImport({
+			locale: "en",
+			declarations: offsetDeclarations("0"),
+			selectors: offsetSelectors,
+			variants: [
+				categoryOffset("one", text("one")),
+				otherOffset(text("other")),
+			],
+		});
+
+		expect(render(withZero.message, [0, 1, 2])).toEqual({
+			"0": "other",
+			"1": "one",
+			"2": "other",
+		});
+	});
+
+	test("a non-numeric offset fails compilation", async () => {
+		await expect(
+			compileAndImport({
+				locale: "en",
+				declarations: offsetDeclarations("one"),
+				selectors: offsetSelectors,
+				variants: [
+					categoryOffset("one", text("one")),
+					otherOffset(text("other")),
+				],
+			})
+		).rejects.toThrow('Invalid "plural" offset "one". Expected a number.');
+	});
+
+	test("registry.plural subtracts the offset and ignores it otherwise", async () => {
+		const registry = await import(
+			"data:text/javascript;base64," +
+				Buffer.from(createRegistry()).toString("base64")
+		);
+
+		expect(registry.plural("en", 2, { offset: 1 })).toBe("one");
+		expect(registry.plural("en", 1, { offset: 1 })).toBe("other");
+		expect(registry.plural("en", 1, {})).toBe("one");
+		expect(registry.plural("en", 1)).toBe("one");
+		expect(registry.plural("en", 3, { type: "ordinal", offset: 1 })).toBe(
+			"two"
+		);
+	});
+});

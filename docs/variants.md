@@ -93,6 +93,10 @@ This is the shape the ICU MessageFormat 1 plugin imports `{count, plural, =0 {�
 > [!NOTE]
 > Un-annotated locals like `local countPluralExact = count` need a message format plugin version that supports them ([opral/inlang#4440](https://github.com/opral/inlang/pull/4440)). Older versions also sort selectors alphabetically on export, which puts `countPlural` before `countPluralExact`, so the exact match loses to a category that also covers the number.
 
+### Plural offset
+
+`plural` accepts an `offset` option, which ICU MessageFormat 1 `{count, plural, offset:1 …}` imports as `local countPluralOffset1 = count: plural offset=1`. The category is selected for `count - offset`, while exact numbers like `=1` still compare `count` itself. With `offset=1` in English, `count` 2 selects `one` and `count` 3 selects `other`.
+
 ### Ordinal pluralization (1st, 2nd, 3rd…)
 
 `plural` forwards its options to `Intl.PluralRules`, so you can request ordinal categories by passing `type=ordinal`.

@@ -784,7 +784,7 @@ test("only emits input arguments when inputs exist", async () => {
 // https://github.com/opral/inlang-paraglide-js/issues/379
 test("compiles messages that use plural()", async () => {
 	const declarations: Declaration[] = [
-		{ type: "input-variable", name: "date" },
+		{ type: "input-variable", name: "count" },
 		{
 			type: "local-variable",
 			name: "countPlural",
@@ -831,9 +831,10 @@ test("compiles messages that use plural()", async () => {
 	const { plural_test } = await import(
 		"data:text/javascript;base64," +
 			// bundling the registry inline to avoid managing module imports here
-			btoa(createRegistry()) +
 			btoa(
-				"export const plural_test = " + compiled.code.replace("registry.", "")
+				createRegistry() +
+					"export const plural_test = " +
+					compiled.code.replace("registry.", "")
 			)
 	);
 
@@ -923,9 +924,10 @@ test("compiles messages that use plural() with ordinal type", async () => {
 
 	const { ordinal_test } = await import(
 		"data:text/javascript;base64," +
-			btoa(createRegistry()) +
 			btoa(
-				"export const ordinal_test = " + compiled.code.replace("registry.", "")
+				createRegistry() +
+					"export const ordinal_test = " +
+					compiled.code.replace("registry.", "")
 			)
 	);
 
@@ -982,9 +984,10 @@ test("compiles messages that use number()", async () => {
 		const { number_test } = await import(
 			"data:text/javascript;base64," +
 				// bundling the registry inline to avoid managing module imports here
-				btoa(createRegistry()) +
 				btoa(
-					"export const number_test = " + compiled.code.replace("registry.", "")
+					createRegistry() +
+						"export const number_test = " +
+						compiled.code.replace("registry.", "")
 				)
 		);
 		return number_test;
@@ -1053,9 +1056,10 @@ test("compiles messages that use number() with options", async () => {
 		const { number_test } = await import(
 			"data:text/javascript;base64," +
 				// bundling the registry inline to avoid managing module imports here
-				btoa(createRegistry()) +
 				btoa(
-					"export const number_test = " + compiled.code.replace("registry.", "")
+					createRegistry() +
+						"export const number_test = " +
+						compiled.code.replace("registry.", "")
 				)
 		);
 		return number_test;
@@ -1115,9 +1119,9 @@ test("compiles messages that use datetime()", async () => {
 		const { datetime_test } = await import(
 			"data:text/javascript;base64," +
 				// bundling the registry inline to avoid managing module imports here
-				btoa(createRegistry()) +
 				btoa(
-					"export const datetime_test =" +
+					createRegistry() +
+						"export const datetime_test =" +
 						compiled.code.replace("registry.", "")
 				)
 		);
@@ -1186,9 +1190,9 @@ test("compiles messages that use datetime a function with options", async () => 
 		const { datetime_test } = await import(
 			"data:text/javascript;base64," +
 				// bundling the registry inline to avoid managing module imports here
-				btoa(createRegistry()) +
 				btoa(
-					"export const datetime_test = " +
+					createRegistry() +
+						"export const datetime_test = " +
 						compiled.code.replace("registry.", "")
 				)
 		);
@@ -1256,9 +1260,9 @@ test("compiles messages that use relativetime() with options", async () => {
 		const { relative_time_test } = await import(
 			"data:text/javascript;base64," +
 				// bundling the registry inline to avoid managing module imports here
-				btoa(createRegistry()) +
 				btoa(
-					"export const relative_time_test = " +
+					createRegistry() +
+						"export const relative_time_test = " +
 						compiled.code.replace("registry.", "")
 				)
 		);
@@ -1325,9 +1329,9 @@ test("compiles messages that use relativetime() with dynamic units", async () =>
 	const { relative_time_test } = await import(
 		"data:text/javascript;base64," +
 			// bundling the registry inline to avoid managing module imports here
-			btoa(createRegistry()) +
 			btoa(
-				"export const relative_time_test = " +
+				createRegistry() +
+					"export const relative_time_test = " +
 					compiled.code.replace("registry.", "")
 			)
 	);
