@@ -58,9 +58,7 @@ export const maybeAddMachineTranslation: CliStep<
 			},
 		})(ctx);
 
-		ctx.logger.success(
-			"Added @inlang/cli and machine-translate script to package.json"
-		);
+		ctx.logger.success("Added a machine-translate script to package.json.");
 	} catch (error) {
 		ctx.logger.error(
 			[

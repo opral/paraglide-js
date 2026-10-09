@@ -75,7 +75,9 @@ export const initCommand = new Command()
 
 		const settings = await ctx9.project.settings.get();
 		const pathPattern = settings["plugin.inlang.messageFormat"]?.pathPattern;
-		ctx.logger.log(
+		// Written directly: the logger renders `code` spans and drops the
+		// backticks, which the AGENTS.md snippet needs when copied.
+		process.stdout.write(
 			agentsMdSuggestion({
 				root: ctx9.root,
 				projectPath: ctx9.projectPath,
@@ -85,9 +87,10 @@ export const initCommand = new Command()
 						: getNewProjectTemplate()["plugin.inlang.messageFormat"]
 								.pathPattern,
 				outdir: ctx9.outdir,
-			}) + "\n"
+			}) + "\n\n",
+			// exit once the write is flushed, stdout to a pipe is async
+			() => process.exit(0)
 		);
-		process.exit(0);
 	});
 
 const addParaglideJsToDevDependencies: CliStep<
