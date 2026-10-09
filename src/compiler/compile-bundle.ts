@@ -18,6 +18,7 @@ import { toSafeModuleId } from "./safe-module-id.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
 import type { CompilerOptions } from "./compiler-options.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
+import { resolveInputAlias } from "./input-alias.js";
 
 export type CompiledBundleWithMessages = {
 	/** The compilation result for the bundle index */
@@ -674,6 +675,28 @@ function collectInputMatchTypes(bundle: BundleNested): InputMatchTypes {
 					continue;
 				}
 				if (match.type === "literal-match") {
+					info.literals.add(match.value);
+				}
+			}
+		}
+	}
+
+	// Matches on un-annotated aliases of an input match the input value too.
+	// Widen an input type that was narrowed by direct matches: alias literals
+	// join the union and an alias catchall accepts any value. Inputs that are
+	// only matched through aliases keep their unnarrowed type.
+	const declarations = bundle.declarations ?? [];
+	for (const message of bundle.messages) {
+		for (const variant of message.variants) {
+			for (const match of variant.matches ?? []) {
+				if (inputNames.has(match.key)) continue;
+				const inputName = resolveInputAlias(match.key, declarations);
+				if (inputName === undefined) continue;
+				const info = matchTypes.get(inputName);
+				if (!info) continue;
+				if (match.type === "catchall-match") {
+					info.hasCatchAll = true;
+				} else if (match.type === "literal-match") {
 					info.literals.add(match.value);
 				}
 			}

@@ -35,6 +35,12 @@ The message below will match the following conditions:
 }
 ```
 
+### Variant preference
+
+When more than one variant matches, Paraglide picks one the way MessageFormat 2 does: selectors are compared in the order they are declared, and for each selector a variant with a literal key is preferred over a variant with the catchall `*`. The order in which variants are stored does not matter.
+
+For example, with the selectors `platform, userGender` and the variants `platform=*, userGender=male`, `platform=android, userGender=*` and `platform=*, userGender=*`, the input `platform=android, userGender=male` selects `platform=android, userGender=*`, because the first selector, `platform`, has a literal match there.
+
 ## Pluralization
 
 You can define a variable in your message and then use it in the selector. Paraglide uses `Intl.PluralRules` under the hood to determine the plural form. 
@@ -59,6 +65,33 @@ You can define a variable in your message and then use it in the selector. Parag
   }]
 }
 ```
+
+### Exact numbers (`=0`, `=1`, …)
+
+A plural selector returns a category (`zero`, `one`, `two`, `few`, `many`, `other`), never a number. A key like `0` on the `countPlural` selector itself therefore never matches. To match an exact number, add a second selector that aliases the input without a function, and put it **before** the plural selector, so the exact match wins over a category like French `one`, which also covers 0:
+
+```json
+{
+"some_happy_cat": [{
+    "declarations": [
+      "input count",
+      "local countPluralExact = count",
+      "local countPlural = count: plural"
+    ],
+    "selectors": ["countPluralExact", "countPlural"],
+    "match": {
+      "countPluralExact=0, countPlural=*": "There are no cats.",
+      "countPluralExact=*, countPlural=one": "There is one cat.",
+      "countPluralExact=*, countPlural=*": "There are {count} cats."
+    }
+  }]
+}
+```
+
+This is the shape the ICU MessageFormat 1 plugin imports `{count, plural, =0 {…} one {…} other {…}}` as. A numeric key on an alias of an input matches both the number `0` and the string `"0"`.
+
+> [!NOTE]
+> Un-annotated locals like `local countPluralExact = count` need a message format plugin version that supports them ([opral/inlang#4440](https://github.com/opral/inlang/pull/4440)). Older versions also sort selectors alphabetically on export, which puts `countPlural` before `countPluralExact`, so the exact match loses to a category that also covers the number.
 
 ### Ordinal pluralization (1st, 2nd, 3rd…)
 

@@ -1591,6 +1591,233 @@ describe.each([
 			}
 			expect(diagnostics.length).toEqual(0);
 		});
+
+		test("ICU exact number aliases select numerically and pass checkJs", async () => {
+			const icuProject = await loadProjectInMemory({
+				blob: await newProject({
+					settings: { baseLocale: "en", locales: ["en", "fr"] },
+				}),
+			});
+
+			const countPluralExact = (value?: string) =>
+				value === undefined
+					? ({ type: "catchall-match", key: "countPluralExact" } as const)
+					: ({
+							type: "literal-match",
+							key: "countPluralExact",
+							value,
+						} as const);
+			const countPlural = (value?: string) =>
+				value === undefined
+					? ({ type: "catchall-match", key: "countPlural" } as const)
+					: ({ type: "literal-match", key: "countPlural", value } as const);
+			const withCount = (suffix: string) => [
+				{
+					type: "expression" as const,
+					arg: { type: "variable-reference" as const, name: "count" },
+				},
+				{ type: "text" as const, value: suffix },
+			];
+
+			// the shape the ICU1 plugin imports {count, plural, =0 {…} one {…} other {…}} as
+			await insertBundleNested(
+				icuProject.db,
+				createBundleNested({
+					id: "item_count",
+					declarations: [
+						{ type: "input-variable", name: "count" },
+						{
+							type: "local-variable",
+							name: "countPluralExact",
+							value: {
+								type: "expression",
+								arg: { type: "variable-reference", name: "count" },
+							},
+						},
+						{
+							type: "local-variable",
+							name: "countPlural",
+							value: {
+								type: "expression",
+								arg: { type: "variable-reference", name: "count" },
+								annotation: {
+									type: "function-reference",
+									name: "plural",
+									options: [],
+								},
+							},
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [
+								{ type: "variable-reference", name: "countPluralExact" },
+								{ type: "variable-reference", name: "countPlural" },
+							],
+							variants: [
+								{
+									matches: [countPluralExact("0"), countPlural()],
+									pattern: [{ type: "text", value: "No items" }],
+								},
+								{
+									matches: [countPluralExact(), countPlural("one")],
+									pattern: withCount(" item"),
+								},
+								{
+									matches: [countPluralExact(), countPlural()],
+									pattern: withCount(" items"),
+								},
+							],
+						},
+						{
+							locale: "fr",
+							selectors: [
+								{ type: "variable-reference", name: "countPluralExact" },
+								{ type: "variable-reference", name: "countPlural" },
+							],
+							// an editor appends the exact variant last
+							variants: [
+								{
+									matches: [countPluralExact(), countPlural("one")],
+									pattern: withCount(" élément"),
+								},
+								{
+									matches: [countPluralExact(), countPlural()],
+									pattern: withCount(" éléments"),
+								},
+								{
+									matches: [countPluralExact("0"), countPlural()],
+									pattern: [{ type: "text", value: "Aucun élément" }],
+								},
+							],
+						},
+					],
+				})
+			);
+
+			// en narrows `status` by a direct match, fr matches through an alias
+			// with a catchall, so any status is accepted
+			await insertBundleNested(
+				icuProject.db,
+				createBundleNested({
+					id: "status_message",
+					declarations: [
+						{ type: "input-variable", name: "status" },
+						{
+							type: "local-variable",
+							name: "statusExact",
+							value: {
+								type: "expression",
+								arg: { type: "variable-reference", name: "status" },
+							},
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [{ type: "variable-reference", name: "status" }],
+							variants: [
+								{
+									matches: [
+										{ type: "literal-match", key: "status", value: "active" },
+									],
+									// reads statusExact: unused bundle locals fail noUnusedLocals
+									pattern: [
+										{ type: "text", value: "Active: " },
+										{
+											type: "expression",
+											arg: { type: "variable-reference", name: "statusExact" },
+										},
+									],
+								},
+							],
+						},
+						{
+							locale: "fr",
+							selectors: [{ type: "variable-reference", name: "statusExact" }],
+							variants: [
+								{
+									matches: [
+										{ type: "literal-match", key: "statusExact", value: "0" },
+									],
+									pattern: [{ type: "text", value: "Zéro" }],
+								},
+								{
+									matches: [{ type: "catchall-match", key: "statusExact" }],
+									pattern: [{ type: "text", value: "Autre" }],
+								},
+							],
+						},
+					],
+				})
+			);
+
+			const output = await compileProject({
+				project: icuProject,
+				compilerOptions,
+			});
+
+			const tsProject = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+			for (const [fileName, code] of Object.entries(output)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					tsProject.createSourceFile(fileName, code);
+				}
+			}
+			tsProject.createSourceFile(
+				"test.ts",
+				`
+				import * as m from "./messages.js"
+
+				m.item_count({ count: 0 }) satisfies string
+				m.item_count({ count: "0" }) satisfies string
+				m.status_message({ status: "active" }) satisfies string
+				m.status_message({ status: "inactive" }) satisfies string
+				`
+			);
+
+			const program = tsProject.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+			for (const diagnostic of diagnostics) {
+				console.error(diagnostic.messageText, diagnostic.file?.fileName);
+			}
+			expect(diagnostics.length).toEqual(0);
+
+			const { m } = await importCode(
+				await bundleCode(output, `export * as m from "./paraglide/messages.js"`)
+			);
+			const render = (locale: string) =>
+				[0, 1, 2, 5, 21, "0"].map((count) =>
+					m.item_count({ count }, { locale })
+				);
+
+			expect(render("en")).toEqual([
+				"No items",
+				"1 item",
+				"2 items",
+				"5 items",
+				"21 items",
+				"No items",
+			]);
+			expect(render("fr")).toEqual([
+				"Aucun élément",
+				"1 élément",
+				"2 éléments",
+				"5 éléments",
+				"21 éléments",
+				"Aucun élément",
+			]);
+			expect(m.status_message({ status: "inactive" }, { locale: "fr" })).toBe(
+				"Autre"
+			);
+		});
 	}
 );
 
