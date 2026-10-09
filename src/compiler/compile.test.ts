@@ -138,7 +138,7 @@ test("experimental middleware locale splitting uses globalThis.__paraglide.ssr",
 	expect(runtimeFile).toContain("(globalThis).__paraglide.ssr =");
 	expect(runtimeFile).not.toContain("__paraglide_ssr");
 	expect(serverFile).toContain("globalThis.__paraglide = globalThis.__paraglide ?? {};");
-	expect(serverFile).toContain("globalThis.__paraglide.ssr = {");
+	expect(serverFile).toContain("globalThis.__paraglide.ssr = ${escapedSsr}");
 	expect(serverFile).toContain(
 		String.raw`replace(/<\/(script)/gi, "<\\/$1")`
 	);

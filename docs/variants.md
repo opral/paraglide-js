@@ -97,7 +97,7 @@ This is the shape the ICU MessageFormat 1 plugin imports `{count, plural, =0 {�
 
 `plural` accepts an `offset` option, which ICU MessageFormat 1 `{count, plural, offset:1 …}` imports as `local countPluralOffset1 = count: plural offset=1`. The category is selected for `count - offset`, while exact numbers like `=1` still compare `count` itself. With `offset=1` in English, `count` 2 selects `one` and `count` 3 selects `other`.
 
-ICU `#` inside such a plural imports as the expression `{$count :icu:pound offset=1}` ([opral/inlang#4441](https://github.com/opral/inlang/pull/4441)) and displays `count - offset`, formatted for the locale like `number`: `You and # others` renders "You and 1,233 others" for `count` 1234. Without an offset, `#` displays `count` formatted like `number`.
+ICU `#` inside such a plural imports as the expression `{$count :icu:pound offset=1}` ([opral/inlang#4441](https://github.com/opral/inlang/pull/4441)) and displays `count - offset`, formatted for the locale like `number`: `You and # others` renders "You and 1,233 others" for `count` 1234. Without an offset, `#` displays `count` formatted like `number`. A `count` that is not a number or a numeric string (for example `"abc"`, `"1,234"`, `null` or `undefined`) is displayed as is, like `{count}`, without subtracting the offset.
 
 ### Ordinal pluralization (1st, 2nd, 3rd…)
 

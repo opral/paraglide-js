@@ -1,4 +1,5 @@
 import { expect, test, describe, vi, beforeEach } from "vitest";
+import vm from "node:vm";
 import {
 	createProject as typescriptProject,
 	ts,
@@ -2350,10 +2351,64 @@ describe.each([
 						},
 					],
 				},
+				{
+					id: "variable_offset",
+					declarations: [
+						{ type: "input-variable", name: "count" },
+						{ type: "input-variable", name: "off" },
+						{
+							type: "local-variable",
+							name: "countPlural",
+							value: {
+								type: "expression",
+								arg: ref("count"),
+								annotation: {
+									type: "function-reference",
+									name: "plural",
+									options: [{ name: "offset", value: ref("off") }],
+								},
+							},
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [ref("countPlural")],
+							variants: [
+								{
+									matches: [literal("countPlural", "one")],
+									pattern: [
+										text("one: "),
+										{
+											type: "expression",
+											arg: ref("count"),
+											annotation: {
+												type: "function-reference",
+												name: "icu:pound",
+												options: [{ name: "offset", value: ref("off") }],
+											},
+										},
+									],
+								},
+								{
+									matches: [catchall("countPlural")],
+									pattern: [text("other")],
+								},
+							],
+						},
+					],
+				},
 			]);
 
 			const { m } = await importCode(
 				await bundleCode(output, `export * as m from "./paraglide/messages.js"`)
+			);
+			// offsets from variables type-check and are converted with Number()
+			expect(m.variable_offset({ count: 3, off: 2 }, { locale: "en" })).toBe(
+				"one: 1"
+			);
+			expect(m.variable_offset({ count: 3, off: "2" }, { locale: "en" })).toBe(
+				"one: 1"
 			);
 			expect(
 				[0, 1, 2, 3, 1234].map((count) =>
@@ -2375,6 +2430,134 @@ describe.each([
 		});
 	}
 );
+
+test("messages injected by the middleware in experimentalMiddlewareLocaleSplitting mode can call the registry", async () => {
+	const splitProject = await loadProjectInMemory({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "de"] },
+		}),
+	});
+	const ref = (name: string) => ({ type: "variable-reference", name }) as const;
+	// {count, plural, =0 {No items} other {# items}} as the ICU1 plugin imports it
+	await insertBundleNested(
+		splitProject.db,
+		createBundleNested({
+			id: "item_count",
+			declarations: [
+				{ type: "input-variable", name: "count" },
+				{
+					type: "local-variable",
+					name: "countPluralExact",
+					value: { type: "expression", arg: ref("count") },
+				},
+				{
+					type: "local-variable",
+					name: "countPlural",
+					value: {
+						type: "expression",
+						arg: ref("count"),
+						annotation: {
+							type: "function-reference",
+							name: "plural",
+							options: [],
+						},
+					},
+				},
+			],
+			messages: [
+				{
+					locale: "en",
+					selectors: [ref("countPluralExact"), ref("countPlural")],
+					variants: [
+						{
+							matches: [
+								{ type: "literal-match", key: "countPluralExact", value: "0" },
+								{ type: "catchall-match", key: "countPlural" },
+							],
+							pattern: [{ type: "text", value: "No items" }],
+						},
+						{
+							matches: [
+								{ type: "catchall-match", key: "countPluralExact" },
+								{ type: "catchall-match", key: "countPlural" },
+							],
+							pattern: [
+								{
+									type: "expression",
+									arg: ref("count"),
+									annotation: {
+										type: "function-reference",
+										name: "icu:pound",
+										options: [],
+									},
+								},
+								{ type: "text", value: " items" },
+							],
+						},
+					],
+				},
+			],
+		})
+	);
+	await insertBundleNested(
+		splitProject.db,
+		createBundleNested({
+			id: "plain_text",
+			messages: [
+				{
+					locale: "en",
+					variants: [{ pattern: [{ type: "text", value: "Hello" }] }],
+				},
+			],
+		})
+	);
+
+	const output = await compileProject({
+		project: splitProject,
+		compilerOptions: {
+			strategy: ["baseLocale"],
+			experimentalMiddlewareLocaleSplitting: true,
+			disableAsyncLocalStorage: true,
+		},
+	});
+	const { m, paraglideMiddleware } = await importCode(
+		await bundleCode(
+			output,
+			`export * as m from "./paraglide/messages.js"
+			export { paraglideMiddleware } from "./paraglide/server.js"`
+		)
+	);
+
+	const render = async (messages: (m: any) => string) => {
+		const response: Response = await paraglideMiddleware(
+			new Request("https://example.com/", {
+				headers: { "Sec-Fetch-Dest": "document" },
+			}),
+			() =>
+				new Response(`<html><head></head><body>${messages(m)}</body></html>`, {
+					headers: { "Content-Type": "text/html" },
+				})
+		);
+		const html = await response.text();
+		const script = html.match(/<script[^>]*>([\s\S]*?)<\/script>/)?.[1];
+		expect(script).toBeDefined();
+		// the client evaluates the script without registry.js
+		const context: Record<string, any> = {};
+		vm.runInNewContext(script!, context);
+		return { html, ssr: context.__paraglide.ssr };
+	};
+
+	const withRegistry = await render((m) => m.item_count({ count: 5 }));
+	expect(withRegistry.html).toContain("<body>5 items</body>");
+	expect(withRegistry.ssr.item_count({ count: 5 })).toBe("5 items");
+	expect(withRegistry.ssr.item_count({ count: 1234 })).toBe("1,234 items");
+	expect(withRegistry.ssr.item_count({ count: 0 })).toBe("No items");
+
+	// messages that don't call the registry get no registry code
+	const withoutRegistry = await render((m) => m.plain_text());
+	expect(withoutRegistry.ssr.plain_text()).toBe("Hello");
+	expect(withoutRegistry.html).not.toContain("const registry");
+});
 
 async function bundleCode(output: Record<string, string>, file: string) {
 	output["runtime.js"] = output["runtime.js"]!.replace(

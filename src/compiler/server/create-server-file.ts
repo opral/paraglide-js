@@ -3,6 +3,7 @@ import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import type { CompilerOptions } from "../compiler-options.js";
 import { toSafeModuleId } from "../safe-module-id.js";
 import type { Locale } from "./runtime.d.ts";
+import { registryFunctionCode, withRegistryDependencies } from "../registry.js";
 
 /**
  * Returns the code for the `runtime.js` module
@@ -82,6 +83,11 @@ ${injectCode("./middleware.js")}
 			() =>
 				`const compiledBundles = ${JSON.stringify(createCompiledMessagesObject(args.compiledBundles))};`
 		);
+		code = code.replace(
+			"const compiledRegistry = { functions: {}, messages: {} };",
+			() =>
+				`const compiledRegistry = ${JSON.stringify(createCompiledRegistryObject(args.compiledBundles))};`
+		);
 	}
 
 	return code.replace(/\t/g, "  ");
@@ -112,6 +118,36 @@ function createCompiledMessagesObject(
 		}
 	}
 	return result;
+}
+
+/**
+ * The registry functions each compiled message calls, and their code, for
+ * the messages the middleware injects into the page. Those run without
+ * registry.js.
+ */
+function createCompiledRegistryObject(
+	compiledBundles: CompiledBundleWithMessages[]
+): {
+	functions: Record<string, string>;
+	messages: Record<string, Record<string, string[]>>;
+} {
+	const messages: Record<string, Record<string, string[]>> = {};
+	const used = new Set<string>();
+
+	for (const compiledBundle of compiledBundles) {
+		const safeModuleId = toSafeModuleId(compiledBundle.bundle.node.id);
+		for (const [locale, compiledMessage] of Object.entries(
+			compiledBundle.messages
+		)) {
+			const names = withRegistryDependencies(compiledMessage.registryFunctions);
+			if (names.length === 0) continue;
+			messages[safeModuleId] ??= {};
+			messages[safeModuleId][locale] = names;
+			for (const name of names) used.add(name);
+		}
+	}
+
+	return { functions: registryFunctionCode(used), messages };
 }
 
 /**

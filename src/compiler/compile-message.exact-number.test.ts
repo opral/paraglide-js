@@ -876,4 +876,27 @@ describe("ICU plural offset (`{count, plural, offset:1 …}`)", () => {
 		);
 		expect(registry.icuPound("en", "3")).toBe("3");
 	});
+
+	test("# displays an input that is not a number as is, without the offset", async () => {
+		const registry = await import(
+			"data:text/javascript;base64," +
+				Buffer.from(createRegistry()).toString("base64")
+		);
+		const pound = (input: unknown) =>
+			registry.icuPound("en", input, { offset: 1 });
+
+		// numbers and numeric strings are offset and formatted
+		expect(pound(1234)).toBe("1,233");
+		expect(pound("1234")).toBe("1,233");
+		expect(pound(" 3 ")).toBe("2");
+		// anything else is displayed like a plain {count} placeholder
+		expect(pound("abc")).toBe("abc");
+		expect(pound("1,234")).toBe("1,234");
+		expect(pound("")).toBe("");
+		expect(pound(undefined)).toBe("undefined");
+		expect(pound(null)).toBe("null");
+		expect(pound(true)).toBe("true");
+		expect(pound(Number.NaN)).toBe("NaN");
+		expect(pound(Infinity)).toBe("Infinity");
+	});
 });
