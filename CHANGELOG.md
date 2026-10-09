@@ -1,5 +1,60 @@
 # @inlang/paraglide-js
 
+## 2.27.0
+
+### Minor Changes
+
+- 45c276c: **Upgrade note:** compilation now fails with `… references the variable "count" in the local variable "countPlural", but "count" is not declared` when a local variable that the message uses reads a variable that has no `input` declaration, such as `local countPlural = count: plural` without `input count`. The inlang message format plugin before 4.4.1 imports such a local without adding the `input`. These messages used to compile, and worked at runtime as long as the message had another input. Fix: add the missing `input count` declaration, or update the inlang message format plugin to 4.4.1 or later, which adds it.
+
+  Fix local variable compilation and support ICU plural offsets.
+  - A message function now declares only the local variables it reads, through match conditions, its patterns, or other locals it reads. Unread locals and an unread inputs parameter no longer fail TypeScript's `noUnusedLocals` and `noUnusedParameters` in checked projects.
+  - Local variables are emitted in dependency order, so a local that reads a local declared after it no longer throws a `ReferenceError` at runtime. Locals that reference each other in a cycle now fail compilation with an error that names the message, the locale and the cycle.
+  - A message that reads an undeclared variable, for example through `.local e = {$count}` without `.input {$count}`, now fails compilation with an error that names the message, the locale and the variable. It used to compile to code that threw `ReferenceError: i is not defined` or read an input missing from the message's type. Undeclared variables in patterns already failed compilation.
+  - `plural` supports the `offset` option that ICU MessageFormat 1 `{count, plural, offset:1 …}` imports as: the category is selected for `count - offset`, while exact matches like `=1` compare `count` itself.
+
+- 6e5cfc5: Fix exact number matches on un-annotated local variables, and select variants in MessageFormat 2 preference order.
+  - A literal match on a local that aliases an input, such as `.local countPluralExact = {$count}` from ICU `{count, plural, =0 {…} one {…} other {…}}` imports, now compares like a match on the input itself, so `=0` matches the number `0` (and the string `"0"`). Annotated locals (`:plural`, `:number`, …) still match their result as a string.
+  - Variants are now tried in preference order: literal keys before catchalls, selector by selector, instead of in storage order. An exact `=0` variant now wins over a plural category like French `one`, and a catchall stored first no longer hides later variants. The `=0` variant wins only when its selector comes before the plural selector, `countPluralExact, countPlural`, as the ICU MessageFormat 1 plugin imports them. The inlang message format plugin up to 4.4.5 exports selectors alphabetically, `countPlural, countPluralExact`, so in files it wrote French `0` still selects `one`: put the exact selector first in `selectors`.
+
+  **Behavior change:** a message whose variants relied on storage order may now select a different variant. The new choice is the one the MessageFormat 2 spec selects. For example, with selectors `platform, gender` and the variants `* male`, `android *`, `* *`, the input `android` + `male` used to select `* male` and now selects `android *`.
+
+- 8921567: `paraglide-js init` sets up translation checks.
+  - New projects use `@inlang/plugin-message-format` 4.5.0 and `@inlang/plugin-m-function-matcher` 2.3.0.
+  - `init` adds `@inlang/cli` ^3.4.0 to the devDependencies (unless it's there) and a `check:i18n` script that runs `inlang check --project ./project.inlang` (unless a script of that name exists). It warns if an existing `@inlang/cli` is older than 3.4.0, which has no `inlang check`.
+  - At the end, `init` prints a localization section you can add to your `AGENTS.md`, with your project path, message files and output directory. It doesn't write `AGENTS.md`.
+
+- d58a9d6: Import the registry only where a message calls it, and format ICU `#`.
+  - A message file imported `registry.js` whenever its text contained `registry.`, including message text such as "Open the registry. Now.", which failed TypeScript's `noUnusedLocals` in checked projects. The compiler now records which registry functions each message calls and imports the registry only when one is called.
+  - ICU MessageFormat 1 `#` (imported as `{$count :icu:pound}`) was an unknown formatter and printed the raw value. It now displays the number formatted for the locale like `:number`, minus the plural `offset` when the import carries one (`{$count :icu:pound offset=1}`, see opral/inlang#4441). `{count, plural, offset:1 … other {You and # others}}` renders "You and 1,233 others" for `count` 1234 in English, instead of "You and 1234 others". Only numbers and numeric strings are formatted. Anything else is displayed as is, like `{count}`, without subtracting the offset: `"abc"`, `"1,234"` and `""` display unchanged, `null` and `undefined` display `"null"` and `"undefined"`, and a bigint displays its digits unformatted, so it keeps its precision. The plural category is still selected on `Number(count)` minus the offset, so without an offset `""` and `null` select the category of 0 (with `offset:1`, the category of -1), and a bigint beyond `Number.MAX_SAFE_INTEGER` loses precision there, as before.
+  - With `experimentalMiddlewareLocaleSplitting`, the messages the middleware injects into the page threw `ReferenceError: registry is not defined` on the client when they called a registry function (`:plural`, `:number`, `#`, …). The injected script now declares the registry functions those messages call.
+  - An `offset` from a variable (`:plural offset=$offset`, `:icu:pound offset=$offset`) no longer fails `checkJs`. Both functions type it as `unknown` and convert it with `Number()`.
+  - An unknown formatter on a local variable (`.local y = {$x :custom}`) compiled to `registry.custom(...)`, which failed `checkJs` and threw "registry.custom is not a function". It now interpolates the raw value with a warning, like an unknown formatter in a pattern.
+  - `.parts()` of a markup message failed `checkJs` (`Property 'parts' does not exist`) when a locale's message had no markup of its own: a fallback to another locale, a message without markup, or the bundle id fallback. The bundle function now reads `.parts` through a type that declares it optional.
+
+  **Behavior change:** `#` in messages imported with the ICU MessageFormat 1 plugin now renders locale-formatted numbers, as ICU does: `1234` renders as "1,234" in English and "1.234" in German, and fractions are rounded to at most three digits like `:number`.
+
+- 8ee34b6: Requires `@inlang/sdk` 4.
+
+  Paraglide now depends on `@inlang/sdk` ^4.0.0. Projects and plugins need no changes: plugins still exchange camelCase `bundleId` and `messageId`, and the compiled output is the same. If you call `compileProject()` with an `InlangProject` you load yourself, load it with `@inlang/sdk` 4. Code that writes to `project.db` directly uses the SDK 4 table and column names (`inlang_bundle`, `bundle_id`, `message_id`), see "Migrating to 4.0" in the SDK README.
+
+### Patch Changes
+
+- ffabe0a: The `README.md` in the compiled output is shorter and written for coding agents. It says to edit the translation files instead of the generated output, shows the compile command, explains what inlang owns versus Paraglide JS, and links to the inlang CLI (`check`, `machine translate`), Fink, Parrot and Sherlock.
+- ba2ee63: Format `datetime` without options in MessageFormat 2's default style, `dateStyle=medium timeStyle=short`.
+
+  Without options that pick what to show (`dateStyle`, `timeStyle`, or fields like `year`, `month`, `hour`), `datetime` used the default of `Intl.DateTimeFormat`, a numeric date like "10/9/2026". It now formats like `dateStyle=medium timeStyle=short`, the default of MessageFormat 2 (LDML 47), e.g. "Oct 9, 2026, 4:30 PM". Options that pick nothing, like `timeZone` and `hour12`, keep the default. For the defaults of ICU `{d, date}` and `{d, time}`, see "Format ICU MessageFormat 1 number, date and time styles".
+
+  **Behavior change:** `datetime` without options, such as `local formattedDate = date: datetime`, renders "Oct 9, 2026, 4:30 PM" instead of "10/9/2026". Pass `year=numeric month=numeric day=numeric` for the previous output.
+
+- 6a797cc: Format ICU MessageFormat 1 number, date and time styles.
+
+  The ICU MessageFormat 1 plugin imports `{n, number, integer}` as `{n: number style=integer}`, `{d, date, short}` as `{d: date style=short}` and `{d, time, short}` as `{d: time style=short}`.
+  - `date` and `time` were unknown formatters and printed the raw value, e.g. "Fri Oct 09 2026 16:30:00 GMT+0200 (…)". They now format like `datetime` with `dateStyle` and `timeStyle` (`short`, `medium`, `long`, `full`). `{d, date}` formats like `dateStyle=medium` and `{d, time}` like `timeStyle=medium`, ICU's defaults: "Oct 9, 2026" and "4:30:00 PM" in English.
+  - `number style=integer` passed `style: "integer"` to `Intl.NumberFormat`, which threw a `RangeError` when the message was called. It now formats with `maximumFractionDigits: 0`. Halves round away from zero like `Intl.NumberFormat` (`2.5` renders "3"), while ICU rounds them to the nearest even integer (`2.5` renders "2").
+  - A style without an `Intl` equivalent, like an ICU skeleton (`{n, number, ::currency/EUR}`, `{d, date, ::yyyyMMdd}`) or `style=currency` without a `currency` option, threw when the message was called. It is now left out with a warning, and the value is formatted without it.
+
+- 2b2ebf6: Prepare the compiler for `@inlang/sdk` 4. SDK 4 returns the bundle id of a message as `bundle_id` instead of `bundleId`. Given SDK 4 messages, `compileMessage()` and `compileBundle()` read only `bundleId`, so a message without a catch-all variant fell back to the string "undefined" instead of its bundle id, and errors named `message "undefined"`. They now read either name and throw if a message has no bundle id. `compileMessage()` accepts messages and variants in both shapes (`CompilableMessage`, `CompilableVariant`). The fallback also escapes bundle ids that contain `"` or `\`.
+
 ## 2.26.0
 
 ### Minor Changes
