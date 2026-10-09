@@ -27,12 +27,13 @@ const registryFunctionByAnnotation = new Map([
 	["time", "datetime"],
 ]);
 
-const displayedRegistryFunctions = [
-	"plural",
-	"number",
-	"datetime",
-	"relativetime",
-];
+/**
+ * The formatter names listed in warnings: the annotation names that call a
+ * registry function.
+ */
+const displayedRegistryFunctions = Array.from(
+	registryFunctionByAnnotation.keys()
+);
 
 export function isRegistryFunction(name: string): boolean {
 	return registryFunctionByAnnotation.has(name);
@@ -101,7 +102,9 @@ export function compileAnnotation(
 	const functionName =
 		registryFunctionByAnnotation.get(annotation.name) ?? annotation.name;
 	registryUsage?.add(functionName);
-	const options = icuStyleAnnotation(annotation).options;
+	const options = withDefaultDateTimeStyles(
+		icuStyleAnnotation(annotation)
+	).options;
 	// the options of `date` and `time` are those of `datetime`
 	const optionsOf = functionName === "datetime" ? "datetime" : annotation.name;
 	return `registry.${functionName}("${locale}", ${str}, ${compileOptions(optionsOf, options, declarations)})`;
@@ -152,14 +155,8 @@ export function icuStyleAnnotation(
 				options: [{ name: optionName, value: style.value }, ...others],
 			};
 		}
-		// ICU's default time style is "medium". The default date is Intl's.
-		return {
-			...annotation,
-			options:
-				annotation.name === "time"
-					? [literal(optionName, "medium"), ...others]
-					: others,
-		};
+		// without a style, withDefaultDateTimeStyles() applies the default
+		return { ...annotation, options: others };
 	}
 
 	if (annotation.name === "number" && style?.value.type === "literal") {
@@ -186,6 +183,81 @@ export function icuStyleAnnotation(
 	}
 
 	return annotation;
+}
+
+/**
+ * The `Intl.DateTimeFormat` options that pick which parts of a date are shown.
+ * Without any of them, Intl shows only the numeric date, e.g. "10/9/2026".
+ * `dateStyle` and `timeStyle` cannot be combined with the others: Intl throws.
+ */
+const dateTimeFieldOptions = new Set([
+	"dateStyle",
+	"timeStyle",
+	"weekday",
+	"era",
+	"year",
+	"month",
+	"day",
+	"dayPeriod",
+	"hour",
+	"minute",
+	"second",
+	"fractionalSecondDigits",
+	"timeZoneName",
+]);
+
+/**
+ * The styles a date formatter uses when its options pick no fields.
+ *
+ * - `date`: MessageFormat 2 (LDML 47 `:date` `style=medium`) and ICU
+ *   MessageFormat 1 (`{d, date}`) both default to "medium", e.g. "Oct 9, 2026".
+ * - `time`: ICU MessageFormat 1 `{d, time}` defaults to "medium", e.g.
+ *   "4:30:00 PM", while MessageFormat 2 (LDML 47 `:time`) defaults to "short".
+ *   `{$d :time}` is what the ICU1 plugin imports `{d, time}` as, so it keeps
+ *   ICU's default. Write `{$d :time style=short}` for MessageFormat 2's.
+ * - `datetime`: MessageFormat 2 (LDML 47 `:datetime`) defaults to
+ *   `dateStyle=medium timeStyle=short`, e.g. "Oct 9, 2026, 4:30 PM".
+ */
+const defaultDateTimeStyles = new Map<string, Array<[string, string]>>([
+	["date", [["dateStyle", "medium"]]],
+	["time", [["timeStyle", "medium"]]],
+	[
+		"datetime",
+		[
+			["dateStyle", "medium"],
+			["timeStyle", "short"],
+		],
+	],
+]);
+
+/**
+ * Adds the default styles of `date`, `time` and `datetime` when the options
+ * pick no fields. Options like `timeZone` or `hour12` are kept.
+ *
+ * @example
+ *   withDefaultDateTimeStyles({ name: "datetime", options: [] })
+ *   >> { name: "datetime", options: [{ name: "dateStyle", value: "medium" }, { name: "timeStyle", value: "short" }] }
+ */
+export function withDefaultDateTimeStyles(
+	annotation: FunctionReference
+): FunctionReference {
+	const defaults = defaultDateTimeStyles.get(annotation.name);
+	if (
+		!defaults ||
+		annotation.options.some((option) => dateTimeFieldOptions.has(option.name))
+	) {
+		return annotation;
+	}
+	return {
+		...annotation,
+		options: [
+			...defaults.map(([name, value]) => ({
+				name,
+				value: { type: "literal" as const, value },
+			})),
+			...annotation.options,
+		],
+	};
 }
 
 const warnedUnknownStyles = new Set<string>();

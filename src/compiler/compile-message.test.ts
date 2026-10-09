@@ -1,5 +1,9 @@
 import { test, expect } from "vitest";
-import { compileMessage } from "./compile-message.js";
+import {
+	compileMessage,
+	type CompilableMessage,
+	type CompilableVariant,
+} from "./compile-message.js";
 import type { Declaration, Message, Variant } from "@inlang/sdk";
 import { createRegistry } from "./registry.js";
 
@@ -1131,12 +1135,18 @@ test("compiles messages that use datetime()", async () => {
 	const enMessage = await createMessage("en");
 	const deMessage = await createMessage("de");
 
-	expect(enMessage({ date: "2022-04-01" })).toMatch(
-		/Today is \d{1,2}\/\d{1,2}\/2022\./
+	// MessageFormat 2's default: dateStyle=medium timeStyle=short. Compared
+	// with Intl to avoid the timezone affecting the unit test.
+	const date = new Date("2022-04-01");
+	const options = { dateStyle: "medium", timeStyle: "short" } as const;
+	expect(enMessage({ date: "2022-04-01" })).toBe(
+		`Today is ${new Intl.DateTimeFormat("en", options).format(date)}.`
 	);
-
-	expect(deMessage({ date: "2022-04-01" })).toMatch(
-		/Today is \d{1,2}\.\d{1,2}\.2022\./
+	expect(enMessage({ date: "2022-04-01" })).toMatch(
+		/Today is (Mar 31|Apr 1), 2022, \d{1,2}:\d{2}\s[AP]M\./
+	);
+	expect(deMessage({ date: "2022-04-01" })).toBe(
+		`Today is ${new Intl.DateTimeFormat("de", options).format(date)}.`
 	);
 });
 
@@ -1413,4 +1423,103 @@ test("does not throw when input is omitted for multi-variant message", async () 
 	expect(status_message({ status: "ready" })).toBe("Ready to go");
 	expect(() => status_message()).not.toThrow();
 	expect(status_message()).toBe("Unknown status");
+});
+
+// `selectBundleNested()` of `@inlang/sdk` 4 returns `bundle_id` on messages,
+// the plugin `Message` shape has `bundleId`. Without a catch-all variant, the
+// message falls back to the bundle id with either.
+test.each([
+	{ shape: "plugin Message (bundleId)", ids: { bundleId: "item_count" } },
+	{ shape: "database row (bundle_id)", ids: { bundle_id: "item_count" } },
+])("falls back to the bundle id for a $shape", async ({ ids }) => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "count" },
+	];
+	const message: CompilableMessage = {
+		...ids,
+		id: "item_count_en",
+		locale: "en",
+		selectors: [{ type: "variable-reference", name: "count" }],
+	};
+	const variants: CompilableVariant[] = [
+		{
+			id: "item_count_en_one",
+			matches: [{ type: "literal-match", key: "count", value: "one" }],
+			pattern: [{ type: "text", value: "One item" }],
+		},
+		{
+			id: "item_count_en_two",
+			matches: [{ type: "literal-match", key: "count", value: "two" }],
+			pattern: [{ type: "text", value: "Two items" }],
+		},
+	];
+	const markupVariants: CompilableVariant[] = [
+		{
+			id: "item_count_en_one",
+			matches: [{ type: "literal-match", key: "count", value: "one" }],
+			pattern: [
+				{ type: "markup-start", name: "b" },
+				{ type: "text", value: "One item" },
+				{ type: "markup-end", name: "b" },
+			],
+		},
+		{
+			id: "item_count_en_two",
+			matches: [{ type: "literal-match", key: "count", value: "two" }],
+			pattern: [{ type: "text", value: "Two items" }],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+	const compiledMarkup = compileMessage(declarations, message, markupVariants);
+
+	const { item_count, item_count_markup } = await import(
+		"data:text/javascript;base64," +
+			btoa(
+				`export const item_count = ${compiled.code}\nexport const item_count_markup = ${compiledMarkup.code}`
+			)
+	);
+	expect(item_count({ count: "one" })).toBe("One item");
+	expect(item_count({ count: "other" })).toBe("item_count");
+	expect(item_count_markup({ count: "other" })).toBe("item_count");
+	expect(item_count_markup.parts({ count: "other" })).toEqual([
+		{ type: "text", value: "item_count" },
+	]);
+});
+
+test("throws for a message without a bundle id instead of compiling undefined", () => {
+	expect(() =>
+		compileMessage([], { id: "orphan", locale: "en", selectors: [] } as never, [
+			{ id: "1", matches: [], pattern: [{ type: "text", value: "Hi" }] },
+		])
+	).toThrow(/has no bundle id/);
+});
+
+test("escapes the bundle id in the fallback of messages without a catch-all variant", async () => {
+	const bundleId = 'quote"and\\backslash';
+	const compiled = compileMessage(
+		[{ type: "input-variable", name: "count" }],
+		{
+			bundleId,
+			id: "m",
+			locale: "en",
+			selectors: [{ type: "variable-reference", name: "count" }],
+		},
+		[
+			{
+				id: "one",
+				matches: [{ type: "literal-match", key: "count", value: "one" }],
+				pattern: [{ type: "text", value: "One" }],
+			},
+			{
+				id: "two",
+				matches: [{ type: "literal-match", key: "count", value: "two" }],
+				pattern: [{ type: "text", value: "Two" }],
+			},
+		]
+	);
+	const { m } = await import(
+		"data:text/javascript;base64," + btoa(`export const m = ${compiled.code}`)
+	);
+	expect(m({ count: "three" })).toBe(bundleId);
 });

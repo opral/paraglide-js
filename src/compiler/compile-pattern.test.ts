@@ -381,7 +381,8 @@ describe("ICU MessageFormat 1 styles, as imported by the ICU1 plugin", () => {
 		["medium", { dateStyle: "medium" }],
 		["long", { dateStyle: "long" }],
 		["full", { dateStyle: "full" }],
-		[undefined, {}],
+		// ICU's and MessageFormat 2's default date style
+		[undefined, { dateStyle: "medium" }],
 	] as const)("formats {d, date, %s} like Intl", async (style, options) => {
 		const { code, output } = await run("date", style, date);
 		expect(code).toContain("registry.datetime(");
@@ -415,8 +416,20 @@ describe("ICU MessageFormat 1 styles, as imported by the ICU1 plugin", () => {
 		["number", "::currency/EUR", 1234.5, "1,234.5"],
 		// "currency" needs a "currency" option
 		["number", "currency", 1234.5, "1,234.5"],
-		// ICU date skeletons
-		["date", "::yyyyMMdd", date, new Intl.DateTimeFormat("en").format(date)],
+		// ICU time skeletons format like {d, time}
+		[
+			"time",
+			"::HHmm",
+			date,
+			new Intl.DateTimeFormat("en", { timeStyle: "medium" }).format(date),
+		],
+		// ICU date skeletons format like {d, date}
+		[
+			"date",
+			"::yyyyMMdd",
+			date,
+			new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(date),
+		],
 	] as const)(
 		"ignores the unsupported style {%s, %s} instead of throwing",
 		async (name, style, input, expected) => {
@@ -425,4 +438,101 @@ describe("ICU MessageFormat 1 styles, as imported by the ICU1 plugin", () => {
 			expect(output).toBe(expected);
 		}
 	);
+});
+
+describe("default date and time styles", () => {
+	const date = new Date(Date.UTC(2026, 9, 9, 14, 30));
+
+	/** Compiles `{$value :name option=value ...}` and runs it with the registry. */
+	const run = async (name: string, options: Record<string, string> = {}) => {
+		const { code } = compilePattern({
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "value" },
+					annotation: {
+						type: "function-reference",
+						name,
+						options: Object.entries(options).map(([name, value]) => ({
+							name,
+							value: { type: "literal", value },
+						})),
+					},
+				},
+			],
+			declarations: [{ type: "input-variable", name: "value" }],
+			locale: "en",
+		});
+		const { format } = await import(
+			"data:text/javascript;base64," +
+				btoa(
+					createRegistry() +
+						`export const format = (i) => ${code.replaceAll("registry.", "")};`
+				)
+		);
+		return { code, output: format({ value: date }) as string };
+	};
+
+	test("{$d :date} defaults to style=medium, like ICU and MessageFormat 2", async () => {
+		const { code, output } = await run("date", { timeZone: "UTC" });
+		expect(code).toContain('{ dateStyle: "medium", timeZone: "UTC" }');
+		expect(output).toBe("Oct 9, 2026");
+	});
+
+	test("{$d :time} defaults to ICU's style=medium", async () => {
+		const { code, output } = await run("time", { timeZone: "UTC" });
+		expect(code).toContain('{ timeStyle: "medium", timeZone: "UTC" }');
+		expect(output).toMatch(/^2:30:00\sPM$/);
+	});
+
+	test("{$d :datetime} defaults to dateStyle=medium timeStyle=short, like MessageFormat 2", async () => {
+		expect((await run("datetime")).code).toContain(
+			'{ dateStyle: "medium", timeStyle: "short" }'
+		);
+		const { output } = await run("datetime", { timeZone: "UTC" });
+		expect(output).toMatch(/^Oct 9, 2026, 2:30\sPM$/);
+	});
+
+	test.each([
+		["datetime", { year: "numeric", timeZone: "UTC" }, "2026"],
+		["datetime", { dateStyle: "long", timeZone: "UTC" }, "October 9, 2026"],
+		["date", { month: "long", timeZone: "UTC" }, "October"],
+		// Intl throws for timeStyle together with hour
+		["time", { hour: "numeric", hour12: "false", timeZone: "UTC" }, "14"],
+	] as const)(
+		"options that pick fields replace the default of %s %j",
+		async (name, options, expected) => {
+			const { code, output } = await run(name, options);
+			// no default dateStyle=medium or timeStyle=medium/short is added
+			expect(code).not.toMatch(/"medium"|"short"/);
+			expect(output).toBe(expected);
+		}
+	);
+});
+
+test("a style from a variable replaces the default date style", () => {
+	const { code } = compilePattern({
+		pattern: [
+			{
+				type: "expression",
+				arg: { type: "variable-reference", name: "d" },
+				annotation: {
+					type: "function-reference",
+					name: "date",
+					options: [
+						{
+							name: "style",
+							value: { type: "variable-reference", name: "s" },
+						},
+					],
+				},
+			},
+		],
+		declarations: [
+			{ type: "input-variable", name: "d" },
+			{ type: "input-variable", name: "s" },
+		],
+		locale: "en",
+	});
+	expect(code).toBe('`${registry.datetime("en", i?.d, { dateStyle: i?.s })}`');
 });

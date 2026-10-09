@@ -13,9 +13,11 @@ Built-in formatter names:
 - `number` (uses `Intl.NumberFormat`)
 - `datetime` (uses `Intl.DateTimeFormat`)
 - `relativetime` (uses `Intl.RelativeTimeFormat`)
+- `date` and `time` (use `Intl.DateTimeFormat`, see [ICU MessageFormat 1 styles](#icu-messageformat-1-styles))
+- `icu:pound` (ICU MessageFormat 1 `#` in plurals, formats like `number`)
 
 > [!NOTE]
-> The formatter names are exactly `plural`, `number`, `datetime`, and `relativetime`.
+> The formatter names are exactly `plural`, `number`, `datetime`, `relativetime`, `date`, `time`, and `icu:pound`. Unknown formatters are ignored with a warning: the value is interpolated without formatting.
 
 ## Number formatting
 
@@ -93,6 +95,16 @@ Use `datetime` for date/time values:
   }]
 }
 ```
+
+Without options that pick what to show (`dateStyle`, `timeStyle`, or fields like `year`, `month`, `hour`), the formatters use these defaults:
+
+| Formatter | Default | Example (`en`) |
+| --- | --- | --- |
+| `datetime` | `dateStyle=medium timeStyle=short` | "Oct 9, 2026, 4:30 PM" |
+| `date` | `style=medium` | "Oct 9, 2026" |
+| `time` | `style=medium` | "4:30:00 PM" |
+
+The `datetime` and `date` defaults are those of MessageFormat 2 (LDML 47). `time` keeps ICU MessageFormat 1's `medium`, because `{d, time}` imports as `time`. MessageFormat 2's `:time` defaults to `short`: write `time style=short` for it. Options that pick nothing, such as `timeZone` or `hour12`, keep the defaults.
 
 > [!TIP]
 > Use an explicit `timeZone` if output must be stable across environments.
@@ -226,11 +238,14 @@ The ICU MessageFormat 1 plugin imports ICU arguments with their ICU names and st
 | `{n, number, percent}` | `{n: number style=percent}` | `number style=percent` |
 | `{n, number, integer}` | `{n: number style=integer}` | `number maximumFractionDigits=0` |
 | `{d, date, short}` | `{d: date style=short}` | `datetime dateStyle=short` (also `medium`, `long`, `full`) |
-| `{d, date}` | `{d: date}` | `datetime` |
+| `{d, date}` | `{d: date}` | `datetime dateStyle=medium` |
 | `{d, time, short}` | `{d: time style=short}` | `datetime timeStyle=short` (also `medium`, `long`, `full`) |
 | `{d, time}` | `{d: time}` | `datetime timeStyle=medium` |
+| `#` in `{n, plural, offset:1 …}` | `{n: icu:pound offset=1}` | `number` of `n - 1` |
 
-A style without an `Intl` equivalent, like an ICU skeleton (`{n, number, ::currency/EUR}`) or `currency` without a `currency` option, is ignored with a warning: the value is formatted without it.
+`{n, number, integer}` rounds halves away from zero like `Intl.NumberFormat` (`2.5` renders "3"), while ICU rounds them to the nearest even integer (`2.5` renders "2").
+
+A style without an `Intl` equivalent, like an ICU skeleton (`{n, number, ::currency/EUR}`, `{d, date, ::yyyyMMdd}`) or `currency` without a `currency` option, is ignored with a warning: the value is formatted without it, so `{d, date, ::yyyyMMdd}` formats like `{d, date}`.
 
 ## Formatting across locales
 
