@@ -2804,13 +2804,13 @@ const mockBundles: BundleNested[] = [
 		messages: [
 			{
 				id: "depressed_dog_en",
-				bundleId: "depressed_dog",
+				bundle_id: "depressed_dog",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "depressed_dog_en_variant_one",
-						messageId: "depressed_dog_en",
+						message_id: "depressed_dog_en",
 						matches: [],
 						pattern: [
 							{ type: "text", value: "Good morning " },
@@ -2825,14 +2825,14 @@ const mockBundles: BundleNested[] = [
 			},
 			{
 				id: "depressed_dog_de",
-				bundleId: "depressed_dog",
+				bundle_id: "depressed_dog",
 				locale: "de",
 				selectors: [],
 
 				variants: [
 					{
 						id: "depressed_dog_de_variant_one",
-						messageId: "depressed_dog_de",
+						message_id: "depressed_dog_de",
 						matches: [],
 						pattern: [
 							{ type: "text", value: "Guten Morgen " },
@@ -2862,14 +2862,14 @@ const mockBundles: BundleNested[] = [
 		messages: [
 			{
 				id: "insane_cats_en",
-				bundleId: "insane_cats",
+				bundle_id: "insane_cats",
 				locale: "en",
 
 				selectors: [],
 				variants: [
 					{
 						id: "insane_cats_en_variant_one",
-						messageId: "insane_cats_en",
+						message_id: "insane_cats_en",
 						matches: [],
 						pattern: [
 							{ type: "text", value: "Hello " },
@@ -2889,13 +2889,13 @@ const mockBundles: BundleNested[] = [
 			},
 			{
 				id: "insane_cats_de",
-				bundleId: "insane_cats",
+				bundle_id: "insane_cats",
 				locale: "de",
 				selectors: [],
 				variants: [
 					{
 						id: "insane_cats_de_variant_one",
-						messageId: "insane_cats_de",
+						message_id: "insane_cats_de",
 						matches: [],
 						pattern: [
 							{ type: "text", value: "Hallo " },
@@ -3059,13 +3059,13 @@ const mockBundles: BundleNested[] = [
 		messages: [
 			{
 				id: "auth_password_error_en",
-				bundleId: "auth_password_error",
+				bundle_id: "auth_password_error",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "auth_password_error_en_variant_invalid",
-						messageId: "auth_password_error_en",
+						message_id: "auth_password_error_en",
 						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
 						pattern: [
 							{
@@ -3076,7 +3076,7 @@ const mockBundles: BundleNested[] = [
 					},
 					{
 						id: "auth_password_error_en_variant_empty",
-						messageId: "auth_password_error_en",
+						message_id: "auth_password_error_en",
 						matches: [{ type: "literal-match", key: "type", value: "empty" }],
 						pattern: [
 							{
@@ -3087,7 +3087,7 @@ const mockBundles: BundleNested[] = [
 					},
 					{
 						id: "auth_password_error_en_variant_min",
-						messageId: "auth_password_error_en",
+						message_id: "auth_password_error_en",
 						matches: [
 							{
 								type: "literal-match",
@@ -3104,7 +3104,7 @@ const mockBundles: BundleNested[] = [
 					},
 					{
 						id: "auth_password_error_en_variant_secure",
-						messageId: "auth_password_error_en",
+						message_id: "auth_password_error_en",
 						matches: [{ type: "literal-match", key: "type", value: "secure" }],
 						pattern: [
 							{
@@ -3128,13 +3128,13 @@ const mockBundles: BundleNested[] = [
 		messages: [
 			{
 				id: "error_with_dash_en",
-				bundleId: "error_with_dash",
+				bundle_id: "error_with_dash",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "error_with_dash_en_variant_network",
-						messageId: "error_with_dash_en",
+						message_id: "error_with_dash_en",
 						matches: [
 							{ type: "literal-match", key: "error-type", value: "network" },
 						],
@@ -3142,7 +3142,7 @@ const mockBundles: BundleNested[] = [
 					},
 					{
 						id: "error_with_dash_en_variant_timeout",
-						messageId: "error_with_dash_en",
+						message_id: "error_with_dash_en",
 						matches: [
 							{
 								type: "literal-match",
@@ -3167,13 +3167,13 @@ const mockBundles: BundleNested[] = [
 		messages: [
 			{
 				id: "auth_password_error_catchall_en",
-				bundleId: "auth_password_error_catchall",
+				bundle_id: "auth_password_error_catchall",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "auth_password_error_catchall_en_variant_invalid",
-						messageId: "auth_password_error_catchall_en",
+						message_id: "auth_password_error_catchall_en",
 						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
 						pattern: [
 							{
@@ -3184,7 +3184,7 @@ const mockBundles: BundleNested[] = [
 					},
 					{
 						id: "auth_password_error_catchall_en_variant_catchall",
-						messageId: "auth_password_error_catchall_en",
+						message_id: "auth_password_error_catchall_en",
 						matches: [{ type: "catchall-match", key: "type" }],
 						pattern: [
 							{
@@ -3212,13 +3212,13 @@ const mockBundles: BundleNested[] = [
 		messages: [
 			{
 				id: "multi_key_status_type_en",
-				bundleId: "multi_key_status_type",
+				bundle_id: "multi_key_status_type",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "multi_key_status_type_en_variant_ready_invalid",
-						messageId: "multi_key_status_type_en",
+						message_id: "multi_key_status_type_en",
 						matches: [
 							{ type: "literal-match", key: "type", value: "invalid" },
 							{ type: "literal-match", key: "status", value: "ready" },
@@ -3227,7 +3227,7 @@ const mockBundles: BundleNested[] = [
 					},
 					{
 						id: "multi_key_status_type_en_variant_done_empty",
-						messageId: "multi_key_status_type_en",
+						message_id: "multi_key_status_type_en",
 						matches: [
 							{ type: "literal-match", key: "type", value: "empty" },
 							{ type: "literal-match", key: "status", value: "done" },
@@ -3236,7 +3236,7 @@ const mockBundles: BundleNested[] = [
 					},
 					{
 						id: "multi_key_status_type_en_variant_failed_secure",
-						messageId: "multi_key_status_type_en",
+						message_id: "multi_key_status_type_en",
 						matches: [
 							{ type: "literal-match", key: "type", value: "secure" },
 							{ type: "literal-match", key: "status", value: "failed" },
@@ -3258,19 +3258,19 @@ const mockBundles: BundleNested[] = [
 		messages: [
 			{
 				id: "empty_matches_catchall_en",
-				bundleId: "empty_matches_catchall",
+				bundle_id: "empty_matches_catchall",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "empty_matches_catchall_en_variant_invalid",
-						messageId: "empty_matches_catchall_en",
+						message_id: "empty_matches_catchall_en",
 						matches: [{ type: "literal-match", key: "type", value: "invalid" }],
 						pattern: [{ type: "text", value: "Invalid" }],
 					},
 					{
 						id: "empty_matches_catchall_en_variant_any",
-						messageId: "empty_matches_catchall_en",
+						message_id: "empty_matches_catchall_en",
 						matches: [],
 						pattern: [{ type: "text", value: "Any" }],
 					},
@@ -3289,19 +3289,19 @@ const mockBundles: BundleNested[] = [
 		messages: [
 			{
 				id: "numeric_input_match_en",
-				bundleId: "numeric_input_match",
+				bundle_id: "numeric_input_match",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "numeric_input_match_en_variant_1",
-						messageId: "numeric_input_match_en",
+						message_id: "numeric_input_match_en",
 						matches: [{ type: "literal-match", key: "input", value: "1" }],
 						pattern: [{ type: "text", value: "Thing 1" }],
 					},
 					{
 						id: "numeric_input_match_en_variant_2",
-						messageId: "numeric_input_match_en",
+						message_id: "numeric_input_match_en",
 						matches: [{ type: "literal-match", key: "input", value: "2" }],
 						pattern: [{ type: "text", value: "Thing 2" }],
 					},
@@ -3332,7 +3332,7 @@ function createBundleNested(args: {
 		declarations: args.declarations ?? [],
 		messages: args.messages.map((message) => ({
 			id: args.id + "_" + message.locale,
-			bundleId: args.id,
+			bundle_id: args.id,
 			locale: message.locale,
 			selectors: message.selectors ?? [],
 			variants: message.variants.map((variant) => ({
@@ -3342,7 +3342,7 @@ function createBundleNested(args: {
 					message.locale +
 					"_" +
 					Math.random().toString(36).slice(2),
-				messageId: args.id,
+				message_id: args.id,
 				matches: variant.matches ?? [],
 				pattern: variant.pattern,
 			})),

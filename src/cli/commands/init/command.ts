@@ -15,6 +15,9 @@ import { detectBundler } from "../../steps/detect-bundler.js";
 import { addVitePlugin } from "../../steps/add-vite-plugin.js";
 import { compile } from "../../../compiler/compile.js";
 import { maybeAddMachineTranslation } from "../../steps/maybe-add-machine-translation.js";
+import { addInlangCheck } from "../../steps/add-inlang-check.js";
+import { agentsMdSuggestion } from "../../steps/agents-md-suggestion.js";
+import { getNewProjectTemplate } from "../../defaults.js";
 
 export const initCommand = new Command()
 	.name("init")
@@ -46,6 +49,7 @@ export const initCommand = new Command()
 
 		const ctx7 = await maybeUpdateTsConfig(ctx6);
 		const ctx8 = await maybeAddSherlock(ctx7);
+		await addInlangCheck(ctx8);
 		const ctx9 = await maybeAddMachineTranslation(ctx8);
 
 		try {
@@ -68,6 +72,21 @@ export const initCommand = new Command()
 			"https://github.com/opral/paraglide-js/issues",
 		].join("\n");
 		ctx.logger.box(successMessage);
+
+		const settings = await ctx9.project.settings.get();
+		const pathPattern = settings["plugin.inlang.messageFormat"]?.pathPattern;
+		ctx.logger.log(
+			agentsMdSuggestion({
+				root: ctx9.root,
+				projectPath: ctx9.projectPath,
+				pathPattern:
+					typeof pathPattern === "string"
+						? pathPattern
+						: getNewProjectTemplate()["plugin.inlang.messageFormat"]
+								.pathPattern,
+				outdir: ctx9.outdir,
+			}) + "\n"
+		);
 		process.exit(0);
 	});
 
