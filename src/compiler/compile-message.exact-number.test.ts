@@ -574,13 +574,13 @@ describe("input match types with alias matches", () => {
 			messages: [
 				{
 					id: "en-id",
-					bundleId: "status_message",
+					bundle_id: "status_message",
 					locale: "en",
 					selectors: [{ type: "variable-reference", name: "status" }],
 					variants: [
 						{
 							id: "1",
-							messageId: "en-id",
+							message_id: "en-id",
 							matches: [literal("status", "active")],
 							pattern: text("Active"),
 						},
@@ -588,12 +588,12 @@ describe("input match types with alias matches", () => {
 				},
 				{
 					id: "fr-id",
-					bundleId: "status_message",
+					bundle_id: "status_message",
 					locale: "fr",
 					selectors: [{ type: "variable-reference", name: "statusExact" }],
 					variants: fr.map((variant, index) => ({
 						id: `fr-${index}`,
-						messageId: "fr-id",
+						message_id: "fr-id",
 						...variant,
 					})),
 				},

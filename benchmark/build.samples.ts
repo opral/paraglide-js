@@ -134,7 +134,7 @@ export const sampleInlangSettings = {
 	baseLocale: "en",
 	locales: ["en", "de"],
 	modules: [
-		"https://cdn.jsdelivr.net/npm/@inlang/plugin-i18next@6/dist/index.js",
+		"https://cdn.jsdelivr.net/npm/@inlang/plugin-i18next@6.4.0/dist/index.js",
 	],
 	"plugin.inlang.i18next": {
 		pathPattern: "./messages/{locale}.json",

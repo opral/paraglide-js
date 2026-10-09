@@ -11,13 +11,13 @@ test("compiles to jsdoc", async () => {
 		messages: [
 			{
 				id: "message-id",
-				bundleId: "blue_moon_bottle",
+				bundle_id: "blue_moon_bottle",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "1",
-						messageId: "message-id",
+						message_id: "message-id",
 						matches: [],
 						pattern: [
 							{ type: "text", value: "Hello" },
@@ -72,13 +72,13 @@ test("uses the base locale as the exhaustive locale branch", () => {
 		messages: [
 			{
 				id: "message-id",
-				bundleId: "greeting",
+				bundle_id: "greeting",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "variant-id",
-						messageId: "message-id",
+						message_id: "message-id",
 						matches: [],
 						pattern: [{ type: "text", value: "Hello" }],
 					},
@@ -119,11 +119,11 @@ test("emits middleware locale splitting hooks when enabled", () => {
 		messages: [
 			{
 				id: "message-id",
-				bundleId: "blue_moon_bottle",
+				bundle_id: "blue_moon_bottle",
 				locale: "en",
 				selectors: [],
 				variants: [
-					{ id: "1", messageId: "message-id", matches: [], pattern: [] },
+					{ id: "1", message_id: "message-id", matches: [], pattern: [] },
 				],
 			},
 		],
@@ -158,13 +158,13 @@ test("emits the per-locale build marker inside the message function", () => {
 		messages: [
 			{
 				id: "greeting-en",
-				bundleId: "greeting",
+				bundle_id: "greeting",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "greeting-en-variant",
-						messageId: "greeting-en",
+						message_id: "greeting-en",
 						matches: [],
 						pattern: [{ type: "text", value: "hello" }],
 					},
@@ -172,13 +172,13 @@ test("emits the per-locale build marker inside the message function", () => {
 			},
 			{
 				id: "greeting-de",
-				bundleId: "greeting",
+				bundle_id: "greeting",
 				locale: "de",
 				selectors: [],
 				variants: [
 					{
 						id: "greeting-de-variant",
-						messageId: "greeting-de",
+						message_id: "greeting-de",
 						matches: [],
 						pattern: [{ type: "text", value: "hallo" }],
 					},
@@ -211,13 +211,13 @@ test("compiles to jsdoc with missing translation", async () => {
 		messages: [
 			{
 				id: "message-id",
-				bundleId: "blue_moon_bottle",
+				bundle_id: "blue_moon_bottle",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "1",
-						messageId: "message-id",
+						message_id: "message-id",
 						matches: [],
 						pattern: [
 							{ type: "text", value: "Hello" },
@@ -274,13 +274,13 @@ test("compiles bundles with arbitrary module identifiers", async () => {
 		messages: [
 			{
 				id: "message-id",
-				bundleId: "$p@44🍌",
+				bundle_id: "$p@44🍌",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "1",
-						messageId: "message-id",
+						message_id: "message-id",
 						matches: [],
 						pattern: [
 							{ type: "text", value: "Hello" },
@@ -325,13 +325,13 @@ test("handles message pattern with duplicate variable references", async () => {
 		messages: [
 			{
 				id: "date_last_days",
-				bundleId: "date_last_days",
+				bundle_id: "date_last_days",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "1",
-						messageId: "date_last_days",
+						message_id: "date_last_days",
 						matches: [],
 						pattern: [
 							{ type: "text", value: "Last " },
@@ -382,13 +382,13 @@ test("adds .parts() to bundle functions when markup exists", async () => {
 		messages: [
 			{
 				id: "notice-id",
-				bundleId: "notice",
+				bundle_id: "notice",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "1",
-						messageId: "notice-id",
+						message_id: "notice-id",
 						matches: [],
 						pattern: [
 							{

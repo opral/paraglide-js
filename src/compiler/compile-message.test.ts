@@ -1425,74 +1425,67 @@ test("does not throw when input is omitted for multi-variant message", async () 
 	expect(status_message()).toBe("Unknown status");
 });
 
-// `selectBundleNested()` of `@inlang/sdk` 3 returns `bundleId` on messages,
-// `@inlang/sdk` 4 returns `bundle_id`. Without a catch-all variant, the message
-// falls back to the bundle id with either.
+// `selectBundleNested()` of `@inlang/sdk` 4 returns `bundle_id` on messages,
+// the plugin `Message` shape has `bundleId`. Without a catch-all variant, the
+// message falls back to the bundle id with either.
 test.each([
-	{ sdk: "3", ids: { bundleId: "item_count" } },
-	{ sdk: "4", ids: { bundle_id: "item_count" } },
-])(
-	"falls back to the bundle id for @inlang/sdk $sdk messages",
-	async ({ ids }) => {
-		const declarations: Declaration[] = [
-			{ type: "input-variable", name: "count" },
-		];
-		const message: CompilableMessage = {
-			...ids,
-			id: "item_count_en",
-			locale: "en",
-			selectors: [{ type: "variable-reference", name: "count" }],
-		};
-		const variants: CompilableVariant[] = [
-			{
-				id: "item_count_en_one",
-				matches: [{ type: "literal-match", key: "count", value: "one" }],
-				pattern: [{ type: "text", value: "One item" }],
-			},
-			{
-				id: "item_count_en_two",
-				matches: [{ type: "literal-match", key: "count", value: "two" }],
-				pattern: [{ type: "text", value: "Two items" }],
-			},
-		];
-		const markupVariants: CompilableVariant[] = [
-			{
-				id: "item_count_en_one",
-				matches: [{ type: "literal-match", key: "count", value: "one" }],
-				pattern: [
-					{ type: "markup-start", name: "b" },
-					{ type: "text", value: "One item" },
-					{ type: "markup-end", name: "b" },
-				],
-			},
-			{
-				id: "item_count_en_two",
-				matches: [{ type: "literal-match", key: "count", value: "two" }],
-				pattern: [{ type: "text", value: "Two items" }],
-			},
-		];
+	{ shape: "plugin Message (bundleId)", ids: { bundleId: "item_count" } },
+	{ shape: "database row (bundle_id)", ids: { bundle_id: "item_count" } },
+])("falls back to the bundle id for a $shape", async ({ ids }) => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "count" },
+	];
+	const message: CompilableMessage = {
+		...ids,
+		id: "item_count_en",
+		locale: "en",
+		selectors: [{ type: "variable-reference", name: "count" }],
+	};
+	const variants: CompilableVariant[] = [
+		{
+			id: "item_count_en_one",
+			matches: [{ type: "literal-match", key: "count", value: "one" }],
+			pattern: [{ type: "text", value: "One item" }],
+		},
+		{
+			id: "item_count_en_two",
+			matches: [{ type: "literal-match", key: "count", value: "two" }],
+			pattern: [{ type: "text", value: "Two items" }],
+		},
+	];
+	const markupVariants: CompilableVariant[] = [
+		{
+			id: "item_count_en_one",
+			matches: [{ type: "literal-match", key: "count", value: "one" }],
+			pattern: [
+				{ type: "markup-start", name: "b" },
+				{ type: "text", value: "One item" },
+				{ type: "markup-end", name: "b" },
+			],
+		},
+		{
+			id: "item_count_en_two",
+			matches: [{ type: "literal-match", key: "count", value: "two" }],
+			pattern: [{ type: "text", value: "Two items" }],
+		},
+	];
 
-		const compiled = compileMessage(declarations, message, variants);
-		const compiledMarkup = compileMessage(
-			declarations,
-			message,
-			markupVariants
-		);
+	const compiled = compileMessage(declarations, message, variants);
+	const compiledMarkup = compileMessage(declarations, message, markupVariants);
 
-		const { item_count, item_count_markup } = await import(
-			"data:text/javascript;base64," +
-				btoa(
-					`export const item_count = ${compiled.code}\nexport const item_count_markup = ${compiledMarkup.code}`
-				)
-		);
-		expect(item_count({ count: "one" })).toBe("One item");
-		expect(item_count({ count: "other" })).toBe("item_count");
-		expect(item_count_markup({ count: "other" })).toBe("item_count");
-		expect(item_count_markup.parts({ count: "other" })).toEqual([
-			{ type: "text", value: "item_count" },
-		]);
-	}
-);
+	const { item_count, item_count_markup } = await import(
+		"data:text/javascript;base64," +
+			btoa(
+				`export const item_count = ${compiled.code}\nexport const item_count_markup = ${compiledMarkup.code}`
+			)
+	);
+	expect(item_count({ count: "one" })).toBe("One item");
+	expect(item_count({ count: "other" })).toBe("item_count");
+	expect(item_count_markup({ count: "other" })).toBe("item_count");
+	expect(item_count_markup.parts({ count: "other" })).toEqual([
+		{ type: "text", value: "item_count" },
+	]);
+});
 
 test("throws for a message without a bundle id instead of compiling undefined", () => {
 	expect(() =>

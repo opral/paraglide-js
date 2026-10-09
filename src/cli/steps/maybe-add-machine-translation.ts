@@ -3,6 +3,7 @@ import type { CliStep } from "../utils.js";
 import { prompt } from "../utils.js";
 import { updatePackageJson } from "./update-package-json.js";
 import path from "node:path";
+import { INLANG_CLI_VERSION_RANGE } from "./add-inlang-check.js";
 
 export const maybeAddMachineTranslation: CliStep<
 	{
@@ -44,7 +45,7 @@ export const maybeAddMachineTranslation: CliStep<
 				if (devDeps["@inlang/cli"]) return devDeps;
 				return {
 					...devDeps,
-					"@inlang/cli": "^3.0.0",
+					"@inlang/cli": INLANG_CLI_VERSION_RANGE,
 				};
 			},
 			scripts: async (scripts) => {
@@ -57,9 +58,7 @@ export const maybeAddMachineTranslation: CliStep<
 			},
 		})(ctx);
 
-		ctx.logger.success(
-			"Added @inlang/cli and machine-translate script to package.json"
-		);
+		ctx.logger.success("Added a machine-translate script to package.json.");
 	} catch (error) {
 		ctx.logger.error(
 			[
