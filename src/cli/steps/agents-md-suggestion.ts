@@ -13,7 +13,8 @@ export function agentsMdSuggestion(args: {
 }): string {
 	const projectPath = toRelativeDisplayPath(args.root, args.projectPath);
 	const pathPattern = toRelativeDisplayPath(args.root, args.pathPattern);
-	const outdir = toRelativeDisplayPath(args.root, args.outdir);
+	// an outdir of `./` is the root itself
+	const outdir = toRelativeDisplayPath(args.root, args.outdir) || ".";
 	return [
 		"If you use coding agents, consider adding this to your AGENTS.md:",
 		"",
