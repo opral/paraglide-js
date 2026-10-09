@@ -25,14 +25,14 @@ export function createReadme(args: {
 ${compiledFromLine}
 ## What is this folder?
 
-Paraglide JS is a compiler-based i18n library. It compiles an [inlang](https://inlang.com) project into typesafe message functions. Messages and params are type-checked, unused messages are tree-shaken out of the bundle, and the runtime includes locale detection and localized URLs. It targets Vite-based apps (React, TanStack Start/Router, SvelteKit, Vue, Solid, Astro, ...) and has plugins for other bundlers. It also runs standalone through its CLI (\`paraglide-js compile\`), without a bundler.
+Paraglide JS is a compiler-based i18n library. It compiles an [inlang](https://inlang.com) project into typesafe message functions. Messages and params are type-checked, unused messages are tree-shaken out of the bundle, and the runtime includes locale detection and localized URLs. It targets Vite-based apps (React, TanStack Start/Router, SvelteKit, Vue, Solid, Astro, ...) and has plugins for other bundlers. It also compiles standalone with its CLI (\`npx @inlang/paraglide-js compile\`), without a bundler.
 
 ## Edit the source, not this folder
 
 - **Text and translations:** the translation files of the inlang project (see \`pathPattern\` in \`${projectPath}/settings.json\`, for example \`messages/{locale}.json\`). Add, rename and fix messages there.
 - **Locales and file format:** \`${projectPath}/settings.json\`.
 - **Compiler options** (\`strategy\`, \`outdir\`, ...): the bundler plugin options or \`${projectPath}/paraglide.config.*\`.
-- **Regenerate:** the bundler plugin (for example \`paraglideVitePlugin\`) recompiles on dev and build. Standalone, run \`npx @inlang/paraglide-js compile --project ${projectPath} --outdir <this folder>\`.${gitignoreNote}
+- **Regenerate:** the bundler plugin (for example \`paraglideVitePlugin\`) recompiles on dev and build. Without a bundler, run \`npx @inlang/paraglide-js compile --project ${projectPath} --outdir <this folder>\`.${gitignoreNote}
 
 If a new message has no \`m.*\` function yet, the output is stale: recompile (for example, restart the dev server).
 
