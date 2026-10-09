@@ -18,13 +18,17 @@ export function createRegistry(): string {
  */
 
 /**
+ * Selects the plural category of "input - options.offset". The offset
+ * comes from ICU MessageFormat 1 "{count, plural, offset:1 ...}" and does not
+ * change exact matches like "=0", which compare the input itself.
+ *
  * @param {import("./runtime.js").Locale} locale
  * @param {unknown} input
- * @param {Intl.PluralRulesOptions} [options]
+ * @param {Intl.PluralRulesOptions & { offset?: number }} [options]
  * @returns {string}
  */
-export function plural(locale, input, options) { 
-	return new Intl.PluralRules(locale, options).select(Number(input))
+export function plural(locale, input, options) {
+	return new Intl.PluralRules(locale, options).select(Number(input) - Number(options?.offset ?? 0))
 };
 
 /**

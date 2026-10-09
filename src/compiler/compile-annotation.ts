@@ -47,7 +47,36 @@ export function compileAnnotation(
 	if (annotation.name === "relativetime") {
 		validateRelativeTimeOptions(annotation);
 	}
+	if (annotation.name === "plural") {
+		validatePluralOptions(annotation);
+	}
 	return `registry.${annotation.name}("${locale}", ${str}, ${compileOptions(annotation.name, annotation.options, declarations)})`;
+}
+
+/**
+ * Returns the names of the variables the compiled options of an annotation
+ * read.
+ *
+ * @example
+ *   // {$date :relativetime unit=$unit}
+ *   annotationVariableReferences(annotation) // ["unit"]
+ */
+export function annotationVariableReferences(
+	annotation: FunctionReference
+): string[] {
+	const names: string[] = [];
+	for (const option of annotation.options) {
+		if (option.value.type === "variable-reference") {
+			names.push(option.value.name);
+		} else if (
+			annotation.name === "relativetime" &&
+			option.name === "unit" &&
+			isDollarVariableReference(option.value.value)
+		) {
+			names.push(option.value.value.slice(1));
+		}
+	}
+	return names;
 }
 
 function compileOptions(
@@ -127,6 +156,11 @@ function compileOptionLiteralOrVarRef(
 		return value.value;
 	}
 
+	if (annotationName === "plural" && optionName === "offset") {
+		// validated by validatePluralOptions()
+		return String(Number(value.value));
+	}
+
 	return `"${escapeForDoubleQuoteString(value.value)}"`;
 }
 
@@ -201,6 +235,27 @@ function validateRelativeTimeOptions(annotation: FunctionReference): void {
 				relativeTimeUnits
 			).join(", ")}.`
 		);
+	}
+}
+
+const pluralOffsetPattern = /^-?(?:0|[1-9]\d*)(?:\.\d+)?$/;
+
+/**
+ * ICU MessageFormat 1 `{count, plural, offset:1 …}` imports as
+ * `{$count :plural offset=1}`. The registry selects the plural category of
+ * `count - offset`, so the offset has to be a number.
+ */
+function validatePluralOptions(annotation: FunctionReference): void {
+	for (const option of annotation.options) {
+		if (
+			option.name === "offset" &&
+			option.value.type === "literal" &&
+			!pluralOffsetPattern.test(option.value.value)
+		) {
+			throw new Error(
+				`Invalid "plural" offset "${option.value.value}". Expected a number.`
+			);
+		}
 	}
 }
 

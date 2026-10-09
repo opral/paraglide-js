@@ -1818,6 +1818,314 @@ describe.each([
 				"Autre"
 			);
 		});
+
+		test("emits only the locals a locale reads, in dependency order, and supports plural offsets under checkJs", async () => {
+			const localsProject = await loadProjectInMemory({
+				blob: await newProject({
+					settings: { baseLocale: "en", locales: ["en", "fr"] },
+				}),
+			});
+
+			const ref = (name: string) =>
+				({ type: "variable-reference", name }) as const;
+			const literal = (key: string, value: string) =>
+				({ type: "literal-match", key, value }) as const;
+			const catchall = (key: string) =>
+				({ type: "catchall-match", key }) as const;
+			const text = (value: string) => [{ type: "text" as const, value }];
+
+			// en never reads statusExact, fr only reads it
+			await insertBundleNested(
+				localsProject.db,
+				createBundleNested({
+					id: "status_label",
+					declarations: [
+						{ type: "input-variable", name: "status" },
+						{
+							type: "local-variable",
+							name: "statusExact",
+							value: { type: "expression", arg: ref("status") },
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [ref("status")],
+							variants: [
+								{
+									matches: [literal("status", "active")],
+									pattern: text("Active"),
+								},
+								{ matches: [catchall("status")], pattern: text("Other") },
+							],
+						},
+						{
+							locale: "fr",
+							selectors: [ref("statusExact")],
+							variants: [
+								{
+									matches: [literal("statusExact", "0")],
+									pattern: text("Zéro"),
+								},
+								{ matches: [catchall("statusExact")], pattern: text("Autre") },
+							],
+						},
+					],
+				})
+			);
+
+			// the shape the ICU1 plugin imports
+			// {count, plural, offset:1 =0 {…} =1 {…} one {…} other {…}} as
+			await insertBundleNested(
+				localsProject.db,
+				createBundleNested({
+					id: "guest_list",
+					declarations: [
+						{ type: "input-variable", name: "count" },
+						{
+							type: "local-variable",
+							name: "countPluralOffset1",
+							value: {
+								type: "expression",
+								arg: ref("count"),
+								annotation: {
+									type: "function-reference",
+									name: "plural",
+									options: [
+										{ name: "offset", value: { type: "literal", value: "1" } },
+									],
+								},
+							},
+						},
+						{
+							type: "local-variable",
+							name: "countPluralOffset1Exact",
+							value: { type: "expression", arg: ref("count") },
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [
+								ref("countPluralOffset1Exact"),
+								ref("countPluralOffset1"),
+							],
+							variants: [
+								{
+									matches: [
+										literal("countPluralOffset1Exact", "0"),
+										catchall("countPluralOffset1"),
+									],
+									pattern: text("Nobody"),
+								},
+								{
+									matches: [
+										literal("countPluralOffset1Exact", "1"),
+										catchall("countPluralOffset1"),
+									],
+									pattern: text("Only you"),
+								},
+								{
+									matches: [
+										catchall("countPluralOffset1Exact"),
+										literal("countPluralOffset1", "one"),
+									],
+									pattern: text("You and one other"),
+								},
+								{
+									matches: [
+										catchall("countPluralOffset1Exact"),
+										catchall("countPluralOffset1"),
+									],
+									pattern: text("You and others"),
+								},
+							],
+						},
+						{
+							// fr does not translate the exact cases: countPluralOffset1Exact
+							// is not read
+							locale: "fr",
+							selectors: [ref("countPluralOffset1")],
+							variants: [
+								{
+									matches: [literal("countPluralOffset1", "one")],
+									pattern: text("Vous et un autre"),
+								},
+								{
+									matches: [catchall("countPluralOffset1")],
+									pattern: text("Vous et d'autres"),
+								},
+							],
+						},
+					],
+				})
+			);
+
+			// fr reads no variable at all
+			await insertBundleNested(
+				localsProject.db,
+				createBundleNested({
+					id: "greeting_label",
+					declarations: [
+						{ type: "input-variable", name: "name" },
+						{
+							type: "local-variable",
+							name: "nameValue",
+							value: { type: "expression", arg: ref("name") },
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [],
+							variants: [
+								{
+									matches: [],
+									pattern: [
+										{ type: "text", value: "Hello " },
+										{ type: "expression", arg: ref("nameValue") },
+									],
+								},
+							],
+						},
+						{
+							locale: "fr",
+							selectors: [],
+							variants: [{ matches: [], pattern: text("Bonjour") }],
+						},
+					],
+				})
+			);
+
+			// a local declared before the local it reads
+			await insertBundleNested(
+				localsProject.db,
+				createBundleNested({
+					id: "reordered_locals",
+					declarations: [
+						{ type: "input-variable", name: "count" },
+						{
+							type: "local-variable",
+							name: "countPlural",
+							value: {
+								type: "expression",
+								arg: ref("countValue"),
+								annotation: {
+									type: "function-reference",
+									name: "plural",
+									options: [],
+								},
+							},
+						},
+						{
+							type: "local-variable",
+							name: "countValue",
+							value: { type: "expression", arg: ref("count") },
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [ref("countPlural")],
+							variants: [
+								{
+									matches: [literal("countPlural", "one")],
+									pattern: text("one"),
+								},
+								{ matches: [catchall("countPlural")], pattern: text("other") },
+							],
+						},
+					],
+				})
+			);
+
+			const output = await compileProject({
+				project: localsProject,
+				compilerOptions,
+			});
+
+			const tsProject = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+			});
+			for (const [fileName, code] of Object.entries(output)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					tsProject.createSourceFile(fileName, code);
+				}
+			}
+			tsProject.createSourceFile(
+				"test.ts",
+				`
+				import * as m from "./messages.js"
+
+				m.status_label({ status: "active" }) satisfies string
+				m.guest_list({ count: 0 }) satisfies string
+				m.reordered_locals({ count: 1 }) satisfies string
+				m.greeting_label({ name: "Ada" }) satisfies string
+				`
+			);
+
+			const program = tsProject.createProgram();
+			const diagnostics = ts.getPreEmitDiagnostics(program).filter((d) => {
+				return !d.messageText
+					.toString()
+					.includes("Cannot find module 'async_hooks'");
+			});
+			for (const diagnostic of diagnostics) {
+				console.error(diagnostic.messageText, diagnostic.file?.fileName);
+			}
+			expect(diagnostics.length).toEqual(0);
+
+			const { m } = await importCode(
+				await bundleCode(output, `export * as m from "./paraglide/messages.js"`)
+			);
+
+			expect(
+				["active", "inactive"].map((status) =>
+					m.status_label({ status }, { locale: "en" })
+				)
+			).toEqual(["Active", "Other"]);
+			expect(
+				[0, "0", 1].map((status) =>
+					m.status_label({ status }, { locale: "fr" })
+				)
+			).toEqual(["Zéro", "Zéro", "Autre"]);
+
+			const guests = (locale: string) =>
+				[0, 1, 2, 3, 22, "1", "2"].map((count) =>
+					m.guest_list({ count }, { locale })
+				);
+			expect(guests("en")).toEqual([
+				"Nobody",
+				"Only you",
+				"You and one other",
+				"You and others",
+				"You and others",
+				"Only you",
+				"You and one other",
+			]);
+			// French "one" covers 0 and 1 (and -1 for 0 guests), so 1 and 2 guests
+			// (0 and 1 others) select "one"
+			expect(guests("fr")).toEqual([
+				"Vous et un autre",
+				"Vous et un autre",
+				"Vous et un autre",
+				"Vous et d'autres",
+				"Vous et d'autres",
+				"Vous et un autre",
+				"Vous et un autre",
+			]);
+
+			expect(
+				[1, 2].map((count) => m.reordered_locals({ count }, { locale: "en" }))
+			).toEqual(["one", "other"]);
+			expect(m.greeting_label({ name: "Ada" }, { locale: "en" })).toBe(
+				"Hello Ada"
+			);
+			expect(m.greeting_label({ name: "Ada" }, { locale: "fr" })).toBe(
+				"Bonjour"
+			);
+		});
 	}
 );
 
