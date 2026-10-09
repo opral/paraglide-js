@@ -16,10 +16,12 @@ test("should emit per locale message files", () => {
 				en: {
 					code: 'console.log("message in English");',
 					node: {} as unknown as Message,
+					registryFunctions: [],
 				},
 				de: {
 					code: 'console.log("message in German");',
 					node: {} as unknown as Message,
+					registryFunctions: [],
 				},
 			},
 			matchTypes: new Map(),
@@ -56,6 +58,7 @@ test("handles case senstivity by creating directories and files only in lowercas
 				en: {
 					code: 'export const HappyElephant = () => "HappyElephant0"',
 					node: {} as unknown as Message,
+					registryFunctions: [],
 				},
 			},
 			matchTypes: new Map(),
@@ -71,6 +74,7 @@ test("handles case senstivity by creating directories and files only in lowercas
 				en: {
 					code: 'export const happyelephant = () => "happyelephant1"',
 					node: {} as unknown as Message,
+					registryFunctions: [],
 				},
 			},
 			matchTypes: new Map(),
@@ -101,6 +105,7 @@ test("emits minimal runtime imports when middleware splitting is disabled", () =
 				en: {
 					code: '() => "happy"',
 					node: {} as unknown as Message,
+					registryFunctions: [],
 				},
 			},
 			matchTypes: new Map(),
@@ -141,6 +146,7 @@ test("emits fallback definitions after their dependencies", () => {
 				en: {
 					code: '/** @type {(inputs: {}) => string} */ () => "admin"',
 					node: {} as unknown as Message,
+					registryFunctions: [],
 				},
 			},
 			matchTypes: new Map(),
@@ -177,4 +183,51 @@ test("emits fallback definitions after their dependencies", () => {
 	expect(frIndex).toBeGreaterThan(-1);
 	expect(frCaIndex).toBeGreaterThan(-1);
 	expect(frIndex).toBeLessThan(frCaIndex);
+});
+
+test("imports the registry only when a message calls it, not when the text mentions it", () => {
+	const bundle = (
+		id: string,
+		code: string,
+		registryFunctions: string[]
+	): CompiledBundleWithMessages => ({
+		bundle: {
+			code: `export const ${id} = () => en_${id}()`,
+			node: { id } as unknown as Bundle,
+		},
+		messages: {
+			en: { code, node: {} as unknown as Message, registryFunctions },
+		},
+		matchTypes: new Map(),
+	});
+	const settings: Pick<ProjectSettings, "locales" | "baseLocale"> = {
+		locales: ["en"],
+		baseLocale: "en",
+	};
+	const registryImport =
+		/import \* as registry from ['"]\.\.\/registry\.js['"]/;
+
+	const textOnly = generateOutput(
+		[bundle("registry_text", "() => `Open the registry. Now.`", [])],
+		settings,
+		{ en: undefined }
+	);
+	for (const [fileName, code] of Object.entries(textOnly)) {
+		if (fileName.startsWith("messages/")) {
+			expect(code).not.toMatch(registryImport);
+		}
+	}
+
+	const withNumber = generateOutput(
+		[
+			bundle("amount", '(i) => `${registry.number("en", i?.amount, {})}`', [
+				"number",
+			]),
+		],
+		settings,
+		{ en: undefined }
+	);
+	expect(
+		Object.values(withNumber).some((code) => registryImport.test(code))
+	).toBe(true);
 });

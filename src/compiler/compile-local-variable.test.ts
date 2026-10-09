@@ -77,13 +77,35 @@ test("compiles a local variable with an annotation and empty options", () => {
 				arg: { type: "literal", value: "Hello" },
 				annotation: {
 					type: "function-reference",
-					name: "myFunction",
+					name: "number",
 					options: [],
 				},
 			},
 		},
 	});
-	expect(code).toEqual('const myVar = registry.myFunction("en", "Hello", {});');
+	expect(code).toEqual('const myVar = registry.number("en", "Hello", {});');
+});
+
+test("interpolates the raw value for an unknown annotation, like a pattern", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declaration: {
+			type: "local-variable",
+			name: "myVar",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "amount" },
+				annotation: {
+					type: "function-reference",
+					name: "myFunction",
+					options: [
+						{ name: "option1", value: { type: "literal", value: "value1" } },
+					],
+				},
+			},
+		},
+	});
+	expect(code).toEqual("const myVar = i?.amount;");
 });
 
 test("compiles a local variable with an annotation and options", () => {
@@ -97,7 +119,7 @@ test("compiles a local variable with an annotation and options", () => {
 				arg: { type: "literal", value: "Hello" },
 				annotation: {
 					type: "function-reference",
-					name: "myFunction",
+					name: "number",
 					options: [
 						{ name: "option1", value: { type: "literal", value: "value1" } },
 						{
@@ -110,7 +132,7 @@ test("compiles a local variable with an annotation and options", () => {
 		},
 	});
 	expect(code).toEqual(
-		'const myVar = registry.myFunction("en", "Hello", { option1: "value1", option2: i?.varRef });'
+		'const myVar = registry.number("en", "Hello", { option1: "value1", option2: i?.varRef });'
 	);
 });
 

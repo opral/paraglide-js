@@ -11,10 +11,10 @@ import { escapeForTemplateLiteral } from "../services/codegen/escape.js";
 import { compileInputAccess } from "./variable-access.js";
 import {
 	compileAnnotation,
+	ignoreUnknownFormatter,
 	isRegistryFunction,
-	registryFunctionNamesForDisplay,
+	type RegistryUsage,
 } from "./compile-annotation.js";
-import { Logger } from "../services/logger/index.js";
 
 export type CompilePatternMode = "string" | "parts";
 
@@ -43,6 +43,10 @@ export const compilePattern = (args: {
 	 * into `registry.number(locale, ...)` calls.
 	 */
 	locale?: string;
+	/**
+	 * Collects the registry functions the compiled pattern calls.
+	 */
+	registryUsage?: RegistryUsage;
 }): Compiled<Pattern> => {
 	const mode = args.mode ?? "string";
 
@@ -57,6 +61,7 @@ function compilePatternToString(args: {
 	pattern: Pattern;
 	declarations: Declaration[];
 	locale?: string;
+	registryUsage?: RegistryUsage;
 }): Compiled<Pattern> {
 	let result = "";
 
@@ -66,7 +71,12 @@ function compilePatternToString(args: {
 				result += escapeForTemplateLiteral(part.value);
 				break;
 			case "expression":
-				result += `\${${compileExpression(part, args.declarations, args.locale)}}`;
+				result += `\${${compileExpression(
+					part,
+					args.declarations,
+					args.locale,
+					args.registryUsage
+				)}}`;
 				break;
 			case "markup-start":
 			case "markup-end":
@@ -86,6 +96,7 @@ function compilePatternToParts(args: {
 	pattern: Pattern;
 	declarations: Declaration[];
 	locale?: string;
+	registryUsage?: RegistryUsage;
 }): Compiled<Pattern> {
 	const compiledParts: string[] = [];
 
@@ -101,7 +112,8 @@ function compilePatternToParts(args: {
 					`{ type: "text", value: String(${compileExpression(
 						part,
 						args.declarations,
-						args.locale
+						args.locale,
+						args.registryUsage
 					)}) }`
 				);
 				break;
@@ -126,15 +138,6 @@ function compilePatternToParts(args: {
 	};
 }
 
-const logger = new Logger();
-
-/**
- * Tracks annotation names that have already been warned about to avoid
- * spamming the console when the same unsupported formatter is used in
- * many messages (or across watch-mode recompiles).
- */
-const warnedUnsupportedAnnotations = new Set<string>();
-
 /**
  * Compiles a pattern expression including its annotation (if any).
  *
@@ -147,7 +150,8 @@ const warnedUnsupportedAnnotations = new Set<string>();
 function compileExpression(
 	expression: Expression,
 	declarations: Declaration[],
-	locale?: string
+	locale?: string,
+	registryUsage?: RegistryUsage
 ): string {
 	const value = compileExpressionValue(expression, declarations);
 	const annotation = expression.annotation;
@@ -157,13 +161,7 @@ function compileExpression(
 	}
 
 	if (!isRegistryFunction(annotation.name)) {
-		if (!warnedUnsupportedAnnotations.has(annotation.name)) {
-			warnedUnsupportedAnnotations.add(annotation.name);
-			logger.warn(
-				`The formatter "${annotation.name}" is unknown and will be ignored. The value is interpolated without formatting. Supported formatters: ${registryFunctionNamesForDisplay()}.`
-			);
-		}
-		return value;
+		return ignoreUnknownFormatter(annotation.name, value);
 	}
 
 	if (locale === undefined) {
@@ -172,7 +170,13 @@ function compileExpression(
 		);
 	}
 
-	return compileAnnotation(value, locale, annotation, declarations);
+	return compileAnnotation(
+		value,
+		locale,
+		annotation,
+		declarations,
+		registryUsage
+	);
 }
 
 function compileExpressionValue(

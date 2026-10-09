@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import type {
 	Declaration,
 	Expression,
@@ -10,6 +10,7 @@ import type {
 } from "@inlang/sdk";
 import { compileMessage } from "./compile-message.js";
 import { createRegistry } from "./registry.js";
+import { Logger } from "../services/logger/index.js";
 
 /**
  * Compiles a message and imports it together with an inlined registry so the
@@ -432,5 +433,177 @@ describe("undeclared variables", () => {
 
 		expect(code).not.toContain("count");
 		expect(message({ name: "Ada" })).toBe("Hi Ada");
+	});
+});
+
+describe("unknown annotations on locals", () => {
+	test("interpolate the raw value like unknown pattern annotations", async () => {
+		const warn = vi
+			.spyOn(Logger.prototype, "warn")
+			.mockImplementation(function (this: Logger) {
+				return this;
+			});
+		try {
+			const { code, message } = await compileAndImport({
+				declarations: [
+					input("amount"),
+					input("style"),
+					local("styleValue", "style"),
+					local("formatted", "amount", {
+						type: "function-reference",
+						name: "customLocalFormatter",
+						options: [
+							{
+								name: "style",
+								value: { type: "variable-reference", name: "styleValue" },
+							},
+						],
+					}),
+				],
+				variants: [{ pattern: [text("Total: "), ref("formatted")] }],
+			});
+
+			expect(code).toContain("const formatted = i?.amount;");
+			expect(code).not.toContain("registry.");
+			// the option of the ignored annotation is not read
+			expect(code).not.toContain("styleValue");
+			expect(message({ amount: 1234, style: "x" })).toBe("Total: 1234");
+			expect(warn).toHaveBeenCalledWith(
+				expect.stringContaining('"customLocalFormatter" is unknown')
+			);
+		} finally {
+			warn.mockRestore();
+		}
+	});
+});
+
+describe("registryFunctions metadata", () => {
+	const registryFunctions = (args: {
+		declarations: Declaration[];
+		selectors?: string[];
+		variants: Array<{ matches?: Match[]; pattern: Pattern }>;
+	}) => {
+		const message: Message = {
+			id: "message-id",
+			bundleId: "locals_message",
+			locale: "en",
+			selectors: (args.selectors ?? []).map((name) => ({
+				type: "variable-reference",
+				name,
+			})),
+		};
+		return compileMessage(
+			args.declarations,
+			message,
+			args.variants.map((variant, index) => ({
+				id: String(index),
+				messageId: message.id,
+				matches: variant.matches ?? [],
+				pattern: variant.pattern,
+			}))
+		).registryFunctions;
+	};
+
+	test("message text that mentions the registry does not count", () => {
+		expect(
+			registryFunctions({
+				declarations: [],
+				variants: [{ pattern: [text("Open the registry. Now.")] }],
+			})
+		).toEqual([]);
+	});
+
+	test("an unread annotated local does not count", () => {
+		expect(
+			registryFunctions({
+				declarations: [input("count"), local("countPlural", "count", plural())],
+				variants: [{ pattern: [ref("count")] }],
+			})
+		).toEqual([]);
+	});
+
+	test("unknown local annotations do not count", () => {
+		expect(
+			registryFunctions({
+				declarations: [
+					input("value"),
+					local("custom", "value", {
+						type: "function-reference",
+						name: "customFormatter",
+						options: [],
+					}),
+				],
+				variants: [{ pattern: [ref("custom")] }],
+			})
+		).toEqual([]);
+	});
+
+	test("unknown pattern annotations do not count", () => {
+		expect(
+			registryFunctions({
+				declarations: [input("value")],
+				variants: [
+					{
+						pattern: [
+							{
+								type: "expression",
+								arg: { type: "variable-reference", name: "value" },
+								annotation: {
+									type: "function-reference",
+									name: "customFormatter",
+									options: [],
+								},
+							},
+						],
+					},
+				],
+			})
+		).toEqual([]);
+	});
+
+	test("read locals and pattern annotations count, in both variant paths", () => {
+		expect(
+			registryFunctions({
+				declarations: [input("count"), local("countPlural", "count", plural())],
+				selectors: ["countPlural"],
+				variants: [
+					{ matches: [literal("countPlural", "one")], pattern: [text("one")] },
+					{
+						matches: [catchall("countPlural")],
+						pattern: [
+							{
+								type: "expression",
+								arg: { type: "variable-reference", name: "count" },
+								annotation: {
+									type: "function-reference",
+									name: "icu:pound",
+									options: [],
+								},
+							},
+						],
+					},
+				],
+			}).sort()
+		).toEqual(["icuPound", "plural"]);
+		expect(
+			registryFunctions({
+				declarations: [input("amount")],
+				variants: [
+					{
+						pattern: [
+							{
+								type: "expression",
+								arg: { type: "variable-reference", name: "amount" },
+								annotation: {
+									type: "function-reference",
+									name: "number",
+									options: [],
+								},
+							},
+						],
+					},
+				],
+			})
+		).toEqual(["number"]);
 	});
 });

@@ -779,4 +779,124 @@ describe("ICU plural offset (`{count, plural, offset:1 …}`)", () => {
 			"two"
 		);
 	});
+
+	const pound = (offset?: string): Pattern[number] => ({
+		type: "expression",
+		arg: { type: "variable-reference", name: "count" },
+		annotation: {
+			type: "function-reference",
+			name: "icu:pound",
+			options:
+				offset === undefined
+					? []
+					: [{ name: "offset", value: { type: "literal", value: offset } }],
+		},
+	});
+
+	test("# displays count - offset, formatted like number()", async () => {
+		const { message, code } = await compileAndImport({
+			locale: "en",
+			declarations: offsetDeclarations(),
+			selectors: offsetSelectors,
+			variants: [
+				exactOffset("0", text("Nobody")),
+				exactOffset("1", text("You")),
+				categoryOffset("one", [
+					{ type: "text", value: "You and " },
+					pound("1"),
+					{ type: "text", value: " other" },
+				]),
+				otherOffset([
+					{ type: "text", value: "You and " },
+					pound("1"),
+					{ type: "text", value: " others" },
+				]),
+			],
+		});
+
+		expect(code).toContain('registry.icuPound("en", i?.count, { offset: 1 })');
+		expect(render(message, [0, 1, 2, 3, 1234, "2"])).toEqual({
+			"0": "Nobody",
+			"1": "You",
+			"2": "You and 1 other",
+			"3": "You and 2 others",
+			"1234": "You and 1,233 others",
+			'"2"': "You and 1 other",
+		});
+	});
+
+	test("# without an offset displays count, formatted like number()", async () => {
+		const variants = [
+			category("one", [pound(), { type: "text", value: " item" }]),
+			other([pound(), { type: "text", value: " items" }]),
+		];
+		const en = await compileAndImport({
+			locale: "en",
+			declarations: icuDeclarations(),
+			selectors: icuSelectors,
+			variants,
+		});
+		const de = await compileAndImport({
+			locale: "de",
+			declarations: icuDeclarations(),
+			selectors: icuSelectors,
+			variants,
+		});
+
+		expect(en.code).toContain('registry.icuPound("en", i?.count, {})');
+		expect(render(en.message, [1, 2, 1234, 1.5])).toEqual({
+			"1": "1 item",
+			"2": "2 items",
+			"1234": "1,234 items",
+			"1.5": "1.5 items",
+		});
+		expect(de.message({ count: 1234 })).toBe("1.234 items");
+	});
+
+	test("a non-numeric # offset fails compilation", async () => {
+		await expect(
+			compileAndImport({
+				locale: "en",
+				declarations: offsetDeclarations(),
+				selectors: offsetSelectors,
+				variants: [otherOffset([pound("x")])],
+			})
+		).rejects.toThrow('Invalid "icu:pound" offset "x". Expected a number.');
+	});
+
+	test("registry.icuPound subtracts the offset and formats like number()", async () => {
+		const registry = await import(
+			"data:text/javascript;base64," +
+				Buffer.from(createRegistry()).toString("base64")
+		);
+
+		expect(registry.icuPound("en", 1234, { offset: 1 })).toBe("1,233");
+		expect(registry.icuPound("en", 1234, {})).toBe(
+			registry.number("en", 1234, {})
+		);
+		expect(registry.icuPound("en", "3")).toBe("3");
+	});
+
+	test("# displays an input that is not a number as is, without the offset", async () => {
+		const registry = await import(
+			"data:text/javascript;base64," +
+				Buffer.from(createRegistry()).toString("base64")
+		);
+		const pound = (input: unknown) =>
+			registry.icuPound("en", input, { offset: 1 });
+
+		// numbers and numeric strings are offset and formatted
+		expect(pound(1234)).toBe("1,233");
+		expect(pound("1234")).toBe("1,233");
+		expect(pound(" 3 ")).toBe("2");
+		// anything else is displayed like a plain {count} placeholder
+		expect(pound("abc")).toBe("abc");
+		expect(pound("1,234")).toBe("1,234");
+		expect(pound("")).toBe("");
+		expect(pound(undefined)).toBe("undefined");
+		expect(pound(null)).toBe("null");
+		expect(pound(true)).toBe("true");
+		expect(pound(Number.NaN)).toBe("NaN");
+		expect(pound(Infinity)).toBe("Infinity");
+	});
 });

@@ -54,6 +54,9 @@ export function generateOutput(
 		let file = "";
 		const inputTypeDefs: string[] = [];
 		const emittedInputTypeDefs = new Set<string>();
+		// decided from compiler metadata, not from the file text, which also
+		// contains message text like "Open the registry. Now."
+		let usesRegistry = false;
 
 		for (const compiledBundle of compiledBundles) {
 			const compiledMessage = compiledBundle.messages[locale];
@@ -85,11 +88,14 @@ export function generateOutput(
 				continue;
 			}
 
+			if (compiledMessage.registryFunctions.length > 0) {
+				usesRegistry = true;
+			}
 			file += `\n\nexport const ${bundleModuleId} = ${compiledMessage.code}`;
 		}
 
 		// add import if used
-		if (file.includes("registry.")) {
+		if (usesRegistry) {
 			file = `import * as registry from "../registry.js"\n` + file;
 		}
 

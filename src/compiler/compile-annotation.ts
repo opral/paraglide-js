@@ -6,26 +6,69 @@ import type {
 } from "@inlang/sdk";
 import { compileVariableAccess } from "./variable-access.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
+import { Logger } from "../services/logger/index.js";
 
 /**
- * The functions shipped in the generated registry.js file.
+ * The functions shipped in the generated registry.js file, by the annotation
+ * name that calls them.
  *
  * @see createRegistry()
  */
-const registryFunctionNames = new Set([
+const registryFunctionByAnnotation = new Map([
+	["plural", "plural"],
+	["number", "number"],
+	["datetime", "datetime"],
+	["relativetime", "relativetime"],
+	// `#` in ICU MessageFormat 1 plurals, as imported by the ICU1 plugin
+	["icu:pound", "icuPound"],
+]);
+
+const displayedRegistryFunctions = [
 	"plural",
 	"number",
 	"datetime",
 	"relativetime",
-]);
+];
 
 export function isRegistryFunction(name: string): boolean {
-	return registryFunctionNames.has(name);
+	return registryFunctionByAnnotation.has(name);
 }
 
 export function registryFunctionNamesForDisplay(): string {
-	return Array.from(registryFunctionNames).join(", ");
+	return displayedRegistryFunctions.join(", ");
 }
+
+const logger = new Logger();
+
+/**
+ * Tracks annotation names that have already been warned about to avoid
+ * spamming the console when the same unsupported formatter is used in
+ * many messages (or across watch-mode recompiles).
+ */
+const warnedUnsupportedAnnotations = new Set<string>();
+
+/**
+ * Returns the value unformatted, and warns once per formatter name.
+ *
+ * Unknown annotations, on pattern expressions and on local variables, fall
+ * back to plain interpolation to avoid breaking compilation of messages
+ * imported from other i18n libraries (e.g. i18next's `{{value, customFormat}}`).
+ */
+export function ignoreUnknownFormatter(name: string, value: string): string {
+	if (!warnedUnsupportedAnnotations.has(name)) {
+		warnedUnsupportedAnnotations.add(name);
+		logger.warn(
+			`The formatter "${name}" is unknown and will be ignored. The value is interpolated without formatting. Supported formatters: ${registryFunctionNamesForDisplay()}.`
+		);
+	}
+	return value;
+}
+
+/**
+ * The names of the registry functions a message calls, collected while it is
+ * compiled. The output decides from it whether to import the registry.
+ */
+export type RegistryUsage = Set<string>;
 
 /**
  * Wraps a compiled expression value in a `registry.*` call if an
@@ -39,7 +82,8 @@ export function compileAnnotation(
 	str: string,
 	locale: string,
 	annotation?: FunctionReference,
-	declarations?: Declaration[]
+	declarations?: Declaration[],
+	registryUsage?: RegistryUsage
 ): string {
 	if (!annotation) {
 		return str;
@@ -47,10 +91,13 @@ export function compileAnnotation(
 	if (annotation.name === "relativetime") {
 		validateRelativeTimeOptions(annotation);
 	}
-	if (annotation.name === "plural") {
-		validatePluralOptions(annotation);
+	if (offsetAnnotations.has(annotation.name)) {
+		validateOffsetOptions(annotation);
 	}
-	return `registry.${annotation.name}("${locale}", ${str}, ${compileOptions(annotation.name, annotation.options, declarations)})`;
+	const functionName =
+		registryFunctionByAnnotation.get(annotation.name) ?? annotation.name;
+	registryUsage?.add(functionName);
+	return `registry.${functionName}("${locale}", ${str}, ${compileOptions(annotation.name, annotation.options, declarations)})`;
 }
 
 /**
@@ -156,8 +203,8 @@ function compileOptionLiteralOrVarRef(
 		return value.value;
 	}
 
-	if (annotationName === "plural" && optionName === "offset") {
-		// validated by validatePluralOptions()
+	if (offsetAnnotations.has(annotationName) && optionName === "offset") {
+		// validated by validateOffsetOptions()
 		return String(Number(value.value));
 	}
 
@@ -238,22 +285,26 @@ function validateRelativeTimeOptions(annotation: FunctionReference): void {
 	}
 }
 
-const pluralOffsetPattern = /^-?(?:0|[1-9]\d*)(?:\.\d+)?$/;
-
 /**
- * ICU MessageFormat 1 `{count, plural, offset:1 …}` imports as
- * `{$count :plural offset=1}`. The registry selects the plural category of
- * `count - offset`, so the offset has to be a number.
+ * Annotations with an ICU MessageFormat 1 plural `offset` option.
+ *
+ * `{count, plural, offset:1 …}` imports as `{$count :plural offset=1}`, and
+ * `#` inside it as `{$count :icu:pound offset=1}`. The registry subtracts the
+ * offset from the input, so it has to be a number.
  */
-function validatePluralOptions(annotation: FunctionReference): void {
+const offsetAnnotations = new Set(["plural", "icu:pound"]);
+
+const offsetPattern = /^-?(?:0|[1-9]\d*)(?:\.\d+)?$/;
+
+function validateOffsetOptions(annotation: FunctionReference): void {
 	for (const option of annotation.options) {
 		if (
 			option.name === "offset" &&
 			option.value.type === "literal" &&
-			!pluralOffsetPattern.test(option.value.value)
+			!offsetPattern.test(option.value.value)
 		) {
 			throw new Error(
-				`Invalid "plural" offset "${option.value.value}". Expected a number.`
+				`Invalid "${annotation.name}" offset "${option.value.value}". Expected a number.`
 			);
 		}
 	}

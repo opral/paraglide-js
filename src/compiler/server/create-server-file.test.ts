@@ -98,7 +98,10 @@ test("keys compiledBundles by the safe module id, not the raw bundle id (experim
 		{
 			bundle: { node: { id: bundleId } },
 			messages: {
-				en: { code: `export const ${safeModuleId} = () => "hello";` },
+				en: {
+					code: `export const ${safeModuleId} = () => "hello";`,
+					registryFunctions: [],
+				},
 			},
 		},
 	] as unknown as CompiledBundleWithMessages[];
@@ -130,7 +133,10 @@ test("a literal '$' in a compiled message does not corrupt the generated file (e
 		{
 			bundle: { node: { id: "price_symbol" } },
 			messages: {
-				en: { code: "export const price_symbol = () => `$`;" },
+				en: {
+					code: "export const price_symbol = () => `$`;",
+					registryFunctions: [],
+				},
 			},
 		},
 	] as unknown as CompiledBundleWithMessages[];

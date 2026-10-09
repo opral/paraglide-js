@@ -122,9 +122,14 @@ export function generateOutput(
 			`/** @typedef {${inputTypeDefinition}} ${inputTypeAliasName} */\n\n` +
 			output[filename];
 
-		// Add the registry import to the message file
-		// if registry is used
-		if (output[filename]?.includes("registry.")) {
+		// Add the registry import to the message file if a message calls the
+		// registry. Decided from compiler metadata, not from the file text,
+		// which also contains message text like "Open the registry. Now."
+		const usesRegistry = settings.locales.some(
+			(locale) =>
+				(compiledBundle.messages[locale]?.registryFunctions.length ?? 0) > 0
+		);
+		if (usesRegistry) {
 			output[filename] =
 				`import * as registry from '../registry.js'\n` + output[filename];
 		}
