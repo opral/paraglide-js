@@ -5,11 +5,19 @@
  * instead, and where inlang tooling ends and Paraglide JS begins.
  * See https://llmstxt.org/ for the format guidelines.
  */
-export function createReadme(args: { projectPath?: string }): string {
+export function createReadme(args: {
+	projectPath?: string;
+	/** Whether the output also contains a `.gitignore` that ignores it. */
+	gitignored?: boolean;
+}): string {
 	const compiledFromLine = args.projectPath
 		? `\nCompiled from: \`${args.projectPath}\`\n`
 		: "";
 	const projectPath = args.projectPath ?? "./project.inlang";
+	const gitignoreNote =
+		args.gitignored === false
+			? ""
+			: " This folder is git-ignored (see `.gitignore`), so don't commit it.";
 
 	return `# Paraglide JS Compiled Output
 
@@ -17,13 +25,14 @@ export function createReadme(args: { projectPath?: string }): string {
 ${compiledFromLine}
 ## What is this folder?
 
-Paraglide JS is a compiler-based i18n library. It compiles an [inlang](https://inlang.com) project into typesafe message functions. Messages and params are type-checked, unused messages are tree-shaken out of the bundle, and the runtime includes locale detection and localized URLs. It is built for Vite-based apps (React, TanStack Start/Router, SvelteKit, Vue, Solid, Astro, ...).
+Paraglide JS is a compiler-based i18n library. It compiles an [inlang](https://inlang.com) project into typesafe message functions. Messages and params are type-checked, unused messages are tree-shaken out of the bundle, and the runtime includes locale detection and localized URLs. It targets Vite-based apps (React, TanStack Start/Router, SvelteKit, Vue, Solid, Astro, ...) and has plugins for other bundlers.
 
 ## Edit the source, not this folder
 
 - **Text and translations:** the translation files of the inlang project (see \`pathPattern\` in \`${projectPath}/settings.json\`, for example \`messages/{locale}.json\`). Add, rename and fix messages there.
 - **Locales and file format:** \`${projectPath}/settings.json\`.
-- **Regenerate:** the bundler plugin (for example \`paraglideVitePlugin\`) recompiles on dev and build. Without a bundler, run \`npx @inlang/paraglide-js compile --project ${projectPath} --outdir <this folder>\`. This folder is git-ignored (see \`.gitignore\`), so don't commit it.
+- **Compiler options** (\`strategy\`, \`outdir\`, ...): the bundler plugin options or \`${projectPath}/paraglide.config.*\`.
+- **Regenerate:** the bundler plugin (for example \`paraglideVitePlugin\`) recompiles on dev and build. Without a bundler, run \`npx @inlang/paraglide-js compile --project ${projectPath} --outdir <this folder>\`.${gitignoreNote}
 
 If a new message has no \`m.*\` function yet, the output is stale: recompile (for example, restart the dev server).
 
@@ -31,7 +40,7 @@ If a new message has no \`m.*\` function yet, the output is stale: recompile (fo
 
 - **inlang** owns the localization project: messages, translation files, \`settings.json\`, plugins, and the tooling around them. Use the [inlang CLI](https://inlang.com/m/2qj2w8pu/app-inlang-cli) for checks and machine translation (\`npx @inlang/cli check --project ${projectPath}\` finds missing translations and unused messages). Translators can use [Fink](https://inlang.com/m/tdozzpar/app-inlang-finkLocalizationEditor), designers [Parrot](https://inlang.com/m/gkrpgoir/app-parrot-figmaPlugin) in Figma, and developers [Sherlock](https://inlang.com/m/r7kp499g/app-inlang-ideExtension) in VS Code. The project folder has its own README.
 - **Paraglide JS** owns this folder: message functions, the locale runtime, and server middleware.
-- The file format (inlang message format, i18next, ICU MessageFormat, ...) is an inlang plugin. Switching formats doesn't change your \`m.*\` calls. See [file formats](https://paraglidejs.com/file-formats). Switching to a runtime library such as i18next gives up the compiled typesafety and tree-shaking, but not the inlang tooling. See the [comparison](https://paraglidejs.com/comparison).
+- The file format (inlang message format, i18next, ICU MessageFormat, ...) is an inlang plugin. Switching formats doesn't change your \`m.*\` calls. See [file formats](https://paraglidejs.com/file-formats). Switching to a runtime library such as i18next gives up the compiled typesafety and tree-shaking; inlang's checks, machine translation and editors keep working through a format plugin. See the [comparison](https://paraglidejs.com/comparison).
 
 \`\`\`
 paraglide/
@@ -64,7 +73,7 @@ getTextDirection(); // "ltr" | "rtl"
 
 ## Strategy and localized URLs
 
-The compiler option \`strategy\` sets how the locale is detected and stored, in order of precedence: \`"url"\` (localized URLs such as \`/de/about\`), \`"cookie"\`, \`"globalVariable"\`, \`"baseLocale"\`, and more. See [strategy](https://paraglidejs.com/strategy) and [i18n routing](https://paraglidejs.com/i18n-routing).
+The compiler option \`strategy\` is an ordered list of how the locale is detected and stored; the first strategy that resolves a locale wins (default \`["cookie", "globalVariable", "baseLocale"]\`). Options include \`"url"\` (localized URLs such as \`/de/about\`), \`"cookie"\`, \`"localStorage"\`, \`"preferredLanguage"\`, \`"globalVariable"\`, \`"baseLocale"\` and \`"custom-*"\`. See [strategy](https://paraglidejs.com/strategy) and [i18n routing](https://paraglidejs.com/i18n-routing).
 
 ## Markup
 
@@ -72,9 +81,6 @@ Messages can contain markup such as \`{#link to=|/docs|}Read the docs{/link}\`. 
 
 ## Links
 
-- [Paraglide JS documentation](https://paraglidejs.com)
-- [Basics](https://paraglidejs.com/basics)
-- [Comparison with other i18n libraries](https://paraglidejs.com/comparison)
-- [inlang](https://inlang.com)
+- [Paraglide JS documentation](https://paraglidejs.com) and [basics](https://paraglidejs.com/basics)
 `;
 }
