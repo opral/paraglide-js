@@ -165,9 +165,14 @@ export function icuStyleAnnotation(
 	if (annotation.name === "number" && style?.value.type === "literal") {
 		const value = style.value.value;
 		if (value === "integer") {
+			const hasFractionDigits = others.some(
+				(option) => option.name === "maximumFractionDigits"
+			);
 			return {
 				...annotation,
-				options: [literal("maximumFractionDigits", "0"), ...others],
+				options: hasFractionDigits
+					? others
+					: [literal("maximumFractionDigits", "0"), ...others],
 			};
 		}
 		const hasCurrency = others.some((option) => option.name === "currency");
