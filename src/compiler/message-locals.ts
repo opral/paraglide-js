@@ -47,7 +47,7 @@ export function patternVariableReferences(
  * Returns the names of the variables a compiled local variable reads.
  *
  * Mirrors what `compileLocalVariable()` emits: the argument and the options
- * of its annotation.
+ * of a registry function annotation (unknown annotations are dropped).
  */
 export function localVariableReferences(declaration: LocalVariable): string[] {
 	const names: string[] = [];
@@ -56,7 +56,7 @@ export function localVariableReferences(declaration: LocalVariable): string[] {
 	}
 	const annotation: FunctionReference | undefined =
 		declaration.value.annotation;
-	if (annotation) {
+	if (annotation && isRegistryFunction(annotation.name)) {
 		names.push(...annotationVariableReferences(annotation));
 	}
 	return names;

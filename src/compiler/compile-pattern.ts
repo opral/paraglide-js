@@ -11,11 +11,10 @@ import { escapeForTemplateLiteral } from "../services/codegen/escape.js";
 import { compileInputAccess } from "./variable-access.js";
 import {
 	compileAnnotation,
+	ignoreUnknownFormatter,
 	isRegistryFunction,
-	registryFunctionNamesForDisplay,
 	type RegistryUsage,
 } from "./compile-annotation.js";
-import { Logger } from "../services/logger/index.js";
 
 export type CompilePatternMode = "string" | "parts";
 
@@ -139,15 +138,6 @@ function compilePatternToParts(args: {
 	};
 }
 
-const logger = new Logger();
-
-/**
- * Tracks annotation names that have already been warned about to avoid
- * spamming the console when the same unsupported formatter is used in
- * many messages (or across watch-mode recompiles).
- */
-const warnedUnsupportedAnnotations = new Set<string>();
-
 /**
  * Compiles a pattern expression including its annotation (if any).
  *
@@ -171,13 +161,7 @@ function compileExpression(
 	}
 
 	if (!isRegistryFunction(annotation.name)) {
-		if (!warnedUnsupportedAnnotations.has(annotation.name)) {
-			warnedUnsupportedAnnotations.add(annotation.name);
-			logger.warn(
-				`The formatter "${annotation.name}" is unknown and will be ignored. The value is interpolated without formatting. Supported formatters: ${registryFunctionNamesForDisplay()}.`
-			);
-		}
-		return value;
+		return ignoreUnknownFormatter(annotation.name, value);
 	}
 
 	if (locale === undefined) {

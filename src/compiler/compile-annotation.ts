@@ -6,6 +6,7 @@ import type {
 } from "@inlang/sdk";
 import { compileVariableAccess } from "./variable-access.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
+import { Logger } from "../services/logger/index.js";
 
 /**
  * The functions shipped in the generated registry.js file, by the annotation
@@ -35,6 +36,32 @@ export function isRegistryFunction(name: string): boolean {
 
 export function registryFunctionNamesForDisplay(): string {
 	return displayedRegistryFunctions.join(", ");
+}
+
+const logger = new Logger();
+
+/**
+ * Tracks annotation names that have already been warned about to avoid
+ * spamming the console when the same unsupported formatter is used in
+ * many messages (or across watch-mode recompiles).
+ */
+const warnedUnsupportedAnnotations = new Set<string>();
+
+/**
+ * Returns the value unformatted, and warns once per formatter name.
+ *
+ * Unknown annotations, on pattern expressions and on local variables, fall
+ * back to plain interpolation to avoid breaking compilation of messages
+ * imported from other i18n libraries (e.g. i18next's `{{value, customFormat}}`).
+ */
+export function ignoreUnknownFormatter(name: string, value: string): string {
+	if (!warnedUnsupportedAnnotations.has(name)) {
+		warnedUnsupportedAnnotations.add(name);
+		logger.warn(
+			`The formatter "${name}" is unknown and will be ignored. The value is interpolated without formatting. Supported formatters: ${registryFunctionNamesForDisplay()}.`
+		);
+	}
+	return value;
 }
 
 /**

@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import type {
 	Declaration,
 	Expression,
@@ -10,6 +10,7 @@ import type {
 } from "@inlang/sdk";
 import { compileMessage } from "./compile-message.js";
 import { createRegistry } from "./registry.js";
+import { Logger } from "../services/logger/index.js";
 
 /**
  * Compiles a message and imports it together with an inlined registry so the
@@ -435,6 +436,47 @@ describe("undeclared variables", () => {
 	});
 });
 
+describe("unknown annotations on locals", () => {
+	test("interpolate the raw value like unknown pattern annotations", async () => {
+		const warn = vi
+			.spyOn(Logger.prototype, "warn")
+			.mockImplementation(function (this: Logger) {
+				return this;
+			});
+		try {
+			const { code, message } = await compileAndImport({
+				declarations: [
+					input("amount"),
+					input("style"),
+					local("styleValue", "style"),
+					local("formatted", "amount", {
+						type: "function-reference",
+						name: "customLocalFormatter",
+						options: [
+							{
+								name: "style",
+								value: { type: "variable-reference", name: "styleValue" },
+							},
+						],
+					}),
+				],
+				variants: [{ pattern: [text("Total: "), ref("formatted")] }],
+			});
+
+			expect(code).toContain("const formatted = i?.amount;");
+			expect(code).not.toContain("registry.");
+			// the option of the ignored annotation is not read
+			expect(code).not.toContain("styleValue");
+			expect(message({ amount: 1234, style: "x" })).toBe("Total: 1234");
+			expect(warn).toHaveBeenCalledWith(
+				expect.stringContaining('"customLocalFormatter" is unknown')
+			);
+		} finally {
+			warn.mockRestore();
+		}
+	});
+});
+
 describe("registryFunctions metadata", () => {
 	const registryFunctions = (args: {
 		declarations: Declaration[];
@@ -476,6 +518,22 @@ describe("registryFunctions metadata", () => {
 			registryFunctions({
 				declarations: [input("count"), local("countPlural", "count", plural())],
 				variants: [{ pattern: [ref("count")] }],
+			})
+		).toEqual([]);
+	});
+
+	test("unknown local annotations do not count", () => {
+		expect(
+			registryFunctions({
+				declarations: [
+					input("value"),
+					local("custom", "value", {
+						type: "function-reference",
+						name: "customFormatter",
+						options: [],
+					}),
+				],
+				variants: [{ pattern: [ref("custom")] }],
 			})
 		).toEqual([]);
 	});

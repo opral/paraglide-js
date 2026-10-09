@@ -175,7 +175,10 @@ const compileBundleFunction = (args: {
 					return `${prefix}${condition}return ${messageRef}(inputs)`;
 				}
 
-				return `${prefix}${condition}return typeof ${messageRef}.parts === "function" ? ${messageRef}.parts(inputs) : [{ type: "text", value: ${messageRef}(inputs) }]`;
+				// A locale's message has .parts() only if its own variants have
+				// markup. Fallbacks and messages without markup are typed without
+				// it, so read it through a type that declares it optional.
+				return `${prefix}${condition}return /** @type {{ parts?: (inputs: ${inputType}) => import('../runtime.js').MessagePart[] }} */ (${messageRef}).parts?.(inputs) ?? [{ type: "text", value: ${messageRef}(inputs) }]`;
 			})
 			.join("\n");
 

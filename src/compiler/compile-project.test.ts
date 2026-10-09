@@ -2218,6 +2218,41 @@ describe.each([
 						},
 					],
 				},
+				// an unknown formatter on a local interpolates the raw value
+				{
+					id: "custom_local",
+					declarations: [
+						{ type: "input-variable", name: "amount" },
+						{
+							type: "local-variable",
+							name: "formatted",
+							value: {
+								type: "expression",
+								arg: ref("amount"),
+								annotation: {
+									type: "function-reference",
+									name: "customLocalFormatter",
+									options: [],
+								},
+							},
+						},
+					],
+					messages: [
+						{
+							locale: "en",
+							selectors: [],
+							variants: [
+								{
+									matches: [],
+									pattern: [
+										text("Total: "),
+										{ type: "expression", arg: ref("formatted") },
+									],
+								},
+							],
+						},
+					],
+				},
 			]);
 			for (const [fileName, code] of Object.entries(textOnly)) {
 				if (fileName.startsWith("messages/")) {
@@ -2233,6 +2268,9 @@ describe.each([
 			expect(textMessages.registry_text({}, { locale: "en" })).toBe(
 				"Open the registry. Now."
 			);
+			expect(
+				textMessages.custom_local({ amount: 1234 }, { locale: "en" })
+			).toBe("Total: 1234");
 
 			// {count, plural, offset:1 =0 {Nobody} =1 {You} one {You and # other} other {You and # others}}
 			// as the ICU1 plugin imports it, and `#` without an offset
@@ -2427,6 +2465,117 @@ describe.each([
 			expect(m.item_total({ count: 1234 }, { locale: "de" })).toBe(
 				"1.234 Artikel"
 			);
+		});
+	}
+);
+
+describe.each([
+	{ outputStructure: "locale-modules" },
+	{ outputStructure: "message-modules" },
+] as const)(
+	"markup messages with fallbacks ($outputStructure)",
+	({ outputStructure }) => {
+		test(".parts() type-checks under strict checkJs and renders", async () => {
+			const markupProject = await loadProjectInMemory({
+				blob: await newProject({
+					settings: { baseLocale: "en", locales: ["en", "de"] },
+				}),
+			});
+			const bold = (value: string) => [
+				{ type: "markup-start" as const, name: "b" },
+				{ type: "text" as const, value },
+				{ type: "markup-end" as const, name: "b" },
+			];
+			const bundles: Parameters<typeof createBundleNested>[0][] = [
+				// de falls back to en
+				{
+					id: "markup_fallback",
+					messages: [{ locale: "en", variants: [{ pattern: bold("Hello") }] }],
+				},
+				// en has no markup, de has
+				{
+					id: "markup_mixed",
+					messages: [
+						{
+							locale: "en",
+							variants: [{ pattern: [{ type: "text", value: "Hello" }] }],
+						},
+						{ locale: "de", variants: [{ pattern: bold("Hallo") }] },
+					],
+				},
+				// en (the base locale) has no message and no fallback
+				{
+					id: "markup_missing_base",
+					messages: [{ locale: "de", variants: [{ pattern: bold("Hallo") }] }],
+				},
+			];
+			for (const bundle of bundles) {
+				await insertBundleNested(markupProject.db, createBundleNested(bundle));
+			}
+			const output = await compileProject({
+				project: markupProject,
+				compilerOptions: {
+					outputStructure,
+					strategy: ["globalVariable", "baseLocale"],
+				},
+			});
+
+			const tsProject = await typescriptProject({
+				useInMemoryFileSystem: true,
+				compilerOptions: {
+					outDir: "dist",
+					declaration: true,
+					allowJs: true,
+					checkJs: true,
+					noImplicitAny: true,
+					noUnusedLocals: true,
+					noUnusedParameters: true,
+					noImplicitReturns: true,
+					noImplicitThis: true,
+					noUncheckedIndexedAccess: true,
+					noPropertyAccessFromIndexSignature: true,
+					module: ts.ModuleKind.Node16,
+					strict: true,
+				},
+			});
+			for (const [fileName, code] of Object.entries(output)) {
+				if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+					tsProject.createSourceFile(fileName, code);
+				}
+			}
+			const diagnostics = ts
+				.getPreEmitDiagnostics(tsProject.createProgram())
+				.filter(
+					(d) =>
+						!d.messageText
+							.toString()
+							.includes("Cannot find module 'async_hooks'")
+				);
+			for (const diagnostic of diagnostics) {
+				console.error(diagnostic.messageText, diagnostic.file?.fileName);
+			}
+			expect(diagnostics.length).toEqual(0);
+
+			const { m } = await importCode(
+				await bundleCode(output, `export * as m from "./paraglide/messages.js"`)
+			);
+			const boldParts = (value: string) => [
+				{ type: "markup-start", name: "b", options: {}, attributes: {} },
+				{ type: "text", value },
+				{ type: "markup-end", name: "b", options: {}, attributes: {} },
+			];
+			expect(m.markup_fallback.parts({}, { locale: "de" })).toEqual(
+				boldParts("Hello")
+			);
+			expect(m.markup_mixed.parts({}, { locale: "en" })).toEqual([
+				{ type: "text", value: "Hello" },
+			]);
+			expect(m.markup_mixed.parts({}, { locale: "de" })).toEqual(
+				boldParts("Hallo")
+			);
+			expect(m.markup_missing_base.parts({}, { locale: "en" })).toEqual([
+				{ type: "text", value: "markup_missing_base" },
+			]);
 		});
 	}
 );
