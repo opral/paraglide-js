@@ -332,13 +332,13 @@ test("keeps compiled Paraglide translations out of other locale source maps", as
 function createMessage(locale: "en" | "de", value: string) {
 	return {
 		id: `greeting-${locale}`,
-		bundleId: "greeting",
+		bundle_id: "greeting",
 		locale,
 		selectors: [],
 		variants: [
 			{
 				id: `greeting-${locale}-variant`,
-				messageId: `greeting-${locale}`,
+				message_id: `greeting-${locale}`,
 				matches: [],
 				pattern: [{ type: "text" as const, value }],
 			},

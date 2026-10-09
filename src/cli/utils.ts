@@ -1,4 +1,5 @@
 import consola from "consola";
+import nodePath from "node:path";
 
 /**
  * One step in a CLI chain.
@@ -49,3 +50,18 @@ export const promptSelection = async <T extends string>(
 		...options,
 	}) as unknown as Promise<T>;
 };
+
+/**
+ * A path relative to `root` with forward slashes and without a leading `./`,
+ * for messages and package.json scripts.
+ *
+ * @example
+ *   toRelativeDisplayPath("/app", "./project.inlang") // "project.inlang"
+ *   toRelativeDisplayPath("/app", "/app/src/paraglide") // "src/paraglide"
+ */
+export function toRelativeDisplayPath(root: string, path: string): string {
+	return nodePath
+		.relative(root, nodePath.resolve(root, path))
+		.split(nodePath.sep)
+		.join("/");
+}

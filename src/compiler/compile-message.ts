@@ -21,16 +21,16 @@ import {
 /**
  * The message fields the compiler reads.
  *
- * `selectBundleNested()` of `@inlang/sdk` 3 returns the bundle id as
- * `bundleId`, `@inlang/sdk` 4 as `bundle_id` (the database column). Both are
- * accepted so that Paraglide compiles with either SDK version.
+ * `selectBundleNested()` of `@inlang/sdk` 4 returns the bundle id as
+ * `bundle_id` (the database column). The camelCase `bundleId` of the SDK's
+ * plugin `Message` shape is accepted too.
  */
 export type CompilableMessage = Pick<Message, "id" | "locale" | "selectors"> &
 	({ bundleId: string } | { bundle_id: string });
 
 /**
- * The variant fields the compiler reads. `messageId` (SDK 3) or `message_id`
- * (SDK 4) are not needed.
+ * The variant fields the compiler reads. The message id (`message_id` in
+ * `@inlang/sdk` 4 rows) is not needed.
  */
 export type CompilableVariant = Pick<Variant, "id" | "matches" | "pattern">;
 

@@ -42,13 +42,13 @@ test("emitTsDeclarations uses the compiler API for a default-only interop shape 
 		messages: [
 			{
 				id: "greeting.hello_en",
-				bundleId: "greeting.hello",
+				bundle_id: "greeting.hello",
 				locale: "en",
 				selectors: [],
 				variants: [
 					{
 						id: "greeting.hello_en_variant",
-						messageId: "greeting.hello",
+						message_id: "greeting.hello",
 						matches: [],
 						pattern: [{ type: "text", value: "Hello" }],
 					},
