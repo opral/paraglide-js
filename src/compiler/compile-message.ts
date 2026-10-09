@@ -308,7 +308,7 @@ function compileMessageWithMultipleVariants(
 	if (!hasMarkup) {
 		const code = `/** @type {(inputs: ${messageInputType}) => LocalizedString} */ (${stringLocals.readsInput ? "i" : ""}) => {${stringLocals.code.join("\n\t")}
 	${compiledVariants.join("\n\t")}
-	${hasCatchAll ? "" : `return /** @type {LocalizedString} */ ("${messageBundleId(message)}");`}
+	${hasCatchAll ? "" : `return /** @type {LocalizedString} */ (${JSON.stringify(messageBundleId(message))});`}
 };`;
 
 		return { code, node: message, registryFunctions: [...registryUsage] };

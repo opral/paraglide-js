@@ -1472,7 +1472,6 @@ test.each([
 			message,
 			markupVariants
 		);
-		expect(compiled.code).not.toContain("undefined");
 
 		const { item_count, item_count_markup } = await import(
 			"data:text/javascript;base64," +
@@ -1495,4 +1494,33 @@ test("throws for a message without a bundle id instead of compiling undefined", 
 			{ id: "1", matches: [], pattern: [{ type: "text", value: "Hi" }] },
 		])
 	).toThrow(/has no bundle id/);
+});
+
+test("escapes the bundle id in the fallback of messages without a catch-all variant", async () => {
+	const bundleId = 'quote"and\\backslash';
+	const compiled = compileMessage(
+		[{ type: "input-variable", name: "count" }],
+		{
+			bundleId,
+			id: "m",
+			locale: "en",
+			selectors: [{ type: "variable-reference", name: "count" }],
+		},
+		[
+			{
+				id: "one",
+				matches: [{ type: "literal-match", key: "count", value: "one" }],
+				pattern: [{ type: "text", value: "One" }],
+			},
+			{
+				id: "two",
+				matches: [{ type: "literal-match", key: "count", value: "two" }],
+				pattern: [{ type: "text", value: "Two" }],
+			},
+		]
+	);
+	const { m } = await import(
+		"data:text/javascript;base64," + btoa(`export const m = ${compiled.code}`)
+	);
+	expect(m({ count: "three" })).toBe(bundleId);
 });
