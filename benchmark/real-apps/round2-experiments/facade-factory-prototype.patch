@@ -1,0 +1,42 @@
+diff --git a/src/bundler-plugins/client-locale-split/vite-plugin.ts b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+index a226116..00cd852 100644
+--- a/src/bundler-plugins/client-locale-split/vite-plugin.ts
++++ b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+@@ -315,17 +315,19 @@ function createPreloadModule(): string {
+ function createMessageFacade(metadata: SplitMetadata): string {
+ 	const imports = `import { selectedMessageLocale, requireLoadedLocale } from ${JSON.stringify(coreVirtualId)};`;
+ 	const startup = `import { startupLocalePromise } from ${JSON.stringify(coreVirtualId)};\nawait startupLocalePromise;`;
++	const factory = `function __createParaglideMessage(index, hasInputs, hasMarkup) {
++  const read = (inputs, options) => { const locale = selectedMessageLocale(options.locale); const message = requireLoadedLocale(locale)[index]; return typeof message === "string" ? message : message(inputs); };
++  const message = hasInputs ? (inputs, options = {}) => read(inputs, options) : (inputs = {}, options = {}) => read(inputs, options);
++  if (hasMarkup) {
++    const readParts = (inputs, options) => { const locale = selectedMessageLocale(options.locale); const value = requireLoadedLocale(locale)[index]; return typeof value === "string" ? [{ type: "text", value }] : typeof value.parts === "function" ? value.parts(inputs) : [{ type: "text", value: value(inputs) }]; };
++    message.parts = hasInputs ? (inputs, options = {}) => readParts(inputs, options) : (inputs = {}, options = {}) => readParts(inputs, options);
++  }
++  return message;
++}`;
+ 	const wrapperDeclarations = metadata.messages
+ 		.map(({ publicName, hasInputs, hasMarkup }, index) => {
+-			const inputParameter = hasInputs ? "inputs" : "inputs = {}";
+-			const parts = hasMarkup
+-				? `\n__paraglideMessage${index}.parts = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); const message = requireLoadedLocale(locale)[${index}]; return typeof message === "string" ? [{ type: "text", value: message }] : typeof message.parts === "function" ? message.parts(inputs) : [{ type: "text", value: message(inputs) }]; };`
+-				: "";
+-			const directExport =
+-				publicName === "m" || publicName === "default"
+-					? ""
+-					: `\nexport { __paraglideMessage${index} as ${JSON.stringify(publicName)} };`;
+-			return `const __paraglideMessage${index} = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); const message = requireLoadedLocale(locale)[${index}]; return typeof message === "string" ? message : message(inputs); };${parts}${directExport}`;
++			const directExport = publicName === "m" || publicName === "default" ? "" : `\nexport { __paraglideMessage${index} as ${JSON.stringify(publicName)} };`;
++			return `const __paraglideMessage${index} = /*#__PURE__*/ __createParaglideMessage(${index}, ${hasInputs}, ${hasMarkup});${directExport}`;
+ 		})
+ 		.join("\n");
+ 	const namespaceProperties = metadata.messages
+@@ -342,7 +344,7 @@ function createMessageFacade(metadata: SplitMetadata): string {
+ 				`__paraglideMessages[${JSON.stringify(message.publicName)}] = __paraglideMessage${index};`
+ 		)
+ 		.join("\n");
+-	return `${imports}\n${startup}\n${wrapperDeclarations}\nconst __paraglideMessages = Object.create(null);\n${namespaceProperties}\nObject.defineProperty(__paraglideMessages, Symbol.toStringTag, { value: "Module" });\nObject.freeze(__paraglideMessages);\nexport { __paraglideMessages as m };\n`;
++	return `${imports}\n${startup}\n${factory}\n${wrapperDeclarations}\nconst __paraglideMessages = Object.create(null);\n${namespaceProperties}\nObject.defineProperty(__paraglideMessages, Symbol.toStringTag, { value: "Module" });\nObject.freeze(__paraglideMessages);\nexport { __paraglideMessages as m };\n`;
+ }
+ 
+ function createCoreModule(
