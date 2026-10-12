@@ -14,9 +14,9 @@ The synthetic 512-message/two-locale shape confirms that the representation matt
 
 The current evidence is insufficient for a compiler change. The useful shape is Vite-version-sensitive, and dynamic `m` access or namespace escape must retain the complete API. A production design would need real compiler output, safe scope analysis, all existing message semantics, SSR coverage, and a qualifying app-route measurement.
 
-## Public-plugin prototype against compiled Ntfy messages
+## Private plugin prototype against compiled Ntfy messages
 
-The isolated prototype in `src/bundler-plugins/client-locale-split/vite-plugin.ts` adds `experimentalClientMessageProjection` to the public Vite plugin. A small fixture compiles five real Ntfy message IDs (`k0`, `k107`, `k110`, `k113`, `k115`) for `en`, `fr`, and `de`. It exercises literal text, interpolation, plural markup, rich `.parts`, a lazy route loaded after startup, and `fr → de → en → fr` switching. This is a compiler/plugin integration smoke test, not the Ntfy product UI or a native-i18next A/B.
+An isolated compiler prototype adds `experimentalClientMessageProjection` to its Vite plugin. This option is not present in the product source shipped by this draft. A small fixture compiles five real Ntfy message IDs (`k0`, `k107`, `k110`, `k113`, `k115`) for `en`, `fr`, and `de`. It exercises literal text, interpolation, plural markup, rich `.parts`, a lazy route loaded after startup, and `fr → de → en → fr` switching. This is a compiler/plugin integration smoke test, not the Ntfy product UI or a native-i18next A/B.
 
 The fixture passes visible-text and locale-switch checks, including an initial French render and the lazy route's French, German, and English values. It also verifies the callable-`then` dynamic-import hazard using a message projection that exports only `default`, the public `m` and `default` namespace keys, no-argument calls, function arity, and `.parts` behavior.
 
@@ -26,7 +26,7 @@ This result does not qualify against the optimized-native gate: the fixture has 
 
 ## Indexed aggregation prototype
 
-Commit `728f4300485de3dfb85b9d200183e2039f601d19` adds the opt-in public-plugin option `experimentalClientMessageAggregation`. It keeps a single indexed payload per locale and creates a wrapper module per message. After bundler tree shaking, `renderChunk` reads the all-chunks module graph, computes the global union of live wrapper indexes, and uses AST edits plus sourcemaps to leave unused payload slots sparse. The runtime validates every live slot before exposing the locale. Dynamic namespace access keeps all messages. The default-only locale facade also avoids the callable `then` namespace/Promise assimilation hazard.
+Private commit `728f4300485de3dfb85b9d200183e2039f601d19` adds the prototype option `experimentalClientMessageAggregation`; this option is not published in this draft. It keeps a single indexed payload per locale and creates a wrapper module per message. After bundler tree shaking, `renderChunk` reads the all-chunks module graph, computes the global union of live wrapper indexes, and uses AST edits plus sourcemaps to leave unused payload slots sparse. The runtime validates every live slot before exposing the locale. Dynamic namespace access keeps all messages. The default-only locale facade also avoids the callable `then` namespace/Promise assimilation hazard.
 
 The prototype was built with Ntfy's real 473-key catalog and Vite 8.3.4/Rolldown. The functional fixture uses five static messages, a lazy route, rich `.parts`, plural and interpolation messages, and French/German/English switching. On the same 473-key catalog, aggregation requests 9 resources and transfers 5,889 Brotli-Q4 bytes on the initial route; standard locale splitting requests 8 resources and transfers 21,468 Brotli-Q4 bytes. Browser checks passed for visible translations, lazy route activation, and locale switching. This is a small static-consumer fixture, not a product-route result.
 
@@ -36,7 +36,9 @@ The liveness set is global to the build. If a lazy route uses a key, that key re
 
 A separate `sourcemap: true` fixture build traced retained dynamic French message code to `messages/fr.js` and app callsites to `main.js`; the suspected lost caller mapping was not reproduced. A static literal synthesized from compiler metadata has no original source position because that metadata does not carry source locations. See [the mapping probe](results/ntfy-plugin-aggregation-sourcemap.json).
 
-To reproduce the 473-key fixture after preparing the pinned Ntfy catalog, run both modes from this worktree:
+The complete aggregate implementation is preserved in [aggregate-prototype.patch](aggregate-prototype.patch), including the earlier projection scaffolding. It applies to the product source in this draft (`git apply --check` passed). Apply it only in an isolated checkout of this draft, install its locked dependencies, and run `pnpm run env-variables` followed by `pnpm exec tsc --build`. The script loads `dist` from its own checkout, so run it from that rebuilt isolated checkout; the unmodified product compiler does not support these prototype flags. Do not apply both prototype patches together. See also [Luna’s review](luna-aggregate-review.md).
+
+After preparing the pinned Ntfy catalog, run both modes from that isolated checkout:
 
 ```sh
 NTFY_PROJECTION_SOURCE=/path/to/ntfy/web \

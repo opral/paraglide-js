@@ -1,0 +1,24 @@
+--- a/namespace-load-probe.spec.ts
++++ b/namespace-load-probe.spec.ts
+@@ -53,8 +53,7 @@
+       const buttons = Array.from(document.querySelectorAll("button"));
+       const back = buttons.find(
+         (button) =>
+-          button.getAttribute("aria-label") === "Retour" &&
+-          isVisible(button),
++          button.getAttribute("aria-label") === "Retour",
+       );
+       const history = buttons.find(
+         (button) =>
+@@ -98,6 +97,11 @@
+       attributeFilter: ["class", "style", "aria-label"],
+     });
+     document.fonts.addEventListener("loadingdone", noteFrenchControls);
++    const sampleFrame = () => {
++      noteFrenchControls();
++      if (!(window as any).__frenchControlReadyAt) requestAnimationFrame(sampleFrame);
++    };
++    requestAnimationFrame(sampleFrame);
+   });
+   await frigateApp.page.route("**/api/*/latest.webp**", (route) =>
+     route.fulfill({ contentType: "image/png", body: PLACEHOLDER_PNG }),

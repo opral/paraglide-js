@@ -57,3 +57,20 @@ Raw browser trace and requested-asset manifest: `results/paraglide-preload-ablat
 ## Conclusion
 
 This candidate does not qualify. Locale loading completes earlier than native, but the route is font-bound and the candidate ships a larger estimated initial graph, with more than twice as many JS requests and 65 additional HTML modulepreloads after the standalone preload is disabled. The experiments remain useful as a negative result: moving the locale wait or removing the standalone preload entry does not remove the expanded split-module graph. No compiler change or PR is proposed from this probe.
+
+## Readiness observer audit
+
+A separate unthrottled check against the frozen native output removed visibility
+filtering from the initial DOM lookup and sampled visibility every animation
+frame until the controls appeared. This avoids relying only on DOM mutations or
+font events to notice a CSS visibility change. The strict-error probe passed with
+18 en/fr namespace responses and no prior action. The controls were recorded at
+466.2 ms; Inter Medium ended at 465.8 ms. This supports the observed coincidence
+with font completion in this route, without proving that fonts cause the whole
+startup delay. It is a single diagnostic run, not a timing comparison.
+
+The exact instrumentation change is `readiness-observer-audit.patch`; raw output
+is `results/native-readiness-frame-audit.desktop.json`. Serve the frozen native
+output with an **absolute** `vite preview --outDir` path because this app's Vite
+root is `web/root`. An initial relative-path preview returned 404 and was
+discarded before a readiness result was obtained.
