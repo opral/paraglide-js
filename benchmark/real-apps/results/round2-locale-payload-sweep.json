@@ -1,0 +1,137 @@
+{
+  "limitation": "Private payload representation experiment; static string parity only, no browser-route or dynamic rich/plural parity proof. Identical Vite packing/minification per control.",
+  "results": [
+    {
+      "locale": "en",
+      "viteVersion": "6",
+      "mode": "functions",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1199,
+      "raw": 223509,
+      "gzip9": 29838,
+      "brotli4": 29204,
+      "sha256": "808ac8f590ed68c1b6e4f1763d94d1bdc1a5a76858cf7897d2c40091cf2e55d2"
+    },
+    {
+      "locale": "en",
+      "viteVersion": "6",
+      "mode": "object-values",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1199,
+      "raw": 75891,
+      "gzip9": 19910,
+      "brotli4": 20335,
+      "sha256": "7aaaf3917efdd4e563481a33033e06661a4d41866d44a1241ec833987922c567"
+    },
+    {
+      "locale": "en",
+      "viteVersion": "6",
+      "mode": "array-values",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1199,
+      "raw": 68200,
+      "gzip9": 16410,
+      "brotli4": 16912,
+      "sha256": "ccca12a6505d56e475cd37b0983854545e96d6f6227ae28c64fe02160b5287b4"
+    },
+    {
+      "locale": "en",
+      "viteVersion": "8",
+      "mode": "functions",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1199,
+      "raw": 73156,
+      "gzip9": 19467,
+      "brotli4": 20027,
+      "sha256": "4816247a916e4beb8a6b7017ddb030e49b3bebb9846539ba52a98b94d04f963e"
+    },
+    {
+      "locale": "en",
+      "viteVersion": "8",
+      "mode": "object-values",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1199,
+      "raw": 65966,
+      "gzip9": 19114,
+      "brotli4": 19458,
+      "sha256": "50e4872f71afb5c1383ac7ad7e4971b0453fb49c6155cc388197c08770921f2f"
+    },
+    {
+      "locale": "en",
+      "viteVersion": "8",
+      "mode": "array-values",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1199,
+      "raw": 58276,
+      "gzip9": 15603,
+      "brotli4": 16156,
+      "sha256": "ae54ab79dd67f171f89756f8348b2deff55117672568eddf1f79e9302dc00260"
+    },
+    {
+      "locale": "fr",
+      "viteVersion": "6",
+      "mode": "functions",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1198,
+      "raw": 235590,
+      "gzip9": 32650,
+      "brotli4": 31201,
+      "sha256": "1f86b15184328158ee3c9059d6f0b45d4e58add82af8fa3b845c12d8e1dfa2a3"
+    },
+    {
+      "locale": "fr",
+      "viteVersion": "6",
+      "mode": "object-values",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1198,
+      "raw": 88095,
+      "gzip9": 21901,
+      "brotli4": 22633,
+      "sha256": "d470e7fc9b16bd5a226e418630656c8385b48052f40a8fa6c1927c5338063437"
+    },
+    {
+      "locale": "fr",
+      "viteVersion": "6",
+      "mode": "array-values",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1198,
+      "raw": 80404,
+      "gzip9": 18497,
+      "brotli4": 19318,
+      "sha256": "ad1398257b4c673f9620d8a0e160fb6b8135b22100b26baef7931c1b6556d083"
+    },
+    {
+      "locale": "fr",
+      "viteVersion": "8",
+      "mode": "functions",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1198,
+      "raw": 85037,
+      "gzip9": 21435,
+      "brotli4": 22264,
+      "sha256": "3f6e0a7e1276f15b2c54693a097ea97f75a92d32daaf83c320f05b2a2aa280ca"
+    },
+    {
+      "locale": "fr",
+      "viteVersion": "8",
+      "mode": "object-values",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1198,
+      "raw": 77853,
+      "gzip9": 21102,
+      "brotli4": 21678,
+      "sha256": "6c2ecea48e421be151a573aa4135e8e88b4120a45682465a2f935531925a59db"
+    },
+    {
+      "locale": "fr",
+      "viteVersion": "8",
+      "mode": "array-values",
+      "exportedKeys": 1257,
+      "staticStringKeys": 1198,
+      "raw": 70163,
+      "gzip9": 17674,
+      "brotli4": 18570,
+      "sha256": "b27b764f46c330ab75959976e3974ffc854f816f61567f529de022f4f407c57a"
+    }
+  ]
+}
