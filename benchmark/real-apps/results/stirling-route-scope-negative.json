@@ -1,0 +1,1560 @@
+{
+  "app": "Stirling-PDF",
+  "sourceCommit": "313794c573df5e92d2f020f5ec53d08b264d6e4f",
+  "i18nextVersion": "26.3.6",
+  "compilerCommit": "ec591218bb814c65e0a9f6a0252f8ec75236aa17",
+  "measurementMethod": "Pinned Stirling source commit 313794c; optimized native Vite 7.3.6/i18next 26.3.6 TOML backend lazy en+fr versus generated locale-modules plus scoped statically rewritten calls; fresh Chromium contexts, fr-FR, Brotli-Q4, 80 ms RTT, 20 Mbps down, 3x CPU, external/API blocked",
+  "inputs": {
+    "consumerScope10Pair": {
+      "file": "native-vs-scoped-10pair.json",
+      "sha256": "8b0d598a6b2afeb4f4b3dc4d559979a01848a13d0d90cf00f15a91ae2cc8203e"
+    },
+    "twoPassMergedSmoke": {
+      "file": "browser-initial-merged-smoke.json",
+      "sha256": "19c736016dde7092bbe13e7b783a626ed98cf99ed5a3ea18f938ca278be46f78"
+    },
+    "twoPassBucket8Smoke": {
+      "file": "browser-smoke-fr.json",
+      "sha256": "4edfae409a2377d62ba438a57d844bca6d495d633ab2ffc28b76274b4af57bd4"
+    },
+    "ownerManifest": {
+      "file": "manifest.json",
+      "sha256": "ce275f0d54c2412e205d57d1802ca104e3ff9514114727d56653878b02e859b0"
+    },
+    "mergedManifest": {
+      "file": "manifest-initial-plus-lazy07.json",
+      "sha256": "8c5c2c8f48b998d7d6c672494d2efb1d06b9e89e38a68a2d3aadfbf3e70c2392"
+    },
+    "bucket8Manifest": {
+      "file": "manifest-bucket8.json",
+      "sha256": "ed8d50505d1ef3526716ef15d0468d13155df69292f86df5c794158409ba0d3c"
+    }
+  },
+  "consumerScope10Pair": {
+    "results": [
+      {
+        "label": "optimized-native-i18next-lazy",
+        "median": {
+          "fcpMs": 820,
+          "lcpMs": 2092,
+          "longTaskMs": 314,
+          "resourceCount": 60,
+          "transferBytes": 1126852,
+          "encodedBytes": 1108852,
+          "decodedBytes": 3970229
+        },
+        "runs": [
+          {
+            "trial": 0,
+            "locale": "fr-FR",
+            "fcpMs": 864,
+            "lcpMs": 2196,
+            "longTaskMs": 421,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 1,
+            "locale": "fr-FR",
+            "fcpMs": 836,
+            "lcpMs": 2092,
+            "longTaskMs": 312,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 2,
+            "locale": "fr-FR",
+            "fcpMs": 808,
+            "lcpMs": 2100,
+            "longTaskMs": 314,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 3,
+            "locale": "fr-FR",
+            "fcpMs": 860,
+            "lcpMs": 2172,
+            "longTaskMs": 435,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 4,
+            "locale": "fr-FR",
+            "fcpMs": 856,
+            "lcpMs": 2132,
+            "longTaskMs": 393,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 5,
+            "locale": "fr-FR",
+            "fcpMs": 812,
+            "lcpMs": 2044,
+            "longTaskMs": 278,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 6,
+            "locale": "fr-FR",
+            "fcpMs": 788,
+            "lcpMs": 2020,
+            "longTaskMs": 261,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 7,
+            "locale": "fr-FR",
+            "fcpMs": 820,
+            "lcpMs": 2092,
+            "longTaskMs": 370,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 8,
+            "locale": "fr-FR",
+            "fcpMs": 808,
+            "lcpMs": 2044,
+            "longTaskMs": 290,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 9,
+            "locale": "fr-FR",
+            "fcpMs": 816,
+            "lcpMs": 2048,
+            "longTaskMs": 287,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          }
+        ]
+      },
+      {
+        "label": "scoped-static-adapter",
+        "median": {
+          "fcpMs": 7160,
+          "lcpMs": 9500,
+          "longTaskMs": 333,
+          "resourceCount": 237,
+          "transferBytes": 1130180,
+          "encodedBytes": 1059080,
+          "decodedBytes": 5212618
+        },
+        "runs": [
+          {
+            "trial": 0,
+            "locale": "fr-FR",
+            "fcpMs": 7220,
+            "lcpMs": 10616,
+            "longTaskMs": 1482,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 1,
+            "locale": "fr-FR",
+            "fcpMs": 7472,
+            "lcpMs": 9912,
+            "longTaskMs": 491,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 2,
+            "locale": "fr-FR",
+            "fcpMs": 7780,
+            "lcpMs": 10228,
+            "longTaskMs": 508,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 3,
+            "locale": "fr-FR",
+            "fcpMs": 7184,
+            "lcpMs": 9436,
+            "longTaskMs": 442,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 4,
+            "locale": "fr-FR",
+            "fcpMs": 7160,
+            "lcpMs": 9352,
+            "longTaskMs": 333,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 5,
+            "locale": "fr-FR",
+            "fcpMs": 7136,
+            "lcpMs": 9320,
+            "longTaskMs": 293,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 6,
+            "locale": "fr-FR",
+            "fcpMs": 7132,
+            "lcpMs": 9500,
+            "longTaskMs": 293,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 7,
+            "locale": "fr-FR",
+            "fcpMs": 7112,
+            "lcpMs": 9500,
+            "longTaskMs": 297,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 8,
+            "locale": "fr-FR",
+            "fcpMs": 7128,
+            "lcpMs": 9512,
+            "longTaskMs": 301,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          },
+          {
+            "trial": 9,
+            "locale": "fr-FR",
+            "fcpMs": 7076,
+            "lcpMs": 9268,
+            "longTaskMs": 297,
+            "resourceCount": 237,
+            "transferBytes": 1130180,
+            "encodedBytes": 1059080,
+            "decodedBytes": 5212618,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          }
+        ]
+      }
+    ]
+  },
+  "twoPassDiagnosticSmokes": {
+    "measurementMethod": "Diagnostic single-pair smoke; Vite 7.3.6; French locale; Brotli-Q4; 80ms RTT / 20Mbps / 3x CPU",
+    "mergedInitial": [
+      {
+        "label": "optimized-native",
+        "median": {
+          "fcpMs": 812,
+          "lcpMs": 2008,
+          "longTaskMs": 301,
+          "resourceCount": 60,
+          "transferBytes": 1126852,
+          "encodedBytes": 1108852,
+          "decodedBytes": 3970229
+        },
+        "runs": [
+          {
+            "trial": 0,
+            "locale": "fr-FR",
+            "fcpMs": 812,
+            "lcpMs": 2008,
+            "longTaskMs": 301,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          }
+        ]
+      },
+      {
+        "label": "route-two-pass-merged-initial",
+        "median": {
+          "fcpMs": 760,
+          "lcpMs": 2000,
+          "longTaskMs": 247,
+          "resourceCount": 68,
+          "transferBytes": 1338558,
+          "encodedBytes": 1318158,
+          "decodedBytes": 4671548
+        },
+        "runs": [
+          {
+            "trial": 0,
+            "locale": "fr-FR",
+            "fcpMs": 760,
+            "lcpMs": 2000,
+            "longTaskMs": 247,
+            "resourceCount": 68,
+            "transferBytes": 1338558,
+            "encodedBytes": 1318158,
+            "decodedBytes": 4671548,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          }
+        ]
+      }
+    ],
+    "bucket8": [
+      {
+        "label": "optimized-native",
+        "median": {
+          "fcpMs": 772,
+          "lcpMs": 1996,
+          "longTaskMs": 245,
+          "resourceCount": 60,
+          "transferBytes": 1126852,
+          "encodedBytes": 1108852,
+          "decodedBytes": 3970229
+        },
+        "runs": [
+          {
+            "trial": 0,
+            "locale": "fr-FR",
+            "fcpMs": 772,
+            "lcpMs": 1996,
+            "longTaskMs": 245,
+            "resourceCount": 60,
+            "transferBytes": 1126852,
+            "encodedBytes": 1108852,
+            "decodedBytes": 3970229,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          }
+        ]
+      },
+      {
+        "label": "route-two-pass-bucket8",
+        "median": {
+          "fcpMs": 704,
+          "lcpMs": 2456,
+          "longTaskMs": 241,
+          "resourceCount": 96,
+          "transferBytes": 1388768,
+          "encodedBytes": 1359968,
+          "decodedBytes": 4766053
+        },
+        "runs": [
+          {
+            "trial": 0,
+            "locale": "fr-FR",
+            "fcpMs": 704,
+            "lcpMs": 2456,
+            "longTaskMs": 241,
+            "resourceCount": 96,
+            "transferBytes": 1388768,
+            "encodedBytes": 1359968,
+            "decodedBytes": 4766053,
+            "frenchUiParity": true,
+            "parityWaitError": null
+          }
+        ]
+      }
+    ]
+  },
+  "manifests": {
+    "ownerSets": {
+      "locales": 42,
+      "entryCount": 192,
+      "graphModuleCount": 5443,
+      "consumerCount": 882,
+      "unsafeConsumerCount": 0,
+      "reachableKeyCount": 6753,
+      "groups": [
+        {
+          "key": "008b1af9acf862",
+          "ownerCount": 1,
+          "moduleCount": 5,
+          "keyCount": 73
+        },
+        {
+          "key": "01d72867c29ad6",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 25
+        },
+        {
+          "key": "02048c9ddc9fa3",
+          "ownerCount": 5,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "04f9bfff58dc66",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 19
+        },
+        {
+          "key": "053bda65e465cc",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 13
+        },
+        {
+          "key": "05f286953888c8",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 2
+        },
+        {
+          "key": "06115e8f280d82",
+          "ownerCount": 1,
+          "moduleCount": 34,
+          "keyCount": 191
+        },
+        {
+          "key": "063a4facea3ea5",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 2
+        },
+        {
+          "key": "064b0cd0ba27b3",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 8
+        },
+        {
+          "key": "06da5692885949",
+          "ownerCount": 9,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "07389914d599f2",
+          "ownerCount": 1,
+          "moduleCount": 23,
+          "keyCount": 234
+        },
+        {
+          "key": "09ef60357559b0",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 7
+        },
+        {
+          "key": "0a58697d8d57d1",
+          "ownerCount": 6,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "0a6bc31701677f",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 2
+        },
+        {
+          "key": "0ad0dea03d2406",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 9
+        },
+        {
+          "key": "0bc461112ea141",
+          "ownerCount": 1,
+          "moduleCount": 11,
+          "keyCount": 85
+        },
+        {
+          "key": "0ef30d1230ebbf",
+          "ownerCount": 1,
+          "moduleCount": 8,
+          "keyCount": 84
+        },
+        {
+          "key": "0ef5a76dff4989",
+          "ownerCount": 8,
+          "moduleCount": 1,
+          "keyCount": 2
+        },
+        {
+          "key": "12bc14082580a4",
+          "ownerCount": 5,
+          "moduleCount": 3,
+          "keyCount": 12
+        },
+        {
+          "key": "14770abc4f01dd",
+          "ownerCount": 54,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "169949e9f0dfc5",
+          "ownerCount": 3,
+          "moduleCount": 1,
+          "keyCount": 4
+        },
+        {
+          "key": "17a0df35448b0e",
+          "ownerCount": 1,
+          "moduleCount": 6,
+          "keyCount": 84
+        },
+        {
+          "key": "18a8ffc82605a2",
+          "ownerCount": 1,
+          "moduleCount": 4,
+          "keyCount": 35
+        },
+        {
+          "key": "197e54ec86aae0",
+          "ownerCount": 5,
+          "moduleCount": 5,
+          "keyCount": 12
+        },
+        {
+          "key": "19ece6d8b6612d",
+          "ownerCount": 2,
+          "moduleCount": 26,
+          "keyCount": 241
+        },
+        {
+          "key": "1efb06cbaea2d8",
+          "ownerCount": 9,
+          "moduleCount": 1,
+          "keyCount": 2
+        },
+        {
+          "key": "1fe46b8dab986c",
+          "ownerCount": 3,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "201cbb0dca5286",
+          "ownerCount": 2,
+          "moduleCount": 2,
+          "keyCount": 6
+        },
+        {
+          "key": "22f7551f33acd9",
+          "ownerCount": 1,
+          "moduleCount": 47,
+          "keyCount": 328
+        },
+        {
+          "key": "24047988785a3a",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 6
+        },
+        {
+          "key": "284dee0f36a6a9",
+          "ownerCount": 1,
+          "moduleCount": 14,
+          "keyCount": 80
+        },
+        {
+          "key": "2be9c73e34e814",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 2
+        },
+        {
+          "key": "2c4bb8f8783ee0",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 5
+        },
+        {
+          "key": "2e9f533dd8944b",
+          "ownerCount": 1,
+          "moduleCount": 6,
+          "keyCount": 80
+        },
+        {
+          "key": "318e2c65f1c5a8",
+          "ownerCount": 2,
+          "moduleCount": 2,
+          "keyCount": 12
+        },
+        {
+          "key": "3288d48f97c313",
+          "ownerCount": 1,
+          "moduleCount": 12,
+          "keyCount": 76
+        },
+        {
+          "key": "35aa750da9a89b",
+          "ownerCount": 1,
+          "moduleCount": 5,
+          "keyCount": 20
+        },
+        {
+          "key": "35ce2910d5de42",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "37a8dded4e6309",
+          "ownerCount": 1,
+          "moduleCount": 4,
+          "keyCount": 95
+        },
+        {
+          "key": "3aaa81f004d0ec",
+          "ownerCount": 4,
+          "moduleCount": 2,
+          "keyCount": 3
+        },
+        {
+          "key": "3cdd857712d3af",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 6
+        },
+        {
+          "key": "3fb38316a3ca05",
+          "ownerCount": 1,
+          "moduleCount": 4,
+          "keyCount": 43
+        },
+        {
+          "key": "40a91f12787496",
+          "ownerCount": 2,
+          "moduleCount": 3,
+          "keyCount": 20
+        },
+        {
+          "key": "40d2c4768deff3",
+          "ownerCount": 52,
+          "moduleCount": 10,
+          "keyCount": 31
+        },
+        {
+          "key": "40f995c22c9669",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 8
+        },
+        {
+          "key": "41b39ba3a70fc6",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "43490ebddf165a",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 21
+        },
+        {
+          "key": "4414044af4a26e",
+          "ownerCount": 1,
+          "moduleCount": 4,
+          "keyCount": 60
+        },
+        {
+          "key": "4662a4d229db63",
+          "ownerCount": 1,
+          "moduleCount": 9,
+          "keyCount": 73
+        },
+        {
+          "key": "4785c2557ace9d",
+          "ownerCount": 1,
+          "moduleCount": 6,
+          "keyCount": 44
+        },
+        {
+          "key": "484ca55dfa19ca",
+          "ownerCount": 2,
+          "moduleCount": 2,
+          "keyCount": 145
+        },
+        {
+          "key": "48b41355714214",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 59
+        },
+        {
+          "key": "4a367ed866f8b7",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 62
+        },
+        {
+          "key": "4b80bce5137dbc",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 4
+        },
+        {
+          "key": "4bfc8122bd320e",
+          "ownerCount": 2,
+          "moduleCount": 2,
+          "keyCount": 3
+        },
+        {
+          "key": "4e1803af174494",
+          "ownerCount": 1,
+          "moduleCount": 6,
+          "keyCount": 77
+        },
+        {
+          "key": "4e79604e0a6b42",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 14
+        },
+        {
+          "key": "4fd492a6fe7c71",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "513c19e7336965",
+          "ownerCount": 2,
+          "moduleCount": 5,
+          "keyCount": 27
+        },
+        {
+          "key": "51dfdd708dd41d",
+          "ownerCount": 1,
+          "moduleCount": 4,
+          "keyCount": 34
+        },
+        {
+          "key": "535c4db8a9be35",
+          "ownerCount": 2,
+          "moduleCount": 3,
+          "keyCount": 14
+        },
+        {
+          "key": "543be7705d0a5e",
+          "ownerCount": 3,
+          "moduleCount": 1,
+          "keyCount": 8
+        },
+        {
+          "key": "55433f1dd62d28",
+          "ownerCount": 3,
+          "moduleCount": 20,
+          "keyCount": 140
+        },
+        {
+          "key": "57c06862d76f78",
+          "ownerCount": 2,
+          "moduleCount": 4,
+          "keyCount": 8
+        },
+        {
+          "key": "58b7d6e2359fe7",
+          "ownerCount": 2,
+          "moduleCount": 3,
+          "keyCount": 24
+        },
+        {
+          "key": "593a813866f5e6",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 20
+        },
+        {
+          "key": "59a1432cb742f4",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "5dc6a0e0a8d994",
+          "ownerCount": 1,
+          "moduleCount": 15,
+          "keyCount": 83
+        },
+        {
+          "key": "61b09a3d05b516",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 7
+        },
+        {
+          "key": "64283db3ac6fab",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 24
+        },
+        {
+          "key": "6607ecdeebb572",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "66dc594621ab1a",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 67
+        },
+        {
+          "key": "6794f1ba92d6c2",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "6c3f279352b664",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "6c46fe9d0d68a1",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 17
+        },
+        {
+          "key": "6eb3ff005b5e57",
+          "ownerCount": 56,
+          "moduleCount": 1,
+          "keyCount": 15
+        },
+        {
+          "key": "6fa567a8a5b471",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 10
+        },
+        {
+          "key": "6ff6bbf4ad7787",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 4
+        },
+        {
+          "key": "710d3270398c32",
+          "ownerCount": 4,
+          "moduleCount": 9,
+          "keyCount": 88
+        },
+        {
+          "key": "728026b595dfe6",
+          "ownerCount": 3,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "7513815bf2a9e7",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 4
+        },
+        {
+          "key": "766c3f024696df",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "7684829b2159d8",
+          "ownerCount": 3,
+          "moduleCount": 23,
+          "keyCount": 128
+        },
+        {
+          "key": "7689882edcad4c",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 42
+        },
+        {
+          "key": "775880e80e3a8f",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 8
+        },
+        {
+          "key": "776b69b9f0f383",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 46
+        },
+        {
+          "key": "7a645f647508bc",
+          "ownerCount": 1,
+          "moduleCount": 6,
+          "keyCount": 62
+        },
+        {
+          "key": "7e58043d858ed1",
+          "ownerCount": 1,
+          "moduleCount": 10,
+          "keyCount": 136
+        },
+        {
+          "key": "80edef59536462",
+          "ownerCount": 1,
+          "moduleCount": 4,
+          "keyCount": 8
+        },
+        {
+          "key": "815f0c451892ba",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 64
+        },
+        {
+          "key": "849f636a72373e",
+          "ownerCount": 5,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "87297e163134c8",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 2
+        },
+        {
+          "key": "887a8460065024",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 12
+        },
+        {
+          "key": "88810d588157a3",
+          "ownerCount": 2,
+          "moduleCount": 3,
+          "keyCount": 15
+        },
+        {
+          "key": "8dfe837cbc313b",
+          "ownerCount": 2,
+          "moduleCount": 6,
+          "keyCount": 40
+        },
+        {
+          "key": "8e4d45f4c48779",
+          "ownerCount": 1,
+          "moduleCount": 36,
+          "keyCount": 261
+        },
+        {
+          "key": "8ec4dcb7d298f4",
+          "ownerCount": 2,
+          "moduleCount": 2,
+          "keyCount": 6
+        },
+        {
+          "key": "8f243b028eeff7",
+          "ownerCount": 2,
+          "moduleCount": 2,
+          "keyCount": 25
+        },
+        {
+          "key": "919a2cd5aa7795",
+          "ownerCount": 3,
+          "moduleCount": 1,
+          "keyCount": 7
+        },
+        {
+          "key": "94b14bba854875",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 4
+        },
+        {
+          "key": "957bc00214f6c7",
+          "ownerCount": 1,
+          "moduleCount": 4,
+          "keyCount": 36
+        },
+        {
+          "key": "a2f7e7302b29f4",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 15
+        },
+        {
+          "key": "a4a2827aacb9a7",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 4
+        },
+        {
+          "key": "a7b9ca0f5cd14a",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "a8ed736aeaeaf2",
+          "ownerCount": 2,
+          "moduleCount": 16,
+          "keyCount": 85
+        },
+        {
+          "key": "a98fc95cbd7632",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 19
+        },
+        {
+          "key": "aacf05b8088215",
+          "ownerCount": 1,
+          "moduleCount": 38,
+          "keyCount": 269
+        },
+        {
+          "key": "ac47d31c78d201",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 5
+        },
+        {
+          "key": "acdf0cd5197f0f",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 6
+        },
+        {
+          "key": "b06199692fe2c9",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "b0ab0c7d17d8bd",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 8
+        },
+        {
+          "key": "b15f5f5b66be7b",
+          "ownerCount": 4,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "b2a44a857dd53e",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 2
+        },
+        {
+          "key": "b2c6dfb8220c63",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 41
+        },
+        {
+          "key": "b33e01dc6ffff1",
+          "ownerCount": 1,
+          "moduleCount": 10,
+          "keyCount": 148
+        },
+        {
+          "key": "b53366ff0ab7b6",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 55
+        },
+        {
+          "key": "b562b8e89cc97c",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 17
+        },
+        {
+          "key": "b6e1f3943ea642",
+          "ownerCount": 1,
+          "moduleCount": 7,
+          "keyCount": 94
+        },
+        {
+          "key": "b6f4a549d39f2a",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 14
+        },
+        {
+          "key": "b886c9b5e9cd6c",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "bb4552a43ac687",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "bbba286db88f18",
+          "ownerCount": 3,
+          "moduleCount": 12,
+          "keyCount": 56
+        },
+        {
+          "key": "bbff0d7448a962",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 43
+        },
+        {
+          "key": "bc31a104d37469",
+          "ownerCount": 1,
+          "moduleCount": 35,
+          "keyCount": 352
+        },
+        {
+          "key": "bcc61af7dc29c5",
+          "ownerCount": 2,
+          "moduleCount": 4,
+          "keyCount": 45
+        },
+        {
+          "key": "bd708f848b1be2",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 39
+        },
+        {
+          "key": "c1091adcbfe16d",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 8
+        },
+        {
+          "key": "c157a6f5b871d2",
+          "ownerCount": 8,
+          "moduleCount": 1,
+          "keyCount": 4
+        },
+        {
+          "key": "c19496431717a3",
+          "ownerCount": 7,
+          "moduleCount": 4,
+          "keyCount": 13
+        },
+        {
+          "key": "c82bd3a0dfdc30",
+          "ownerCount": 6,
+          "moduleCount": 1,
+          "keyCount": 8
+        },
+        {
+          "key": "c8821f077b3ed3",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 18
+        },
+        {
+          "key": "c9874a0482dee0",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 17
+        },
+        {
+          "key": "ca5fd1d4f9acfd",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 9
+        },
+        {
+          "key": "cacafcd7e288d1",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 31
+        },
+        {
+          "key": "cc0a472feda064",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 11
+        },
+        {
+          "key": "cc69592563b394",
+          "ownerCount": 1,
+          "moduleCount": 25,
+          "keyCount": 349
+        },
+        {
+          "key": "cf194c2af94798",
+          "ownerCount": 3,
+          "moduleCount": 2,
+          "keyCount": 16
+        },
+        {
+          "key": "d269438b2c8039",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 8
+        },
+        {
+          "key": "d43eda269e4935",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 32
+        },
+        {
+          "key": "d5463dfc7e92e5",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 15
+        },
+        {
+          "key": "d6274301118108",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 10
+        },
+        {
+          "key": "d765ff9b55474f",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 30
+        },
+        {
+          "key": "d85e78f1b0d14a",
+          "ownerCount": 2,
+          "moduleCount": 2,
+          "keyCount": 44
+        },
+        {
+          "key": "d8d7e67ac740bc",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 22
+        },
+        {
+          "key": "dbc6f09471c096",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 20
+        },
+        {
+          "key": "df0ed3330ecd55",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 17
+        },
+        {
+          "key": "e338e64173c8e4",
+          "ownerCount": 2,
+          "moduleCount": 2,
+          "keyCount": 15
+        },
+        {
+          "key": "e3805fd31afb47",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 5
+        },
+        {
+          "key": "e6e47b55f43c98",
+          "ownerCount": 1,
+          "moduleCount": 15,
+          "keyCount": 161
+        },
+        {
+          "key": "e76a33a4305b11",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 2
+        },
+        {
+          "key": "e8893387b1d780",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 21
+        },
+        {
+          "key": "eaa1077dabffab",
+          "ownerCount": 3,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "eb8cc4790c03ca",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 18
+        },
+        {
+          "key": "ee379f58daac16",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "ef6be2e7fecc66",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 6
+        },
+        {
+          "key": "f0facb19c42858",
+          "ownerCount": 4,
+          "moduleCount": 6,
+          "keyCount": 22
+        },
+        {
+          "key": "f18fbfd23f4744",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 1
+        },
+        {
+          "key": "f1cf4794b96921",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 8
+        },
+        {
+          "key": "f372f64c1ee060",
+          "ownerCount": 3,
+          "moduleCount": 6,
+          "keyCount": 30
+        },
+        {
+          "key": "f5157fdd9f5567",
+          "ownerCount": 2,
+          "moduleCount": 1,
+          "keyCount": 3
+        },
+        {
+          "key": "fa1a09df1c9883",
+          "ownerCount": 1,
+          "moduleCount": 1,
+          "keyCount": 26
+        },
+        {
+          "key": "fb42ac69492226",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 11
+        },
+        {
+          "key": "fb8533bb46a00a",
+          "ownerCount": 1,
+          "moduleCount": 2,
+          "keyCount": 6
+        },
+        {
+          "key": "fb8bd3e3343218",
+          "ownerCount": 2,
+          "moduleCount": 5,
+          "keyCount": 41
+        },
+        {
+          "key": "fcc2de689b737c",
+          "ownerCount": 1,
+          "moduleCount": 4,
+          "keyCount": 42
+        },
+        {
+          "key": "fcc77b049354e9",
+          "ownerCount": 3,
+          "moduleCount": 5,
+          "keyCount": 18
+        },
+        {
+          "key": "fe1fa2c8032fd7",
+          "ownerCount": 1,
+          "moduleCount": 3,
+          "keyCount": 26
+        },
+        {
+          "key": "initial",
+          "ownerCount": 1,
+          "moduleCount": 111,
+          "keyCount": 606
+        }
+      ]
+    },
+    "mergedInitial": {
+      "locales": 42,
+      "entryCount": 192,
+      "graphModuleCount": 5443,
+      "consumerCount": 882,
+      "unsafeConsumerCount": 0,
+      "reachableKeyCount": 6753,
+      "groups": [
+        {
+          "key": "initial",
+          "ownerCount": 123,
+          "moduleCount": 756,
+          "keyCount": 5759
+        },
+        {
+          "key": "lazy-07",
+          "ownerCount": 35,
+          "moduleCount": 126,
+          "keyCount": 1037
+        }
+      ],
+      "routePromotion": {
+        "promotedGroups": [
+          "lazy-00",
+          "lazy-01",
+          "lazy-02",
+          "lazy-03",
+          "lazy-04",
+          "lazy-05",
+          "lazy-06"
+        ],
+        "retainedLazyGroups": [
+          "lazy-07"
+        ]
+      }
+    },
+    "bucket8": {
+      "locales": 42,
+      "entryCount": 192,
+      "graphModuleCount": 5443,
+      "consumerCount": 882,
+      "unsafeConsumerCount": 0,
+      "reachableKeyCount": 6753,
+      "groups": [
+        {
+          "key": "initial",
+          "ownerCount": 1,
+          "moduleCount": 111,
+          "keyCount": 606
+        },
+        {
+          "key": "lazy-00",
+          "ownerCount": 26,
+          "moduleCount": 131,
+          "keyCount": 1127
+        },
+        {
+          "key": "lazy-01",
+          "ownerCount": 46,
+          "moduleCount": 136,
+          "keyCount": 933
+        },
+        {
+          "key": "lazy-02",
+          "ownerCount": 19,
+          "moduleCount": 47,
+          "keyCount": 418
+        },
+        {
+          "key": "lazy-03",
+          "ownerCount": 18,
+          "moduleCount": 63,
+          "keyCount": 577
+        },
+        {
+          "key": "lazy-04",
+          "ownerCount": 73,
+          "moduleCount": 110,
+          "keyCount": 790
+        },
+        {
+          "key": "lazy-05",
+          "ownerCount": 72,
+          "moduleCount": 97,
+          "keyCount": 1004
+        },
+        {
+          "key": "lazy-06",
+          "ownerCount": 81,
+          "moduleCount": 61,
+          "keyCount": 572
+        },
+        {
+          "key": "lazy-07",
+          "ownerCount": 35,
+          "moduleCount": 126,
+          "keyCount": 1037
+        }
+      ]
+    }
+  }
+}
