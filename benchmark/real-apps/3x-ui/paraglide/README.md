@@ -5,7 +5,7 @@ This archive contains the pinned native ES2022 control, a full-catalog Paraglide
 ## Pins and scope
 
 - App: [MHSanaei/3x-ui](https://github.com/MHSanaei/3x-ui), commit `74c3cc38821cabd66ad316ea562851422d0b0063`; frontend Vite 8.3.4; lockfile SHA-256 is in `core-chunk-provenance.json`.
-- Paraglide base: commit `6997d020813d76f087d585110e62cd54891726e0`. The public all-HTML diagnostic uses the isolated plugin artifact with SHA-256 `f8bb4ec5…331d58`; the core-chunk prototype uses `8f7f1f5f…669a5f6`. Full hashes and source hash are in `core-chunk-provenance.json`.
+- Paraglide base: commit `6997d020813d76f087d585110e62cd54891726e0`. The private all-HTML diagnostic uses the isolated plugin artifact with SHA-256 `f8bb4ec5…331d58`; the core-chunk prototype uses `8f7f1f5f…669a5f6`. Full hashes and source hash are in `core-chunk-provenance.json`.
 - Catalog metadata: 13 locales × 2,589 messages, 123 input messages, no markup. Metadata SHA-256 is recorded in the provenance file.
 - Route: `/login`, cookie `lang=es-ES`. The app's original `manualChunks` callback is unchanged in both variants. The candidate only applies an isolated compiler-plugin `outputOptions` hook to the compiler-owned core and generated runtime IDs, then delegates every other ID to that callback.
 
@@ -19,7 +19,7 @@ The first diagnostic injected the public plugin's standalone locale preloader in
 
 | Login route graph | Files | Raw | gzip-9 | Brotli-Q4 |
 | --- | ---: | ---: | ---: | ---: |
-| Public all-HTML preload | 25 | 2,695,662 | 752,181 | 746,720 |
+| Split + private all-HTML preload | 25 | 2,695,662 | 752,181 | 746,720 |
 | Dedicated core chunk | 24 | 2,604,134 | 722,595 | 716,535 |
 
 The change saves 30,185 Brotli-Q4 bytes (4.0%) on this route. The `vendor-router` asset is 92,919 raw / 30,767 Brotli-Q4 bytes; it remains emitted for routes that use React Router. The login page no longer downloads it solely to evaluate the Paraglide preload helper. The generated core is already a static dependency of the preloader module and the app facade, so this prototype does not add another core link to the HTML.
@@ -38,10 +38,16 @@ The measured change isolates a compiler-owned import edge, but it is not a >10% 
 
 Use Node 26.3.1 and npm 11.8.0 for fresh app builds. Apply `migration/3x-ui-app-migration.patch` at the app root. Copy `migration/prepare-project.mjs` to `frontend/.real-apps/3x-ui-paraglide/prepare-project.mjs` and run it with `PARAGLIDE_REPO` pointing to the compiler checkout. Build against the compiler's `dist` with `PARAGLIDE_DIST` set. The patch updates `frontend/vite.config.js`; enable `build.manifest` only when reproducing the archived graph JSON.
 
-For the ordinary public control, build the pinned compiler with the saved `all-html-preload-ablation.patch`. For the core-chunk diagnostic, apply `core-chunk-plus-all-html-prototype.patch` to the same compiler base, run `pnpm run env-variables && pnpm exec tsc --build`, and point `PARAGLIDE_DIST` at its `dist`. These patches live only in the benchmark archive; neither is a public compiler flag.
+For the private all-HTML control, build the pinned compiler with the saved `all-html-preload-ablation.patch`. For the core-chunk diagnostic, apply `core-chunk-plus-all-html-prototype.patch` to the same compiler base, run `pnpm run env-variables && pnpm exec tsc --build`, and point `PARAGLIDE_DIST` at its `dist`. These patches live only in the benchmark archive; neither is a public compiler flag.
 
 `graph.mjs` reproduces asset-size accounting from Vite's manifest. `serve.cjs` serves a supplied `DIST_ROOT` with Brotli-Q4 compression. `core-chunk-startup-probe.mjs` records one paired route sample and decoded response hashes; set `PLAYWRIGHT_MODULE`, `NATIVE_ORIGIN`, `PARAGLIDE_ORIGIN`, `BASELINE_NAME`, `PARAGLIDE_NAME`, and `OUTPUT_FILE` explicitly. Restart the fixture servers after every build so no in-memory compressed response cache can serve stale assets.
 
 ## Provenance caveat
 
 The Paraglide all-HTML/core diagnostic pair records its original toolchain in `core-chunk-provenance.json`; the Paraglide-only all-HTML baseline used a different npm executable from the core candidate. The native gate pair avoids that comparison: its native dist was rebuilt under Node 26.3.1/npm 11.8.0 and its candidate dist was built under the same recorded Node/npm versions. Keep the two pairings distinct when interpreting or reproducing these results.
+
+## Luna review
+
+GPT-6 Luna (extra-high reasoning) reviewed the prototype and report without running builds or timing samples. The function-valued `manualChunks` path preserves this app's callback. The object-valued path incorrectly indexes a chunk-name-to-module-list map by module ID; it must preserve those assignments before any product implementation. The all-HTML insertion also needs entry selection, correct relative paths for nested HTML with `base: "./"`, and integration with CSP nonce/SRI policies. This capture uses localized root-level entries, default `/` base, and no nonce/SRI policy, so those limitations do not invalidate its measurements.
+
+The review found no TLA cycle in the measured graph. Locale overrides installed during app startup and per-entry locale state need separate coverage. The package declares Vite >=5, while this experiment covers Vite 8.3.4 only; ES2022 remains required. The reviewer evaluated the earlier Paraglide-to-Paraglide pair; the later optimized-native comparison is recorded separately above.
