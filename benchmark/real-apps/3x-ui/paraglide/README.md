@@ -36,7 +36,7 @@ The measured change isolates a compiler-owned import edge, but it is not a >10% 
 
 ### Selected-only startup follow-up
 
-A separate compiler-only variant combines the all-HTML preloader and isolated core chunk with a startup promise that loads only `getLocale()` instead of loading both the base and selected locale. The generated metadata and locale modules were unchanged (2,589 messages and 13 locales). This remains an opt-in research patch, not a product default: a synchronous call with an unsupported explicit message locale falls back to the base locale, so callers must load `en-US` before that call. That compatibility path was not exhaustively tested here.
+A separate compiler-only variant combines the all-HTML preloader and isolated core chunk with a startup promise that loads only `getLocale()` instead of loading both the base and selected locale. The generated metadata and locale modules were unchanged (2,589 messages and 13 locales). This remains an opt-in research patch, not a product default: explicit `en-US` calls and unsupported explicit message locales that fall back to English require callers to await `loadLocale("en-US")` first. That compatibility path was not exhaustively tested here.
 
 One fresh cold pair against the frozen native build showed FCP/LCP 1,024→932 ms (−9.0%) and first visible `Hola` 1,203→1,104 ms (−8.2%). The Spanish locale response ended at 566 ms versus 858 ms native; fonts were ready at 95/96 ms. Visible login text matched and there were no browser errors. The candidate made 22 asset requests versus 19 native requests. Summed encoded asset bodies plus the HTML body were 684,001 versus 756,292 bytes (−9.6%). It remains below the 10% gate, so there was no repeat batch.
 
