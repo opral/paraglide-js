@@ -11,7 +11,7 @@ comparison, and fast-network regression. Component savings are not route savings
 leave a 1.5% paint / 1.1% byte difference against equally optimized i18next.
 The [Memos lazy-locale auth route](memos-auth-route-results.md) improves transfer only 1.6%,
 with unchanged route-ready time; [DrawDB public-plugin tests](drawdb-public-vite-split-results.md)
-also miss the 10% route gate. The [shared-factory Ntfy source ablation](ntfy-facade-factory-experiment.md) saves only another 817 B after Vite minification and also fails the route gate. Migration claims now require optimized i18next comparators.
+also miss the 10% route gate. The [shared-factory Ntfy source ablation](ntfy-facade-factory-experiment.md) saves only another 817 B after Vite minification and also fails the route gate. The [Ntfy optimized HTTP-backend control](ntfy-results.md) saves only 1.48% of encoded route bytes, with unchanged translated readiness; its same-target native resources have identical bodies. The [consumer and route-scope experiments](stirling-route-scope/README.md) increase request fanout or duplicate locale data and are rejected. Migration claims now require optimized i18next comparators.
 
 These experiments run real catalog text through Paraglide's compiler and **Vite production minification and tree shaking**, then check translation equality and count emitted JavaScript bytes after gzip/Brotli compression. Source-code shortening that Vite already performs does not count as an improvement.
 

@@ -78,3 +78,7 @@ The parent also reports a separate source-factory ablation in the #801 ledger: e
 - Raw trials and artifact provenance: `.real-apps/ntfy-ab/ntfy-paraglide-ab.json`.
 - Public API docs reviewed: `docs/compiling-messages.md`, `docs/strategy.md`, `docs/basics.md`, and `docs-api/compiler-options.md` in the PR4 checkout.
 - No build, browser test, service-worker test, offline test, or full-app route audit was run by this reviewer. The browser result covers `/login` only, blocks service workers and API traffic, disables cache, and compares the candidate's `esnext` target to the native Vite default target.
+
+## Subsequent same-target control
+
+After this read-only review, the benchmark author built the native `esnext` control separately and verified identical SHA-256 bodies for all 14 requested resources. The one paired follow-up retains the 1.48% encoded-byte difference and shows no readiness improvement. Its [raw control](results/ntfy/native-esnext-control.json) is now committed. This resolves the target-attribution caveat for route bytes; these later checks were performed by the benchmark author, not independently rerun by this reviewer.
