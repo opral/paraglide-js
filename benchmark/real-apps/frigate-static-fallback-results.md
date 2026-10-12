@@ -10,7 +10,7 @@ For the French startup subgraph, Brotli Q4 output was 103,430 B before and 67,70
 
 A single, non-timing Playwright capture against the two frozen builds recorded 95 vs. 94 resource events (94 vs. 93 distinct URLs). Those response bodies totaled 876,626 B vs. 840,894 B, including 14 B of identical mocked API responses on each side. The requested built static assets alone were 88 vs. 87 files totaling 876,612 B vs. 840,880 B (−35,732 B, −4.08%). The union has 105 paths including the document and hashed build assets. Both renders had `html.lang=fr`, title `Frigate`, and identical visible body text, `Le système est sain`; neither had uncaught page errors. The static server returned 404 JSON for backend API calls and did not implement WebSockets; the browser logged the expected failed API and WebSocket requests. This is a limited frontend smoke of the app's health shell, not a usable dashboard route or a timing comparison. An earlier full-route estimate based on outputs without reliable compiler-dist provenance is withdrawn; no full-page performance result is claimed.
 
-The implementation is preserved as [an unapplied source patch](static-fallback-metadata-prototype.patch), based on the product source at `e293fe7`. Apply it only in an isolated compiler checkout and rebuild that checkout. This draft does not enable the metadata experiment.
+The implementation is preserved as [an unapplied source patch](static-fallback-metadata-prototype.patch), based on the product source at `e293fe7`. Apply it only in an isolated compiler checkout and rebuild that checkout. This draft does not enable the metadata experiment. [Luna’s review](luna-static-fallback-review.md) records the semantic checks and provenance correction.
 
 ## Reproduction and provenance
 
