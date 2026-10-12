@@ -40,7 +40,7 @@ try {
 		page.on('console', (message) => { if (message.type() === 'error') errors.push(`console: ${message.text()}`); });
 		page.on('response', (response) => {
 			const url = new URL(response.url());
-			if (!/\/login(?:\.html)?$|paraglide-locale-preload|(?:paraglide-client-locale-split-core|_paraglide_client-locale-split_core)|_paraglide_client-locale-split_locale_(?:en-US|es-ES)/.test(url.pathname)) return;
+			if (!/\/login(?:\.html)?$|paraglide-locale-preload|(?:paraglide-client-locale-split-core|_paraglide_client-locale-split_core)|_paraglide_client-locale-split_locale_(?:en-US|es-ES)|(?:^|\/)es-ES-[^/]+\.js$/.test(url.pathname)) return;
 			responseTasks.push((async () => {
 				const headers = await response.allHeaders();
 				const body = await response.body();

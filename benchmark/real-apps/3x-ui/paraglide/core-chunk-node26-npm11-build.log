@@ -1,0 +1,205 @@
+
+> 3x-ui-frontend@1.0.0 build
+> npm run gen:api && vite build
+
+
+> 3x-ui-frontend@1.0.0 gen:api
+> node scripts/build-openapi.mjs
+
+[openapi] wrote /root/repos-iii/3x-ui-paraglide-core-chunk-probe/frontend/public/openapi.json
+[openapi] paths: 184, operations: 195, tags: 13
+vite v8.3.4 building client environment for production...
+ℹ [paraglide-js] Compilation skipped — inputs unchanged (locale-modules)
+transforming...
+✓ 5733 modules transformed.
+rendering chunks...
+computing gzip size...
+../internal/web/dist/login.html                                                          1.98 kB │ gzip:   0.60 kB
+../internal/web/dist/index.html                                                          2.41 kB │ gzip:   0.68 kB
+../internal/web/dist/subpage.html                                                        2.49 kB │ gzip:   0.71 kB
+../internal/web/dist/.vite/manifest.json                                                59.89 kB │ gzip:   6.39 kB
+../internal/web/dist/assets/ClientFormModal-CDUWAUf8.css                                 0.08 kB │ gzip:   0.09 kB
+../internal/web/dist/assets/AmneziaWGLogModal-BMaeu7oM.css                               0.22 kB │ gzip:   0.17 kB
+../internal/web/dist/assets/JsonEditor-DYub3wIr.css                                      0.36 kB │ gzip:   0.21 kB
+../internal/web/dist/assets/PanelUpdateModal-D-xjFlLm.css                                0.40 kB │ gzip:   0.23 kB
+../internal/web/dist/assets/VersionModal-v_lahvh1.css                                    0.46 kB │ gzip:   0.27 kB
+../internal/web/dist/assets/link-label-CXFaM4xH.css                                      0.48 kB │ gzip:   0.28 kB
+../internal/web/dist/assets/BackupModal-DvAl48yt.css                                     0.50 kB │ gzip:   0.27 kB
+../internal/web/dist/assets/SystemHistoryModal-DHtAWmMd.css                              0.52 kB │ gzip:   0.32 kB
+../internal/web/dist/assets/HostsPage-pZCh14Yq.css                                       0.63 kB │ gzip:   0.32 kB
+../internal/web/dist/assets/InboundFormModal-ByfC29vH.css                                0.76 kB │ gzip:   0.35 kB
+../internal/web/dist/assets/ConfigBlock-B1RqPlL8.css                                     0.80 kB │ gzip:   0.39 kB
+../internal/web/dist/assets/form-Ck_OJ7j9.css                                            0.95 kB │ gzip:   0.42 kB
+../internal/web/dist/assets/ui-D9DhnR4P.css                                              1.06 kB │ gzip:   0.41 kB
+../internal/web/dist/assets/XrayMetricsModal-D1_DCULd.css                                1.16 kB │ gzip:   0.49 kB
+../internal/web/dist/assets/vendor-uplot-CnsZ1jie.css                                    1.64 kB │ gzip:   0.69 kB
+../internal/web/dist/assets/viz-Bf1OfgHd.css                                             1.81 kB │ gzip:   0.54 kB
+../internal/web/dist/assets/XrayLogModal-B9b5ckyR.css                                    1.90 kB │ gzip:   0.77 kB
+../internal/web/dist/assets/SettingsPage-BYkBh-rH.css                                    1.91 kB │ gzip:   0.67 kB
+../internal/web/dist/assets/NodesPage-oJo7m8Qf.css                                       2.10 kB │ gzip:   0.78 kB
+../internal/web/dist/assets/SponsorsPage-D0V-6Ufs.css                                    2.17 kB │ gzip:   0.67 kB
+../internal/web/dist/assets/LogModal-DcBeubxz.css                                        2.31 kB │ gzip:   0.92 kB
+../internal/web/dist/assets/ClientInfoModal-BZVVq_In.css                                 2.62 kB │ gzip:   0.77 kB
+../internal/web/dist/assets/list-DuWtPtKR.css                                            2.90 kB │ gzip:   0.94 kB
+../internal/web/dist/assets/vendor-antd-B5BXDqMa.css                                     2.98 kB │ gzip:   1.13 kB
+../internal/web/dist/assets/InboundInfoModal-D0ukfcTY.css                                3.00 kB │ gzip:   0.91 kB
+../internal/web/dist/assets/SponsorSlot-CZ6_h2E1.css                                     3.22 kB │ gzip:   0.97 kB
+../internal/web/dist/assets/IndexPage-Cpy9o4JF.css                                       6.01 kB │ gzip:   1.68 kB
+../internal/web/dist/assets/ClientsPage-DJptI1Rt.css                                     6.43 kB │ gzip:   1.73 kB
+../internal/web/dist/assets/AppSidebar-BEyj8XFY.css                                      6.60 kB │ gzip:   1.43 kB
+../internal/web/dist/assets/subpage-DajY1vMp.css                                         6.96 kB │ gzip:   1.81 kB
+../internal/web/dist/assets/login-B_chRsY8.css                                           7.95 kB │ gzip:   2.04 kB
+../internal/web/dist/assets/ApiDocsPage-BqCwTh-4.css                                    12.19 kB │ gzip:   2.22 kB
+../internal/web/dist/assets/XrayPage-CGVEuGuw.css                                       18.14 kB │ gzip:   3.67 kB
+../internal/web/dist/assets/index-DQVemEJP.css                                          18.91 kB │ gzip:   3.53 kB
+../internal/web/dist/assets/vendor-swagger-CngLQaOJ.css                                184.34 kB │ gzip:  26.85 kB
+../internal/web/dist/assets/transport-DdT2sxCK.js                                        0.03 kB │ gzip:   0.05 kB
+../internal/web/dist/assets/TextModal-D5uXZeh9.js                                        0.06 kB │ gzip:   0.08 kB
+../internal/web/dist/assets/JsonEditor-BUyGAyl8.js                                       0.06 kB │ gzip:   0.08 kB
+../internal/web/dist/assets/PromptModal-BZ49Y20L.js                                      0.06 kB │ gzip:   0.08 kB
+../internal/web/dist/assets/traffic-reset-D68NIFGo.js                                    0.06 kB │ gzip:   0.08 kB
+../internal/web/dist/assets/paraglide-locale-preload-B4oDnFGu.js                         0.07 kB │ gzip:   0.09 kB
+../internal/web/dist/assets/invalidationTracker-CACVA6VE.js                              0.09 kB │ gzip:   0.09 kB
+../internal/web/dist/assets/a11y-C2SjBtcJ.js                                             0.09 kB │ gzip:   0.10 kB
+../internal/web/dist/assets/rhfZodValidate-Bp3fy4ge.js                                   0.13 kB │ gzip:   0.13 kB
+../internal/web/dist/assets/flow-CxM-9Ko9.js                                             0.19 kB │ gzip:   0.15 kB
+../internal/web/dist/assets/node-protocols-Db2vXRUp.js                                   0.21 kB │ gzip:   0.17 kB
+../internal/web/dist/assets/login-CRlIcA87.js                                            0.27 kB │ gzip:   0.20 kB
+../internal/web/dist/assets/speedTagStyle-89flDhEY.js                                    0.28 kB │ gzip:   0.22 kB
+../internal/web/dist/assets/useWebSocket-CL_Nh3be.js                                     0.31 kB │ gzip:   0.23 kB
+../internal/web/dist/assets/zodValidate-Bj9fLUf3.js                                      0.32 kB │ gzip:   0.23 kB
+../internal/web/dist/assets/utility-DV2Ev-Fz.js                                          0.38 kB │ gzip:   0.26 kB
+../internal/web/dist/assets/useMediaQuery-DdeU0G5e.js                                    0.38 kB │ gzip:   0.28 kB
+../internal/web/dist/assets/filters-Cz9eCUpa.js                                          0.39 kB │ gzip:   0.22 kB
+../internal/web/dist/assets/label-EvESxmXo.js                                            0.43 kB │ gzip:   0.28 kB
+../internal/web/dist/assets/vendor-react-B74pBk57.js                                     0.43 kB │ gzip:   0.30 kB
+../internal/web/dist/assets/catTabLabel-DD1EeKni.js                                      0.50 kB │ gzip:   0.33 kB
+../internal/web/dist/assets/useInboundOptions-wtNCbV3E.js                                0.54 kB │ gzip:   0.35 kB
+../internal/web/dist/assets/panel-version-DydYR7Dz.js                                    0.55 kB │ gzip:   0.31 kB
+../internal/web/dist/assets/defaults-DWsYrg8x.js                                         0.58 kB │ gzip:   0.25 kB
+../internal/web/dist/assets/masque-BcZ0sjND.js                                           0.62 kB │ gzip:   0.34 kB
+../internal/web/dist/assets/usePageTitle-BE37qUXf.js                                     0.68 kB │ gzip:   0.40 kB
+../internal/web/dist/assets/useDatepicker-CuMuiIDx.js                                    0.72 kB │ gzip:   0.44 kB
+../internal/web/dist/assets/InfinityIcon-Dua1DGGw.js                                     0.75 kB │ gzip:   0.49 kB
+../internal/web/dist/assets/rolldown-runtime-B0Z9INg1.js                                 0.90 kB │ gzip:   0.51 kB
+../internal/web/dist/assets/inbound-clone-CUXT818s.js                                    0.90 kB │ gzip:   0.49 kB
+../internal/web/dist/assets/amneziawg-obfuscation-BkUnm8dd.js                            0.94 kB │ gzip:   0.60 kB
+../internal/web/dist/assets/host-link-DMyPn0lH.js                                        0.98 kB │ gzip:   0.61 kB
+../internal/web/dist/assets/useOutboundTags-DI34pPh2.js                                  1.00 kB │ gzip:   0.43 kB
+../internal/web/dist/assets/tuic-D3SjtoLh.js                                             1.04 kB │ gzip:   0.50 kB
+../internal/web/dist/assets/protocol-capabilities-CJAcz70Q.js                            1.10 kB │ gzip:   0.47 kB
+../internal/web/dist/assets/rhf-BVMTi_iP.js                                              1.19 kB │ gzip:   0.68 kB
+../internal/web/dist/assets/queryKeys-B5rr3vbO.js                                        1.20 kB │ gzip:   0.41 kB
+../internal/web/dist/assets/QueryProvider-BeJtLF5n.js                                    1.25 kB │ gzip:   0.71 kB
+../internal/web/dist/assets/BulkAddToGroupModal-EnAaCmBs.js                              1.40 kB │ gzip:   0.79 kB
+../internal/web/dist/assets/PromptModal-BcI0B3rL.js                                      1.42 kB │ gzip:   0.78 kB
+../internal/web/dist/assets/TextModal-Cy3kMG4F.js                                        1.46 kB │ gzip:   0.86 kB
+../internal/web/dist/assets/ConfigBlock-iBG4lveF.js                                      1.53 kB │ gzip:   0.78 kB
+../internal/web/dist/assets/inbound-from-db-vGwOQSRE.js                                  1.62 kB │ gzip:   0.74 kB
+../internal/web/dist/assets/balancer-helpers-BeN0OdCd.js                                 1.69 kB │ gzip:   0.73 kB
+../internal/web/dist/assets/AddClientsToGroupModal-B-4i4DCH.js                           1.88 kB │ gzip:   0.88 kB
+../internal/web/dist/assets/BulkAttachInboundsModal-C3Arbr1r.js                          1.93 kB │ gzip:   1.01 kB
+../internal/web/dist/assets/BulkDetachInboundsModal-CN-iZu88.js                          1.95 kB │ gzip:   1.01 kB
+../internal/web/dist/assets/CloneInboundModal-BFhac6Ia.js                                2.21 kB │ gzip:   1.18 kB
+../internal/web/dist/assets/ui-BnQUbV_H.js                                               2.26 kB │ gzip:   1.12 kB
+../internal/web/dist/assets/GroupRemoveClientsModal-BDV3fl0q.js                          2.35 kB │ gzip:   1.15 kB
+../internal/web/dist/assets/inbound-defaults-BUejTDoe.js                                 2.42 kB │ gzip:   1.12 kB
+../internal/web/dist/assets/dbinbound-BlLVxGa3.js                                        2.57 kB │ gzip:   1.07 kB
+../internal/web/dist/assets/GroupAddClientsModal-DvBXQeLE.js                             2.71 kB │ gzip:   1.25 kB
+../internal/web/dist/assets/JsonEditor-D9AHY7tX.js                                       2.81 kB │ gzip:   1.26 kB
+../internal/web/dist/assets/ClientBulkAdjustModal-C2XHeJZs.js                            2.84 kB │ gzip:   1.26 kB
+../internal/web/dist/assets/websocket-1z3G8_Ia.js                                        2.85 kB │ gzip:   1.12 kB
+../internal/web/dist/assets/tls-6-IgTgAF.js                                              2.97 kB │ gzip:   1.22 kB
+../internal/web/dist/assets/DetachClientsModal-Cni0KkBc.js                               3.00 kB │ gzip:   1.42 kB
+../internal/web/dist/assets/SubLinksModal-U2nkL9Qj.js                                    3.02 kB │ gzip:   1.37 kB
+../internal/web/dist/assets/useTheme-09TBjx4C.js                                         3.02 kB │ gzip:   1.28 kB
+../internal/web/dist/assets/useNodesQuery-D8-ggHqk.js                                    3.07 kB │ gzip:   1.23 kB
+../internal/web/dist/assets/xdrive-BzANwP10.js                                           3.10 kB │ gzip:   1.18 kB
+../internal/web/dist/assets/XDriveForm-SHfC2_jg.js                                       3.10 kB │ gzip:   1.25 kB
+../internal/web/dist/assets/BackupModal-CcHdB7Nr.js                                      3.10 kB │ gzip:   1.04 kB
+../internal/web/dist/assets/useHostsQuery-pyig7-HV.js                                    3.19 kB │ gzip:   1.32 kB
+../internal/web/dist/assets/PanelUpdateModal-CEnYDQww.js                                 3.37 kB │ gzip:   1.30 kB
+../internal/web/dist/assets/tunnelEndpoints-Ck1VQQgO.js                                  3.38 kB │ gzip:   1.35 kB
+../internal/web/dist/assets/primitives-D4wNN_IR.js                                       3.56 kB │ gzip:   1.46 kB
+../internal/web/dist/assets/AttachClientsModal-C6canHnH.js                               3.64 kB │ gzip:   1.64 kB
+../internal/web/dist/assets/ClientHwidList-DVAxhC4Y.js                                   3.66 kB │ gzip:   1.48 kB
+../internal/web/dist/assets/SponsorSlot-DUN6QzJY.js                                      3.82 kB │ gzip:   1.61 kB
+../internal/web/dist/assets/SponsorsPage-HoVj9MY9.js                                     3.94 kB │ gzip:   1.35 kB
+../internal/web/dist/assets/AttachExistingClientsModal-DUo2uCKG.js                       4.13 kB │ gzip:   1.81 kB
+../internal/web/dist/assets/xray-D2X7nKEE.js                                             4.44 kB │ gzip:   1.51 kB
+../internal/web/dist/assets/link-label-BYVbSSJq.js                                       4.55 kB │ gzip:   2.11 kB
+../internal/web/dist/assets/login-9QjXbN3T.js                                            4.59 kB │ gzip:   1.92 kB
+../internal/web/dist/assets/FilterDrawer-BU5HMQIn.js                                     4.68 kB │ gzip:   1.54 kB
+../internal/web/dist/assets/LogModal-CeDP8ajr.js                                         4.99 kB │ gzip:   2.09 kB
+../internal/web/dist/assets/security-C5hhnmcN.js                                         5.18 kB │ gzip:   1.97 kB
+../internal/web/dist/assets/ClientRenewalFields-BfjB9RuC.js                              5.58 kB │ gzip:   2.06 kB
+../internal/web/dist/assets/XrayLogModal-C8MbuzU9.js                                     5.84 kB │ gzip:   2.16 kB
+../internal/web/dist/assets/setting-DXofEe8k.js                                          5.93 kB │ gzip:   1.52 kB
+../internal/web/dist/assets/AmneziaWGLogModal-CpNWqvlP.js                                6.08 kB │ gzip:   2.13 kB
+../internal/web/dist/assets/SystemHistoryModal-LqyE6ZaD.js                               6.25 kB │ gzip:   2.43 kB
+../internal/web/dist/assets/client-D4ehYy35.js                                           6.64 kB │ gzip:   1.91 kB
+../internal/web/dist/assets/XrayMetricsModal-ysWuseU6.js                                 6.82 kB │ gzip:   2.58 kB
+../internal/web/dist/assets/useXraySetting-CS9jyMyw.js                                   6.83 kB │ gzip:   2.53 kB
+../internal/web/dist/assets/paraglide-client-locale-split-core-DOkqf0O8.js               7.03 kB │ gzip:   2.77 kB
+../internal/web/dist/assets/useCommandPalette-CTy5UK-E.js                                7.11 kB │ gzip:   3.01 kB
+../internal/web/dist/assets/VersionModal-BpYJ5d92.js                                     7.31 kB │ gzip:   2.77 kB
+../internal/web/dist/assets/ClientBulkAddModal-CQ74ljbM.js                               7.83 kB │ gzip:   2.94 kB
+../internal/web/dist/assets/fields-I_5xsiGr.js                                           9.10 kB │ gzip:   3.19 kB
+../internal/web/dist/assets/viz-DB106Xza.js                                              9.25 kB │ gzip:   3.85 kB
+../internal/web/dist/assets/AppSidebar-BpPBu5s5.js                                       9.60 kB │ gzip:   3.14 kB
+../internal/web/dist/assets/ClientQrModal-RH_iM8ey.js                                    9.91 kB │ gzip:   3.88 kB
+../internal/web/dist/assets/inbound-LN3KmASM.js                                          9.97 kB │ gzip:   2.37 kB
+../internal/web/dist/assets/form-wRWaVpYw.js                                            11.25 kB │ gzip:   4.34 kB
+../internal/web/dist/assets/useClients-Dfrsoj4J.js                                      13.15 kB │ gzip:   4.01 kB
+../internal/web/dist/assets/GroupsPage-BYVLTGmd.js                                      13.38 kB │ gzip:   3.96 kB
+../internal/web/dist/assets/ClientInfoModal-DYyPJNLr.js                                 15.38 kB │ gzip:   4.17 kB
+../internal/web/dist/assets/utils-D-m9cRYo.js                                           17.97 kB │ gzip:   6.94 kB
+../internal/web/dist/assets/zod-DQ5UqxzG.js                                             19.08 kB │ gzip:   4.11 kB
+../internal/web/dist/assets/list-CfAcp8to.js                                            20.21 kB │ gzip:   5.82 kB
+../internal/web/dist/assets/vendor-jalali-Bkjws00l.js                                   20.41 kB │ gzip:   6.54 kB
+../internal/web/dist/assets/HostsPage-5IqFJqZH.js                                       21.43 kB │ gzip:   6.62 kB
+../internal/web/dist/assets/inbound-link-DUZ7ZguE.js                                    24.35 kB │ gzip:   6.98 kB
+../internal/web/dist/assets/vendor-otpauth-D2CFZ2gE.js                                  24.93 kB │ gzip:   9.38 kB
+../internal/web/dist/assets/subpage-Dos03MrH.js                                         25.40 kB │ gzip:  13.15 kB
+../internal/web/dist/assets/IndexPage-WdNakujM.js                                       25.73 kB │ gzip:   7.27 kB
+../internal/web/dist/assets/ApiDocsPage-W8fOwHNb.js                                     25.89 kB │ gzip:   7.73 kB
+../internal/web/dist/assets/ClientFormModal-DTsVdzjP.js                                 26.04 kB │ gzip:   7.11 kB
+../internal/web/dist/assets/index-GfefY4v5.js                                           26.47 kB │ gzip:   7.80 kB
+../internal/web/dist/assets/InboundsPage-CHtJmwZK.js                                    26.90 kB │ gzip:   8.18 kB
+../internal/web/dist/assets/InboundInfoModal-DKF8jeBg.js                                29.05 kB │ gzip:   5.87 kB
+../internal/web/dist/assets/NodesPage-Dr5zpPYv.js                                       32.67 kB │ gzip:   9.12 kB
+../internal/web/dist/assets/vendor-tanstack-BsNiuNYH.js                                 34.93 kB │ gzip:  10.23 kB
+../internal/web/dist/assets/FinalMaskForm-Csgyj6n9.js                                   35.62 kB │ gzip:   9.33 kB
+../internal/web/dist/assets/ClientsPage-DfDzaoGd.js                                     41.16 kB │ gzip:  11.81 kB
+../internal/web/dist/assets/transport-C9EzIqVM.js                                       42.92 kB │ gzip:  10.40 kB
+../internal/web/dist/assets/vendor-uplot-D9GkJPQr.js                                    50.99 kB │ gzip:  22.23 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_zh-CN-DG5NmHHo.js     90.46 kB │ gzip:  33.81 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_zh-TW-KWO8kHKC.js     91.41 kB │ gzip:  34.01 kB
+../internal/web/dist/assets/vendor-router--c-zbo9b.js                                   91.44 kB │ gzip:  30.00 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js     93.81 kB │ gzip:  32.03 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_id-ID-3vNTiIuV.js     99.50 kB │ gzip:  32.56 kB
+../internal/web/dist/assets/InboundFormModal-B70n0s9C.js                               101.72 kB │ gzip:  23.37 kB
+../internal/web/dist/assets/SettingsPage-Bd8iybfB.js                                   104.83 kB │ gzip:  21.93 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_pt-BR-9ITJId0P.js    107.75 kB │ gzip:  35.00 kB
+../internal/web/dist/assets/vendor-icons-DW4kGsb1.js                                   111.20 kB │ gzip:  28.30 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js    111.44 kB │ gzip:  35.52 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_tr-TR-B_pMA2B9.js    112.09 kB │ gzip:  35.88 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_vi-VN-QbPe38rD.js    122.55 kB │ gzip:  35.02 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_ja-JP-B6sximci.js    136.70 kB │ gzip:  37.61 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_ar-EG-s6DlpeUx.js    140.44 kB │ gzip:  38.52 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_fa-IR-BNae41aM.js    154.59 kB │ gzip:  38.78 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_uk-UA-DFvUEa9k.js    169.97 kB │ gzip:  42.16 kB
+../internal/web/dist/assets/_paraglide_client-locale-split_locale_ru-RU-Pkp2PSVa.js    170.42 kB │ gzip:  42.38 kB
+../internal/web/dist/assets/XrayPage-BF8luQ8g.js                                       200.20 kB │ gzip:  49.12 kB
+../internal/web/dist/assets/paraglide-compat-B8lZ5DlY.js                               311.16 kB │ gzip:  32.00 kB
+../internal/web/dist/assets/vendor-codemirror-0qzPD4De.js                              410.17 kB │ gzip: 131.83 kB
+../internal/web/dist/assets/vendor-BKjys3L3.js                                         622.10 kB │ gzip: 170.17 kB
+../internal/web/dist/assets/vendor-swagger-MMwfWenX.js                                 876.98 kB │ gzip: 255.97 kB
+../internal/web/dist/assets/vendor-antd-WdkdfffB.js                                  1,261.28 kB │ gzip: 399.39 kB
+
+✓ built in 872ms
+npm notice
+npm notice New major version of npm available! 11.8.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

@@ -1,0 +1,70 @@
+{
+  "app": {
+    "repository": "https://github.com/MHSanaei/3x-ui",
+    "commit": "74c3cc38821cabd66ad316ea562851422d0b0063",
+    "frontendVite": "8.3.4",
+    "target": "es2022",
+    "packageLockSha256": "4102c5530996fa24f8152bdeaee99f73a8bd4c85d86e562a707a2a1e7bef43a7",
+    "nativeViteConfigSha256": "c33dbbff80671326c36cefce46053789b4535c5fe21b9231cdefb9c1517bf9fb",
+    "nativeDistRebuild": {
+      "node": "26.3.1",
+      "npm": "11.8.0",
+      "command": "/tmp/3x-ui-runtime/node_modules/node/bin/node /tmp/3x-ui-runtime/node_modules/npm/bin/npm-cli.js run build",
+      "elapsedSeconds": 0.79,
+      "maxRssKb": 1867984,
+      "previousDistReproducedByteForByte": true,
+      "fileCount": 168,
+      "buildLog": "../native/native-es2022-node26-npm11-build.log",
+      "timeLog": "../native/native-es2022-node26-npm11-build.time"
+    },
+    "route": "/login",
+    "cookie": "lang=es-ES"
+  },
+  "candidate": {
+    "kind": "isolated compiler prototype; not a product change",
+    "compilerBaseCommit": "6997d020813d76f087d585110e62cd54891726e0",
+    "compilerPrototypeSourceSha256": "612c624a61da3e7708d62334a50ebe0a13682da1ae0d3e3aba43bc0b6b373250",
+    "compilerPrototypeDistSha256": "8f7f1f5febd0bd92b64e1ea3f54cb542394172bc2481f84a28a02ef37669a5f6",
+    "node": "26.3.1",
+    "npm": "11.8.0",
+    "vite": "8.3.4",
+    "allHtmlPreload": true,
+    "coreAndGeneratedRuntimeManualChunk": true,
+    "appManualChunksCallbackPreserved": true,
+    "coreAlreadyImportedByHtmlPreloaderAndAppFacade": true,
+    "buildLog": "core-chunk-node26-npm11-build.log"
+  },
+  "browserPair": {
+    "node": "26.3.1",
+    "playwrightModule": "/root/repos-iii/3x-ui-route-survey/frontend/node_modules/playwright/index.mjs",
+    "coldContexts": true,
+    "cacheDisabled": true,
+    "rttMs": 80,
+    "downMbps": 20,
+    "upMbps": 2,
+    "cpuMultiplier": 3,
+    "serverProtocol": "HTTP/1.1 loopback with Brotli-Q4 for compressible files",
+    "readinessMarker": "first visible Hola text; no fixed delay",
+    "result": "native-vs-core-chunk-gate-pair.json",
+    "responseHashCoverage": [
+      "native login HTML",
+      "native es-ES locale JS",
+      "candidate login HTML",
+      "candidate standalone locale preloader JS",
+      "candidate split core JS",
+      "candidate en-US locale JS",
+      "candidate es-ES locale JS"
+    ],
+    "repeatBatch": false,
+    "repeatReason": "The only pair showed less than a 10% improvement in both FCP/LCP and translated-ready time."
+  },
+  "artifactSha256": {
+    "nativeLoginHtml": "3693eb8b76e277e5fd86207d8e65cdd2ff18b15895d426f7eac26068b785d256",
+    "nativeSpanishLocale": "bd8445cb34d18b4aa0e56ece3b5ce9c4f4c3d0c8fb23ec2de575b9ce9927944f",
+    "candidateLoginHtml": "461de262d4f28f0d25fc1093eb04d635edd4b7d2e0b13b9d228d8f1ca0ca05c6",
+    "candidatePreloader": "d6d1fedfc2c60b06f419a8d83e59a68e45001d33d53be18cc4318692f949d38b",
+    "candidateCore": "55869f439f28a67fd22ce70e009d0793ee3b456e48309e6c9b6d0591b7b22c69",
+    "candidateEnglishLocale": "2026b31a2b336f4b63a8d0a2183a3ca155e53612db4291e1eff584e4c0c76f0d",
+    "candidateSpanishLocale": "51e69936849a89f2bc70d2b6e5c6529be259720e06a435b7c13fce9b41dd6e1b"
+  }
+}

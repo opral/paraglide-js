@@ -1,0 +1,501 @@
+{
+  "route": "/login",
+  "localeCookie": "lang=es-ES",
+  "protocol": "HTTP/1.1 loopback; server Brotli-Q4 for compressible assets; no TLS/HTTP2",
+  "methodology": "One cold run per variant; fresh browser context and cache disabled; 80ms RTT, 20Mbps down, 2Mbps up, 3x CPU; readiness is the first visible Spanish greeting, not a fixed delay. Selected HTML, preloader, core, and locale responses are SHA-256 hashed after browser decompression, with response encoding and content length recorded.",
+  "samples": [
+    {
+      "variant": "native-es2022",
+      "throttle": {
+        "rttMs": 80,
+        "downMbps": 20,
+        "upMbps": 2,
+        "cpuMultiplier": 3
+      },
+      "wallMs": 1223,
+      "text": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+      "username": "Nombre de Usuario",
+      "password": "Contraseña",
+      "fcpMs": 1040,
+      "lcpMs": 1040,
+      "fontReadyMs": 95,
+      "translatedReadyMs": 1220,
+      "nextHopProtocol": "http/1.1",
+      "domInteractiveMs": 97,
+      "resources": [
+        {
+          "path": "/assets/login-DZL5y-rd.js",
+          "startMs": 89,
+          "endMs": 177,
+          "transferBytes": 2281,
+          "encodedBytes": 1981,
+          "decodedBytes": 4514
+        },
+        {
+          "path": "/assets/rolldown-runtime-B0Z9INg1.js",
+          "startMs": 89,
+          "endMs": 177,
+          "transferBytes": 804,
+          "encodedBytes": 504,
+          "decodedBytes": 901
+        },
+        {
+          "path": "/assets/vendor-B3k8yGV0.js",
+          "startMs": 89,
+          "endMs": 507,
+          "transferBytes": 167736,
+          "encodedBytes": 167436,
+          "decodedBytes": 622869
+        },
+        {
+          "path": "/assets/vendor-antd-COmlclPx.js",
+          "startMs": 90,
+          "endMs": 593,
+          "transferBytes": 390147,
+          "encodedBytes": 389847,
+          "decodedBytes": 1261280
+        },
+        {
+          "path": "/assets/vendor-i18next-C-gmWwC8.js",
+          "startMs": 90,
+          "endMs": 204,
+          "transferBytes": 16669,
+          "encodedBytes": 16369,
+          "decodedBytes": 48195
+        },
+        {
+          "path": "/assets/vendor-router-BH4Yc4Ak.js",
+          "startMs": 90,
+          "endMs": 221,
+          "transferBytes": 31067,
+          "encodedBytes": 30767,
+          "decodedBytes": 92919
+        },
+        {
+          "path": "/assets/vendor-react-B74pBk57.js",
+          "startMs": 90,
+          "endMs": 302,
+          "transferBytes": 592,
+          "encodedBytes": 292,
+          "decodedBytes": 435
+        },
+        {
+          "path": "/assets/vendor-tanstack-XVlhArWu.js",
+          "startMs": 90,
+          "endMs": 348,
+          "transferBytes": 10839,
+          "encodedBytes": 10539,
+          "decodedBytes": 34934
+        },
+        {
+          "path": "/assets/QueryProvider-CPmE502j.js",
+          "startMs": 90,
+          "endMs": 365,
+          "transferBytes": 54461,
+          "encodedBytes": 54161,
+          "decodedBytes": 159913
+        },
+        {
+          "path": "/assets/vendor-icons-lbTITm1N.js",
+          "startMs": 90,
+          "endMs": 379,
+          "transferBytes": 27026,
+          "encodedBytes": 26726,
+          "decodedBytes": 111207
+        },
+        {
+          "path": "/assets/rhf-Cj_d-IFx.js",
+          "startMs": 90,
+          "endMs": 384,
+          "transferBytes": 951,
+          "encodedBytes": 651,
+          "decodedBytes": 1191
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "startMs": 90,
+          "endMs": 259,
+          "transferBytes": 1364,
+          "encodedBytes": 1064,
+          "decodedBytes": 2987
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "startMs": 90,
+          "endMs": 431,
+          "transferBytes": 431,
+          "encodedBytes": 131,
+          "decodedBytes": 131
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "startMs": 90,
+          "endMs": 447,
+          "transferBytes": 705,
+          "encodedBytes": 405,
+          "decodedBytes": 1204
+        },
+        {
+          "path": "/assets/SponsorSlot-ChctxB5D.js",
+          "startMs": 90,
+          "endMs": 464,
+          "transferBytes": 1879,
+          "encodedBytes": 1579,
+          "decodedBytes": 3833
+        },
+        {
+          "path": "/assets/login-D9d-Wevw.js",
+          "startMs": 90,
+          "endMs": 466,
+          "transferBytes": 485,
+          "encodedBytes": 185,
+          "decodedBytes": 274
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "startMs": 91,
+          "endMs": 259,
+          "transferBytes": 1249,
+          "encodedBytes": 949,
+          "decodedBytes": 3227
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "startMs": 91,
+          "endMs": 287,
+          "transferBytes": 2303,
+          "encodedBytes": 2003,
+          "decodedBytes": 7951
+        },
+        {
+          "path": "/assets/es-ES-CbS94hW4.js",
+          "startMs": 771,
+          "endMs": 874,
+          "transferBytes": 50504,
+          "encodedBytes": 50204,
+          "decodedBytes": 155319
+        },
+        {
+          "path": "/csrf-token",
+          "startMs": 959,
+          "endMs": 1049,
+          "transferBytes": 345,
+          "encodedBytes": 45,
+          "decodedBytes": 45
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "startMs": 1051,
+          "endMs": 1134,
+          "transferBytes": 328,
+          "encodedBytes": 28,
+          "decodedBytes": 28
+        }
+      ],
+      "responseHashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "499",
+          "decodedBodySha256": "3693eb8b76e277e5fd86207d8e65cdd2ff18b15895d426f7eac26068b785d256"
+        },
+        {
+          "path": "/assets/es-ES-CbS94hW4.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "50204",
+          "decodedBodySha256": "bd8445cb34d18b4aa0e56ece3b5ce9c4f4c3d0c8fb23ec2de575b9ce9927944f"
+        }
+      ],
+      "localeResources": [
+        {
+          "path": "/assets/es-ES-CbS94hW4.js",
+          "startMs": 771,
+          "endMs": 874,
+          "transferBytes": 50504,
+          "encodedBytes": 50204,
+          "decodedBytes": 155319
+        }
+      ],
+      "errors": []
+    },
+    {
+      "variant": "paraglide-core-chunk-all-html",
+      "throttle": {
+        "rttMs": 80,
+        "downMbps": 20,
+        "upMbps": 2,
+        "cpuMultiplier": 3
+      },
+      "wallMs": 1118,
+      "text": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+      "username": "Nombre de Usuario",
+      "password": "Contraseña",
+      "fcpMs": 944,
+      "lcpMs": 944,
+      "fontReadyMs": 96,
+      "translatedReadyMs": 1115,
+      "nextHopProtocol": "http/1.1",
+      "domInteractiveMs": 98,
+      "resources": [
+        {
+          "path": "/assets/paraglide-locale-preload-B4oDnFGu.js",
+          "startMs": 89,
+          "endMs": 178,
+          "transferBytes": 377,
+          "encodedBytes": 77,
+          "decodedBytes": 77
+        },
+        {
+          "path": "/assets/login-9QjXbN3T.js",
+          "startMs": 90,
+          "endMs": 182,
+          "transferBytes": 2306,
+          "encodedBytes": 2006,
+          "decodedBytes": 4590
+        },
+        {
+          "path": "/assets/rolldown-runtime-B0Z9INg1.js",
+          "startMs": 90,
+          "endMs": 180,
+          "transferBytes": 804,
+          "encodedBytes": 504,
+          "decodedBytes": 901
+        },
+        {
+          "path": "/assets/paraglide-client-locale-split-core-DOkqf0O8.js",
+          "startMs": 90,
+          "endMs": 184,
+          "transferBytes": 3100,
+          "encodedBytes": 2800,
+          "decodedBytes": 7032
+        },
+        {
+          "path": "/assets/paraglide-compat-B8lZ5DlY.js",
+          "startMs": 90,
+          "endMs": 277,
+          "transferBytes": 31645,
+          "encodedBytes": 31345,
+          "decodedBytes": 311168
+        },
+        {
+          "path": "/assets/vendor-react-B74pBk57.js",
+          "startMs": 90,
+          "endMs": 343,
+          "transferBytes": 592,
+          "encodedBytes": 292,
+          "decodedBytes": 435
+        },
+        {
+          "path": "/assets/utils-D-m9cRYo.js",
+          "startMs": 90,
+          "endMs": 344,
+          "transferBytes": 7175,
+          "encodedBytes": 6875,
+          "decodedBytes": 17978
+        },
+        {
+          "path": "/assets/vendor-BKjys3L3.js",
+          "startMs": 90,
+          "endMs": 500,
+          "transferBytes": 167731,
+          "encodedBytes": 167431,
+          "decodedBytes": 622106
+        },
+        {
+          "path": "/assets/vendor-antd-WdkdfffB.js",
+          "startMs": 90,
+          "endMs": 615,
+          "transferBytes": 390228,
+          "encodedBytes": 389928,
+          "decodedBytes": 1261280
+        },
+        {
+          "path": "/assets/vendor-tanstack-BsNiuNYH.js",
+          "startMs": 90,
+          "endMs": 349,
+          "transferBytes": 10839,
+          "encodedBytes": 10539,
+          "decodedBytes": 34934
+        },
+        {
+          "path": "/assets/QueryProvider-BeJtLF5n.js",
+          "startMs": 90,
+          "endMs": 359,
+          "transferBytes": 978,
+          "encodedBytes": 678,
+          "decodedBytes": 1258
+        },
+        {
+          "path": "/assets/useTheme-09TBjx4C.js",
+          "startMs": 90,
+          "endMs": 429,
+          "transferBytes": 1579,
+          "encodedBytes": 1279,
+          "decodedBytes": 3025
+        },
+        {
+          "path": "/assets/rhf-BVMTi_iP.js",
+          "startMs": 90,
+          "endMs": 431,
+          "transferBytes": 958,
+          "encodedBytes": 658,
+          "decodedBytes": 1193
+        },
+        {
+          "path": "/assets/vendor-icons-DW4kGsb1.js",
+          "startMs": 90,
+          "endMs": 459,
+          "transferBytes": 27027,
+          "encodedBytes": 26727,
+          "decodedBytes": 111207
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "startMs": 91,
+          "endMs": 441,
+          "transferBytes": 431,
+          "encodedBytes": 131,
+          "decodedBytes": 131
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "startMs": 91,
+          "endMs": 510,
+          "transferBytes": 705,
+          "encodedBytes": 405,
+          "decodedBytes": 1204
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "startMs": 91,
+          "endMs": 260,
+          "transferBytes": 1364,
+          "encodedBytes": 1064,
+          "decodedBytes": 2987
+        },
+        {
+          "path": "/assets/SponsorSlot-DUN6QzJY.js",
+          "startMs": 91,
+          "endMs": 515,
+          "transferBytes": 1882,
+          "encodedBytes": 1582,
+          "decodedBytes": 3827
+        },
+        {
+          "path": "/assets/login-CRlIcA87.js",
+          "startMs": 91,
+          "endMs": 522,
+          "transferBytes": 484,
+          "encodedBytes": 184,
+          "decodedBytes": 274
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "startMs": 91,
+          "endMs": 261,
+          "transferBytes": 1249,
+          "encodedBytes": 949,
+          "decodedBytes": 3227
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "startMs": 91,
+          "endMs": 264,
+          "transferBytes": 2303,
+          "encodedBytes": 2003,
+          "decodedBytes": 7951
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js",
+          "startMs": 268,
+          "endMs": 565,
+          "transferBytes": 32857,
+          "encodedBytes": 32557,
+          "decodedBytes": 93817
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+          "startMs": 269,
+          "endMs": 609,
+          "transferBytes": 36287,
+          "encodedBytes": 35987,
+          "decodedBytes": 111448
+        },
+        {
+          "path": "/csrf-token",
+          "startMs": 857,
+          "endMs": 946,
+          "transferBytes": 345,
+          "encodedBytes": 45,
+          "decodedBytes": 45
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "startMs": 948,
+          "endMs": 1031,
+          "transferBytes": 328,
+          "encodedBytes": 28,
+          "decodedBytes": 28
+        }
+      ],
+      "responseHashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "568",
+          "decodedBodySha256": "461de262d4f28f0d25fc1093eb04d635edd4b7d2e0b13b9d228d8f1ca0ca05c6"
+        },
+        {
+          "path": "/assets/paraglide-locale-preload-B4oDnFGu.js",
+          "status": 200,
+          "contentEncoding": null,
+          "contentLength": "77",
+          "decodedBodySha256": "d6d1fedfc2c60b06f419a8d83e59a68e45001d33d53be18cc4318692f949d38b"
+        },
+        {
+          "path": "/assets/paraglide-client-locale-split-core-DOkqf0O8.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "2800",
+          "decodedBodySha256": "55869f439f28a67fd22ce70e009d0793ee3b456e48309e6c9b6d0591b7b22c69"
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "32557",
+          "decodedBodySha256": "2026b31a2b336f4b63a8d0a2183a3ca155e53612db4291e1eff584e4c0c76f0d"
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "35987",
+          "decodedBodySha256": "51e69936849a89f2bc70d2b6e5c6529be259720e06a435b7c13fce9b41dd6e1b"
+        }
+      ],
+      "localeResources": [
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js",
+          "startMs": 268,
+          "endMs": 565,
+          "transferBytes": 32857,
+          "encodedBytes": 32557,
+          "decodedBytes": 93817
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+          "startMs": 269,
+          "endMs": 609,
+          "transferBytes": 36287,
+          "encodedBytes": 35987,
+          "decodedBytes": 111448
+        }
+      ],
+      "errors": []
+    }
+  ]
+}
