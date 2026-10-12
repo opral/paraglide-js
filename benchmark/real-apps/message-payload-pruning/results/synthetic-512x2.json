@@ -1,0 +1,73 @@
+{
+  "fixture": {
+    "messageCount": 512,
+    "localeCount": 2,
+    "synthetic": true
+  },
+  "results": [
+    {
+      "name": "vite-7.3.1-array-named",
+      "allBuildChunks": {
+        "raw": 101745,
+        "gzip": 3990,
+        "br": 2352
+      }
+    },
+    {
+      "name": "vite-7.3.1-array-namespace",
+      "allBuildChunks": {
+        "raw": 140534,
+        "gzip": 10419,
+        "br": 5351
+      }
+    },
+    {
+      "name": "vite-7.3.1-named-values-named",
+      "allBuildChunks": {
+        "raw": 130178,
+        "gzip": 10642,
+        "br": 6394
+      }
+    },
+    {
+      "name": "vite-7.3.1-named-values-namespace",
+      "allBuildChunks": {
+        "raw": 186414,
+        "gzip": 23049,
+        "br": 12410
+      }
+    },
+    {
+      "name": "vite-8.1.4-array-named",
+      "allBuildChunks": {
+        "raw": 99775,
+        "gzip": 3996,
+        "br": 2365
+      }
+    },
+    {
+      "name": "vite-8.1.4-array-namespace",
+      "allBuildChunks": {
+        "raw": 138547,
+        "gzip": 10475,
+        "br": 5479
+      }
+    },
+    {
+      "name": "vite-8.1.4-named-values-named",
+      "allBuildChunks": {
+        "raw": 130224,
+        "gzip": 10672,
+        "br": 6398
+      }
+    },
+    {
+      "name": "vite-8.1.4-named-values-namespace",
+      "allBuildChunks": {
+        "raw": 186434,
+        "gzip": 23078,
+        "br": 12479
+      }
+    }
+  ]
+}

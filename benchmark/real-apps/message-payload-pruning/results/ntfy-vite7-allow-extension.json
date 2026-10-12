@@ -1,0 +1,49 @@
+{
+  "source": {
+    "dataset": "Ntfy project.inlang catalog",
+    "messageCount": 473,
+    "localeCount": 51,
+    "baseLocale": "en",
+    "sourceCommit": "211ba22860d7483073a8ce13dcda5f467194989b"
+  },
+  "config": {
+    "preserveEntrySignatures": "allow-extension"
+  },
+  "metric": "Initial-route JS chunk sum; Brotli-Q11 and gzip-9 measured per file and then summed (not recompressed as a concatenated stream).",
+  "results": [
+    {
+      "name": "vite-7.3.1-literal-then-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52531,
+        "gzip": 18536,
+        "br": 14780
+      },
+      "allBuildChunks": {
+        "raw": 52531,
+        "gzip": 18536,
+        "br": 14780
+      }
+    },
+    {
+      "name": "vite-7.3.1-literal-group-projection",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52889,
+        "gzip": 18626,
+        "br": 14841
+      },
+      "allBuildChunks": {
+        "raw": 52889,
+        "gzip": 18626,
+        "br": 14841
+      }
+    }
+  ]
+}

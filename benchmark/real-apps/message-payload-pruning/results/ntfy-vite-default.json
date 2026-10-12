@@ -1,0 +1,423 @@
+{
+  "source": {
+    "dataset": "Ntfy project.inlang catalog",
+    "messageCount": 473,
+    "localeCount": 51,
+    "baseLocale": "en",
+    "sourceCommit": "211ba22860d7483073a8ce13dcda5f467194989b"
+  },
+  "config": {
+    "preserveEntrySignatures": "vite-default"
+  },
+  "metric": "Initial-route JS chunk sum; Brotli-Q11 and gzip-9 measured per file and then summed (not recompressed as a concatenated stream).",
+  "results": [
+    {
+      "name": "vite-7.3.1-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55336,
+        "gzip": 19285,
+        "br": 15461
+      },
+      "allBuildChunks": {
+        "raw": 1348143,
+        "gzip": 462826,
+        "br": 363975
+      }
+    },
+    {
+      "name": "vite-7.3.1-then-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55347,
+        "gzip": 19290,
+        "br": 15442
+      },
+      "allBuildChunks": {
+        "raw": 1348154,
+        "gzip": 462831,
+        "br": 363956
+      }
+    },
+    {
+      "name": "vite-7.3.1-group-projection",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55690,
+        "gzip": 19435,
+        "br": 15547
+      },
+      "allBuildChunks": {
+        "raw": 1348497,
+        "gzip": 462976,
+        "br": 364061
+      }
+    },
+    {
+      "name": "vite-7.3.1-namespace-escape",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55370,
+        "gzip": 19295,
+        "br": 15454
+      },
+      "allBuildChunks": {
+        "raw": 1348177,
+        "gzip": 462836,
+        "br": 363968
+      }
+    },
+    {
+      "name": "vite-7.3.1-literal-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52509,
+        "gzip": 18533,
+        "br": 14781
+      },
+      "allBuildChunks": {
+        "raw": 52509,
+        "gzip": 18533,
+        "br": 14781
+      }
+    },
+    {
+      "name": "vite-7.3.1-literal-then-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52531,
+        "gzip": 18536,
+        "br": 14780
+      },
+      "allBuildChunks": {
+        "raw": 52531,
+        "gzip": 18536,
+        "br": 14780
+      }
+    },
+    {
+      "name": "vite-7.3.1-literal-group-projection",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52889,
+        "gzip": 18626,
+        "br": 14841
+      },
+      "allBuildChunks": {
+        "raw": 52889,
+        "gzip": 18626,
+        "br": 14841
+      }
+    },
+    {
+      "name": "vite-7.3.1-literal-namespace-escape",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52543,
+        "gzip": 18542,
+        "br": 14788
+      },
+      "allBuildChunks": {
+        "raw": 52543,
+        "gzip": 18542,
+        "br": 14788
+      }
+    },
+    {
+      "name": "vite-8.1.4-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55432,
+        "gzip": 19278,
+        "br": 15419
+      },
+      "allBuildChunks": {
+        "raw": 1348102,
+        "gzip": 462225,
+        "br": 363794
+      }
+    },
+    {
+      "name": "vite-8.1.4-then-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55443,
+        "gzip": 19282,
+        "br": 15421
+      },
+      "allBuildChunks": {
+        "raw": 1348113,
+        "gzip": 462229,
+        "br": 363796
+      }
+    },
+    {
+      "name": "vite-8.1.4-group-projection",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55786,
+        "gzip": 19433,
+        "br": 15540
+      },
+      "allBuildChunks": {
+        "raw": 1348456,
+        "gzip": 462380,
+        "br": 363915
+      }
+    },
+    {
+      "name": "vite-8.1.4-namespace-escape",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55466,
+        "gzip": 19289,
+        "br": 15427
+      },
+      "allBuildChunks": {
+        "raw": 1348136,
+        "gzip": 462236,
+        "br": 363802
+      }
+    },
+    {
+      "name": "vite-8.1.4-literal-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52609,
+        "gzip": 18529,
+        "br": 14776
+      },
+      "allBuildChunks": {
+        "raw": 52609,
+        "gzip": 18529,
+        "br": 14776
+      }
+    },
+    {
+      "name": "vite-8.1.4-literal-then-static-member",
+      "renderedLocaleExports": {
+        "en": 1,
+        "fr": 1
+      },
+      "initialRoute": {
+        "raw": 1656,
+        "gzip": 995,
+        "br": 838
+      },
+      "allBuildChunks": {
+        "raw": 1656,
+        "gzip": 995,
+        "br": 838
+      }
+    },
+    {
+      "name": "vite-8.1.4-literal-group-projection",
+      "renderedLocaleExports": {
+        "en": 32,
+        "fr": 32
+      },
+      "initialRoute": {
+        "raw": 5606,
+        "gzip": 2432,
+        "br": 2071
+      },
+      "allBuildChunks": {
+        "raw": 5606,
+        "gzip": 2432,
+        "br": 2071
+      }
+    },
+    {
+      "name": "vite-8.1.4-literal-namespace-escape",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52643,
+        "gzip": 18538,
+        "br": 14781
+      },
+      "allBuildChunks": {
+        "raw": 52643,
+        "gzip": 18538,
+        "br": 14781
+      }
+    },
+    {
+      "name": "vite-8.3.4-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55755,
+        "gzip": 19411,
+        "br": 15562
+      },
+      "allBuildChunks": {
+        "raw": 1348425,
+        "gzip": 462358,
+        "br": 363937
+      }
+    },
+    {
+      "name": "vite-8.3.4-then-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55766,
+        "gzip": 19415,
+        "br": 15551
+      },
+      "allBuildChunks": {
+        "raw": 1348436,
+        "gzip": 462362,
+        "br": 363926
+      }
+    },
+    {
+      "name": "vite-8.3.4-group-projection",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 56109,
+        "gzip": 19565,
+        "br": 15660
+      },
+      "allBuildChunks": {
+        "raw": 1348779,
+        "gzip": 462512,
+        "br": 364035
+      }
+    },
+    {
+      "name": "vite-8.3.4-namespace-escape",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 55789,
+        "gzip": 19421,
+        "br": 15569
+      },
+      "allBuildChunks": {
+        "raw": 1348459,
+        "gzip": 462368,
+        "br": 363944
+      }
+    },
+    {
+      "name": "vite-8.3.4-literal-static-member",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52932,
+        "gzip": 18653,
+        "br": 14895
+      },
+      "allBuildChunks": {
+        "raw": 52932,
+        "gzip": 18653,
+        "br": 14895
+      }
+    },
+    {
+      "name": "vite-8.3.4-literal-then-static-member",
+      "renderedLocaleExports": {
+        "en": 1,
+        "fr": 1
+      },
+      "initialRoute": {
+        "raw": 1979,
+        "gzip": 1120,
+        "br": 967
+      },
+      "allBuildChunks": {
+        "raw": 1979,
+        "gzip": 1120,
+        "br": 967
+      }
+    },
+    {
+      "name": "vite-8.3.4-literal-group-projection",
+      "renderedLocaleExports": {
+        "en": 32,
+        "fr": 32
+      },
+      "initialRoute": {
+        "raw": 5929,
+        "gzip": 2557,
+        "br": 2198
+      },
+      "allBuildChunks": {
+        "raw": 5929,
+        "gzip": 2557,
+        "br": 2198
+      }
+    },
+    {
+      "name": "vite-8.3.4-literal-namespace-escape",
+      "renderedLocaleExports": {
+        "en": 473,
+        "fr": 473
+      },
+      "initialRoute": {
+        "raw": 52966,
+        "gzip": 18662,
+        "br": 14900
+      },
+      "allBuildChunks": {
+        "raw": 52966,
+        "gzip": 18662,
+        "br": 14900
+      }
+    }
+  ]
+}
