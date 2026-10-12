@@ -1,0 +1,88 @@
+{
+  "kind": "private V2 automatic route capsules, not a product route or qualification",
+  "sourceBaseCommit": "6997d020813d76f087d585110e62cd54891726e0",
+  "fullPatchSha256": "de6f9f94586cc861a34bf696be20558e581fd2d4c90bb32011111b4453c4fc76",
+  "compilerFiles": {
+    "publicPluginEntryDistSha256": "72884458211415a046050e655997ed49caaf56b7697012790dab084d32a62bc1",
+    "clientLocaleSplitPluginDistSha256": "5521cb44cc2ea8c6458e5bb3f8ac9a9f24e728d91d02cfc0d22f689051a1b336",
+    "projectionPluginSourceSha256": "0fb50e7ba4e7ceb99b0b6abf2d8e2b625178ae6afeb823dcb79134a86265c802",
+    "publicViteOptionsSourceSha256": "9864dd70603a6093439e33fb94ec01d2efbabe82218ad4e9a07aeb77183685c7"
+  },
+  "deterministicBuildTreeSha256": "2aed261d242153932c203360790a0fd389bf28df75a8ccbe895a6c019d80cde5",
+  "initialGraph": {
+    "requests": 11,
+    "brotliQ4": 6663
+  },
+  "lazyFailureThenRetry": [
+    {
+      "rejected": true,
+      "message": "Capsule HTTP 503",
+      "evaluations": 0
+    },
+    {
+      "rejected": false,
+      "evaluations": 1
+    }
+  ],
+  "lazyVisibleAfterRetry": "5 MB par fichier",
+  "parallelLazyResourceStarts": [
+    {
+      "pathname": "/assets/lazy-route-hVrXIr1A.js",
+      "initiatorType": "script",
+      "startTime": 37.199999928474426,
+      "responseEnd": 38.299999952316284
+    },
+    {
+      "pathname": "/assets/paraglide-capsule-en-BWAKKhfI.json",
+      "initiatorType": "fetch",
+      "startTime": 37.5,
+      "responseEnd": 38.5
+    },
+    {
+      "pathname": "/assets/paraglide-capsule-fr-D0H1gIrX.json",
+      "initiatorType": "fetch",
+      "startTime": 37.5,
+      "responseEnd": 38.5
+    }
+  ],
+  "mixedGroupCount": 2,
+  "mixedGermanCapsules": [
+    "/assets/paraglide-capsule-de-crv8iKp8.json",
+    "/assets/paraglide-capsule-de-C7B5XgrN.json"
+  ],
+  "malformedPayloadSwitch": {
+    "rejected": true,
+    "locale": "fr",
+    "message": "Capsule did not provide its expected static message slots"
+  },
+  "malformedPayloadRetryLocale": "de",
+  "scope": [
+    "full473 compiler IDs",
+    "3locales(default and de base)",
+    "2locales without en",
+    "initial and lazy groups",
+    "rich parts, plural, interpolation",
+    "explicit preload before lazy import",
+    "concurrent switch/lazy",
+    "HTTP503 switch retry",
+    "HTTP503 lazy import retry before evaluation",
+    "HTTP200 missing static slots rejected",
+    "legacy app string marker not replaced",
+    "forged actual marker fails closed",
+    "two mixed groups share empty base asset but retain registry identity",
+    "decoded Literal and static TemplateLiteral extraction assertions",
+    "sourcemaps appcall + retained French rich code"
+  ],
+  "limitations": [
+    "only actual Vite8.3.4 host tested/allowed",
+    "private build-only guard, no equivalent dev mode",
+    "formatted lazy functions still shared initial JS",
+    "mixed static/function locale text duplication persists",
+    "private global gate bridge/single-project constraint",
+    "arbitrary computed dynamic imports not intercepted",
+    "manual chunk placements, multi-entry/shared cycles unverified",
+    "watch cache reset implemented but watch behavior unverified",
+    "initial module TLA failure still requires reload",
+    "no whole-product timing/bytes comparison"
+  ]
+}

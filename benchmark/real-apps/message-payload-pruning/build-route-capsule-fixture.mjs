@@ -88,6 +88,8 @@ for (const locale of locales) {
 		)
 	);
 	const selected = Object.fromEntries(messages.map((id) => [id, source[id]]));
+ if ((process.env.NTFY_MIXED_STATIC === "1" || process.env.NTFY_MIXED_GROUPS === "1") && locale === "en") selected.k1 = "{#strong}" + selected.k1 + "{/strong}";
+ if (process.env.NTFY_MIXED_GROUPS === "1" && locale === "en") selected.k0 = "{#strong}" + selected.k0 + "{/strong}";
 	if (Object.values(selected).some((value) => value === undefined)) {
 		throw new Error(
 			`The pinned Ntfy catalog is missing one of ${messages.join(", ")} for ${locale}.`
@@ -137,16 +139,18 @@ await writeFile(
 <h1 id="static"></h1><p id="placeholder"></p><p id="rich"></p><p id="plural"></p><p id="lazy"></p><code id="locale"></code>
 <script type="module" src="/src/main.js"></script></body></html>\n`
 );
-await writeFile(join(fixtureRoot, "src/main.js"), source);
+await writeFile(join(fixtureRoot, "src/main.js"), source + (process.env.NTFY_MARKER_COLLISION === "1" ? '\nwindow.userMarkerLiteral = "__PARAGLIDE_CAPSULE_INDEX_0__";\n' : ""));
 await writeFile(
 	join(fixtureRoot, "src/lazy-route.js"),
-	`import { k115, k1 } from "./paraglide/messages.js"; export const lazyFileSize = (inputs) => k115(inputs); export const lazyStatic = options => k1({}, options);\n`
+	`window.lazyEvaluationCount = (window.lazyEvaluationCount ?? 0) + 1; import { k115, k1 } from "./paraglide/messages.js"; export const lazyFileSize = (inputs) => k115(inputs); export const lazyStatic = options => k1({}, options);\n`
 );
 
 const fromApp = createRequire(join(appRoot, "package.json"));
-const { build } = fromApp("vite");
+const actualBuilderEntry = process.env.VITE_MODULE;
+const viteModule = actualBuilderEntry ? await import(pathToFileURL(resolve(actualBuilderEntry)).href) : fromApp("vite");
+const { build } = viteModule;
 const vitePackage = JSON.parse(
-	await readFile(join(appRoot, "node_modules/vite/package.json"), "utf8")
+	await readFile(actualBuilderEntry ? resolve(dirname(actualBuilderEntry), "../../package.json") : join(appRoot, "node_modules/vite/package.json"), "utf8")
 );
 const { paraglideVitePlugin } = await import(
 	pathToFileURL(join(repoRoot, "dist/index.js")).href
@@ -275,11 +279,20 @@ await i18next.init({ lng: localStorage.getItem("i18nextLng") ?? "en", fallbackLn
 		`import i18next from "i18next"; import { register, parts } from "./paraglide/runtime.js"; await register("lazy");\n${groups.lazy.map((id) => wrapper(id, "lazy")).join("\n")}\nexport const lazyFileSize = inputs => k115(inputs); export const lazyStatic = options => k1({}, options);`
 	);
 }
+const guardPlugins = process.env.NTFY_FORGED_MARKER_COLLISION === "1" ? [{ name: "fixture-forge-actual-marker-collision", transform(code, id) {
+ if (id !== "\0paraglide:client-locale-split:message:0") return;
+ const marker = code.match(/__PARAGLIDE_CAPSULE_[0-9a-f]{32}_0__/);
+ assert.ok(marker);
+ return { code: code + "\nglobalThis.userCollision = " + JSON.stringify(marker[0]) + ";", map: null };
+} }] : [];
+let fixtureContextMeta;
+const contextObserver = { name: "fixture-actual-host-observer", buildStart() { fixtureContextMeta = { ...this.meta }; } };
+try {
 await build({
 	configFile: false,
 	logLevel: "warn",
 	root: fixtureRoot,
-	plugins: [...(Array.isArray(plugins) ? plugins : [plugins]), ...(mode === "aggregation" && !locales.includes("en") ? [{ name: "fixture-whitebox-capsule-group-observer", transform(code, id) { if (id === "\0paraglide:client-locale-split:core") return { code: code + "\nglobalThis.__PG_GROUP_COUNT__ = () => capsuleGroups.size;", map: null }; } }] : [])],
+	plugins: [...(Array.isArray(plugins) ? plugins : [plugins]), ...guardPlugins, contextObserver, ...(mode === "aggregation" && (!locales.includes("en") || process.env.NTFY_MIXED_GROUPS === "1") ? [{ name: "fixture-whitebox-capsule-group-observer", transform(code, id) { if (id === "\0paraglide:client-locale-split:core") return { code: code + "\nglobalThis.__PG_GROUP_COUNT__ = () => capsuleGroups.size;", map: null }; } }] : [])],
 	build: {
 		target: "es2022",
 		outDir: distDir,
@@ -289,6 +302,17 @@ await build({
 		emptyOutDir: true,
 	},
 });
+
+} catch (error) {
+ if (process.env.NTFY_FORGED_MARKER_COLLISION === "1" && error.message.includes("Expected exactly one compiler capsule marker")) {
+  const report = { kind: "forged same-nonce marker fails closed; no app performance claim", expectedFailure: true, error: error.message, actualBuilderVersion: vitePackage.version, compilerImplementationLeafSha256: await sha256(join(repoRoot, "dist/bundler-plugins/client-locale-split/vite-plugin.js")) };
+  await writeFile(durableReportPath, JSON.stringify(report, null, 2) + "\n");
+  console.log(JSON.stringify(report));
+  process.exit(0);
+ }
+ throw error;
+}
+assert.notEqual(process.env.NTFY_FORGED_MARKER_COLLISION, "1", "Expected forged marker to fail the build");
 
 const manifest = JSON.parse(
 	await readFile(join(distDir, ".vite/manifest.json"), "utf8")
@@ -398,16 +422,18 @@ try {
 			lazyStatic: window.lazyStaticText,
 		}));
 	browserResult.initialFrench = await captureVisibleState();
+ if (process.env.NTFY_MARKER_COLLISION === "1") { browserResult.userMarkerLiteral = await page.evaluate(() => window.userMarkerLiteral); assert.equal(browserResult.userMarkerLiteral, "__PARAGLIDE_CAPSULE_INDEX_0__"); }
 	browserResult.initialRequestPaths = [...browserRequests];
 	await page.evaluate(() => window.activateLazyRoute());
 	browserResult.afterLazyFrench = await captureVisibleState();
- if (mode === "aggregation" && !locales.includes("en")) {
+ if (mode === "aggregation" && (!locales.includes("en") || process.env.NTFY_MIXED_GROUPS === "1")) {
   browserResult.whiteboxRegisteredGroupCount = await page.evaluate(() => __PG_GROUP_COUNT__());
   assert.equal(browserResult.whiteboxRegisteredGroupCount, 2);
  }
 	browserResult.afterLazyRequestPaths = browserRequests.slice(
 		browserResult.initialRequestPaths.length
 	);
+ browserResult.lazyResourceTiming = await page.evaluate(paths => performance.getEntriesByType("resource").filter(entry => paths.includes(new URL(entry.name).pathname)).map(entry => ({ pathname: new URL(entry.name).pathname, initiatorType: entry.initiatorType, startTime: entry.startTime, responseEnd: entry.responseEnd })), browserResult.afterLazyRequestPaths);
 	let requestIndex = browserRequests.length;
 	await page.evaluate(() => window.switchFixtureLocale("de"));
 	browserResult.afterGerman = await captureVisibleState();
@@ -464,7 +490,7 @@ try {
 			new RegExp(`(?:capsule-${failureLocale}-|native-${failureLocale}-)`).test(route.request().url())
 		) {
 			injectedFailure = true;
-			await route.fulfill({ status: 503, body: "Temporary benchmark failure" });
+			await route.fulfill(process.env.NTFY_CAPSULE_INVALID_PAYLOAD === "1" ? { status: 200, contentType: "application/json", body: "{}" } : { status: 503, body: "Temporary benchmark failure" });
 		} else await route.continue();
 	});
 	browserResult.failedSwitch = await failurePage.evaluate(async target => {
@@ -503,15 +529,22 @@ try {
   browserResult.lazyImportFailure = await fatalPage.evaluate(async () => {
    const attempts = [];
    for (let i = 0; i < 2; i++) {
-    try { await activateLazyRoute(); attempts.push({ rejected: false }); }
-    catch (error) { attempts.push({ rejected: true, message: error.message }); }
+    try { await activateLazyRoute(); attempts.push({ rejected: false, evaluations: window.lazyEvaluationCount ?? 0 }); }
+    catch (error) { attempts.push({ rejected: true, message: error.message, evaluations: window.lazyEvaluationCount ?? 0 }); }
    }
    return attempts;
   });
   assert.equal(browserResult.lazyImportFailure[0].rejected, true);
-  assert.equal(browserResult.lazyImportFailure[1].rejected, true);
-  await fatalPage.close();
+  assert.equal(browserResult.lazyImportFailure[1].rejected, process.env.NTFY_CAPSULE_RECOVERY !== "1");
+  if (process.env.NTFY_CAPSULE_RECOVERY === "1") {
+  assert.equal(browserResult.lazyImportFailure[0].evaluations, 0);
+  assert.equal(browserResult.lazyImportFailure[1].evaluations, 1);
+  browserResult.recoveredLazyVisibleText = await fatalPage.locator("#lazy").textContent();
+  assert.equal(browserResult.recoveredLazyVisibleText, "5 MB par fichier");
  }
+ await fatalPage.close();
+ }
+	if (process.env.NTFY_MIXED_GROUPS === "1") assert.equal(browserResult.germanSwitchRequestPaths.filter(path => path.includes("capsule-de-")).length, 2);
 	assert.deepEqual(raceErrors, []);
 	assert.deepEqual(browserResult.errors ?? [], []);
 	assert.deepEqual(browserResult.consoleErrors ?? [], []);
@@ -564,7 +597,7 @@ try {
 			const catalog = JSON.parse(
 				await readFile(join(projectRoot, `messages/${locale}.json`), "utf8")
 			);
-			assert.equal(state.lazyStatic, catalog.k1);
+			assert.equal(state.lazyStatic, catalog.k1.replaceAll("{#strong}", "").replaceAll("{/strong}", ""));
 		}
 	}
 	const germanCatalog = JSON.parse(
@@ -593,7 +626,8 @@ const capsuleExtraction = mode === "aggregation" ? await (async () => {
   const ast = parse(code, { ecmaVersion: "latest", sourceType: "module" });
   const visit = node => {
    if (!node || typeof node !== "object") return;
-   if (node.type === "Literal" && Object.values(generated.messages[index].staticTexts).includes(node.value)) occurrences.push(file);
+   const value = node.type === "Literal" ? node.value : node.type === "TemplateLiteral" && node.expressions.length === 0 ? node.quasis[0].value.cooked : undefined;
+   if (Object.values(generated.messages[index].staticTexts).includes(value)) occurrences.push(file);
    for (const [key, value] of Object.entries(node)) {
     if (key === "start" || key === "end") continue;
     if (Array.isArray(value)) value.forEach(visit); else if (value && typeof value === "object") visit(value);
@@ -601,15 +635,17 @@ const capsuleExtraction = mode === "aggregation" ? await (async () => {
   };
   visit(ast);
  }
- assert.deepEqual(occurrences, []);
+ assert.equal(occurrences.length, (process.env.NTFY_MIXED_STATIC === "1" || process.env.NTFY_MIXED_GROUPS === "1") ? 2 : 0);
  return { lazyStaticId: "k1", index, exactDecodedTextOccurrencesInAllJs: occurrences };
 })() : undefined;
 const report = {
  capsuleExtraction,
 	kind: "private automatic route capsule vs optimized scoped i18next fixture; not a production A/B",
  compilerUsed: mode !== "native",
+ catalogMutationForFunctionalProbe: process.env.NTFY_MARKER_COLLISION === "1" ? "none: app-source marker literal collision probe" : process.env.NTFY_MIXED_STATIC === "1" ? "English k1 rich, French/German k1 static" : null,
  fixtureBaseLocale,
- whiteboxInstrumentation: mode === "aggregation" && !locales.includes("en"),
+ recoveryExpected: process.env.NTFY_CAPSULE_RECOVERY === "1",
+ whiteboxInstrumentation: mode === "aggregation" && (!locales.includes("en") || process.env.NTFY_MIXED_GROUPS === "1"),
  failedLocale: failureLocale,
 	mode,
 	appSource: appRoot,
@@ -652,7 +688,7 @@ const report = {
 	appLocaleCount: 51,
 	fixtureLocales: locales,
 	fixtureMessageIds: messages,
-	toolchain: { node: process.version, vite: vitePackage.version, i18next: fromApp("i18next/package.json").version },
+	toolchain: { node: process.version, vite: vitePackage.version, i18next: fromApp("i18next/package.json").version, builderEntry: actualBuilderEntry ?? fromApp.resolve("vite"), compilerViteDependency: JSON.parse(await readFile(join(repoRoot, "node_modules/vite/package.json"), "utf8")).version, hookMeta: fixtureContextMeta },
 	fixtureBuildOutput: distDir,
 	buildTree: await buildTreeSummary(distDir),
 	manifestReachabilityUpperBound: {

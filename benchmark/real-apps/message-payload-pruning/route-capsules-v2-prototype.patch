@@ -1,0 +1,1581 @@
+diff --git a/src/bundler-plugins/client-locale-split/vite-plugin.ts b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+index a226116..66f9e69 100644
+--- a/src/bundler-plugins/client-locale-split/vite-plugin.ts
++++ b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+@@ -1,5 +1,8 @@
+ import nodeFs from "node:fs";
+-import { dirname, isAbsolute, join, resolve } from "node:path";
++import { randomUUID, createHash } from "node:crypto";
++import { dirname, isAbsolute, join, resolve, relative } from "node:path";
++import { parse } from "acorn";
++import MagicString from "magic-string";
+ import type { Plugin, ResolvedConfig } from "vite";
+ import type { ViteClientLocaleSplitState } from "../unplugin.js";
+ 
+@@ -7,12 +10,20 @@ const rootVirtualId = "virtual:paraglide/client-locale-split/root";
+ const coreVirtualId = "virtual:paraglide/client-locale-split/core";
+ const loaderVirtualId = "virtual:paraglide/client-locale-split/loader";
+ const preloadVirtualId = "virtual:paraglide/client-locale-split/preload";
++const indexVirtualId = "virtual:paraglide/client-locale-split/index";
+ const localeVirtualPrefix = "virtual:paraglide/client-locale-split/locale/";
++const projectionMessageLocaleVirtualPrefix =
++	"virtual:paraglide/client-locale-split/projected-message/";
++const messageVirtualPrefix = "virtual:paraglide/client-locale-split/message/";
+ const rootId = "\0paraglide:client-locale-split:root";
+ const coreId = "\0paraglide:client-locale-split:core";
+ const loaderId = "\0paraglide:client-locale-split:loader";
+ const preloadId = "\0paraglide:client-locale-split:preload";
++const indexId = "\0paraglide:client-locale-split:index";
+ const localeIdPrefix = "\0paraglide:client-locale-split:locale:";
++const projectionMessageLocaleIdPrefix =
++	"\0paraglide:client-locale-split:projected-message:";
++const messageIdPrefix = "\0paraglide:client-locale-split:message:";
+ const metadataFilename = "client-locale-split.json";
+ const configsWithClientLocaleSplit = new WeakMap<ResolvedConfig, object>();
+ 
+@@ -30,15 +41,32 @@ type SplitMetadata = {
+ 	messages: MessageMetadata[];
+ };
+ 
++type RenderChunkGraph = {
++	chunks?: Record<
++		string,
++		{
++			fileName: string;
++			imports?: string[];
++			modules: Record<string, { code: string | null }>;
++		}
++	>;
++};
++
+ /** Replaces only the client facade; Vite SSR keeps the compiler output. */
+ export function createClientLocaleSplitPlugin(args: {
+ 	state: ViteClientLocaleSplitState;
++	messageProjection?: boolean;
++	messageAggregation?: boolean;
+ }): Plugin {
+ 	const pluginInstance = {};
++	const capsuleMarkerPrefix =
++		"__PARAGLIDE_CAPSULE_" + randomUUID().replaceAll("-", "") + "_";
++	let capsuleGateKey = "";
+ 	let config: ResolvedConfig | undefined;
+ 	let metadata: SplitMetadata | undefined;
+ 	let metadataPath: string | undefined;
+ 	let preloadEntry: string | undefined;
++	const capsuleReferences = new Map<string, string>();
+ 
+ 	const readMetadata = async (): Promise<SplitMetadata> => {
+ 		const compilerOptions = args.state.compilerOptions;
+@@ -88,12 +116,20 @@ export function createClientLocaleSplitPlugin(args: {
+ 			);
+ 		}
+ 		metadata = parsed as SplitMetadata;
++		capsuleGateKey =
++			"__paraglideCapsuleGate_" +
++			createHash("sha256")
++				.update(JSON.stringify(metadata))
++				.digest("hex")
++				.slice(0, 20);
+ 		metadataPath = currentMetadataPath;
+ 		return metadata;
+ 	};
+ 
+ 	const localeVirtualId = (locale: string) =>
+ 		`${localeVirtualPrefix}${encodeURIComponent(locale)}`;
++	const projectionMessageLocaleVirtualId = (locale: string, index: number) =>
++		`${projectionMessageLocaleVirtualPrefix}${encodeURIComponent(locale)}/${index}.js`;
+ 
+ 	return {
+ 		name: "paraglide-vite-client-locale-split",
+@@ -102,31 +138,73 @@ export function createClientLocaleSplitPlugin(args: {
+ 			const existingPlugin = configsWithClientLocaleSplit.get(resolved);
+ 			if (existingPlugin && existingPlugin !== pluginInstance) {
+ 				throw new Error(
+-					"experimentalClientLocaleSplit supports only one Paraglide project per Vite config because its virtual module IDs are shared."
++					args.messageProjection
++						? "Client locale projection supports only one Paraglide project per Vite config because its virtual module IDs are shared."
++						: "experimentalClientLocaleSplit supports only one Paraglide project per Vite config because its virtual module IDs are shared."
+ 				);
+ 			}
+ 			configsWithClientLocaleSplit.set(resolved, pluginInstance);
+ 			config = resolved;
++			if (args.messageAggregation && resolved.command !== "build")
++				throw new Error(
++					"Private route-capsule proof supports production builds only; use standard locale splitting in development."
++				);
+ 			if (
+ 				resolved.command === "build" &&
+ 				!resolved.build.ssr &&
+ 				!supportsTopLevelAwait(resolved.build.target)
+ 			) {
+ 				throw new Error(
+-					"experimentalClientLocaleSplit requires an explicit Vite build.target of es2022 or newer (or esnext), because the client message facade awaits the selected locale before app modules execute."
++					args.messageProjection
++						? "Client locale modules require an explicit Vite build.target of es2022 or newer (or esnext), because message modules await the selected locale before app code executes."
++						: "Client locale splitting requires an explicit Vite build.target of es2022 or newer (or esnext), because the client message facade awaits the selected locale before app modules execute."
+ 				);
+ 			}
++			if (
++				(args.messageProjection || args.messageAggregation) &&
++				resolved.command === "build" &&
++				!resolved.build.ssr
++			) {
++				return readProjectLocales(resolved, args.state).then((locales) => {
++					if (args.messageProjection) {
++						installProjectionManualChunks(resolved, locales);
++					} else {
++						const outdir = resolve(
++							resolved.root,
++							args.state.outputDir ??
++								args.state.compilerOptions?.outdir ??
++								"src/paraglide"
++						);
++						installAggregationManualChunks(resolved, locales, outdir);
++					}
++				});
++			}
++			return undefined;
+ 		},
+ 		buildStart: {
+ 			// Rollup runs buildStart hooks in parallel unless a hook explicitly
+ 			// waits for preceding plugins. Metadata is written by the compiler.
+ 			sequential: true,
+ 			async handler() {
++				metadata = undefined;
++				capsuleReferences.clear();
++				preloadEntry = undefined;
++				if (
++					args.messageAggregation &&
++					(this.meta as { viteVersion?: string }).viteVersion !== "8.3.4"
++				)
++					throw new Error(
++						"Private route-capsule proof requires Vite 8.3.4/Rolldown rendered-chunk metadata."
++					);
+ 				const data = await readMetadata();
+ 				const compilerOptions = args.state.compilerOptions;
+ 				metadataPath = join(compilerOptions!.outdir, metadataFilename);
+ 				this.addWatchFile?.(metadataPath);
+-				if (config?.command === "build" && !config.build.ssr) {
++				if (
++					!args.messageProjection &&
++					config?.command === "build" &&
++					!config.build.ssr
++				) {
+ 					preloadEntry = this.emitFile({
+ 						type: "chunk",
+ 						id: preloadVirtualId,
+@@ -139,7 +217,7 @@ export function createClientLocaleSplitPlugin(args: {
+ 		transformIndexHtml: {
+ 			order: "pre",
+ 			handler(html) {
+-				if (config?.command !== "serve") return html;
++				if (args.messageProjection || config?.command !== "serve") return html;
+ 				const base = config.base.startsWith("/") ? config.base : "/";
+ 				const prefix = base.endsWith("/") ? base : `${base}/`;
+ 				return html.replace(
+@@ -156,6 +234,40 @@ export function createClientLocaleSplitPlugin(args: {
+ 				if (source === coreVirtualId) return coreId;
+ 				if (source === loaderVirtualId) return loaderId;
+ 				if (source === preloadVirtualId) return preloadId;
++				if (source === indexVirtualId) return indexId;
++				if (source.startsWith(projectionMessageLocaleVirtualPrefix)) {
++					const [encodedLocale, rawIndex] = source
++						.slice(projectionMessageLocaleVirtualPrefix.length)
++						.replace(/\.js$/, "")
++						.split("/");
++					const locale = decodeURIComponent(encodedLocale!);
++					const index = Number(rawIndex);
++					const data = await readMetadata();
++					return data.locales.includes(locale) &&
++						Number.isSafeInteger(index) &&
++						index >= 0 &&
++						index < data.messages.length
++						? {
++								id: `${projectionMessageLocaleIdPrefix}${encodeURIComponent(locale)}:${index}`,
++								moduleSideEffects: false,
++							}
++						: null;
++				}
++				if (source.startsWith(messageVirtualPrefix)) {
++					const index = Number(source.slice(messageVirtualPrefix.length));
++					const data = await readMetadata();
++					return Number.isSafeInteger(index) &&
++						index >= 0 &&
++						index < data.messages.length
++						? {
++								id: `${messageIdPrefix}${index}`,
++								// The generated wrapper has a registration side effect, but it is
++								// observable only when its export is used. Let export usage decide
++								// whether a statically re-exported message is included.
++								moduleSideEffects: false,
++							}
++						: null;
++				}
+ 				if (source.startsWith(localeVirtualPrefix)) {
+ 					const locale = decodeURIComponent(
+ 						source.slice(localeVirtualPrefix.length)
+@@ -207,14 +319,58 @@ export function createClientLocaleSplitPlugin(args: {
+ 				return `export { loadLocale } from ${JSON.stringify(coreVirtualId)};\n`;
+ 			}
+ 			if (id === coreId) {
+-				return createCoreModule(
+-					data,
+-					localeVirtualId,
+-					resolve(args.state.compilerOptions!.outdir, "runtime.js")
++				const runtimePath = resolve(
++					args.state.compilerOptions!.outdir,
++					"runtime.js"
+ 				);
++				return args.messageProjection
++					? createProjectedCoreModule(data, runtimePath)
++					: args.messageAggregation
++						? createAggregateCoreModule(
++								data,
++								localeVirtualId,
++								runtimePath,
++								capsuleGateKey
++							)
++						: createCoreModule(data, localeVirtualId, runtimePath);
+ 			}
+ 			if (id === rootId) {
+-				return createMessageFacade(data);
++				return args.messageProjection || args.messageAggregation
++					? createProjectedMessageFacade()
++					: createMessageFacade(data);
++			}
++			if (id === indexId) {
++				if (!args.messageProjection && !args.messageAggregation) return null;
++				return createProjectedMessageIndex(data);
++			}
++			if (id.startsWith(messageIdPrefix)) {
++				if (!args.messageProjection && !args.messageAggregation) return null;
++				const index = Number(id.slice(messageIdPrefix.length));
++				const message = data.messages[index];
++				return message
++					? args.messageAggregation
++						? createAggregatedMessageModule(message, index, capsuleMarkerPrefix)
++						: createProjectedMessageModule(
++								message,
++								index,
++								data,
++								projectionMessageLocaleVirtualId
++							)
++					: null;
++			}
++			if (id.startsWith(projectionMessageLocaleIdPrefix)) {
++				if (!args.messageProjection) return null;
++				const separator = id.lastIndexOf(":");
++				const locale = decodeURIComponent(
++					id.slice(projectionMessageLocaleIdPrefix.length, separator)
++				);
++				const index = Number(id.slice(separator + 1));
++				const message = data.messages[index];
++				if (!data.locales.includes(locale) || !message) return null;
++				if (Object.hasOwn(message.staticTexts ?? {}, locale)) {
++					return `export default () => ${JSON.stringify(message.staticTexts![locale])};`;
++				}
++				return `export { ${message.safeName} as default } from ${JSON.stringify(resolve(args.state.compilerOptions!.outdir, "messages", `${locale}.js`))};`;
+ 			}
+ 			if (id.startsWith(localeIdPrefix)) {
+ 				const locale = decodeURIComponent(id.slice(localeIdPrefix.length));
+@@ -236,10 +392,148 @@ export function createClientLocaleSplitPlugin(args: {
+ 				const imports = dynamic.length
+ 					? `import { ${dynamic.join(", ")} } from ${JSON.stringify(resolve(args.state.compilerOptions!.outdir, "messages", `${locale}.js`))};\n`
+ 					: "";
++				if (args.messageAggregation) {
++					return `${imports}const __paraglideLocalePayload = [${values.join(",")}];\nexport { __paraglideLocalePayload as default };\n`;
++				}
+ 				return `${imports}export default [${values.join(",")}];\n`;
+ 			}
+ 			return null;
+ 		},
++		renderChunk: {
++			order: "pre",
++			handler(code, chunk, _outputOptions, rawMeta) {
++				if (!args.messageAggregation) return null;
++				const meta = rawMeta as RenderChunkGraph | undefined;
++				if (!meta?.chunks) {
++					throw new Error(
++						"Client message aggregation requires the Vite renderChunk all-chunks metadata API; refusing to emit an unpruned payload."
++					);
++				}
++				const liveMessageIndexes = new Set<number>();
++				for (const renderedChunk of Object.values(meta.chunks)) {
++					for (const id of Object.keys(renderedChunk.modules)) {
++						if (!id.startsWith(messageIdPrefix)) continue;
++						const index = Number(id.slice(messageIdPrefix.length));
++						if (Number.isSafeInteger(index) && index >= 0)
++							liveMessageIndexes.add(index);
++					}
++				}
++				const data = metadata!;
++				const dynamicIndexes = new Set(
++					[...liveMessageIndexes].filter((index) =>
++						data.locales.some(
++							(locale) =>
++								!Object.hasOwn(data.messages[index]!.staticTexts ?? {}, locale)
++						)
++					)
++				);
++				const indexesFor = (rendered: { modules: Record<string, unknown> }) =>
++					Object.keys(rendered.modules)
++						.filter((id) => id.startsWith(messageIdPrefix))
++						.map((id) => Number(id.slice(messageIdPrefix.length)))
++						.sort((a, b) => a - b);
++				const groupFor = (rendered: { modules: Record<string, unknown> }) => {
++					const indexes = indexesFor(rendered);
++					if (!indexes.length) return undefined;
++					const urls = Object.fromEntries(
++						data.locales.map((locale) => {
++							const key = locale + ":" + indexes.join(",");
++							let reference = capsuleReferences.get(key);
++							if (!reference) {
++								const values = Object.fromEntries(
++									indexes
++										.filter((index) =>
++											Object.hasOwn(
++												data.messages[index]!.staticTexts ?? {},
++												locale
++											)
++										)
++										.map((index) => [
++											index,
++											data.messages[index]!.staticTexts![locale],
++										])
++								);
++								reference = this.emitFile({
++									type: "asset",
++									name: `paraglide-capsule-${locale}.json`,
++									source: JSON.stringify(values),
++								});
++								capsuleReferences.set(key, reference);
++							}
++							return [
++								locale,
++								`new URL(${JSON.stringify("./" + relative(dirname(chunk.fileName), this.getFileName(reference)))}, import.meta.url).href`,
++							];
++						})
++					);
++					return (
++						"{id:" +
++						JSON.stringify(indexes.join(",")) +
++						",urls:{" +
++						Object.entries(urls)
++							.map(([locale, url]) => JSON.stringify(locale) + ":" + url)
++							.join(",") +
++						"},indexes:" +
++						JSON.stringify(
++							Object.fromEntries(
++								data.locales.map((locale) => [
++									locale,
++									indexes.filter((index) =>
++										Object.hasOwn(
++											data.messages[index]!.staticTexts ?? {},
++											locale
++										)
++									),
++								])
++							)
++						) +
++						"}"
++					);
++				};
++				const groupsByChunk = new Map(
++					Object.values(meta.chunks).map((rendered) => [
++						rendered.fileName,
++						groupFor(rendered),
++					])
++				);
++				const lazyGroups = new Map<string, string[]>();
++				for (const rendered of Object.values(meta.chunks)) {
++					const groups = new Set<string>();
++					const visited = new Set<string>();
++					const visit = (fileName: string) => {
++						if (visited.has(fileName)) return;
++						visited.add(fileName);
++						const group = groupsByChunk.get(fileName);
++						if (group) groups.add(group);
++						const target = Object.values(meta.chunks!).find(
++							(item) => item.fileName === fileName
++						);
++						for (const dependency of target?.imports ?? []) visit(dependency);
++					};
++					visit(rendered.fileName);
++					if (groups.size) lazyGroups.set(rendered.fileName, [...groups]);
++				}
++				const coreChunk = Object.values(meta.chunks).find((rendered) =>
++					Object.hasOwn(rendered.modules, coreId)
++				);
++				if (!coreChunk)
++					throw new Error(
++						"Capsule gate requires one rendered compiler core chunk."
++					);
++				return transformAggregateChunk(
++					code,
++					chunk,
++					dynamicIndexes,
++					data.messages.length,
++					groupsByChunk.get(chunk.fileName),
++					capsuleMarkerPrefix,
++					indexesFor(chunk),
++					lazyGroups,
++					capsuleGateKey,
++					coreChunk.fileName
++				);
++			},
++		},
+ 		generateBundle: {
+ 			order: "post",
+ 			handler(_outputOptions, bundle) {
+@@ -270,6 +564,9 @@ export function createClientLocaleSplitPlugin(args: {
+ 					module.id === coreId ||
+ 					module.id === loaderId ||
+ 					module.id === preloadId ||
++					module.id === indexId ||
++					module.id?.startsWith(messageIdPrefix) ||
++					module.id?.startsWith(projectionMessageLocaleIdPrefix) ||
+ 					module.id?.startsWith(localeIdPrefix)
+ 				) {
+ 					context.server.moduleGraph.invalidateModule(module);
+@@ -281,6 +578,331 @@ export function createClientLocaleSplitPlugin(args: {
+ 	};
+ }
+ 
++function installProjectionManualChunks(
++	config: Pick<ResolvedConfig, "build">,
++	locales: readonly string[]
++): void {
++	config.build.rollupOptions ??= {};
++	const rollupOptions = config.build.rollupOptions;
++	const outputOptions = rollupOptions.output;
++	const outputs = Array.isArray(outputOptions)
++		? outputOptions
++		: [outputOptions ?? {}];
++	rollupOptions.output = outputs.map((output) => ({
++		...output,
++		codeSplitting: addProjectionCodeSplittingGroups(
++			(output as typeof output & { codeSplitting?: unknown }).codeSplitting,
++			locales
++		) as typeof output.codeSplitting,
++	}));
++}
++
++function installAggregationManualChunks(
++	config: Pick<ResolvedConfig, "build">,
++	locales: readonly string[],
++	outdir: string
++): void {
++	config.build.rollupOptions ??= {};
++	const rollupOptions = config.build.rollupOptions;
++	const outputOptions = rollupOptions.output;
++	const outputs = Array.isArray(outputOptions)
++		? outputOptions
++		: [outputOptions ?? {}];
++	rollupOptions.output = outputs.map((output) => ({
++		...output,
++		codeSplitting: addAggregationCodeSplittingGroups(
++			(output as typeof output & { codeSplitting?: unknown }).codeSplitting,
++			locales,
++			outdir
++		) as typeof output.codeSplitting,
++	}));
++}
++
++function addAggregationCodeSplittingGroups(
++	codeSplitting: unknown,
++	locales: readonly string[],
++	outdir: string
++) {
++	const current = (
++		typeof codeSplitting === "object" && codeSplitting !== null
++			? codeSplitting
++			: {}
++	) as { groups?: Array<Record<string, unknown>>; [key: string]: unknown };
++	return {
++		...current,
++		groups: [
++			...(current.groups ?? []),
++			...locales.map((locale) => {
++				const localeModuleId = `${localeIdPrefix}${encodeURIComponent(locale)}`;
++				const localeMessagesId = resolve(outdir, "messages", `${locale}.js`);
++				return {
++					name: (id: string) =>
++						id === localeModuleId || id === localeMessagesId
++							? `paraglide-locale-payload-${locale.replace(/[^a-zA-Z0-9_-]/g, "_")}`
++							: null,
++					includeDependenciesRecursively: false,
++					minSize: 0,
++					minModuleSize: 0,
++				};
++			}),
++		],
++	};
++}
++
++function transformAggregateChunk(
++	code: string,
++	chunk: { fileName: string; modules: Record<string, { code: string | null }> },
++	liveMessageIndexes: ReadonlySet<number>,
++	messageCount: number,
++	capsuleGroup?: string,
++	markerPrefix?: string,
++	expectedMarkerIndexes: number[] = [],
++	lazyGroups: ReadonlyMap<string, string[]> = new Map(),
++	gateKey?: string,
++	coreFileName?: string
++): { code: string; map: ReturnType<MagicString["generateMap"]> } | null {
++	const moduleIds = Object.keys(chunk.modules);
++	const localeModule = moduleIds.find((id) => id.startsWith(localeIdPrefix));
++	const hasCoreModule = moduleIds.includes(coreId);
++	if (!localeModule && !hasCoreModule && !capsuleGroup && !lazyGroups.size)
++		return null;
++	const parsed = parse(code, {
++		ecmaVersion: "latest",
++		sourceType: "module",
++	}) as unknown as AstNode;
++	const edits: Array<{
++		start: number;
++		end: number;
++		replacement: string;
++		kind: "locale" | "core" | "capsule" | "gate";
++	}> = [];
++	const markerCounts = new Map<number, number>();
++	let hasImportGate = false;
++	visitAst(parsed, (node) => {
++		if (
++			capsuleGroup &&
++			node.type === "Literal" &&
++			typeof node.value === "string" &&
++			markerPrefix &&
++			node.value.startsWith(markerPrefix) &&
++			/^\d+__$/.test(node.value.slice(markerPrefix.length))
++		) {
++			const index = Number(
++				(node.value as string).slice(markerPrefix!.length, -2)
++			);
++			markerCounts.set(index, (markerCounts.get(index) ?? 0) + 1);
++			edits.push({
++				start: node.start!,
++				end: node.end!,
++				replacement: capsuleGroup,
++				kind: "capsule",
++			});
++		}
++		if (node.type === "ImportExpression" && !hasCoreModule && !localeModule) {
++			const source = node.source as AstNode | undefined;
++			if (
++				source?.type === "Literal" &&
++				typeof source.value === "string" &&
++				source.value.startsWith(".")
++			) {
++				const target = join(dirname(chunk.fileName), source.value);
++				const groups = lazyGroups.get(target);
++				if (groups?.length) {
++					hasImportGate = true;
++					edits.push({
++						start: node.start!,
++						end: node.end!,
++						replacement: `Promise.all([${groups.map((group) => `globalThis[${JSON.stringify(gateKey)}](${group})`).join(",")}]).then(() => ${code.slice(node.start!, node.end!)})`,
++						kind: "gate",
++					});
++				}
++			}
++		}
++		if (node.type !== "VariableDeclarator" || node.id?.type !== "Identifier")
++			return;
++		if (
++			localeModule &&
++			node.id.name === "__paraglideLocalePayload" &&
++			node.init?.type === "ArrayExpression" &&
++			node.init.elements?.length === messageCount
++		) {
++			const elements = node.init.elements!;
++			if (
++				!elements.every(
++					(element) => element === null || typeof element.start === "number"
++				)
++			) {
++				throw new Error(
++					`Client message aggregation encountered an unsupported array element in ${localeModule}.`
++				);
++			}
++			const sparseElements = elements.map((element, index) =>
++				liveMessageIndexes.has(index) && element
++					? code.slice(element.start!, element.end!)
++					: ""
++			);
++			const hasTrailingHole = !liveMessageIndexes.has(messageCount - 1);
++			edits.push({
++				start: node.init.start!,
++				end: node.init.end!,
++				replacement: `[${sparseElements.join(",")}${hasTrailingHole ? "," : ""}]`,
++				kind: "locale",
++			});
++		}
++		if (
++			hasCoreModule &&
++			node.id.name === "__paraglideExpectedMessageIndexes" &&
++			node.init?.type === "ArrayExpression" &&
++			node.init.elements?.length === 1 &&
++			node.init.elements[0]?.type === "Literal" &&
++			node.init.elements[0]?.value === "__PARAGLIDE_LIVE_INDEXES__"
++		) {
++			edits.push({
++				start: node.init.start!,
++				end: node.init.end!,
++				replacement: JSON.stringify(
++					[...liveMessageIndexes].sort((a, b) => a - b)
++				),
++				kind: "core",
++			});
++		}
++	});
++	for (const index of expectedMarkerIndexes) {
++		if (markerCounts.get(index) !== 1)
++			throw new Error(
++				`Expected exactly one compiler capsule marker for live message ${index} in ${chunk.fileName}.`
++			);
++	}
++	if (
++		[...markerCounts.keys()].some(
++			(index) => !expectedMarkerIndexes.includes(index)
++		)
++	)
++		throw new Error(
++			"Unexpected capsule marker; refusing to replace user text."
++		);
++	const localeEdits = edits.filter((edit) => edit.kind === "locale");
++	const coreEdits = edits.filter((edit) => edit.kind === "core");
++	if (localeModule && localeEdits.length !== 1) {
++		throw new Error(
++			`Client message aggregation expected one indexed payload array of ${messageCount} messages in ${localeModule}; found ${localeEdits.length}. Refusing to emit an unpruned locale payload.`
++		);
++	}
++	if (hasCoreModule && coreEdits.length !== 1) {
++		throw new Error(
++			`Client message aggregation expected one live-index marker in the core module ${chunk.fileName}; found ${coreEdits.length}. Refusing to emit an unchecked payload.`
++		);
++	}
++	if (edits.length === 0) return null;
++	const edited = new MagicString(code);
++	if (hasImportGate && coreFileName !== chunk.fileName)
++		edited.prepend(
++			`import ${JSON.stringify("./" + relative(dirname(chunk.fileName), coreFileName!))};\n`
++		);
++	for (const edit of edits)
++		edited.overwrite(edit.start, edit.end, edit.replacement);
++	return {
++		code: edited.toString(),
++		map: edited.generateMap({
++			hires: true,
++			includeContent: true,
++			source: chunk.fileName,
++		}),
++	};
++}
++
++type AstNode = {
++	type: string;
++	start?: number;
++	end?: number;
++	name?: string;
++	id?: AstNode;
++	init?: AstNode;
++	elements?: Array<AstNode | null>;
++	[key: string]: unknown;
++};
++
++function visitAst(node: AstNode, visit: (node: AstNode) => void): void {
++	visit(node);
++	for (const [key, value] of Object.entries(node)) {
++		if (key === "start" || key === "end" || key === "loc") continue;
++		if (Array.isArray(value)) {
++			for (const child of value) {
++				if (child && typeof child === "object" && "type" in child) {
++					visitAst(child as AstNode, visit);
++				}
++			}
++		} else if (value && typeof value === "object" && "type" in value) {
++			visitAst(value as AstNode, visit);
++		}
++	}
++}
++
++async function readProjectLocales(
++	config: Pick<ResolvedConfig, "root">,
++	state: ViteClientLocaleSplitState
++): Promise<string[]> {
++	if (!state.project) {
++		throw new Error(
++			"Paraglide client message projection could not resolve the project directory."
++		);
++	}
++	const projectDir = resolve(config.root ?? process.cwd(), state.project);
++	const settingsPath = resolve(projectDir, "settings.json");
++	let settings: unknown;
++	try {
++		settings = JSON.parse(await nodeFs.promises.readFile(settingsPath, "utf8"));
++	} catch (error) {
++		throw new Error(
++			`Paraglide client message projection could not read project locales from ${settingsPath}.`,
++			{ cause: error }
++		);
++	}
++	if (
++		typeof settings !== "object" ||
++		settings === null ||
++		!Array.isArray((settings as { locales?: unknown }).locales) ||
++		!(settings as { locales: unknown[] }).locales.every(
++			(locale) => typeof locale === "string"
++		)
++	) {
++		throw new Error(
++			`Paraglide project settings at ${settingsPath} must contain a locales array.`
++		);
++	}
++	return (settings as { locales: string[] }).locales;
++}
++
++function addProjectionCodeSplittingGroups(
++	codeSplitting: unknown,
++	locales: readonly string[]
++) {
++	const current = (
++		typeof codeSplitting === "object" && codeSplitting !== null
++			? codeSplitting
++			: {}
++	) as { groups?: Array<Record<string, unknown>>; [key: string]: unknown };
++	return {
++		...current,
++		groups: [
++			...(current.groups ?? []),
++			...locales.map((locale) => ({
++				name: (id: string) =>
++					id ===
++						`${projectionMessageLocaleIdPrefix}${encodeURIComponent(locale)}` ||
++					id.startsWith(
++						`${projectionMessageLocaleIdPrefix}${encodeURIComponent(locale)}:`
++					)
++						? `paraglide-projection-${locale.replace(/[^a-zA-Z0-9_-]/g, "_")}`
++						: null,
++				includeDependenciesRecursively: false,
++				minSize: 0,
++				minModuleSize: 0,
++			})),
++		],
++	};
++}
++
+ function resolveGeneratedImport(
+ 	source: string,
+ 	importer: string,
+@@ -345,6 +967,62 @@ function createMessageFacade(metadata: SplitMetadata): string {
+ 	return `${imports}\n${startup}\n${wrapperDeclarations}\nconst __paraglideMessages = Object.create(null);\n${namespaceProperties}\nObject.defineProperty(__paraglideMessages, Symbol.toStringTag, { value: "Module" });\nObject.freeze(__paraglideMessages);\nexport { __paraglideMessages as m };\n`;
+ }
+ 
++function createProjectedMessageFacade(): string {
++	return `export * from ${JSON.stringify(indexVirtualId)};
++export * as m from ${JSON.stringify(indexVirtualId)};
++`;
++}
++
++function createProjectedMessageIndex(metadata: SplitMetadata): string {
++	return metadata.messages
++		.map(
++			(_message, index) =>
++				`export { ${JSON.stringify(_message.publicName)} } from ${JSON.stringify(`${messageVirtualPrefix}${index}`)};`
++		)
++		.join("\n");
++}
++
++function createProjectedMessageModule(
++	message: MessageMetadata,
++	index: number,
++	metadata: SplitMetadata,
++	projectionMessageLocaleVirtualId: (locale: string, index: number) => string
++): string {
++	const loaders = metadata.locales
++		.map(
++			(locale) =>
++				`${JSON.stringify(locale)}: () => import(${JSON.stringify(projectionMessageLocaleVirtualId(locale, index))}).then((module) => module.default)`
++		)
++		.join(",\n");
++	const inputParameter = message.hasInputs ? "inputs" : "inputs = {}";
++	const parts = message.hasMarkup
++		? `\n__message.parts = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); const message = requireLoadedMessage(${index}, locale); return typeof message.parts === "function" ? message.parts(inputs) : [{ type: "text", value: message(inputs) }]; };`
++		: "";
++	return `import { registerMessage, selectedMessageLocale, requireLoadedMessage, startupMessagePromise } from ${JSON.stringify(coreVirtualId)};
++registerMessage(${index}, { ${loaders} });
++await startupMessagePromise(${index});
++const __message = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); return requireLoadedMessage(${index}, locale)(inputs); };${parts}
++export { __message as ${JSON.stringify(message.publicName)} };
++`;
++}
++
++function createAggregatedMessageModule(
++	message: MessageMetadata,
++	index: number,
++	markerPrefix: string
++): string {
++	const inputParameter = message.hasInputs ? "inputs" : "inputs = {}";
++	const parts = message.hasMarkup
++		? `\n__message.parts = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); const message = requireLoadedMessage(${index}, locale); return typeof message === "function" && typeof message.parts === "function" ? message.parts(inputs) : [{ type: "text", value: typeof message === "string" ? message : message(inputs) }]; };`
++		: "";
++	return `import { selectedMessageLocale, requireLoadedMessage, startupLocalePromise, startupCapsule } from ${JSON.stringify(coreVirtualId)};
++await startupLocalePromise();
++await startupCapsule(${JSON.stringify(markerPrefix + index + "__")});
++const __message = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); const message = requireLoadedMessage(${index}, locale); return typeof message === "string" ? message : message(inputs); };${parts}
++export { __message as ${JSON.stringify(message.publicName)} };
++`;
++}
++
+ function createCoreModule(
+ 	metadata: SplitMetadata,
+ 	localeVirtualId: (locale: string) => string,
+@@ -379,6 +1057,7 @@ export function loadLocale(locale) {
+ 	}
+ 	return pending;
+ }
++
+ const originalSetLocale = setLocale;
+ let latestLocaleIntent = 0;
+ overwriteSetLocale((locale, options) => {
+@@ -402,3 +1081,176 @@ export const startupLocalePromise = Promise.all([
+ ]).then(() => undefined);
+ `;
+ }
++
++function createProjectedCoreModule(
++	metadata: SplitMetadata,
++	runtimePath: string
++): string {
++	return `import { baseLocale, getLocale, setLocale, overwriteSetLocale, toLocale } from ${JSON.stringify(runtimePath)};
++const locales = ${JSON.stringify(metadata.locales)};
++const registrations = new Map();
++const loadedMessages = new Map();
++const loadingMessages = new Map();
++const canonicalLocale = (locale) => { const normalized = toLocale(locale); return normalized && locales.includes(normalized) ? normalized : undefined; };
++const localeCache = (root, locale) => { let cache = root.get(locale); if (!cache) root.set(locale, cache = new Map()); return cache; };
++export function registerMessage(index, loaders) { registrations.set(index, loaders); }
++export function ensureMessage(index, locale) {
++	const loaded = localeCache(loadedMessages, locale);
++	if (loaded.has(index)) return Promise.resolve(loaded.get(index));
++	const pendingForLocale = localeCache(loadingMessages, locale);
++	let pending = pendingForLocale.get(index);
++	if (!pending) {
++		const loader = registrations.get(index)?.[locale];
++		if (!loader) return Promise.reject(new Error("No generated message loader for locale " + JSON.stringify(locale) + " and message " + index));
++		pending = Promise.resolve().then(loader).then((message) => {
++			if (typeof message !== "function") throw new Error("Loading Paraglide message " + index + " for " + JSON.stringify(locale) + " did not return a function.");
++			loaded.set(index, message);
++			pendingForLocale.delete(index);
++			return message;
++		}).catch((error) => { pendingForLocale.delete(index); throw error; });
++		pendingForLocale.set(index, pending);
++	}
++	return pending;
++}
++
++export function loadLocale(locale) {
++	const normalized = canonicalLocale(locale);
++	if (!normalized) return Promise.reject(new Error("Unsupported Paraglide locale: " + locale));
++	return Promise.all(Array.from(registrations.keys(), (index) => ensureMessage(index, normalized))).then(() => undefined);
++}
++const originalSetLocale = setLocale;
++let latestLocaleIntent = 0;
++overwriteSetLocale((locale, options) => {
++	const intent = ++latestLocaleIntent;
++	if (options?.reload !== false) return originalSetLocale(locale, options);
++	const normalized = canonicalLocale(locale) ?? baseLocale;
++	return loadLocale(normalized).then(() => {
++		if (intent !== latestLocaleIntent) return;
++		return originalSetLocale(normalized, options);
++	});
++});
++export const selectedMessageLocale = (locale) => { const selected = locale ?? getLocale(); return locales.includes(selected) ? selected : baseLocale; };
++export function requireLoadedMessage(index, locale) {
++	const message = loadedMessages.get(locale)?.get(index);
++	if (!message) throw new Error("Paraglide message " + index + " for " + JSON.stringify(locale) + " is not loaded. Await loadLocale() before calling its synchronous message function.");
++	return message;
++}
++let startupPromise;
++export function startupMessagePromise(index) {
++	const selected = canonicalLocale(getLocale()) ?? baseLocale;
++	return Promise.all([
++		ensureMessage(index, baseLocale),
++		ensureMessage(index, selected)
++	]).then(() => undefined);
++}
++export function startupLocalePromise() {
++	if (!startupPromise) startupPromise = Promise.all([
++		loadLocale(baseLocale),
++		loadLocale(canonicalLocale(getLocale()) ?? baseLocale)
++	]).then(() => undefined);
++	return startupPromise;
++}
++`;
++}
++
++function createAggregateCoreModule(
++	metadata: SplitMetadata,
++	localeVirtualId: (locale: string) => string,
++	runtimePath: string,
++	gateKey: string
++): string {
++	const importCases = metadata.locales
++		.map(
++			(locale) =>
++				`locale === ${JSON.stringify(locale)} ? import(${JSON.stringify(localeVirtualId(locale))}) : `
++		)
++		.join("");
++	return `import { baseLocale, getLocale, setLocale, overwriteSetLocale, toLocale } from ${JSON.stringify(runtimePath)};
++const locales = ${JSON.stringify(metadata.locales)};
++const __paraglideExpectedMessageIndexes = ["__PARAGLIDE_LIVE_INDEXES__"];
++const loadedLocales = new Map();
++const capsuleGroups = new Map();
++const requestedLocales = new Set();
++let capsuleRevision = 0;
++async function drainCapsules(locale) {
++ let observed;
++ do { observed = capsuleRevision; await Promise.all([...capsuleGroups.values()].map(group => fetchCapsule(group.urls[locale], locale, group.indexes[locale]))); } while (observed !== capsuleRevision);
++}
++const loadedCapsules = new Map();
++async function fetchCapsule(url, locale, expectedIndexes) {
++ if (expectedIndexes.length === 0) return;
++ const key = locale + url;
++ let pending = loadedCapsules.get(key);
++ if (!pending) {
++  pending = fetch(url).then(response => { if (!response.ok) throw new Error("Capsule HTTP " + response.status); return response.json(); }).then(values => {
++   if (!values || typeof values !== "object" || Array.isArray(values) || Object.keys(values).length !== expectedIndexes.length || expectedIndexes.some(index => !Object.hasOwn(values, index))) throw new Error("Capsule did not provide its expected static message slots");
++   const messages = loadedLocales.get(locale);
++   if (!messages) throw new Error("Capsule locale module is not loaded");
++   for (const [index, value] of Object.entries(values)) {
++    if (typeof value !== "string") throw new Error("Invalid static capsule value");
++    messages[Number(index)] = value;
++   }
++  }).catch(error => { loadedCapsules.delete(key); throw error; });
++  loadedCapsules.set(key, pending);
++ }
++ return pending;
++}
++export async function startupCapsule(group) {
++ if (!capsuleGroups.has(group.id)) { capsuleGroups.set(group.id, group); capsuleRevision++; }
++ const selected = canonicalLocale(getLocale()) ?? baseLocale;
++ await Promise.all([...new Set([baseLocale, selected, ...requestedLocales])].map(async locale => {
++  await loadLocale(locale);
++  await fetchCapsule(group.urls[locale], locale, group.indexes[locale]);
++ }));
++}
++globalThis[${JSON.stringify(gateKey)}] = startupCapsule;
++const loadingLocales = new Map();
++const canonicalLocale = (locale) => { const normalized = toLocale(locale); return normalized && locales.includes(normalized) ? normalized : undefined; };
++const loadModule = (locale) => (${importCases}Promise.reject(new Error("Unsupported Paraglide locale: " + locale)));
++export function loadLocale(locale) {
++	const normalized = canonicalLocale(locale);
++	if (!normalized) return Promise.reject(new Error("Unsupported Paraglide locale: " + locale));
++	requestedLocales.add(normalized);
++ if (loadedLocales.has(normalized)) return drainCapsules(normalized);
++	let pending = loadingLocales.get(normalized);
++	if (!pending) {
++		pending = loadModule(normalized).then((module) => {
++			const messages = module.default;
++			if (!Array.isArray(messages) || messages.length !== ${metadata.messages.length} || messages.some((message) => message !== undefined && typeof message !== "string" && typeof message !== "function") || __paraglideExpectedMessageIndexes.some((index) => typeof messages[index] !== "string" && typeof messages[index] !== "function")) {
++				throw new Error("Loading Paraglide locale " + JSON.stringify(normalized) + " did not return its generated indexed message payload.");
++			}
++			loadedLocales.set(normalized, messages);
++			loadingLocales.delete(normalized);
++            return drainCapsules(normalized);
++		}).catch((error) => { loadingLocales.delete(normalized); throw error; });
++		loadingLocales.set(normalized, pending);
++	}
++	return pending;
++}
++const originalSetLocale = setLocale;
++let latestLocaleIntent = 0;
++overwriteSetLocale((locale, options) => {
++	const intent = ++latestLocaleIntent;
++	if (options?.reload !== false) return originalSetLocale(locale, options);
++	const normalized = canonicalLocale(locale) ?? baseLocale;
++	return loadLocale(normalized).then(() => {
++		if (intent !== latestLocaleIntent) return;
++		return originalSetLocale(normalized, options);
++	});
++});
++export const selectedMessageLocale = (locale) => { const selected = locale ?? getLocale(); return locales.includes(selected) ? selected : baseLocale; };
++export function requireLoadedMessage(index, locale) {
++	const message = loadedLocales.get(locale)?.[index];
++	if (message === undefined) throw new Error("Paraglide message " + index + " for " + JSON.stringify(locale) + " is not loaded. Await loadLocale() before calling its synchronous message function.");
++	return message;
++}
++let startupPromise;
++export function startupLocalePromise() {
++	if (!startupPromise) startupPromise = Promise.all([
++		loadLocale(baseLocale),
++		loadLocale(canonicalLocale(getLocale()) ?? baseLocale)
++	]).then(() => undefined);
++	return startupPromise;
++}
++`;
++}
+diff --git a/src/bundler-plugins/unplugin.ts b/src/bundler-plugins/unplugin.ts
+index 78f1b69..e535a87 100644
+--- a/src/bundler-plugins/unplugin.ts
++++ b/src/bundler-plugins/unplugin.ts
+@@ -34,6 +34,10 @@ const PLUGIN_NAME = "unplugin-paraglide-js";
+ /** Private hand-off from the Vite facade; never part of the package API. */
+ export type ViteClientLocaleSplitState = {
+ 	compilerOptions?: CompilerOptions;
++	project?: string;
++	outputDir?: string;
++	messageProjection?: boolean;
++	messageAggregation?: boolean;
+ };
+ 
+ export const viteClientLocaleSplitOption: unique symbol = Symbol(
+diff --git a/src/bundler-plugins/vite.test.ts b/src/bundler-plugins/vite.test.ts
+index 72e2290..fc8c2c4 100644
+--- a/src/bundler-plugins/vite.test.ts
++++ b/src/bundler-plugins/vite.test.ts
+@@ -522,6 +522,411 @@ test.each([undefined, false])(
+ 	verifyClientLocaleSplitBuild
+ );
+ 
++async function verifyClientMessageBuild(
++	dynamicAccess: boolean,
++	mode: "projection" | "aggregation"
++) {
++	const root = await mkdtemp(
++		join(tmpdir(), "paraglide-message-projection-vite-")
++	);
++	let project: Awaited<ReturnType<typeof loadProjectInMemory>> | undefined;
++	try {
++		await symlink(
++			resolve(process.cwd(), "node_modules"),
++			join(root, "node_modules")
++		);
++		project = await loadProjectInMemory({
++			blob: await newProject({
++				settings: {
++					baseLocale: "en",
++					locales: ["en", "de"],
++					modules: [
++						"./node_modules/@inlang/plugin-message-format/dist/index.js",
++					],
++					"plugin.inlang.messageFormat": {
++						pathPattern: "./messages/{locale}.json",
++					},
++				},
++			}),
++			providePlugins: [messageFormatPlugin as InlangPlugin],
++		});
++		for (const [id, en, de] of [
++			["projection_used", "PROJECTION_USED_EN", "PROJECTION_USED_DE"],
++			["projection_unused", "PROJECTION_UNUSED_EN", "PROJECTION_UNUSED_DE"],
++		] as const) {
++			await insertBundleNested(project.db, {
++				id,
++				declarations: [],
++				messages: ["en", "de"].map((locale) => ({
++					id: `${id}_${locale}`,
++					bundle_id: id,
++					locale,
++					selectors: [],
++					variants: [
++						{
++							id: `${id}_${locale}_variant`,
++							message_id: id,
++							matches: [],
++							pattern: [
++								{
++									type: "text",
++									value: locale === "en" ? en : de,
++								},
++							],
++						},
++					],
++				})),
++			} satisfies BundleNested);
++		}
++		await saveProjectToDirectory({
++			project,
++			path: join(root, "project.inlang"),
++			fs: nodeFs.promises,
++		});
++		await mkdir(join(root, "src"), { recursive: true });
++		await writeFile(
++			join(root, "index.html"),
++			'<!doctype html><html><head></head><body><script type="module" src="/src/main.js"></script></body></html>'
++		);
++		const source = dynamicAccess
++			? `import { m } from "./paraglide/messages.js"; globalThis.__projectionResult = m[globalThis.__projectionKey]();`
++			: `import { m } from "./paraglide/messages.js"; globalThis.__projectionResult = m.projection_used();`;
++		await writeFile(join(root, "src/main.js"), source);
++		const plugins = paraglideVitePlugin({
++			project: join(root, "project.inlang"),
++			outdir: join(root, "src/paraglide"),
++			experimentalClientMessageProjection: mode === "projection",
++			experimentalClientMessageAggregation: mode === "aggregation",
++			strategy: ["globalVariable", "baseLocale"],
++		});
++		await viteBuild({
++			configFile: false,
++			logLevel: "silent",
++			root,
++			plugins: Array.isArray(plugins) ? plugins : [plugins],
++			build: {
++				target: "es2022",
++				outDir: join(root, "dist"),
++				manifest: true,
++			},
++		});
++
++		const manifest = JSON.parse(
++			await readFile(join(root, "dist/.vite/manifest.json"), "utf8")
++		) as Record<
++			string,
++			{
++				file: string;
++				imports?: string[];
++				dynamicImports?: string[];
++				isEntry?: boolean;
++			}
++		>;
++		const localeChunks = Object.entries(manifest).filter(([, item]) =>
++			item.file.includes(
++				mode === "projection"
++					? "paraglide-projection-"
++					: "paraglide-locale-payload-"
++			)
++		);
++		expect(localeChunks).toHaveLength(2);
++		const dynamicImports = Object.values(manifest).flatMap(
++			(item) => item.dynamicImports ?? []
++		);
++		expect(dynamicImports).toHaveLength(2);
++		expect(
++			dynamicImports.every((chunk) =>
++				localeChunks.some(([key]) => key === chunk)
++			)
++		).toBe(true);
++		const outputFiles = await Promise.all(
++			Object.values(manifest)
++				.filter((item) => item.file.endsWith(".js"))
++				.map((item) => readFile(join(root, "dist", item.file), "utf8"))
++		);
++		const output = outputFiles.join("\n");
++		expect(output).toContain("PROJECTION_USED_EN");
++		expect(output).toContain("PROJECTION_USED_DE");
++		if (dynamicAccess) {
++			expect(output).toContain("PROJECTION_UNUSED_EN");
++			expect(output).toContain("PROJECTION_UNUSED_DE");
++		} else {
++			expect(output).not.toContain("PROJECTION_UNUSED_EN");
++			expect(output).not.toContain("PROJECTION_UNUSED_DE");
++		}
++	} finally {
++		await project?.close();
++		await rm(root, { recursive: true, force: true });
++	}
++}
++
++test.each([false, true])(
++	"experimentalClientMessageProjection builds literal per-message locale projections (dynamicAccess=%s)",
++	(dynamicAccess) => verifyClientMessageBuild(dynamicAccess, "projection")
++);
++
++test.each([false, true])(
++	"experimentalClientMessageAggregation prunes only statically unused indexed locale slots (dynamicAccess=%s)",
++	(dynamicAccess) => verifyClientMessageBuild(dynamicAccess, "aggregation")
++);
++
++test("projected loaders preserve then, reserved namespace keys, arity, and rich parts", async () => {
++	const outdir = await mkdtemp(join(tmpdir(), "paraglide-projected-api-"));
++	try {
++		await mkdir(join(outdir, "messages"), { recursive: true });
++		await writeFile(join(outdir, "package.json"), '{"type":"module"}');
++		await writeFile(
++			join(outdir, "client-locale-split.json"),
++			JSON.stringify({
++				baseLocale: "en",
++				locales: ["en"],
++				messages: [
++					{
++						safeName: "then",
++						publicName: "then",
++						hasInputs: false,
++						hasMarkup: false,
++					},
++					{
++						safeName: "reserved_m",
++						publicName: "m",
++						hasInputs: false,
++						hasMarkup: false,
++					},
++					{
++						safeName: "reserved_default",
++						publicName: "default",
++						hasInputs: false,
++						hasMarkup: false,
++					},
++					{
++						safeName: "with_inputs",
++						publicName: "withInputs",
++						hasInputs: true,
++						hasMarkup: false,
++					},
++					{
++						safeName: "rich",
++						publicName: "rich",
++						hasInputs: true,
++						hasMarkup: true,
++					},
++				],
++			})
++		);
++		await writeFile(
++			join(outdir, "messages", "en.js"),
++			'export function then(resolve) { if (typeof resolve === "function") { resolve("assimilated"); return; } return "then message"; }\n' +
++				'export const reserved_m = () => "m message";\n' +
++				'export const reserved_default = () => "default message";\n' +
++				'export const with_inputs = (inputs) => "input " + inputs.value;\n' +
++				'export const rich = Object.assign((inputs) => "rich " + inputs.value, { parts: (inputs) => [{ type: "text", value: "part " + inputs.value }] });\n'
++		);
++
++		const plugin = createClientLocaleSplitPlugin({
++			state: { project: outdir, compilerOptions: { project: outdir, outdir } },
++			messageProjection: true,
++		});
++		const load = async (id: string) =>
++			(await (plugin.load as any).call({}, id)) as string;
++		const corePath = join(outdir, "core.mjs");
++		await writeFile(
++			corePath,
++			`const registrations = new Map();
++const loaded = new Map();
++export function registerMessage(index, loaders) { registrations.set(index, loaders); }
++export const selectedMessageLocale = (locale) => locale ?? "en";
++export function requireLoadedMessage(index) { const message = loaded.get(index); if (!message) throw new Error("message not loaded"); return message; }
++export async function startupMessagePromise(index) { loaded.set(index, await registrations.get(index).en()); }
++export async function startupLocalePromise() { await Promise.all([...registrations].map(async ([index, loaders]) => loaded.set(index, await loaders.en()))); }
++export { registrations };\n`
++		);
++		const index = await load("\0paraglide:client-locale-split:index");
++		let indexCode = index;
++		for (let index = 0; index < 5; index++) {
++			const messagePath = join(outdir, `message-${index}.mjs`);
++			let messageCode = await load(
++				`\0paraglide:client-locale-split:message:${index}`
++			);
++			const projectionVirtualId = `virtual:paraglide/client-locale-split/projected-message/en/${index}.js`;
++			const projectionPath = join(outdir, `projected-${index}.mjs`);
++			const projectionCode = await load(
++				`\0paraglide:client-locale-split:projected-message:en:${index}`
++			);
++			await writeFile(projectionPath, projectionCode);
++			messageCode = messageCode
++				.replaceAll(
++					JSON.stringify("virtual:paraglide/client-locale-split/core"),
++					JSON.stringify(pathToFileURL(corePath).href)
++				)
++				.replaceAll(
++					JSON.stringify(projectionVirtualId),
++					JSON.stringify(pathToFileURL(projectionPath).href)
++				);
++			await writeFile(messagePath, messageCode);
++			indexCode = indexCode.replaceAll(
++				JSON.stringify(
++					`virtual:paraglide/client-locale-split/message/${index}`
++				),
++				JSON.stringify(pathToFileURL(messagePath).href)
++			);
++		}
++		const indexPath = join(outdir, "index.mjs");
++		await writeFile(indexPath, indexCode);
++		const rootCode = (await load("\0paraglide:client-locale-split:root"))
++			.replaceAll(
++				JSON.stringify("virtual:paraglide/client-locale-split/core"),
++				JSON.stringify(pathToFileURL(corePath).href)
++			)
++			.replaceAll(
++				JSON.stringify("virtual:paraglide/client-locale-split/index"),
++				JSON.stringify(pathToFileURL(indexPath).href)
++			);
++		const rootPath = join(outdir, "root.mjs");
++		await writeFile(rootPath, rootCode);
++
++		const childSource = `
++			import { then as thenMessage, withInputs, rich, m } from ${JSON.stringify(pathToFileURL(rootPath).href)};
++			console.log(JSON.stringify({
++				thenValue: thenMessage(),
++				reservedM: m.m(),
++				reservedDefault: m.default(),
++				inputValue: withInputs({ value: "value" }),
++				richValue: rich({ value: "value" }),
++				richParts: rich.parts({ value: "value" }),
++				lengths: [thenMessage.length, withInputs.length, rich.length, rich.parts.length],
++			}));
++		`;
++		const { stdout } = await promisify(execFile)(
++			process.execPath,
++			["--input-type=module", "-e", childSource],
++			{ timeout: 1000 }
++		);
++		expect(JSON.parse(stdout)).toEqual({
++			thenValue: "then message",
++			reservedM: "m message",
++			reservedDefault: "default message",
++			inputValue: "input value",
++			richValue: "rich value",
++			richParts: [{ type: "text", value: "part value" }],
++			lengths: [0, 1, 1, 1],
++		});
++	} finally {
++		await rm(outdir, { recursive: true, force: true });
++	}
++});
++
++test("aggregated locale modules expose only a default payload and validate all live message slots", async () => {
++	const outdir = await mkdtemp(join(tmpdir(), "paraglide-aggregated-api-"));
++	try {
++		await mkdir(join(outdir, "messages"), { recursive: true });
++		await writeFile(
++			join(outdir, "client-locale-split.json"),
++			JSON.stringify({
++				baseLocale: "en",
++				locales: ["en"],
++				messages: [
++					{
++						safeName: "then",
++						publicName: "then",
++						hasInputs: false,
++						hasMarkup: false,
++					},
++					{
++						safeName: "reserved_m",
++						publicName: "m",
++						hasInputs: false,
++						hasMarkup: false,
++					},
++					{
++						safeName: "reserved_default",
++						publicName: "default",
++						hasInputs: false,
++						hasMarkup: false,
++					},
++					{
++						safeName: "with_inputs",
++						publicName: "withInputs",
++						hasInputs: true,
++						hasMarkup: false,
++					},
++					{
++						safeName: "rich",
++						publicName: "rich",
++						hasInputs: true,
++						hasMarkup: true,
++					},
++				],
++			})
++		);
++		await writeFile(
++			join(outdir, "messages/en.js"),
++			'export function then(resolve) { if (typeof resolve === "function") resolve("assimilated"); return "then message"; }\n' +
++				'export const reserved_m = () => "m message";\n' +
++				'export const reserved_default = () => "default message";\n' +
++				'export const with_inputs = (inputs) => "input " + inputs.value;\n' +
++				'export const rich = Object.assign((inputs) => "rich " + inputs.value, { parts: (inputs) => [{ type: "text", value: "part " + inputs.value }] });\n'
++		);
++
++		const plugin = createClientLocaleSplitPlugin({
++			state: { project: outdir, compilerOptions: { project: outdir, outdir } },
++			messageAggregation: true,
++		});
++		const load = async (id: string) =>
++			(await (plugin.load as any).call({}, id)) as string;
++		const localeCode = await load("\0paraglide:client-locale-split:locale:en");
++		expect(localeCode).toContain(
++			"export { __paraglideLocalePayload as default }"
++		);
++		expect(localeCode).not.toMatch(/export\\s*\\{[^}]*\\bthen\\b/);
++		expect(localeCode).toContain("then as message0");
++		const coreCode = await load("\0paraglide:client-locale-split:core");
++		expect(coreCode).toContain('["__PARAGLIDE_LIVE_INDEXES__"]');
++		expect(coreCode).toContain("__paraglideExpectedMessageIndexes.some");
++		expect(coreCode).toContain("module.default");
++		for (const [index, publicName, expectedArity] of [
++			[0, "then", "(inputs = {}, options = {})"],
++			[1, "m", "(inputs = {}, options = {})"],
++			[2, "default", "(inputs = {}, options = {})"],
++			[3, "withInputs", "(inputs, options = {})"],
++			[4, "rich", "(inputs, options = {})"],
++		] as const) {
++			const wrapper = await load(
++				`\0paraglide:client-locale-split:message:${index}`
++			);
++			expect(wrapper).toContain(
++				`export { __message as ${JSON.stringify(publicName)} }`
++			);
++			expect(wrapper).toContain(expectedArity);
++			if (publicName === "rich") expect(wrapper).toContain("__message.parts =");
++		}
++	} finally {
++		await rm(outdir, { recursive: true, force: true });
++	}
++});
++
++test("client message aggregation fails closed without all-chunks render metadata", async () => {
++	const plugin = createClientLocaleSplitPlugin({
++		state: {
++			project: "/unused",
++			compilerOptions: { project: "/unused", outdir: "/unused" },
++		},
++		messageAggregation: true,
++	});
++	const hook = plugin.renderChunk as { handler: (...args: any[]) => unknown };
++	expect(() =>
++		hook.handler.call(
++			{},
++			"",
++			{ fileName: "chunk.js", modules: {} },
++			{},
++			undefined
++		)
++	).toThrow(
++		"Client message aggregation requires the Vite renderChunk all-chunks metadata API"
++	);
++});
++
+ test("client locale facade preserves message API and regional fallback behavior", async () => {
+ 	const outdir = await mkdtemp(join(tmpdir(), "paraglide-client-locale-then-"));
+ 	try {
+diff --git a/src/bundler-plugins/vite.ts b/src/bundler-plugins/vite.ts
+index 93c1558..6c2ce4b 100644
+--- a/src/bundler-plugins/vite.ts
++++ b/src/bundler-plugins/vite.ts
+@@ -33,6 +33,32 @@ export type ParaglideVitePluginOptions = ParaglidePluginOptions & {
+ 	 * @default false
+ 	 */
+ 	experimentalClientLocaleSplit?: boolean;
++	/**
++	 * Experimental per-message locale projections for the Vite client.
++	 *
++	 * Used message wrappers wait for their base and active locale before they
++	 * are evaluated. Static named/property consumers can tree-shake unused
++	 * messages; dynamic namespace access keeps the full message namespace.
++	 * Requires generated locale modules and an ES2022+ (or esnext) Vite target.
++	 * The server-rendered graph is unchanged.
++	 *
++	 * @experimental
++	 * @default false
++	 */
++	experimentalClientMessageProjection?: boolean;
++	/**
++	 * Experimental one-indexed-payload-per-locale client output with
++	 * post-tree-shake message-slot pruning.
++	 *
++	 * This prototype targets Vite builds using the generated locale-modules
++	 * layout and an ES2022+ (or esnext) build target. Dynamic namespace access
++	 * retains every message; statically used messages may be pruned from the
++	 * locale payload while preserving compiler message indices.
++	 *
++	 * @experimental
++	 * @default false
++	 */
++	experimentalClientMessageAggregation?: boolean;
+ };
+ 
+ const createCompilerVitePlugin = createVitePlugin(unpluginFactory);
+@@ -43,15 +69,36 @@ export function paraglideVitePlugin(
+ 	const {
+ 		experimentalPerLocaleBuild,
+ 		experimentalClientLocaleSplit,
++		experimentalClientMessageProjection,
++		experimentalClientMessageAggregation,
+ 		...compilerOptions
+ 	} = options;
+-	if (experimentalPerLocaleBuild && experimentalClientLocaleSplit) {
++	const clientSplitMode =
++		experimentalClientLocaleSplit ||
++		experimentalClientMessageProjection ||
++		experimentalClientMessageAggregation;
++	const clientMessageModeCount = [
++		experimentalClientLocaleSplit,
++		experimentalClientMessageProjection,
++		experimentalClientMessageAggregation,
++	].filter(Boolean).length;
++	if (clientMessageModeCount > 1) {
++		throw new Error(
++			"experimentalClientLocaleSplit, experimentalClientMessageProjection, and experimentalClientMessageAggregation are mutually exclusive."
++		);
++	}
++	if (
++		experimentalPerLocaleBuild &&
++		(experimentalClientLocaleSplit ||
++			experimentalClientMessageProjection ||
++			experimentalClientMessageAggregation)
++	) {
+ 		throw new Error(
+-			"experimentalClientLocaleSplit cannot be combined with experimentalPerLocaleBuild."
++			"Client locale splitting cannot be combined with experimentalPerLocaleBuild."
+ 		);
+ 	}
+ 	if (!experimentalPerLocaleBuild) {
+-		if (!experimentalClientLocaleSplit) {
++		if (!clientSplitMode) {
+ 			return createCompilerVitePlugin(compilerOptions) as Plugin;
+ 		}
+ 		if (
+@@ -59,26 +106,49 @@ export function paraglideVitePlugin(
+ 			compilerOptions.outputStructure !== "locale-modules"
+ 		) {
+ 			throw new Error(
+-				'experimentalClientLocaleSplit requires outputStructure: "locale-modules".'
++				experimentalClientMessageAggregation
++					? 'Client message aggregation requires outputStructure: "locale-modules".'
++					: experimentalClientMessageProjection
++						? 'Client message projection requires outputStructure: "locale-modules".'
++						: 'Client locale splitting requires outputStructure: "locale-modules".'
+ 			);
+ 		}
+ 		if (compilerOptions.experimentalMiddlewareLocaleSplitting) {
+ 			throw new Error(
+-				"experimentalClientLocaleSplit cannot be combined with experimentalMiddlewareLocaleSplitting."
++				experimentalClientMessageAggregation
++					? "experimentalClientMessageAggregation cannot be combined with experimentalMiddlewareLocaleSplitting."
++					: experimentalClientMessageProjection
++						? "experimentalClientMessageProjection cannot be combined with experimentalMiddlewareLocaleSplitting."
++						: "experimentalClientLocaleSplit cannot be combined with experimentalMiddlewareLocaleSplitting."
+ 			);
+ 		}
+ 		if (compilerOptions.experimentalStaticLocale !== undefined) {
+ 			throw new Error(
+-				"experimentalClientLocaleSplit cannot be combined with experimentalStaticLocale."
++				experimentalClientMessageAggregation
++					? "experimentalClientMessageAggregation cannot be combined with experimentalStaticLocale."
++					: experimentalClientMessageProjection
++						? "experimentalClientMessageProjection cannot be combined with experimentalStaticLocale."
++						: "experimentalClientLocaleSplit cannot be combined with experimentalStaticLocale."
+ 			);
+ 		}
+ 		const state: ViteClientLocaleSplitState = {};
++		state.project = compilerOptions.project;
++		state.outputDir = compilerOptions.outdir;
++		state.messageProjection = experimentalClientMessageProjection === true;
++		state.messageAggregation = experimentalClientMessageAggregation === true;
+ 		const compilerPlugin = createCompilerVitePlugin({
+ 			...compilerOptions,
+ 			outputStructure: "locale-modules",
+ 			[viteClientLocaleSplitOption]: state,
+ 		} as ParaglidePluginOptions);
+-		return [compilerPlugin as Plugin, createClientLocaleSplitPlugin({ state })];
++		return [
++			compilerPlugin as Plugin,
++			createClientLocaleSplitPlugin({
++				state,
++				messageProjection: state.messageProjection,
++				messageAggregation: state.messageAggregation,
++			}),
++		];
+ 	}
+ 
+ 	return createPerLocaleBuildPlugins({
