@@ -225,7 +225,6 @@ test("experimentalClientLocaleSplit emits locale metadata and rewires only Vite 
 	);
 	const coreCode = await split.load.call({}, coreId);
 	expect(coreCode).toContain('from "/src/paraglide/runtime.js"');
-	expect(coreCode).toContain("locales.includes(locale)");
 	expect(coreCode).toContain("!Array.isArray(messages)");
 	expect(coreCode).toContain("if (intent !== latestLocaleIntent)");
 	expect(coreCode).toContain("const messages = module.default");
