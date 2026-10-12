@@ -1,0 +1,321 @@
+{
+  "date": "2026-10-12T22:10:42.669Z",
+  "app": "ntfy",
+  "sourceCommit": "211ba22860d7483073a8ce13dcda5f467194989b",
+  "i18nextVersion": "26.4.2",
+  "compilerWorktreeCommit": "6997d020813d76f087d585110e62cd54891726e0",
+  "paraglidePluginWorktreeCommit": "6997d020813d76f087d585110e62cd54891726e0",
+  "method": "Fresh Chromium contexts; French localStorage preference and preselected French build served at the origin root; Brotli-Q4 local serving; cache disabled, service workers blocked, 80 ms RTT / 20 Mbps down / 2 Mbps up / 3x CPU; API traffic blocked; readiness requires splash opacity 0/removed and translated login UI visible.",
+  "limitations": [
+    "This uses an app-local i18next/React-i18next compatibility adapter over generated messages and a static literal-call codemod; it is an experiment, not a supported migration API.",
+    "Service workers are blocked and cache disabled. The specialized foreground graph is measured; the separately built PWA worker retains multiple locales. Install/offline and full-document language switching are not validated.",
+    "The app imposes a 1,000 ms minimum splash duration plus a 300 ms logo fade and 100 ms background fade. First content paint often reflects the static splash, so route readiness is the more relevant user-facing measure.",
+    "FCP/LCP are the static splash rather than the translated login view and are excluded from the >=10% qualification gate.",
+    "Native frontend build artifacts were captured before modifying the isolated app worktree; this comparison covers /login and its requested asset graph, not every account/notification route.",
+    "One exploratory pair; locale variant selected by test server, so automatic language/asset selection bootstrap is not measured. No production migration or >10% claim."
+  ],
+  "results": [
+    {
+      "label": "optimized-i18next",
+      "median": {
+        "readyMsFromNavigation": 1427,
+        "fcpMs": 204,
+        "lcpMs": 204,
+        "longTaskMs": 193,
+        "resourceCount": 14,
+        "transferBytes": 387315,
+        "encodedBytes": 383115,
+        "decodedBytes": 1192768
+      },
+      "runs": [
+        {
+          "trial": 0,
+          "locale": "fr",
+          "htmlLang": "fr",
+          "ready": true,
+          "readinessError": null,
+          "readyMsFromNavigation": 1427,
+          "frenchLoginParity": true,
+          "splashOpacity": null,
+          "splashExists": false,
+          "fcpMs": 204,
+          "lcpMs": 204,
+          "longTaskMs": 193,
+          "resourceCount": 14,
+          "transferBytes": 387315,
+          "encodedBytes": 383115,
+          "decodedBytes": 1192768,
+          "translationRequests": [
+            {
+              "name": "/static/langs/fr.json",
+              "transferBytes": 10228,
+              "encodedBytes": 9928,
+              "decodedBytes": 39814
+            },
+            {
+              "name": "/static/langs/en.json",
+              "transferBytes": 8607,
+              "encodedBytes": 8307,
+              "decodedBytes": 34975
+            }
+          ],
+          "dependencyInitiators": [],
+          "resources": [
+            {
+              "name": "/login",
+              "transferBytes": 2024,
+              "encodedBytes": 1724,
+              "decodedBytes": 4485
+            },
+            {
+              "name": "/static/css/app.css",
+              "transferBytes": 424,
+              "encodedBytes": 124,
+              "decodedBytes": 124
+            },
+            {
+              "name": "/static/css/fonts.css",
+              "transferBytes": 553,
+              "encodedBytes": 253,
+              "decodedBytes": 901
+            },
+            {
+              "name": "/static/media/index-BNotJ6BC.js",
+              "transferBytes": 260563,
+              "encodedBytes": 260263,
+              "decodedBytes": 889973
+            },
+            {
+              "name": "/static/media/rolldown-runtime-B0Z9INg1.js",
+              "transferBytes": 804,
+              "encodedBytes": 504,
+              "decodedBytes": 901
+            },
+            {
+              "name": "/static/images/ntfy-splash.svg",
+              "transferBytes": 1307,
+              "encodedBytes": 1007,
+              "decodedBytes": 2190
+            },
+            {
+              "name": "/static/media/utils-mmmrspNc.js",
+              "transferBytes": 65499,
+              "encodedBytes": 65199,
+              "decodedBytes": 176895
+            },
+            {
+              "name": "/config.js",
+              "transferBytes": 735,
+              "encodedBytes": 435,
+              "decodedBytes": 800
+            },
+            {
+              "name": "/static/media/workbox-window.prod.es5-Bd17z0YL.js",
+              "transferBytes": 2549,
+              "encodedBytes": 2249,
+              "decodedBytes": 5714
+            },
+            {
+              "name": "/static/langs/fr.json",
+              "transferBytes": 10228,
+              "encodedBytes": 9928,
+              "decodedBytes": 39814
+            },
+            {
+              "name": "/static/langs/en.json",
+              "transferBytes": 8607,
+              "encodedBytes": 8307,
+              "decodedBytes": 34975
+            },
+            {
+              "name": "/static/fonts/roboto-v29-latin-500.woff2",
+              "transferBytes": 16220,
+              "encodedBytes": 15920,
+              "decodedBytes": 15920
+            },
+            {
+              "name": "/static/fonts/roboto-v29-latin-regular.woff2",
+              "transferBytes": 15988,
+              "encodedBytes": 15688,
+              "decodedBytes": 15688
+            },
+            {
+              "name": "/static/media/ntfy-filled-BeHxCuOR.svg",
+              "transferBytes": 1814,
+              "encodedBytes": 1514,
+              "decodedBytes": 4388
+            }
+          ],
+          "pageErrors": [],
+          "failedRequests": [],
+          "visibleText": "Se connecter \u00e0 son compte Ntfy\n\nUsername or email\u2009*\nUsername or email\u2009*\nMot de passe\u2009*\nMot de passe\u2009*\nSE CONNECTER\nS'inscrire"
+        }
+      ]
+    },
+    {
+      "label": "paraglide-per-locale-build",
+      "median": {
+        "readyMsFromNavigation": 1411,
+        "fcpMs": 208,
+        "lcpMs": 208,
+        "longTaskMs": 191,
+        "resourceCount": 12,
+        "transferBytes": 364299,
+        "encodedBytes": 360699,
+        "decodedBytes": 1221689
+      },
+      "runs": [
+        {
+          "trial": 0,
+          "locale": "fr",
+          "htmlLang": "fr",
+          "ready": true,
+          "readinessError": null,
+          "readyMsFromNavigation": 1411,
+          "frenchLoginParity": true,
+          "splashOpacity": null,
+          "splashExists": false,
+          "fcpMs": 208,
+          "lcpMs": 208,
+          "longTaskMs": 191,
+          "resourceCount": 12,
+          "transferBytes": 364299,
+          "encodedBytes": 360699,
+          "decodedBytes": 1221689,
+          "translationRequests": [],
+          "dependencyInitiators": [],
+          "resources": [
+            {
+              "name": "/login",
+              "transferBytes": 2023,
+              "encodedBytes": 1723,
+              "decodedBytes": 4485
+            },
+            {
+              "name": "/static/css/app.css",
+              "transferBytes": 424,
+              "encodedBytes": 124,
+              "decodedBytes": 124
+            },
+            {
+              "name": "/static/css/fonts.css",
+              "transferBytes": 553,
+              "encodedBytes": 253,
+              "decodedBytes": 901
+            },
+            {
+              "name": "/static/media/rolldown-runtime-B0Z9INg1.js",
+              "transferBytes": 804,
+              "encodedBytes": 504,
+              "decodedBytes": 901
+            },
+            {
+              "name": "/static/media/utils-mmmrspNc.js",
+              "transferBytes": 65469,
+              "encodedBytes": 65169,
+              "decodedBytes": 176852
+            },
+            {
+              "name": "/static/media/index-DkZIuiyD.js",
+              "transferBytes": 256456,
+              "encodedBytes": 256156,
+              "decodedBytes": 993787
+            },
+            {
+              "name": "/static/images/ntfy-splash.svg",
+              "transferBytes": 1307,
+              "encodedBytes": 1007,
+              "decodedBytes": 2190
+            },
+            {
+              "name": "/config.js",
+              "transferBytes": 735,
+              "encodedBytes": 435,
+              "decodedBytes": 800
+            },
+            {
+              "name": "/static/media/workbox-window.prod.es5-Bd17z0YL.js",
+              "transferBytes": 2506,
+              "encodedBytes": 2206,
+              "decodedBytes": 5653
+            },
+            {
+              "name": "/static/fonts/roboto-v29-latin-500.woff2",
+              "transferBytes": 16220,
+              "encodedBytes": 15920,
+              "decodedBytes": 15920
+            },
+            {
+              "name": "/static/fonts/roboto-v29-latin-regular.woff2",
+              "transferBytes": 15988,
+              "encodedBytes": 15688,
+              "decodedBytes": 15688
+            },
+            {
+              "name": "/static/media/ntfy-filled-BeHxCuOR.svg",
+              "transferBytes": 1814,
+              "encodedBytes": 1514,
+              "decodedBytes": 4388
+            }
+          ],
+          "pageErrors": [],
+          "failedRequests": [],
+          "visibleText": "Se connecter \u00e0 son compte Ntfy\n\nUsername or email\u2009*\nUsername or email\u2009*\nMot de passe\u2009*\nMot de passe\u2009*\nSE CONNECTER\nS'inscrire"
+        }
+      ]
+    }
+  ],
+  "comparison": {
+    "readyMsFromNavigation": {
+      "baseline": 1427,
+      "candidate": 1411,
+      "changePct": -1.12
+    },
+    "fcpMs": {
+      "baseline": 204,
+      "candidate": 208,
+      "changePct": 1.96
+    },
+    "lcpMs": {
+      "baseline": 204,
+      "candidate": 208,
+      "changePct": 1.96
+    },
+    "longTaskMs": {
+      "baseline": 193,
+      "candidate": 191,
+      "changePct": -1.04
+    },
+    "resourceCount": {
+      "baseline": 14,
+      "candidate": 12,
+      "changePct": -14.29
+    },
+    "transferBytes": {
+      "baseline": 387315,
+      "candidate": 364299,
+      "changePct": -5.94
+    },
+    "encodedBytes": {
+      "baseline": 383115,
+      "candidate": 360699,
+      "changePct": -5.85
+    },
+    "decodedBytes": {
+      "baseline": 1192768,
+      "candidate": 1221689,
+      "changePct": 2.42
+    }
+  },
+  "allRunsReady": true,
+  "allRunsFrenchParity": true,
+  "anyPageErrors": false,
+  "performanceGate": {
+    "readyTimeImprovementPct": 1.12,
+    "encodedRouteBytesImprovementPct": 5.85,
+    "minimumImprovementPct": 10,
+    "qualifies": false
+  },
+  "verdict": "No >=10% full-route readiness or encoded-byte improvement; candidate does not qualify.",
+  "provenanceFile": "per-locale-provenance.json"
+}

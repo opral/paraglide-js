@@ -1,0 +1,5568 @@
+{
+	"version": 1,
+	"backend": "vite-rolldown-environments",
+	"viteVersion": "8.1.4",
+	"rolldownVersion": "1.1.5",
+	"baseLocale": "en",
+	"locales": {
+		"ar": {
+			"environment": "paraglide_client_ar_6172",
+			"directory": "__paraglide/ar-6172",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-CV-bQ_N9.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-D5L5GXWW.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-CV-bQ_N9.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-CV-bQ_N9.js",
+					"type": "chunk",
+					"bytes": 996155,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-D5L5GXWW.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"be": {
+			"environment": "paraglide_client_be_6265",
+			"directory": "__paraglide/be-6265",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BDI7rewb.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-BbEjDf_k.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BDI7rewb.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BDI7rewb.js",
+					"type": "chunk",
+					"bytes": 989625,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-BbEjDf_k.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"bg": {
+			"environment": "paraglide_client_bg_6267",
+			"directory": "__paraglide/bg-6267",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-B0vNAptb.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-C0kuYpAX.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-B0vNAptb.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-B0vNAptb.js",
+					"type": "chunk",
+					"bytes": 1004639,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-C0kuYpAX.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"bn": {
+			"environment": "paraglide_client_bn_626e",
+			"directory": "__paraglide/bn-626e",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-CcGtPei5.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-V5oU2tWo.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-CcGtPei5.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-CcGtPei5.js",
+					"type": "chunk",
+					"bytes": 988427,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-V5oU2tWo.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"ca": {
+			"environment": "paraglide_client_ca_6361",
+			"directory": "__paraglide/ca-6361",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BO6VslhJ.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-p78ZChFz.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BO6VslhJ.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BO6VslhJ.js",
+					"type": "chunk",
+					"bytes": 989404,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-p78ZChFz.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"cs": {
+			"environment": "paraglide_client_cs_6373",
+			"directory": "__paraglide/cs-6373",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-IDWYJHDO.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-u_EKAu2S.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-IDWYJHDO.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-IDWYJHDO.js",
+					"type": "chunk",
+					"bytes": 992171,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-u_EKAu2S.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"cu": {
+			"environment": "paraglide_client_cu_6375",
+			"directory": "__paraglide/cu-6375",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BP5b25I6.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-CDOzL3nW.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BP5b25I6.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BP5b25I6.js",
+					"type": "chunk",
+					"bytes": 988254,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-CDOzL3nW.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"cy": {
+			"environment": "paraglide_client_cy_6379",
+			"directory": "__paraglide/cy-6379",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BShLOKW_.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-G95zgTpP.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BShLOKW_.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BShLOKW_.js",
+					"type": "chunk",
+					"bytes": 989308,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-G95zgTpP.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"da": {
+			"environment": "paraglide_client_da_6461",
+			"directory": "__paraglide/da-6461",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BeEE621G.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-BWkNZntV.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BeEE621G.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BeEE621G.js",
+					"type": "chunk",
+					"bytes": 989107,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-BWkNZntV.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"de": {
+			"environment": "paraglide_client_de_6465",
+			"directory": "__paraglide/de-6465",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-COTnemQe.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-mUPVswHY.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-COTnemQe.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-COTnemQe.js",
+					"type": "chunk",
+					"bytes": 991181,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-mUPVswHY.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"en": {
+			"environment": "paraglide_client_en_656e",
+			"directory": "__paraglide/en-656e",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Sl5BI41i.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-Be3ujX6S.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Sl5BI41i.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Sl5BI41i.js",
+					"type": "chunk",
+					"bytes": 988193,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-Be3ujX6S.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"en-GB": {
+			"environment": "paraglide_client_en_GB_656e2d4742",
+			"directory": "__paraglide/en-GB-656e2d4742",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Bwd33cVF.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-Dehliw48.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Bwd33cVF.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Bwd33cVF.js",
+					"type": "chunk",
+					"bytes": 989679,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-Dehliw48.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"eo": {
+			"environment": "paraglide_client_eo_656f",
+			"directory": "__paraglide/eo-656f",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-MxWVGHzk.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-CJwdVvDV.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-MxWVGHzk.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-MxWVGHzk.js",
+					"type": "chunk",
+					"bytes": 988200,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-CJwdVvDV.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"es": {
+			"environment": "paraglide_client_es_6573",
+			"directory": "__paraglide/es-6573",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-bRoXpovK.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DVfuJHXp.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-bRoXpovK.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-bRoXpovK.js",
+					"type": "chunk",
+					"bytes": 992423,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DVfuJHXp.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"et": {
+			"environment": "paraglide_client_et_6574",
+			"directory": "__paraglide/et-6574",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-vHxm5KbQ.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-ByMDmf1g.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-vHxm5KbQ.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-vHxm5KbQ.js",
+					"type": "chunk",
+					"bytes": 990644,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-ByMDmf1g.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"fa": {
+			"environment": "paraglide_client_fa_6661",
+			"directory": "__paraglide/fa-6661",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-DM_2mjzu.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DRha94z9.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-DM_2mjzu.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-DM_2mjzu.js",
+					"type": "chunk",
+					"bytes": 989060,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DRha94z9.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"fi": {
+			"environment": "paraglide_client_fi_6669",
+			"directory": "__paraglide/fi-6669",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BArr11DU.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DzGoEKy0.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BArr11DU.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BArr11DU.js",
+					"type": "chunk",
+					"bytes": 989640,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DzGoEKy0.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"fr": {
+			"environment": "paraglide_client_fr_6672",
+			"directory": "__paraglide/fr-6672",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-DkZIuiyD.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-BrhrmOHn.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-DkZIuiyD.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-DkZIuiyD.js",
+					"type": "chunk",
+					"bytes": 993787,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-BrhrmOHn.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"gl": {
+			"environment": "paraglide_client_gl_676c",
+			"directory": "__paraglide/gl-676c",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Dp7EpU0v.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DZ8zzLfM.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Dp7EpU0v.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Dp7EpU0v.js",
+					"type": "chunk",
+					"bytes": 989510,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DZ8zzLfM.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"he": {
+			"environment": "paraglide_client_he_6865",
+			"directory": "__paraglide/he-6865",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Ckt6QoXq.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-BcpTQt4m.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Ckt6QoXq.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Ckt6QoXq.js",
+					"type": "chunk",
+					"bytes": 988742,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-BcpTQt4m.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"hu": {
+			"environment": "paraglide_client_hu_6875",
+			"directory": "__paraglide/hu-6875",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BSOFNLfu.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-AQlHpw2f.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BSOFNLfu.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BSOFNLfu.js",
+					"type": "chunk",
+					"bytes": 992236,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-AQlHpw2f.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"id": {
+			"environment": "paraglide_client_id_6964",
+			"directory": "__paraglide/id-6964",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-B2vI4ZXN.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-D5NuOUPT.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-B2vI4ZXN.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-B2vI4ZXN.js",
+					"type": "chunk",
+					"bytes": 990374,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-D5NuOUPT.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"it": {
+			"environment": "paraglide_client_it_6974",
+			"directory": "__paraglide/it-6974",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-DBH0Uxdg.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DJngXGiQ.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-DBH0Uxdg.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-DBH0Uxdg.js",
+					"type": "chunk",
+					"bytes": 992827,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DJngXGiQ.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"ja": {
+			"environment": "paraglide_client_ja_6a61",
+			"directory": "__paraglide/ja-6a61",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-B-sbKkVe.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-85Lh-IGw.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-B-sbKkVe.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-B-sbKkVe.js",
+					"type": "chunk",
+					"bytes": 994743,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-85Lh-IGw.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"ko": {
+			"environment": "paraglide_client_ko_6b6f",
+			"directory": "__paraglide/ko-6b6f",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BqP8dwrU.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DmQHR2_a.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BqP8dwrU.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BqP8dwrU.js",
+					"type": "chunk",
+					"bytes": 988533,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DmQHR2_a.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"lt": {
+			"environment": "paraglide_client_lt_6c74",
+			"directory": "__paraglide/lt-6c74",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-DFHRtxE7.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-mmdbf1UP.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-DFHRtxE7.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-DFHRtxE7.js",
+					"type": "chunk",
+					"bytes": 989625,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-mmdbf1UP.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"lv": {
+			"environment": "paraglide_client_lv_6c76",
+			"directory": "__paraglide/lv-6c76",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Bp9bFy1N.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-BP23xHnx.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Bp9bFy1N.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Bp9bFy1N.js",
+					"type": "chunk",
+					"bytes": 989929,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-BP23xHnx.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"mk": {
+			"environment": "paraglide_client_mk_6d6b",
+			"directory": "__paraglide/mk-6d6b",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-B9TbPfao.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-1KQAydoD.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-B9TbPfao.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-B9TbPfao.js",
+					"type": "chunk",
+					"bytes": 991591,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-1KQAydoD.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"ml": {
+			"environment": "paraglide_client_ml_6d6c",
+			"directory": "__paraglide/ml-6d6c",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-B1NRldDY.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DBKGyFqy.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-B1NRldDY.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-B1NRldDY.js",
+					"type": "chunk",
+					"bytes": 988193,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DBKGyFqy.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"ms": {
+			"environment": "paraglide_client_ms_6d73",
+			"directory": "__paraglide/ms-6d73",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-CCe4pqkS.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-CkXgjqNb.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-CCe4pqkS.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-CCe4pqkS.js",
+					"type": "chunk",
+					"bytes": 988619,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-CkXgjqNb.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"nb-NO": {
+			"environment": "paraglide_client_nb_NO_6e622d4e4f",
+			"directory": "__paraglide/nb-NO-6e622d4e4f",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-eNMcMQDn.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-BW0P-OFt.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-eNMcMQDn.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-eNMcMQDn.js",
+					"type": "chunk",
+					"bytes": 990325,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-BW0P-OFt.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"nl": {
+			"environment": "paraglide_client_nl_6e6c",
+			"directory": "__paraglide/nl-6e6c",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Bor8FxL6.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DwQbNiyv.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Bor8FxL6.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Bor8FxL6.js",
+					"type": "chunk",
+					"bytes": 990458,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DwQbNiyv.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"pl": {
+			"environment": "paraglide_client_pl_706c",
+			"directory": "__paraglide/pl-706c",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-YLvvko4a.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-40zGi8aL.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-YLvvko4a.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-YLvvko4a.js",
+					"type": "chunk",
+					"bytes": 992751,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-40zGi8aL.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"pt": {
+			"environment": "paraglide_client_pt_7074",
+			"directory": "__paraglide/pt-7074",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-DLUPwkl5.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DDQnsurO.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-DLUPwkl5.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-DLUPwkl5.js",
+					"type": "chunk",
+					"bytes": 992112,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DDQnsurO.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"pt-BR": {
+			"environment": "paraglide_client_pt_BR_70742d4252",
+			"directory": "__paraglide/pt-BR-70742d4252",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-iEAaWxH8.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-CxUQhNbt.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-iEAaWxH8.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-iEAaWxH8.js",
+					"type": "chunk",
+					"bytes": 993420,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-CxUQhNbt.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"ro": {
+			"environment": "paraglide_client_ro_726f",
+			"directory": "__paraglide/ro-726f",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-yml83yMa.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-BLnr2MYH.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-yml83yMa.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-yml83yMa.js",
+					"type": "chunk",
+					"bytes": 990840,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-BLnr2MYH.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"ru": {
+			"environment": "paraglide_client_ru_7275",
+			"directory": "__paraglide/ru-7275",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-DfJe-zlp.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-CFrSXkyC.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-DfJe-zlp.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-DfJe-zlp.js",
+					"type": "chunk",
+					"bytes": 1003496,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-CFrSXkyC.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"sk": {
+			"environment": "paraglide_client_sk_736b",
+			"directory": "__paraglide/sk-736b",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-CJHB6LWi.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-Zq4xjvGa.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-CJHB6LWi.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-CJHB6LWi.js",
+					"type": "chunk",
+					"bytes": 992172,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-Zq4xjvGa.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"sl": {
+			"environment": "paraglide_client_sl_736c",
+			"directory": "__paraglide/sl-736c",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-C94qRrGA.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-Dm0Pt7sc.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-C94qRrGA.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-C94qRrGA.js",
+					"type": "chunk",
+					"bytes": 989752,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-Dm0Pt7sc.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"sq": {
+			"environment": "paraglide_client_sq_7371",
+			"directory": "__paraglide/sq-7371",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-B2cam2FH.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DOoS_sAg.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-B2cam2FH.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-B2cam2FH.js",
+					"type": "chunk",
+					"bytes": 988392,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DOoS_sAg.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"sv": {
+			"environment": "paraglide_client_sv_7376",
+			"directory": "__paraglide/sv-7376",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BHrgmvfO.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-FdCGeq9q.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BHrgmvfO.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BHrgmvfO.js",
+					"type": "chunk",
+					"bytes": 989536,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-FdCGeq9q.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"ta": {
+			"environment": "paraglide_client_ta_7461",
+			"directory": "__paraglide/ta-7461",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-CeZHiGe3.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-C2TFWshC.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-CeZHiGe3.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-CeZHiGe3.js",
+					"type": "chunk",
+					"bytes": 1020442,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-C2TFWshC.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"te": {
+			"environment": "paraglide_client_te_7465",
+			"directory": "__paraglide/te-7465",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BHUs0wzn.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-CcNsoIMj.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BHUs0wzn.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BHUs0wzn.js",
+					"type": "chunk",
+					"bytes": 988193,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-CcNsoIMj.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"th": {
+			"environment": "paraglide_client_th_7468",
+			"directory": "__paraglide/th-7468",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Di-XrAHG.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DkQcMAaW.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Di-XrAHG.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Di-XrAHG.js",
+					"type": "chunk",
+					"bytes": 989034,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DkQcMAaW.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"tr": {
+			"environment": "paraglide_client_tr_7472",
+			"directory": "__paraglide/tr-7472",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Bx98vBcb.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-B3STJEum.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Bx98vBcb.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Bx98vBcb.js",
+					"type": "chunk",
+					"bytes": 990980,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-B3STJEum.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"uk": {
+			"environment": "paraglide_client_uk_756b",
+			"directory": "__paraglide/uk-756b",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Be7vdfs1.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-MTJtc9_m.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Be7vdfs1.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Be7vdfs1.js",
+					"type": "chunk",
+					"bytes": 1007219,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-MTJtc9_m.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"uz": {
+			"environment": "paraglide_client_uz_757a",
+			"directory": "__paraglide/uz-757a",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BirvWi2O.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-_VY5TP_j.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BirvWi2O.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BirvWi2O.js",
+					"type": "chunk",
+					"bytes": 988316,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-_VY5TP_j.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"vi": {
+			"environment": "paraglide_client_vi_7669",
+			"directory": "__paraglide/vi-7669",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-Di9fizse.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DAYj9uiQ.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-Di9fizse.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-Di9fizse.js",
+					"type": "chunk",
+					"bytes": 988018,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DAYj9uiQ.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"zh-Hans": {
+			"environment": "paraglide_client_zh_Hans_7a682d48616e73",
+			"directory": "__paraglide/zh-Hans-7a682d48616e73",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-CLPZ-wJ4.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-DxPcCbOX.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-CLPZ-wJ4.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-CLPZ-wJ4.js",
+					"type": "chunk",
+					"bytes": 989174,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-DxPcCbOX.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"zh-Hant": {
+			"environment": "paraglide_client_zh_Hant_7a682d48616e74",
+			"directory": "__paraglide/zh-Hant-7a682d48616e74",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-D33USZZC.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-bpX0K0kI.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-D33USZZC.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-D33USZZC.js",
+					"type": "chunk",
+					"bytes": 989439,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-bpX0K0kI.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		},
+		"zu": {
+			"environment": "paraglide_client_zu_7a75",
+			"directory": "__paraglide/zu-7a75",
+			"entries": {
+				"/root/repos-iii/ntfy-per-locale-probe/web/index.html": "static/media/index-BlAKH5qI.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 2831
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 4485
+				},
+				{
+					"fileName": "static/media/dadum-DPV6bbiV.mp3",
+					"type": "asset",
+					"bytes": 18880
+				},
+				{
+					"fileName": "static/media/ding-C-VaFit1.mp3",
+					"type": "asset",
+					"bytes": 25266
+				},
+				{
+					"fileName": "static/media/EmojiPicker-CRfer5k7.js",
+					"type": "chunk",
+					"bytes": 227746,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js",
+						"static/media/index-BlAKH5qI.js"
+					]
+				},
+				{
+					"fileName": "static/media/index-BlAKH5qI.js",
+					"type": "chunk",
+					"bytes": 988427,
+					"entry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					],
+					"dynamicImports": [
+						"static/media/MarkdownContent-BP-D6T9Q.js",
+						"static/media/EmojiPicker-CRfer5k7.js",
+						"static/media/workbox-window.prod.es5-Bd17z0YL.js"
+					]
+				},
+				{
+					"fileName": "static/media/juntos-4OTx6nUx.mp3",
+					"type": "asset",
+					"bytes": 18835
+				},
+				{
+					"fileName": "static/media/MarkdownContent-BP-D6T9Q.js",
+					"type": "chunk",
+					"bytes": 107445,
+					"dynamicEntry": true,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js",
+						"static/media/utils-mmmrspNc.js"
+					]
+				},
+				{
+					"fileName": "static/media/ntfy-filled-BeHxCuOR.svg",
+					"type": "asset",
+					"bytes": 4388
+				},
+				{
+					"fileName": "static/media/pop-jCTZXXxe.mp3",
+					"type": "asset",
+					"bytes": 9806
+				},
+				{
+					"fileName": "static/media/pop-swoosh-D4htuWC0.mp3",
+					"type": "asset",
+					"bytes": 9593
+				},
+				{
+					"fileName": "static/media/pristine-WI8-PGnL.mp3",
+					"type": "asset",
+					"bytes": 31734
+				},
+				{
+					"fileName": "static/media/rolldown-runtime-B0Z9INg1.js",
+					"type": "chunk",
+					"bytes": 901
+				},
+				{
+					"fileName": "static/media/utils-mmmrspNc.js",
+					"type": "chunk",
+					"bytes": 176852,
+					"imports": [
+						"static/media/rolldown-runtime-B0Z9INg1.js"
+					]
+				},
+				{
+					"fileName": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+					"type": "chunk",
+					"bytes": 5653,
+					"dynamicEntry": true
+				}
+			]
+		}
+	}
+}

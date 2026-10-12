@@ -1,0 +1,13 @@
+# ntfy: real per-locale Vite build
+
+Pinned binwiederhier/ntfy `211ba22860d7483073a8ce13dcda5f467194989b`, full 51 locales/473 message IDs. Actual Node22.23.2/Vite8.3.4; public compiler current-api snapshot `6997d020813d76f087d585110e62cd54891726e0`, actual compiler leaves hashed in provenance. No new compiler optimization or catalog trimming. Uses `experimentalPerLocaleBuild: true` and the real Vite `createBuilder().buildApp()` to produce all 51 independent asset trees.
+
+One cold French login pair against the existing optimized HTTP-backed i18next same-target control: requested encoded HTML+subresource bodies 383,115→360,699B (−5.85%); usable translated controls 1,427→1,411ms (−1.12%). Both visible-text checks passed with zero page errors/failed requests. Browser cache and service workers disabled, BrotliQ4,80ms RTT/20Mbps/3xCPU. FCP/LCP paint the splash; the fixed splash duration also limits readiness. No >=10% improvement; no expanded timing batch or qualifying compiler PR.
+
+The candidate server serves the already selected French asset tree at the origin root. Automatic locale/asset selection bootstrap and full-document language switching are not measured. This is an initial-route diagnostic, not a supported production migration or deployment proof.
+
+The separately built PWA worker loses the fixed-locale define: its code retains the static-locale global and contains English, French and Japanese messages. It is about 2.29MB raw/380,767B BrotliQ4 versus native 221,780B raw/75,413B BrotliQ4. This blocks any claim that the entire production PWA ships only one locale. Worker install/offline behavior is not measured.
+
+`paraglide-vite-locales.json` has a provenance bug: it reports the compiler-owned Vite dependency (8.1.4), rather than the actual app host (8.3.4, recorded by the builder). Its graph records are used for directory selection; software provenance uses the actual host and hashed leaves.
+
+Replay from the existing full ntfy migration described in `../../ntfy-results.md`, copy these config/adapter files into an isolated app, retain the full project catalogs and lockfile, and provide NTFY_WEB_ROOT, NTFY_BENCHMARK_OUTPUT_ROOT (mapping.json), and PARAGLIDE_PLUGIN_MODULE. Build with Node22.23.2 `build-per-locale.mjs`, then serve the manifest-selected French directory. `probe.mjs` takes native and selected-candidate dist roots; supply PLAYWRIGHT_MODULE and TRIAL_COUNT=1. Restart fixture servers after builds. Raw result software metadata was corrected from the inherited older split harness to the actual hashed compiler used; browser samples and comparisons were unchanged.
