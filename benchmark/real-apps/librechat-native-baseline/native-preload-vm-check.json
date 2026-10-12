@@ -1,0 +1,35 @@
+{
+  "htmlPath": "/root/repos-iii/librechat-native-preload-control/client/dist/index.html",
+  "passed": 7,
+  "cases": [
+    {
+      "name": "cookie alias wins over stored language",
+      "selectedLocale": "fr"
+    },
+    {
+      "name": "JSON localStorage alias",
+      "selectedLocale": "pt-PT"
+    },
+    {
+      "name": "raw localStorage regional alias",
+      "selectedLocale": "zh-Hant"
+    },
+    {
+      "name": "auto uses browser language",
+      "selectedLocale": "es"
+    },
+    {
+      "name": "navigator regional alias",
+      "selectedLocale": "ar"
+    },
+    {
+      "name": "invalid cookie wins and falls back to English",
+      "selectedLocale": null
+    },
+    {
+      "name": "English has no dynamic chunk",
+      "selectedLocale": null
+    }
+  ],
+  "limits": "VM validates selection/preload only; RTL document direction and rendered UI require browser/app behavior."
+}

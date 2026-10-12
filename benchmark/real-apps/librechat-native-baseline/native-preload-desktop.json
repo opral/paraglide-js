@@ -1,0 +1,1026 @@
+{
+  "sourceCommit": "e1dfc10449ff713faffacd60273fddcfe2c0a698",
+  "route": "/login?redirect=false",
+  "selectedLocale": "fr-FR",
+  "profile": "desktop 80ms RTT, 20Mbps down, 2Mbps up, 3x CPU",
+  "browserCache": "disabled per fresh context; service workers blocked",
+  "server": "local static fixture, HTTP/1.1, Brotli-Q5 with identity/gzip fallback",
+  "order": [
+    [
+      "native",
+      "http://127.0.0.1:4176"
+    ],
+    [
+      "native-preload",
+      "http://127.0.0.1:4177"
+    ]
+  ],
+  "runs": [
+    {
+      "variant": "native",
+      "origin": "http://127.0.0.1:4176",
+      "documentEncoding": "br",
+      "wallMs": 1993,
+      "api": [
+        {
+          "path": "/api/banner",
+          "status": 200
+        },
+        {
+          "path": "/api/config",
+          "status": 200
+        },
+        {
+          "path": "/api/auth/refresh",
+          "status": 200
+        },
+        {
+          "path": "/api/banner",
+          "status": 200
+        },
+        {
+          "path": "/api/config",
+          "status": 200
+        }
+      ],
+      "fontReadyMs": 1985,
+      "errors": [],
+      "visibleText": "Content de te revoir\nAdresse courriel\nMot de passe\nMot de passe oublié?\nContinuer",
+      "locale": "fr",
+      "direction": "ltr",
+      "placeholders": [
+        {
+          "type": "text",
+          "placeholder": " ",
+          "ariaLabel": "Courriel"
+        },
+        {
+          "type": "password",
+          "placeholder": " ",
+          "ariaLabel": "Mot de passe"
+        }
+      ],
+      "translatedReadyMs": 1770,
+      "fcpMs": 1664,
+      "lcpMs": 1792,
+      "fontStatusAfterReady": "loaded",
+      "interFontLoaded": true,
+      "nativeLocalePreload": null,
+      "navigation": {
+        "transferBytesIncludingHeaders": 5220,
+        "encodedBodyBytes": 4920,
+        "decodedBodyBytes": 17673,
+        "domInteractiveMs": 1062,
+        "responseEndMs": 86,
+        "nextHopProtocol": "http/1.1"
+      },
+      "resources": [
+        {
+          "path": "/assets/index.C67ehcqP.js",
+          "startMs": 95,
+          "endMs": 553,
+          "transferBytesIncludingHeaders": 296065,
+          "encodedBodyBytes": 295765,
+          "decodedBodyBytes": 1223500
+        },
+        {
+          "path": "/assets/rolldown-runtime.C0FnF6B9.js",
+          "startMs": 95,
+          "endMs": 178,
+          "transferBytesIncludingHeaders": 1591,
+          "encodedBodyBytes": 1291,
+          "decodedBodyBytes": 1291
+        },
+        {
+          "path": "/assets/polyfills.DVBsJvPx.js",
+          "startMs": 95,
+          "endMs": 193,
+          "transferBytesIncludingHeaders": 8015,
+          "encodedBodyBytes": 7715,
+          "decodedBodyBytes": 7715
+        },
+        {
+          "path": "/assets/runtime-shims.CfYCxqfF.js",
+          "startMs": 95,
+          "endMs": 198,
+          "transferBytesIncludingHeaders": 10679,
+          "encodedBodyBytes": 10379,
+          "decodedBodyBytes": 57101
+        },
+        {
+          "path": "/assets/query-devtools.C2qG3_c-.js",
+          "startMs": 95,
+          "endMs": 209,
+          "transferBytesIncludingHeaders": 20238,
+          "encodedBodyBytes": 19938,
+          "decodedBodyBytes": 59392
+        },
+        {
+          "path": "/assets/advanced-inputs.BJDnsHUg.js",
+          "startMs": 95,
+          "endMs": 247,
+          "transferBytesIncludingHeaders": 70785,
+          "encodedBodyBytes": 70485,
+          "decodedBodyBytes": 232395
+        },
+        {
+          "path": "/assets/validation.OCGaXQWG.js",
+          "startMs": 95,
+          "endMs": 305,
+          "transferBytesIncludingHeaders": 24398,
+          "encodedBodyBytes": 24098,
+          "decodedBodyBytes": 107633
+        },
+        {
+          "path": "/assets/animations.BtPDPo2e.js",
+          "startMs": 95,
+          "endMs": 337,
+          "transferBytesIncludingHeaders": 20874,
+          "encodedBodyBytes": 20574,
+          "decodedBodyBytes": 72290
+        },
+        {
+          "path": "/assets/react-vtree.nToqO-mh.js",
+          "startMs": 96,
+          "endMs": 346,
+          "transferBytesIncludingHeaders": 4849,
+          "encodedBodyBytes": 4549,
+          "decodedBodyBytes": 13164
+        },
+        {
+          "path": "/assets/i18n.C6_IvY32.js",
+          "startMs": 96,
+          "endMs": 398,
+          "transferBytesIncludingHeaders": 17096,
+          "encodedBodyBytes": 16796,
+          "decodedBodyBytes": 54353
+        },
+        {
+          "path": "/assets/react-interactions.DscxJRRh.js",
+          "startMs": 96,
+          "endMs": 402,
+          "transferBytesIncludingHeaders": 19456,
+          "encodedBodyBytes": 19156,
+          "decodedBodyBytes": 70081
+        },
+        {
+          "path": "/assets/vendor.DpBpdTS1.js",
+          "startMs": 96,
+          "endMs": 781,
+          "transferBytesIncludingHeaders": 376925,
+          "encodedBodyBytes": 376625,
+          "decodedBodyBytes": 1699318
+        },
+        {
+          "path": "/assets/routing.DYGR6PKW.js",
+          "startMs": 96,
+          "endMs": 436,
+          "transferBytesIncludingHeaders": 28940,
+          "encodedBodyBytes": 28640,
+          "decodedBodyBytes": 90997
+        },
+        {
+          "path": "/assets/radix-ui.tIiBXdQR.js",
+          "startMs": 96,
+          "endMs": 447,
+          "transferBytesIncludingHeaders": 21042,
+          "encodedBodyBytes": 20742,
+          "decodedBodyBytes": 88660
+        },
+        {
+          "path": "/assets/tanstack-vendor.DDeX4vva.js",
+          "startMs": 96,
+          "endMs": 509,
+          "transferBytesIncludingHeaders": 28004,
+          "encodedBodyBytes": 27704,
+          "decodedBodyBytes": 147510
+        },
+        {
+          "path": "/assets/http-client.D6G8y4MX.js",
+          "startMs": 96,
+          "endMs": 504,
+          "transferBytesIncludingHeaders": 18535,
+          "encodedBodyBytes": 18235,
+          "decodedBodyBytes": 50017
+        },
+        {
+          "path": "/assets/shared-libs.CKPm2yyl.js",
+          "startMs": 96,
+          "endMs": 535,
+          "transferBytesIncludingHeaders": 19108,
+          "encodedBodyBytes": 18808,
+          "decodedBodyBytes": 51565
+        },
+        {
+          "path": "/assets/avatars.XYysrFin.js",
+          "startMs": 96,
+          "endMs": 537,
+          "transferBytesIncludingHeaders": 8460,
+          "encodedBodyBytes": 8160,
+          "decodedBodyBytes": 8160
+        },
+        {
+          "path": "/assets/framer-motion.sQ5ndFcX.js",
+          "startMs": 96,
+          "endMs": 634,
+          "transferBytesIncludingHeaders": 39789,
+          "encodedBodyBytes": 39489,
+          "decodedBodyBytes": 125177
+        },
+        {
+          "path": "/assets/virtualization.CT5gCaFG.js",
+          "startMs": 96,
+          "endMs": 621,
+          "transferBytesIncludingHeaders": 24585,
+          "encodedBodyBytes": 24285,
+          "decodedBodyBytes": 113508
+        },
+        {
+          "path": "/assets/headlessui.CdCWEm1u.js",
+          "startMs": 96,
+          "endMs": 657,
+          "transferBytesIncludingHeaders": 27800,
+          "encodedBodyBytes": 27500,
+          "decodedBodyBytes": 88109
+        },
+        {
+          "path": "/assets/markdown-processing.TMtFeQR7.js",
+          "startMs": 97,
+          "endMs": 971,
+          "transferBytesIncludingHeaders": 166277,
+          "encodedBodyBytes": 165977,
+          "decodedBodyBytes": 614636
+        },
+        {
+          "path": "/assets/date-utils.C_DbPEjY.js",
+          "startMs": 97,
+          "endMs": 645,
+          "transferBytesIncludingHeaders": 7310,
+          "encodedBodyBytes": 7010,
+          "decodedBodyBytes": 24508
+        },
+        {
+          "path": "/assets/lazy.ok8MO2Tx.js",
+          "startMs": 97,
+          "endMs": 716,
+          "transferBytesIncludingHeaders": 1490,
+          "encodedBodyBytes": 1190,
+          "decodedBodyBytes": 1190
+        },
+        {
+          "path": "/assets/utilities.Ce8HPfek.js",
+          "startMs": 97,
+          "endMs": 727,
+          "transferBytesIncludingHeaders": 30346,
+          "encodedBodyBytes": 30046,
+          "decodedBodyBytes": 92813
+        },
+        {
+          "path": "/assets/forms.UHk3QTvM.js",
+          "startMs": 97,
+          "endMs": 735,
+          "transferBytesIncludingHeaders": 9702,
+          "encodedBodyBytes": 9402,
+          "decodedBodyBytes": 26511
+        },
+        {
+          "path": "/assets/math-katex.RfU0klHh.js",
+          "startMs": 97,
+          "endMs": 745,
+          "transferBytesIncludingHeaders": 8949,
+          "encodedBodyBytes": 8649,
+          "decodedBodyBytes": 34932
+        },
+        {
+          "path": "/assets/hooks.DE5lhuKG.js",
+          "startMs": 97,
+          "endMs": 1071,
+          "transferBytesIncludingHeaders": 467217,
+          "encodedBodyBytes": 466917,
+          "decodedBodyBytes": 1768487
+        },
+        {
+          "path": "/assets/markdown.DNPU1T5L.js",
+          "startMs": 97,
+          "endMs": 816,
+          "transferBytesIncludingHeaders": 9464,
+          "encodedBodyBytes": 9164,
+          "decodedBodyBytes": 9164
+        },
+        {
+          "path": "/assets/useBalanceSummary.C35-qCVH.js",
+          "startMs": 97,
+          "endMs": 821,
+          "transferBytesIncludingHeaders": 5283,
+          "encodedBodyBytes": 4983,
+          "decodedBodyBytes": 16320
+        },
+        {
+          "path": "/assets/MessageContent.Bnqg4S2U.js",
+          "startMs": 97,
+          "endMs": 836,
+          "transferBytesIncludingHeaders": 13440,
+          "encodedBodyBytes": 13140,
+          "decodedBodyBytes": 39001
+        },
+        {
+          "path": "/assets/security-ui.5zGvIlor.js",
+          "startMs": 97,
+          "endMs": 911,
+          "transferBytesIncludingHeaders": 8004,
+          "encodedBodyBytes": 7704,
+          "decodedBodyBytes": 21622
+        },
+        {
+          "path": "/assets/Footer.eDhNgc6U.js",
+          "startMs": 97,
+          "endMs": 925,
+          "transferBytesIncludingHeaders": 51066,
+          "encodedBodyBytes": 50766,
+          "decodedBodyBytes": 190607
+        },
+        {
+          "path": "/assets/forms.B9VZCTwl.js",
+          "startMs": 97,
+          "endMs": 937,
+          "transferBytesIncludingHeaders": 11491,
+          "encodedBodyBytes": 11191,
+          "decodedBodyBytes": 46003
+        },
+        {
+          "path": "/assets/ProjectEditDialog.CUARTwdR.js",
+          "startMs": 97,
+          "endMs": 937,
+          "transferBytesIncludingHeaders": 20363,
+          "encodedBodyBytes": 20063,
+          "decodedBodyBytes": 69484
+        },
+        {
+          "path": "/assets/duringRun.BlNoxz1w.js",
+          "startMs": 98,
+          "endMs": 1000,
+          "transferBytesIncludingHeaders": 9532,
+          "encodedBodyBytes": 9232,
+          "decodedBodyBytes": 31694
+        },
+        {
+          "path": "/assets/queries.9fH5_Lnu.js",
+          "startMs": 98,
+          "endMs": 1008,
+          "transferBytesIncludingHeaders": 650,
+          "encodedBodyBytes": 350,
+          "decodedBodyBytes": 350
+        },
+        {
+          "path": "/assets/undockedWindow.C6bWb7Jg.js",
+          "startMs": 98,
+          "endMs": 1023,
+          "transferBytesIncludingHeaders": 5735,
+          "encodedBodyBytes": 5435,
+          "decodedBodyBytes": 5435
+        },
+        {
+          "path": "/assets/Settings._HXUCqg_.js",
+          "startMs": 98,
+          "endMs": 1021,
+          "transferBytesIncludingHeaders": 1826,
+          "encodedBodyBytes": 1526,
+          "decodedBodyBytes": 1526
+        },
+        {
+          "path": "/assets/math-katex.uZ8_QngQ.css",
+          "startMs": 98,
+          "endMs": 263,
+          "transferBytesIncludingHeaders": 7154,
+          "encodedBodyBytes": 6854,
+          "decodedBodyBytes": 28239
+        },
+        {
+          "path": "/assets/Footer.CRq4c_Xn.css",
+          "startMs": 98,
+          "endMs": 276,
+          "transferBytesIncludingHeaders": 684,
+          "encodedBodyBytes": 384,
+          "decodedBodyBytes": 384
+        },
+        {
+          "path": "/assets/index.DrNoDWmg.css",
+          "startMs": 98,
+          "endMs": 298,
+          "transferBytesIncludingHeaders": 39680,
+          "encodedBodyBytes": 39380,
+          "decodedBodyBytes": 279998
+        },
+        {
+          "path": "/registerSW.js",
+          "startMs": 98,
+          "endMs": 1053,
+          "transferBytesIncludingHeaders": 436,
+          "encodedBodyBytes": 136,
+          "decodedBodyBytes": 136
+        },
+        {
+          "path": "/assets/locale-fr.D7dm3wbf.js",
+          "startMs": 1483,
+          "endMs": 1580,
+          "transferBytesIncludingHeaders": 37154,
+          "encodedBodyBytes": 36854,
+          "decodedBodyBytes": 158679
+        },
+        {
+          "path": "/assets/silence.mp3",
+          "startMs": 1631,
+          "endMs": 1866,
+          "transferBytesIncludingHeaders": 0,
+          "encodedBodyBytes": 0,
+          "decodedBodyBytes": 0
+        },
+        {
+          "path": "/assets/logo.svg",
+          "startMs": 1654,
+          "endMs": 1738,
+          "transferBytesIncludingHeaders": 6073,
+          "encodedBodyBytes": 5773,
+          "decodedBodyBytes": 5773
+        },
+        {
+          "path": "/api/banner",
+          "startMs": 1658,
+          "endMs": 1741,
+          "transferBytesIncludingHeaders": 302,
+          "encodedBodyBytes": 2,
+          "decodedBodyBytes": 2
+        },
+        {
+          "path": "/api/config",
+          "startMs": 1659,
+          "endMs": 1741,
+          "transferBytesIncludingHeaders": 923,
+          "encodedBodyBytes": 623,
+          "decodedBodyBytes": 623
+        },
+        {
+          "path": "/api/auth/refresh",
+          "startMs": 1659,
+          "endMs": 1743,
+          "transferBytesIncludingHeaders": 302,
+          "encodedBodyBytes": 2,
+          "decodedBodyBytes": 2
+        },
+        {
+          "path": "/api/banner",
+          "startMs": 1673,
+          "endMs": 1756,
+          "transferBytesIncludingHeaders": 302,
+          "encodedBodyBytes": 2,
+          "decodedBodyBytes": 2
+        },
+        {
+          "path": "/api/config",
+          "startMs": 1674,
+          "endMs": 1756,
+          "transferBytesIncludingHeaders": 923,
+          "encodedBodyBytes": 623,
+          "decodedBodyBytes": 623
+        },
+        {
+          "path": "/assets/logo.svg",
+          "startMs": 1764,
+          "endMs": 1850,
+          "transferBytesIncludingHeaders": 6073,
+          "encodedBodyBytes": 5773,
+          "decodedBodyBytes": 5773
+        },
+        {
+          "path": "/assets/fonts/Inter-Bold.woff2",
+          "startMs": 1766,
+          "endMs": 1951,
+          "transferBytesIncludingHeaders": 111340,
+          "encodedBodyBytes": 111040,
+          "decodedBodyBytes": 111040
+        },
+        {
+          "path": "/assets/fonts/Inter-Regular.woff2",
+          "startMs": 1781,
+          "endMs": 1975,
+          "transferBytesIncludingHeaders": 108788,
+          "encodedBodyBytes": 108488,
+          "decodedBodyBytes": 108488
+        },
+        {
+          "path": "/assets/fonts/Inter-SemiBold.woff2",
+          "startMs": 1781,
+          "endMs": 1976,
+          "transferBytesIncludingHeaders": 111888,
+          "encodedBodyBytes": 111588,
+          "decodedBodyBytes": 111588
+        }
+      ],
+      "resourceTransferBytesIncludingHeaders": 2347401,
+      "resourceEncodedBodyBytes": 2331201
+    },
+    {
+      "variant": "native-preload",
+      "origin": "http://127.0.0.1:4177",
+      "documentEncoding": "br",
+      "wallMs": 1949,
+      "api": [
+        {
+          "path": "/api/banner",
+          "status": 200
+        },
+        {
+          "path": "/api/config",
+          "status": 200
+        },
+        {
+          "path": "/api/auth/refresh",
+          "status": 200
+        },
+        {
+          "path": "/api/banner",
+          "status": 200
+        },
+        {
+          "path": "/api/config",
+          "status": 200
+        }
+      ],
+      "fontReadyMs": 1944,
+      "errors": [],
+      "visibleText": "Content de te revoir\nAdresse courriel\nMot de passe\nMot de passe oublié?\nContinuer",
+      "locale": "fr",
+      "direction": "ltr",
+      "placeholders": [
+        {
+          "type": "text",
+          "placeholder": " ",
+          "ariaLabel": "Courriel"
+        },
+        {
+          "type": "password",
+          "placeholder": " ",
+          "ariaLabel": "Mot de passe"
+        }
+      ],
+      "translatedReadyMs": 1728,
+      "fcpMs": 1568,
+      "lcpMs": 1752,
+      "fontStatusAfterReady": "loaded",
+      "interFontLoaded": true,
+      "nativeLocalePreload": "http://127.0.0.1:4177/assets/locale-fr.D7dm3wbf.js",
+      "navigation": {
+        "transferBytesIncludingHeaders": 6629,
+        "encodedBodyBytes": 6329,
+        "decodedBodyBytes": 21343,
+        "domInteractiveMs": 1021,
+        "responseEndMs": 85,
+        "nextHopProtocol": "http/1.1"
+      },
+      "resources": [
+        {
+          "path": "/assets/index.C67ehcqP.js",
+          "startMs": 86,
+          "endMs": 544,
+          "transferBytesIncludingHeaders": 296065,
+          "encodedBodyBytes": 295765,
+          "decodedBodyBytes": 1223500
+        },
+        {
+          "path": "/assets/rolldown-runtime.C0FnF6B9.js",
+          "startMs": 86,
+          "endMs": 169,
+          "transferBytesIncludingHeaders": 1591,
+          "encodedBodyBytes": 1291,
+          "decodedBodyBytes": 1291
+        },
+        {
+          "path": "/assets/polyfills.DVBsJvPx.js",
+          "startMs": 86,
+          "endMs": 183,
+          "transferBytesIncludingHeaders": 8015,
+          "encodedBodyBytes": 7715,
+          "decodedBodyBytes": 7715
+        },
+        {
+          "path": "/assets/runtime-shims.CfYCxqfF.js",
+          "startMs": 86,
+          "endMs": 189,
+          "transferBytesIncludingHeaders": 10679,
+          "encodedBodyBytes": 10379,
+          "decodedBodyBytes": 57101
+        },
+        {
+          "path": "/assets/query-devtools.C2qG3_c-.js",
+          "startMs": 86,
+          "endMs": 200,
+          "transferBytesIncludingHeaders": 20238,
+          "encodedBodyBytes": 19938,
+          "decodedBodyBytes": 59392
+        },
+        {
+          "path": "/assets/advanced-inputs.BJDnsHUg.js",
+          "startMs": 86,
+          "endMs": 238,
+          "transferBytesIncludingHeaders": 70785,
+          "encodedBodyBytes": 70485,
+          "decodedBodyBytes": 232395
+        },
+        {
+          "path": "/assets/validation.OCGaXQWG.js",
+          "startMs": 87,
+          "endMs": 295,
+          "transferBytesIncludingHeaders": 24398,
+          "encodedBodyBytes": 24098,
+          "decodedBodyBytes": 107633
+        },
+        {
+          "path": "/assets/animations.BtPDPo2e.js",
+          "startMs": 87,
+          "endMs": 327,
+          "transferBytesIncludingHeaders": 20874,
+          "encodedBodyBytes": 20574,
+          "decodedBodyBytes": 72290
+        },
+        {
+          "path": "/assets/react-vtree.nToqO-mh.js",
+          "startMs": 87,
+          "endMs": 338,
+          "transferBytesIncludingHeaders": 4849,
+          "encodedBodyBytes": 4549,
+          "decodedBodyBytes": 13164
+        },
+        {
+          "path": "/assets/i18n.C6_IvY32.js",
+          "startMs": 87,
+          "endMs": 389,
+          "transferBytesIncludingHeaders": 17096,
+          "encodedBodyBytes": 16796,
+          "decodedBodyBytes": 54353
+        },
+        {
+          "path": "/assets/react-interactions.DscxJRRh.js",
+          "startMs": 87,
+          "endMs": 393,
+          "transferBytesIncludingHeaders": 19456,
+          "encodedBodyBytes": 19156,
+          "decodedBodyBytes": 70081
+        },
+        {
+          "path": "/assets/vendor.DpBpdTS1.js",
+          "startMs": 87,
+          "endMs": 828,
+          "transferBytesIncludingHeaders": 376925,
+          "encodedBodyBytes": 376625,
+          "decodedBodyBytes": 1699318
+        },
+        {
+          "path": "/assets/routing.DYGR6PKW.js",
+          "startMs": 87,
+          "endMs": 429,
+          "transferBytesIncludingHeaders": 28940,
+          "encodedBodyBytes": 28640,
+          "decodedBodyBytes": 90997
+        },
+        {
+          "path": "/assets/radix-ui.tIiBXdQR.js",
+          "startMs": 87,
+          "endMs": 437,
+          "transferBytesIncludingHeaders": 21042,
+          "encodedBodyBytes": 20742,
+          "decodedBodyBytes": 88660
+        },
+        {
+          "path": "/assets/http-client.D6G8y4MX.js",
+          "startMs": 87,
+          "endMs": 495,
+          "transferBytesIncludingHeaders": 18535,
+          "encodedBodyBytes": 18235,
+          "decodedBodyBytes": 50017
+        },
+        {
+          "path": "/assets/tanstack-vendor.DDeX4vva.js",
+          "startMs": 87,
+          "endMs": 500,
+          "transferBytesIncludingHeaders": 28004,
+          "encodedBodyBytes": 27704,
+          "decodedBodyBytes": 147510
+        },
+        {
+          "path": "/assets/avatars.XYysrFin.js",
+          "startMs": 87,
+          "endMs": 527,
+          "transferBytesIncludingHeaders": 8460,
+          "encodedBodyBytes": 8160,
+          "decodedBodyBytes": 8160
+        },
+        {
+          "path": "/assets/shared-libs.CKPm2yyl.js",
+          "startMs": 87,
+          "endMs": 528,
+          "transferBytesIncludingHeaders": 19108,
+          "encodedBodyBytes": 18808,
+          "decodedBodyBytes": 51565
+        },
+        {
+          "path": "/assets/virtualization.CT5gCaFG.js",
+          "startMs": 87,
+          "endMs": 610,
+          "transferBytesIncludingHeaders": 24585,
+          "encodedBodyBytes": 24285,
+          "decodedBodyBytes": 113508
+        },
+        {
+          "path": "/assets/framer-motion.sQ5ndFcX.js",
+          "startMs": 87,
+          "endMs": 625,
+          "transferBytesIncludingHeaders": 39789,
+          "encodedBodyBytes": 39489,
+          "decodedBodyBytes": 125177
+        },
+        {
+          "path": "/assets/headlessui.CdCWEm1u.js",
+          "startMs": 87,
+          "endMs": 648,
+          "transferBytesIncludingHeaders": 27800,
+          "encodedBodyBytes": 27500,
+          "decodedBodyBytes": 88109
+        },
+        {
+          "path": "/assets/markdown-processing.TMtFeQR7.js",
+          "startMs": 88,
+          "endMs": 774,
+          "transferBytesIncludingHeaders": 166277,
+          "encodedBodyBytes": 165977,
+          "decodedBodyBytes": 614636
+        },
+        {
+          "path": "/assets/date-utils.C_DbPEjY.js",
+          "startMs": 88,
+          "endMs": 636,
+          "transferBytesIncludingHeaders": 7310,
+          "encodedBodyBytes": 7010,
+          "decodedBodyBytes": 24508
+        },
+        {
+          "path": "/assets/lazy.ok8MO2Tx.js",
+          "startMs": 88,
+          "endMs": 707,
+          "transferBytesIncludingHeaders": 1490,
+          "encodedBodyBytes": 1190,
+          "decodedBodyBytes": 1190
+        },
+        {
+          "path": "/assets/utilities.Ce8HPfek.js",
+          "startMs": 88,
+          "endMs": 730,
+          "transferBytesIncludingHeaders": 30346,
+          "encodedBodyBytes": 30046,
+          "decodedBodyBytes": 92813
+        },
+        {
+          "path": "/assets/forms.UHk3QTvM.js",
+          "startMs": 88,
+          "endMs": 732,
+          "transferBytesIncludingHeaders": 9702,
+          "encodedBodyBytes": 9402,
+          "decodedBodyBytes": 26511
+        },
+        {
+          "path": "/assets/math-katex.RfU0klHh.js",
+          "startMs": 89,
+          "endMs": 740,
+          "transferBytesIncludingHeaders": 8949,
+          "encodedBodyBytes": 8649,
+          "decodedBodyBytes": 34932
+        },
+        {
+          "path": "/assets/hooks.DE5lhuKG.js",
+          "startMs": 89,
+          "endMs": 1057,
+          "transferBytesIncludingHeaders": 467217,
+          "encodedBodyBytes": 466917,
+          "decodedBodyBytes": 1768487
+        },
+        {
+          "path": "/assets/markdown.DNPU1T5L.js",
+          "startMs": 89,
+          "endMs": 826,
+          "transferBytesIncludingHeaders": 9464,
+          "encodedBodyBytes": 9164,
+          "decodedBodyBytes": 9164
+        },
+        {
+          "path": "/assets/useBalanceSummary.C35-qCVH.js",
+          "startMs": 89,
+          "endMs": 820,
+          "transferBytesIncludingHeaders": 5283,
+          "encodedBodyBytes": 4983,
+          "decodedBodyBytes": 16320
+        },
+        {
+          "path": "/assets/MessageContent.Bnqg4S2U.js",
+          "startMs": 89,
+          "endMs": 835,
+          "transferBytesIncludingHeaders": 13440,
+          "encodedBodyBytes": 13140,
+          "decodedBodyBytes": 39001
+        },
+        {
+          "path": "/assets/Footer.eDhNgc6U.js",
+          "startMs": 89,
+          "endMs": 896,
+          "transferBytesIncludingHeaders": 51066,
+          "encodedBodyBytes": 50766,
+          "decodedBodyBytes": 190607
+        },
+        {
+          "path": "/assets/security-ui.5zGvIlor.js",
+          "startMs": 89,
+          "endMs": 907,
+          "transferBytesIncludingHeaders": 8004,
+          "encodedBodyBytes": 7704,
+          "decodedBodyBytes": 21622
+        },
+        {
+          "path": "/assets/forms.B9VZCTwl.js",
+          "startMs": 90,
+          "endMs": 923,
+          "transferBytesIncludingHeaders": 11491,
+          "encodedBodyBytes": 11191,
+          "decodedBodyBytes": 46003
+        },
+        {
+          "path": "/assets/ProjectEditDialog.CUARTwdR.js",
+          "startMs": 90,
+          "endMs": 931,
+          "transferBytesIncludingHeaders": 20363,
+          "encodedBodyBytes": 20063,
+          "decodedBodyBytes": 69484
+        },
+        {
+          "path": "/assets/math-katex.uZ8_QngQ.css",
+          "startMs": 90,
+          "endMs": 254,
+          "transferBytesIncludingHeaders": 7154,
+          "encodedBodyBytes": 6854,
+          "decodedBodyBytes": 28239
+        },
+        {
+          "path": "/assets/duringRun.BlNoxz1w.js",
+          "startMs": 90,
+          "endMs": 929,
+          "transferBytesIncludingHeaders": 9532,
+          "encodedBodyBytes": 9232,
+          "decodedBodyBytes": 31694
+        },
+        {
+          "path": "/assets/queries.9fH5_Lnu.js",
+          "startMs": 90,
+          "endMs": 979,
+          "transferBytesIncludingHeaders": 650,
+          "encodedBodyBytes": 350,
+          "decodedBodyBytes": 350
+        },
+        {
+          "path": "/assets/undockedWindow.C6bWb7Jg.js",
+          "startMs": 90,
+          "endMs": 992,
+          "transferBytesIncludingHeaders": 5735,
+          "encodedBodyBytes": 5435,
+          "decodedBodyBytes": 5435
+        },
+        {
+          "path": "/assets/Settings._HXUCqg_.js",
+          "startMs": 90,
+          "endMs": 1006,
+          "transferBytesIncludingHeaders": 1826,
+          "encodedBodyBytes": 1526,
+          "decodedBodyBytes": 1526
+        },
+        {
+          "path": "/assets/Footer.CRq4c_Xn.css",
+          "startMs": 90,
+          "endMs": 267,
+          "transferBytesIncludingHeaders": 684,
+          "encodedBodyBytes": 384,
+          "decodedBodyBytes": 384
+        },
+        {
+          "path": "/assets/index.DrNoDWmg.css",
+          "startMs": 90,
+          "endMs": 290,
+          "transferBytesIncludingHeaders": 39680,
+          "encodedBodyBytes": 39380,
+          "decodedBodyBytes": 279998
+        },
+        {
+          "path": "/registerSW.js",
+          "startMs": 90,
+          "endMs": 1011,
+          "transferBytesIncludingHeaders": 436,
+          "encodedBodyBytes": 136,
+          "decodedBodyBytes": 136
+        },
+        {
+          "path": "/assets/locale-fr.D7dm3wbf.js",
+          "startMs": 97,
+          "endMs": 1041,
+          "transferBytesIncludingHeaders": 37154,
+          "encodedBodyBytes": 36854,
+          "decodedBodyBytes": 158679
+        },
+        {
+          "path": "/assets/silence.mp3",
+          "startMs": 1529,
+          "endMs": 1678,
+          "transferBytesIncludingHeaders": 0,
+          "encodedBodyBytes": 0,
+          "decodedBodyBytes": 0
+        },
+        {
+          "path": "/assets/logo.svg",
+          "startMs": 1551,
+          "endMs": 1636,
+          "transferBytesIncludingHeaders": 6073,
+          "encodedBodyBytes": 5773,
+          "decodedBodyBytes": 5773
+        },
+        {
+          "path": "/api/banner",
+          "startMs": 1556,
+          "endMs": 1638,
+          "transferBytesIncludingHeaders": 302,
+          "encodedBodyBytes": 2,
+          "decodedBodyBytes": 2
+        },
+        {
+          "path": "/api/config",
+          "startMs": 1556,
+          "endMs": 1638,
+          "transferBytesIncludingHeaders": 923,
+          "encodedBodyBytes": 623,
+          "decodedBodyBytes": 623
+        },
+        {
+          "path": "/api/auth/refresh",
+          "startMs": 1556,
+          "endMs": 1639,
+          "transferBytesIncludingHeaders": 302,
+          "encodedBodyBytes": 2,
+          "decodedBodyBytes": 2
+        },
+        {
+          "path": "/api/banner",
+          "startMs": 1582,
+          "endMs": 1664,
+          "transferBytesIncludingHeaders": 302,
+          "encodedBodyBytes": 2,
+          "decodedBodyBytes": 2
+        },
+        {
+          "path": "/api/config",
+          "startMs": 1583,
+          "endMs": 1719,
+          "transferBytesIncludingHeaders": 923,
+          "encodedBodyBytes": 623,
+          "decodedBodyBytes": 623
+        },
+        {
+          "path": "/assets/logo.svg",
+          "startMs": 1723,
+          "endMs": 1807,
+          "transferBytesIncludingHeaders": 6073,
+          "encodedBodyBytes": 5773,
+          "decodedBodyBytes": 5773
+        },
+        {
+          "path": "/assets/fonts/Inter-Bold.woff2",
+          "startMs": 1725,
+          "endMs": 1904,
+          "transferBytesIncludingHeaders": 111340,
+          "encodedBodyBytes": 111040,
+          "decodedBodyBytes": 111040
+        },
+        {
+          "path": "/assets/fonts/Inter-Regular.woff2",
+          "startMs": 1741,
+          "endMs": 1934,
+          "transferBytesIncludingHeaders": 108788,
+          "encodedBodyBytes": 108488,
+          "decodedBodyBytes": 108488
+        },
+        {
+          "path": "/assets/fonts/Inter-SemiBold.woff2",
+          "startMs": 1741,
+          "endMs": 1935,
+          "transferBytesIncludingHeaders": 111888,
+          "encodedBodyBytes": 111588,
+          "decodedBodyBytes": 111588
+        }
+      ],
+      "resourceTransferBytesIncludingHeaders": 2347401,
+      "resourceEncodedBodyBytes": 2331201
+    }
+  ]
+}
