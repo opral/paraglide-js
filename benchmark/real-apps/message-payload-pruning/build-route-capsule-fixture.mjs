@@ -26,9 +26,16 @@ if (!appSourceArg)
 		"Set NTFY_PROJECTION_SOURCE to the pinned Ntfy web directory."
 	);
 const appRoot = resolve(appSourceArg);
+const fixtureBaseLocale = process.env.NTFY_BASE_LOCALE ?? "en";
+assert.ok(["en", "fr", "de"].includes(fixtureBaseLocale));
+const runTag = process.env.NTFY_RUN_TAG ?? "";
+assert.ok(/^[a-zA-Z0-9-]*$/.test(runTag));
+const localeSubset = process.env.NTFY_FIXTURE_LOCALES?.split(",") ?? ["en", "fr", "de"];
+const baseSuffix = (fixtureBaseLocale === "en" ? "" : "-base-" + fixtureBaseLocale) + (localeSubset.includes("en") ? "" : "-no-en") + runTag;
+const failureLocale = fixtureBaseLocale === "de" ? "en" : "de";
 const fixtureRoot = join(
 	repoRoot,
-	` .real-apps/ntfy-route-capsules-${process.env.NTFY_PROJECTION_MODE ?? "aggregation"}${process.env.NTFY_SOURCEMAP === "1" ? "-sourcemap" : ""}`.trim()
+	` .real-apps/ntfy-route-capsules-${process.env.NTFY_PROJECTION_MODE ?? "aggregation"}${baseSuffix}${process.env.NTFY_SOURCEMAP === "1" ? "-sourcemap" : ""}`.trim()
 );
 const projectRoot = join(fixtureRoot, "project.inlang");
 const outdir = join(fixtureRoot, "src/paraglide");
@@ -36,9 +43,10 @@ const distDir = join(fixtureRoot, "dist");
 const reportPath = join(fixtureRoot, "report.json");
 const durableReportPath = join(
 	dirname(fileURLToPath(import.meta.url)),
-	`results/route-capsules-${process.env.NTFY_PROJECTION_MODE ?? "aggregation"}${process.env.NTFY_SOURCEMAP === "1" ? "-sourcemap" : ""}.json`
+	`results/route-capsules-${process.env.NTFY_PROJECTION_MODE ?? "aggregation"}${baseSuffix}${process.env.NTFY_SOURCEMAP === "1" ? "-sourcemap" : ""}.json`
 );
-const locales = ["en", "fr", "de"];
+const locales = localeSubset;
+assert.ok(locales.includes(fixtureBaseLocale) && locales.includes("fr") && locales.includes("de"));
 const englishCatalog = JSON.parse(
 	await readFile(join(appRoot, "project.inlang/messages/en.json"), "utf8")
 );
@@ -59,6 +67,7 @@ const originalSettings = JSON.parse(
 	await readFile(join(appRoot, "project.inlang/settings.json"), "utf8")
 );
 originalSettings.locales = locales;
+originalSettings.baseLocale = fixtureBaseLocale;
 originalSettings.modules = [
 	join(appRoot, "node_modules/@inlang/plugin-message-format/dist/index.js"),
 ];
@@ -241,15 +250,16 @@ if (mode === "native") {
 		join(outdir, "runtime.js"),
 		`import i18next from "i18next";
 const urls = ${JSON.stringify(urls)};
+const baseLocale = ${JSON.stringify(fixtureBaseLocale)};
 const groups = new Set();
 const requestedLocales = new Set();
 const pending = new Map();
-export async function register(group) { groups.add(group); await Promise.all([...new Set(["en", getLocale(), ...requestedLocales])].map(loadLocale)); }
+export async function register(group) { groups.add(group); await Promise.all([...new Set([baseLocale, getLocale(), ...requestedLocales])].map(loadLocale)); }
 export function getLocale() { return i18next.language ?? localStorage.getItem("i18nextLng") ?? "en"; }
 export async function loadLocale(locale) { requestedLocales.add(locale); await Promise.all([...groups].map(group => { const key = locale + group; let promise = pending.get(key); if (!promise) { promise = fetch(urls[locale][group]).then(response => { if (!response.ok) throw new Error("Namespace HTTP " + response.status); return response.json(); }).then(values => i18next.addResourceBundle(locale, group, values)).catch(error => { pending.delete(key); throw error; }); pending.set(key, promise); } return promise; })); }
 export async function setLocale(locale) { await loadLocale(locale); await i18next.changeLanguage(locale); localStorage.setItem("i18nextLng", locale); }
 export function parts(html) { const root = new DOMParser().parseFromString(html, "text/html").body; const result = []; const walk = node => { if (node.nodeType === 3) result.push({ type: "text", value: node.textContent }); else { const name = node.tagName.toLowerCase(); result.push({ type: "markup-start", name }); for (const child of node.childNodes) walk(child); result.push({ type: "markup-end", name }); } }; for (const child of root.childNodes) walk(child); return result; }
-await i18next.init({ lng: localStorage.getItem("i18nextLng") ?? "en", fallbackLng: "en", resources: {}, ns: [], interpolation: { escapeValue: false } });
+await i18next.init({ lng: localStorage.getItem("i18nextLng") ?? "en", fallbackLng: baseLocale, resources: {}, ns: [], interpolation: { escapeValue: false } });
 `
 	);
 	await writeFile(
@@ -269,7 +279,7 @@ await build({
 	configFile: false,
 	logLevel: "warn",
 	root: fixtureRoot,
-	plugins: Array.isArray(plugins) ? plugins : [plugins],
+	plugins: [...(Array.isArray(plugins) ? plugins : [plugins]), ...(mode === "aggregation" && !locales.includes("en") ? [{ name: "fixture-whitebox-capsule-group-observer", transform(code, id) { if (id === "\0paraglide:client-locale-split:core") return { code: code + "\nglobalThis.__PG_GROUP_COUNT__ = () => capsuleGroups.size;", map: null }; } }] : [])],
 	build: {
 		target: "es2022",
 		outDir: distDir,
@@ -391,6 +401,10 @@ try {
 	browserResult.initialRequestPaths = [...browserRequests];
 	await page.evaluate(() => window.activateLazyRoute());
 	browserResult.afterLazyFrench = await captureVisibleState();
+ if (mode === "aggregation" && !locales.includes("en")) {
+  browserResult.whiteboxRegisteredGroupCount = await page.evaluate(() => __PG_GROUP_COUNT__());
+  assert.equal(browserResult.whiteboxRegisteredGroupCount, 2);
+ }
 	browserResult.afterLazyRequestPaths = browserRequests.slice(
 		browserResult.initialRequestPaths.length
 	);
@@ -399,7 +413,7 @@ try {
 	browserResult.afterGerman = await captureVisibleState();
 	browserResult.germanSwitchRequestPaths = browserRequests.slice(requestIndex);
 	requestIndex = browserRequests.length;
-	await page.evaluate(() => window.switchFixtureLocale("en"));
+	await page.evaluate(target => window.switchFixtureLocale(target), locales.includes("en") ? "en" : "fr");
 	browserResult.afterEnglish = await captureVisibleState();
 	browserResult.englishSwitchRequestPaths = browserRequests.slice(requestIndex);
 	requestIndex = browserRequests.length;
@@ -436,6 +450,7 @@ try {
 		staticText: window.lazyStaticText,
 	}));
 	await concurrentPage.close();
+ if (locales.length > 2) {
 	const failurePage = await browser.newPage();
 	await failurePage.addInitScript(() =>
 		localStorage.setItem("i18nextLng", "fr")
@@ -446,15 +461,15 @@ try {
 	await failurePage.route("**/*.json", async (route) => {
 		if (
 			!injectedFailure &&
-			/(?:capsule-de-|native-de-)/.test(route.request().url())
+			new RegExp(`(?:capsule-${failureLocale}-|native-${failureLocale}-)`).test(route.request().url())
 		) {
 			injectedFailure = true;
 			await route.fulfill({ status: 503, body: "Temporary benchmark failure" });
 		} else await route.continue();
 	});
-	browserResult.failedSwitch = await failurePage.evaluate(async () => {
+	browserResult.failedSwitch = await failurePage.evaluate(async target => {
 		try {
-			await switchFixtureLocale("de");
+			await switchFixtureLocale(target);
 			return { rejected: false };
 		} catch (error) {
 			return {
@@ -463,15 +478,40 @@ try {
 				message: error.message,
 			};
 		}
-	});
+	}, failureLocale);
 	assert.equal(browserResult.failedSwitch.rejected, true);
 	assert.equal(browserResult.failedSwitch.locale, "fr");
-	await failurePage.evaluate(() => switchFixtureLocale("de"));
+	await failurePage.evaluate(target => switchFixtureLocale(target), failureLocale);
 	browserResult.retrySwitchLocale = await failurePage.evaluate(
 		() => document.documentElement.lang
 	);
-	assert.equal(browserResult.retrySwitchLocale, "de");
+	assert.equal(browserResult.retrySwitchLocale, failureLocale);
 	await failurePage.close();
+ }
+ if (mode === "aggregation") {
+  const fatalPage = await browser.newPage();
+  await fatalPage.addInitScript(() => localStorage.setItem("i18nextLng", "fr"));
+  await fatalPage.goto(`http://127.0.0.1:${address.port}/`);
+  await fatalPage.locator('body[data-ready="true"]').waitFor();
+  let lazyFailureInjected = false;
+  await fatalPage.route("**/*.json", async route => {
+   if (!lazyFailureInjected && route.request().url().includes("capsule-fr-")) {
+    lazyFailureInjected = true;
+    await route.fulfill({ status: 503, body: "Temporary lazy capsule failure" });
+   } else await route.continue();
+  });
+  browserResult.lazyImportFailure = await fatalPage.evaluate(async () => {
+   const attempts = [];
+   for (let i = 0; i < 2; i++) {
+    try { await activateLazyRoute(); attempts.push({ rejected: false }); }
+    catch (error) { attempts.push({ rejected: true, message: error.message }); }
+   }
+   return attempts;
+  });
+  assert.equal(browserResult.lazyImportFailure[0].rejected, true);
+  assert.equal(browserResult.lazyImportFailure[1].rejected, true);
+  await fatalPage.close();
+ }
 	assert.deepEqual(raceErrors, []);
 	assert.deepEqual(browserResult.errors ?? [], []);
 	assert.deepEqual(browserResult.consoleErrors ?? [], []);
@@ -542,9 +582,35 @@ try {
 	);
 }
 
+const capsuleExtraction = mode === "aggregation" ? await (async () => {
+ const generated = JSON.parse(await readFile(join(outdir, "client-locale-split.json"), "utf8"));
+ const index = generated.messages.findIndex(message => message.publicName === "k1");
+ const { parse } = createRequire(join(repoRoot, "package.json"))("acorn");
+ const files = (await buildTreeSummary(distDir)).files.map(file => file.path);
+ const occurrences = [];
+ for (const file of files.filter(file => file.endsWith(".js"))) {
+  const code = await readFile(join(distDir, file), "utf8");
+  const ast = parse(code, { ecmaVersion: "latest", sourceType: "module" });
+  const visit = node => {
+   if (!node || typeof node !== "object") return;
+   if (node.type === "Literal" && Object.values(generated.messages[index].staticTexts).includes(node.value)) occurrences.push(file);
+   for (const [key, value] of Object.entries(node)) {
+    if (key === "start" || key === "end") continue;
+    if (Array.isArray(value)) value.forEach(visit); else if (value && typeof value === "object") visit(value);
+   }
+  };
+  visit(ast);
+ }
+ assert.deepEqual(occurrences, []);
+ return { lazyStaticId: "k1", index, exactDecodedTextOccurrencesInAllJs: occurrences };
+})() : undefined;
 const report = {
+ capsuleExtraction,
 	kind: "private automatic route capsule vs optimized scoped i18next fixture; not a production A/B",
  compilerUsed: mode !== "native",
+ fixtureBaseLocale,
+ whiteboxInstrumentation: mode === "aggregation" && !locales.includes("en"),
+ failedLocale: failureLocale,
 	mode,
 	appSource: appRoot,
 	ntfySourceCommit:
