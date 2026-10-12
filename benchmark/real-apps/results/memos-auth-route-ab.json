@@ -1,0 +1,549 @@
+{
+  "app": "Memos web pinned at a668bb8f7e3652be029459bc80bd3bffb86f0542",
+  "catalog": {
+    "locales": 46,
+    "includedKeys": 911,
+    "catalogHash": "32f4f680f203598f09a3eeb50be30c999da47dc2dedd2fe2153b7901a371c0f2",
+    "compilerArtifactHash": "22293e507afd8a594dfd5313694a6d2b9851cbf37bf9f0ce654db56144fd07d3"
+  },
+  "route": "/auth",
+  "method": "Alternating cold-browser native i18next and bounded compiled-route candidate; locale fr-FR; empty unary Connect protobuf API responses; exact body text parity required in French and after French-to-English switch.",
+  "conditions": {
+    "network": "20 Mbps down / 5 Mbps up / 80 ms latency; local Brotli Q4 assets",
+    "cpuSlowdown": 3
+  },
+  "summaries": {
+    "native": {
+      "medianPageReadyMs": 1155.4,
+      "medianFcpMs": 1104,
+      "medianLcpMs": 1136,
+      "medianEncodedTransferBytes": 694584,
+      "medianEncodedBodyBytes": 684084,
+      "requestCount": 35
+    },
+    "compiled-route": {
+      "medianPageReadyMs": 1155.6,
+      "medianFcpMs": 1084,
+      "medianLcpMs": 1120,
+      "medianEncodedTransferBytes": 683493,
+      "medianEncodedBodyBytes": 673593,
+      "requestCount": 33
+    }
+  },
+  "parityChecks": [
+    {
+      "round": 1,
+      "frenchExact": true,
+      "englishExact": true,
+      "localeSwitchBoth": true
+    },
+    {
+      "round": 2,
+      "frenchExact": true,
+      "englishExact": true,
+      "localeSwitchBoth": true
+    },
+    {
+      "round": 3,
+      "frenchExact": true,
+      "englishExact": true,
+      "localeSwitchBoth": true
+    },
+    {
+      "round": 4,
+      "frenchExact": true,
+      "englishExact": true,
+      "localeSwitchBoth": true
+    },
+    {
+      "round": 5,
+      "frenchExact": true,
+      "englishExact": true,
+      "localeSwitchBoth": true
+    }
+  ],
+  "assets": {
+    "native": [
+      {
+        "path": "/assets/index-D7u8_zwh.js",
+        "transferSize": 391093,
+        "encodedBodySize": 390793
+      },
+      {
+        "path": "/assets/rolldown-runtime-zSbnoVup.js",
+        "transferSize": 983,
+        "encodedBodySize": 683
+      },
+      {
+        "path": "/assets/preload-helper-DzyYoeor.js",
+        "transferSize": 938,
+        "encodedBodySize": 638
+      },
+      {
+        "path": "/assets/utils-vendor-Dm-DezCy.js",
+        "transferSize": 17941,
+        "encodedBodySize": 17641
+      },
+      {
+        "path": "/assets/jsx-runtime-DxKf3yUy.js",
+        "transferSize": 3377,
+        "encodedBodySize": 3077
+      },
+      {
+        "path": "/assets/i18n-curiEDLp.js",
+        "transferSize": 18523,
+        "encodedBodySize": 18223
+      },
+      {
+        "path": "/assets/utils-C1SsKtx7.js",
+        "transferSize": 9609,
+        "encodedBodySize": 9309
+      },
+      {
+        "path": "/assets/dist-KWvyOCFx.js",
+        "transferSize": 687,
+        "encodedBodySize": 387
+      },
+      {
+        "path": "/assets/button-BvV83VN4.js",
+        "transferSize": 5281,
+        "encodedBodySize": 4981
+      },
+      {
+        "path": "/assets/react-dom-De4ljgjk.js",
+        "transferSize": 1662,
+        "encodedBodySize": 1362
+      },
+      {
+        "path": "/assets/useOpenInteractionType-CMFnhwK9.js",
+        "transferSize": 18240,
+        "encodedBodySize": 17940
+      },
+      {
+        "path": "/assets/x-cckGG6LE.js",
+        "transferSize": 659,
+        "encodedBodySize": 359
+      },
+      {
+        "path": "/assets/dialog-BylDdGlt.js",
+        "transferSize": 4778,
+        "encodedBodySize": 4478
+      },
+      {
+        "path": "/assets/Separator-B1aOUpwn.js",
+        "transferSize": 530,
+        "encodedBodySize": 230
+      },
+      {
+        "path": "/assets/timestamp-DkWLIMY1.js",
+        "transferSize": 18098,
+        "encodedBodySize": 17798
+      },
+      {
+        "path": "/assets/format-bmaVpZJO.js",
+        "transferSize": 819,
+        "encodedBodySize": 519
+      },
+      {
+        "path": "/assets/AuthContext-D-OifSg3.js",
+        "transferSize": 4135,
+        "encodedBodySize": 3835
+      },
+      {
+        "path": "/assets/connect-CGdVz-On.js",
+        "transferSize": 76259,
+        "encodedBodySize": 75959
+      },
+      {
+        "path": "/assets/error-D6svQdGr.js",
+        "transferSize": 1391,
+        "encodedBodySize": 1091
+      },
+      {
+        "path": "/assets/UserAvatar-dQAvVUlo.js",
+        "transferSize": 7505,
+        "encodedBodySize": 7205
+      },
+      {
+        "path": "/assets/dist-DSRFmU1K.js",
+        "transferSize": 5067,
+        "encodedBodySize": 4767
+      },
+      {
+        "path": "/assets/heart-C-asC9Rq.js",
+        "transferSize": 611,
+        "encodedBodySize": 311
+      },
+      {
+        "path": "/assets/sun-C4fSy8e6.js",
+        "transferSize": 767,
+        "encodedBodySize": 467
+      },
+      {
+        "path": "/assets/CustomIcon-ABOjZsdf.js",
+        "transferSize": 4133,
+        "encodedBodySize": 3833
+      },
+      {
+        "path": "/assets/constants-B5GNG9J2.js",
+        "transferSize": 414,
+        "encodedBodySize": 114
+      },
+      {
+        "path": "/assets/index-BQ9fkL8F.css",
+        "transferSize": 21214,
+        "encodedBodySize": 20914
+      },
+      {
+        "path": "/assets/NotFound-BpFsi73E.js",
+        "transferSize": 716,
+        "encodedBodySize": 416
+      },
+      {
+        "path": "/assets/fr-CbzKiUM0.js",
+        "transferSize": 17493,
+        "encodedBodySize": 17193
+      },
+      {
+        "path": "/assets/en-YkP4hce2.js",
+        "transferSize": 15103,
+        "encodedBodySize": 14803
+      },
+      {
+        "path": "/assets/SignIn-6Pbm6SSH.js",
+        "transferSize": 1526,
+        "encodedBodySize": 1226
+      },
+      {
+        "path": "/assets/CredentialFields-BrTmJ6yo.js",
+        "transferSize": 3624,
+        "encodedBodySize": 3324
+      },
+      {
+        "path": "/assets/useIdentityProviderQueries-DNJRMwnF.js",
+        "transferSize": 2240,
+        "encodedBodySize": 1940
+      },
+      {
+        "path": "/assets/loader-BI48Mu4j.js",
+        "transferSize": 509,
+        "encodedBodySize": 209
+      },
+      {
+        "path": "/assets/PasswordSignInForm-B-9JXmkO.js",
+        "transferSize": 1197,
+        "encodedBodySize": 897
+      },
+      {
+        "path": "/logo.webp",
+        "transferSize": 37462,
+        "encodedBodySize": 37162
+      }
+    ],
+    "compiled-route": [
+      {
+        "path": "/assets/index-DctccHs6.js",
+        "transferSize": 411481,
+        "encodedBodySize": 411181
+      },
+      {
+        "path": "/assets/rolldown-runtime-zSbnoVup.js",
+        "transferSize": 983,
+        "encodedBodySize": 683
+      },
+      {
+        "path": "/assets/preload-helper-DzyYoeor.js",
+        "transferSize": 938,
+        "encodedBodySize": 638
+      },
+      {
+        "path": "/assets/utils-vendor-Dm-DezCy.js",
+        "transferSize": 17941,
+        "encodedBodySize": 17641
+      },
+      {
+        "path": "/assets/jsx-runtime-DxKf3yUy.js",
+        "transferSize": 3377,
+        "encodedBodySize": 3077
+      },
+      {
+        "path": "/assets/i18n-Dtvp3oAi.js",
+        "transferSize": 19590,
+        "encodedBodySize": 19290
+      },
+      {
+        "path": "/assets/utils-C1SsKtx7.js",
+        "transferSize": 9609,
+        "encodedBodySize": 9309
+      },
+      {
+        "path": "/assets/dist-KWvyOCFx.js",
+        "transferSize": 687,
+        "encodedBodySize": 387
+      },
+      {
+        "path": "/assets/button-BvV83VN4.js",
+        "transferSize": 5281,
+        "encodedBodySize": 4981
+      },
+      {
+        "path": "/assets/react-dom-De4ljgjk.js",
+        "transferSize": 1662,
+        "encodedBodySize": 1362
+      },
+      {
+        "path": "/assets/useOpenInteractionType-CbtHAfhy.js",
+        "transferSize": 18256,
+        "encodedBodySize": 17956
+      },
+      {
+        "path": "/assets/x-cckGG6LE.js",
+        "transferSize": 659,
+        "encodedBodySize": 359
+      },
+      {
+        "path": "/assets/dialog-D7lH3tHN.js",
+        "transferSize": 4776,
+        "encodedBodySize": 4476
+      },
+      {
+        "path": "/assets/Separator-B1aOUpwn.js",
+        "transferSize": 530,
+        "encodedBodySize": 230
+      },
+      {
+        "path": "/assets/timestamp-DkWLIMY1.js",
+        "transferSize": 18098,
+        "encodedBodySize": 17798
+      },
+      {
+        "path": "/assets/connect-CGdVz-On.js",
+        "transferSize": 76259,
+        "encodedBodySize": 75959
+      },
+      {
+        "path": "/assets/AuthContext-D-OifSg3.js",
+        "transferSize": 4135,
+        "encodedBodySize": 3835
+      },
+      {
+        "path": "/assets/format-bmaVpZJO.js",
+        "transferSize": 819,
+        "encodedBodySize": 519
+      },
+      {
+        "path": "/assets/error-D6svQdGr.js",
+        "transferSize": 1391,
+        "encodedBodySize": 1091
+      },
+      {
+        "path": "/assets/UserAvatar-dQAvVUlo.js",
+        "transferSize": 7505,
+        "encodedBodySize": 7205
+      },
+      {
+        "path": "/assets/dist-DSRFmU1K.js",
+        "transferSize": 5067,
+        "encodedBodySize": 4767
+      },
+      {
+        "path": "/assets/heart-C-asC9Rq.js",
+        "transferSize": 611,
+        "encodedBodySize": 311
+      },
+      {
+        "path": "/assets/sun-C4fSy8e6.js",
+        "transferSize": 767,
+        "encodedBodySize": 467
+      },
+      {
+        "path": "/assets/CustomIcon-ABOjZsdf.js",
+        "transferSize": 4133,
+        "encodedBodySize": 3833
+      },
+      {
+        "path": "/assets/constants-B5GNG9J2.js",
+        "transferSize": 414,
+        "encodedBodySize": 114
+      },
+      {
+        "path": "/assets/NotFound-BpFsi73E.js",
+        "transferSize": 716,
+        "encodedBodySize": 416
+      },
+      {
+        "path": "/assets/index-BQ9fkL8F.css",
+        "transferSize": 21214,
+        "encodedBodySize": 20914
+      },
+      {
+        "path": "/assets/SignIn-Bw0l_QZV.js",
+        "transferSize": 1519,
+        "encodedBodySize": 1219
+      },
+      {
+        "path": "/assets/CredentialFields-BD1nAcPG.js",
+        "transferSize": 3677,
+        "encodedBodySize": 3377
+      },
+      {
+        "path": "/assets/useIdentityProviderQueries-B4Q1fVfZ.js",
+        "transferSize": 2245,
+        "encodedBodySize": 1945
+      },
+      {
+        "path": "/assets/loader-BI48Mu4j.js",
+        "transferSize": 509,
+        "encodedBodySize": 209
+      },
+      {
+        "path": "/assets/PasswordSignInForm-xzCvwxQS.js",
+        "transferSize": 1182,
+        "encodedBodySize": 882
+      },
+      {
+        "path": "/logo.webp",
+        "transferSize": 37462,
+        "encodedBodySize": 37162
+      }
+    ]
+  },
+  "runs": [
+    {
+      "variant": "native",
+      "round": 1,
+      "pageReadyMs": 1199.7,
+      "fcpMs": 1128,
+      "lcpMs": 1164,
+      "encodedTransferBytes": 694584,
+      "encodedBodyBytes": 684084,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    },
+    {
+      "variant": "compiled-route",
+      "round": 1,
+      "pageReadyMs": 1149.3,
+      "fcpMs": 1076,
+      "lcpMs": 1108,
+      "encodedTransferBytes": 683493,
+      "encodedBodyBytes": 673593,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    },
+    {
+      "variant": "compiled-route",
+      "round": 2,
+      "pageReadyMs": 1140.7,
+      "fcpMs": 1068,
+      "lcpMs": 1096,
+      "encodedTransferBytes": 683493,
+      "encodedBodyBytes": 673593,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    },
+    {
+      "variant": "native",
+      "round": 2,
+      "pageReadyMs": 1168.5,
+      "fcpMs": 1112,
+      "lcpMs": 1144,
+      "encodedTransferBytes": 694584,
+      "encodedBodyBytes": 684084,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    },
+    {
+      "variant": "native",
+      "round": 3,
+      "pageReadyMs": 1155.4,
+      "fcpMs": 1104,
+      "lcpMs": 1104,
+      "encodedTransferBytes": 694584,
+      "encodedBodyBytes": 684084,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    },
+    {
+      "variant": "compiled-route",
+      "round": 3,
+      "pageReadyMs": 1166.1,
+      "fcpMs": 1096,
+      "lcpMs": 1132,
+      "encodedTransferBytes": 683493,
+      "encodedBodyBytes": 673593,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    },
+    {
+      "variant": "compiled-route",
+      "round": 4,
+      "pageReadyMs": 1155.6,
+      "fcpMs": 1084,
+      "lcpMs": 1120,
+      "encodedTransferBytes": 683493,
+      "encodedBodyBytes": 673593,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    },
+    {
+      "variant": "native",
+      "round": 4,
+      "pageReadyMs": 1154,
+      "fcpMs": 1100,
+      "lcpMs": 1136,
+      "encodedTransferBytes": 694584,
+      "encodedBodyBytes": 684084,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    },
+    {
+      "variant": "native",
+      "round": 5,
+      "pageReadyMs": 1141.1,
+      "fcpMs": 1088,
+      "lcpMs": 1116,
+      "encodedTransferBytes": 694584,
+      "encodedBodyBytes": 684084,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    },
+    {
+      "variant": "compiled-route",
+      "round": 5,
+      "pageReadyMs": 1211.4,
+      "fcpMs": 1140,
+      "lcpMs": 1140,
+      "encodedTransferBytes": 683493,
+      "encodedBodyBytes": 673593,
+      "frenchTitle": "Connexion",
+      "englishTitle": "Sign in",
+      "localeSwitchPassed": true,
+      "pageErrors": []
+    }
+  ],
+  "limitations": [
+    "The candidate is only a bounded /auth route integration; all other routes retain native i18next loading.",
+    "Only literal keys in six auth route components are compiled; this is not a whole-app migration.",
+    "The compiled message functions contain all 46 locales for each retained key.",
+    "Transfer compression is local Brotli Q4 over same-origin static output; this does not model a production CDN cache or edge configuration."
+  ]
+}
