@@ -1,0 +1,403 @@
+{
+  "scannedFiles": 453,
+  "dynamicKeys": 63,
+  "dynamicKeyExamples": [
+    {
+      "file": "components/form/RemarkVarPicker.tsx",
+      "text": "`pages.hosts.remarkVars.groups.${group}`"
+    },
+    {
+      "file": "components/form/RemarkVarPicker.tsx",
+      "text": "`pages.hosts.remarkVars.desc${v.token}`"
+    },
+    {
+      "file": "components/form/rhf/FormField.tsx",
+      "text": "fieldState.error.message"
+    },
+    {
+      "file": "components/geodata/GeoBrowserModal.tsx",
+      "text": "fileKind === 'ip'\n          ? 'pages.xray.geoBrowser.subnetsCount'\n          : 'pages.xray.geoBrowser.entriesCount'"
+    },
+    {
+      "file": "components/geodata/GeoTokenInput.tsx",
+      "text": "REASON_KEYS[reason] ?? REASON_KEYS.categoryMissing"
+    },
+    {
+      "file": "components/ui/notifications/NotificationEvent.tsx",
+      "text": "label"
+    },
+    {
+      "file": "components/ui/notifications/NotificationGroup.tsx",
+      "text": "`pages.settings.${config.title}`"
+    },
+    {
+      "file": "components/ui/notifications/NotificationGroup.tsx",
+      "text": "`pages.settings.${event.label}`"
+    },
+    {
+      "file": "components/ui/notifications/NotificationGroup.tsx",
+      "text": "`pages.settings.${event.label}`"
+    },
+    {
+      "file": "hooks/usePageTitle.ts",
+      "text": "key"
+    },
+    {
+      "file": "layouts/AppSidebar.tsx",
+      "text": "pinned ? 'menu.unpinSidebar' : 'menu.pinSidebar'"
+    },
+    {
+      "file": "lib/xray/forms/transport/XDriveForm.tsx",
+      "text": "labelKey"
+    },
+    {
+      "file": "lib/xray/forms/transport/XDriveForm.tsx",
+      "text": "`pages.inbounds.form.xdrive.${key}`"
+    },
+    {
+      "file": "lib/xray/forms/transport/XDriveForm.tsx",
+      "text": "`pages.inbounds.form.xdrive.${label}`"
+    },
+    {
+      "file": "pages/clients/ClientBulkAddModal.tsx",
+      "text": "validated.error.issues[0]?.message ?? 'somethingWentWrong'"
+    },
+    {
+      "file": "pages/clients/ClientBulkAddModal.tsx",
+      "text": "`pages.inbounds.periodicTrafficReset.${r}`"
+    },
+    {
+      "file": "pages/clients/ClientBulkAdjustModal.tsx",
+      "text": "validated.error.issues[0]?.message ?? 'somethingWentWrong'"
+    },
+    {
+      "file": "pages/clients/ClientFormModal.tsx",
+      "text": "issue?.message ?? 'somethingWentWrong'"
+    },
+    {
+      "file": "pages/clients/ClientFormModal.tsx",
+      "text": "`pages.inbounds.periodicTrafficReset.${r}`"
+    },
+    {
+      "file": "pages/clients/ClientFormModal.tsx",
+      "text": "showAmneziawg\n                                ? 'pages.clients.amneziaWgPrivateKey'\n                                : 'pages.clients.wireguardPrivateKey'"
+    },
+    {
+      "file": "pages/clients/ClientFormModal.tsx",
+      "text": "showAmneziawg\n                                ? 'pages.clients.amneziaWgPublicKey'\n                                : 'pages.clients.wireguardPublicKey'"
+    },
+    {
+      "file": "pages/clients/ClientFormModal.tsx",
+      "text": "showAmneziawg\n                                ? 'pages.clients.amneziaWgPreSharedKey'\n                                : 'pages.clients.wireguardPreSharedKey'"
+    },
+    {
+      "file": "pages/clients/ClientFormModal.tsx",
+      "text": "showAmneziawg\n                                  ? 'pages.clients.amneziaWgAllowedIPs'\n                                  : 'pages.clients.wireguardAllowedIPs'"
+    },
+    {
+      "file": "pages/clients/ClientFormModal.tsx",
+      "text": "showAmneziawg\n                                  ? 'pages.clients.amneziaWgAllowedIPsHint'\n                                  : 'pages.clients.wireguardAllowedIPsHint'"
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "text": "enable ? 'pages.clients.bulkEnableConfirmTitle' : 'pages.clients.bulkDisableConfirmTitle'"
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "text": "enable\n          ? 'pages.clients.bulkEnableConfirmContent'\n          : 'pages.clients.bulkDisableConfirmContent'"
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "text": "okKey"
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "text": "mixedKey"
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "text": "mixedKey"
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "text": "o.labelKey"
+    }
+  ],
+  "optionCounts": {
+    "attached": 6,
+    "auth": 1,
+    "client": 1,
+    "count": 52,
+    "dashboard": 1,
+    "date": 2,
+    "defaultValue": 5,
+    "detached": 4,
+    "email": 1,
+    "errors": 5,
+    "failed": 13,
+    "field": 2,
+    "from": 1,
+    "group": 1,
+    "hours": 1,
+    "index": 1,
+    "keeps": 1,
+    "label": 2,
+    "length": 2,
+    "list": 2,
+    "logs": 1,
+    "message": 1,
+    "min": 2,
+    "ms": 2,
+    "n": 8,
+    "name": 15,
+    "names": 1,
+    "ok": 15,
+    "parent": 1,
+    "path": 1,
+    "reason": 3,
+    "remark": 8,
+    "reset": 2,
+    "section": 1,
+    "selected": 5,
+    "shown": 1,
+    "size": 1,
+    "skipped": 12,
+    "start": 1,
+    "tag": 1,
+    "target": 2,
+    "to": 1,
+    "tokens": 1,
+    "total": 8,
+    "zone": 1
+  },
+  "useTranslationCallsWithArguments": 0,
+  "useTranslationCallExamples": [],
+  "optionCallExamples": [
+    {
+      "file": "components/form/rhf/FormField.tsx",
+      "key": "fieldState.error.message",
+      "options": [
+        "defaultValue"
+      ]
+    },
+    {
+      "file": "components/geodata/GeoBrowserModal.tsx",
+      "key": "'pages.xray.geoBrowser.fileMeta'",
+      "options": [
+        "count",
+        "size",
+        "date"
+      ]
+    },
+    {
+      "file": "components/geodata/GeoBrowserModal.tsx",
+      "key": "fileKind === 'ip'\n          ? 'pages.xray.geoBrowser.subnetsCount'\n          : 'pages.xray.geoBrowser.entriesCount'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "components/geodata/GeoBrowserModal.tsx",
+      "key": "'pages.xray.geoBrowser.shownRange'",
+      "options": [
+        "from",
+        "to",
+        "total"
+      ]
+    },
+    {
+      "file": "components/geodata/GeoBrowserModal.tsx",
+      "key": "'pages.xray.geoBrowser.selected'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "components/geodata/GeoTokenInput.tsx",
+      "key": "REASON_KEYS[reason] ?? REASON_KEYS.categoryMissing",
+      "options": [
+        "tokens"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkAddToGroupModal.tsx",
+      "key": "'pages.clients.addToGroupSuccessToast'",
+      "options": [
+        "count",
+        "group"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkAddToGroupModal.tsx",
+      "key": "'pages.clients.addToGroupTitle'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkAttachInboundsModal.tsx",
+      "key": "'pages.inbounds.attachClientsResultMixed'",
+      "options": [
+        "attached",
+        "skipped",
+        "errors"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkAttachInboundsModal.tsx",
+      "key": "'pages.inbounds.attachClientsResult'",
+      "options": [
+        "attached",
+        "skipped"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkAttachInboundsModal.tsx",
+      "key": "'pages.clients.attachToInboundsTitle'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkAttachInboundsModal.tsx",
+      "key": "'pages.clients.attachToInboundsDesc'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkDetachInboundsModal.tsx",
+      "key": "'pages.clients.detachFromInboundsResultMixed'",
+      "options": [
+        "detached",
+        "skipped",
+        "errors"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkDetachInboundsModal.tsx",
+      "key": "'pages.clients.detachFromInboundsResult'",
+      "options": [
+        "detached",
+        "skipped"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkDetachInboundsModal.tsx",
+      "key": "'pages.clients.detachFromInboundsTitle'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/BulkDetachInboundsModal.tsx",
+      "key": "'pages.clients.detachFromInboundsDesc'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientBulkAddModal.tsx",
+      "key": "'pages.clients.toasts.bulkCreated'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientBulkAddModal.tsx",
+      "key": "'pages.clients.toasts.bulkCreatedMixed'",
+      "options": [
+        "ok",
+        "failed"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientBulkAddModal.tsx",
+      "key": "'pages.clients.toasts.bulkCreatedMixed'",
+      "options": [
+        "ok",
+        "failed"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientBulkAdjustModal.tsx",
+      "key": "'pages.clients.toasts.bulkAdjusted'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientBulkAdjustModal.tsx",
+      "key": "'pages.clients.toasts.bulkAdjustedMixed'",
+      "options": [
+        "ok",
+        "skipped"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientBulkAdjustModal.tsx",
+      "key": "'pages.clients.toasts.bulkAdjustedMixed'",
+      "options": [
+        "ok",
+        "skipped"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientBulkAdjustModal.tsx",
+      "key": "'pages.clients.bulkAdjustTitle'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientQrModal.tsx",
+      "key": "'pages.clients.happLinkErrorHint'",
+      "options": [
+        "dashboard",
+        "logs"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientRenewalFields.tsx",
+      "key": "'pages.clients.renewPreview'",
+      "options": [
+        "zone"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientRenewalFields.tsx",
+      "key": "'pages.clients.renewPeriods'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "key": "'pages.clients.deleteConfirmTitle'",
+      "options": [
+        "email"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "key": "'pages.clients.toasts.delDepleted'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "key": "'pages.clients.toasts.delOrphans'",
+      "options": [
+        "count"
+      ]
+    },
+    {
+      "file": "pages/clients/ClientsPage.tsx",
+      "key": "'pages.clients.toasts.imported'",
+      "options": [
+        "count"
+      ]
+    }
+  ]
+}

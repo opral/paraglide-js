@@ -1,0 +1,264 @@
+{
+  "route": "/login",
+  "cookie": "lang=es-ES",
+  "visible": {
+    "title": "127.0.0.1 - Sign in",
+    "body": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+    "usernamePlaceholder": "Nombre de Usuario",
+    "passwordPlaceholder": "Contraseña",
+    "languageButton": "Idioma"
+  },
+  "errors": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:4173/login",
+      "method": "GET",
+      "path": "/login"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/login-DUFuciuh.js",
+      "method": "GET",
+      "path": "/assets/login-DUFuciuh.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/rolldown-runtime-B0Z9INg1.js",
+      "method": "GET",
+      "path": "/assets/rolldown-runtime-B0Z9INg1.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-BKjys3L3.js",
+      "method": "GET",
+      "path": "/assets/vendor-BKjys3L3.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-antd-WdkdfffB.js",
+      "method": "GET",
+      "path": "/assets/vendor-antd-WdkdfffB.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-router-BaEBrCf9.js",
+      "method": "GET",
+      "path": "/assets/vendor-router-BaEBrCf9.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/_paraglide_client-locale-split_core-oD1KqhlJ.js",
+      "method": "GET",
+      "path": "/assets/_paraglide_client-locale-split_core-oD1KqhlJ.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/paraglide-compat-DVANtSGQ.js",
+      "method": "GET",
+      "path": "/assets/paraglide-compat-DVANtSGQ.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/utils-BCD5fBTV.js",
+      "method": "GET",
+      "path": "/assets/utils-BCD5fBTV.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-react-B74pBk57.js",
+      "method": "GET",
+      "path": "/assets/vendor-react-B74pBk57.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-tanstack-BsNiuNYH.js",
+      "method": "GET",
+      "path": "/assets/vendor-tanstack-BsNiuNYH.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/QueryProvider-CvBuRXq1.js",
+      "method": "GET",
+      "path": "/assets/QueryProvider-CvBuRXq1.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-icons-DW4kGsb1.js",
+      "method": "GET",
+      "path": "/assets/vendor-icons-DW4kGsb1.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/useTheme-09TBjx4C.js",
+      "method": "GET",
+      "path": "/assets/useTheme-09TBjx4C.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/rhf-BTXZkBbA.js",
+      "method": "GET",
+      "path": "/assets/rhf-BTXZkBbA.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/rhfZodValidate-Bp3fy4ge.js",
+      "method": "GET",
+      "path": "/assets/rhfZodValidate-Bp3fy4ge.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/queryKeys-B5rr3vbO.js",
+      "method": "GET",
+      "path": "/assets/queryKeys-B5rr3vbO.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/SponsorSlot-BAEjZOXM.js",
+      "method": "GET",
+      "path": "/assets/SponsorSlot-BAEjZOXM.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/login-CRlIcA87.js",
+      "method": "GET",
+      "path": "/assets/login-CRlIcA87.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-antd-B5BXDqMa.css",
+      "method": "GET",
+      "path": "/assets/vendor-antd-B5BXDqMa.css"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/SponsorSlot-CZ6_h2E1.css",
+      "method": "GET",
+      "path": "/assets/SponsorSlot-CZ6_h2E1.css"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/login-B_chRsY8.css",
+      "method": "GET",
+      "path": "/assets/login-B_chRsY8.css"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js",
+      "method": "GET",
+      "path": "/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+      "method": "GET",
+      "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/csrf-token",
+      "method": "GET",
+      "path": "/csrf-token"
+    },
+    {
+      "url": "http://127.0.0.1:4173/getTwoFactorEnable",
+      "method": "POST",
+      "path": "/getTwoFactorEnable"
+    },
+    {
+      "url": "http://127.0.0.1:4173/sponsors",
+      "method": "GET",
+      "path": "/sponsors"
+    }
+  ],
+  "responses": [
+    {
+      "path": "/login",
+      "status": 200
+    },
+    {
+      "path": "/assets/login-DUFuciuh.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/rolldown-runtime-B0Z9INg1.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/_paraglide_client-locale-split_core-oD1KqhlJ.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-router-BaEBrCf9.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-antd-B5BXDqMa.css",
+      "status": 200
+    },
+    {
+      "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+      "status": 200
+    },
+    {
+      "path": "/assets/login-B_chRsY8.css",
+      "status": 200
+    },
+    {
+      "path": "/assets/utils-BCD5fBTV.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-react-B74pBk57.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/QueryProvider-CvBuRXq1.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/rhf-BTXZkBbA.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/useTheme-09TBjx4C.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/queryKeys-B5rr3vbO.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-tanstack-BsNiuNYH.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/SponsorSlot-BAEjZOXM.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/login-CRlIcA87.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-icons-DW4kGsb1.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/paraglide-compat-DVANtSGQ.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-BKjys3L3.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-antd-WdkdfffB.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js",
+      "status": 200
+    },
+    {
+      "path": "/csrf-token",
+      "status": 200
+    },
+    {
+      "path": "/getTwoFactorEnable",
+      "status": 200
+    },
+    {
+      "path": "/sponsors",
+      "status": 200
+    }
+  ],
+  "localeRequests": [
+    "/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js",
+    "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js"
+  ],
+  "note": "The server provides read-only fixtures for CSRF, getTwoFactorEnable, and sponsors; it does not submit login credentials or contact a backend."
+}

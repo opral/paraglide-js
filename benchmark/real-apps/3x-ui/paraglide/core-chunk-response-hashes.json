@@ -1,0 +1,57 @@
+{
+  "method": "HTTP GET against the fresh Brotli-Q4 fixture servers; bodies decompressed with curl --compressed and hashed with SHA-256. Browser resource timing paths/start/end are in core-chunk-startup-probe.json; the core URLs were fetched directly after the browser run because the first probe's response-hash filter missed the baseline's underscore-prefixed filename.",
+  "responses": [
+    {
+      "variant": "paraglide-all-html",
+      "path": "/login",
+      "status": 200,
+      "contentEncoding": "br",
+      "contentLength": 588,
+      "decodedBodySha256": "bf14283fc9171df836d8ea3938058321dcf3ef183e4b749180130b29ba27ed27"
+    },
+    {
+      "variant": "paraglide-all-html",
+      "path": "/assets/paraglide-locale-preload-BUDZF1Iw.js",
+      "status": 200,
+      "contentEncoding": null,
+      "contentLength": 78,
+      "decodedBodySha256": "d5ca1163b35eae7e464af149227f4345b893e16b36fc9a05cfa5f39f174135fe"
+    },
+    {
+      "variant": "paraglide-all-html",
+      "path": "/assets/_paraglide_client-locale-split_core-oD1KqhlJ.js",
+      "status": 200,
+      "contentEncoding": "br",
+      "contentLength": 2188,
+      "decodedBodySha256": "d030e4626d6920d78e9b7ef6935803cf848e1f6e40f251c97e52427659b2e108"
+    },
+    {
+      "variant": "paraglide-core-chunk-all-html",
+      "path": "/login",
+      "status": 200,
+      "contentEncoding": "br",
+      "contentLength": 568,
+      "decodedBodySha256": "461de262d4f28f0d25fc1093eb04d635edd4b7d2e0b13b9d228d8f1ca0ca05c6"
+    },
+    {
+      "variant": "paraglide-core-chunk-all-html",
+      "path": "/assets/paraglide-locale-preload-B4oDnFGu.js",
+      "status": 200,
+      "contentEncoding": null,
+      "contentLength": 77,
+      "decodedBodySha256": "d6d1fedfc2c60b06f419a8d83e59a68e45001d33d53be18cc4318692f949d38b"
+    },
+    {
+      "variant": "paraglide-core-chunk-all-html",
+      "path": "/assets/paraglide-client-locale-split-core-DOkqf0O8.js",
+      "status": 200,
+      "contentEncoding": "br",
+      "contentLength": 2800,
+      "decodedBodySha256": "55869f439f28a67fd22ce70e009d0793ee3b456e48309e6c9b6d0591b7b22c69"
+    }
+  ],
+  "localeResponseHashes": {
+    "en-US": "2026b31a2b336f4b63a8d0a2183a3ca155e53612db4291e1eff584e4c0c76f0d",
+    "es-ES": "51e69936849a89f2bc70d2b6e5c6529be259720e06a435b7c13fce9b41dd6e1b"
+  }
+}
