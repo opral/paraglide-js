@@ -57,4 +57,4 @@ The full-native result is a targeted manual migration experiment, not a general 
 - Independent physical artifact manifest recheck: `/root/repos-iii/paraglide-luna-ntfy-review/.real-apps/openwebui-audit/artifact-manifest-recheck.json`
 - Public API browser transcript: `benchmark/real-apps/results/luna-openwebui-public-api-probe.json`
 - Requested-locale parity-only edgefix trace: `/root/repos-iii/paraglide-native-route-survey/benchmark/real-apps/results/openwebui-auth-locale-edgefix-parity.json`; its build hash is in `/root/repos-iii/paraglide-native-route-survey/benchmark/real-apps/results/openwebui-artifact-manifest-all-controls.json`
-- Public API scratch app: `/root/repos-iii/paraglide-client-split-current-api/.real-apps/openwebui-luna-ax-final`
+- Portable public API fixture: `benchmark/real-apps/client-locale-split-api-probe/`

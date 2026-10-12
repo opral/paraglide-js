@@ -29,7 +29,7 @@ Task: confirm an `en-US → fr-FR → en-US` style in-place behavior and render 
 
 I exercised the public API in a Playwright browser against the production Vite output. The isolated HTML fixture preserves a pre-seeded locale and only supplies French as a default if storage is empty. With `locale=fr-FR`, startup rendered `fr-FR|Bonjour|Connexion`. Calling `await setLocale("en-US", { reload: false })`, then rerendering through the app-owned function, showed `en-US|Hello|Sign in` and updated storage to `en-US`; switching back restored French. There was one document request total, the initial navigation. The probe updates its own text and `<html lang>` because the runtime's `reload: false` mode does not rerender or update document metadata.
 
-In a fresh English context, before preload the page rendered `en-US|Hello|Sign in`. `await loadLocale("fr-FR")` caused exactly one request for the French locale module. A subsequent synchronous `m.greeting({}, { locale: "fr-FR" })` returned `Bonjour` while rendered text, active locale, and storage remained English. No page errors occurred. The transcript records startup values, switch results, module request, and errors in `public-api-probe.json`.
+In a fresh English context, before preload the page rendered `en-US|Hello|Sign in`. `await loadLocale("fr-FR")` caused exactly one request for the French locale module. A subsequent synchronous `m.greeting({}, { locale: "fr-FR" })` returned `Bonjour` while rendered text, active locale, and storage remained English. No page errors occurred. The transcript records startup values, switch results, module request, and errors in `benchmark/real-apps/results/luna-openwebui-public-api-probe.json`.
 
 The first run of this second-context test failed because my scratch `index.html` unconditionally set `locale=fr-FR`, overriding the explicitly seeded English context. I corrected only the ignored fixture to honor an existing storage value, rebuilt, and reran successfully. This was a test-harness defect, not a compiler defect.
 
@@ -41,16 +41,4 @@ The full corrected route adapter and same-scope control results are documented s
 
 ## Reproduction
 
-Run the build from the scratch app root, then execute the browser probe:
-
-```sh
-cd /root/repos-iii/paraglide-client-split-current-api/.real-apps/openwebui-luna-ax-final
-node /root/repos-iii/paraglide-client-split-current-api/node_modules/vite/bin/vite.js build --config vite.config.js
-OUTPUT_JSON=/root/repos-iii/paraglide-luna-ntfy-review/benchmark/real-apps/results/luna-openwebui-public-api-probe.json \
-  node verify-public-api.mjs
-```
-
-The scratch app and transcript are ignored local artifacts:
-
-- `/root/repos-iii/paraglide-client-split-current-api/.real-apps/openwebui-luna-ax-final`
-- `benchmark/real-apps/results/luna-openwebui-public-api-probe.json`
+The executable fixture, dependency lock, setup script, and replay instructions are tracked at `benchmark/real-apps/client-locale-split-api-probe/`. The setup checks compiler commit `6997d020813d76f087d585110e62cd54891726e0` and writes the project module path from the fixture-local dependency. I ran `npm ci`, setup, the Vite build, and the Playwright behavior probe from this portable fixture; the build output matched the earlier scratch app and the assertions passed. The committed transcript is `benchmark/real-apps/results/luna-openwebui-public-api-probe.json`.

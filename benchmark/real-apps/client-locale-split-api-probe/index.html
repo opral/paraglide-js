@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en-US">
+  <head><meta charset="UTF-8"><title>Client locale split API probe</title></head>
+  <body>
+    <p id="state"></p>
+    <script>const requested = new URL(location.href).searchParams.get("locale"); if (requested) localStorage.setItem("locale", requested); else if (!localStorage.getItem("locale")) localStorage.setItem("locale", "fr-FR");</script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
