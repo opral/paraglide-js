@@ -1,0 +1,898 @@
+{
+  "source": {
+    "commit": "5ea1e5977a0d3157b94f29eeef857f4a4b143e9a",
+    "file": "src/bundler-plugins/client-locale-split/vite-plugin.ts:createMessageFacade",
+    "fileSha256": "ee1d4b4b694109ce4c444c2258e8e70578a69cb4d2c29792ace05061b3e356b2",
+    "distPluginSha256": "c06f8dd894f68f6040deeb8ff62d449d4b133fb12bb78520dd5e7f9a5c49dd70",
+    "unchangedThroughPr4Head": "8528b9eb5b7d1c4c2282813f6a75a75e07ab12cc"
+  },
+  "sourceShape": "Prototype only wraps namespace object creation and freeze in /*#__PURE__*/ (()=>{...})(); it changes no message wrappers, locale data, dispatch code, or exported names.",
+  "fixture": {
+    "messages": 512,
+    "plainLiteralFunctions": 511,
+    "richFunctionsWithParts": 1,
+    "locales": [
+      "en",
+      "de"
+    ],
+    "namedConsumer": "imports message0000 and richMessage and calls richMessage.parts",
+    "fullConsumer": "imports m and named aliases, enumerates m, indexes m[globalThis.__selectedMessageKey] and m[globalThis.__selectedRichMessageKey]; runtime selects message0510 and richMessage"
+  },
+  "build": {
+    "target": "es2022",
+    "minify": "Vite default production minifier",
+    "viteVersions": [
+      "7.3.1",
+      "8.1.4"
+    ],
+    "compression": "Each emitted JS asset compressed independently with gzip level 9 and Brotli quality 11; per-asset compressed sizes summed."
+  },
+  "cases": [
+    {
+      "label": "vite-7.3.1-current-named",
+      "vite": "7.3.1",
+      "facade": "current",
+      "consumer": "named-static-plus-rich",
+      "messageCount": 512,
+      "entry": {
+        "name": "index-DR5SPNbE.js",
+        "bytes": 51462,
+        "gzip": 4555,
+        "brotli": 2603
+      },
+      "emittedJsPerFile": [
+        {
+          "name": "_paraglide_client-locale-split_core-BIEgf4n3.js",
+          "bytes": 2450,
+          "gzip": 1216,
+          "brotli": 1054,
+          "sha256": "0321d877450d08274a14a2d8f0f3d26e9fca231d87ae2247d3244f90d0f701e6"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_de-BrJAYteF.js",
+          "bytes": 44538,
+          "gzip": 1695,
+          "brotli": 914,
+          "sha256": "1ae296ce75daaca637c6f6113fcb96fc234004293ca9f093c6bf4f03f8015b78"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_en-Cua9j6g6.js",
+          "bytes": 48626,
+          "gzip": 1686,
+          "brotli": 892,
+          "sha256": "561f6720e4f964aa1b292ece34171d7131b4aeb1ad228689413719a41c3a6b04"
+        },
+        {
+          "name": "index-DR5SPNbE.js",
+          "bytes": 51462,
+          "gzip": 4555,
+          "brotli": 2603,
+          "sha256": "7184db1239d9a952f8bdf0bc7ff4779e2b7bcbf6c5faa801cab2d84c592e1772"
+        },
+        {
+          "name": "paraglide-locale-preload-B__zn5gL.js",
+          "bytes": 79,
+          "gzip": 99,
+          "brotli": 83,
+          "sha256": "0391c7d3533a08ed74f3adce717f44d1add66ec625361e22f2a81a994273407d"
+        }
+      ],
+      "emittedJsPerFileSums": {
+        "bytes": 147155,
+        "gzip": 9251,
+        "brotli": 5546
+      },
+      "facadeModule": [
+        {
+          "fileName": "assets/index-DR5SPNbE.js",
+          "isEntry": true,
+          "moduleId": "\u0000paraglide:client-locale-split:root",
+          "originalLength": 176963,
+          "renderedLength": 150735,
+          "renderedExportCount": 513,
+          "removedExportCount": 0
+        }
+      ],
+      "runtimeProbe": {
+        "staticText": "English label 0: Open preferences and manage every notification setting in this workspace.",
+        "richText": "Hello Ada",
+        "parts": [
+          {
+            "type": "text",
+            "value": "Hello "
+          },
+          {
+            "type": "element",
+            "name": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ada"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "vite-7.3.1-pure-iife-named",
+      "vite": "7.3.1",
+      "facade": "pure-iife",
+      "consumer": "named-static-plus-rich",
+      "messageCount": 512,
+      "entry": {
+        "name": "index-Qs0SceH8.js",
+        "bytes": 520,
+        "gzip": 288,
+        "brotli": 246
+      },
+      "emittedJsPerFile": [
+        {
+          "name": "_paraglide_client-locale-split_core-BIEgf4n3.js",
+          "bytes": 2450,
+          "gzip": 1216,
+          "brotli": 1054,
+          "sha256": "0321d877450d08274a14a2d8f0f3d26e9fca231d87ae2247d3244f90d0f701e6"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_de-BrJAYteF.js",
+          "bytes": 44538,
+          "gzip": 1695,
+          "brotli": 914,
+          "sha256": "1ae296ce75daaca637c6f6113fcb96fc234004293ca9f093c6bf4f03f8015b78"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_en-Cua9j6g6.js",
+          "bytes": 48626,
+          "gzip": 1686,
+          "brotli": 892,
+          "sha256": "561f6720e4f964aa1b292ece34171d7131b4aeb1ad228689413719a41c3a6b04"
+        },
+        {
+          "name": "index-Qs0SceH8.js",
+          "bytes": 520,
+          "gzip": 288,
+          "brotli": 246,
+          "sha256": "7dcdae0c4407ea9f8430a88ef6e4b6d0157258191b89da25fabb803a394afdeb"
+        },
+        {
+          "name": "paraglide-locale-preload-B__zn5gL.js",
+          "bytes": 79,
+          "gzip": 99,
+          "brotli": 83,
+          "sha256": "0391c7d3533a08ed74f3adce717f44d1add66ec625361e22f2a81a994273407d"
+        }
+      ],
+      "emittedJsPerFileSums": {
+        "bytes": 96213,
+        "gzip": 4984,
+        "brotli": 3189
+      },
+      "facadeModule": [
+        {
+          "fileName": "assets/index-Qs0SceH8.js",
+          "isEntry": true,
+          "moduleId": "\u0000paraglide:client-locale-split:root",
+          "originalLength": 176963,
+          "renderedLength": 831,
+          "renderedExportCount": 2,
+          "removedExportCount": 511
+        }
+      ],
+      "runtimeProbe": {
+        "staticText": "English label 0: Open preferences and manage every notification setting in this workspace.",
+        "richText": "Hello Ada",
+        "parts": [
+          {
+            "type": "text",
+            "value": "Hello "
+          },
+          {
+            "type": "element",
+            "name": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ada"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "vite-7.3.1-current-full",
+      "vite": "7.3.1",
+      "facade": "current",
+      "consumer": "computed-full-namespace",
+      "messageCount": 512,
+      "entry": {
+        "name": "index-E4L9zJVd.js",
+        "bytes": 52633,
+        "gzip": 4903,
+        "brotli": 2777
+      },
+      "emittedJsPerFile": [
+        {
+          "name": "_paraglide_client-locale-split_core-BIEgf4n3.js",
+          "bytes": 2450,
+          "gzip": 1216,
+          "brotli": 1054,
+          "sha256": "0321d877450d08274a14a2d8f0f3d26e9fca231d87ae2247d3244f90d0f701e6"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_de-BrJAYteF.js",
+          "bytes": 44538,
+          "gzip": 1695,
+          "brotli": 914,
+          "sha256": "1ae296ce75daaca637c6f6113fcb96fc234004293ca9f093c6bf4f03f8015b78"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_en-Cua9j6g6.js",
+          "bytes": 48626,
+          "gzip": 1686,
+          "brotli": 892,
+          "sha256": "561f6720e4f964aa1b292ece34171d7131b4aeb1ad228689413719a41c3a6b04"
+        },
+        {
+          "name": "index-E4L9zJVd.js",
+          "bytes": 52633,
+          "gzip": 4903,
+          "brotli": 2777,
+          "sha256": "69c781720dc1a7664d63075f5a237d1f7811727625f40e9108831f61b6d418e7"
+        },
+        {
+          "name": "paraglide-locale-preload-B__zn5gL.js",
+          "bytes": 79,
+          "gzip": 99,
+          "brotli": 83,
+          "sha256": "0391c7d3533a08ed74f3adce717f44d1add66ec625361e22f2a81a994273407d"
+        }
+      ],
+      "emittedJsPerFileSums": {
+        "bytes": 148326,
+        "gzip": 9599,
+        "brotli": 5720
+      },
+      "facadeModule": [
+        {
+          "fileName": "assets/index-E4L9zJVd.js",
+          "isEntry": true,
+          "moduleId": "\u0000paraglide:client-locale-split:root",
+          "originalLength": 176963,
+          "renderedLength": 150735,
+          "renderedExportCount": 513,
+          "removedExportCount": 0
+        }
+      ],
+      "runtimeProbe": {
+        "count": 512,
+        "protoIsNull": true,
+        "frozen": true,
+        "tag": "[object Module]",
+        "messageAlias": true,
+        "richAlias": true,
+        "partsAlias": true,
+        "staticText": "English label 0: Open preferences and manage every notification setting in this workspace.",
+        "richText": "Hello Ada",
+        "parts": [
+          {
+            "type": "text",
+            "value": "Hello "
+          },
+          {
+            "type": "element",
+            "name": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ada"
+              }
+            ]
+          }
+        ],
+        "messageDescriptor": {
+          "enumerable": true,
+          "writable": false,
+          "configurable": false,
+          "isFunction": true
+        },
+        "richFunctionDescriptor": {
+          "enumerable": true,
+          "writable": false,
+          "configurable": false,
+          "isFunction": true
+        },
+        "partsDescriptor": {
+          "enumerable": true,
+          "writable": true,
+          "configurable": true,
+          "isFunction": true
+        },
+        "tagDescriptor": {
+          "value": "Module",
+          "enumerable": false,
+          "writable": false,
+          "configurable": false
+        },
+        "keyOrderSha256": "ea65b9c08b317db22f59be94c3028b725ecfaeb31cd123b1f75fa089f3a413f6"
+      }
+    },
+    {
+      "label": "vite-7.3.1-pure-iife-full",
+      "vite": "7.3.1",
+      "facade": "pure-iife",
+      "consumer": "computed-full-namespace",
+      "messageCount": 512,
+      "entry": {
+        "name": "index-uqG7yklW.js",
+        "bytes": 52652,
+        "gzip": 4910,
+        "brotli": 2850
+      },
+      "emittedJsPerFile": [
+        {
+          "name": "_paraglide_client-locale-split_core-BIEgf4n3.js",
+          "bytes": 2450,
+          "gzip": 1216,
+          "brotli": 1054,
+          "sha256": "0321d877450d08274a14a2d8f0f3d26e9fca231d87ae2247d3244f90d0f701e6"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_de-BrJAYteF.js",
+          "bytes": 44538,
+          "gzip": 1695,
+          "brotli": 914,
+          "sha256": "1ae296ce75daaca637c6f6113fcb96fc234004293ca9f093c6bf4f03f8015b78"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_en-Cua9j6g6.js",
+          "bytes": 48626,
+          "gzip": 1686,
+          "brotli": 892,
+          "sha256": "561f6720e4f964aa1b292ece34171d7131b4aeb1ad228689413719a41c3a6b04"
+        },
+        {
+          "name": "index-uqG7yklW.js",
+          "bytes": 52652,
+          "gzip": 4910,
+          "brotli": 2850,
+          "sha256": "f73c574f2204112a49f51b3af0d767e9d0bf87f1bc8c7bcf3cdb923a2aa168b8"
+        },
+        {
+          "name": "paraglide-locale-preload-B__zn5gL.js",
+          "bytes": 79,
+          "gzip": 99,
+          "brotli": 83,
+          "sha256": "0391c7d3533a08ed74f3adce717f44d1add66ec625361e22f2a81a994273407d"
+        }
+      ],
+      "emittedJsPerFileSums": {
+        "bytes": 148345,
+        "gzip": 9606,
+        "brotli": 5793
+      },
+      "facadeModule": [
+        {
+          "fileName": "assets/index-uqG7yklW.js",
+          "isEntry": true,
+          "moduleId": "\u0000paraglide:client-locale-split:root",
+          "originalLength": 176963,
+          "renderedLength": 150799,
+          "renderedExportCount": 513,
+          "removedExportCount": 0
+        }
+      ],
+      "runtimeProbe": {
+        "count": 512,
+        "protoIsNull": true,
+        "frozen": true,
+        "tag": "[object Module]",
+        "messageAlias": true,
+        "richAlias": true,
+        "partsAlias": true,
+        "staticText": "English label 0: Open preferences and manage every notification setting in this workspace.",
+        "richText": "Hello Ada",
+        "parts": [
+          {
+            "type": "text",
+            "value": "Hello "
+          },
+          {
+            "type": "element",
+            "name": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ada"
+              }
+            ]
+          }
+        ],
+        "messageDescriptor": {
+          "enumerable": true,
+          "writable": false,
+          "configurable": false,
+          "isFunction": true
+        },
+        "richFunctionDescriptor": {
+          "enumerable": true,
+          "writable": false,
+          "configurable": false,
+          "isFunction": true
+        },
+        "partsDescriptor": {
+          "enumerable": true,
+          "writable": true,
+          "configurable": true,
+          "isFunction": true
+        },
+        "tagDescriptor": {
+          "value": "Module",
+          "enumerable": false,
+          "writable": false,
+          "configurable": false
+        },
+        "keyOrderSha256": "ea65b9c08b317db22f59be94c3028b725ecfaeb31cd123b1f75fa089f3a413f6"
+      }
+    },
+    {
+      "label": "vite-8.1.4-current-named",
+      "vite": "8.1.4",
+      "facade": "current",
+      "consumer": "named-static-plus-rich",
+      "messageCount": 512,
+      "entry": {
+        "name": "index-B4Ymtdw7.js",
+        "bytes": 48371,
+        "gzip": 4463,
+        "brotli": 2658
+      },
+      "emittedJsPerFile": [
+        {
+          "name": "_paraglide_client-locale-split_core-Cy_5aXVV.js",
+          "bytes": 2672,
+          "gzip": 1288,
+          "brotli": 1124,
+          "sha256": "0c792f59b1641590bac12bc85dd778030ef9f7a62127d68318274d35f917b37c"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_de-0_5bwJSO.js",
+          "bytes": 44531,
+          "gzip": 1686,
+          "brotli": 903,
+          "sha256": "7978ea3a51d6501d4149bf56bfe4a424456c12a94a913c804c422b666f77a572"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_en-B5esij9v.js",
+          "bytes": 48619,
+          "gzip": 1677,
+          "brotli": 875,
+          "sha256": "7914d2088ed4ecf5db1e41d01bd881aeaa9652d99cb949e069f5c5f5bec8f1fc"
+        },
+        {
+          "name": "index-B4Ymtdw7.js",
+          "bytes": 48371,
+          "gzip": 4463,
+          "brotli": 2658,
+          "sha256": "3c7debc75beab11ae82b431f398774d45f4776fb13cdfd1d934ff0fcbf7b3a1e"
+        },
+        {
+          "name": "paraglide-locale-preload-CaXxlGqD.js",
+          "bytes": 78,
+          "gzip": 96,
+          "brotli": 82,
+          "sha256": "b2a1b2b8180229b5420b1f791cbd54e169a132e0dc36d39fb458f8fc3ea9c5f3"
+        }
+      ],
+      "emittedJsPerFileSums": {
+        "bytes": 144271,
+        "gzip": 9210,
+        "brotli": 5642
+      },
+      "facadeModule": [
+        {
+          "fileName": "assets/index-B4Ymtdw7.js",
+          "isEntry": true,
+          "moduleId": "\u0000paraglide:client-locale-split:root",
+          "renderedLength": 139007,
+          "renderedExportCount": 513
+        }
+      ],
+      "runtimeProbe": {
+        "staticText": "English label 0: Open preferences and manage every notification setting in this workspace.",
+        "richText": "Hello Ada",
+        "parts": [
+          {
+            "type": "text",
+            "value": "Hello "
+          },
+          {
+            "type": "element",
+            "name": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ada"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "vite-8.1.4-pure-iife-named",
+      "vite": "8.1.4",
+      "facade": "pure-iife",
+      "consumer": "named-static-plus-rich",
+      "messageCount": 512,
+      "entry": {
+        "name": "index-B1uTTKYQ.js",
+        "bytes": 499,
+        "gzip": 282,
+        "brotli": 238
+      },
+      "emittedJsPerFile": [
+        {
+          "name": "_paraglide_client-locale-split_core-Cy_5aXVV.js",
+          "bytes": 2672,
+          "gzip": 1288,
+          "brotli": 1124,
+          "sha256": "0c792f59b1641590bac12bc85dd778030ef9f7a62127d68318274d35f917b37c"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_de-0_5bwJSO.js",
+          "bytes": 44531,
+          "gzip": 1686,
+          "brotli": 903,
+          "sha256": "7978ea3a51d6501d4149bf56bfe4a424456c12a94a913c804c422b666f77a572"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_en-B5esij9v.js",
+          "bytes": 48619,
+          "gzip": 1677,
+          "brotli": 875,
+          "sha256": "7914d2088ed4ecf5db1e41d01bd881aeaa9652d99cb949e069f5c5f5bec8f1fc"
+        },
+        {
+          "name": "index-B1uTTKYQ.js",
+          "bytes": 499,
+          "gzip": 282,
+          "brotli": 238,
+          "sha256": "1a04bf4ef732d325ee3412751abc2703d077753cb02bf5fa7206af59ae951b6d"
+        },
+        {
+          "name": "paraglide-locale-preload-CaXxlGqD.js",
+          "bytes": 78,
+          "gzip": 96,
+          "brotli": 82,
+          "sha256": "b2a1b2b8180229b5420b1f791cbd54e169a132e0dc36d39fb458f8fc3ea9c5f3"
+        }
+      ],
+      "emittedJsPerFileSums": {
+        "bytes": 96399,
+        "gzip": 5029,
+        "brotli": 3222
+      },
+      "facadeModule": [
+        {
+          "fileName": "assets/index-B1uTTKYQ.js",
+          "isEntry": true,
+          "moduleId": "\u0000paraglide:client-locale-split:root",
+          "renderedLength": 835,
+          "renderedExportCount": 2
+        }
+      ],
+      "runtimeProbe": {
+        "staticText": "English label 0: Open preferences and manage every notification setting in this workspace.",
+        "richText": "Hello Ada",
+        "parts": [
+          {
+            "type": "text",
+            "value": "Hello "
+          },
+          {
+            "type": "element",
+            "name": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ada"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "vite-8.1.4-current-full",
+      "vite": "8.1.4",
+      "facade": "current",
+      "consumer": "computed-full-namespace",
+      "messageCount": 512,
+      "entry": {
+        "name": "index-DaL_oyqD.js",
+        "bytes": 49532,
+        "gzip": 4804,
+        "brotli": 2955
+      },
+      "emittedJsPerFile": [
+        {
+          "name": "_paraglide_client-locale-split_core-Cy_5aXVV.js",
+          "bytes": 2672,
+          "gzip": 1288,
+          "brotli": 1124,
+          "sha256": "0c792f59b1641590bac12bc85dd778030ef9f7a62127d68318274d35f917b37c"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_de-0_5bwJSO.js",
+          "bytes": 44531,
+          "gzip": 1686,
+          "brotli": 903,
+          "sha256": "7978ea3a51d6501d4149bf56bfe4a424456c12a94a913c804c422b666f77a572"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_en-B5esij9v.js",
+          "bytes": 48619,
+          "gzip": 1677,
+          "brotli": 875,
+          "sha256": "7914d2088ed4ecf5db1e41d01bd881aeaa9652d99cb949e069f5c5f5bec8f1fc"
+        },
+        {
+          "name": "index-DaL_oyqD.js",
+          "bytes": 49532,
+          "gzip": 4804,
+          "brotli": 2955,
+          "sha256": "bc5e2e7544de4a2d9ad747e35553a652d12850113a04cad065b557ba00076c74"
+        },
+        {
+          "name": "paraglide-locale-preload-CaXxlGqD.js",
+          "bytes": 78,
+          "gzip": 96,
+          "brotli": 82,
+          "sha256": "b2a1b2b8180229b5420b1f791cbd54e169a132e0dc36d39fb458f8fc3ea9c5f3"
+        }
+      ],
+      "emittedJsPerFileSums": {
+        "bytes": 145432,
+        "gzip": 9551,
+        "brotli": 5939
+      },
+      "facadeModule": [
+        {
+          "fileName": "assets/index-DaL_oyqD.js",
+          "isEntry": true,
+          "moduleId": "\u0000paraglide:client-locale-split:root",
+          "renderedLength": 139007,
+          "renderedExportCount": 513
+        }
+      ],
+      "runtimeProbe": {
+        "count": 512,
+        "protoIsNull": true,
+        "frozen": true,
+        "tag": "[object Module]",
+        "messageAlias": true,
+        "richAlias": true,
+        "partsAlias": true,
+        "staticText": "English label 0: Open preferences and manage every notification setting in this workspace.",
+        "richText": "Hello Ada",
+        "parts": [
+          {
+            "type": "text",
+            "value": "Hello "
+          },
+          {
+            "type": "element",
+            "name": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ada"
+              }
+            ]
+          }
+        ],
+        "messageDescriptor": {
+          "enumerable": true,
+          "writable": false,
+          "configurable": false,
+          "isFunction": true
+        },
+        "richFunctionDescriptor": {
+          "enumerable": true,
+          "writable": false,
+          "configurable": false,
+          "isFunction": true
+        },
+        "partsDescriptor": {
+          "enumerable": true,
+          "writable": true,
+          "configurable": true,
+          "isFunction": true
+        },
+        "tagDescriptor": {
+          "value": "Module",
+          "enumerable": false,
+          "writable": false,
+          "configurable": false
+        },
+        "keyOrderSha256": "ea65b9c08b317db22f59be94c3028b725ecfaeb31cd123b1f75fa089f3a413f6"
+      }
+    },
+    {
+      "label": "vite-8.1.4-pure-iife-full",
+      "vite": "8.1.4",
+      "facade": "pure-iife",
+      "consumer": "computed-full-namespace",
+      "messageCount": 512,
+      "entry": {
+        "name": "index-D8niPxz8.js",
+        "bytes": 49551,
+        "gzip": 4810,
+        "brotli": 2919
+      },
+      "emittedJsPerFile": [
+        {
+          "name": "_paraglide_client-locale-split_core-Cy_5aXVV.js",
+          "bytes": 2672,
+          "gzip": 1288,
+          "brotli": 1124,
+          "sha256": "0c792f59b1641590bac12bc85dd778030ef9f7a62127d68318274d35f917b37c"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_de-0_5bwJSO.js",
+          "bytes": 44531,
+          "gzip": 1686,
+          "brotli": 903,
+          "sha256": "7978ea3a51d6501d4149bf56bfe4a424456c12a94a913c804c422b666f77a572"
+        },
+        {
+          "name": "_paraglide_client-locale-split_locale_en-B5esij9v.js",
+          "bytes": 48619,
+          "gzip": 1677,
+          "brotli": 875,
+          "sha256": "7914d2088ed4ecf5db1e41d01bd881aeaa9652d99cb949e069f5c5f5bec8f1fc"
+        },
+        {
+          "name": "index-D8niPxz8.js",
+          "bytes": 49551,
+          "gzip": 4810,
+          "brotli": 2919,
+          "sha256": "75aa810c37952015e6950dd5d5476f6879391f4a67213e922196492e41aebd84"
+        },
+        {
+          "name": "paraglide-locale-preload-CaXxlGqD.js",
+          "bytes": 78,
+          "gzip": 96,
+          "brotli": 82,
+          "sha256": "b2a1b2b8180229b5420b1f791cbd54e169a132e0dc36d39fb458f8fc3ea9c5f3"
+        }
+      ],
+      "emittedJsPerFileSums": {
+        "bytes": 145451,
+        "gzip": 9557,
+        "brotli": 5903
+      },
+      "facadeModule": [
+        {
+          "fileName": "assets/index-D8niPxz8.js",
+          "isEntry": true,
+          "moduleId": "\u0000paraglide:client-locale-split:root",
+          "renderedLength": 139586,
+          "renderedExportCount": 513
+        }
+      ],
+      "runtimeProbe": {
+        "count": 512,
+        "protoIsNull": true,
+        "frozen": true,
+        "tag": "[object Module]",
+        "messageAlias": true,
+        "richAlias": true,
+        "partsAlias": true,
+        "staticText": "English label 0: Open preferences and manage every notification setting in this workspace.",
+        "richText": "Hello Ada",
+        "parts": [
+          {
+            "type": "text",
+            "value": "Hello "
+          },
+          {
+            "type": "element",
+            "name": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ada"
+              }
+            ]
+          }
+        ],
+        "messageDescriptor": {
+          "enumerable": true,
+          "writable": false,
+          "configurable": false,
+          "isFunction": true
+        },
+        "richFunctionDescriptor": {
+          "enumerable": true,
+          "writable": false,
+          "configurable": false,
+          "isFunction": true
+        },
+        "partsDescriptor": {
+          "enumerable": true,
+          "writable": true,
+          "configurable": true,
+          "isFunction": true
+        },
+        "tagDescriptor": {
+          "value": "Module",
+          "enumerable": false,
+          "writable": false,
+          "configurable": false
+        },
+        "keyOrderSha256": "ea65b9c08b317db22f59be94c3028b725ecfaeb31cd123b1f75fa089f3a413f6"
+      }
+    }
+  ],
+  "equivalence": [
+    {
+      "vite": "7.3.1",
+      "consumer": "named",
+      "nonEntryJsAssetsIdentical": true,
+      "runtimeProbeEqual": true,
+      "delta": {
+        "entryBytes": -50942,
+        "entryGzip": -4267,
+        "entryBrotli": -2357,
+        "allJsBytes": -50942,
+        "allJsGzip": -4267,
+        "allJsBrotli": -2357
+      }
+    },
+    {
+      "vite": "7.3.1",
+      "consumer": "full",
+      "nonEntryJsAssetsIdentical": true,
+      "runtimeProbeEqual": true,
+      "delta": {
+        "entryBytes": 19,
+        "entryGzip": 7,
+        "entryBrotli": 73,
+        "allJsBytes": 19,
+        "allJsGzip": 7,
+        "allJsBrotli": 73
+      }
+    },
+    {
+      "vite": "8.1.4",
+      "consumer": "named",
+      "nonEntryJsAssetsIdentical": true,
+      "runtimeProbeEqual": true,
+      "delta": {
+        "entryBytes": -47872,
+        "entryGzip": -4181,
+        "entryBrotli": -2420,
+        "allJsBytes": -47872,
+        "allJsGzip": -4181,
+        "allJsBrotli": -2420
+      }
+    },
+    {
+      "vite": "8.1.4",
+      "consumer": "full",
+      "nonEntryJsAssetsIdentical": true,
+      "runtimeProbeEqual": true,
+      "delta": {
+        "entryBytes": 19,
+        "entryGzip": 6,
+        "entryBrotli": -36,
+        "allJsBytes": 19,
+        "allJsGzip": 6,
+        "allJsBrotli": -36
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+--- a/src/bundler-plugins/client-locale-split/vite-plugin.ts
++++ b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+@@ -342,7 +342,7 @@
+ 				`__paraglideMessages[${JSON.stringify(message.publicName)}] = __paraglideMessage${index};`
+ 		)
+ 		.join("\n");
+-	return `${imports}\n${startup}\n${wrapperDeclarations}\nconst __paraglideMessages = Object.create(null);\n${namespaceProperties}\nObject.defineProperty(__paraglideMessages, Symbol.toStringTag, { value: "Module" });\nObject.freeze(__paraglideMessages);\nexport { __paraglideMessages as m };\n`;
++	return `${imports}\n${startup}\n${wrapperDeclarations}\nconst __paraglideMessages = /*#__PURE__*/ (() => {\nconst __paraglideMessages = Object.create(null);\n${namespaceProperties}\nObject.defineProperty(__paraglideMessages, Symbol.toStringTag, { value: "Module" });\nreturn Object.freeze(__paraglideMessages);\n})();\nexport { __paraglideMessages as m };\n`;
+ }
+ 
+ function createCoreModule(
