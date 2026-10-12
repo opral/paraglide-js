@@ -1,0 +1,9 @@
+# Optimized-native startup scheduling review
+
+GPT-6 Luna, extra-high reasoning, reviewed pinned native source and archived request traces read-only. No new build or timing result accompanies this review.
+
+Native already uses Vite-split selected catalogs. `frontend/src/i18n/react.ts` reads `LanguageManager`, awaits i18next initialization, and only then invokes the selected catalog's `import.meta.glob` loader after the app static graph evaluates. In the archived native/core gate trace, native Spanish starts at 771 ms and completes at 874 ms; Paraglide English and Spanish start at 268–269 ms. The native English fallback is statically bundled. These are scheduling differences as well as representation differences.
+
+A matched native control should share the existing catalog glob through a tiny loader module with per-locale promise memoization. A Vite-owned early module entry in each root HTML can read an existing exact supported cookie and warm the selected non-English import: `lang` for index/login, `subLang` for subscription, with the existing supported legacy `lang` fallback when appropriate. For absent or invalid cookies it should make no early request. The original `LanguageManager` retains navigator aliases, cookie writes, and reload behavior; the preloader should neither import the broad utility module nor initialize i18next. `readyI18n` keeps its init → await selected module → add resource bundle → change language sequence. All 13 full catalogs, English fallback, scope selection, and app manual chunk policy remain intact.
+
+The earlier Paraglide-to-native pair remains a diagnostic below the gate. Any future startup qualification must include the matched early-loading native control; early request scheduling alone is not a compiler-specific migration advantage. The 5.3% encoded-byte difference in the archived core gate pair is separately measured and also below the gate.
