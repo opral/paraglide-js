@@ -22,7 +22,7 @@ const variants = [
 			"ANYTHING_LEFT_DIST",
 			".real-apps/anything-public-default-dist"
 		),
-		port: 4182,
+		port: Number(process.env.ANYTHING_LEFT_PORT ?? 4182),
 	},
 	{
 		name: rightName,
@@ -30,7 +30,7 @@ const variants = [
 			"ANYTHING_RIGHT_DIST",
 			".real-apps/anything-public-split-dist"
 		),
-		port: 4183,
+		port: Number(process.env.ANYTHING_RIGHT_PORT ?? 4183),
 	},
 ];
 const trials = Number(process.env.ANYTHING_ROUTE_TRIALS ?? 5);

@@ -151,3 +151,45 @@ PR5 compiler metadata described 1,208 of 1,257 bundles as static in at least one
 The same PR4 public builds were also measured with Vite 8.1.4 as a toolchain cross-check. That build is not the app-native Vite comparator. Its route transfer was 560,407→479,832 B (−14.4%) and FCP 1,476→1,424 ms (−3.5%) for default→split, while explicit locale-modules→split was 907,969→479,832 B (−47.2%) with essentially flat FCP (1,396→1,392 ms). Vite4 and Vite8 numbers are kept in separate JSON reports and are not pooled.
 
 The portable route reports are `results/anything-llm-public-vite4-default-vs-split.json`, `results/anything-llm-public-vite4-locale-vs-split.json`, `results/anything-llm-public-vite4-pr5-default-vs-split.json`, the two `results/anything-llm-public-vite4-pr5-preload-*.json` diagnostic reports, the PR5 `<Trans>` facade probe, and the three `results/anything-llm-public-vite8-*.json` files. PR5's physical generated message graph passed 38,192 ordinary comparisons, 837 plural comparisons, 9 locale-region cases, and 496 `<Trans>` renders. The `/onboarding` route tested the client split facade with the app's static messages; the additional production facade probe checks one rich `<Trans>` key in English and French against i18next. The exact source commits, generated metadata hash, and PR5 Vite4 output tree and entry hashes are in [anything-llm-public-build-manifest.json](results/anything-llm-public-build-manifest.json). Generated sources, the inlang project, app adapters, and production outputs stay in ignored `.real-apps/anything-migration`. The strict TypeScript-hook report above remains distinct from these public compiler-path reports.
+
+## Optimized i18next control and revised campaign gate
+
+The campaign now considers only optimized i18next setups for migration claims.
+The existing eager AnythingLLM comparison above is historical evidence, not a
+qualifying migration result under that gate. A separate app-local diagnostic
+control retains the pinned i18next 23.12.1, React bindings, language detector,
+31 catalogs, locale-picker metadata, and ordinary fallback/interpolation
+settings. It replaces eager resource imports with a Vite dynamic-import backend,
+loads `common` and awaits initialization before application execution. Both
+sides target `esnext`; no catalogs or keys are removed.
+
+Five alternating cold French onboarding pairs at 1.6 Mbps / 150 ms / 4× CPU
+show lazy i18next **425,019 B / 2,320 ms FCP/LCP**, versus split Paraglide
+**420,675 B / 2,128 ms**: **1.0% fewer bytes and 8.3% faster paint**. Exact text
+matches and page errors are empty in all trials. This first diagnostic does
+not clear either >10% gate. Long-task medians rise 56 → 64 ms. The raw report is
+`results/anything-lazy-i18next-mobile-vs-split.json`, with both artifact tree
+hashes. Its `compilerCommit` field is null; its split output hash matches the
+independently audited final `4cbb10af` artifact above. This control is a deliberate
+app-local optimization, not the unchanged native repository configuration.
+It does not establish compatibility across authenticated/lazy routes or a
+language-switch parity matrix. Earlier full-catalog/native checks cannot be
+attributed to this newly changed initialization path.
+
+Reproduce after the main AnythingLLM replay creates the native metadata control:
+
+```sh
+node benchmark/real-apps/anything-migration/build-lazy-native-control.mjs
+ANYTHING_LEFT_DIST=.real-apps/anything-lazy-i18next-control/dist \
+ANYTHING_RIGHT_DIST=.real-apps/anything-public-split-dist \
+ANYTHING_LEFT_NAME=lazy-i18next ANYTHING_RIGHT_NAME=split \
+ANYTHING_DOWNLOAD_MBPS=1.6 ANYTHING_LATENCY_MS=150 ANYTHING_CPU_RATE=4 \
+ANYTHING_ROUTE_TRIALS=5 \
+ANYTHING_PUBLIC_REPORT=.real-apps/anything-lazy-i18next-control/mobile-vs-split.json \
+  node benchmark/real-apps/anything-migration/route-perf-public.mjs
+```
+
+The route harness also accepts `ANYTHING_LEFT_PORT` / `ANYTHING_RIGHT_PORT`.
+Serialize browser timing and compiler builds on the host; separate ports do
+not prevent CPU contention. Further optimized-native experiments should test
+startup scheduling on both sides as well as emitted bytes.

@@ -1,0 +1,1252 @@
+{
+  "comparison": "same Vite build, app configuration, and route; left and right generated artifacts",
+  "compilerCommit": null,
+  "artifacts": {
+    "lazy-i18next": {
+      "directory": "/root/repos-iii/paraglide-client-split-pr4/.real-apps/anything-lazy-i18next-control/dist",
+      "fileCount": 287,
+      "treeSha256": "2aa0675cccb1189d3e580a7e926006e3d3af78198660c584de7e53c44527676b",
+      "treeHashMethod": "sha256(sorted relative path + NUL + sha256(file bytes) + newline)",
+      "indexHtmlSha256": "1fd89e762396242280e64d3b633314f088b22cd1fb85fcc6ac00d7ea304200c5",
+      "indexJsSha256": "1897e2526cee27e06656f95fd53bcbd6fb9053d568f882952ca2dd1b7e7cf795"
+    },
+    "split": {
+      "directory": "/root/repos-iii/paraglide-vite-locale-split/.real-apps/anything-public-final-pr4-split-dist",
+      "fileCount": 289,
+      "treeSha256": "3d1a7dc9c3eeb42afe2f7390857c39a33c22612bdc7236012732f3de21f35f6e",
+      "treeHashMethod": "sha256(sorted relative path + NUL + sha256(file bytes) + newline)",
+      "indexHtmlSha256": "9e0063405418662052e94d3821c34ba655fb2a0c10040f4b8a056513257961d7",
+      "indexJsSha256": "39a4d7e768b375dcc9af7a008cea71c7a08ef7901655cb661166ca125f1e90ac"
+    }
+  },
+  "source": "2a10d052a1812d7be12c43f9024072cf26a27a8b",
+  "route": "/onboarding",
+  "locale": "fr-FR",
+  "browser": "143.0.7499.4",
+  "network": {
+    "latencyMs": 150,
+    "downloadMbps": 1.6,
+    "uploadMbps": 2
+  },
+  "cpuThrottle": 4,
+  "trials": 5,
+  "summaryMethod": "Conventional median; average of two middle observations for even sample counts",
+  "fixedPostRenderWaitMs": 1500,
+  "compression": "Brotli Q4 response bodies; no cache",
+  "results": [
+    {
+      "variant": "lazy-i18next",
+      "trial": 0,
+      "fcpMs": 2348,
+      "lcpMs": 2348,
+      "longTaskMs": 76,
+      "transferBytes": 425019,
+      "resources": [
+        {
+          "path": "/index.js",
+          "transferSize": 260015,
+          "decodedBodySize": 995708,
+          "initiatorType": "script",
+          "startTime": 166,
+          "responseEnd": 1819,
+          "requestStart": 175
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 166,
+          "responseEnd": 717,
+          "requestStart": 175
+        },
+        {
+          "path": "/assets/common-0cebf9a1.js",
+          "transferSize": 23030,
+          "decodedBodySize": 74639,
+          "initiatorType": "script",
+          "startTime": 1849,
+          "responseEnd": 2212,
+          "requestStart": 1851
+        },
+        {
+          "path": "/assets/common-b17db729.js",
+          "transferSize": 20179,
+          "decodedBodySize": 63094,
+          "initiatorType": "script",
+          "startTime": 1850,
+          "responseEnd": 2191,
+          "requestStart": 1851
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2321,
+          "responseEnd": 2477,
+          "requestStart": 2324
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2321,
+          "responseEnd": 2485,
+          "requestStart": 2324
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2325,
+          "responseEnd": 2856,
+          "requestStart": 2342
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2345,
+          "responseEnd": 2352,
+          "requestStart": 2345
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2348,
+          "responseEnd": 2352,
+          "requestStart": 2348
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2349,
+          "responseEnd": 2352,
+          "requestStart": 2349
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 4173
+    },
+    {
+      "variant": "split",
+      "trial": 0,
+      "fcpMs": 2152,
+      "lcpMs": 2152,
+      "longTaskMs": 66,
+      "transferBytes": 420675,
+      "resources": [
+        {
+          "path": "/assets/paraglide-locale-preload-61f18e79.js",
+          "transferSize": 376,
+          "decodedBodySize": 79,
+          "initiatorType": "script",
+          "startTime": 160,
+          "responseEnd": 326,
+          "requestStart": 167
+        },
+        {
+          "path": "/index.js",
+          "transferSize": 260450,
+          "decodedBodySize": 1082430,
+          "initiatorType": "script",
+          "startTime": 160,
+          "responseEnd": 1972,
+          "requestStart": 167
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_core-d567950e.js",
+          "transferSize": 3211,
+          "decodedBodySize": 9966,
+          "initiatorType": "other",
+          "startTime": 160,
+          "responseEnd": 383,
+          "requestStart": 167
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 160,
+          "responseEnd": 741,
+          "requestStart": 167
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_en-97f5960a.js",
+          "transferSize": 15895,
+          "decodedBodySize": 51591,
+          "initiatorType": "script",
+          "startTime": 761,
+          "responseEnd": 1148,
+          "requestStart": 767
+        },
+        {
+          "path": "/assets/registry-bc75dbd4.js",
+          "transferSize": 840,
+          "decodedBodySize": 981,
+          "initiatorType": "script",
+          "startTime": 762,
+          "responseEnd": 934,
+          "requestStart": 767
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_fr-2240ce1b.js",
+          "transferSize": 18108,
+          "decodedBodySize": 63551,
+          "initiatorType": "script",
+          "startTime": 765,
+          "responseEnd": 1184,
+          "requestStart": 767
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2091,
+          "responseEnd": 2250,
+          "requestStart": 2093
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2091,
+          "responseEnd": 2257,
+          "requestStart": 2093
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2096,
+          "responseEnd": 2621,
+          "requestStart": 2104
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2127,
+          "responseEnd": 2133,
+          "requestStart": 2127
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2130,
+          "responseEnd": 2134,
+          "requestStart": 2130
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2132,
+          "responseEnd": 2134,
+          "requestStart": 2132
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 3667
+    },
+    {
+      "variant": "split",
+      "trial": 1,
+      "fcpMs": 2160,
+      "lcpMs": 2160,
+      "longTaskMs": 79,
+      "transferBytes": 420675,
+      "resources": [
+        {
+          "path": "/assets/paraglide-locale-preload-61f18e79.js",
+          "transferSize": 376,
+          "decodedBodySize": 79,
+          "initiatorType": "script",
+          "startTime": 160,
+          "responseEnd": 319,
+          "requestStart": 167
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_core-d567950e.js",
+          "transferSize": 3211,
+          "decodedBodySize": 9966,
+          "initiatorType": "other",
+          "startTime": 160,
+          "responseEnd": 375,
+          "requestStart": 169
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 160,
+          "responseEnd": 732,
+          "requestStart": 169
+        },
+        {
+          "path": "/index.js",
+          "transferSize": 260450,
+          "decodedBodySize": 1082430,
+          "initiatorType": "script",
+          "startTime": 160,
+          "responseEnd": 1963,
+          "requestStart": 169
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_en-97f5960a.js",
+          "transferSize": 15895,
+          "decodedBodySize": 51591,
+          "initiatorType": "script",
+          "startTime": 752,
+          "responseEnd": 1140,
+          "requestStart": 758
+        },
+        {
+          "path": "/assets/registry-bc75dbd4.js",
+          "transferSize": 840,
+          "decodedBodySize": 981,
+          "initiatorType": "script",
+          "startTime": 752,
+          "responseEnd": 926,
+          "requestStart": 758
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_fr-2240ce1b.js",
+          "transferSize": 18108,
+          "decodedBodySize": 63551,
+          "initiatorType": "script",
+          "startTime": 755,
+          "responseEnd": 1176,
+          "requestStart": 758
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2094,
+          "responseEnd": 2249,
+          "requestStart": 2097
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2095,
+          "responseEnd": 2257,
+          "requestStart": 2097
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2099,
+          "responseEnd": 2621,
+          "requestStart": 2108
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2134,
+          "responseEnd": 2140,
+          "requestStart": 2134
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2137,
+          "responseEnd": 2140,
+          "requestStart": 2137
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2138,
+          "responseEnd": 2140,
+          "requestStart": 2138
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 3674
+    },
+    {
+      "variant": "lazy-i18next",
+      "trial": 1,
+      "fcpMs": 2348,
+      "lcpMs": 2348,
+      "longTaskMs": 79,
+      "transferBytes": 425019,
+      "resources": [
+        {
+          "path": "/index.js",
+          "transferSize": 260015,
+          "decodedBodySize": 995708,
+          "initiatorType": "script",
+          "startTime": 161,
+          "responseEnd": 1806,
+          "requestStart": 170
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 162,
+          "responseEnd": 712,
+          "requestStart": 170
+        },
+        {
+          "path": "/assets/common-0cebf9a1.js",
+          "transferSize": 23030,
+          "decodedBodySize": 74639,
+          "initiatorType": "script",
+          "startTime": 1840,
+          "responseEnd": 2207,
+          "requestStart": 1842
+        },
+        {
+          "path": "/assets/common-b17db729.js",
+          "transferSize": 20179,
+          "decodedBodySize": 63094,
+          "initiatorType": "script",
+          "startTime": 1841,
+          "responseEnd": 2185,
+          "requestStart": 1842
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2319,
+          "responseEnd": 2479,
+          "requestStart": 2322
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2319,
+          "responseEnd": 2486,
+          "requestStart": 2322
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2322,
+          "responseEnd": 2327,
+          "requestStart": 2322
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2324,
+          "responseEnd": 2327,
+          "requestStart": 2324
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2326,
+          "responseEnd": 2327,
+          "requestStart": 2326
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2332,
+          "responseEnd": 2851,
+          "requestStart": 2340
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 4160
+    },
+    {
+      "variant": "lazy-i18next",
+      "trial": 2,
+      "fcpMs": 2320,
+      "lcpMs": 2320,
+      "longTaskMs": 54,
+      "transferBytes": 425019,
+      "resources": [
+        {
+          "path": "/index.js",
+          "transferSize": 260015,
+          "decodedBodySize": 995708,
+          "initiatorType": "script",
+          "startTime": 160,
+          "responseEnd": 1805,
+          "requestStart": 168
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 160,
+          "responseEnd": 712,
+          "requestStart": 168
+        },
+        {
+          "path": "/assets/common-0cebf9a1.js",
+          "transferSize": 23030,
+          "decodedBodySize": 74639,
+          "initiatorType": "script",
+          "startTime": 1836,
+          "responseEnd": 2198,
+          "requestStart": 1838
+        },
+        {
+          "path": "/assets/common-b17db729.js",
+          "transferSize": 20179,
+          "decodedBodySize": 63094,
+          "initiatorType": "script",
+          "startTime": 1836,
+          "responseEnd": 2184,
+          "requestStart": 1838
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2292,
+          "responseEnd": 2450,
+          "requestStart": 2293
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2292,
+          "responseEnd": 2458,
+          "requestStart": 2293
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2295,
+          "responseEnd": 2300,
+          "requestStart": 2295
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2297,
+          "responseEnd": 2300,
+          "requestStart": 2297
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2298,
+          "responseEnd": 2300,
+          "requestStart": 2298
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2303,
+          "responseEnd": 2822,
+          "requestStart": 2311
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 4158
+    },
+    {
+      "variant": "split",
+      "trial": 2,
+      "fcpMs": 2124,
+      "lcpMs": 2124,
+      "longTaskMs": 64,
+      "transferBytes": 420675,
+      "resources": [
+        {
+          "path": "/assets/paraglide-locale-preload-61f18e79.js",
+          "transferSize": 376,
+          "decodedBodySize": 79,
+          "initiatorType": "script",
+          "startTime": 168,
+          "responseEnd": 332,
+          "requestStart": 176
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_core-d567950e.js",
+          "transferSize": 3211,
+          "decodedBodySize": 9966,
+          "initiatorType": "other",
+          "startTime": 169,
+          "responseEnd": 381,
+          "requestStart": 177
+        },
+        {
+          "path": "/index.js",
+          "transferSize": 260450,
+          "decodedBodySize": 1082430,
+          "initiatorType": "script",
+          "startTime": 169,
+          "responseEnd": 1976,
+          "requestStart": 177
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 169,
+          "responseEnd": 747,
+          "requestStart": 177
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_en-97f5960a.js",
+          "transferSize": 15895,
+          "decodedBodySize": 51591,
+          "initiatorType": "script",
+          "startTime": 773,
+          "responseEnd": 1169,
+          "requestStart": 784
+        },
+        {
+          "path": "/assets/registry-bc75dbd4.js",
+          "transferSize": 840,
+          "decodedBodySize": 981,
+          "initiatorType": "script",
+          "startTime": 775,
+          "responseEnd": 947,
+          "requestStart": 784
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_fr-2240ce1b.js",
+          "transferSize": 18108,
+          "decodedBodySize": 63551,
+          "initiatorType": "script",
+          "startTime": 780,
+          "responseEnd": 1204,
+          "requestStart": 785
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2084,
+          "responseEnd": 2241,
+          "requestStart": 2086
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2084,
+          "responseEnd": 2249,
+          "requestStart": 2086
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2087,
+          "responseEnd": 2613,
+          "requestStart": 2094
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2121,
+          "responseEnd": 2128,
+          "requestStart": 2121
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2124,
+          "responseEnd": 2128,
+          "requestStart": 2124
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2126,
+          "responseEnd": 2128,
+          "requestStart": 2126
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 3654
+    },
+    {
+      "variant": "split",
+      "trial": 3,
+      "fcpMs": 2128,
+      "lcpMs": 2128,
+      "longTaskMs": 61,
+      "transferBytes": 420675,
+      "resources": [
+        {
+          "path": "/assets/paraglide-locale-preload-61f18e79.js",
+          "transferSize": 376,
+          "decodedBodySize": 79,
+          "initiatorType": "script",
+          "startTime": 161,
+          "responseEnd": 326,
+          "requestStart": 168
+        },
+        {
+          "path": "/index.js",
+          "transferSize": 260450,
+          "decodedBodySize": 1082430,
+          "initiatorType": "script",
+          "startTime": 162,
+          "responseEnd": 1970,
+          "requestStart": 169
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_core-d567950e.js",
+          "transferSize": 3211,
+          "decodedBodySize": 9966,
+          "initiatorType": "other",
+          "startTime": 162,
+          "responseEnd": 377,
+          "requestStart": 169
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 162,
+          "responseEnd": 748,
+          "requestStart": 169
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_en-97f5960a.js",
+          "transferSize": 15895,
+          "decodedBodySize": 51591,
+          "initiatorType": "script",
+          "startTime": 761,
+          "responseEnd": 1148,
+          "requestStart": 766
+        },
+        {
+          "path": "/assets/registry-bc75dbd4.js",
+          "transferSize": 840,
+          "decodedBodySize": 981,
+          "initiatorType": "script",
+          "startTime": 761,
+          "responseEnd": 934,
+          "requestStart": 766
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_fr-2240ce1b.js",
+          "transferSize": 18108,
+          "decodedBodySize": 63551,
+          "initiatorType": "script",
+          "startTime": 764,
+          "responseEnd": 1184,
+          "requestStart": 766
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2077,
+          "responseEnd": 2236,
+          "requestStart": 2078
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2077,
+          "responseEnd": 2243,
+          "requestStart": 2078
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2080,
+          "responseEnd": 2607,
+          "requestStart": 2086
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2108,
+          "responseEnd": 2113,
+          "requestStart": 2108
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2110,
+          "responseEnd": 2113,
+          "requestStart": 2110
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2112,
+          "responseEnd": 2113,
+          "requestStart": 2112
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 3640
+    },
+    {
+      "variant": "lazy-i18next",
+      "trial": 3,
+      "fcpMs": 2320,
+      "lcpMs": 2320,
+      "longTaskMs": 56,
+      "transferBytes": 425019,
+      "resources": [
+        {
+          "path": "/index.js",
+          "transferSize": 260015,
+          "decodedBodySize": 995708,
+          "initiatorType": "script",
+          "startTime": 160,
+          "responseEnd": 1806,
+          "requestStart": 167
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 160,
+          "responseEnd": 711,
+          "requestStart": 167
+        },
+        {
+          "path": "/assets/common-0cebf9a1.js",
+          "transferSize": 23030,
+          "decodedBodySize": 74639,
+          "initiatorType": "script",
+          "startTime": 1840,
+          "responseEnd": 2207,
+          "requestStart": 1842
+        },
+        {
+          "path": "/assets/common-b17db729.js",
+          "transferSize": 20179,
+          "decodedBodySize": 63094,
+          "initiatorType": "script",
+          "startTime": 1840,
+          "responseEnd": 2192,
+          "requestStart": 1842
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2297,
+          "responseEnd": 2457,
+          "requestStart": 2299
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2297,
+          "responseEnd": 2464,
+          "requestStart": 2299
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2301,
+          "responseEnd": 2828,
+          "requestStart": 2311
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2314,
+          "responseEnd": 2321,
+          "requestStart": 2314
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2318,
+          "responseEnd": 2322,
+          "requestStart": 2318
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2320,
+          "responseEnd": 2322,
+          "requestStart": 2320
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 4165
+    },
+    {
+      "variant": "lazy-i18next",
+      "trial": 4,
+      "fcpMs": 2300,
+      "lcpMs": 2300,
+      "longTaskMs": 54,
+      "transferBytes": 425019,
+      "resources": [
+        {
+          "path": "/index.js",
+          "transferSize": 260015,
+          "decodedBodySize": 995708,
+          "initiatorType": "script",
+          "startTime": 161,
+          "responseEnd": 1800,
+          "requestStart": 167
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 161,
+          "responseEnd": 712,
+          "requestStart": 167
+        },
+        {
+          "path": "/assets/common-0cebf9a1.js",
+          "transferSize": 23030,
+          "decodedBodySize": 74639,
+          "initiatorType": "script",
+          "startTime": 1829,
+          "responseEnd": 2192,
+          "requestStart": 1831
+        },
+        {
+          "path": "/assets/common-b17db729.js",
+          "transferSize": 20179,
+          "decodedBodySize": 63094,
+          "initiatorType": "script",
+          "startTime": 1829,
+          "responseEnd": 2178,
+          "requestStart": 1831
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2281,
+          "responseEnd": 2437,
+          "requestStart": 2283
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2281,
+          "responseEnd": 2443,
+          "requestStart": 2283
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2284,
+          "responseEnd": 2808,
+          "requestStart": 2292
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2294,
+          "responseEnd": 2299,
+          "requestStart": 2294
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2296,
+          "responseEnd": 2299,
+          "requestStart": 2296
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2297,
+          "responseEnd": 2299,
+          "requestStart": 2297
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 4148
+    },
+    {
+      "variant": "split",
+      "trial": 4,
+      "fcpMs": 2096,
+      "lcpMs": 2096,
+      "longTaskMs": 57,
+      "transferBytes": 420675,
+      "resources": [
+        {
+          "path": "/assets/paraglide-locale-preload-61f18e79.js",
+          "transferSize": 376,
+          "decodedBodySize": 79,
+          "initiatorType": "script",
+          "startTime": 160,
+          "responseEnd": 319,
+          "requestStart": 166
+        },
+        {
+          "path": "/index.js",
+          "transferSize": 260450,
+          "decodedBodySize": 1082430,
+          "initiatorType": "script",
+          "startTime": 160,
+          "responseEnd": 1964,
+          "requestStart": 167
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_core-d567950e.js",
+          "transferSize": 3211,
+          "decodedBodySize": 9966,
+          "initiatorType": "other",
+          "startTime": 160,
+          "responseEnd": 369,
+          "requestStart": 167
+        },
+        {
+          "path": "/index.css",
+          "transferSize": 41485,
+          "decodedBodySize": 307421,
+          "initiatorType": "link",
+          "startTime": 160,
+          "responseEnd": 733,
+          "requestStart": 167
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_en-97f5960a.js",
+          "transferSize": 15895,
+          "decodedBodySize": 51591,
+          "initiatorType": "script",
+          "startTime": 746,
+          "responseEnd": 1134,
+          "requestStart": 750
+        },
+        {
+          "path": "/assets/registry-bc75dbd4.js",
+          "transferSize": 840,
+          "decodedBodySize": 981,
+          "initiatorType": "script",
+          "startTime": 746,
+          "responseEnd": 913,
+          "requestStart": 750
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_fr-2240ce1b.js",
+          "transferSize": 18108,
+          "decodedBodySize": 63551,
+          "initiatorType": "script",
+          "startTime": 749,
+          "responseEnd": 1170,
+          "requestStart": 750
+        },
+        {
+          "path": "/wordmark.svg",
+          "transferSize": 1468,
+          "decodedBodySize": 2713,
+          "initiatorType": "img",
+          "startTime": 2060,
+          "responseEnd": 2214,
+          "requestStart": 2061
+        },
+        {
+          "path": "/wordmark-light.svg",
+          "transferSize": 1452,
+          "decodedBodySize": 2698,
+          "initiatorType": "img",
+          "startTime": 2060,
+          "responseEnd": 2221,
+          "requestStart": 2061
+        },
+        {
+          "path": "/PlusJakartaSans.ttf",
+          "transferSize": 76214,
+          "decodedBodySize": 176144,
+          "initiatorType": "css",
+          "startTime": 2063,
+          "responseEnd": 2586,
+          "requestStart": 2069
+        },
+        {
+          "path": "/api/onboarding",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2092,
+          "responseEnd": 2098,
+          "requestStart": 2092
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2094,
+          "responseEnd": 2098,
+          "requestStart": 2094
+        },
+        {
+          "path": "/api/system/logo",
+          "transferSize": 392,
+          "decodedBodySize": 92,
+          "initiatorType": "fetch",
+          "startTime": 2096,
+          "responseEnd": 2098,
+          "requestStart": 2096
+        }
+      ],
+      "text": "Bienvenue\nCommencer",
+      "pageErrors": [],
+      "elapsedToSampleMs": 3622
+    }
+  ],
+  "summary": {
+    "lazy-i18next": {
+      "fcpMs": 2320,
+      "lcpMs": 2320,
+      "longTaskMs": 56,
+      "transferBytes": 425019,
+      "elapsedToSampleMs": 4160
+    },
+    "split": {
+      "fcpMs": 2128,
+      "lcpMs": 2128,
+      "longTaskMs": 64,
+      "transferBytes": 420675,
+      "elapsedToSampleMs": 3654
+    }
+  },
+  "parity": [
+    {
+      "trial": 0,
+      "equal": true,
+      "nativeChars": 19,
+      "paraglideChars": 19
+    },
+    {
+      "trial": 1,
+      "equal": true,
+      "nativeChars": 19,
+      "paraglideChars": 19
+    },
+    {
+      "trial": 2,
+      "equal": true,
+      "nativeChars": 19,
+      "paraglideChars": 19
+    },
+    {
+      "trial": 3,
+      "equal": true,
+      "nativeChars": 19,
+      "paraglideChars": 19
+    },
+    {
+      "trial": 4,
+      "equal": true,
+      "nativeChars": 19,
+      "paraglideChars": 19
+    }
+  ],
+  "failures": []
+}
