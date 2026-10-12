@@ -44,7 +44,10 @@ export function compile(options: CompileArguments): Promise<CompilationResult> {
 /** Internal Vite layout variant; intentionally not re-exported from the package API. */
 export function compileForVite(
 	options: CompileArguments,
-	internalOptions: { clientLocaleSplit?: boolean } = {}
+	internalOptions: {
+		clientLocaleSplit?: boolean;
+		localeFunctionNames?: boolean;
+	} = {}
 ): Promise<CompilationResult> {
 	return compileInternal(options, true, internalOptions);
 }
@@ -52,7 +55,10 @@ export function compileForVite(
 async function compileInternal(
 	options: CompileArguments,
 	enableLocaleFunctionNames: boolean,
-	internalOptions: { clientLocaleSplit?: boolean } = {}
+	internalOptions: {
+		clientLocaleSplit?: boolean;
+		localeFunctionNames?: boolean;
+	} = {}
 ): Promise<CompilationResult> {
 	const withDefaultOptions = {
 		...defaultCompilerOptions,

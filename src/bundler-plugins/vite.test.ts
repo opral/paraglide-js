@@ -358,7 +358,7 @@ test("experimentalClientLocaleSplit rejects multiple Paraglide projects in one V
 	);
 });
 
-test("experimentalClientLocaleSplit builds real Vite locale chunks and a base-aware preload", async () => {
+async function verifyClientLocaleSplitBuild(minify: boolean | undefined) {
 	const root = await mkdtemp(join(tmpdir(), "paraglide-client-split-vite-"));
 	let project: Awaited<ReturnType<typeof loadProjectInMemory>> | undefined;
 	try {
@@ -438,6 +438,7 @@ test("experimentalClientLocaleSplit builds real Vite locale chunks and a base-aw
 				target: "es2022",
 				outDir: join(root, "dist"),
 				manifest: true,
+				minify,
 			},
 		});
 
@@ -467,11 +468,59 @@ test("experimentalClientLocaleSplit builds real Vite locale chunks and a base-aw
 		);
 		expect(dynamicCodes.join("\n")).toContain("CLIENT_SPLIT_EN_PROBE");
 		expect(dynamicCodes.join("\n")).toContain("CLIENT_SPLIT_DE_PROBE");
+		if (minify === false) {
+			// An older unminified build could cache ordinary output while the
+			// client split flag was enabled, then fail without its metadata.
+			const cacheDirectory = join(root, "project.inlang/cache/paraglide-js");
+			for (const filename of await nodeFs.promises.readdir(cacheDirectory)) {
+				const cachePath = join(cacheDirectory, filename);
+				const cached = JSON.parse(await readFile(cachePath, "utf8"));
+				delete cached.outputHashes["client-locale-split.json"];
+				delete cached.outputHashes["locale-loader.js"];
+				await writeFile(cachePath, JSON.stringify(cached));
+			}
+			await rm(join(root, "src/paraglide/client-locale-split.json"));
+			await rm(join(root, "src/paraglide/locale-loader.js"));
+			const restartedPlugins = paraglideVitePlugin({
+				project: join(root, "project.inlang"),
+				outdir: join(root, "src/paraglide"),
+				experimentalClientLocaleSplit: true,
+				strategy: ["globalVariable", "baseLocale"],
+				// A new filesystem identity isolates warm state like a restart.
+				fs: { ...nodeFs, promises: { ...nodeFs.promises } },
+			});
+			await viteBuild({
+				configFile: false,
+				logLevel: "silent",
+				root,
+				plugins: Array.isArray(restartedPlugins)
+					? restartedPlugins
+					: [restartedPlugins],
+				build: {
+					target: "es2022",
+					minify: false,
+					outDir: join(root, "retry-dist"),
+				},
+			});
+			expect(
+				JSON.parse(
+					await readFile(
+						join(root, "src/paraglide/client-locale-split.json"),
+						"utf8"
+					)
+				).messages
+			).toHaveLength(1);
+		}
 	} finally {
 		await project?.close();
 		await rm(root, { recursive: true, force: true });
 	}
-});
+}
+
+test.each([undefined, false])(
+	"experimentalClientLocaleSplit builds real Vite locale chunks and a base-aware preload (minify=%s)",
+	verifyClientLocaleSplitBuild
+);
 
 test("client locale facade preserves message API and regional fallback behavior", async () => {
 	const outdir = await mkdtemp(join(tmpdir(), "paraglide-client-locale-then-"));

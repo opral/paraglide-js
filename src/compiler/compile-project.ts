@@ -42,11 +42,14 @@ export const compileProject = (args: CompileProjectArgs) =>
 /** Internal Vite layout variant; intentionally not re-exported from the package API. */
 export const compileProjectForVite = (
 	args: CompileProjectArgs,
-	internalOptions: { clientLocaleSplit?: boolean } = {}
+	internalOptions: {
+		clientLocaleSplit?: boolean;
+		localeFunctionNames?: boolean;
+	} = {}
 ) =>
 	compileProjectInternal(
 		args,
-		true,
+		internalOptions.localeFunctionNames ?? true,
 		internalOptions.clientLocaleSplit === true
 	);
 

@@ -303,7 +303,10 @@ async function readPersistentCache(
 			typeof parsed.inputsDigest !== "string" ||
 			!Array.isArray(parsed.readFiles) ||
 			parsed.readFiles.some((file) => typeof file !== "string") ||
-			!isStringRecord(parsed.outputHashes)
+			!isStringRecord(parsed.outputHashes) ||
+			(clientLocaleSplit &&
+				(!Object.hasOwn(parsed.outputHashes, "client-locale-split.json") ||
+					!Object.hasOwn(parsed.outputHashes, "locale-loader.js")))
 		) {
 			return undefined;
 		}
@@ -518,11 +521,13 @@ async function compileAndUpdateState(args: {
 		// the read tracking (trackedFs wraps options.fs when provided)
 		fs: args.state.trackedFs,
 	};
-	args.state.previousCompilation = args.localeFunctionNames
-		? await compileForVite(compileArgs, {
-				clientLocaleSplit: args.clientLocaleSplit,
-			})
-		: await compile(compileArgs);
+	args.state.previousCompilation =
+		args.localeFunctionNames || args.clientLocaleSplit
+			? await compileForVite(compileArgs, {
+					clientLocaleSplit: args.clientLocaleSplit,
+					localeFunctionNames: args.localeFunctionNames,
+				})
+			: await compile(compileArgs);
 	args.state.previousInputsDigest = await computeInputsDigest(
 		args.state,
 		args.compilerOptions,
