@@ -95,3 +95,7 @@ The scripts write generated projects and raw results under `.real-apps/message-p
 - [ntfy-vite-default.json](results/ntfy-vite-default.json) records the default Vite matrix.
 - [ntfy-vite7-allow-extension.json](results/ntfy-vite7-allow-extension.json) records the Vite 7 signature-preservation control.
 - [synthetic-512x2.json](results/synthetic-512x2.json) records the synthetic representation control.
+
+## Selected-only startup probe
+
+The [selected-only startup experiment](selected-startup-results.md) omits the base module from a small French fixture’s initial graph, reducing 8 requests to 7 and 21,557 to 15,552 Brotli-Q4 bytes. It later fetches English when needed and changes the preload contract for per-call English overrides. This is deferred fixture transfer, not a production page or timing win; its source remains an unapplied patch.
