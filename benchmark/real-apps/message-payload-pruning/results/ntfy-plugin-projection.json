@@ -1,0 +1,590 @@
+{
+  "kind": "experimental per-message locale projection fixture; not a production A/B",
+  "appSource": "/root/repos-iii/paraglide-vite-message-projection/.real-apps/ntfy-message-projection",
+  "ntfySourceCommit": "211ba22860d7483073a8ce13dcda5f467194989b",
+  "compilerSourceHead": "aa28262cf3841deb3ecbcdb03470dde63c307b32",
+  "compilerWorkingTreeDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "compilerFiles": {
+    "publicPluginDistSha256": "72884458211415a046050e655997ed49caaf56b7697012790dab084d32a62bc1",
+    "projectionPluginSourceSha256": "4f3d742531119b1e0d18f8288e3aa51e6451995f8fa6699dca49cf68c379cc45",
+    "publicViteOptionsSourceSha256": "e133910c74c62a08fefd010ecdfcc0b863ea08b88beb1ccaec418c19bf74f76f"
+  },
+  "appLocaleCount": 51,
+  "fixtureLocales": [
+    "en",
+    "fr",
+    "de"
+  ],
+  "fixtureMessageIds": [
+    "k0",
+    "k107",
+    "k110",
+    "k113",
+    "k115"
+  ],
+  "toolchain": {
+    "node": "v22.23.2",
+    "vite": "8.3.4"
+  },
+  "fixtureBuildOutput": "/root/repos-iii/paraglide-vite-message-projection/.real-apps/ntfy-message-projection-fixture/dist",
+  "buildTree": {
+    "fileCount": 27,
+    "byteCount": 31869,
+    "sha256": "08f022e9ebb3e6c4acaf6cc0ac7506d779a6555c9575c5fabac10b8f42079c0c",
+    "files": [
+      {
+        "path": ".vite/manifest.json",
+        "bytes": 8834,
+        "sha256": "801c1e717adb8304fecfc485ce38e9118eaf2be600e9b600ab73a7554803ea75"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_de_0-BCVFyhbb.js",
+        "bytes": 64,
+        "sha256": "f17521b443e19774b9f221ec81dd621a8e6862f7be5ee6a60fd49fcc324d2bca"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_de_1-c1AtkWKd.js",
+        "bytes": 89,
+        "sha256": "73b94591596b889bfcb95013bc03e1de1cc562bb96bffc3713bb5f16442e2908"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_de_2-DhX09oj8.js",
+        "bytes": 89,
+        "sha256": "27596c79aa9bb1d704c1396d623567bca1ecf711a9c71adcf708462c3e3f1f6a"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_de_3-rIhAidWO.js",
+        "bytes": 89,
+        "sha256": "b1eeb1eb874e68d57473cfef6c46882ab3a07becb8ea16626f497f306c64e10a"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_de_4-C3Q5kFT_.js",
+        "bytes": 89,
+        "sha256": "75c311c54639b850696313bac2b79a43711ded8827fb452f76531eb4dbfc6bd5"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_en_0-Du7LLH7N.js",
+        "bytes": 64,
+        "sha256": "a1c5aa57d676a7b0b8b025fa3bc67881ca564593602b31a6b4da53ed376d3041"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_en_1-C3qDBJTT.js",
+        "bytes": 89,
+        "sha256": "75f422eb854ea2a8634fcf1283ded493f39206ca136876fe73d9f64e6dc97040"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_en_2-6nJ7VcnA.js",
+        "bytes": 89,
+        "sha256": "fc3879c3cc97f4eb3c6927b736d4e743af5bfd9be3455f7c7b91a8b269fc6c4e"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_en_3-DxfMD9Cg.js",
+        "bytes": 89,
+        "sha256": "53c543b8bfbac91919708dc99a0161cf1a871c06230ca8fb9b3238a1ca7544cd"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_en_4-MxnI4bOn.js",
+        "bytes": 89,
+        "sha256": "9f5a405135399aa5203033ba71a0bddbfc0e47eff7477fded11add599812c8c2"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_fr_0-CEimSZeO.js",
+        "bytes": 64,
+        "sha256": "dcfe60fc36f03fa2be01e5ae251585c9706845c2c1bb948c352ad80ec2ff11ce"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_fr_1-Dhd-hDL7.js",
+        "bytes": 89,
+        "sha256": "5e9db68577a3f91a5c08ccb7c68fe629f34c04a1f25993c43422de440882d5c0"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_fr_2-Cb98sW3Y.js",
+        "bytes": 89,
+        "sha256": "ca0935f1196d209f0724828a6a06710651b31c6b88ab7e0723f7da7d2810c7c4"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_fr_3-BHrmWuCb.js",
+        "bytes": 89,
+        "sha256": "bafbe60c56fefa85ab5e3b823bd32a6c90c20e19ad91a0d59b0c88b60dcf14b4"
+      },
+      {
+        "path": "assets/_paraglide_client-locale-split_projected-message_fr_4-Pi0F-Ryp.js",
+        "bytes": 89,
+        "sha256": "8ca6c82a10700bec2f0151befaf60f2892fc242137c02fe49656ead46caf3ca6"
+      },
+      {
+        "path": "assets/de-CZI3RZEw.js",
+        "bytes": 2604,
+        "sha256": "9c6089ab92a7e6098f284dc87af68185d2a11ce18d449d9943a1f9666e7a59fa"
+      },
+      {
+        "path": "assets/en-CH8tdHKK.js",
+        "bytes": 2484,
+        "sha256": "47735b7cf32ac06516a8ddf081672e38c608df50d18f67d9f9c7bf663f73fcd2"
+      },
+      {
+        "path": "assets/fr-TxLHyPY0.js",
+        "bytes": 3529,
+        "sha256": "99744a5598521a399360c7068374d71e9a2f864ff738e04f3e5ebe46274ef7d4"
+      },
+      {
+        "path": "assets/index-4pYETFCA.js",
+        "bytes": 4926,
+        "sha256": "53ac6178bc374f5a83e7af8bfccf85e05423a5036e9bb954de5a83bbef18283c"
+      },
+      {
+        "path": "assets/lazy-route-D-SWGXW_.js",
+        "bytes": 1133,
+        "sha256": "60b0fa9523c3db1546b7fd7c3e4ccf0f39188d36ed2606d3efd4371b428c2bed"
+      },
+      {
+        "path": "assets/paraglide-projection-de-Duy3l8sG.js",
+        "bytes": 101,
+        "sha256": "7709c956a80e5e6a0335db57e5fdf315be8ebfaa63e49dd41ba0f3951d3dff30"
+      },
+      {
+        "path": "assets/paraglide-projection-en-DuTQ70QL.js",
+        "bytes": 74,
+        "sha256": "3c3dcc4223d7ec2567f61faf65003a116ed499a383a5078c687808b266710b61"
+      },
+      {
+        "path": "assets/paraglide-projection-fr-BKXnOxod.js",
+        "bytes": 95,
+        "sha256": "e36a0868b20f74349d585f4eada75a687791efb9a937194b7c39d709ecccc6ec"
+      },
+      {
+        "path": "assets/preload-helper-S7ygV2cX.js",
+        "bytes": 5502,
+        "sha256": "fab5c2d1f2c91942ef052f688a087952ef2f5f51d6efc5757aac9bda20b8dc0b"
+      },
+      {
+        "path": "assets/registry-Bx4Ukv2M.js",
+        "bytes": 955,
+        "sha256": "bd9fe74e85dd6a9011ea3d008c7a37f5aeb569dfc7cf0e3ef23893809b93cee4"
+      },
+      {
+        "path": "index.html",
+        "bytes": 372,
+        "sha256": "cd3f2c81518fef2b05565c7c7a3d831a7aac4b3eec5119b36af3d9656c6e5ba6"
+      }
+    ]
+  },
+  "manifestReachabilityUpperBound": {
+    "assetCount": 25,
+    "bytes": 22663,
+    "gzipBytes": 8450,
+    "brotliQ4Bytes": 8021,
+    "assets": [
+      {
+        "file": "assets/index-4pYETFCA.js",
+        "bytes": 4926,
+        "sha256": "53ac6178bc374f5a83e7af8bfccf85e05423a5036e9bb954de5a83bbef18283c",
+        "gzipBytes": 1395,
+        "brotliQ4Bytes": 1400
+      },
+      {
+        "file": "assets/preload-helper-S7ygV2cX.js",
+        "bytes": 5502,
+        "sha256": "fab5c2d1f2c91942ef052f688a087952ef2f5f51d6efc5757aac9bda20b8dc0b",
+        "gzipBytes": 2370,
+        "brotliQ4Bytes": 2402
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_en_0-Du7LLH7N.js",
+        "bytes": 64,
+        "sha256": "a1c5aa57d676a7b0b8b025fa3bc67881ca564593602b31a6b4da53ed376d3041",
+        "gzipBytes": 84,
+        "brotliQ4Bytes": 63
+      },
+      {
+        "file": "assets/paraglide-projection-en-DuTQ70QL.js",
+        "bytes": 74,
+        "sha256": "3c3dcc4223d7ec2567f61faf65003a116ed499a383a5078c687808b266710b61",
+        "gzipBytes": 87,
+        "brotliQ4Bytes": 66
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_fr_0-CEimSZeO.js",
+        "bytes": 64,
+        "sha256": "dcfe60fc36f03fa2be01e5ae251585c9706845c2c1bb948c352ad80ec2ff11ce",
+        "gzipBytes": 84,
+        "brotliQ4Bytes": 62
+      },
+      {
+        "file": "assets/paraglide-projection-fr-BKXnOxod.js",
+        "bytes": 95,
+        "sha256": "e36a0868b20f74349d585f4eada75a687791efb9a937194b7c39d709ecccc6ec",
+        "gzipBytes": 106,
+        "brotliQ4Bytes": 85
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_de_0-BCVFyhbb.js",
+        "bytes": 64,
+        "sha256": "f17521b443e19774b9f221ec81dd621a8e6862f7be5ee6a60fd49fcc324d2bca",
+        "gzipBytes": 84,
+        "brotliQ4Bytes": 62
+      },
+      {
+        "file": "assets/paraglide-projection-de-Duy3l8sG.js",
+        "bytes": 101,
+        "sha256": "7709c956a80e5e6a0335db57e5fdf315be8ebfaa63e49dd41ba0f3951d3dff30",
+        "gzipBytes": 111,
+        "brotliQ4Bytes": 87
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_en_1-C3qDBJTT.js",
+        "bytes": 89,
+        "sha256": "75f422eb854ea2a8634fcf1283ded493f39206ca136876fe73d9f64e6dc97040",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 80
+      },
+      {
+        "file": "assets/en-CH8tdHKK.js",
+        "bytes": 2484,
+        "sha256": "47735b7cf32ac06516a8ddf081672e38c608df50d18f67d9f9c7bf663f73fcd2",
+        "gzipBytes": 547,
+        "brotliQ4Bytes": 529
+      },
+      {
+        "file": "assets/registry-Bx4Ukv2M.js",
+        "bytes": 955,
+        "sha256": "bd9fe74e85dd6a9011ea3d008c7a37f5aeb569dfc7cf0e3ef23893809b93cee4",
+        "gzipBytes": 544,
+        "brotliQ4Bytes": 528
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_fr_1-Dhd-hDL7.js",
+        "bytes": 89,
+        "sha256": "5e9db68577a3f91a5c08ccb7c68fe629f34c04a1f25993c43422de440882d5c0",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 81
+      },
+      {
+        "file": "assets/fr-TxLHyPY0.js",
+        "bytes": 3529,
+        "sha256": "99744a5598521a399360c7068374d71e9a2f864ff738e04f3e5ebe46274ef7d4",
+        "gzipBytes": 733,
+        "brotliQ4Bytes": 728
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_de_1-c1AtkWKd.js",
+        "bytes": 89,
+        "sha256": "73b94591596b889bfcb95013bc03e1de1cc562bb96bffc3713bb5f16442e2908",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 82
+      },
+      {
+        "file": "assets/de-CZI3RZEw.js",
+        "bytes": 2604,
+        "sha256": "9c6089ab92a7e6098f284dc87af68185d2a11ce18d449d9943a1f9666e7a59fa",
+        "gzipBytes": 579,
+        "brotliQ4Bytes": 573
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_en_2-6nJ7VcnA.js",
+        "bytes": 89,
+        "sha256": "fc3879c3cc97f4eb3c6927b736d4e743af5bfd9be3455f7c7b91a8b269fc6c4e",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 80
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_fr_2-Cb98sW3Y.js",
+        "bytes": 89,
+        "sha256": "ca0935f1196d209f0724828a6a06710651b31c6b88ab7e0723f7da7d2810c7c4",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 81
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_de_2-DhX09oj8.js",
+        "bytes": 89,
+        "sha256": "27596c79aa9bb1d704c1396d623567bca1ecf711a9c71adcf708462c3e3f1f6a",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 82
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_en_3-DxfMD9Cg.js",
+        "bytes": 89,
+        "sha256": "53c543b8bfbac91919708dc99a0161cf1a871c06230ca8fb9b3238a1ca7544cd",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 80
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_fr_3-BHrmWuCb.js",
+        "bytes": 89,
+        "sha256": "bafbe60c56fefa85ab5e3b823bd32a6c90c20e19ad91a0d59b0c88b60dcf14b4",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 81
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_de_3-rIhAidWO.js",
+        "bytes": 89,
+        "sha256": "b1eeb1eb874e68d57473cfef6c46882ab3a07becb8ea16626f497f306c64e10a",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 82
+      },
+      {
+        "file": "assets/lazy-route-D-SWGXW_.js",
+        "bytes": 1133,
+        "sha256": "60b0fa9523c3db1546b7fd7c3e4ccf0f39188d36ed2606d3efd4371b428c2bed",
+        "gzipBytes": 478,
+        "brotliQ4Bytes": 464
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_en_4-MxnI4bOn.js",
+        "bytes": 89,
+        "sha256": "9f5a405135399aa5203033ba71a0bddbfc0e47eff7477fded11add599812c8c2",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 80
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_fr_4-Pi0F-Ryp.js",
+        "bytes": 89,
+        "sha256": "8ca6c82a10700bec2f0151befaf60f2892fc242137c02fe49656ead46caf3ca6",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 81
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_de_4-C3Q5kFT_.js",
+        "bytes": 89,
+        "sha256": "75c311c54639b850696313bac2b79a43711ded8827fb452f76531eb4dbfc6bd5",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 82
+      }
+    ]
+  },
+  "entryGraph": {
+    "resourceCount": 16,
+    "requestClassCounts": {
+      "messageLocaleFacades": 8,
+      "localeProjectionGroups": 2,
+      "localeFunctionChunks": 2,
+      "applicationAndRuntimeChunks": 3
+    },
+    "bytes": 18599,
+    "gzipBytes": 6822,
+    "brotliQ4Bytes": 6576,
+    "assets": [
+      {
+        "file": "index.html",
+        "bytes": 372,
+        "sha256": "cd3f2c81518fef2b05565c7c7a3d831a7aac4b3eec5119b36af3d9656c6e5ba6",
+        "gzipBytes": 248,
+        "brotliQ4Bytes": 230
+      },
+      {
+        "file": "assets/index-4pYETFCA.js",
+        "bytes": 4926,
+        "sha256": "53ac6178bc374f5a83e7af8bfccf85e05423a5036e9bb954de5a83bbef18283c",
+        "gzipBytes": 1395,
+        "brotliQ4Bytes": 1400
+      },
+      {
+        "file": "assets/preload-helper-S7ygV2cX.js",
+        "bytes": 5502,
+        "sha256": "fab5c2d1f2c91942ef052f688a087952ef2f5f51d6efc5757aac9bda20b8dc0b",
+        "gzipBytes": 2370,
+        "brotliQ4Bytes": 2402
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_fr_0-CEimSZeO.js",
+        "bytes": 64,
+        "sha256": "dcfe60fc36f03fa2be01e5ae251585c9706845c2c1bb948c352ad80ec2ff11ce",
+        "gzipBytes": 84,
+        "brotliQ4Bytes": 62
+      },
+      {
+        "file": "assets/paraglide-projection-fr-BKXnOxod.js",
+        "bytes": 95,
+        "sha256": "e36a0868b20f74349d585f4eada75a687791efb9a937194b7c39d709ecccc6ec",
+        "gzipBytes": 106,
+        "brotliQ4Bytes": 85
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_en_0-Du7LLH7N.js",
+        "bytes": 64,
+        "sha256": "a1c5aa57d676a7b0b8b025fa3bc67881ca564593602b31a6b4da53ed376d3041",
+        "gzipBytes": 84,
+        "brotliQ4Bytes": 63
+      },
+      {
+        "file": "assets/paraglide-projection-en-DuTQ70QL.js",
+        "bytes": 74,
+        "sha256": "3c3dcc4223d7ec2567f61faf65003a116ed499a383a5078c687808b266710b61",
+        "gzipBytes": 87,
+        "brotliQ4Bytes": 66
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_en_1-C3qDBJTT.js",
+        "bytes": 89,
+        "sha256": "75f422eb854ea2a8634fcf1283ded493f39206ca136876fe73d9f64e6dc97040",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 80
+      },
+      {
+        "file": "assets/en-CH8tdHKK.js",
+        "bytes": 2484,
+        "sha256": "47735b7cf32ac06516a8ddf081672e38c608df50d18f67d9f9c7bf663f73fcd2",
+        "gzipBytes": 547,
+        "brotliQ4Bytes": 529
+      },
+      {
+        "file": "assets/registry-Bx4Ukv2M.js",
+        "bytes": 955,
+        "sha256": "bd9fe74e85dd6a9011ea3d008c7a37f5aeb569dfc7cf0e3ef23893809b93cee4",
+        "gzipBytes": 544,
+        "brotliQ4Bytes": 528
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_fr_1-Dhd-hDL7.js",
+        "bytes": 89,
+        "sha256": "5e9db68577a3f91a5c08ccb7c68fe629f34c04a1f25993c43422de440882d5c0",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 81
+      },
+      {
+        "file": "assets/fr-TxLHyPY0.js",
+        "bytes": 3529,
+        "sha256": "99744a5598521a399360c7068374d71e9a2f864ff738e04f3e5ebe46274ef7d4",
+        "gzipBytes": 733,
+        "brotliQ4Bytes": 728
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_en_2-6nJ7VcnA.js",
+        "bytes": 89,
+        "sha256": "fc3879c3cc97f4eb3c6927b736d4e743af5bfd9be3455f7c7b91a8b269fc6c4e",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 80
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_fr_2-Cb98sW3Y.js",
+        "bytes": 89,
+        "sha256": "ca0935f1196d209f0724828a6a06710651b31c6b88ab7e0723f7da7d2810c7c4",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 81
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_en_3-DxfMD9Cg.js",
+        "bytes": 89,
+        "sha256": "53c543b8bfbac91919708dc99a0161cf1a871c06230ca8fb9b3238a1ca7544cd",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 80
+      },
+      {
+        "file": "assets/_paraglide_client-locale-split_projected-message_fr_3-BHrmWuCb.js",
+        "bytes": 89,
+        "sha256": "bafbe60c56fefa85ab5e3b823bd32a6c90c20e19ad91a0d59b0c88b60dcf14b4",
+        "gzipBytes": 104,
+        "brotliQ4Bytes": 81
+      }
+    ]
+  },
+  "browser": {
+    "initialFrench": {
+      "locale": "fr",
+      "htmlLang": "fr",
+      "staticText": "Un utilisateur provisionné ne peut pas être modifié ou supprimé",
+      "placeholder": "économisez 10%",
+      "richParts": "[{\"type\":\"text\",\"value\":\"Cela va \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"annuler votre abonnement\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\" et rétrograder votre compte le \"},{\"type\":\"text\",\"value\":\"Friday\"},{\"type\":\"text\",\"value\":\". Ce jour là, les sujets réservés ainsi que tous les messages dans le cache du serveur \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"seront supprimés\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\".\"}]",
+      "plural": "Le tarif sélectionné autorise moins de sujets réservés que votre tarif actuel. Avant de changer de tarif, veuillez supprimer au moins 2 sujets réservés. Vous pouvez supprimer des sujets réservés dans les Paramètres.",
+      "lazy": "not loaded"
+    },
+    "initialRequestPaths": [
+      "/",
+      "/assets/index-4pYETFCA.js",
+      "/assets/preload-helper-S7ygV2cX.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_0-CEimSZeO.js",
+      "/assets/paraglide-projection-fr-BKXnOxod.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_0-Du7LLH7N.js",
+      "/assets/paraglide-projection-en-DuTQ70QL.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_1-C3qDBJTT.js",
+      "/assets/en-CH8tdHKK.js",
+      "/assets/registry-Bx4Ukv2M.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_1-Dhd-hDL7.js",
+      "/assets/fr-TxLHyPY0.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_2-6nJ7VcnA.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_2-Cb98sW3Y.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_3-DxfMD9Cg.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_3-BHrmWuCb.js"
+    ],
+    "afterLazyFrench": {
+      "locale": "fr",
+      "htmlLang": "fr",
+      "staticText": "Un utilisateur provisionné ne peut pas être modifié ou supprimé",
+      "placeholder": "économisez 10%",
+      "richParts": "[{\"type\":\"text\",\"value\":\"Cela va \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"annuler votre abonnement\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\" et rétrograder votre compte le \"},{\"type\":\"text\",\"value\":\"Friday\"},{\"type\":\"text\",\"value\":\". Ce jour là, les sujets réservés ainsi que tous les messages dans le cache du serveur \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"seront supprimés\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\".\"}]",
+      "plural": "Le tarif sélectionné autorise moins de sujets réservés que votre tarif actuel. Avant de changer de tarif, veuillez supprimer au moins 2 sujets réservés. Vous pouvez supprimer des sujets réservés dans les Paramètres.",
+      "lazy": "5 MB par fichier"
+    },
+    "afterLazyRequestPaths": [
+      "/assets/lazy-route-D-SWGXW_.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_4-MxnI4bOn.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_4-Pi0F-Ryp.js"
+    ],
+    "afterGerman": {
+      "locale": "de",
+      "htmlLang": "de",
+      "staticText": "Ein bereitgestellter Benutzer kann nicht bearbeitet oder gelöscht werden",
+      "placeholder": "spare 10%",
+      "richParts": "[{\"type\":\"text\",\"value\":\"Dies wird \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"Dein Abo stornieren\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\" und Dein Konto am \"},{\"type\":\"text\",\"value\":\"Friday\"},{\"type\":\"text\",\"value\":\" herabstufen. An diesem Datum werden reservierte Themen und auch auf dem Server gecachte Nachrichten \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"gelöscht\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\".\"}]",
+      "plural": "Das gewählte Level erlaubt weniger reservierte Themen als Dein aktueller Level. Bitte löschen vor dem Wechsel Deines Levels mindestens 2 Reservierungen. Du kannst Reservierungen in den Einstellungen löschen.",
+      "lazy": "5 MB pro Datei"
+    },
+    "germanSwitchRequestPaths": [
+      "/assets/_paraglide_client-locale-split_projected-message_de_0-BCVFyhbb.js",
+      "/assets/paraglide-projection-de-Duy3l8sG.js",
+      "/assets/_paraglide_client-locale-split_projected-message_de_1-c1AtkWKd.js",
+      "/assets/de-CZI3RZEw.js",
+      "/assets/_paraglide_client-locale-split_projected-message_de_2-DhX09oj8.js",
+      "/assets/_paraglide_client-locale-split_projected-message_de_3-rIhAidWO.js",
+      "/assets/_paraglide_client-locale-split_projected-message_de_4-C3Q5kFT_.js"
+    ],
+    "afterEnglish": {
+      "locale": "en",
+      "htmlLang": "en",
+      "staticText": "A provisioned user cannot be edited or deleted",
+      "placeholder": "save 10%",
+      "richParts": "[{\"type\":\"text\",\"value\":\"This will \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"cancel your subscription\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\", and downgrade your account on \"},{\"type\":\"text\",\"value\":\"Friday\"},{\"type\":\"text\",\"value\":\". On that date, topic reservations as well as messages cached on the server \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"will be deleted\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\".\"}]",
+      "plural": "The selected tier allows fewer reserved topics than your current tier. Before changing your tier, please delete at least 2 reservations. You can remove reservations in the Settings.",
+      "lazy": "5 MB per file"
+    },
+    "englishSwitchRequestPaths": [],
+    "afterFrenchAgain": {
+      "locale": "fr",
+      "htmlLang": "fr",
+      "staticText": "Un utilisateur provisionné ne peut pas être modifié ou supprimé",
+      "placeholder": "économisez 10%",
+      "richParts": "[{\"type\":\"text\",\"value\":\"Cela va \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"annuler votre abonnement\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\" et rétrograder votre compte le \"},{\"type\":\"text\",\"value\":\"Friday\"},{\"type\":\"text\",\"value\":\". Ce jour là, les sujets réservés ainsi que tous les messages dans le cache du serveur \"},{\"type\":\"markup-start\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\"seront supprimés\"},{\"type\":\"markup-end\",\"name\":\"strong\",\"options\":{},\"attributes\":{}},{\"type\":\"text\",\"value\":\".\"}]",
+      "plural": "Le tarif sélectionné autorise moins de sujets réservés que votre tarif actuel. Avant de changer de tarif, veuillez supprimer au moins 2 sujets réservés. Vous pouvez supprimer des sujets réservés dans les Paramètres.",
+      "lazy": "5 MB par fichier"
+    },
+    "frenchSwitchRequestPaths": [],
+    "requests": [
+      "/",
+      "/assets/index-4pYETFCA.js",
+      "/assets/preload-helper-S7ygV2cX.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_0-CEimSZeO.js",
+      "/assets/paraglide-projection-fr-BKXnOxod.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_0-Du7LLH7N.js",
+      "/assets/paraglide-projection-en-DuTQ70QL.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_1-C3qDBJTT.js",
+      "/assets/en-CH8tdHKK.js",
+      "/assets/registry-Bx4Ukv2M.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_1-Dhd-hDL7.js",
+      "/assets/fr-TxLHyPY0.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_2-6nJ7VcnA.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_2-Cb98sW3Y.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_3-DxfMD9Cg.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_3-BHrmWuCb.js",
+      "/assets/lazy-route-D-SWGXW_.js",
+      "/assets/_paraglide_client-locale-split_projected-message_en_4-MxnI4bOn.js",
+      "/assets/_paraglide_client-locale-split_projected-message_fr_4-Pi0F-Ryp.js",
+      "/assets/_paraglide_client-locale-split_projected-message_de_0-BCVFyhbb.js",
+      "/assets/paraglide-projection-de-Duy3l8sG.js",
+      "/assets/_paraglide_client-locale-split_projected-message_de_1-c1AtkWKd.js",
+      "/assets/de-CZI3RZEw.js",
+      "/assets/_paraglide_client-locale-split_projected-message_de_2-DhX09oj8.js",
+      "/assets/_paraglide_client-locale-split_projected-message_de_3-rIhAidWO.js",
+      "/assets/_paraglide_client-locale-split_projected-message_de_4-C3Q5kFT_.js"
+    ]
+  }
+}
