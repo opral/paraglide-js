@@ -1,0 +1,54 @@
+{
+  "compilerCommit": "6997d020813d76f087d585110e62cd54891726e0",
+  "viteVersion": "8.1.4",
+  "buildTarget": "es2022",
+  "config": "paraglideVitePlugin with experimentalClientLocaleSplit, localStorage strategy, localStorageKey=locale",
+  "checks": {
+    "persistedLocaleStartup": true,
+    "inPlaceSwitchNoDocumentNavigation": true,
+    "explicitLocaleAfterPreload": true,
+    "noPageErrors": true
+  },
+  "origin": "http://127.0.0.1:9517",
+  "snapshots": {
+    "startup": {
+      "text": "fr-FR|Bonjour|Connexion",
+      "htmlLang": "fr-FR",
+      "stored": "fr-FR"
+    },
+    "switchToEnglish": {
+      "text": "en-US|Hello|Sign in",
+      "locale": "en-US",
+      "stored": "en-US"
+    },
+    "switchBackToFrench": {
+      "text": "fr-FR|Bonjour|Connexion",
+      "locale": "fr-FR",
+      "stored": "fr-FR"
+    },
+    "navigationCountAfterInPlaceSwitches": 1,
+    "explicitBefore": {
+      "text": "en-US|Hello|Sign in",
+      "locale": "en-US",
+      "stored": "en-US"
+    },
+    "explicitFrenchResult": "Bonjour",
+    "explicitAfter": {
+      "text": "en-US|Hello|Sign in",
+      "htmlLang": "en-US",
+      "stored": "en-US",
+      "activeLocale": "en-US"
+    },
+    "explicitLocaleModuleRequestCount": {
+      "before": 0,
+      "after": 1,
+      "urls": [
+        "http://127.0.0.1:9517/assets/_paraglide_client-locale-split_locale_fr-FR-DYSeSeN7.js"
+      ]
+    }
+  },
+  "localeRequests": [
+    "http://127.0.0.1:9517/assets/_paraglide_client-locale-split_locale_fr-FR-DYSeSeN7.js"
+  ],
+  "errors": []
+}

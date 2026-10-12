@@ -1,0 +1,58 @@
+{
+  "appCommit": "f8ae8a6c328946dc62cd0712961a0632574581bf",
+  "localeCount": 64,
+  "routeKeys": 106,
+  "nativeScope": {
+    "entryCountAcrossLocales": 6880,
+    "unexpectedKeys": 0,
+    "selectedKeysMissingWhereSourceHasThem": 0
+  },
+  "candidateScope": {
+    "entryCountAcrossLocales": 6784,
+    "incorrectPerLocaleIdSets": 0
+  },
+  "fullVsNativeScoped": {
+    "bodyBytes": [
+      1311085,
+      1194858
+    ],
+    "bodyReductionPercent": 8.865,
+    "transferBytes": [
+      1330585,
+      1214358
+    ],
+    "transferReductionPercent": 8.735,
+    "trialCounts": [
+      10,
+      1
+    ]
+  },
+  "nativeScopedVsParaglide": {
+    "bodyBytes": [
+      1194858,
+      1141881
+    ],
+    "bodyReductionPercent": 4.434,
+    "transferBytes": [
+      1214358,
+      1160781
+    ],
+    "transferReductionPercent": 4.412,
+    "trialCount": 1,
+    "completeVisibleParity": true,
+    "noPageErrors": true
+  },
+  "fullVsParaglide": {
+    "bodyBytes": [
+      1311085,
+      1141881
+    ],
+    "bodyReductionPercent": 12.906,
+    "transferBytes": [
+      1330585,
+      1160781
+    ],
+    "transferReductionPercent": 12.762,
+    "trialCount": 10
+  }
+}

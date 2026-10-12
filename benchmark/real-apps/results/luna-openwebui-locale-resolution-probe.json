@@ -1,0 +1,244 @@
+{
+  "method": "Pinned i18next 23.16.8 + i18next-browser-languagedetector 7.2.0 in Node with the app's language list, toBundleCode, detector order/fallback, and current candidate setAuthLocale requested-identity/resolved-locale semantics; no browser performance measurement.",
+  "supportedLocaleCount": 64,
+  "languageOptionCount": 64,
+  "exactLocaleChecks": 64,
+  "exactLocaleMismatchCount": 0,
+  "exactLocaleMismatches": [],
+  "results": [
+    {
+      "native": {
+        "query": "fr-FR",
+        "storedBefore": null,
+        "storageMode": "available",
+        "language": "fr-FR",
+        "resolvedLanguage": "fr-FR",
+        "languages": [
+          "fr-FR",
+          "fr"
+        ],
+        "probe": "fr-FR",
+        "storedAfter": "fr-FR"
+      },
+      "candidate": {
+        "requested": "fr-FR",
+        "bundle": "fr-FR",
+        "language": "fr-FR",
+        "resolved": "fr-FR",
+        "persists": "fr-FR",
+        "documentLang": "fr-FR"
+      }
+    },
+    {
+      "native": {
+        "query": "FR-fr",
+        "storedBefore": null,
+        "storageMode": "available",
+        "language": "fr-FR",
+        "resolvedLanguage": "fr-FR",
+        "languages": [
+          "fr-FR",
+          "fr"
+        ],
+        "probe": "fr-FR",
+        "storedAfter": "fr-FR"
+      },
+      "candidate": {
+        "requested": "FR-fr",
+        "bundle": "fr-FR",
+        "language": "fr-FR",
+        "resolved": "fr-FR",
+        "persists": "fr-FR",
+        "documentLang": "fr-FR"
+      }
+    },
+    {
+      "native": {
+        "query": "fr-CA",
+        "storedBefore": null,
+        "storageMode": "available",
+        "language": "fr-CA",
+        "resolvedLanguage": "fr-CA",
+        "languages": [
+          "fr-CA",
+          "fr",
+          "fr-FR"
+        ],
+        "probe": "fr-CA",
+        "storedAfter": "fr-CA"
+      },
+      "candidate": {
+        "requested": "fr-CA",
+        "bundle": "fr-CA",
+        "language": "fr-CA",
+        "resolved": "fr-CA",
+        "persists": "fr-CA",
+        "documentLang": "fr-CA"
+      }
+    },
+    {
+      "native": {
+        "query": "fr",
+        "storedBefore": null,
+        "storageMode": "available",
+        "language": "fr-FR",
+        "resolvedLanguage": "fr-FR",
+        "languages": [
+          "fr-FR",
+          "fr"
+        ],
+        "probe": "fr-FR",
+        "storedAfter": "fr-FR"
+      },
+      "candidate": {
+        "requested": "fr",
+        "bundle": "fr-FR",
+        "language": "fr-FR",
+        "resolved": "fr-FR",
+        "persists": "fr-FR",
+        "documentLang": "fr-FR"
+      }
+    },
+    {
+      "native": {
+        "query": "fr-BE",
+        "storedBefore": null,
+        "storageMode": "available",
+        "language": "fr-FR",
+        "resolvedLanguage": "fr-FR",
+        "languages": [
+          "fr-FR",
+          "fr"
+        ],
+        "probe": "fr-FR",
+        "storedAfter": "fr-FR"
+      },
+      "candidate": {
+        "requested": "fr-BE",
+        "bundle": "fr-FR",
+        "language": "fr-FR",
+        "resolved": "fr-FR",
+        "persists": "fr-FR",
+        "documentLang": "fr-FR"
+      }
+    },
+    {
+      "native": {
+        "query": "zh-HK",
+        "storedBefore": null,
+        "storageMode": "available",
+        "language": "zh-HK",
+        "resolvedLanguage": "en-US",
+        "languages": [
+          "zh-HK",
+          "zh",
+          "en-US"
+        ],
+        "probe": "en-US",
+        "storedAfter": "zh-HK"
+      },
+      "candidate": {
+        "requested": "zh-HK",
+        "bundle": "zh-HK",
+        "language": "zh-HK",
+        "resolved": "en-US",
+        "persists": "zh-HK",
+        "documentLang": "zh-HK"
+      }
+    },
+    {
+      "native": {
+        "query": "zz-ZZ",
+        "storedBefore": null,
+        "storageMode": "available",
+        "language": "zz-ZZ",
+        "resolvedLanguage": "en-US",
+        "languages": [
+          "zz-ZZ",
+          "zz",
+          "en-US"
+        ],
+        "probe": "en-US",
+        "storedAfter": "zz-ZZ"
+      },
+      "candidate": {
+        "requested": "zz-ZZ",
+        "bundle": "zz-ZZ",
+        "language": "zz-ZZ",
+        "resolved": "en-US",
+        "persists": "zz-ZZ",
+        "documentLang": "zz-ZZ"
+      }
+    },
+    {
+      "native": {
+        "query": "zz",
+        "storedBefore": null,
+        "storageMode": "available",
+        "language": "zz",
+        "resolvedLanguage": "en-US",
+        "languages": [
+          "zz",
+          "en-US"
+        ],
+        "probe": "en-US",
+        "storedAfter": "zz"
+      },
+      "candidate": {
+        "requested": "zz",
+        "bundle": "zz",
+        "language": "zz",
+        "resolved": "en-US",
+        "persists": "zz",
+        "documentLang": "zz"
+      }
+    },
+    {
+      "native": {
+        "query": null,
+        "storedBefore": "zz-ZZ",
+        "storageMode": "available",
+        "language": "zz-ZZ",
+        "resolvedLanguage": "en-US",
+        "languages": [
+          "zz-ZZ",
+          "zz",
+          "en-US"
+        ],
+        "probe": "en-US",
+        "storedAfter": "zz-ZZ"
+      },
+      "candidate": {
+        "requested": "zz-ZZ",
+        "bundle": "zz-ZZ",
+        "language": "zz-ZZ",
+        "resolved": "en-US",
+        "persists": "zz-ZZ",
+        "documentLang": "zz-ZZ"
+      }
+    },
+    {
+      "native": {
+        "query": null,
+        "storedBefore": null,
+        "storageMode": "throws",
+        "language": "fr-FR",
+        "resolvedLanguage": "fr-FR",
+        "languages": [
+          "fr-FR",
+          "fr"
+        ],
+        "probe": "fr-FR",
+        "storedAfter": "unavailable"
+      },
+      "candidate": {
+        "requested": "fr-FR",
+        "bundle": "fr-FR",
+        "language": "fr-FR",
+        "resolved": "fr-FR",
+        "persists": "fr-FR",
+        "documentLang": "fr-FR"
+      }
+    }
+  ]
+}
