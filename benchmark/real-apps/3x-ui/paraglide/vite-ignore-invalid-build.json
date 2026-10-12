@@ -1,0 +1,34 @@
+{
+  "status": "invalid Vite build diagnostic; no browser run",
+  "hypothesis": "Add @vite-ignore to compiler-owned literal dynamic imports to prevent Vite import-preload helper coupling while retaining bundling of virtual locale chunks.",
+  "outcome": "Rejected: Vite leaves virtual:paraglide/client-locale-split/locale/* imports as bare runtime specifiers and emits no locale chunks. The core still statically imports vendor-router for the dynamic-import preload helper.",
+  "app": {
+    "repository": "https://github.com/MHSanaei/3x-ui",
+    "commit": "74c3cc38821cabd66ad316ea562851422d0b0063",
+    "vite": "8.3.4",
+    "node": "26.3.1",
+    "npm": "11.8.0",
+    "packageLockSha256": "4102c5530996fa24f8152bdeaee99f73a8bd4c85d86e562a707a2a1e7bef43a7",
+    "metadataSha256": "53316c9f0bee25f3464cbf588d618a067142dc9bce8736c5ab561d63aabeb566",
+    "metadataMessages": 2589,
+    "metadataLocales": 13,
+    "buildElapsedSeconds": 6.72,
+    "buildMaxRssKb": 2437308,
+    "manifestSha256": "57d657d0a8e71cd0839e24fbbd5591bd1b37822153d0729ce9c98e1300a82e85",
+    "manifestEntries": 143,
+    "localeChunkEntries": 0,
+    "distCoreSha256": "8971fbd9340a73e6b497a532717e5e2a26401c342fde89466a76379b80d16124",
+    "distPreloaderSha256": "55896fb7066fddd393c0c1c8f3cf2d331151b3278b77868dc6df3dc265b1e32c"
+  },
+  "compiler": {
+    "baseCommit": "6997d020813d76f087d585110e62cd54891726e0",
+    "sourcePatch": "vite-ignore-import-prototype.patch",
+    "sourcePatchSha256": "300f32a7bfd56b791f06274a94786f4aeadf50036b759b8df696fca7b945ac53",
+    "pnpmLockSha256": "58a78ae1560660a91da56fb3b57fde737e1d61f5d336b2ca25931500215d598f",
+    "node": "22.23.2",
+    "pnpm": "10.33.0",
+    "clientLocaleSplitPluginDistSha256": "0c8438c93692443d4fd3b842fd33c0fdb207cf51700133e3c4caeb9868c87354",
+    "typescriptBuildPassed": true
+  },
+  "browserRun": false
+}

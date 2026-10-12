@@ -1,0 +1,188 @@
+{
+  "status": "isolated research prototype; no product source change",
+  "app": {
+    "repository": "https://github.com/MHSanaei/3x-ui",
+    "commit": "74c3cc38821cabd66ad316ea562851422d0b0063",
+    "frontendVite": "8.3.4",
+    "target": "es2022",
+    "packageLockSha256": "4102c5530996fa24f8152bdeaee99f73a8bd4c85d86e562a707a2a1e7bef43a7",
+    "nativeViteConfigSha256": "c33dbbff80671326c36cefce46053789b4535c5fe21b9231cdefb9c1517bf9fb",
+    "candidateViteConfigSha256": "976426f8635b3711ecb16df32348c8ad42c8b61bf0c4d654d7de01ff7d0d6c10",
+    "candidateReactI18nBridgeSha256": "a0120b08d8121c26b6d0106ef6dac6e83362a4cd5da21e812c0d742d0031baed",
+    "route": "/login",
+    "localeCookie": "lang=es-ES"
+  },
+  "compiler": {
+    "baseCommit": "6997d020813d76f087d585110e62cd54891726e0",
+    "sourceDiffPatch": "core-all-html-selected-startup-prototype.patch",
+    "sourceDiffPatchSha256": "3b57fa50095cac57983019373b041f4cc49c60d650bb4fb0b5bbc7c5423df858",
+    "selectedOnlyPatch": "selected-only-startup-prototype.patch",
+    "selectedOnlyPatchSha256": "339a999ae1878af7548eb7145f74256b038ee4c814b709573cc170f693dd2ed9",
+    "pnpmLockSha256": "58a78ae1560660a91da56fb3b57fde737e1d61f5d336b2ca25931500215d598f",
+    "node": "22.23.2",
+    "pnpm": "10.33.0",
+    "viteWrapperDistSha256": "acad0c36f1aca9320db8de533a5ff1524dc1aa078ef35d6e4c14992dfc31cac5",
+    "clientLocaleSplitPluginDistSha256": "7f81c8d29ec5342b323d62bb1b111c512b1c4d61dbef6306e37145d200c16bb3",
+    "compileProjectDistSha256": "b33d9b94202115af242af1e1d01f53bdc7014e838cc91d918ab3049968216a5a",
+    "compileBundleDistSha256": "5feba2f995a566af61fb7e4a91f9baf5da1e3b68cb876bba80d6ea660826ade2",
+    "buildCommand": "pnpm run env-variables && pnpm exec tsc --build",
+    "typescriptBuildPassed": true
+  },
+  "appBuild": {
+    "node": "26.3.1",
+    "npm": "11.8.0",
+    "vite": "8.3.4",
+    "command": "npm run build (with PARAGLIDE_DIST pointed to isolated compiler dist; Vite manifest enabled for graph capture)",
+    "elapsedSeconds": 6.86,
+    "maxRssKb": 2801728,
+    "metadata": {
+      "path": "frontend/src/paraglide/client-locale-split.json",
+      "sha256": "53316c9f0bee25f3464cbf588d618a067142dc9bce8736c5ab561d63aabeb566",
+      "messageCount": 2589,
+      "localeCount": 13,
+      "locales": [
+        "ar-EG",
+        "en-US",
+        "es-ES",
+        "fa-IR",
+        "id-ID",
+        "ja-JP",
+        "pt-BR",
+        "ru-RU",
+        "tr-TR",
+        "uk-UA",
+        "vi-VN",
+        "zh-CN",
+        "zh-TW"
+      ]
+    }
+  },
+  "selectedOnlySemantics": {
+    "startupLoadsOnly": "canonicalLocale(getLocale()) or en-US",
+    "baseLocaleEagerAtStartup": false,
+    "limitation": "Research-only. Synchronous calls whose explicit unsupported locale falls back to the base locale can fail until en-US is loaded. This is not a safe default for general applications without proving those calls absent or loading the base before they occur.",
+    "fullMessageKeysArePresentInEveryGeneratedLocaleModule": true,
+    "unverified": "No broad explicit-locale override compatibility test was run for this startup variant."
+  },
+  "browserPair": {
+    "methodology": "One cold run per variant; fresh browser context and cache disabled; 80ms RTT, 20Mbps down, 2Mbps up, 3x CPU; readiness is the first visible Spanish greeting, not a fixed delay. Selected HTML, preloader, core, and locale responses are SHA-256 hashed after browser decompression, with response encoding and content length recorded.",
+    "route": "/login",
+    "cookie": "lang=es-ES",
+    "pairCount": 1,
+    "repeatBatch": false,
+    "repeatReason": "FCP/LCP and translated-ready improvements were below 10%.",
+    "native": {
+      "resourceEntries": 21,
+      "assetRequests": 19,
+      "assetEncodedBodyBytes": 755793,
+      "htmlEncodedBodyBytes": 499,
+      "assetsPlusHtmlEncodedBodyBytes": 756292,
+      "resourceTransferBytesIncludingHeaders": 761992,
+      "fcpMs": 1024,
+      "lcpMs": 1024,
+      "translatedReadyMs": 1203,
+      "fontReadyMs": 96,
+      "nextHopProtocol": "http/1.1",
+      "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+      "errors": [],
+      "localeResources": [
+        {
+          "path": "/assets/es-ES-CbS94hW4.js",
+          "startMs": 753,
+          "endMs": 858,
+          "transferBytes": 50504,
+          "encodedBytes": 50204,
+          "decodedBytes": 155319
+        }
+      ],
+      "responseHashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "499",
+          "decodedBodySha256": "3693eb8b76e277e5fd86207d8e65cdd2ff18b15895d426f7eac26068b785d256"
+        },
+        {
+          "path": "/assets/es-ES-CbS94hW4.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "50204",
+          "decodedBodySha256": "bd8445cb34d18b4aa0e56ece3b5ce9c4f4c3d0c8fb23ec2de575b9ce9927944f"
+        }
+      ]
+    },
+    "candidate": {
+      "resourceEntries": 24,
+      "assetRequests": 22,
+      "assetEncodedBodyBytes": 683436,
+      "htmlEncodedBodyBytes": 565,
+      "assetsPlusHtmlEncodedBodyBytes": 684001,
+      "resourceTransferBytesIncludingHeaders": 690601,
+      "fcpMs": 932,
+      "lcpMs": 932,
+      "translatedReadyMs": 1104,
+      "fontReadyMs": 95,
+      "nextHopProtocol": "http/1.1",
+      "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+      "errors": [],
+      "localeResources": [
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+          "startMs": 268,
+          "endMs": 566,
+          "transferBytes": 36287,
+          "encodedBytes": 35987,
+          "decodedBytes": 111448
+        }
+      ],
+      "responseHashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "565",
+          "decodedBodySha256": "4757f5e1b348180a57bf7a1c4f5ce0c87d2bd877980da6ba767a287dc20181b8"
+        },
+        {
+          "path": "/assets/paraglide-locale-preload-BGMnuQXG.js",
+          "status": 200,
+          "contentEncoding": null,
+          "contentLength": "77",
+          "decodedBodySha256": "c4979cba4d3558b7b566f1539340165d839a740942e3608a80972bb8e5407174"
+        },
+        {
+          "path": "/assets/paraglide-client-locale-split-core-B4ExDBC8.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "2790",
+          "decodedBodySha256": "1030f7b36fd4ba9015ad353e23afe3a4364888866752493fe37f02a2cb6e626c"
+        },
+        {
+          "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "35987",
+          "decodedBodySha256": "51e69936849a89f2bc70d2b6e5c6529be259720e06a435b7c13fce9b41dd6e1b"
+        }
+      ]
+    },
+    "changes": {
+      "fcpPercent": -8.98,
+      "lcpPercent": -8.98,
+      "translatedReadyPercent": -8.23,
+      "assetsPlusHtmlEncodedBodyBytesPercent": -9.56
+    },
+    "rawResult": "native-vs-core-selected-startup-pair.json"
+  },
+  "candidateArtifacts": {
+    "loginHtml": "4757f5e1b348180a57bf7a1c4f5ce0c87d2bd877980da6ba767a287dc20181b8",
+    "preloader": "c4979cba4d3558b7b566f1539340165d839a740942e3608a80972bb8e5407174",
+    "core": "1030f7b36fd4ba9015ad353e23afe3a4364888866752493fe37f02a2cb6e626c",
+    "selectedSpanishLocale": "51e69936849a89f2bc70d2b6e5c6529be259720e06a435b7c13fce9b41dd6e1b"
+  },
+  "nativeArtifacts": {
+    "loginHtml": "3693eb8b76e277e5fd86207d8e65cdd2ff18b15895d426f7eac26068b785d256",
+    "selectedSpanishLocale": "bd8445cb34d18b4aa0e56ece3b5ce9c4f4c3d0c8fb23ec2de575b9ce9927944f"
+  }
+}

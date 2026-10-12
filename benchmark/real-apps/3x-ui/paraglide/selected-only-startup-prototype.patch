@@ -1,0 +1,19 @@
+diff --git a/src/bundler-plugins/client-locale-split/vite-plugin.ts b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+index a226116..b9b2a62 100644
+--- a/src/bundler-plugins/client-locale-split/vite-plugin.ts
++++ b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+@@ -396,9 +396,10 @@ export function requireLoadedLocale(locale) {
+ 	if (!messages) throw new Error("Paraglide locale " + JSON.stringify(locale) + " is not loaded. Await loadLocale() before calling its synchronous messages.");
+ 	return messages;
+ }
+-export const startupLocalePromise = Promise.all([
+-	loadLocale(baseLocale),
+-	loadLocale(canonicalLocale(getLocale()) ?? baseLocale)
+-]).then(() => undefined);
++// Private startup-only probe: the selected module already includes compiler
++// fallback content; callers still explicitly load the base through loadLocale.
++export const startupLocalePromise = loadLocale(
++	canonicalLocale(getLocale()) ?? baseLocale
++).then(() => undefined);
+ `;
+ }

@@ -1,0 +1,49 @@
+diff --git a/src/bundler-plugins/client-locale-split/vite-plugin.ts b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+index a226116..1543bba 100644
+--- a/src/bundler-plugins/client-locale-split/vite-plugin.ts
++++ b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+@@ -244,21 +244,23 @@ export function createClientLocaleSplitPlugin(args: {
+ 			order: "post",
+ 			handler(_outputOptions, bundle) {
+ 				if (!preloadEntry) return;
+-				const html = bundle["index.html"];
+-				if (!html || html.type !== "asset") return;
+-				const source =
+-					typeof html.source === "string"
+-						? html.source
+-						: Buffer.from(html.source).toString("utf8");
+ 				const fileName = this.getFileName(preloadEntry);
+ 				const base = config?.base.endsWith("/")
+ 					? config.base
+ 					: `${config?.base ?? "/"}/`;
+ 				const src = `${base}${fileName}`;
+-				html.source = source.replace(
+-					/<head(?:\s[^>]*)?>/i,
+-					(head) => `${head}<script type="module" src="${src}"></script>`
+-				);
++				for (const output of Object.values(bundle)) {
++					if (output.type !== "asset" || !output.fileName.endsWith(".html")) continue;
++					const source =
++						typeof output.source === "string"
++							? output.source
++							: Buffer.from(output.source).toString("utf8");
++					output.source = source.replace(
++						/<head(?:\s[^>]*)?>/i,
++						(head) =>
++							`${head}<script data-cfasync="false" type="module" src="${src}"></script>`
++					);
++				}
+ 			},
+ 		},
+ 		handleHotUpdate(context) {
+@@ -352,8 +354,8 @@ function createCoreModule(
+ ): string {
+ 	const importCases = metadata.locales
+ 		.map(
+-			(locale) =>
+-				`locale === ${JSON.stringify(locale)} ? import(${JSON.stringify(localeVirtualId(locale))}) : `
++		(locale) =>
++				`locale === ${JSON.stringify(locale)} ? import(/* @vite-ignore */ ${JSON.stringify(localeVirtualId(locale))}) : `
+ 		)
+ 		.join("");
+ 	const probeCheck = `!Array.isArray(messages) || messages.length !== ${metadata.messages.length} || messages.some((message) => typeof message !== "string" && typeof message !== "function")`;
