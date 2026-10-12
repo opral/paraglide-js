@@ -38,6 +38,22 @@ The route graph included 42 JS resources and 44 captured JS/CSS assets in native
 
 The native ready marker appeared at 497.8 ms; the async-init candidate marker appeared at 504.3 ms in the single probes. Both coincide with Inter Medium completion. There is no evidence here for a >10% user-facing improvement, so no timing batch was run.
 
+## Standalone preload ablation
+
+To isolate the compiler's standalone HTML preload entry, I rebuilt the same TLA adapter with a private compiler copy whose only source change gates `emitFile()` for that entry behind `PARAGLIDE_DISABLE_CLIENT_LOCALE_PRELOAD=1`. The app adapter, generated project, route map, compiler source pin, Vite config, and catalog inputs were unchanged; pre-build and post-build input hashes matched, and the full locale/message inventory check passed. The ablation build also passed the strict-error French route check with the same title and controls and no page errors. French controls appeared at 504.3 ms as Inter Medium completed at 503.9 ms. This is a request-graph diagnostic, not a timing run.
+
+| Build | HTML modulepreloads | JS requests | JS/CSS responses | Brotli-Q4 route bytes |
+| --- | ---: | ---: | ---: | ---: |
+| Native optimized i18next | 14 | 42 | 44 | 1,399,964 |
+| TLA Paraglide | 80 | 112 | 114 | 1,511,352 |
+| TLA Paraglide, standalone preload disabled | 79 | 110 | 112 | 1,511,146 |
+
+Disabling the standalone entry removes one preload link and only 206 Brotli-Q4 bytes relative to the TLA candidate. The candidate still has 65 more HTML preloads than native and remains 111,182 Brotli-Q4 bytes larger. The earlier async-init adapter, which moved the wait behind an explicit readiness promise, also retained 80 preloads. These results rule out the standalone preload entry and the adapter's top-level await as explanations for the expanded graph in this probe.
+
+The ablated output contains 79 preloads; its HTML module list includes app chunks such as `Trans`, `api`, `auth-context`, `CameraGroupSelector`, and `settings`. Grouping requested output files by basename after removing the final eight-character bundler hash finds 65 candidate-only groups totaling 443,217 Q4 bytes. Large examples are `candidate-i18n` (74,803), `isPWA` (45,623), the English helper chunk `en` (42,379), `ws` (31,447), `types` (29,373), `sectionPages` (26,048), and the selected Paraglide English/French locale chunks (57,364 combined). The nine en/fr native locale JSON groups absent from the candidate total 87,134 Q4 bytes. Shared-name groups shrink by 244,901 Q4 bytes net, led by native `main` and `src` shrinking by 254,905 combined; other changed chunks and HTML offset about 10,004 bytes of that reduction. Those output-level deltas reconcile to the 111,182-byte route increase. The additional modules include app chunks that were not separate native route assets, while several native route modules were folded into candidate `main`/`src`; output names identify emitted chunks, not exact source-module marginal costs.
+
+Raw browser trace and requested-asset manifest: `results/paraglide-preload-ablated-route.desktop.json` and `results/paraglide-preload-ablated-route-assets.json`. `compare-route-assets.py` reproduces the output-group arithmetic above. The exact one-condition source diff is archived in `compiler-preload-ablation.patch`; its modified plugin file SHA-256 is recorded in `compiler-preload-ablation.patch.sha256`. The private ablation compiler was derived from source pin `6997d020813d76f087d585110e62cd54891726e0`; it is a diagnostic copy and is not a proposed compiler change.
+
 ## Conclusion
 
-This candidate does not qualify. Locale loading completes earlier than native, but the route is font-bound and the candidate ships a larger estimated initial graph, with more than twice as many JS requests and 66 additional HTML modulepreloads. The experiment remains useful as a negative result: moving the locale wait out of the module does not remove the preload expansion. No compiler change or PR is proposed from this probe.
+This candidate does not qualify. Locale loading completes earlier than native, but the route is font-bound and the candidate ships a larger estimated initial graph, with more than twice as many JS requests and 65 additional HTML modulepreloads after the standalone preload is disabled. The experiments remain useful as a negative result: moving the locale wait or removing the standalone preload entry does not remove the expanded split-module graph. No compiler change or PR is proposed from this probe.

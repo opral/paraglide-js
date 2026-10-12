@@ -1,0 +1,11 @@
+diff --git a/src/bundler-plugins/client-locale-split/vite-plugin.ts b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+index a226116..fe0dd11 100644
+--- a/src/bundler-plugins/client-locale-split/vite-plugin.ts
++++ b/src/bundler-plugins/client-locale-split/vite-plugin.ts
+@@ -129 +129,5 @@ export function createClientLocaleSplitPlugin(args: {
+-				if (config?.command === "build" && !config.build.ssr) {
++				if (
++					config?.command === "build" &&
++					!config.build.ssr &&
++					process.env.PARAGLIDE_DISABLE_CLIENT_LOCALE_PRELOAD !== "1"
++				) {
