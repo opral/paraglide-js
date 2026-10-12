@@ -20,6 +20,7 @@ type MessageMetadata = {
 	publicName: string;
 	hasInputs: boolean;
 	hasMarkup: boolean;
+	staticTexts?: Record<string, string>;
 };
 
 type SplitMetadata = {
@@ -65,7 +66,14 @@ export function createClientLocaleSplitPlugin(args: {
 					typeof message.safeName !== "string" ||
 					typeof message.publicName !== "string" ||
 					typeof message.hasInputs !== "boolean" ||
-					typeof message.hasMarkup !== "boolean"
+					typeof message.hasMarkup !== "boolean" ||
+					(message.staticTexts !== undefined &&
+						(typeof message.staticTexts !== "object" ||
+							message.staticTexts === null ||
+							Array.isArray(message.staticTexts) ||
+							Object.values(message.staticTexts).some(
+								(value) => typeof value !== "string"
+							)))
 			)
 		) {
 			throw new Error(
@@ -206,7 +214,20 @@ export function createClientLocaleSplitPlugin(args: {
 						`Unknown Paraglide locale ${JSON.stringify(locale)}.`
 					);
 				}
-				return `import * as messages from ${JSON.stringify(resolve(args.state.compilerOptions!.outdir, "messages", `${locale}.js`))};\nexport default messages;\n`;
+				const dynamic = data.messages.flatMap((message, index) =>
+					Object.hasOwn(message.staticTexts ?? {}, locale)
+						? []
+						: [`${message.safeName} as message${index}`]
+				);
+				const values = data.messages.map((message, index) =>
+					Object.hasOwn(message.staticTexts ?? {}, locale)
+						? JSON.stringify(message.staticTexts![locale])
+						: `message${index}`
+				);
+				const imports = dynamic.length
+					? `import { ${dynamic.join(", ")} } from ${JSON.stringify(resolve(args.state.compilerOptions!.outdir, "messages", `${locale}.js`))};\n`
+					: "";
+				return `${imports}export default [${values.join(",")}];\n`;
 			}
 			return null;
 		},
@@ -286,16 +307,16 @@ function createMessageFacade(metadata: SplitMetadata): string {
 	const imports = `import { selectedMessageLocale, requireLoadedLocale } from ${JSON.stringify(coreVirtualId)};`;
 	const startup = `import { startupLocalePromise } from ${JSON.stringify(coreVirtualId)};\nawait startupLocalePromise;`;
 	const wrapperDeclarations = metadata.messages
-		.map(({ safeName, publicName, hasInputs, hasMarkup }, index) => {
+		.map(({ publicName, hasInputs, hasMarkup }, index) => {
 			const inputParameter = hasInputs ? "inputs" : "inputs = {}";
 			const parts = hasMarkup
-				? `\n__paraglideMessage${index}.parts = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); const message = requireLoadedLocale(locale)[${JSON.stringify(safeName)}]; return typeof message.parts === "function" ? message.parts(inputs) : [{ type: "text", value: message(inputs) }]; };`
+				? `\n__paraglideMessage${index}.parts = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); const message = requireLoadedLocale(locale)[${index}]; return typeof message === "string" ? [{ type: "text", value: message }] : typeof message.parts === "function" ? message.parts(inputs) : [{ type: "text", value: message(inputs) }]; };`
 				: "";
 			const directExport =
 				publicName === "m" || publicName === "default"
 					? ""
 					: `\nexport { __paraglideMessage${index} as ${JSON.stringify(publicName)} };`;
-			return `const __paraglideMessage${index} = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); return requireLoadedLocale(locale)[${JSON.stringify(safeName)}](inputs); };${parts}${directExport}`;
+			return `const __paraglideMessage${index} = (${inputParameter}, options = {}) => { const locale = selectedMessageLocale(options.locale); const message = requireLoadedLocale(locale)[${index}]; return typeof message === "string" ? message : message(inputs); };${parts}${directExport}`;
 		})
 		.join("\n");
 	const namespaceProperties = metadata.messages
@@ -326,10 +347,7 @@ function createCoreModule(
 				`locale === ${JSON.stringify(locale)} ? import(${JSON.stringify(localeVirtualId(locale))}) : `
 		)
 		.join("");
-	const probe = metadata.messages[0]?.safeName;
-	const probeCheck = probe
-		? `typeof messages !== "object" || typeof messages[${JSON.stringify(probe)}] !== "function"`
-		: `typeof messages !== "object"`;
+	const probeCheck = `!Array.isArray(messages) || messages.length !== ${metadata.messages.length} || messages.some((message) => typeof message !== "string" && typeof message !== "function")`;
 	return `import { baseLocale, getLocale, setLocale, overwriteSetLocale, toLocale } from ${JSON.stringify(runtimePath)};
 const locales = ${JSON.stringify(metadata.locales)};
 const loadedLocales = new Map();

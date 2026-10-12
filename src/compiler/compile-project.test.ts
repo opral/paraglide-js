@@ -283,24 +283,28 @@ test("Vite client locale split emits compiler-derived locale and markup metadata
 			{
 				safeName: "markup_example",
 				publicName: "markup-example",
+				staticTexts: { de: "Hallo" },
 				hasInputs: false,
 				hasMarkup: true,
 			},
 			{
 				safeName: "_then",
 				publicName: "then",
+				staticTexts: { en: "then en", de: "then de" },
 				hasInputs: false,
 				hasMarkup: false,
 			},
 			{
 				safeName: "helloworld2",
 				publicName: "HelloWorld",
+				staticTexts: { en: "HelloWorld en", de: "HelloWorld de" },
 				hasInputs: false,
 				hasMarkup: false,
 			},
 			{
 				safeName: "loadlocale1",
 				publicName: "loadLocale",
+				staticTexts: { en: "loadLocale en", de: "loadLocale de" },
 				hasInputs: false,
 				hasMarkup: false,
 			},

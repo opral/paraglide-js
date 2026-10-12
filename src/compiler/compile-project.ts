@@ -133,6 +133,27 @@ async function compileProjectInternal(
 				messages: bundles.map((bundle) => ({
 					safeName: toSafeModuleId(bundle.id),
 					publicName: bundle.id,
+					// Compiler-known literal values; no parsing of generated JS.
+					staticTexts: Object.fromEntries(
+						bundle.messages.flatMap((message) => {
+							const variant =
+								message.variants.length === 1 ? message.variants[0] : undefined;
+							if (
+								!variant ||
+								!variant.pattern.every((part) => part.type === "text")
+							)
+								return [];
+							return [
+								[
+									message.locale,
+									variant.pattern
+										.map((part) => (part.type === "text" ? part.value : ""))
+										.join("")
+										.replace(/\r\n?/g, "\n"),
+								],
+							];
+						})
+					),
 					hasInputs:
 						bundle.declarations?.some(
 							(declaration) => declaration.type === "input-variable"

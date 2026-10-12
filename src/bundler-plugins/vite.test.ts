@@ -226,7 +226,7 @@ test("experimentalClientLocaleSplit emits locale metadata and rewires only Vite 
 	const coreCode = await split.load.call({}, coreId);
 	expect(coreCode).toContain('from "/src/paraglide/runtime.js"');
 	expect(coreCode).toContain("locales.includes(locale)");
-	expect(coreCode).toContain('typeof messages !== "object"');
+	expect(coreCode).toContain("!Array.isArray(messages)");
 	expect(coreCode).toContain("if (intent !== latestLocaleIntent)");
 	expect(coreCode).toContain("const messages = module.default");
 	expect(coreCode).toContain("loadLocale(baseLocale)");
@@ -239,10 +239,7 @@ test("experimentalClientLocaleSplit emits locale metadata and rewires only Vite 
 		{ ssr: false }
 	);
 	const localeCode = await split.load.call({}, localeId);
-	expect(localeCode).toContain(
-		'import * as messages from "/src/paraglide/messages/en.js"'
-	);
-	expect(localeCode).toContain("export default messages");
+	expect(localeCode).toBe("export default [];\n");
 
 	const loaderId = await resolveHook.call(
 		{},
@@ -470,6 +467,7 @@ test("client locale facade preserves message API and regional fallback behavior"
 						publicName: "HelloWorld",
 						hasInputs: false,
 						hasMarkup: false,
+						staticTexts: { en: "base uppercase", de: "German uppercase" },
 					},
 					{
 						safeName: "loadlocale1",
@@ -488,13 +486,14 @@ test("client locale facade preserves message API and regional fallback behavior"
 						publicName: "rich",
 						hasInputs: true,
 						hasMarkup: true,
+						staticTexts: { en: "base plain" },
 					},
 				],
 			})
 		);
 		await writeFile(
 			join(outdir, "messages", "en.js"),
-			'export function then(resolve) { resolve("assimilated"); }\nexport const _then = () => "base then";\nexport const helloworld2 = () => "base uppercase";\nexport const loadlocale1 = () => "base loader message";\nexport const with_inputs = (inputs) => "base " + inputs.value;\nexport const rich = Object.assign((inputs) => "base rich " + inputs.count, { parts: (inputs) => [{ type: "text", value: "base rich part " + inputs.count }] });\n'
+			'export function then(resolve) { resolve("assimilated"); }\nexport const _then = () => "base then";\nexport const helloworld2 = () => "base uppercase";\nexport const loadlocale1 = () => "base loader message";\nexport const with_inputs = (inputs) => "base " + inputs.value;\nexport const rich = () => "base plain";\n'
 		);
 		await writeFile(
 			join(outdir, "messages", "de.js"),
@@ -528,8 +527,14 @@ test("client locale facade preserves message API and regional fallback behavior"
 		for (const locale of ["en", "de", "de-AT"]) {
 			const localeId = `\0paraglide:client-locale-split:locale:${encodeURIComponent(locale)}`;
 			const wrapperCode = await (plugin.load as any).call({}, localeId);
-			expect(wrapperCode).toContain("import * as messages from");
-			expect(wrapperCode).toContain("export default messages");
+			expect(wrapperCode).toContain("export default [");
+			expect(wrapperCode).not.toContain("import * as");
+			if (locale !== "de-AT") {
+				expect(wrapperCode).not.toContain("helloworld2 as");
+				expect(wrapperCode).toContain(
+					locale === "en" ? '"base uppercase"' : '"German uppercase"'
+				);
+			}
 			await writeFile(join(outdir, `${locale}.wrapper.mjs`), wrapperCode);
 		}
 		let coreCode = await (plugin.load as any).call(
@@ -580,6 +585,7 @@ test("client locale facade preserves message API and regional fallback behavior"
 				regionalRich: rich({ count: 2 }, { locale: "de-AT" }),
 				regionalParts: rich.parts({ count: 2 }, { locale: "de-AT" }),
 				unknownLocaleFallback: rich({ count: 3 }, { locale: "not-supported" }),
+				staticParts: rich.parts({ count: 99 }, { locale: "en" }),
 				getterReads: localeReads,
 				nullOptionsThrows,
 				partsEnumerable: descriptor.enumerable,
@@ -605,7 +611,8 @@ test("client locale facade preserves message API and regional fallback behavior"
 			functionLengths: [0, 1, 1, 1],
 			regionalRich: "German rich 2",
 			regionalParts: [{ type: "text", value: "German rich part 2" }],
-			unknownLocaleFallback: "base rich 3",
+			unknownLocaleFallback: "base plain",
+			staticParts: [{ type: "text", value: "base plain" }],
 			getterReads: 1,
 			nullOptionsThrows: true,
 			partsEnumerable: true,
