@@ -1,5 +1,7 @@
 # Three-turn results
 
+Evaluator: GPT-6 Luna with extra-high reasoning, given three sequential tasks without the later requirements in advance. Compiler checkout: `6997d020813d76f087d585110e62cd54891726e0`. This is an agent integration exercise, not a customer usability study or performance benchmark.
+
 These are the observed results from the three sequential tasks using the isolated Vite fixture and the unreleased compiler checkout at `/root/repos-iii/paraglide-client-split-current-api`. The app build used Vite 8.3.4; browser checks used headless Chromium through Playwright 1.64.0. The fixture and replay script are in [`fixture/`](./fixture/).
 
 ## Turn 1: startup locale chunks and English fallback

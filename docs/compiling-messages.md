@@ -67,6 +67,12 @@ See [unplugin](https://unplugin.unjs.io/) for the full list of supported bundler
 > when editing translations. Setup is just one plugin—no extra configuration
 > needed.
 
+In builds with multiple entries or lazy routes, shared chunks can still contain
+messages used by other routes. Inspect the production request graph for your
+Vite version; eliminating globally unused messages does not guarantee that
+each route downloads only its own messages. See [the reported barrel chunking
+behavior](https://github.com/opral/paraglide-js/issues/668).
+
 ```ts
 import { defineConfig } from "vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
