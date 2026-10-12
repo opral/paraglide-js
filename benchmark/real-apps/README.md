@@ -7,7 +7,11 @@ the [Open WebUI sign-in baseline](native-openweb-auth-fixture.md), and recorded
 [Chatbox](chatbox-results.md) / [Stirling-PDF](stirling-results.md) near-misses.
 The [automatic Vite client locale-splitting ledger](locale-split-experiment.md)
 contains the public-plugin route gate, constrained-network repeat, native
-comparison, and fast-network regression. Component savings are not route savings.
+comparison, and fast-network regression. Component savings are not route savings. The [matched startup scheduling controls](anything-startup-waterfall-experiment.md)
+leave a 1.5% paint / 1.1% byte difference against equally optimized i18next.
+The [Memos lazy-locale auth route](memos-auth-route-results.md) improves transfer only 1.6%,
+with unchanged route-ready time; [DrawDB public-plugin tests](drawdb-public-vite-split-results.md)
+also miss the 10% route gate. Migration claims now require optimized i18next comparators.
 
 These experiments run real catalog text through Paraglide's compiler and **Vite production minification and tree shaking**, then check translation equality and count emitted JavaScript bytes after gzip/Brotli compression. Source-code shortening that Vite already performs does not count as an improvement.
 
