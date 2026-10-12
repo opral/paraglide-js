@@ -16,7 +16,7 @@ The current evidence is insufficient for a compiler change. The useful shape is 
 
 ## Reproduction
 
-Use Ntfy source commit `211ba22860d7483073a8ce13dcda5f467194989b`, Vite 7.3.1, Vite 8.1.4, and Vite 8.3.4. Set the following paths to the checked-out catalog and each Vite package's `dist/node/index.js`:
+Use Ntfy source commit `211ba22860d7483073a8ce13dcda5f467194989b`, Vite 7.3.1, Vite 8.1.4, and Vite 8.3.4. The `project.inlang/messages` input is benchmark-generated, not checked into native Ntfy. In an isolated Ntfy checkout with its pinned dependencies installed, first run `NTFY_WEB_ROOT=/path/to/ntfy/web node benchmark/real-apps/prepare-ntfy.mjs` to convert the native catalogs. This projection probe exports those catalog values as data; it does not execute compiled plural or markup functions. Set the following paths to the checked-out catalog and each Vite package's `dist/node/index.js`:
 
 ```sh
 export NTFY_MESSAGES_DIR=/path/to/ntfy/web/project.inlang/messages
