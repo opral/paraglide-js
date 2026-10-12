@@ -11,7 +11,7 @@ The comparison holds `outputStructure: "locale-modules"` constant. Main `9446dd9
 
 DrawDB includes every catalog key. Memos excludes two plural keys on both sides; its production frontend loads locales lazily, so this complete-catalog result is a stress workload, not its initial-page payload. The results preserve pinned source commits, actual dependency versions, catalog/compiler hashes, and parity counts. Each final minified Paraglide bundle and i18next bundle passed 18,564 DrawDB or 41,906 Memos key/locale comparisons. Selected-locale switching was also checked before bundling.
 
-Against i18next in this same isolated workload, DrawDB's packed gzip remains 1.6% larger (261,237 vs 257,006 B), while Brotli is 12.0% smaller (183,278 vs 208,199 B). Memos is 20.2% smaller by gzip and 11.9% by Brotli. These are localization-component comparisons, not app-wide migration percentages.
+Against i18next in this same isolated workload, DrawDB's packed gzip remains 1.2% larger (261,237 vs 258,253 B), while Brotli is 12.3% smaller (183,278 vs 208,875 B). Memos is 16.3% smaller by gzip and 9.1% by Brotli. The native side preserves original catalog hierarchy and property order. These are localization-component comparisons, not app-wide migration percentages.
 
 ## Behavior and boundaries
 

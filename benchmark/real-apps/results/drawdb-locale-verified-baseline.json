@@ -15,8 +15,12 @@
     "paraglide": 18564,
     "i18next": 18564
   },
+  "localeFunctionPacking": false,
+  "packingChunks": [],
   "switchChecks": 2184,
   "catalogHash": "d634aa890da3d26ed44622fa4fa4818ea400084ba80d15538d5fd9d03f4d4e5f",
+  "nativeResourceHash": "39d732c92d98957e5e2053ee254acc6bac6488cbf9a52a1f6b41bb144faa9b26",
+  "nativeResourceStructure": "source hierarchy and property order; excluded keys removed on both sides",
   "compilerArtifactHash": "22293e507afd8a594dfd5313694a6d2b9851cbf37bf9f0ce654db56144fd07d3",
   "scope": "complete-catalog isolated JS; Memos is an all-locales stress workload, not its lazy production loading",
   "sizes": {
@@ -27,9 +31,8 @@
     },
     "i18next": {
       "raw": 1067257,
-      "gzip": 257006,
-      "brotli": 208199
+      "gzip": 258253,
+      "brotli": 208875
     }
-  },
-  "localeFunctionPacking": false
+  }
 }
