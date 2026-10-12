@@ -1,0 +1,39 @@
+{
+  "app": "mudler/LocalAI",
+  "appCommit": "a551c83465ee538367358f239de5a364ebea9329",
+  "compilerUsed": false,
+  "buildCommand": "/usr/bin/node node_modules/vite/bin/vite.js build --outDir /root/repos-iii/localai-native-baseline/.real-apps/native-dist --manifest --emptyOutDir",
+  "node": "22.23.2",
+  "npm": "10.9.8",
+  "playwright": "1.64.0",
+  "browser": "Google Chrome for Testing 156.0.8078.4",
+  "browserModule": "/root/repos-iii/ntfy-aggregate-app/web/node_modules/playwright/index.mjs",
+  "sourceSha256": {
+    "core/http/react-ui/package-lock.json": "894c16795cbf487770a45bb0e46c8ed31e58b194312fed20399758d0635a1ee3",
+    "core/http/react-ui/package.json": "6cedc34c65b9e4be3e638e1172eee48f02ab0a98656c70caa123d4fc9272dbb7",
+    "core/http/react-ui/vite.config.js": "f413e3827030373df077e47f5e26c279760e9b1923330843957b8ba4a6361ab0",
+    "core/http/react-ui/src/i18n/index.js": "e9959bd5fc712a2205323e2ac5d2cb8bfd6371f879d3eea04da459fca006fb64",
+    "core/http/react-ui/src/pages/Login.jsx": "ec48a2d81e6ac5479735ac0c93536b11cb7972da1b800a3a52a0c2cb0651fe4e",
+    "core/http/react-ui/src/main.jsx": "db3c7c672507ed38980266fd0cdfdf03a0745b2c80bcf3b556cf50c8be26d17b",
+    "core/http/app.go": "5f46170ac4df63cb6d9f296dddd46526d1afc7a8cd8f5bd555a66234fcfb067e",
+    "core/http/static/logo.png": "98f62f85e1bbcfa8032cb54123bdc4947d2764c4b2bad68f591c106323cf154d"
+  },
+  "builtFiles": 299,
+  "builtRawBytes": 6365370,
+  "counts": {
+    "resourceEntries": 27,
+    "resourceEncodedBodyBytesExcludingNavigation": 242294,
+    "resourceTransferBytesIncludingHeadersExcludingNavigation": 250394,
+    "apiEncodedBodyBytes": 338,
+    "localeEncodedBodyBytes": 9841,
+    "localeResponses": 8
+  },
+  "navigation": [
+    {
+      "encodedBodyBytes": 618,
+      "transferBytes": 918,
+      "protocol": "http/1.1"
+    }
+  ],
+  "serverScope": "read-only canned unauthenticated auth/branding/operations APIs, original public/static assets, production root base injection; no live backend/model system"
+}
