@@ -4,6 +4,8 @@ This is a real production-build comparison for Open WebUI's `/auth?lang=fr-FR` r
 
 ## Results
 
+Measurements use fresh Chromium contexts with cache and service workers disabled, a local Brotli-Q4 server, 80 ms RTT, 20 Mbps download / 2 Mbps upload and 3× CPU throttling. Backend configuration is a read-only fixture; these are controlled frontend route measurements, not production field metrics.
+
 | Build | Captured route bytes | Static shipped assets | Static assets vs full native | Loaded locale-message payload |
 | --- | ---: | ---: | ---: | ---: |
 | Native i18next, full catalogs | 1,311,085 B | 1,304,987 B | baseline | 121,411 B |
