@@ -1,0 +1,34 @@
+{
+  "app": {
+    "repository": "https://github.com/MHSanaei/3x-ui",
+    "commit": "74c3cc38821cabd66ad316ea562851422d0b0063",
+    "frontendVite": "8.3.4",
+    "packageLockSha256": "4102c5530996fa24f8152bdeaee99f73a8bd4c85d86e562a707a2a1e7bef43a7",
+    "originalManualChunksPreserved": true,
+    "measurementPage": "/login",
+    "localeCookie": "lang=es-ES"
+  },
+  "compiler": {
+    "baseCommit": "6997d020813d76f087d585110e62cd54891726e0",
+    "baseClientLocaleSplitPluginDistSha256": "c06f8dd894f68f6040deeb8ff62d449d4b133fb12bb78520dd5e7f9a5c49dd70",
+    "allHtmlPrototypePluginDistSha256": "f8bb4ec54176379912c03ac002df977850fb32d4e2e3667498a9b23c3a331d58",
+    "coreChunkPrototypeSourceSha256": "612c624a61da3e7708d62334a50ebe0a13682da1ae0d3e3aba43bc0b6b373250",
+    "coreChunkPrototypePluginDistSha256": "8f7f1f5febd0bd92b64e1ea3f54cb542394172bc2481f84a28a02ef37669a5f6"
+  },
+  "buildEnvironment": {
+    "node": "26.3.1",
+    "npm": "11.8.0",
+    "viteBuild": "8.3.4",
+    "target": "es2022",
+    "coreChunkPrototype": "Node 26.3.1 + npm 11.8.0",
+    "publicAllHtmlBaseline": "Node 26.3.1 + npm 10.9.8; lockfile unchanged and no install ran during the build",
+    "note": "The core-chunk candidate was rebuilt after the public all-HTML baseline. Npm differs only as the build-script runner; the source checkout and package lock are pinned. Treat the one-pair timing as exploratory, not a release gate."
+  },
+  "metadata": {
+    "sha256": "53316c9f0bee25f3464cbf588d618a067142dc9bce8736c5ab561d63aabeb566",
+    "locales": 13,
+    "messagesPerLocale": 2589,
+    "inputMessages": 123,
+    "markupMessages": 0
+  }
+}

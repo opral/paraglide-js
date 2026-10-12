@@ -1,0 +1,276 @@
+{
+  "status": "isolated native early-locale preload fairness control; no app/compiler product changes",
+  "app": {
+    "repository": "https://github.com/MHSanaei/3x-ui",
+    "commit": "74c3cc38821cabd66ad316ea562851422d0b0063",
+    "vite": "8.3.4",
+    "target": "es2022",
+    "packageLockSha256": "4102c5530996fa24f8152bdeaee99f73a8bd4c85d86e562a707a2a1e7bef43a7",
+    "sourceViteConfigSha256": "1b40acfbed59487efd395b6b1461f9885c15206c7aa83a2061e663198731ac34",
+    "nativeControlPatchSha256": "2d919c8f1de6c31c2ea856ca855e7b47665011e6b1b05e30e54473cd971980e0",
+    "preloadOutputManifestSha256": "de9c1ea7682a899d845c827a6d601cd6e19f200bb8dddcf6382d69312764f0b0",
+    "preloadLoginHtmlSha256": "d8e1f2b206c492e589ffadbe1f791142ad1021e9c7f112e88e7568bc276dddac",
+    "allNativeJsAssetsByteIdenticalToCleanEs2022Build": true,
+    "changedHtmlPages": [
+      "index.html",
+      "login.html",
+      "subpage.html"
+    ]
+  },
+  "build": {
+    "node": "26.3.1",
+    "npm": "11.8.0",
+    "command": "npm run build -- --manifest",
+    "durationSeconds": 0.64,
+    "maxRssKb": null,
+    "note": "Vite build itself reported 554ms; /usr/bin/time wrapper was not used for this final control build."
+  },
+  "nativePreload": {
+    "mechanism": "Post-bundle HTML injection of a cookie-gated inline script before the app module. It maps exact emitted dynamic i18next locale chunk names, adds a modulepreload link for only the selected locale, and leaves i18next import.meta.glob, all catalogs, runtime selection, and manualChunks policy unchanged.",
+    "localeMapCount": 12,
+    "fallback": "en-US remains the existing static locale; no preload for absent, invalid, or en-US cookie. Panel reads lang. Subscription reads nonempty subLang first, otherwise lang.",
+    "browserCookieProbeSha256": "850e51f3aaeb986d1fe34c7d22fbdb36ae2e648f08802a370da2d7be1cdfb378"
+  },
+  "selectedOnlyCandidate": {
+    "path": "/root/repos-iii/3x-ui-core-selected-startup-app/internal/web/dist",
+    "manifestSha256": "f9fcd2bd48d0933ee2cebad78734fb5a8528c334e401b684d357684f30a51a96",
+    "loginHtmlSha256": "4757f5e1b348180a57bf7a1c4f5ce0c87d2bd877980da6ba767a287dc20181b8",
+    "compilerLeafSha256": {
+      "clientLocaleSplitPlugin": "7f81c8d29ec5342b323d62bb1b111c512b1c4d61dbef6306e37145d200c16bb3",
+      "compileProject": "b33d9b94202115af242af1e1d01f53bdc7014e838cc91d918ab3049968216a5a",
+      "compileBundle": "5feba2f995a566af61fb7e4a91f9baf5da1e3b68cb876bba80d6ea660826ade2"
+    },
+    "startupSemantics": "Loads selected locale only; base en-US is not loaded until explicit load. This changes synchronous invalid explicit-locale fallback availability and remains a private research option."
+  },
+  "basePlusSelectedCandidate": {
+    "path": "/root/repos-iii/3x-ui-paraglide-core-chunk-probe/internal/web/dist",
+    "manifestSha256": "67462ab61c948605bff2a48c246e4e60f883afc83fd9d4635df93d8c0ffb215b",
+    "loginHtmlSha256": "461de262d4f28f0d25fc1093eb04d635edd4b7d2e0b13b9d228d8f1ca0ca05c6",
+    "compilerProvenance": "benchmark/real-apps/3x-ui/paraglide/core-chunk-provenance.json",
+    "startupSemantics": "Default base-plus-selected locale loading; core chunk grouping and all-HTML preload are isolated app/compiler prototypes."
+  },
+  "pairResults": {
+    "desktopSelectedOnly": {
+      "profile": "One cold run per variant; fresh browser context and cache disabled; 80ms RTT, 20Mbps down, 2Mbps up, 3x CPU; readiness is the first visible Spanish greeting, not a fixed delay. Selected HTML, preloader, core, and locale responses are SHA-256 hashed after browser decompression, with response encoding and content length recorded.",
+      "native": {
+        "resources": 21,
+        "transferBytesIncludingHeaders": 762166,
+        "encodedBodyBytes": 755866,
+        "decodedResourceBytes": 2513357,
+        "fcpMs": 944,
+        "lcpMs": 944,
+        "translatedReadyMs": 1120,
+        "fontReadyMs": 96,
+        "protocol": "http/1.1",
+        "localeResources": [
+          {
+            "path": "/assets/es-ES-CbS94hW4.js",
+            "startMs": 98,
+            "endMs": 553,
+            "transferBytes": 50504,
+            "encodedBytes": 50204,
+            "decodedBytes": 155319
+          }
+        ],
+        "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+        "errors": []
+      },
+      "candidateName": "paraglide-core-selected-only",
+      "candidate": {
+        "resources": 24,
+        "transferBytesIncludingHeaders": 690709,
+        "encodedBodyBytes": 683509,
+        "decodedResourceBytes": 2508286,
+        "fcpMs": 924,
+        "lcpMs": 924,
+        "translatedReadyMs": 1090,
+        "fontReadyMs": 94,
+        "protocol": "http/1.1",
+        "localeResources": [
+          {
+            "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+            "startMs": 264,
+            "endMs": 565,
+            "transferBytes": 36287,
+            "encodedBytes": 35987,
+            "decodedBytes": 111448
+          }
+        ],
+        "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+        "errors": []
+      }
+    },
+    "mobileSelectedOnly": {
+      "profile": "One cold run per variant; fresh browser context and cache disabled; 150ms RTT, 1.6Mbps down, 2Mbps up, 4x CPU; readiness is the first visible Spanish greeting, not a fixed delay. Selected HTML, preloader, core, and locale responses are SHA-256 hashed after browser decompression, with response encoding and content length recorded.",
+      "native": {
+        "resources": 21,
+        "transferBytesIncludingHeaders": 762166,
+        "encodedBodyBytes": 755866,
+        "decodedResourceBytes": 2513357,
+        "fcpMs": 4464,
+        "lcpMs": 4464,
+        "translatedReadyMs": 4810,
+        "fontReadyMs": 173,
+        "protocol": "http/1.1",
+        "localeResources": [
+          {
+            "path": "/assets/es-ES-CbS94hW4.js",
+            "startMs": 177,
+            "endMs": 2477,
+            "transferBytes": 50504,
+            "encodedBytes": 50204,
+            "decodedBytes": 155319
+          }
+        ],
+        "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+        "errors": []
+      },
+      "candidateName": "paraglide-core-selected-only",
+      "candidate": {
+        "resources": 24,
+        "transferBytesIncludingHeaders": 690709,
+        "encodedBodyBytes": 683509,
+        "decodedResourceBytes": 2508286,
+        "fcpMs": 4096,
+        "lcpMs": 4096,
+        "translatedReadyMs": 4448,
+        "fontReadyMs": 169,
+        "protocol": "http/1.1",
+        "localeResources": [
+          {
+            "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+            "startMs": 561,
+            "endMs": 2006,
+            "transferBytes": 36287,
+            "encodedBytes": 35987,
+            "decodedBytes": 111448
+          }
+        ],
+        "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+        "errors": []
+      }
+    },
+    "desktopBasePlusSelected": {
+      "profile": "One cold run per variant; fresh browser context and cache disabled; 80ms RTT, 20Mbps down, 2Mbps up, 3x CPU; readiness is the first visible Spanish greeting, not a fixed delay. Selected HTML, preloader, core, and locale responses are SHA-256 hashed after browser decompression, with response encoding and content length recorded.",
+      "native": {
+        "resources": 21,
+        "transferBytesIncludingHeaders": 762166,
+        "encodedBodyBytes": 755866,
+        "decodedResourceBytes": 2513357,
+        "fcpMs": 948,
+        "lcpMs": 948,
+        "translatedReadyMs": 1126,
+        "fontReadyMs": 95,
+        "protocol": "http/1.1",
+        "localeResources": [
+          {
+            "path": "/assets/es-ES-CbS94hW4.js",
+            "startMs": 97,
+            "endMs": 550,
+            "transferBytes": 50504,
+            "encodedBytes": 50204,
+            "decodedBytes": 155319
+          }
+        ],
+        "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+        "errors": []
+      },
+      "candidateName": "paraglide-core-base-plus-selected",
+      "candidate": {
+        "resources": 25,
+        "transferBytesIncludingHeaders": 723574,
+        "encodedBodyBytes": 716074,
+        "decodedResourceBytes": 2602123,
+        "fcpMs": 960,
+        "lcpMs": 960,
+        "translatedReadyMs": 1133,
+        "fontReadyMs": 96,
+        "protocol": "http/1.1",
+        "localeResources": [
+          {
+            "path": "/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js",
+            "startMs": 267,
+            "endMs": 564,
+            "transferBytes": 32857,
+            "encodedBytes": 32557,
+            "decodedBytes": 93817
+          },
+          {
+            "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+            "startMs": 267,
+            "endMs": 601,
+            "transferBytes": 36287,
+            "encodedBytes": 35987,
+            "decodedBytes": 111448
+          }
+        ],
+        "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+        "errors": []
+      }
+    },
+    "mobileBasePlusSelected": {
+      "profile": "One cold run per variant; fresh browser context and cache disabled; 150ms RTT, 1.6Mbps down, 2Mbps up, 4x CPU; readiness is the first visible Spanish greeting, not a fixed delay. Selected HTML, preloader, core, and locale responses are SHA-256 hashed after browser decompression, with response encoding and content length recorded.",
+      "native": {
+        "resources": 21,
+        "transferBytesIncludingHeaders": 762166,
+        "encodedBodyBytes": 755866,
+        "decodedResourceBytes": 2513357,
+        "fcpMs": 4484,
+        "lcpMs": 4484,
+        "translatedReadyMs": 4840,
+        "fontReadyMs": 175,
+        "protocol": "http/1.1",
+        "localeResources": [
+          {
+            "path": "/assets/es-ES-CbS94hW4.js",
+            "startMs": 179,
+            "endMs": 2485,
+            "transferBytes": 50504,
+            "encodedBytes": 50204,
+            "decodedBytes": 155319
+          }
+        ],
+        "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+        "errors": []
+      },
+      "candidateName": "paraglide-core-base-plus-selected",
+      "candidate": {
+        "resources": 25,
+        "transferBytesIncludingHeaders": 723574,
+        "encodedBodyBytes": 716074,
+        "decodedResourceBytes": 2602123,
+        "fcpMs": 4280,
+        "lcpMs": 4280,
+        "translatedReadyMs": 4634,
+        "fontReadyMs": 170,
+        "protocol": "http/1.1",
+        "localeResources": [
+          {
+            "path": "/assets/_paraglide_client-locale-split_locale_en-US-DuZ-hwFo.js",
+            "startMs": 566,
+            "endMs": 2084,
+            "transferBytes": 32857,
+            "encodedBytes": 32557,
+            "decodedBytes": 93817
+          },
+          {
+            "path": "/assets/_paraglide_client-locale-split_locale_es-ES-C63OlrCx.js",
+            "startMs": 566,
+            "endMs": 2220,
+            "transferBytes": 36287,
+            "encodedBytes": 35987,
+            "decodedBytes": 111448
+          }
+        ],
+        "visibleText": "3X-UI\nHola\nNombre de Usuario\nContrase\u00f1a\nAcceder",
+        "errors": []
+      }
+    }
+  },
+  "gate": {
+    "threshold": "At least 10% improvement in a user-facing metric to justify a repeated batch.",
+    "desktopAndMobileOnePairOnly": true,
+    "repeatBatchRun": false,
+    "reason": "Neither selected-only core nor base-plus-selected core cleared 10% readiness improvement against the optimized native early-preload control."
+  }
+}

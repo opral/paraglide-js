@@ -1,0 +1,199 @@
+{
+  "origin": "native early-locale control",
+  "results": [
+    {
+      "name": "panel-valid",
+      "path": "/login",
+      "cookies": [
+        {
+          "name": "lang",
+          "value": "es-ES"
+        }
+      ],
+      "expectSpanish": true,
+      "esRequested": true,
+      "esRequestCount": 1,
+      "esRequests": [
+        {
+          "url": "/assets/es-ES-CbS94hW4.js",
+          "at": 0
+        }
+      ],
+      "pageInfo": {
+        "text": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+        "scriptOrder": [
+          {
+            "type": "",
+            "src": "",
+            "inline": true
+          },
+          {
+            "type": "module",
+            "src": "http://127.0.0.1:4183/assets/login-DZL5y-rd.js",
+            "inline": false
+          }
+        ]
+      },
+      "errors": []
+    },
+    {
+      "name": "panel-invalid",
+      "path": "/login",
+      "cookies": [
+        {
+          "name": "lang",
+          "value": "not-a-locale"
+        }
+      ],
+      "expectSpanish": false,
+      "esRequested": false,
+      "esRequestCount": 0,
+      "esRequests": [],
+      "pageInfo": {
+        "text": "3X-UI\nHello\nUsername\nPassword\nLog In",
+        "scriptOrder": [
+          {
+            "type": "",
+            "src": "",
+            "inline": true
+          },
+          {
+            "type": "module",
+            "src": "http://127.0.0.1:4183/assets/login-DZL5y-rd.js",
+            "inline": false
+          }
+        ]
+      },
+      "errors": []
+    },
+    {
+      "name": "panel-absent",
+      "path": "/login",
+      "cookies": [],
+      "expectSpanish": false,
+      "esRequested": false,
+      "esRequestCount": 0,
+      "esRequests": [],
+      "pageInfo": {
+        "text": "3X-UI\nHello\nUsername\nPassword\nLog In",
+        "scriptOrder": [
+          {
+            "type": "",
+            "src": "",
+            "inline": true
+          },
+          {
+            "type": "module",
+            "src": "http://127.0.0.1:4183/assets/login-DZL5y-rd.js",
+            "inline": false
+          }
+        ]
+      },
+      "errors": []
+    },
+    {
+      "name": "subscription-subLang",
+      "path": "/subpage.html",
+      "cookies": [
+        {
+          "name": "subLang",
+          "value": "es-ES"
+        }
+      ],
+      "expectSpanish": true,
+      "esRequested": true,
+      "esRequestCount": 1,
+      "esRequests": [
+        {
+          "url": "/assets/es-ES-CbS94hW4.js",
+          "at": 0
+        }
+      ],
+      "pageInfo": {
+        "text": "Información de suscripción\n∞\nIlimitado\nUso\n0\nIlimitado\nDías restantes\n∞\nCaducidad\nSin caducidad\nEstado\nInactivo\nDescargado\n0\nSubido\n0\nCuota total\n∞\nÚltima conexión\n-",
+        "scriptOrder": [
+          {
+            "type": "",
+            "src": "",
+            "inline": true
+          },
+          {
+            "type": "module",
+            "src": "http://127.0.0.1:4183/assets/subpage-CWoiT6-m.js",
+            "inline": false
+          }
+        ]
+      },
+      "errors": []
+    },
+    {
+      "name": "subscription-fallback-lang",
+      "path": "/subpage.html",
+      "cookies": [
+        {
+          "name": "lang",
+          "value": "es-ES"
+        }
+      ],
+      "expectSpanish": true,
+      "esRequested": true,
+      "esRequestCount": 1,
+      "esRequests": [
+        {
+          "url": "/assets/es-ES-CbS94hW4.js",
+          "at": 0
+        }
+      ],
+      "pageInfo": {
+        "text": "Información de suscripción\n∞\nIlimitado\nUso\n0\nIlimitado\nDías restantes\n∞\nCaducidad\nSin caducidad\nEstado\nInactivo\nDescargado\n0\nSubido\n0\nCuota total\n∞\nÚltima conexión\n-",
+        "scriptOrder": [
+          {
+            "type": "",
+            "src": "",
+            "inline": true
+          },
+          {
+            "type": "module",
+            "src": "http://127.0.0.1:4183/assets/subpage-CWoiT6-m.js",
+            "inline": false
+          }
+        ]
+      },
+      "errors": []
+    },
+    {
+      "name": "subscription-invalid-subLang-wins",
+      "path": "/subpage.html",
+      "cookies": [
+        {
+          "name": "subLang",
+          "value": "not-a-locale"
+        },
+        {
+          "name": "lang",
+          "value": "es-ES"
+        }
+      ],
+      "expectSpanish": false,
+      "esRequested": false,
+      "esRequestCount": 0,
+      "esRequests": [],
+      "pageInfo": {
+        "text": "Subscription info\n∞\nUnlimited\nUsage\n0\nUnlimited\nDays left\n∞\nExpiry\nNo expiry\nStatus\nInactive\nDownloaded\n0\nUploaded\n0\nTotal quota\n∞\nLast Online\n-",
+        "scriptOrder": [
+          {
+            "type": "",
+            "src": "",
+            "inline": true
+          },
+          {
+            "type": "module",
+            "src": "http://127.0.0.1:4183/assets/subpage-CWoiT6-m.js",
+            "inline": false
+          }
+        ]
+      },
+      "errors": []
+    }
+  ]
+}

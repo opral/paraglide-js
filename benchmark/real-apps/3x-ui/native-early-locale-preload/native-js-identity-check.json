@@ -1,0 +1,20 @@
+{
+  "baselineDist": "/root/repos-iii/3x-ui-native-es2022/internal/web/dist",
+  "earlyPreloadDist": "/root/repos-iii/3x-ui-native-early-locale/internal/web/dist",
+  "sameFiles": 165,
+  "changedFiles": {
+    "index.html": {
+      "baseline": "db5ded41ce368045823ea2c139e6beef6b7e62113a5a110cbb4ce506454f6f13",
+      "earlyPreload": "0ac0fd9634dbeb4a8c980cd7500713c174c741bb687020abe7429e70d17211f5"
+    },
+    "login.html": {
+      "baseline": "3693eb8b76e277e5fd86207d8e65cdd2ff18b15895d426f7eac26068b785d256",
+      "earlyPreload": "d8e1f2b206c492e589ffadbe1f791142ad1021e9c7f112e88e7568bc276dddac"
+    },
+    "subpage.html": {
+      "baseline": "a92d9b2d2f1a04035e6efd881d6ebcf68ea357a50d249dac3a440a7b95cc42a1",
+      "earlyPreload": "53120b6d3d94a9d699ab1fdef47b1299bf212eaf5d01bb1682bb4ca345ff5a10"
+    }
+  },
+  "note": "The build target and source were already ES2022; Vite output manifest and every non-HTML asset are byte-identical. Only the three HTML pages gain the selected-locale preload bootstrap."
+}

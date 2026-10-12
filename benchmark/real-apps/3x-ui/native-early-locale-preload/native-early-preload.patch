@@ -1,0 +1,61 @@
+diff --git a/frontend/vite.config.js b/frontend/vite.config.js
+index d91e523..70b9928 100644
+--- a/frontend/vite.config.js
++++ b/frontend/vite.config.js
+@@ -89,6 +89,38 @@ function rocketLoaderOptOutPlugin() {
+   };
+ }
+ 
++// Fairness control for the i18next comparison: move only the existing
++// selected-locale module fetch ahead of the app entry. The app's own
++// import.meta.glob loader, catalogs, and runtime selection remain untouched.
++function preloadSelectedLocalePlugin() {
++  return {
++    name: 'xui-preload-selected-i18next-locale',
++    enforce: 'post',
++    apply: 'build',
++    generateBundle(_options, bundle) {
++      const localeChunks = {};
++      for (const output of Object.values(bundle)) {
++        if (output.type !== 'chunk' || !output.isDynamicEntry || !output.facadeModuleId) continue;
++        const id = output.facadeModuleId.replaceAll('\\', '/').split('?')[0];
++        const match = id.match(/\/translation\/([A-Za-z0-9-]+)\.json$/);
++        if (match) localeChunks[match[1]] = output.fileName;
++      }
++
++      for (const output of Object.values(bundle)) {
++        if (output.type !== 'asset' || !/^(index|login|subpage)\.html$/.test(output.fileName)) continue;
++        const scope = output.fileName === 'subpage.html' ? 'subscription' : 'panel';
++        const map = JSON.stringify(localeChunks).replaceAll('<', '\\u003c');
++        const code = `(function(){var m=${map};function c(n){var p=n+'=';for(var x of document.cookie.split(';')){x=x.trim();if(x.startsWith(p)){try{return decodeURIComponent(x.slice(p.length))}catch{return null}}}return null}var l=${scope === 'panel' ? "c('lang')" : "c('subLang')||c('lang')"};if(!l||!Object.prototype.hasOwnProperty.call(m,l))return;var a=document.createElement('link');a.rel='modulepreload';a.crossOrigin='';a.href=(window.X_UI_BASE_PATH||'/')+m[l];document.head.append(a)})();`;
++        const tag = `<script data-cfasync="false">${code}</script>`;
++        const html = String(output.source);
++        const scriptAt = html.indexOf('<script ');
++        if (scriptAt < 0) throw new Error(`Could not place locale preload before app script in ${output.fileName}`);
++        output.source = `${html.slice(0, scriptAt)}${tag}\n    ${html.slice(scriptAt)}`;
++      }
++    },
++  };
++}
++
+ function bypassMigratedRoute(req) {
+   if (req.method !== 'GET') return undefined;
+   const url = req.url.split('?')[0];
+@@ -203,7 +235,7 @@ const SWAGGER_ONLY_DEPS = [
+ ];
+ 
+ export default defineConfig({
+-  plugins: [react(), injectBasePathPlugin(), rocketLoaderOptOutPlugin()],
++  plugins: [react(), injectBasePathPlugin(), rocketLoaderOptOutPlugin(), preloadSelectedLocalePlugin()],
+   resolve: {
+     alias: {
+       '@': path.resolve(import.meta.dirname, 'src'),
+@@ -229,7 +261,7 @@ export default defineConfig({
+     // (including the XUI_DEBUG serve-from-disk path), build once with
+     // XUI_SOURCEMAP=true — no tracked-file edit to accidentally commit.
+     sourcemap: process.env.XUI_SOURCEMAP === 'true',
+-    target: 'es2020',
++    target: 'es2022',
+     chunkSizeWarningLimit: 1500,
+     rollupOptions: {
+       input: {
