@@ -1,0 +1,71 @@
+{
+	"source": "2a10d052a1812d7be12c43f9024072cf26a27a8b",
+	"route": "/onboarding",
+	"locale": "fr-FR",
+	"toolchain": "Vite4.5.3 yarn1.22.22 Node22.23.2 frozen lock",
+	"browser": "143.0.7499.4",
+	"mock": "Readonly API response fixture; onboardingComplete:false",
+	"mocks": ["/api/onboarding", "/api/system/logo", "/api/system/logo"],
+	"rendered": {
+		"text": "Bienvenue\nCommencer",
+		"h1": "Bienvenue",
+		"fcp": 260,
+		"lcp": 260
+	},
+	"errors": [],
+	"totals": {
+		"raw": 3986964,
+		"gzip": 1110825,
+		"brotli": 1003078
+	},
+	"resources": [
+		{
+			"path": "/onboarding",
+			"status": 200,
+			"kind": "document",
+			"raw": 1921,
+			"gzip": 603,
+			"brotli": 538
+		},
+		{
+			"path": "/index.css",
+			"status": 200,
+			"kind": "stylesheet",
+			"raw": 307506,
+			"gzip": 44127,
+			"brotli": 41055
+		},
+		{
+			"path": "/index.js",
+			"status": 200,
+			"kind": "script",
+			"raw": 3495982,
+			"gzip": 984177,
+			"brotli": 883251
+		},
+		{
+			"path": "/wordmark.svg",
+			"status": 200,
+			"kind": "image",
+			"raw": 2713,
+			"gzip": 1164,
+			"brotli": 1168
+		},
+		{
+			"path": "/wordmark-light.svg",
+			"status": 200,
+			"kind": "image",
+			"raw": 2698,
+			"gzip": 1147,
+			"brotli": 1152
+		},
+		{
+			"path": "/PlusJakartaSans.ttf",
+			"status": 200,
+			"kind": "font",
+			"raw": 176144,
+			"gzip": 79607,
+			"brotli": 75914
+		}
+	]
+}

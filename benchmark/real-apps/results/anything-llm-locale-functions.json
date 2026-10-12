@@ -1,0 +1,51 @@
+{
+	"app": "anything-llm",
+	"label": "native-vite-locale-functions",
+	"outputStructure": "locale-modules",
+	"sourceCommit": "2a10d052a1812d7be12c43f9024072cf26a27a8b",
+	"i18nextVersion": "23.12.1",
+	"node": "v22.23.2",
+	"viteVersion": "4.5.3",
+	"locales": 31,
+	"keys": 1254,
+	"included": 1248,
+	"excluded": [
+		"chat_window.source_count_one",
+		"chat_window.source_count_other",
+		"connectors.directory.search-results_one",
+		"connectors.directory.search-results_other",
+		"connectors.directory.total-documents_one",
+		"connectors.directory.total-documents_other"
+	],
+	"parityChecks": 38688,
+	"bundledParityChecks": {
+		"paraglide": 38688,
+		"i18next": 38688
+	},
+	"localeFunctionPacking": true,
+	"packingChunks": [
+		{
+			"fileName": "assets/paraglide-entry-!~{001}~.js",
+			"inputBytes": 13126304,
+			"changed": true
+		}
+	],
+	"switchChecks": 4992,
+	"catalogHash": "df2ebad8987a4c3585133b789aecf153b15441f3385661f85a0e6aebdd37df73",
+	"nativeResourceHash": "889f114991ac5633ad62f25ef74c20e3a35f8fb77010c6cd78672b878572ad09",
+	"nativeResourceStructure": "source hierarchy and property order; excluded keys removed on both sides",
+	"compilerArtifactHash": "bc40d5bc7e892fc444253416b031bb3d8d54731951ec307582c1d4593ca3d3d9",
+	"scope": "isolated catalog JS with app-native Vite; six plural keys excluded; string parity does not validate React Trans",
+	"sizes": {
+		"paraglide": {
+			"raw": 2667477,
+			"gzip": 642573,
+			"brotli": 476554
+		},
+		"i18next": {
+			"raw": 2537186,
+			"gzip": 725623,
+			"brotli": 511597
+		}
+	}
+}

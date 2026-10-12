@@ -55,3 +55,7 @@ The guarded `locale-modules` artifacts have matching emitted raw/gzip/Brotli byt
 For the pinned full DrawDB Vite app and its actual routes, run `migrate-drawdb.mjs` followed by `drawdb-browser.mjs` after generating `baseline` and `inline` catalog outputs. See `drawdb-results.md` for exact inputs, the adapter's bounded compatibility, rendered-text checks, and the whole-app denominator. The gzip whole-app result remains 1.6% larger than native i18next; the local Brotli route transfer is effectively equal, with no demonstrated LCP gain.
 
 The second draft's same-layout locale packing results and production fallback limits are in [locale-packing-results.md](locale-packing-results.md). See [native-route-survey.md](native-route-survey.md) for additional native page baselines and the limits on app-wide migration claims.
+
+## Third app: AnythingLLM
+
+`anything-llm-results.md` records the pinned eager-loading app, a native French onboarding route, and four isolated catalog variants using the app's actual Vite 4.5.3 and i18next 23.12.1. The runner accepts `anything-llm` and selects that checkout's installed Vite. Six plural keys are excluded symmetrically; string parity does not establish React `<Trans>` rendering parity or a whole-app migration.

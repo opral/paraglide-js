@@ -13,6 +13,8 @@ DrawDB includes every catalog key. Memos excludes two plural keys on both sides;
 
 Against i18next in this same isolated workload, DrawDB's packed gzip remains 1.2% larger (261,237 vs 258,253 B), while Brotli is 12.3% smaller (183,278 vs 208,875 B). Memos is 16.3% smaller by gzip and 9.1% by Brotli. The native side preserves original catalog hierarchy and property order. These are localization-component comparisons, not app-wide migration percentages.
 
+A third replication using AnythingLLM's own **Vite 4.5.3** production compiler saves **13.5% gzip and 18.2% Brotli** in the same locale layout. All 38,688 included final-bundle string comparisons pass. Six plural keys are excluded; this is not a whole-app or React `<Trans>` parity claim. See `anything-llm-results.md` for pinned inputs, native route inventory, and reproduction.
+
 ## Behavior and boundaries
 
 The compiler gives locale helpers private names while preserving the existing exported message IDs and signatures. After Vite prunes unused messages and links chunks, the pass groups pure, zero-parameter string-returning helpers by locale, rewrites safe calls to indexed string data, and removes the now-unreferenced helpers. It preserves argument evaluation and rejects nested edits that would overlap. There is no new user-facing compiler flag or runtime dependency.

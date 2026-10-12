@@ -4,16 +4,25 @@ import { pathToFileURL } from "node:url";
 import { gzipSync, brotliCompressSync } from "node:zlib";
 import { performance } from "node:perf_hooks";
 import { createHash } from "node:crypto";
-import { build } from "../../node_modules/vite/dist/node/index.js";
 import { execFileSync } from "node:child_process";
 
 // Usage: node benchmark/real-apps/run.mjs <app> <checkout> <label> [compiler dist]
 const [app, checkout, label, compiler = "dist"] = process.argv.slice(2);
-if (!["drawdb", "memos"].includes(app) || !checkout || !label)
+if (!["drawdb", "memos", "anything-llm"].includes(app) || !checkout || !label)
 	throw Error("Expected app, checkout, label, optional compiler dist");
+const viteModulePath =
+	app === "anything-llm"
+		? path.resolve(checkout, "frontend/node_modules/vite/dist/node/index.js")
+		: path.resolve("node_modules/vite/dist/node/index.js");
+const { build } = await import(pathToFileURL(viteModulePath).href);
 const i18nextPath =
-	app === "drawdb"
-		? path.join(checkout, "node_modules/i18next/dist/esm/i18next.js")
+	app !== "memos"
+		? path.resolve(
+				checkout,
+				app === "anything-llm"
+					? "frontend/node_modules/i18next/dist/esm/i18next.js"
+					: "node_modules/i18next/dist/esm/i18next.js"
+			)
 		: path.resolve(
 				".real-apps/deps-memos/node_modules/i18next/dist/esm/i18next.js"
 			);
@@ -64,7 +73,18 @@ const flatten = (obj, prefix = "", result = {}) => {
 	}
 	return result;
 };
-for (const filename of (await fs.readdir(folder)).sort()) {
+if (app === "anything-llm") {
+	const { resources } = await import(
+		pathToFileURL(path.join(checkout, "frontend/src/locales/resources.js")).href
+	);
+	for (const [locale, namespaces] of Object.entries(resources)) {
+		originalCatalogs[locale] = namespaces.common;
+		catalogs[locale] = flatten(namespaces.common);
+	}
+}
+for (const filename of app === "anything-llm"
+	? []
+	: (await fs.readdir(folder)).sort()) {
 	if (app === "drawdb" && filename.endsWith(".js")) {
 		const module = await import(
 			pathToFileURL(path.join(folder, filename)).href
@@ -238,10 +258,11 @@ const nativeCatalog = (resource, prefix = "") =>
 			return Object.keys(child).length ? [[key, child]] : [];
 		})
 	);
+const nativeNamespace = app === "anything-llm" ? "common" : "translation";
 const nativeResources = Object.fromEntries(
 	locales.map((locale) => [
 		locale,
-		{ translation: nativeCatalog(originalCatalogs[locale]) },
+		{ [nativeNamespace]: nativeCatalog(originalCatalogs[locale]) },
 	])
 );
 const nativeResourceHash = createHash("sha256")
@@ -252,6 +273,8 @@ await instance.init({
 	lng: "en",
 	fallbackLng: "en",
 	initImmediate: false,
+	lowerCaseLng: app === "anything-llm",
+	defaultNS: nativeNamespace,
 	interpolation: { escapeValue: false },
 	resources: nativeResources,
 });
@@ -293,7 +316,7 @@ const pEntry = `import * as m from './paraglide/messages.js'; import {setLocale}
 await fs.writeFile(path.join(root, "paraglide-entry.js"), pEntry);
 await fs.writeFile(
 	path.join(root, "i18next-entry.js"),
-	`import i18next from ${JSON.stringify(i18nextPath)}; const resources=${JSON.stringify(nativeResources)}; await i18next.init({lng:'en',fallbackLng:'en',initImmediate:false,interpolation:{escapeValue:false},resources}); export const translate=(key,inputs)=>i18next.t(key,inputs); export const setLocale=locale=>i18next.changeLanguage(locale);`
+	`import i18next from ${JSON.stringify(i18nextPath)}; const resources=${JSON.stringify(nativeResources)}; await i18next.init({lng:'en',fallbackLng:'en',initImmediate:false,${app === "anything-llm" ? 'lowerCaseLng:true,defaultNS:"common",' : ""}interpolation:{escapeValue:false},resources}); export const translate=(key,inputs)=>i18next.t(key,inputs); export const setLocale=locale=>i18next.changeLanguage(locale);`
 );
 const sizes = {};
 const packingChunks = [];
@@ -396,7 +419,7 @@ const report = {
 	node: process.version,
 	viteVersion: JSON.parse(
 		await fs.readFile(
-			new URL("../../node_modules/vite/package.json", import.meta.url),
+			path.resolve(viteModulePath, "../../../package.json"),
 			"utf8"
 		)
 	).version,
@@ -415,7 +438,9 @@ const report = {
 		"source hierarchy and property order; excluded keys removed on both sides",
 	compilerArtifactHash,
 	scope:
-		"complete-catalog isolated JS; Memos is an all-locales stress workload, not its lazy production loading",
+		app === "anything-llm"
+			? "isolated catalog JS with app-native Vite; six plural keys excluded; string parity does not validate React Trans"
+			: "complete-catalog isolated JS; Memos is an all-locales stress workload, not its lazy production loading",
 	sizes,
 	microsecondsPerTranslation: Object.fromEntries(
 		Object.entries(rounds).map(([k, v]) => [k, median(v)])
