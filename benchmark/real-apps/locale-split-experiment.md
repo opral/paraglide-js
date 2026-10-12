@@ -1,6 +1,11 @@
 # Automatic Vite locale-splitting experiments
 
-## Final feature and qualifying mobile profile
+## Final feature: comparison with default Paraglide
+
+The campaign now requires optimized i18next comparators for migration claims.
+The [lazy i18next control below](#optimized-i18next-control-and-revised-campaign-gate)
+shows only 1.0% fewer bytes and 8.3% faster paint in its first five-pair probe,
+below the >10% gate. The eager-i18next result is historical evidence.
 
 The final implementation at source commit `4cbb10af` has freshly rebuilt
 public-plugin artifacts and per-report output hashes, independently rehashed
