@@ -23,7 +23,12 @@ Two verified limitations remain:
 The reviewer also raised a source-map concern: the pruning pass emits a
 MagicString map naming the generated chunk. Whether the bundler correctly
 composes that map back to original module locations requires a sourcemap-enabled
-build and position tracing. This is an unresolved concern, not a reproduced bug.
+build and position tracing. A subsequent Vite 8.3.4 sourcemap build traced retained French dynamic message code
+back to `src/paraglide/messages/fr.js` and app callsites back to `src/main.js`.
+The concern is not reproduced for those positions: the bundler composes the map.
+A static literal synthesized from compiler metadata had no original position;
+that is a remaining mapping limitation. Exact probe positions are recorded with
+the prototype archive.
 
 The small-use fixture cannot establish a production migration advantage. The
 actual Ntfy bridge dynamically indexes all messages, and its diagnostic route
