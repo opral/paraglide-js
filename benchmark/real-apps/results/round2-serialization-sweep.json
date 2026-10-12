@@ -1,0 +1,137 @@
+[
+	{
+		"app": "drawdb",
+		"mode": "baseline",
+		"pooled": 0,
+		"raw": 866006,
+		"gzip": 242488,
+		"brotliQ4": 227897,
+		"parityChecks": 18564
+	},
+	{
+		"app": "drawdb",
+		"mode": "json-rows",
+		"pooled": 15963,
+		"raw": 868786,
+		"gzip": 242602,
+		"brotliQ4": 227920,
+		"parityChecks": 18564
+	},
+	{
+		"app": "drawdb",
+		"mode": "delimiter-rows",
+		"pooled": 15963,
+		"raw": 836470,
+		"gzip": 240836,
+		"brotliQ4": 224162,
+		"parityChecks": 18564
+	},
+	{
+		"app": "drawdb",
+		"mode": "json-flat",
+		"pooled": 15963,
+		"raw": 869623,
+		"gzip": 242478,
+		"brotliQ4": 227411,
+		"parityChecks": 18564
+	},
+	{
+		"app": "drawdb",
+		"mode": "delimiter-flat",
+		"pooled": 15963,
+		"raw": 837388,
+		"gzip": 240772,
+		"brotliQ4": 224103,
+		"parityChecks": 18564
+	},
+	{
+		"app": "memos",
+		"mode": "baseline",
+		"pooled": 0,
+		"raw": 1944426,
+		"gzip": 546884,
+		"brotliQ4": 514893,
+		"parityChecks": 41906
+	},
+	{
+		"app": "memos",
+		"mode": "json-rows",
+		"pooled": 38778,
+		"raw": 1944476,
+		"gzip": 546969,
+		"brotliQ4": 515719,
+		"parityChecks": 41906
+	},
+	{
+		"app": "memos",
+		"mode": "delimiter-rows",
+		"pooled": 38778,
+		"raw": 1866810,
+		"gzip": 540488,
+		"brotliQ4": 509202,
+		"parityChecks": 41906
+	},
+	{
+		"app": "memos",
+		"mode": "json-flat",
+		"pooled": 38778,
+		"raw": 1946913,
+		"gzip": 546921,
+		"brotliQ4": 514762,
+		"parityChecks": 41906
+	},
+	{
+		"app": "memos",
+		"mode": "delimiter-flat",
+		"pooled": 38778,
+		"raw": 1869318,
+		"gzip": 540513,
+		"brotliQ4": 509459,
+		"parityChecks": 41906
+	},
+	{
+		"app": "anything-llm",
+		"mode": "baseline",
+		"pooled": 0,
+		"raw": 2094188,
+		"gzip": 556263,
+		"brotliQ4": 558301,
+		"parityChecks": 38688
+	},
+	{
+		"app": "anything-llm",
+		"mode": "json-rows",
+		"pooled": 37417,
+		"raw": 2099212,
+		"gzip": 556893,
+		"brotliQ4": 558647,
+		"parityChecks": 38688
+	},
+	{
+		"app": "anything-llm",
+		"mode": "delimiter-rows",
+		"pooled": 37417,
+		"raw": 2019540,
+		"gzip": 550278,
+		"brotliQ4": 550417,
+		"parityChecks": 38688
+	},
+	{
+		"app": "anything-llm",
+		"mode": "json-flat",
+		"pooled": 37417,
+		"raw": 2103978,
+		"gzip": 556985,
+		"brotliQ4": 558185,
+		"parityChecks": 38688
+	},
+	{
+		"app": "anything-llm",
+		"mode": "delimiter-flat",
+		"pooled": 37417,
+		"raw": 2024347,
+		"gzip": 550467,
+		"brotliQ4": 551450,
+		"parityChecks": 38688
+	}
+]
