@@ -1,0 +1,368 @@
+{
+  "date": "2026-10-12T16:38:20.199Z",
+  "app": "ntfy",
+  "sourceCommit": "211ba22860d7483073a8ce13dcda5f467194989b",
+  "i18nextVersion": "26.4.2",
+  "compilerWorktreeCommit": "5d51e7a88275f1774eb23e547509829a4fa48437",
+  "paraglidePluginWorktreeCommit": "7cb638f5dbbbadf1b54ed500bb99e76206f5ccbb",
+  "method": "Fresh Chromium contexts; French localStorage preference; Brotli-Q4 local serving; cache disabled, service workers blocked, 80 ms RTT / 20 Mbps down / 2 Mbps up / 3x CPU; API traffic blocked; readiness requires splash opacity 0/removed and translated login UI visible.",
+  "limitations": [
+    "This uses an app-local i18next/React-i18next compatibility adapter over generated messages and a static literal-call codemod; it is an experiment, not a supported migration API.",
+    "Service workers are blocked and cache disabled. The native PWA precaches all locales; split candidate build precaches all 51 locale chunks, so this captures first-route cold network only, not install/offline behavior.",
+    "The app imposes a 1,000 ms minimum splash duration plus a 300 ms logo fade and 100 ms background fade. First content paint often reflects the static splash, so route readiness is the more relevant user-facing measure.",
+    "FCP/LCP are the static splash rather than the translated login view and are excluded from the >=10% qualification gate.",
+    "Native frontend build artifacts were captured before modifying the isolated app worktree; this comparison covers /login and its requested asset graph, not every account/notification route."
+  ],
+  "results": [
+    {
+      "label": "optimized-i18next",
+      "median": {
+        "readyMsFromNavigation": 1413,
+        "fcpMs": 192,
+        "lcpMs": 192,
+        "longTaskMs": 162,
+        "resourceCount": 14,
+        "transferBytes": 387315,
+        "encodedBytes": 383115,
+        "decodedBytes": 1192768
+      },
+      "runs": [
+        {
+          "trial": 0,
+          "locale": "fr",
+          "htmlLang": "fr",
+          "ready": true,
+          "readinessError": null,
+          "readyMsFromNavigation": 1413,
+          "frenchLoginParity": true,
+          "splashOpacity": null,
+          "splashExists": false,
+          "fcpMs": 192,
+          "lcpMs": 192,
+          "longTaskMs": 162,
+          "resourceCount": 14,
+          "transferBytes": 387315,
+          "encodedBytes": 383115,
+          "decodedBytes": 1192768,
+          "translationRequests": [
+            {
+              "name": "/static/langs/fr.json",
+              "transferBytes": 10228,
+              "encodedBytes": 9928,
+              "decodedBytes": 39814
+            },
+            {
+              "name": "/static/langs/en.json",
+              "transferBytes": 8607,
+              "encodedBytes": 8307,
+              "decodedBytes": 34975
+            }
+          ],
+          "dependencyInitiators": [],
+          "resources": [
+            {
+              "name": "/login",
+              "transferBytes": 2024,
+              "encodedBytes": 1724,
+              "decodedBytes": 4485
+            },
+            {
+              "name": "/static/css/app.css",
+              "transferBytes": 424,
+              "encodedBytes": 124,
+              "decodedBytes": 124
+            },
+            {
+              "name": "/static/css/fonts.css",
+              "transferBytes": 553,
+              "encodedBytes": 253,
+              "decodedBytes": 901
+            },
+            {
+              "name": "/static/media/index-BNotJ6BC.js",
+              "transferBytes": 260563,
+              "encodedBytes": 260263,
+              "decodedBytes": 889973
+            },
+            {
+              "name": "/static/media/rolldown-runtime-B0Z9INg1.js",
+              "transferBytes": 804,
+              "encodedBytes": 504,
+              "decodedBytes": 901
+            },
+            {
+              "name": "/static/media/utils-mmmrspNc.js",
+              "transferBytes": 65499,
+              "encodedBytes": 65199,
+              "decodedBytes": 176895
+            },
+            {
+              "name": "/static/images/ntfy-splash.svg",
+              "transferBytes": 1307,
+              "encodedBytes": 1007,
+              "decodedBytes": 2190
+            },
+            {
+              "name": "/config.js",
+              "transferBytes": 735,
+              "encodedBytes": 435,
+              "decodedBytes": 800
+            },
+            {
+              "name": "/static/media/workbox-window.prod.es5-Bd17z0YL.js",
+              "transferBytes": 2549,
+              "encodedBytes": 2249,
+              "decodedBytes": 5714
+            },
+            {
+              "name": "/static/langs/fr.json",
+              "transferBytes": 10228,
+              "encodedBytes": 9928,
+              "decodedBytes": 39814
+            },
+            {
+              "name": "/static/langs/en.json",
+              "transferBytes": 8607,
+              "encodedBytes": 8307,
+              "decodedBytes": 34975
+            },
+            {
+              "name": "/static/fonts/roboto-v29-latin-500.woff2",
+              "transferBytes": 16220,
+              "encodedBytes": 15920,
+              "decodedBytes": 15920
+            },
+            {
+              "name": "/static/fonts/roboto-v29-latin-regular.woff2",
+              "transferBytes": 15988,
+              "encodedBytes": 15688,
+              "decodedBytes": 15688
+            },
+            {
+              "name": "/static/media/ntfy-filled-BeHxCuOR.svg",
+              "transferBytes": 1814,
+              "encodedBytes": 1514,
+              "decodedBytes": 4388
+            }
+          ],
+          "pageErrors": [],
+          "failedRequests": [],
+          "visibleText": "Se connecter à son compte Ntfy\n\nUsername or email *\nUsername or email *\nMot de passe *\nMot de passe *\nSE CONNECTER\nS'inscrire"
+        }
+      ]
+    },
+    {
+      "label": "paraglide-client-locale-split",
+      "median": {
+        "readyMsFromNavigation": 1416,
+        "fcpMs": 280,
+        "lcpMs": 280,
+        "longTaskMs": 129,
+        "resourceCount": 18,
+        "transferBytes": 382841,
+        "encodedBytes": 377441,
+        "decodedBytes": 1206155
+      },
+      "runs": [
+        {
+          "trial": 0,
+          "locale": "fr",
+          "htmlLang": "fr",
+          "ready": true,
+          "readinessError": null,
+          "readyMsFromNavigation": 1416,
+          "frenchLoginParity": true,
+          "splashOpacity": null,
+          "splashExists": false,
+          "fcpMs": 280,
+          "lcpMs": 280,
+          "longTaskMs": 129,
+          "resourceCount": 18,
+          "transferBytes": 382841,
+          "encodedBytes": 377441,
+          "decodedBytes": 1206155,
+          "translationRequests": [
+            {
+              "name": "/static/media/_paraglide_client-locale-split_locale_en-j_Yz4tf8.js",
+              "transferBytes": 6295,
+              "encodedBytes": 5995,
+              "decodedBytes": 22539
+            },
+            {
+              "name": "/static/media/_paraglide_client-locale-split_locale_fr-B7h_JyDx.js",
+              "transferBytes": 7657,
+              "encodedBytes": 7357,
+              "decodedBytes": 28137
+            }
+          ],
+          "dependencyInitiators": [],
+          "resources": [
+            {
+              "name": "/login",
+              "transferBytes": 2102,
+              "encodedBytes": 1802,
+              "decodedBytes": 4767
+            },
+            {
+              "name": "/static/media/paraglide-locale-preload-DSkGpFIP.js",
+              "transferBytes": 378,
+              "encodedBytes": 78,
+              "decodedBytes": 78
+            },
+            {
+              "name": "/static/css/app.css",
+              "transferBytes": 424,
+              "encodedBytes": 124,
+              "decodedBytes": 124
+            },
+            {
+              "name": "/static/css/fonts.css",
+              "transferBytes": 553,
+              "encodedBytes": 253,
+              "decodedBytes": 901
+            },
+            {
+              "name": "/static/media/rolldown-runtime-B0Z9INg1.js",
+              "transferBytes": 804,
+              "encodedBytes": 504,
+              "decodedBytes": 901
+            },
+            {
+              "name": "/static/media/utils-mmmrspNc.js",
+              "transferBytes": 65469,
+              "encodedBytes": 65169,
+              "decodedBytes": 176852
+            },
+            {
+              "name": "/static/media/_paraglide_client-locale-split_core-5S2kVRQQ.js",
+              "transferBytes": 3997,
+              "encodedBytes": 3697,
+              "decodedBytes": 14279
+            },
+            {
+              "name": "/static/media/index-DdDeULW1.js",
+              "transferBytes": 178558,
+              "encodedBytes": 178258,
+              "decodedBytes": 622670
+            },
+            {
+              "name": "/static/images/ntfy-splash.svg",
+              "transferBytes": 1307,
+              "encodedBytes": 1007,
+              "decodedBytes": 2190
+            },
+            {
+              "name": "/static/media/Close-BTaQTYkL.js",
+              "transferBytes": 77206,
+              "encodedBytes": 76906,
+              "decodedBytes": 289313
+            },
+            {
+              "name": "/config.js",
+              "transferBytes": 735,
+              "encodedBytes": 435,
+              "decodedBytes": 800
+            },
+            {
+              "name": "/static/media/_paraglide_client-locale-split_locale_en-j_Yz4tf8.js",
+              "transferBytes": 6295,
+              "encodedBytes": 5995,
+              "decodedBytes": 22539
+            },
+            {
+              "name": "/static/media/registry-Bx4Ukv2M.js",
+              "transferBytes": 828,
+              "encodedBytes": 528,
+              "decodedBytes": 955
+            },
+            {
+              "name": "/static/media/_paraglide_client-locale-split_locale_fr-B7h_JyDx.js",
+              "transferBytes": 7657,
+              "encodedBytes": 7357,
+              "decodedBytes": 28137
+            },
+            {
+              "name": "/static/media/workbox-window.prod.es5-Bd17z0YL.js",
+              "transferBytes": 2506,
+              "encodedBytes": 2206,
+              "decodedBytes": 5653
+            },
+            {
+              "name": "/static/fonts/roboto-v29-latin-500.woff2",
+              "transferBytes": 16220,
+              "encodedBytes": 15920,
+              "decodedBytes": 15920
+            },
+            {
+              "name": "/static/fonts/roboto-v29-latin-regular.woff2",
+              "transferBytes": 15988,
+              "encodedBytes": 15688,
+              "decodedBytes": 15688
+            },
+            {
+              "name": "/static/media/ntfy-filled-BeHxCuOR.svg",
+              "transferBytes": 1814,
+              "encodedBytes": 1514,
+              "decodedBytes": 4388
+            }
+          ],
+          "pageErrors": [],
+          "failedRequests": [],
+          "visibleText": "Se connecter à son compte Ntfy\n\nUsername or email *\nUsername or email *\nMot de passe *\nMot de passe *\nSE CONNECTER\nS'inscrire"
+        }
+      ]
+    }
+  ],
+  "comparison": {
+    "readyMsFromNavigation": {
+      "baseline": 1413,
+      "candidate": 1416,
+      "changePct": 0.21
+    },
+    "fcpMs": {
+      "baseline": 192,
+      "candidate": 280,
+      "changePct": 45.83
+    },
+    "lcpMs": {
+      "baseline": 192,
+      "candidate": 280,
+      "changePct": 45.83
+    },
+    "longTaskMs": {
+      "baseline": 162,
+      "candidate": 129,
+      "changePct": -20.37
+    },
+    "resourceCount": {
+      "baseline": 14,
+      "candidate": 18,
+      "changePct": 28.57
+    },
+    "transferBytes": {
+      "baseline": 387315,
+      "candidate": 382841,
+      "changePct": -1.16
+    },
+    "encodedBytes": {
+      "baseline": 383115,
+      "candidate": 377441,
+      "changePct": -1.48
+    },
+    "decodedBytes": {
+      "baseline": 1192768,
+      "candidate": 1206155,
+      "changePct": 1.12
+    }
+  },
+  "allRunsReady": true,
+  "allRunsFrenchParity": true,
+  "anyPageErrors": false,
+  "performanceGate": {
+    "readyTimeImprovementPct": -0.21,
+    "encodedRouteBytesImprovementPct": 1.48,
+    "minimumImprovementPct": 10,
+    "qualifies": false
+  },
+  "verdict": "No >=10% full-route readiness or encoded-byte improvement; candidate does not qualify."
+}
