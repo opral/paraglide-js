@@ -166,7 +166,7 @@ test("vite plugin does not throw on compilation errors in development", async ()
 	await expect(plugin.buildStart?.call(mockContext)).resolves.toBeUndefined();
 });
 
-test("the Vite renderChunk hook packs locale modules and ignores other layouts", async () => {
+test("the Vite renderChunk hook selects the packer for each output layout", async () => {
 	const { paraglideVitePlugin } = await import("../bundler-plugins/vite.js");
 	const { projectDir, workspace } = await createProjectFixture();
 	const plugin = paraglideVitePlugin({
@@ -219,6 +219,27 @@ test("the Vite renderChunk hook packs locale modules and ignores other layouts",
 			code,
 			{ fileName: "chunk.js", imports: [] },
 			{ sourcemap: true }
+		)
+	).toBeNull();
+	const messageCode = Array.from(
+		{ length: 32 },
+		(_, index) =>
+			`export const m${index} = (inputs={}, options={}) => {const __paraglide_dispatch_locale_l2_65_6e = options.locale; if (__paraglide_dispatch_locale_l2_65_6e === "de") return "German ${index}"; ${["fr", "it", "pt", "ru", "ja", "es"].map((locale) => `if (__paraglide_dispatch_locale_l2_65_6e === "${locale}") return "${locale} ${index}";`).join(" ")} return "English ${index}"; };`
+	).join("\n");
+	const messagePacked = await messageHandler.call(
+		{},
+		messageCode,
+		{ fileName: "messages.js" },
+		{ sourcemap: true }
+	);
+	expect(messagePacked?.code).toContain("__paraglide_dispatch_matrix_");
+	expect(messagePacked?.map?.sourcesContent).toEqual([messageCode]);
+	expect(
+		await handler.call(
+			{},
+			messageCode,
+			{ fileName: "messages.js" },
+			{ sourcemap: false }
 		)
 	).toBeNull();
 });

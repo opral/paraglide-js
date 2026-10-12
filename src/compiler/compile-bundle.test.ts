@@ -1,5 +1,9 @@
 import { test, expect } from "vitest";
-import { compileBundle, toBundleInputTypeAliasName } from "./compile-bundle.js";
+import {
+	compileBundle,
+	compileBundleForVite,
+	toBundleInputTypeAliasName,
+} from "./compile-bundle.js";
 import type { BundleNested, ProjectSettings } from "@inlang/sdk";
 import { toSafeModuleId } from "./safe-module-id.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
@@ -720,4 +724,53 @@ test("low-level compilation preserves references without a layout opt-in", () =>
 	expect(result.bundle.code).not.toContain(
 		'return /** @type {LocalizedString} */ ("Hallo")'
 	);
+});
+
+test("Vite dispatch markers preserve the generated public function and exclude static/middleware modes", async () => {
+	const settings = {
+		baseLocale: "es",
+		locales: ["es", "en", "de", "fr", "it", "pt", "ru", "ja"],
+	} as ProjectSettings;
+	const args = {
+		bundle: createPlainTextBundle("welcome", {
+			es: "Hola",
+			en: "Hello",
+			de: "Hallo",
+		}),
+		fallbackMap: {
+			es: undefined,
+			en: "es",
+			de: "es",
+			fr: "es",
+			it: "es",
+			pt: "es",
+			ru: "es",
+			ja: "es",
+		},
+		messageReferenceExpression: (locale: string) => `${locale}_welcome`,
+		settings,
+		inlineMessages: true,
+	};
+	const standard = compileBundle(args).bundle.code;
+	const marked = compileBundleForVite(args).bundle.code;
+	expect(standard).not.toContain("__paraglide_dispatch_locale_");
+	expect(marked).toContain("const __paraglide_dispatch_locale_l2_65_73 =");
+	expect(marked).toContain("export const welcome");
+	const setup =
+		"const experimentalStaticLocale=undefined; const getLocale=()=> 'es';";
+	const load = (code: string) =>
+		import(
+			`data:text/javascript;base64,${Buffer.from(setup + code).toString("base64")}`
+		);
+	const before = await load(standard),
+		after = await load(marked);
+	for (const locale of [undefined, "en", "de", "es", "unknown"])
+		expect(after.welcome({}, { locale })).toBe(before.welcome({}, { locale }));
+	for (const mode of [
+		{ experimentalMiddlewareLocaleSplitting: true },
+		{ experimentalStaticLocale: "'es'" },
+	])
+		expect(
+			compileBundleForVite({ ...args, ...mode }).bundle.code
+		).not.toContain("__paraglide_dispatch_locale_");
 });

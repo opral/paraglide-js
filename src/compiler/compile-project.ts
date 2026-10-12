@@ -1,4 +1,4 @@
-import { compileBundle } from "./compile-bundle.js";
+import { compileBundle, compileBundleForVite } from "./compile-bundle.js";
 import { selectBundleNested, type InlangProject } from "@inlang/sdk";
 import { lookup } from "../services/lookup.js";
 import * as localeModules from "./output-structure/locale-modules.js";
@@ -74,8 +74,14 @@ async function compileProjectInternal(
 				)
 			: undefined;
 
+	const bundleCompiler =
+		enableLocaleFunctionNames &&
+		bundles.length >= 32 &&
+		optionsWithDefaults.outputStructure === "message-modules"
+			? compileBundleForVite
+			: compileBundle;
 	const compiledBundles = bundles.map((bundle) =>
-		compileBundle({
+		bundleCompiler({
 			bundle,
 			fallbackMap,
 			inlineMessages: optionsWithDefaults.outputStructure === "message-modules",

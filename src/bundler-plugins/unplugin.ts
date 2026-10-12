@@ -17,6 +17,7 @@ import {
 } from "../services/file-watching/tracked-fs.js";
 import { nodeNormalizePath } from "../utilities/node-normalize-path.js";
 import { packLocaleFunctionChunk } from "./locale-function-packer.js";
+import { packDispatchMatrixChunk } from "./dispatch-matrix-packer.js";
 import { seedPreviousCompilationFromOutdir } from "../compiler/seed-previous-compilation.js";
 import {
 	CONFIG_FILE_NAMES,
@@ -68,7 +69,7 @@ export type ParaglidePluginOptions = Omit<
 
 const logger = new Logger();
 
-const PERSISTENT_CACHE_VERSION = 1;
+const PERSISTENT_CACHE_VERSION = 2;
 
 type PersistentCompilationCache = {
 	version: typeof PERSISTENT_CACHE_VERSION;
@@ -825,13 +826,16 @@ function createUnpluginPlugin(
 					if (
 						lastOptions === undefined ||
 						!enableLocaleFunctionNames ||
-						resolveOutputStructure(lastOptions) !== "locale-modules" ||
 						lastOptions.experimentalMiddlewareLocaleSplitting ||
 						lastOptions.experimentalStaticLocale
 					) {
 						return null;
 					}
-					return packLocaleFunctionChunk(code, {
+					const packChunk =
+						resolveOutputStructure(lastOptions) === "locale-modules"
+							? packLocaleFunctionChunk
+							: packDispatchMatrixChunk;
+					return packChunk(code, {
 						fileName: chunk.fileName,
 						sourcemap: outputOptions.sourcemap,
 					});

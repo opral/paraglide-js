@@ -18,6 +18,7 @@ import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
 import type { CompilerOptions } from "./compiler-options.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 import { resolveInputAlias } from "./input-alias.js";
+import { createViteDispatchMarker } from "./vite-dispatch-marker.js";
 
 export type CompiledBundleWithMessages = {
 	/** The compilation result for the bundle index */
@@ -37,7 +38,7 @@ export type CompiledBundleWithMessages = {
 /**
  * Compiles all the messages in the bundle and returns an index-function + each compiled message
  */
-export const compileBundle = (args: {
+type CompileBundleArgs = {
 	bundle: BundleNested;
 	fallbackMap: Record<string, string | undefined>;
 	messageReferenceExpression: (locale: string, bundleId: string) => string;
@@ -46,7 +47,21 @@ export const compileBundle = (args: {
 	inlineMessages?: boolean;
 	experimentalMiddlewareLocaleSplitting?: boolean;
 	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
-}): CompiledBundleWithMessages => {
+};
+
+export const compileBundle = (
+	args: CompileBundleArgs
+): CompiledBundleWithMessages => compileBundleInternal(args, false);
+
+/** Internal Vite variant; intentionally absent from the package exports. */
+export const compileBundleForVite = (
+	args: CompileBundleArgs
+): CompiledBundleWithMessages => compileBundleInternal(args, true);
+
+const compileBundleInternal = (
+	args: CompileBundleArgs,
+	viteLocaleDispatch: boolean
+): CompiledBundleWithMessages => {
 	const compiledMessages: Record<string, CompiledMessage> = {};
 	const safeBundleId = toSafeModuleId(args.bundle.id);
 	const inputTypeAliasName = toBundleInputTypeAliasName(safeBundleId);
@@ -87,6 +102,7 @@ export const compileBundle = (args: {
 			availableLocales: Object.keys(args.fallbackMap),
 			messageReferenceExpression: args.messageReferenceExpression,
 			inlinePlainTextByLocale,
+			viteLocaleDispatch,
 			settings: args.settings,
 			matchTypes,
 			hasMarkup,
@@ -199,6 +215,7 @@ const compileBundleFunction = (args: {
 	 * Shared typedef name for bundle input types used across emitted JSDoc.
 	 */
 	inputTypeAliasName: string;
+	viteLocaleDispatch?: boolean;
 }): Compiled<Bundle> => {
 	const inputs = args.bundle.declarations.filter(
 		(decl) => decl.type === "input-variable"
@@ -218,6 +235,15 @@ const compileBundleFunction = (args: {
 					baseLocale,
 				]
 			: args.availableLocales;
+	const localeVariable =
+		args.viteLocaleDispatch &&
+		args.availableLocales.length >= 8 &&
+		!args.hasMarkup &&
+		!args.experimentalMiddlewareLocaleSplitting &&
+		!args.experimentalStaticLocale &&
+		baseLocale !== undefined
+			? createViteDispatchMarker(baseLocale)
+			: "locale";
 	const allStringBranchesInline = dispatchLocales.every(
 		(locale) => args.inlinePlainTextByLocale?.[locale] !== undefined
 	);
@@ -242,7 +268,7 @@ const compileBundleFunction = (args: {
 			.map((locale, index) => {
 				const condition =
 					!isFullyTranslated || index < dispatchLocales.length - 1
-						? `if (locale === "${locale}") `
+						? `if (${localeVariable} === "${locale}") `
 						: "";
 				const prefix = index > 0 ? continuationIndent : "";
 				const messageRef = args.messageReferenceExpression(
@@ -323,7 +349,7 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 			return `${indent}${localeExpression}${overrideWarning}`;
 		}
 
-		return `${indent}const locale = ${localeExpression}${overrideWarning}${maybeTrackMessageCall(
+		return `${indent}const ${localeVariable} = ${localeExpression}${overrideWarning}${maybeTrackMessageCall(
 			indent
 		)}`;
 	};
