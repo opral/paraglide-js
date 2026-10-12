@@ -1,0 +1,1266 @@
+{
+  "date": "2026-10-12T12:53:34.343Z",
+  "app": "chatbox",
+  "sourceCommit": "0ac6385ae1ff5bf778777826da3c5edcd55b61b8",
+  "i18nextVersion": "22.5.1",
+  "i18nextDeclaredRange": "^22.4.13",
+  "compilerCommit": "ec591218bb814c65e0a9f6a0252f8ec75236aa17",
+  "compilerOutput": "locale-modules with selected-locale Vite prototype and app-local i18next compatibility shim",
+  "node": "v22.23.2",
+  "browser": "143.0.7499.4",
+  "method": "Production web renderer builds from pinned Chatbox; French locale; fresh Chromium contexts; local Brotli-Q4 static serving; frontend-only because APIs are unavailable; frontend LCP is a lab comparison, not field Web Vitals",
+  "results": [
+    {
+      "label": "native-i18next",
+      "throttle": "80ms RTT / 20Mbps down / 2Mbps up / 3x CPU; 3 cold-cache runs; API and third-party traffic blocked",
+      "median": {
+        "fcpMs": 260,
+        "lcpMs": 3984,
+        "longTaskMs": 2174,
+        "resourceCount": 19,
+        "transferBytes": 4055299,
+        "encodedBytes": 4049599,
+        "decodedBytes": 14278981
+      },
+      "runs": [
+        {
+          "trial": 0,
+          "locale": "fr",
+          "lang": "",
+          "navigatorLanguage": "fr-FR",
+          "fcpMs": 268,
+          "lcpMs": 4148,
+          "longTaskMs": 2174,
+          "resourceCount": 19,
+          "transferBytes": 4055299,
+          "encodedBytes": 4049599,
+          "decodedBytes": 14278981,
+          "localeRequests": [],
+          "resources": [
+            {
+              "name": "/",
+              "transfer": 5581,
+              "encoded": 5281,
+              "decoded": 15540
+            },
+            {
+              "name": "/js/index.D3q1VHZr.js",
+              "transfer": 3201266,
+              "encoded": 3200966,
+              "decoded": 11317257
+            },
+            {
+              "name": "/js/vendor-ui.B1lDqZiV.js",
+              "transfer": 169989,
+              "encoded": 169689,
+              "decoded": 552963
+            },
+            {
+              "name": "/js/vendor-ai.DfAtdmEK.js",
+              "transfer": 195204,
+              "encoded": 194904,
+              "decoded": 915500
+            },
+            {
+              "name": "/styles/vendor-ui.J8qAlTB9.css",
+              "transfer": 31763,
+              "encoded": 31463,
+              "decoded": 203402
+            },
+            {
+              "name": "/styles/index.EltqqIz-.css",
+              "transfer": 24354,
+              "encoded": 24054,
+              "decoded": 118673
+            },
+            {
+              "name": "/js/token_estimation_init.CKDgNtDQ.js",
+              "transfer": 3056,
+              "encoded": 2756,
+              "decoded": 8387
+            },
+            {
+              "name": "/js/wasm.CG6Dc4jp.js",
+              "transfer": 187663,
+              "encoded": 187363,
+              "decoded": 622336
+            },
+            {
+              "name": "/js/one-dark-pro.DVMEJ2y_.js",
+              "transfer": 6105,
+              "encoded": 5805,
+              "decoded": 33787
+            },
+            {
+              "name": "/js/one-light.C3Wv6jpd.js",
+              "transfer": 4116,
+              "encoded": 3816,
+              "decoded": 25300
+            },
+            {
+              "name": "/js/storage_clear.C4Tj2Xke.js",
+              "transfer": 1636,
+              "encoded": 1336,
+              "decoded": 3037
+            },
+            {
+              "name": "/js/mcp_bootstrap.DyMUKP4X.js",
+              "transfer": 565,
+              "encoded": 265,
+              "decoded": 388
+            },
+            {
+              "name": "/js/index.BO1ms-K-.js",
+              "transfer": 49031,
+              "encoded": 48731,
+              "decoded": 143235
+            },
+            {
+              "name": "/js/homeWelcomeCard.B-hEtu2v.js",
+              "transfer": 1300,
+              "encoded": 1000,
+              "decoded": 2800
+            },
+            {
+              "name": "/js/InputBox.cwLpiqCh.js",
+              "transfer": 49051,
+              "encoded": 48751,
+              "decoded": 158601
+            },
+            {
+              "name": "/js/ProviderImageIcon.BZtXMEkc.js",
+              "transfer": 730,
+              "encoded": 430,
+              "decoded": 762
+            },
+            {
+              "name": "/js/compute-points.1L9S70G1.js",
+              "transfer": 511,
+              "encoded": 211,
+              "decoded": 354
+            },
+            {
+              "name": "/images/icon.BF3O-2hd.png",
+              "transfer": 103709,
+              "encoded": 103409,
+              "decoded": 103409
+            },
+            {
+              "name": "/js/index.B6sz5EAQ.js",
+              "transfer": 19669,
+              "encoded": 19369,
+              "decoded": 53250
+            }
+          ],
+          "pageErrors": [],
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check remote dialog: FetchError: [POST] \"https://api.chatboxai.app/api/dialog_config\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async getDialogConfig (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:40414)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:3771:4199)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "[Chatbox AI model_list] failed NetworkError: Network Error: Failed to fetch (api.chatboxai.app)\n    at http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:32661\n    at async getChatboxAIModelList (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:46437)\n    at async Promise.all (index 1)\n    at async queryFn (http://127.0.0.1:10873/js/index.D3q1VHZr.js:3714:102994)"
+          ],
+          "frenchUiParity": true,
+          "text": "Chatbox\n\nÉpinglés\n\nJust chat\n12:52\nMarkdown 101 (Example)\n12:52\nSoftware Developer (Example)\n12:52\n\nChats\n\nTranslator (Example)\n12:52\nSocial Media Influencer (Example)\n12:52\nTravel Guide (Example)\n12:52\nChartWhiz\n12:52\nSnake Game (Artifact Example)\n12:52\nNouvelle discussion\nCréer une image\nMes Copilots\nParamètres\nAide\nÀ propos\nBien démarrer\n\nFrançais\n\n👋 Bonjour ! Je suis Boxy, votre assistant de configuration.\n\nChatbox est un client de chat AI tout-en-un qui\n\nDes fonctionnalités plus avancées sont disponibles dans Chatbox Desktop.\n\n1. Votre historique de chat sur la version web ne peut être stocké que dans le cache du navigateur (peu fiable - il peut être nettoyé par le navigateur). 2. MCP et la Base de connaissances ne sont actuellement pris en charge que sur l'application desktop.\n\nTélécharger l'application Desktop"
+        },
+        {
+          "trial": 1,
+          "locale": "fr",
+          "lang": "",
+          "navigatorLanguage": "fr-FR",
+          "fcpMs": 256,
+          "lcpMs": 3812,
+          "longTaskMs": 2017,
+          "resourceCount": 19,
+          "transferBytes": 4055299,
+          "encodedBytes": 4049599,
+          "decodedBytes": 14278981,
+          "localeRequests": [],
+          "resources": [
+            {
+              "name": "/",
+              "transfer": 5581,
+              "encoded": 5281,
+              "decoded": 15540
+            },
+            {
+              "name": "/js/index.D3q1VHZr.js",
+              "transfer": 3201266,
+              "encoded": 3200966,
+              "decoded": 11317257
+            },
+            {
+              "name": "/styles/vendor-ui.J8qAlTB9.css",
+              "transfer": 31763,
+              "encoded": 31463,
+              "decoded": 203402
+            },
+            {
+              "name": "/js/vendor-ui.B1lDqZiV.js",
+              "transfer": 169989,
+              "encoded": 169689,
+              "decoded": 552963
+            },
+            {
+              "name": "/js/vendor-ai.DfAtdmEK.js",
+              "transfer": 195204,
+              "encoded": 194904,
+              "decoded": 915500
+            },
+            {
+              "name": "/styles/index.EltqqIz-.css",
+              "transfer": 24354,
+              "encoded": 24054,
+              "decoded": 118673
+            },
+            {
+              "name": "/js/token_estimation_init.CKDgNtDQ.js",
+              "transfer": 3056,
+              "encoded": 2756,
+              "decoded": 8387
+            },
+            {
+              "name": "/js/wasm.CG6Dc4jp.js",
+              "transfer": 187663,
+              "encoded": 187363,
+              "decoded": 622336
+            },
+            {
+              "name": "/js/one-light.C3Wv6jpd.js",
+              "transfer": 4116,
+              "encoded": 3816,
+              "decoded": 25300
+            },
+            {
+              "name": "/js/one-dark-pro.DVMEJ2y_.js",
+              "transfer": 6105,
+              "encoded": 5805,
+              "decoded": 33787
+            },
+            {
+              "name": "/js/storage_clear.C4Tj2Xke.js",
+              "transfer": 1636,
+              "encoded": 1336,
+              "decoded": 3037
+            },
+            {
+              "name": "/js/mcp_bootstrap.DyMUKP4X.js",
+              "transfer": 565,
+              "encoded": 265,
+              "decoded": 388
+            },
+            {
+              "name": "/js/index.BO1ms-K-.js",
+              "transfer": 49031,
+              "encoded": 48731,
+              "decoded": 143235
+            },
+            {
+              "name": "/js/homeWelcomeCard.B-hEtu2v.js",
+              "transfer": 1300,
+              "encoded": 1000,
+              "decoded": 2800
+            },
+            {
+              "name": "/js/InputBox.cwLpiqCh.js",
+              "transfer": 49051,
+              "encoded": 48751,
+              "decoded": 158601
+            },
+            {
+              "name": "/js/ProviderImageIcon.BZtXMEkc.js",
+              "transfer": 730,
+              "encoded": 430,
+              "decoded": 762
+            },
+            {
+              "name": "/js/compute-points.1L9S70G1.js",
+              "transfer": 511,
+              "encoded": 211,
+              "decoded": 354
+            },
+            {
+              "name": "/images/icon.BF3O-2hd.png",
+              "transfer": 103709,
+              "encoded": 103409,
+              "decoded": 103409
+            },
+            {
+              "name": "/js/index.B6sz5EAQ.js",
+              "transfer": 19669,
+              "encoded": 19369,
+              "decoded": 53250
+            }
+          ],
+          "pageErrors": [],
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check remote dialog: FetchError: [POST] \"https://api.chatboxai.app/api/dialog_config\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async getDialogConfig (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:40414)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:3771:4199)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "[Chatbox AI model_list] failed NetworkError: Network Error: Failed to fetch (api.chatboxai.app)\n    at http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:32661\n    at async getChatboxAIModelList (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:46437)\n    at async Promise.all (index 1)\n    at async queryFn (http://127.0.0.1:10873/js/index.D3q1VHZr.js:3714:102994)"
+          ],
+          "frenchUiParity": true,
+          "text": "Chatbox\n\nÉpinglés\n\nJust chat\n12:53\nMarkdown 101 (Example)\n12:53\nSoftware Developer (Example)\n12:52\n\nChats\n\nTranslator (Example)\n12:52\nSocial Media Influencer (Example)\n12:53\nTravel Guide (Example)\n12:53\nChartWhiz\n12:53\nSnake Game (Artifact Example)\n12:53\nNouvelle discussion\nCréer une image\nMes Copilots\nParamètres\nAide\nÀ propos\nBien démarrer\n\nFrançais\n\n👋 Bonjour ! Je suis Boxy, votre assistant de configuration.\n\nChatbox est un **client de chat AI\n\nDes fonctionnalités plus avancées sont disponibles dans Chatbox Desktop.\n\n1. Votre historique de chat sur la version web ne peut être stocké que dans le cache du navigateur (peu fiable - il peut être nettoyé par le navigateur). 2. MCP et la Base de connaissances ne sont actuellement pris en charge que sur l'application desktop.\n\nTélécharger l'application Desktop"
+        },
+        {
+          "trial": 2,
+          "locale": "fr",
+          "lang": "",
+          "navigatorLanguage": "fr-FR",
+          "fcpMs": 260,
+          "lcpMs": 3984,
+          "longTaskMs": 2192,
+          "resourceCount": 19,
+          "transferBytes": 4055299,
+          "encodedBytes": 4049599,
+          "decodedBytes": 14278981,
+          "localeRequests": [],
+          "resources": [
+            {
+              "name": "/",
+              "transfer": 5581,
+              "encoded": 5281,
+              "decoded": 15540
+            },
+            {
+              "name": "/js/index.D3q1VHZr.js",
+              "transfer": 3201266,
+              "encoded": 3200966,
+              "decoded": 11317257
+            },
+            {
+              "name": "/js/vendor-ai.DfAtdmEK.js",
+              "transfer": 195204,
+              "encoded": 194904,
+              "decoded": 915500
+            },
+            {
+              "name": "/styles/vendor-ui.J8qAlTB9.css",
+              "transfer": 31763,
+              "encoded": 31463,
+              "decoded": 203402
+            },
+            {
+              "name": "/js/vendor-ui.B1lDqZiV.js",
+              "transfer": 169989,
+              "encoded": 169689,
+              "decoded": 552963
+            },
+            {
+              "name": "/styles/index.EltqqIz-.css",
+              "transfer": 24354,
+              "encoded": 24054,
+              "decoded": 118673
+            },
+            {
+              "name": "/js/token_estimation_init.CKDgNtDQ.js",
+              "transfer": 3056,
+              "encoded": 2756,
+              "decoded": 8387
+            },
+            {
+              "name": "/js/wasm.CG6Dc4jp.js",
+              "transfer": 187663,
+              "encoded": 187363,
+              "decoded": 622336
+            },
+            {
+              "name": "/js/one-dark-pro.DVMEJ2y_.js",
+              "transfer": 6105,
+              "encoded": 5805,
+              "decoded": 33787
+            },
+            {
+              "name": "/js/one-light.C3Wv6jpd.js",
+              "transfer": 4116,
+              "encoded": 3816,
+              "decoded": 25300
+            },
+            {
+              "name": "/js/storage_clear.C4Tj2Xke.js",
+              "transfer": 1636,
+              "encoded": 1336,
+              "decoded": 3037
+            },
+            {
+              "name": "/js/mcp_bootstrap.DyMUKP4X.js",
+              "transfer": 565,
+              "encoded": 265,
+              "decoded": 388
+            },
+            {
+              "name": "/js/index.BO1ms-K-.js",
+              "transfer": 49031,
+              "encoded": 48731,
+              "decoded": 143235
+            },
+            {
+              "name": "/js/homeWelcomeCard.B-hEtu2v.js",
+              "transfer": 1300,
+              "encoded": 1000,
+              "decoded": 2800
+            },
+            {
+              "name": "/js/InputBox.cwLpiqCh.js",
+              "transfer": 49051,
+              "encoded": 48751,
+              "decoded": 158601
+            },
+            {
+              "name": "/js/ProviderImageIcon.BZtXMEkc.js",
+              "transfer": 730,
+              "encoded": 430,
+              "decoded": 762
+            },
+            {
+              "name": "/js/compute-points.1L9S70G1.js",
+              "transfer": 511,
+              "encoded": 211,
+              "decoded": 354
+            },
+            {
+              "name": "/images/icon.BF3O-2hd.png",
+              "transfer": 103709,
+              "encoded": 103409,
+              "decoded": 103409
+            },
+            {
+              "name": "/js/index.B6sz5EAQ.js",
+              "transfer": 19669,
+              "encoded": 19369,
+              "decoded": 53250
+            }
+          ],
+          "pageErrors": [],
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check remote dialog: FetchError: [POST] \"https://api.chatboxai.app/api/dialog_config\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async getDialogConfig (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:40414)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:3771:4199)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async Ut (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:10424)\n    at async qt (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:11256)\n    at async checkNeedUpdate (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:38848)\n    at async tu (http://127.0.0.1:10873/js/index.D3q1VHZr.js:999:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "[Chatbox AI model_list] failed NetworkError: Network Error: Failed to fetch (api.chatboxai.app)\n    at http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:32661\n    at async getChatboxAIModelList (http://127.0.0.1:10873/js/index.D3q1VHZr.js:845:46437)\n    at async Promise.all (index 1)\n    at async queryFn (http://127.0.0.1:10873/js/index.D3q1VHZr.js:3714:102994)"
+          ],
+          "frenchUiParity": true,
+          "text": "Chatbox\n\nÉpinglés\n\nJust chat\n12:53\nMarkdown 101 (Example)\n12:53\nSoftware Developer (Example)\n12:53\n\nChats\n\nTranslator (Example)\n12:53\nSocial Media Influencer (Example)\n12:53\nTravel Guide (Example)\n12:53\nChartWhiz\n12:53\nSnake Game (Artifact Example)\n12:53\nNouvelle discussion\nCréer une image\nMes Copilots\nParamètres\nAide\nÀ propos\nBien démarrer\n\nFrançais\n\n👋 Bonjour ! Je suis Boxy, votre assistant de configuration.\n\nChatbox est un client de chat AI tout-en-un qui\n\nDes fonctionnalités plus avancées sont disponibles dans Chatbox Desktop.\n\n1. Votre historique de chat sur la version web ne peut être stocké que dans le cache du navigateur (peu fiable - il peut être nettoyé par le navigateur). 2. MCP et la Base de connaissances ne sont actuellement pris en charge que sur l'application desktop.\n\nTélécharger l'application Desktop"
+        }
+      ]
+    },
+    {
+      "label": "paraglide-split",
+      "throttle": "80ms RTT / 20Mbps down / 2Mbps up / 3x CPU; 3 cold-cache runs; API and third-party traffic blocked",
+      "median": {
+        "fcpMs": 260,
+        "lcpMs": 3708,
+        "longTaskMs": 2164,
+        "resourceCount": 20,
+        "transferBytes": 3710025,
+        "encodedBytes": 3704025,
+        "decodedBytes": 12771882
+      },
+      "runs": [
+        {
+          "trial": 0,
+          "locale": "fr",
+          "lang": "",
+          "navigatorLanguage": "fr-FR",
+          "fcpMs": 256,
+          "lcpMs": 3920,
+          "longTaskMs": 2164,
+          "resourceCount": 20,
+          "transferBytes": 3710025,
+          "encodedBytes": 3704025,
+          "decodedBytes": 12771882,
+          "localeRequests": [
+            {
+              "name": "/js/_paraglide_virtual-locale_fr.bhXojqmm.js",
+              "transfer": 36427,
+              "encoded": 36127,
+              "decoded": 155549
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transfer": 5582,
+              "encoded": 5282,
+              "decoded": 15540
+            },
+            {
+              "name": "/js/index.BWfLxC6e.js",
+              "transfer": 2821639,
+              "encoded": 2821339,
+              "decoded": 9659860
+            },
+            {
+              "name": "/styles/index.EltqqIz-.css",
+              "transfer": 24354,
+              "encoded": 24054,
+              "decoded": 118673
+            },
+            {
+              "name": "/styles/vendor-ui.J8qAlTB9.css",
+              "transfer": 31763,
+              "encoded": 31463,
+              "decoded": 203402
+            },
+            {
+              "name": "/js/vendor-ui.BLUul1z-.js",
+              "transfer": 170157,
+              "encoded": 169857,
+              "decoded": 552963
+            },
+            {
+              "name": "/js/vendor-ai.DJWxyCqF.js",
+              "transfer": 195204,
+              "encoded": 194904,
+              "decoded": 915500
+            },
+            {
+              "name": "/js/token_estimation_init.CWlZyY4q.js",
+              "transfer": 3059,
+              "encoded": 2759,
+              "decoded": 8389
+            },
+            {
+              "name": "/js/wasm.CG6Dc4jp.js",
+              "transfer": 187663,
+              "encoded": 187363,
+              "decoded": 622336
+            },
+            {
+              "name": "/js/one-dark-pro.DVMEJ2y_.js",
+              "transfer": 6105,
+              "encoded": 5805,
+              "decoded": 33787
+            },
+            {
+              "name": "/js/one-light.C3Wv6jpd.js",
+              "transfer": 4116,
+              "encoded": 3816,
+              "decoded": 25300
+            },
+            {
+              "name": "/js/storage_clear.2vKCMO_B.js",
+              "transfer": 1636,
+              "encoded": 1336,
+              "decoded": 3037
+            },
+            {
+              "name": "/js/mcp_bootstrap.CQRjKv3L.js",
+              "transfer": 566,
+              "encoded": 266,
+              "decoded": 388
+            },
+            {
+              "name": "/js/index.en7Wz7eN.js",
+              "transfer": 49314,
+              "encoded": 49014,
+              "decoded": 143175
+            },
+            {
+              "name": "/js/homeWelcomeCard.BntTWow5.js",
+              "transfer": 1292,
+              "encoded": 992,
+              "decoded": 2810
+            },
+            {
+              "name": "/js/ProviderImageIcon.BRWiwSE4.js",
+              "transfer": 724,
+              "encoded": 424,
+              "decoded": 747
+            },
+            {
+              "name": "/js/InputBox.BWsY5tXL.js",
+              "transfer": 47946,
+              "encoded": 47646,
+              "decoded": 156457
+            },
+            {
+              "name": "/js/compute-points.1L9S70G1.js",
+              "transfer": 511,
+              "encoded": 211,
+              "decoded": 354
+            },
+            {
+              "name": "/images/icon.BF3O-2hd.png",
+              "transfer": 103709,
+              "encoded": 103409,
+              "decoded": 103409
+            },
+            {
+              "name": "/js/index.pRqDd4cE.js",
+              "transfer": 18258,
+              "encoded": 17958,
+              "decoded": 50206
+            },
+            {
+              "name": "/js/_paraglide_virtual-locale_fr.bhXojqmm.js",
+              "transfer": 36427,
+              "encoded": 36127,
+              "decoded": 155549
+            }
+          ],
+          "pageErrors": [],
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check remote dialog: FetchError: [POST] \"https://api.chatboxai.app/api/dialog_config\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async getDialogConfig (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:40414)\n    at async Ot (http://127.0.0.1:5317/js/index.BWfLxC6e.js:3158:4192)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "[Chatbox AI model_list] failed NetworkError: Network Error: Failed to fetch (api.chatboxai.app)\n    at http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:32661\n    at async getChatboxAIModelList (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:46437)\n    at async Promise.all (index 1)\n    at async queryFn (http://127.0.0.1:5317/js/index.BWfLxC6e.js:3101:102279)"
+          ],
+          "frenchUiParity": true,
+          "text": "Chatbox\n\nÉpinglés\n\nJust chat\n12:53\nMarkdown 101 (Example)\n12:53\nSoftware Developer (Example)\n12:53\n\nChats\n\nTranslator (Example)\n12:53\nSocial Media Influencer (Example)\n12:53\nTravel Guide (Example)\n12:53\nChartWhiz\n12:53\nSnake Game (Artifact Example)\n12:53\nNouvelle discussion\nCréer une image\nMes Copilots\nParamètres\nAide\nÀ propos\nBien démarrer\n\nFrançais\n\n👋 Bonjour ! Je suis Boxy, votre assistant de configuration.\n\nChatbox est un client de chat AI tout-en-un\n\nDes fonctionnalités plus avancées sont disponibles dans Chatbox Desktop.\n\n1. Votre historique de chat sur la version web ne peut être stocké que dans le cache du navigateur (peu fiable - il peut être nettoyé par le navigateur). 2. MCP et la Base de connaissances ne sont actuellement pris en charge que sur l'application desktop.\n\nTélécharger l'application Desktop"
+        },
+        {
+          "trial": 1,
+          "locale": "fr",
+          "lang": "",
+          "navigatorLanguage": "fr-FR",
+          "fcpMs": 260,
+          "lcpMs": 3600,
+          "longTaskMs": 1889,
+          "resourceCount": 20,
+          "transferBytes": 3710025,
+          "encodedBytes": 3704025,
+          "decodedBytes": 12771882,
+          "localeRequests": [
+            {
+              "name": "/js/_paraglide_virtual-locale_fr.bhXojqmm.js",
+              "transfer": 36427,
+              "encoded": 36127,
+              "decoded": 155549
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transfer": 5582,
+              "encoded": 5282,
+              "decoded": 15540
+            },
+            {
+              "name": "/js/vendor-ui.BLUul1z-.js",
+              "transfer": 170157,
+              "encoded": 169857,
+              "decoded": 552963
+            },
+            {
+              "name": "/js/vendor-ai.DJWxyCqF.js",
+              "transfer": 195204,
+              "encoded": 194904,
+              "decoded": 915500
+            },
+            {
+              "name": "/js/index.BWfLxC6e.js",
+              "transfer": 2821639,
+              "encoded": 2821339,
+              "decoded": 9659860
+            },
+            {
+              "name": "/styles/index.EltqqIz-.css",
+              "transfer": 24354,
+              "encoded": 24054,
+              "decoded": 118673
+            },
+            {
+              "name": "/styles/vendor-ui.J8qAlTB9.css",
+              "transfer": 31763,
+              "encoded": 31463,
+              "decoded": 203402
+            },
+            {
+              "name": "/js/token_estimation_init.CWlZyY4q.js",
+              "transfer": 3059,
+              "encoded": 2759,
+              "decoded": 8389
+            },
+            {
+              "name": "/js/wasm.CG6Dc4jp.js",
+              "transfer": 187663,
+              "encoded": 187363,
+              "decoded": 622336
+            },
+            {
+              "name": "/js/one-dark-pro.DVMEJ2y_.js",
+              "transfer": 6105,
+              "encoded": 5805,
+              "decoded": 33787
+            },
+            {
+              "name": "/js/one-light.C3Wv6jpd.js",
+              "transfer": 4116,
+              "encoded": 3816,
+              "decoded": 25300
+            },
+            {
+              "name": "/js/storage_clear.2vKCMO_B.js",
+              "transfer": 1636,
+              "encoded": 1336,
+              "decoded": 3037
+            },
+            {
+              "name": "/js/mcp_bootstrap.CQRjKv3L.js",
+              "transfer": 566,
+              "encoded": 266,
+              "decoded": 388
+            },
+            {
+              "name": "/js/index.en7Wz7eN.js",
+              "transfer": 49314,
+              "encoded": 49014,
+              "decoded": 143175
+            },
+            {
+              "name": "/js/homeWelcomeCard.BntTWow5.js",
+              "transfer": 1292,
+              "encoded": 992,
+              "decoded": 2810
+            },
+            {
+              "name": "/js/InputBox.BWsY5tXL.js",
+              "transfer": 47946,
+              "encoded": 47646,
+              "decoded": 156457
+            },
+            {
+              "name": "/js/ProviderImageIcon.BRWiwSE4.js",
+              "transfer": 724,
+              "encoded": 424,
+              "decoded": 747
+            },
+            {
+              "name": "/js/compute-points.1L9S70G1.js",
+              "transfer": 511,
+              "encoded": 211,
+              "decoded": 354
+            },
+            {
+              "name": "/images/icon.BF3O-2hd.png",
+              "transfer": 103709,
+              "encoded": 103409,
+              "decoded": 103409
+            },
+            {
+              "name": "/js/index.pRqDd4cE.js",
+              "transfer": 18258,
+              "encoded": 17958,
+              "decoded": 50206
+            },
+            {
+              "name": "/js/_paraglide_virtual-locale_fr.bhXojqmm.js",
+              "transfer": 36427,
+              "encoded": 36127,
+              "decoded": 155549
+            }
+          ],
+          "pageErrors": [],
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check remote dialog: FetchError: [POST] \"https://api.chatboxai.app/api/dialog_config\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async getDialogConfig (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:40414)\n    at async Ot (http://127.0.0.1:5317/js/index.BWfLxC6e.js:3158:4192)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "[Chatbox AI model_list] failed NetworkError: Network Error: Failed to fetch (api.chatboxai.app)\n    at http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:32661\n    at async getChatboxAIModelList (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:46437)\n    at async Promise.all (index 1)\n    at async queryFn (http://127.0.0.1:5317/js/index.BWfLxC6e.js:3101:102279)"
+          ],
+          "frenchUiParity": true,
+          "text": "Chatbox\n\nÉpinglés\n\nJust chat\n12:53\nMarkdown 101 (Example)\n12:53\nSoftware Developer (Example)\n12:53\n\nChats\n\nTranslator (Example)\n12:53\nSocial Media Influencer (Example)\n12:53\nTravel Guide (Example)\n12:53\nChartWhiz\n12:53\nSnake Game (Artifact Example)\n12:53\nNouvelle discussion\nCréer une image\nMes Copilots\nParamètres\nAide\nÀ propos\nBien démarrer\n\nFrançais\n\n👋 Bonjour ! Je suis Boxy, votre assistant de configuration.\n\nChatbox est un **client de chat AI\n\nDes fonctionnalités plus avancées sont disponibles dans Chatbox Desktop.\n\n1. Votre historique de chat sur la version web ne peut être stocké que dans le cache du navigateur (peu fiable - il peut être nettoyé par le navigateur). 2. MCP et la Base de connaissances ne sont actuellement pris en charge que sur l'application desktop.\n\nTélécharger l'application Desktop"
+        },
+        {
+          "trial": 2,
+          "locale": "fr",
+          "lang": "",
+          "navigatorLanguage": "fr-FR",
+          "fcpMs": 260,
+          "lcpMs": 3708,
+          "longTaskMs": 2264,
+          "resourceCount": 20,
+          "transferBytes": 3710025,
+          "encodedBytes": 3704025,
+          "decodedBytes": 12771882,
+          "localeRequests": [
+            {
+              "name": "/js/_paraglide_virtual-locale_fr.bhXojqmm.js",
+              "transfer": 36427,
+              "encoded": 36127,
+              "decoded": 155549
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transfer": 5582,
+              "encoded": 5282,
+              "decoded": 15540
+            },
+            {
+              "name": "/js/index.BWfLxC6e.js",
+              "transfer": 2821639,
+              "encoded": 2821339,
+              "decoded": 9659860
+            },
+            {
+              "name": "/styles/index.EltqqIz-.css",
+              "transfer": 24354,
+              "encoded": 24054,
+              "decoded": 118673
+            },
+            {
+              "name": "/styles/vendor-ui.J8qAlTB9.css",
+              "transfer": 31763,
+              "encoded": 31463,
+              "decoded": 203402
+            },
+            {
+              "name": "/js/vendor-ui.BLUul1z-.js",
+              "transfer": 170157,
+              "encoded": 169857,
+              "decoded": 552963
+            },
+            {
+              "name": "/js/vendor-ai.DJWxyCqF.js",
+              "transfer": 195204,
+              "encoded": 194904,
+              "decoded": 915500
+            },
+            {
+              "name": "/js/token_estimation_init.CWlZyY4q.js",
+              "transfer": 3059,
+              "encoded": 2759,
+              "decoded": 8389
+            },
+            {
+              "name": "/js/wasm.CG6Dc4jp.js",
+              "transfer": 187663,
+              "encoded": 187363,
+              "decoded": 622336
+            },
+            {
+              "name": "/js/one-dark-pro.DVMEJ2y_.js",
+              "transfer": 6105,
+              "encoded": 5805,
+              "decoded": 33787
+            },
+            {
+              "name": "/js/one-light.C3Wv6jpd.js",
+              "transfer": 4116,
+              "encoded": 3816,
+              "decoded": 25300
+            },
+            {
+              "name": "/js/storage_clear.2vKCMO_B.js",
+              "transfer": 1636,
+              "encoded": 1336,
+              "decoded": 3037
+            },
+            {
+              "name": "/js/mcp_bootstrap.CQRjKv3L.js",
+              "transfer": 566,
+              "encoded": 266,
+              "decoded": 388
+            },
+            {
+              "name": "/js/index.en7Wz7eN.js",
+              "transfer": 49314,
+              "encoded": 49014,
+              "decoded": 143175
+            },
+            {
+              "name": "/js/homeWelcomeCard.BntTWow5.js",
+              "transfer": 1292,
+              "encoded": 992,
+              "decoded": 2810
+            },
+            {
+              "name": "/js/InputBox.BWsY5tXL.js",
+              "transfer": 47946,
+              "encoded": 47646,
+              "decoded": 156457
+            },
+            {
+              "name": "/js/ProviderImageIcon.BRWiwSE4.js",
+              "transfer": 724,
+              "encoded": 424,
+              "decoded": 747
+            },
+            {
+              "name": "/js/compute-points.1L9S70G1.js",
+              "transfer": 511,
+              "encoded": 211,
+              "decoded": 354
+            },
+            {
+              "name": "/images/icon.BF3O-2hd.png",
+              "transfer": 103709,
+              "encoded": 103409,
+              "decoded": 103409
+            },
+            {
+              "name": "/js/index.pRqDd4cE.js",
+              "transfer": 18258,
+              "encoded": 17958,
+              "decoded": 50206
+            },
+            {
+              "name": "/js/_paraglide_virtual-locale_fr.bhXojqmm.js",
+              "transfer": 36427,
+              "encoded": 36127,
+              "decoded": 155549
+            }
+          ],
+          "pageErrors": [],
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check remote dialog: FetchError: [POST] \"https://api.chatboxai.app/api/dialog_config\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async getDialogConfig (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:40414)\n    at async Ot (http://127.0.0.1:5317/js/index.BWfLxC6e.js:3158:4192)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to check for updates: FetchError: [POST] \"https://api.chatboxai.app/chatbox_need_update/web\": <no response> Failed to fetch (api.chatboxai.app)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async Ut (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:10424)\n    at async qt (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:11256)\n    at async checkNeedUpdate (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:38848)\n    at async uu (http://127.0.0.1:5317/js/index.BWfLxC6e.js:386:30957)",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "Failed to load resource: net::ERR_FAILED",
+            "[Chatbox AI model_list] failed NetworkError: Network Error: Failed to fetch (api.chatboxai.app)\n    at http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:32661\n    at async getChatboxAIModelList (http://127.0.0.1:5317/js/index.BWfLxC6e.js:233:46437)\n    at async Promise.all (index 1)\n    at async queryFn (http://127.0.0.1:5317/js/index.BWfLxC6e.js:3101:102279)"
+          ],
+          "frenchUiParity": true,
+          "text": "Chatbox\n\nÉpinglés\n\nJust chat\n12:53\nMarkdown 101 (Example)\n12:53\nSoftware Developer (Example)\n12:53\n\nChats\n\nTranslator (Example)\n12:53\nSocial Media Influencer (Example)\n12:53\nTravel Guide (Example)\n12:53\nChartWhiz\n12:53\nSnake Game (Artifact Example)\n12:53\nNouvelle discussion\nCréer une image\nMes Copilots\nParamètres\nAide\nÀ propos\nBien démarrer\n\nFrançais\n\n👋 Bonjour ! Je suis Boxy, votre\n\nDes fonctionnalités plus avancées sont disponibles dans Chatbox Desktop.\n\n1. Votre historique de chat sur la version web ne peut être stocké que dans le cache du navigateur (peu fiable - il peut être nettoyé par le navigateur). 2. MCP et la Base de connaissances ne sont actuellement pris en charge que sur l'application desktop.\n\nTélécharger l'application Desktop"
+        }
+      ]
+    }
+  ],
+  "comparison": {
+    "wholeRouteEncodedBytes": {
+      "native": 4049599,
+      "paraglide": 3704025,
+      "changePct": -8.53
+    },
+    "wholeRouteDecodedBytes": {
+      "native": 14278981,
+      "paraglide": 12771882,
+      "changePct": -10.55
+    },
+    "fcpMs": {
+      "native": 260,
+      "paraglide": 260,
+      "changePct": 0
+    },
+    "lcpMs": {
+      "native": 3984,
+      "paraglide": 3708,
+      "changePct": -6.93
+    },
+    "longTaskMs": {
+      "native": 2174,
+      "paraglide": 2164,
+      "changePct": -0.46
+    },
+    "largestIndexChunkEncodedBytes": {
+      "native": 3200966,
+      "paraglide": 2821339,
+      "changePct": -11.86
+    }
+  },
+  "verdict": "negative: whole-route encoded bytes -8.53%, FCP 0.00%, LCP -6.93%, and long-task time -0.46%; no user-facing metric clears the >10% threshold. Largest entry JS chunk is -11.86% but is not a whole-route result.",
+  "toolchain": {
+    "node": "v22.23.2",
+    "vite": "7.3.6",
+    "electronVite": "4.0.1",
+    "reactI18next": "12.3.1",
+    "i18nextInstalled": "22.5.1",
+    "i18nextDeclaredRange": "^22.4.13",
+    "i18nextLockfile": "pnpm-lock.yaml i18next@22.5.1"
+  },
+  "catalog": {
+    "locales": 15,
+    "keys": 1444,
+    "averageCatalogEntries": 1441.8,
+    "sha256": "99a0ac91983144a814f57fb13772369d0a8e2135c308af20e7039488e3644349",
+    "staticCallsConverted": 1828,
+    "dynamicFallbackKeys": 1444,
+    "markupKeys": 33
+  },
+  "parity": {
+    "initialFrenchUiPassed": true,
+    "languageSwitchFrenchToEnglishPassed": true,
+    "renderedTextChecks": [
+      "Épinglés",
+      "Nouvelle discussion",
+      "Pinned",
+      "New Chat"
+    ],
+    "catalogChecks": 21628,
+    "catalogMismatchCount": 15,
+    "catalogMismatchKey": "2. Run command: wsl --install",
+    "catalogMismatchReason": "The key contains a colon while Chatbox uses i18next's default ':' namespace separator. A reproduction with the pinned i18next 22.5.1 setup returns ' wsl --install' for the French lookup; setting nsSeparator:false returns the full French catalog value. Paraglide treats the whole string as a literal key. This is an i18next namespace parsing difference, not plural syntax. The key was excluded from static-call codemodding and is outside the measured route.",
+    "selectedLocaleChunkBytesEncoded": 36127
+  },
+  "limits": [
+    "The selected-locale Vite facade is an app-local experimental integration, not a shipped Paraglide API.",
+    "All 1,444 keys remain reachable through the compatibility fallback map; lexical pruning broke visible locale parity, so the pruned result is invalid.",
+    "This is a local frontend-only lab: app APIs and third-party requests are blocked. LCP is not field Web Vitals.",
+    "The whole-route byte and timing changes do not meet the 10% qualification threshold; only the largest main JS chunk clears 10%.",
+    "UI language switching was checked on the visible shell and selected labels; seeded onboarding transcript content remained French as existing chat content."
+  ]
+}
