@@ -1,0 +1,227 @@
+{
+  "route": "/login",
+  "cookie": "lang=es-ES",
+  "visible": {
+    "title": "127.0.0.1 - Sign in",
+    "body": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+    "usernamePlaceholder": "Nombre de Usuario",
+    "passwordPlaceholder": "Contraseña",
+    "languageButton": "Idioma"
+  },
+  "errors": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:4173/login",
+      "method": "GET",
+      "path": "/login"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/login-B43qsi2w.js",
+      "method": "GET",
+      "path": "/assets/login-B43qsi2w.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/rolldown-runtime-B0Z9INg1.js",
+      "method": "GET",
+      "path": "/assets/rolldown-runtime-B0Z9INg1.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-D_x7IYF2.js",
+      "method": "GET",
+      "path": "/assets/vendor-D_x7IYF2.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-antd-njeWQkbP.js",
+      "method": "GET",
+      "path": "/assets/vendor-antd-njeWQkbP.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-router-BR6qkI8v.js",
+      "method": "GET",
+      "path": "/assets/vendor-router-BR6qkI8v.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-i18next-A11bnMr_.js",
+      "method": "GET",
+      "path": "/assets/vendor-i18next-A11bnMr_.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-react-B74pBk57.js",
+      "method": "GET",
+      "path": "/assets/vendor-react-B74pBk57.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-tanstack-zce6Z6-u.js",
+      "method": "GET",
+      "path": "/assets/vendor-tanstack-zce6Z6-u.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/QueryProvider-DGlovauT.js",
+      "method": "GET",
+      "path": "/assets/QueryProvider-DGlovauT.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-icons-CRPHm0vC.js",
+      "method": "GET",
+      "path": "/assets/vendor-icons-CRPHm0vC.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/rhf-nyssqzDB.js",
+      "method": "GET",
+      "path": "/assets/rhf-nyssqzDB.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/rhfZodValidate-Bp3fy4ge.js",
+      "method": "GET",
+      "path": "/assets/rhfZodValidate-Bp3fy4ge.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/queryKeys-B5rr3vbO.js",
+      "method": "GET",
+      "path": "/assets/queryKeys-B5rr3vbO.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/SponsorSlot-V77wmMsB.js",
+      "method": "GET",
+      "path": "/assets/SponsorSlot-V77wmMsB.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/login-CuP_WTT2.js",
+      "method": "GET",
+      "path": "/assets/login-CuP_WTT2.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/vendor-antd-B5BXDqMa.css",
+      "method": "GET",
+      "path": "/assets/vendor-antd-B5BXDqMa.css"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/SponsorSlot-BhBilKi7.css",
+      "method": "GET",
+      "path": "/assets/SponsorSlot-BhBilKi7.css"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/login-CCYLb1lR.css",
+      "method": "GET",
+      "path": "/assets/login-CCYLb1lR.css"
+    },
+    {
+      "url": "http://127.0.0.1:4173/assets/es-ES-CbS94hW4.js",
+      "method": "GET",
+      "path": "/assets/es-ES-CbS94hW4.js"
+    },
+    {
+      "url": "http://127.0.0.1:4173/csrf-token",
+      "method": "GET",
+      "path": "/csrf-token"
+    },
+    {
+      "url": "http://127.0.0.1:4173/getTwoFactorEnable",
+      "method": "POST",
+      "path": "/getTwoFactorEnable"
+    },
+    {
+      "url": "http://127.0.0.1:4173/sponsors",
+      "method": "GET",
+      "path": "/sponsors"
+    }
+  ],
+  "responses": [
+    {
+      "path": "/login",
+      "status": 200
+    },
+    {
+      "path": "/assets/login-B43qsi2w.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/rolldown-runtime-B0Z9INg1.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-react-B74pBk57.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-i18next-A11bnMr_.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-antd-B5BXDqMa.css",
+      "status": 200
+    },
+    {
+      "path": "/assets/SponsorSlot-BhBilKi7.css",
+      "status": 200
+    },
+    {
+      "path": "/assets/login-CCYLb1lR.css",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-router-BR6qkI8v.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/queryKeys-B5rr3vbO.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-tanstack-zce6Z6-u.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/rhf-nyssqzDB.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/SponsorSlot-V77wmMsB.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/login-CuP_WTT2.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/QueryProvider-DGlovauT.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-icons-CRPHm0vC.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-D_x7IYF2.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/vendor-antd-njeWQkbP.js",
+      "status": 200
+    },
+    {
+      "path": "/assets/es-ES-CbS94hW4.js",
+      "status": 200
+    },
+    {
+      "path": "/csrf-token",
+      "status": 200
+    },
+    {
+      "path": "/getTwoFactorEnable",
+      "status": 200
+    },
+    {
+      "path": "/sponsors",
+      "status": 200
+    }
+  ],
+  "localeRequests": [
+    "/assets/es-ES-CbS94hW4.js"
+  ],
+  "note": "The server provides read-only fixtures for CSRF, getTwoFactorEnable, and sponsors; it does not submit login credentials or contact a backend."
+}
