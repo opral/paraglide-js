@@ -1,0 +1,539 @@
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> LibreChat@v0.8.8 frontend
+> npm run build:data-provider && npm run build:data-schemas && npm run build:api && npm run build:client-package && cd client && npm run build
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> LibreChat@v0.8.8 build:data-provider
+> cd packages/data-provider && npm run build
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> librechat-data-provider@0.8.527 build
+> npm run clean && tsdown && tsc -p tsconfig.build.json
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> librechat-data-provider@0.8.527 clean
+> rimraf dist
+
+ℹ tsdown v0.22.2 powered by rolldown v1.1.0
+ℹ config file: /root/repos-iii/librechat-native-baseline/packages/data-provider/tsdown.config.mjs
+ℹ entry: src/index.ts, src/react-query/index.ts
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ [CJS] dist/index.js                      417.85 kB │ gzip:  94.40 kB
+ℹ [CJS] dist/react-query/index.js           15.60 kB │ gzip:   2.19 kB
+ℹ [CJS] dist/data-service-18bJKX3-.js.map  875.75 kB │ gzip: 207.06 kB
+ℹ [CJS] dist/index.js.map                  678.62 kB │ gzip: 158.81 kB
+ℹ [CJS] dist/data-service-18bJKX3-.js      545.51 kB │ gzip: 127.77 kB
+ℹ [CJS] dist/react-query/index.js.map       26.70 kB │ gzip:   4.47 kB
+ℹ [CJS] 6 files, total: 2.56 MB
+✔ Build complete in 170ms
+ℹ [ESM] dist/index.mjs                      390.95 kB │ gzip:  96.83 kB
+ℹ [ESM] dist/react-query/index.mjs           12.86 kB │ gzip:   2.21 kB
+ℹ [ESM] dist/data-service-B-UlFDHN.mjs.map  866.35 kB │ gzip: 206.44 kB
+ℹ [ESM] dist/index.mjs.map                  674.99 kB │ gzip: 158.11 kB
+ℹ [ESM] dist/data-service-B-UlFDHN.mjs      473.38 kB │ gzip: 125.61 kB
+ℹ [ESM] dist/react-query/index.mjs.map       26.70 kB │ gzip:   4.61 kB
+ℹ [ESM] 6 files, total: 2.45 MB
+✔ Build complete in 171ms
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> LibreChat@v0.8.8 build:data-schemas
+> cd packages/data-schemas && npm run build
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> @librechat/data-schemas@0.0.74 build
+> npm run clean && tsdown
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> @librechat/data-schemas@0.0.74 clean
+> rimraf dist
+
+ℹ tsdown v0.22.2 powered by rolldown v1.1.0
+ℹ config file: /root/repos-iii/librechat-native-baseline/packages/data-schemas/tsdown.config.mjs
+ℹ entry: src/index.ts, src/admin/capabilities.ts
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ [CJS] dist/index.cjs                    1.90 MB
+ℹ [CJS] dist/admin/capabilities.cjs       7.96 kB │ gzip: 2.49 kB
+ℹ [CJS] dist/index.cjs.map                3.75 MB
+ℹ [CJS] dist/admin/capabilities.cjs.map  13.01 kB │ gzip: 3.64 kB
+ℹ [CJS] 4 files, total: 5.67 MB
+ℹ [CJS] dist/index.d.cts                  331.66 kB │ gzip: 80.10 kB
+ℹ [CJS] dist/capabilities.d.cts             0.76 kB │ gzip:  0.30 kB
+ℹ [CJS] dist/capabilities-C1q-Ep3g.d.cts    5.86 kB │ gzip:  2.10 kB
+ℹ [CJS] 3 files, total: 338.27 kB
+✔ Build complete in 660ms
+ℹ [ESM] dist/index.mjs                      1.88 MB
+ℹ [ESM] dist/admin/capabilities.mjs         7.41 kB │ gzip:  2.39 kB
+ℹ [ESM] dist/index.mjs.map                  3.74 MB
+ℹ [ESM] dist/admin/capabilities.mjs.map    12.94 kB │ gzip:  3.63 kB
+ℹ [ESM] dist/index.d.mts                  331.66 kB │ gzip: 80.10 kB
+ℹ [ESM] dist/capabilities.d.mts             0.76 kB │ gzip:  0.30 kB
+ℹ [ESM] dist/capabilities-C1q-Ep3g.d.mts    5.86 kB │ gzip:  2.10 kB
+ℹ [ESM] 7 files, total: 5.97 MB
+✔ Build complete in 675ms
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> LibreChat@v0.8.8 build:api
+> cd packages/api && npm run build
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> @librechat/api@1.7.52 build
+> npm run clean && tsdown && npm run openapi:copy
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> @librechat/api@1.7.52 clean
+> rimraf dist
+
+ℹ tsdown v0.22.2 powered by rolldown v1.1.0
+ℹ config file: /root/repos-iii/librechat-native-baseline/packages/api/tsdown.config.mjs
+ℹ entry: src/index.ts, src/telemetry.ts, src/credentials.ts, src/agents/files/edit-worker.ts
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ dist/index.cjs                          7.07 MB
+ℹ dist/telemetry.cjs                     21.66 kB │ gzip:  6.01 kB
+ℹ dist/credentials.cjs                   10.35 kB │ gzip:  3.16 kB
+ℹ dist/agents/files/edit-worker.cjs       0.64 kB │ gzip:  0.37 kB
+ℹ dist/index.cjs.map                     13.44 MB
+ℹ dist/safeException-C5gzVE-f.cjs.map    84.43 kB │ gzip: 20.67 kB
+ℹ dist/safeException-C5gzVE-f.cjs        51.63 kB │ gzip: 12.15 kB
+ℹ dist/telemetry.cjs.map                 41.16 kB │ gzip: 10.99 kB
+ℹ dist/matching-BDYoF9-S.cjs.map         24.10 kB │ gzip:  6.48 kB
+ℹ dist/credentials.cjs.map               18.97 kB │ gzip:  5.56 kB
+ℹ dist/matching-BDYoF9-S.cjs             12.77 kB │ gzip:  3.61 kB
+ℹ dist/agents/files/edit-worker.cjs.map   1.32 kB │ gzip:  0.64 kB
+ℹ dist/chunk-D6vf50IK.cjs                 1.09 kB │ gzip:  0.53 kB
+ℹ 13 files, total: 20.78 MB
+ℹ dist/index.d.cts             2.02 MB
+ℹ dist/telemetry.d.cts         2.13 kB │ gzip:  0.76 kB
+ℹ dist/credentials.d.cts       1.52 kB │ gzip:  0.54 kB
+ℹ dist/edit-worker.d.cts       0.79 kB │ gzip:  0.38 kB
+ℹ dist/index-DmN7Pdhs.d.cts  129.49 kB │ gzip: 37.94 kB
+ℹ 5 files, total: 2.15 MB
+✔ Build complete in 1201ms
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> @librechat/api@1.7.52 openapi:copy
+> node -e "const fs=require('fs');fs.mkdirSync('dist',{recursive:true});fs.copyFileSync('openapi/agents.openapi.json','dist/agents.openapi.json')"
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> LibreChat@v0.8.8 build:client-package
+> cd packages/client && npm run build
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> @librechat/client@0.4.82 build
+> npm run clean && tsdown
+
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> @librechat/client@0.4.82 clean
+> rimraf dist
+
+ℹ tsdown v0.22.2 powered by rolldown v1.1.0
+ℹ config file: /root/repos-iii/librechat-native-baseline/packages/client/tsdown.config.mjs
+ℹ entry: src/index.ts
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ [CJS] dist/index.cjs      555.17 kB │ gzip: 142.88 kB
+ℹ [CJS] dist/index.cjs.map  941.87 kB │ gzip: 228.38 kB
+ℹ [CJS] dist/style.css        7.10 kB │ gzip:   1.79 kB
+ℹ [CJS] 3 files, total: 1.50 MB
+ℹ [CJS] dist/index.d.cts.map   55.21 kB │ gzip: 10.70 kB
+ℹ [CJS] dist/index.d.cts      150.61 kB │ gzip: 37.49 kB
+ℹ [CJS] 2 files, total: 205.81 kB
+✔ Build complete in 453ms
+ℹ [ESM] dist/index.mjs        516.91 kB │ gzip: 139.86 kB
+ℹ [ESM] dist/index.mjs.map    915.62 kB │ gzip: 225.73 kB
+ℹ [ESM] dist/index.d.mts.map   55.21 kB │ gzip:  10.70 kB
+ℹ [ESM] dist/style.css          7.10 kB │ gzip:   1.79 kB
+ℹ [ESM] dist/index.d.mts      150.61 kB │ gzip:  37.50 kB
+ℹ [ESM] 5 files, total: 1.65 MB
+✔ Build complete in 462ms
+npm warn Unknown env config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "allow-remote". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> @librechat/frontend@v0.8.8 build
+> cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 vite build
+
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 9971 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/registerSW.js                                        0.13 kB
+dist/manifest.webmanifest                                 0.57 kB
+dist/sw-heal.js                                           1.78 kB
+dist/assets/fonts/KaTeX_Size3-Regular.woff                4.42 kB
+dist/assets/locale-hy.B3Rx1APU.js.br                      4.46 kB
+dist/assets/code-editor.DTDPPaEm.js.br                    4.52 kB
+dist/assets/react-vtree.nToqO-mh.js.br                    4.54 kB
+dist/assets/react-vtree.nToqO-mh.js.gz                    4.74 kB
+dist/assets/code-editor.DTDPPaEm.js.gz                    4.75 kB
+dist/index.html.br                                        4.92 kB
+dist/assets/fonts/KaTeX_Size4-Regular.woff2               4.92 kB
+dist/assets/useBalanceSummary.C35-qCVH.js.br              4.98 kB
+dist/assets/locale-hy.B3Rx1APU.js.gz                      4.98 kB
+dist/assets/useBalanceSummary.C35-qCVH.js.gz              5.20 kB
+dist/assets/fonts/KaTeX_Size2-Regular.woff2               5.20 kB
+dist/index.html.gz                                        5.24 kB
+dist/assets/Insights.DKDAnqMT.js.br                       5.30 kB
+dist/assets/fonts/KaTeX_Size1-Regular.woff2               5.46 kB
+dist/assets/Insights.DKDAnqMT.js.gz                       5.50 kB
+dist/assets/fonts/KaTeX_Size4-Regular.woff                5.98 kB
+dist/assets/fonts/KaTeX_Size2-Regular.woff                6.18 kB
+dist/assets/fonts/KaTeX_Size1-Regular.woff                6.49 kB
+dist/assets/locale-id.DZXJApyp.js.br                      6.62 kB
+dist/assets/math-katex.uZ8_QngQ.css.br                    6.85 kB
+dist/assets/fonts/KaTeX_Caligraphic-Regular.woff2         6.90 kB
+dist/assets/fonts/KaTeX_Caligraphic-Bold.woff2            6.91 kB
+dist/assets/date-utils.C_DbPEjY.js.br                     7.01 kB
+dist/assets/locale-id.DZXJApyp.js.gz                      7.10 kB
+dist/assets/date-utils.C_DbPEjY.js.gz                     7.27 kB
+dist/assets/math-katex.uZ8_QngQ.css.gz                    7.38 kB
+dist/assets/fonts/KaTeX_Size3-Regular.ttf                 7.58 kB
+dist/assets/fonts/KaTeX_Caligraphic-Regular.woff          7.65 kB
+dist/assets/security-ui.5zGvIlor.js.br                    7.70 kB
+dist/assets/fonts/KaTeX_Caligraphic-Bold.woff             7.71 kB
+dist/assets/security-ui.5zGvIlor.js.gz                    8.02 kB
+dist/assets/SubagentThreadPanel.DMpUkM9S.js.br            8.63 kB
+dist/assets/math-katex.RfU0klHh.js.br                     8.64 kB
+dist/assets/SubagentThreadPanel.DMpUkM9S.js.gz            8.86 kB
+dist/assets/math-katex.RfU0klHh.js.gz                     8.94 kB
+dist/assets/duringRun.BlNoxz1w.js.br                      9.23 kB
+dist/assets/forms.UHk3QTvM.js.br                          9.40 kB
+dist/assets/duringRun.BlNoxz1w.js.gz                      9.56 kB
+dist/assets/forms.UHk3QTvM.js.gz                          9.62 kB
+dist/assets/fonts/KaTeX_Script-Regular.woff2              9.64 kB
+dist/assets/locale-vi.6xx5l-HR.js.br                     10.13 kB
+dist/assets/fonts/KaTeX_SansSerif-Regular.woff2          10.34 kB
+dist/assets/Projects.BfOlwe10.js.br                      10.36 kB
+dist/assets/fonts/KaTeX_Size4-Regular.ttf                10.36 kB
+dist/assets/runtime-shims.CfYCxqfF.js.br                 10.37 kB
+dist/assets/Artifacts.B0FNf41T.js.br                     10.46 kB
+dist/assets/fonts/KaTeX_Script-Regular.woff              10.58 kB
+dist/assets/Projects.BfOlwe10.js.gz                      10.67 kB
+dist/assets/locale-vi.6xx5l-HR.js.gz                     10.68 kB
+dist/assets/Artifacts.B0FNf41T.js.gz                     10.81 kB
+dist/assets/forms.B9VZCTwl.js.br                         11.19 kB
+dist/assets/fonts/KaTeX_Fraktur-Regular.woff2            11.31 kB
+dist/assets/fonts/KaTeX_Fraktur-Bold.woff2               11.34 kB
+dist/assets/runtime-shims.CfYCxqfF.js.gz                 11.40 kB
+dist/assets/fonts/KaTeX_Size2-Regular.ttf                11.50 kB
+dist/assets/forms.B9VZCTwl.js.gz                         11.55 kB
+dist/assets/fonts/KaTeX_SansSerif-Italic.woff2           12.02 kB
+dist/assets/fonts/KaTeX_SansSerif-Bold.woff2             12.21 kB
+dist/assets/fonts/KaTeX_Size1-Regular.ttf                12.22 kB
+dist/assets/fonts/KaTeX_SansSerif-Regular.woff           12.31 kB
+dist/assets/fonts/KaTeX_Caligraphic-Regular.ttf          12.34 kB
+dist/assets/fonts/KaTeX_Caligraphic-Bold.ttf             12.36 kB
+dist/assets/fonts/roboto-mono-latin-700-normal.woff2     12.74 kB
+dist/assets/fonts/roboto-mono-latin-400-normal.woff2     12.76 kB
+dist/assets/MessageContent.Bnqg4S2U.js.br                13.14 kB
+dist/assets/fonts/KaTeX_Fraktur-Regular.woff             13.20 kB
+dist/assets/fonts/KaTeX_Fraktur-Bold.woff                13.29 kB
+dist/assets/MessageContent.Bnqg4S2U.js.gz                13.53 kB
+dist/assets/fonts/KaTeX_Typewriter-Regular.woff2         13.56 kB
+dist/assets/fonts/roboto-mono-latin-400-italic.woff2     14.05 kB
+dist/assets/fonts/KaTeX_SansSerif-Italic.woff            14.11 kB
+dist/assets/fonts/KaTeX_SansSerif-Bold.woff              14.40 kB
+dist/assets/locale-fi.h4xfJtwR.js.br                     15.08 kB
+dist/assets/fonts/KaTeX_Typewriter-Regular.woff          16.02 kB
+dist/assets/fonts/KaTeX_Math-BoldItalic.woff2            16.40 kB
+dist/assets/fonts/KaTeX_Math-Italic.woff2                16.44 kB
+dist/assets/locale-cs.B_aHhe-J.js.br                     16.45 kB
+dist/assets/fonts/KaTeX_Script-Regular.ttf               16.64 kB
+dist/assets/fonts/KaTeX_Main-BoldItalic.woff2            16.78 kB
+dist/assets/i18n.C6_IvY32.js.br                          16.79 kB
+dist/assets/fonts/KaTeX_Main-Italic.woff2                16.98 kB
+dist/assets/i18n.C6_IvY32.js.gz                          17.12 kB
+dist/assets/fonts/inconsolata-latin-400-normal.woff2     17.66 kB
+dist/index.html                                          17.67 kB │ gzip:   5.26 kB
+dist/assets/locale-fi.h4xfJtwR.js.gz                     17.90 kB
+dist/assets/fonts/inconsolata-latin-700-normal.woff2     17.96 kB
+dist/assets/locale-ar.3Buio5a7.js.br                     17.99 kB
+dist/assets/fonts/inconsolata-latin-500-normal.woff2     18.03 kB
+dist/assets/http-client.D6G8y4MX.js.br                   18.23 kB
+dist/assets/http-client.D6G8y4MX.js.gz                   18.60 kB
+dist/assets/fonts/KaTeX_Math-BoldItalic.woff             18.66 kB
+dist/assets/fonts/KaTeX_Math-Italic.woff                 18.74 kB
+dist/assets/shared-libs.CKPm2yyl.js.br                   18.80 kB
+dist/assets/react-interactions.DscxJRRh.js.br            19.15 kB
+dist/assets/fonts/KaTeX_Main-BoldItalic.woff             19.41 kB
+dist/assets/fonts/KaTeX_SansSerif-Regular.ttf            19.43 kB
+dist/assets/shared-libs.CKPm2yyl.js.gz                   19.45 kB
+dist/assets/fonts/KaTeX_Fraktur-Regular.ttf              19.57 kB
+dist/assets/react-interactions.DscxJRRh.js.gz            19.58 kB
+dist/assets/fonts/KaTeX_Fraktur-Bold.ttf                 19.58 kB
+dist/assets/fonts/KaTeX_Main-Italic.woff                 19.67 kB
+dist/assets/locale-cs.B_aHhe-J.js.gz                     19.80 kB
+dist/assets/query-devtools.C2qG3_c-.js.br                19.93 kB
+dist/assets/ProjectEditDialog.CUARTwdR.js.br             20.06 kB
+dist/assets/locale-hu.BO7UI25h.js.br                     20.07 kB
+dist/assets/animations.BtPDPo2e.js.br                    20.57 kB
+dist/assets/radix-ui.tIiBXdQR.js.br                      20.74 kB
+dist/assets/locale-da.8Ye10u7L.js.br                     20.77 kB
+dist/assets/ProjectEditDialog.CUARTwdR.js.gz             20.82 kB
+dist/assets/locale-et.DKv-ZVPZ.js.br                     21.04 kB
+dist/assets/locale-th.BcNAO1BY.js.br                     21.34 kB
+dist/assets/query-devtools.C2qG3_c-.js.gz                21.39 kB
+dist/assets/locale-ar.3Buio5a7.js.gz                     21.94 kB
+dist/assets/fonts/KaTeX_SansSerif-Italic.ttf             22.36 kB
+dist/assets/locale-sv.D3_V-6QB.js.br                     22.48 kB
+dist/assets/radix-ui.tIiBXdQR.js.gz                      23.20 kB
+dist/assets/locale-hu.BO7UI25h.js.gz                     23.95 kB
+dist/assets/validation.OCGaXQWG.js.br                    24.09 kB
+dist/assets/virtualization.CT5gCaFG.js.br                24.28 kB
+dist/assets/fonts/KaTeX_SansSerif-Bold.ttf               24.50 kB
+dist/assets/locale-da.8Ye10u7L.js.gz                     24.93 kB
+dist/assets/fonts/KaTeX_Main-Bold.woff2                  25.32 kB
+dist/assets/locale-th.BcNAO1BY.js.gz                     25.53 kB
+dist/assets/locale-et.DKv-ZVPZ.js.gz                     25.56 kB
+dist/assets/virtualization.CT5gCaFG.js.gz                25.72 kB
+dist/assets/validation.OCGaXQWG.js.gz                    26.00 kB
+dist/assets/fonts/KaTeX_Main-Regular.woff2               26.27 kB
+dist/assets/locale-sv.D3_V-6QB.js.gz                     26.54 kB
+dist/assets/animations.BtPDPo2e.js.gz                    26.92 kB
+dist/assets/headlessui.CdCWEm1u.js.br                    27.50 kB
+dist/assets/fonts/KaTeX_Typewriter-Regular.ttf           27.55 kB
+dist/assets/tanstack-vendor.DDeX4vva.js.br               27.70 kB
+dist/assets/fonts/KaTeX_AMS-Regular.woff2                28.07 kB
+dist/assets/locale-nl.BNIuk93S.js.br                     28.41 kB
+dist/assets/routing.DYGR6PKW.js.br                       28.64 kB
+dist/assets/headlessui.CdCWEm1u.js.gz                    28.68 kB
+dist/assets/routing.DYGR6PKW.js.gz                       29.71 kB
+dist/assets/fonts/KaTeX_Main-Bold.woff                   29.91 kB
+dist/assets/utilities.Ce8HPfek.js.br                     30.04 kB
+dist/assets/locale-es.Bk12kokj.js.br                     30.43 kB
+dist/assets/Dialog.xW4T7CmM.js.br                        30.64 kB
+dist/assets/fonts/KaTeX_Main-Regular.woff                30.77 kB
+dist/assets/locale-nb.CX35WCAF.js.br                     30.87 kB
+dist/assets/fonts/KaTeX_Math-BoldItalic.ttf              31.19 kB
+dist/assets/fonts/KaTeX_Math-Italic.ttf                  31.30 kB
+dist/assets/locale-ko.DrgtFRkN.js.br                     31.38 kB
+dist/assets/Dialog.xW4T7CmM.js.gz                        32.09 kB
+dist/assets/locale-uk.BshW7kDn.js.br                     32.29 kB
+dist/assets/utilities.Ce8HPfek.js.gz                     32.32 kB
+dist/assets/fonts/KaTeX_Main-BoldItalic.ttf              32.96 kB
+dist/assets/fonts/KaTeX_AMS-Regular.woff                 33.51 kB
+dist/assets/fonts/KaTeX_Main-Italic.ttf                  33.58 kB
+dist/assets/locale-nl.BNIuk93S.js.gz                     33.61 kB
+dist/assets/locale-zh-Hans.CJCg8Zrq.js.br                33.96 kB
+dist/assets/locale-nn.DhqLBsI4.js.br                     35.41 kB
+dist/assets/tanstack-vendor.DDeX4vva.js.gz               36.01 kB
+dist/assets/locale-es.Bk12kokj.js.gz                     36.11 kB
+dist/assets/locale-ru.Dl5C4xGu.js.br                     36.59 kB
+dist/assets/locale-fr.D7dm3wbf.js.br                     36.85 kB
+dist/assets/locale-nb.CX35WCAF.js.gz                     36.89 kB
+dist/assets/locale-fa.CIH4QF8v.js.br                     37.04 kB
+dist/assets/locale-uk.BshW7kDn.js.gz                     38.06 kB
+dist/assets/locale-ko.DrgtFRkN.js.gz                     38.60 kB
+dist/assets/index.DrNoDWmg.css.br                        39.38 kB
+dist/assets/framer-motion.sQ5ndFcX.js.br                 39.48 kB
+dist/assets/framer-motion.sQ5ndFcX.js.gz                 40.39 kB
+dist/assets/locale-ca.n2sXauLB.js.br                     40.93 kB
+dist/assets/locale-nn.DhqLBsI4.js.gz                     42.09 kB
+dist/assets/locale-zh-Hans.CJCg8Zrq.js.gz                42.70 kB
+dist/assets/locale-ru.Dl5C4xGu.js.gz                     42.75 kB
+dist/assets/locale-fr.D7dm3wbf.js.gz                     43.35 kB
+dist/assets/locale-fa.CIH4QF8v.js.gz                     43.67 kB
+dist/assets/index.DrNoDWmg.css.gz                        44.41 kB
+dist/assets/locale-tr.WRk76uSR.js.br                     44.51 kB
+dist/assets/locale-lt.fqLsifE6.js.br                     45.08 kB
+dist/assets/locale-pt-PT.Diz0-jS1.js.br                  45.21 kB
+dist/assets/locale-zh-Hant.Lw2cVOwA.js.br                45.90 kB
+dist/assets/locale-is.DX8x5eO8.js.br                     47.70 kB
+dist/assets/locale-ca.n2sXauLB.js.gz                     48.44 kB
+dist/assets/locale-pt-BR.BKdWnjNg.js.br                  50.52 kB
+dist/assets/locale-he.D5r7s5-f.js.br                     50.58 kB
+dist/assets/locale-pl.D_qsN4fQ.js.br                     50.62 kB
+dist/assets/locale-lv.BE7DE7kI.js.br                     50.67 kB
+dist/assets/Footer.eDhNgc6U.js.br                        50.76 kB
+dist/assets/fonts/KaTeX_Main-Bold.ttf                    51.33 kB
+dist/assets/locale-ja.D29XFvKM.js.br                     51.71 kB
+dist/assets/locale-tr.WRk76uSR.js.gz                     52.50 kB
+dist/assets/locale-lt.fqLsifE6.js.gz                     52.75 kB
+dist/assets/locale-pt-PT.Diz0-jS1.js.gz                  52.95 kB
+dist/assets/locale-it.BhPzPlX-.js.br                     53.45 kB
+dist/assets/fonts/KaTeX_Main-Regular.ttf                 53.58 kB
+dist/assets/Footer.eDhNgc6U.js.gz                        53.71 kB
+dist/assets/locale-de.DL8MtGdV.js.br                     55.32 kB
+dist/assets/locale-is.DX8x5eO8.js.gz                     56.14 kB
+dist/assets/locale-zh-Hant.Lw2cVOwA.js.gz                56.62 kB
+dist/assets/locale-pl.D_qsN4fQ.js.gz                     58.78 kB
+dist/assets/locale-pt-BR.BKdWnjNg.js.gz                  58.84 kB
+dist/assets/locale-lv.BE7DE7kI.js.gz                     59.09 kB
+dist/assets/locale-he.D5r7s5-f.js.gz                     60.03 kB
+dist/assets/locale-ja.D29XFvKM.js.gz                     62.15 kB
+dist/assets/locale-it.BhPzPlX-.js.gz                     62.50 kB
+dist/assets/fonts/KaTeX_AMS-Regular.ttf                  63.63 kB
+dist/assets/locale-de.DL8MtGdV.js.gz                     64.25 kB
+dist/assets/sandpack.D6kRVmoQ.js.br                      70.28 kB
+dist/assets/advanced-inputs.BJDnsHUg.js.br               70.48 kB
+dist/assets/advanced-inputs.BJDnsHUg.js.gz               74.56 kB
+dist/assets/sandpack.D6kRVmoQ.js.gz                      96.34 kB
+dist/assets/fonts/Inter-Regular.woff2                   108.48 kB
+dist/assets/fonts/Inter-Bold.woff2                      111.04 kB
+dist/assets/fonts/Inter-SemiBold.woff2                  111.58 kB
+dist/assets/fonts/Inter-Italic.woff2                    114.57 kB
+dist/assets/fonts/Inter-SemiBoldItalic.woff2            118.21 kB
+dist/assets/fonts/Inter-BoldItalic.woff2                118.39 kB
+dist/assets/rum.BNFIIZ3Y.js.br                          129.37 kB
+dist/assets/rum.BNFIIZ3Y.js.gz                          139.53 kB
+dist/assets/codemirror-core.B3ddRMLP.js.br              144.07 kB
+dist/assets/codemirror-core.B3ddRMLP.js.gz              152.71 kB
+dist/assets/markdown-processing.TMtFeQR7.js.br          165.97 kB
+dist/assets/markdown-processing.TMtFeQR7.js.gz          181.83 kB
+dist/assets/index.C67ehcqP.js.br                        295.76 kB
+dist/assets/index.C67ehcqP.js.gz                        333.98 kB
+dist/assets/vendor.DpBpdTS1.js.br                       376.62 kB
+dist/assets/heic-converter.Yxm-SPCR.js.br               456.11 kB
+dist/assets/hooks.DE5lhuKG.js.br                        466.91 kB
+dist/assets/vendor.DpBpdTS1.js.gz                       481.57 kB
+dist/assets/hooks.DE5lhuKG.js.gz                        521.57 kB
+dist/assets/heic-converter.Yxm-SPCR.js.gz               544.45 kB
+dist/assets/mermaid.Blkfx54T.js.br                      666.14 kB
+dist/assets/mermaid.Blkfx54T.js.gz                      798.25 kB
+dist/assets/Footer.CRq4c_Xn.css                           0.38 kB │ gzip:   0.20 kB
+dist/assets/math-katex.uZ8_QngQ.css                      28.23 kB │ gzip:   7.48 kB
+dist/assets/index.DrNoDWmg.css                          279.99 kB │ gzip:  44.93 kB
+dist/assets/locale-bo.CGVVPxOG.js                         0.09 kB │ gzip:   0.10 kB
+dist/assets/locale-bs.CGVVPxOG.js                         0.09 kB │ gzip:   0.10 kB
+dist/assets/locale-sk.CGVVPxOG.js                         0.09 kB │ gzip:   0.10 kB
+dist/assets/locale-ug.CGVVPxOG.js                         0.09 kB │ gzip:   0.10 kB
+dist/assets/queries.9fH5_Lnu.js                           0.35 kB │ gzip:   0.24 kB
+dist/assets/lazy.ok8MO2Tx.js                              1.19 kB │ gzip:   0.64 kB
+dist/assets/heicConverter.DOcwgKxw.js                     1.20 kB │ gzip:   0.68 kB
+dist/assets/rolldown-runtime.C0FnF6B9.js                  1.29 kB │ gzip:   0.71 kB
+dist/assets/Settings._HXUCqg_.js                          1.52 kB │ gzip:   0.88 kB
+dist/assets/SandboxArtifactTabs.DFyOtGhd.js               1.63 kB │ gzip:   0.84 kB
+dist/assets/locale-sl.BiI2pZJA.js                         2.55 kB │ gzip:   1.02 kB
+dist/assets/SkillsView.Dvoxp5-n.js                        2.62 kB │ gzip:   0.89 kB
+dist/assets/undockedWindow.C6bWb7Jg.js                    5.43 kB │ gzip:   2.37 kB
+dist/assets/polyfills.DVBsJvPx.js                         7.71 kB │ gzip:   2.87 kB
+dist/assets/locale-ka.BudWGYTB.js                         7.72 kB │ gzip:   2.04 kB
+dist/assets/avatars.XYysrFin.js                           8.16 kB │ gzip:   3.39 kB
+dist/assets/markdown.DNPU1T5L.js                          9.16 kB │ gzip:   3.40 kB
+dist/assets/AccountSettings.DuhlfDsc.js                   9.37 kB │ gzip:   3.41 kB
+dist/assets/react-vtree.nToqO-mh.js                      13.16 kB │ gzip:   4.77 kB
+dist/assets/code-editor.DTDPPaEm.js                      13.99 kB │ gzip:   4.77 kB
+dist/assets/useBalanceSummary.C35-qCVH.js                16.32 kB │ gzip:   5.22 kB
+dist/assets/locale-hy.B3Rx1APU.js                        17.80 kB │ gzip:   4.99 kB
+dist/assets/Insights.DKDAnqMT.js                         19.07 kB │ gzip:   5.52 kB
+dist/assets/security-ui.5zGvIlor.js                      21.62 kB │ gzip:   8.07 kB
+dist/assets/date-utils.C_DbPEjY.js                       24.50 kB │ gzip:   7.32 kB
+dist/assets/SubagentThreadPanel.DMpUkM9S.js              25.60 kB │ gzip:   8.92 kB
+dist/assets/locale-id.DZXJApyp.js                        26.34 kB │ gzip:   7.13 kB
+dist/assets/forms.UHk3QTvM.js                            26.51 kB │ gzip:   9.73 kB
+dist/assets/Artifacts.B0FNf41T.js                        30.05 kB │ gzip:  10.88 kB
+dist/assets/duringRun.BlNoxz1w.js                        31.69 kB │ gzip:   9.61 kB
+dist/assets/math-katex.RfU0klHh.js                       34.93 kB │ gzip:   8.99 kB
+dist/assets/Projects.BfOlwe10.js                         38.54 kB │ gzip:  10.74 kB
+dist/assets/MessageContent.Bnqg4S2U.js                   39.00 kB │ gzip:  13.67 kB
+dist/assets/locale-vi.6xx5l-HR.js                        40.97 kB │ gzip:  10.71 kB
+dist/assets/forms.B9VZCTwl.js                            46.00 kB │ gzip:  11.62 kB
+dist/assets/http-client.D6G8y4MX.js                      50.01 kB │ gzip:  18.78 kB
+dist/assets/shared-libs.CKPm2yyl.js                      51.56 kB │ gzip:  19.57 kB
+dist/assets/i18n.C6_IvY32.js                             54.35 kB │ gzip:  17.28 kB
+dist/assets/runtime-shims.CfYCxqfF.js                    57.10 kB │ gzip:  11.53 kB
+dist/assets/locale-fi.h4xfJtwR.js                        58.89 kB │ gzip:  18.05 kB
+dist/assets/query-devtools.C2qG3_c-.js                   59.39 kB │ gzip:  21.52 kB
+dist/assets/locale-cs.B_aHhe-J.js                        63.10 kB │ gzip:  19.92 kB
+dist/assets/ProjectEditDialog.CUARTwdR.js                69.48 kB │ gzip:  20.98 kB
+dist/assets/react-interactions.DscxJRRh.js               70.08 kB │ gzip:  19.82 kB
+dist/assets/animations.BtPDPo2e.js                       72.29 kB │ gzip:  27.19 kB
+dist/assets/locale-ar.3Buio5a7.js                        81.21 kB │ gzip:  21.95 kB
+dist/assets/locale-hu.BO7UI25h.js                        81.74 kB │ gzip:  24.10 kB
+dist/assets/locale-da.8Ye10u7L.js                        85.05 kB │ gzip:  25.12 kB
+dist/assets/locale-et.DKv-ZVPZ.js                        86.26 kB │ gzip:  25.78 kB
+dist/assets/headlessui.CdCWEm1u.js                       88.10 kB │ gzip:  28.94 kB
+dist/assets/radix-ui.tIiBXdQR.js                         88.66 kB │ gzip:  23.42 kB
+dist/assets/locale-sv.D3_V-6QB.js                        89.57 kB │ gzip:  26.75 kB
+dist/assets/routing.DYGR6PKW.js                          90.99 kB │ gzip:  30.06 kB
+dist/assets/utilities.Ce8HPfek.js                        92.81 kB │ gzip:  32.69 kB
+dist/assets/validation.OCGaXQWG.js                      107.63 kB │ gzip:  26.29 kB
+dist/assets/virtualization.CT5gCaFG.js                  113.50 kB │ gzip:  26.02 kB
+dist/assets/locale-nl.BNIuk93S.js                       116.30 kB │ gzip:  33.85 kB
+dist/assets/locale-th.BcNAO1BY.js                       119.38 kB │ gzip:  25.56 kB
+dist/assets/framer-motion.sQ5ndFcX.js                   125.17 kB │ gzip:  40.83 kB
+dist/assets/locale-es.Bk12kokj.js                       129.27 kB │ gzip:  36.36 kB
+dist/assets/locale-nb.CX35WCAF.js                       129.78 kB │ gzip:  37.09 kB
+dist/assets/Dialog.xW4T7CmM.js                          132.17 kB │ gzip:  32.35 kB
+dist/assets/locale-ko.DrgtFRkN.js                       137.71 kB │ gzip:  38.65 kB
+dist/assets/locale-zh-Hans.CJCg8Zrq.js                  138.83 kB │ gzip:  42.84 kB
+dist/assets/tanstack-vendor.DDeX4vva.js                 147.51 kB │ gzip:  36.47 kB
+dist/assets/locale-nn.DhqLBsI4.js                       149.93 kB │ gzip:  42.36 kB
+dist/assets/locale-uk.BshW7kDn.js                       153.21 kB │ gzip:  38.00 kB
+dist/assets/locale-fr.D7dm3wbf.js                       158.67 kB │ gzip:  43.52 kB
+dist/assets/locale-ru.Dl5C4xGu.js                       170.51 kB │ gzip:  42.69 kB
+dist/assets/locale-fa.CIH4QF8v.js                       174.97 kB │ gzip:  43.54 kB
+dist/assets/locale-ca.n2sXauLB.js                       176.88 kB │ gzip:  48.72 kB
+dist/assets/Footer.eDhNgc6U.js                          190.60 kB │ gzip:  54.22 kB
+dist/assets/locale-lt.fqLsifE6.js                       191.54 kB │ gzip:  53.11 kB
+dist/assets/locale-tr.WRk76uSR.js                       192.18 kB │ gzip:  52.87 kB
+dist/assets/locale-zh-Hant.Lw2cVOwA.js                  193.53 kB │ gzip:  56.80 kB
+dist/assets/locale-pt-PT.Diz0-jS1.js                    193.63 kB │ gzip:  53.32 kB
+dist/assets/locale-is.DX8x5eO8.js                       202.77 kB │ gzip:  56.45 kB
+dist/assets/locale-pl.D_qsN4fQ.js                       212.11 kB │ gzip:  59.13 kB
+dist/assets/locale-lv.BE7DE7kI.js                       215.09 kB │ gzip:  59.41 kB
+dist/assets/locale-pt-BR.BKdWnjNg.js                    216.80 kB │ gzip:  59.29 kB
+dist/assets/locale-he.D5r7s5-f.js                       231.43 kB │ gzip:  59.70 kB
+dist/assets/locale-it.BhPzPlX-.js                       232.23 kB │ gzip:  62.93 kB
+dist/assets/advanced-inputs.BJDnsHUg.js                 232.39 kB │ gzip:  75.54 kB
+dist/assets/locale-de.DL8MtGdV.js                       236.95 kB │ gzip:  64.65 kB
+dist/assets/locale-ja.D29XFvKM.js                       239.67 kB │ gzip:  62.31 kB
+dist/assets/codemirror-core.B3ddRMLP.js                 446.31 kB │ gzip: 154.65 kB
+dist/assets/sandpack.D6kRVmoQ.js                        458.30 kB │ gzip:  98.40 kB
+dist/assets/rum.BNFIIZ3Y.js                             467.24 kB │ gzip: 140.93 kB
+dist/assets/markdown-processing.TMtFeQR7.js             614.63 kB │ gzip: 184.06 kB
+dist/assets/index.C67ehcqP.js                         1,223.50 kB │ gzip: 336.96 kB
+dist/assets/vendor.DpBpdTS1.js                        1,699.31 kB │ gzip: 486.76 kB
+dist/assets/hooks.DE5lhuKG.js                         1,768.48 kB │ gzip: 526.97 kB
+dist/assets/heic-converter.Yxm-SPCR.js                2,186.25 kB │ gzip: 559.04 kB
+dist/assets/mermaid.Blkfx54T.js                       3,046.40 kB │ gzip: 811.57 kB
+
+[EVAL] Use of direct `eval` function is strongly discouraged as it poses security risks and may cause issues with minification.
+     ╭─[ ../node_modules/vm-browserify/index.js:110:12 ]
+     │
+ 110 │     return eval(this.code); // maybe...
+     │            ──┬─
+     │              ╰─── Use of direct `eval` here.
+     │
+     │ Help: Consider using indirect eval. For more information, check the documentation: https://rolldown.rs/guide/troubleshooting#avoiding-direct-eval
+─────╯
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 1500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+
+PWA v1.3.0
+mode      generateSW
+precache  62 entries (13761.47 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-1b73dcc2.js
+✓ built in 1.62s
