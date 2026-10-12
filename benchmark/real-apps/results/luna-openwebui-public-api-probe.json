@@ -9,7 +9,7 @@
     "explicitLocaleAfterPreload": true,
     "noPageErrors": true
   },
-  "origin": "http://127.0.0.1:9517",
+  "origin": "http://127.0.0.1:12381",
   "snapshots": {
     "startup": {
       "text": "fr-FR|Bonjour|Connexion",
@@ -43,12 +43,12 @@
       "before": 0,
       "after": 1,
       "urls": [
-        "http://127.0.0.1:9517/assets/_paraglide_client-locale-split_locale_fr-FR-DYSeSeN7.js"
+        "http://127.0.0.1:12381/assets/_paraglide_client-locale-split_locale_fr-FR-DYSeSeN7.js"
       ]
     }
   },
   "localeRequests": [
-    "http://127.0.0.1:9517/assets/_paraglide_client-locale-split_locale_fr-FR-DYSeSeN7.js"
+    "http://127.0.0.1:12381/assets/_paraglide_client-locale-split_locale_fr-FR-DYSeSeN7.js"
   ],
   "errors": []
 }
