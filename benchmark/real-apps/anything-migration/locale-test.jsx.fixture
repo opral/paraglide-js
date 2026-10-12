@@ -1,0 +1,18 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { k952 as welcome } from "@/paraglide/messages.js";
+import { useTranslation } from "@/paraglide/react-compat.js";
+import { useLanguageOptions } from "@/hooks/useLanguageOptions";
+function Test() {
+  const { i18n } = useTranslation();
+  const { currentLanguage, supportedLanguages, getLanguageName, changeLanguage } = useLanguageOptions();
+  return <>
+    <label htmlFor="language">Language</label>
+    <select id="language" value={currentLanguage} onChange={(event) => changeLanguage(event.target.value)}>
+      {supportedLanguages.map((locale) => <option key={locale} value={locale}>{getLanguageName(locale)}</option>)}
+    </select>
+    <p id="message">{welcome()}</p>
+    <p id="locale">{i18n.resolvedLanguage}</p>
+  </>;
+}
+createRoot(document.getElementById("root")).render(<Test />);

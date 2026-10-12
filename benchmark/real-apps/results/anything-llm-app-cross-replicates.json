@@ -1,0 +1,341 @@
+{
+	"note": "These two five-trial cross-replicates were run with the prior compiler dist before the final threshold refresh. Preserve them alongside the current-dist primary run in route-perf-report.json; all measured route text and page-error outcomes matched.",
+	"source": "2a10d052a1812d7be12c43f9024072cf26a27a8b",
+	"route": "/onboarding",
+	"locale": "fr-FR",
+	"browser": "143.0.7499.4",
+	"network": {
+		"latencyMs": 80,
+		"downloadMbps": 20,
+		"uploadMbps": 2
+	},
+	"cpuThrottle": 3,
+	"fixedPostRenderWaitMs": 1500,
+	"compression": "Brotli Q4 response bodies; no cache",
+	"replicates": [
+		{
+			"id": "prior-dist-replicate-1",
+			"compilerDistHash": "6c94b0f76d089ddc1aa6a87283a193e3e2e9166a7ec5b6726e35766b3cb4253f",
+			"paraglideMainSha256": "3cd8e7bb5b47ee866fab712939e4057580834498ba39a1196f579c6849bebda6",
+			"nativeMainSha256": "a78f19ef995d7f05a0e41dad028cfb528166df8101629f54a5503525feaef61d",
+			"results": [
+				{
+					"variant": "native",
+					"trial": 0,
+					"fcpMs": 796,
+					"lcpMs": 796,
+					"longTaskMs": 56,
+					"elapsedToSampleMs": 2313,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "native",
+					"trial": 1,
+					"fcpMs": 764,
+					"lcpMs": 764,
+					"longTaskMs": 56,
+					"elapsedToSampleMs": 2270,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "native",
+					"trial": 2,
+					"fcpMs": 776,
+					"lcpMs": 776,
+					"longTaskMs": 61,
+					"elapsedToSampleMs": 2281,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "native",
+					"trial": 3,
+					"fcpMs": 752,
+					"lcpMs": 752,
+					"longTaskMs": 54,
+					"elapsedToSampleMs": 2268,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "native",
+					"trial": 4,
+					"fcpMs": 760,
+					"lcpMs": 760,
+					"longTaskMs": 57,
+					"elapsedToSampleMs": 2277,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 0,
+					"fcpMs": 560,
+					"lcpMs": 560,
+					"longTaskMs": 60,
+					"elapsedToSampleMs": 2074,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 1,
+					"fcpMs": 548,
+					"lcpMs": 548,
+					"longTaskMs": 59,
+					"elapsedToSampleMs": 2061,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 2,
+					"fcpMs": 528,
+					"lcpMs": 528,
+					"longTaskMs": 0,
+					"elapsedToSampleMs": 2042,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 3,
+					"fcpMs": 548,
+					"lcpMs": 548,
+					"longTaskMs": 60,
+					"elapsedToSampleMs": 2066,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 4,
+					"fcpMs": 544,
+					"lcpMs": 544,
+					"longTaskMs": 60,
+					"elapsedToSampleMs": 2058,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				}
+			],
+			"summary": {
+				"native": {
+					"fcpMs": 764,
+					"lcpMs": 764,
+					"transferBytes": 1004360
+				},
+				"paraglide": {
+					"fcpMs": 548,
+					"lcpMs": 548,
+					"transferBytes": 486230
+				}
+			},
+			"parity": [
+				{
+					"trial": 0,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				},
+				{
+					"trial": 1,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				},
+				{
+					"trial": 2,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				},
+				{
+					"trial": 3,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				},
+				{
+					"trial": 4,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				}
+			]
+		},
+		{
+			"id": "prior-dist-replicate-2",
+			"compilerDistHash": "6c94b0f76d089ddc1aa6a87283a193e3e2e9166a7ec5b6726e35766b3cb4253f",
+			"paraglideMainSha256": "3cd8e7bb5b47ee866fab712939e4057580834498ba39a1196f579c6849bebda6",
+			"nativeMainSha256": "a78f19ef995d7f05a0e41dad028cfb528166df8101629f54a5503525feaef61d",
+			"results": [
+				{
+					"variant": "native",
+					"trial": 0,
+					"fcpMs": 792,
+					"lcpMs": 792,
+					"longTaskMs": 55,
+					"elapsedToSampleMs": 2312,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "native",
+					"trial": 1,
+					"fcpMs": 780,
+					"lcpMs": 780,
+					"longTaskMs": 63,
+					"elapsedToSampleMs": 2298,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "native",
+					"trial": 2,
+					"fcpMs": 776,
+					"lcpMs": 776,
+					"longTaskMs": 68,
+					"elapsedToSampleMs": 2279,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "native",
+					"trial": 3,
+					"fcpMs": 780,
+					"lcpMs": 780,
+					"longTaskMs": 62,
+					"elapsedToSampleMs": 2299,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "native",
+					"trial": 4,
+					"fcpMs": 772,
+					"lcpMs": 772,
+					"longTaskMs": 60,
+					"elapsedToSampleMs": 2279,
+					"transferBytes": 1004360,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 0,
+					"fcpMs": 552,
+					"lcpMs": 552,
+					"longTaskMs": 0,
+					"elapsedToSampleMs": 2072,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 1,
+					"fcpMs": 572,
+					"lcpMs": 572,
+					"longTaskMs": 53,
+					"elapsedToSampleMs": 2082,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 2,
+					"fcpMs": 516,
+					"lcpMs": 516,
+					"longTaskMs": 0,
+					"elapsedToSampleMs": 2029,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 3,
+					"fcpMs": 528,
+					"lcpMs": 528,
+					"longTaskMs": 0,
+					"elapsedToSampleMs": 2044,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				},
+				{
+					"variant": "paraglide",
+					"trial": 4,
+					"fcpMs": 528,
+					"lcpMs": 528,
+					"longTaskMs": 0,
+					"elapsedToSampleMs": 2042,
+					"transferBytes": 486230,
+					"text": "Bienvenue\nCommencer",
+					"pageErrors": []
+				}
+			],
+			"summary": {
+				"native": {
+					"fcpMs": 780,
+					"lcpMs": 780,
+					"transferBytes": 1004360
+				},
+				"paraglide": {
+					"fcpMs": 528,
+					"lcpMs": 528,
+					"transferBytes": 486230
+				}
+			},
+			"parity": [
+				{
+					"trial": 0,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				},
+				{
+					"trial": 1,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				},
+				{
+					"trial": 2,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				},
+				{
+					"trial": 3,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				},
+				{
+					"trial": 4,
+					"equal": true,
+					"nativeChars": 19,
+					"paraglideChars": 19
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,63 @@
+{
+  "experiment": "AnythingLLM full i18next-to-Paraglide production migration",
+  "app": {
+    "repository": "Mintplex-Labs/anything-llm",
+    "commit": "2a10d052a1812d7be12c43f9024072cf26a27a8b",
+    "frontendLockfile": "frontend/yarn.lock",
+    "frontendLockfileSha256": "1622f738d1f4b375743063f17dcdf18113b4b4e005cfa2bfa98627fd2d3d7eb9",
+    "node": "v22.23.2",
+    "vite": "4.5.3",
+    "i18next": "23.12.1"
+  },
+  "compiler": {
+    "repository": "opral/paraglide-js",
+    "commit": "8445b23b700b933d06c02f30d16a2e3ac4aeb0f6",
+    "trackedAndUntrackedBuildInputsSha256": "ea87f0c2fa5d07b57b5d598a4ad61d04cb17634ef42cb62e89ed7a43aaa276ba",
+    "distSortedFileSha256ManifestSha256": "b4d6868176fbc134bef34d04fc545fbb5fe78e4b43d259ba68f37a29286ca1cd",
+    "distFiles": {
+      "compiler/compile-bundle.js": "5feba2f995a566af61fb7e4a91f9baf5da1e3b68cb876bba80d6ea660826ade2",
+      "bundler-plugins/dispatch-matrix-packer.js": "30936cfb94c7d71fa0b5ad50146443a49e0d542859ae8e2c3cd8d2afa67ee0a8"
+    },
+    "privateCompilerEntry": "compileBundleForVite",
+    "sourceEnv": "Set PARAGLIDE_COMPILER_DIST to the local path of this built dist; scripts do not assume a machine-specific absolute path.",
+    "commitState": "Parent commit plus uncommitted PR3 source; dist hashes identify the measured artifact. See the PR3 compiler commit for the published source.",
+    "publishedSourceCommit": "afaecdb"
+  },
+  "migrationInputs": {
+    "generateScriptSha256": "c2c70f0d8a49df7c9c379c593f4d8b55740839771252256d99db2b6df04625f2",
+    "prepareAppScriptSha256": "624533c21fd277a10b21bac25368095f9e8b8d724395109367958a9bde4f3da1",
+    "generatedCatalogsSha256": "89f89fa7c6d81044cb7933f4565504704c4194e310d34c5b21c6082e64e833fa",
+    "generatedKeyMappingSha256": "665947d19f4648d22e0a45dbfa8afb95a9eaa42e8d5cc08f01c113016f5defbf",
+    "generatedRuntimeSha256": "7d0fc1e3f083918a9ac171c14fa803850f91ec93db8d225a6b2ded773efe7dd0",
+    "paraglideLanguageOptionsHookSha256": "fce3749b666b4b3fd06df264812845996a5949cd9a713e4e9a1fe970501ffac2",
+    "prepareNativeControlScriptSha256": "b33266bd5668ec2ee1eaa2e17fcdfc06057eaf0ac007ef5c27eaad02c01d8bb1",
+    "nativeControlLanguageOptionsHookSha256": "4e4c52aa6f66a560cf26008eb825003eae2c5188b0f295947e5858188bab96ac",
+    "languageDropdownProbeSha256": "bb8a510849747dde04f9aa40791726085f416ecc89d50047508b20c5d9f02e66",
+    "languageProbeFixtureSha256": "0f5b9c077589753c91237d86d1b9983622299dcce61138499bcd335d8d05ab35",
+    "routePerfScriptSha256": "6f48f081c312a352783e4fbdcbeea3be1b4fbfda688fe8c29525925fb7c8a941",
+    "routePerfCrossReplicatesSha256": "04603cfb8cddaf49940dd6d2d6f120295b34150e5cf1d401fdd4e537f3475dc8",
+    "dispatchPackerLogSha256": "4645fcb9e9ecb883822df9a84a34271f3a5998683afd68dba7f3b4578fb61c0a",
+    "instrumentedViteConfigSha256": "089dfbb12a0145bf26aa20e51cf101b439d78c6781bd0b80b051d136536851f8"
+  },
+  "builds": {
+    "nativeInventory": "native-all-modules.json",
+    "nativeMetadataControlInventory": "native-metadata-control-all-modules.json",
+    "paraglideInventory": "paraglide-clean-catalog-metadata-all-modules.json",
+    "paraglideCleanMetadataInventory": "paraglide-clean-catalog-metadata-all-modules.json",
+    "nativeOutputDir": "../anything-native-inventory-complete",
+    "nativeMetadataControlOutputDir": "../anything-native-metadata-control-dist",
+    "paraglideIncompleteOutputDir": "../anything-migration-dist-final-private-wrapper",
+    "paraglideOutputDir": "../anything-migration-dist-clean-catalog-metadata",
+    "finalMainFiles": {
+      "nativeStockIndexSha256": "95b95f5dba219e90028a04134973dcba3ef916c5c1e5d5fa1ec30f1c5e3a583c",
+      "nativeMetadataControlIndexSha256": "a78f19ef995d7f05a0e41dad028cfb528166df8101629f54a5503525feaef61d",
+      "paraglideIndexSha256": "5293716f81f43441ac5552662a3ef3df4a22f517bd94fdee180923bd98c5489e",
+      "nativeMetadataControlInventorySha256": "cc4d35c74a3c78c26055a6b91561a0463274ec3f53333cce0744938f48bf7bcb",
+      "paraglideInventorySha256": "9f36248d416e7cc0ed592d028dc0958c8fa13e266b58f76472d55e8a3337f34c",
+      "routePerfReportSha256": "42d2dcc44ebbc4c78f11088db4ab8636791577f35853efaaaf51b7002518b2d1",
+      "finalModuleBreakdownSha256": "d74903229e7a771d6986345be864ea1a7d04df3f711a38f27c1d0af7c681c43d",
+      "routePerfCrossReplicatesSha256": "04603cfb8cddaf49940dd6d2d6f120295b34150e5cf1d401fdd4e537f3475dc8"
+    }
+  },
+  "hashMethod": "For the compiler dist hash, sort all dist file paths and hash the sha256sum manifest lines. For build-input hash, hash sha256sum manifest lines for paths changed from compiler HEAD plus nonignored untracked files, excluding node_modules and .real-apps."
+}

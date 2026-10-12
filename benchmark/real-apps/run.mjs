@@ -35,7 +35,9 @@ const sourceCommit = execFileSync("git", ["rev-parse", "HEAD"], {
 	encoding: "utf8",
 }).trim();
 const load = (file) => import(pathToFileURL(path.resolve(compiler, file)).href);
-const { compileBundle } = await load("compiler/compile-bundle.js");
+const { compileBundle, compileBundleForVite } = await load(
+	"compiler/compile-bundle.js"
+);
 const outputStructure =
 	process.env.PARAGLIDE_OUTPUT_STRUCTURE ?? "message-modules";
 if (!["message-modules", "locale-modules"].includes(outputStructure)) {
@@ -44,13 +46,13 @@ if (!["message-modules", "locale-modules"].includes(outputStructure)) {
 const output = await load(`compiler/output-structure/${outputStructure}.js`);
 const packerPath = path.resolve(
 	compiler,
-	"bundler-plugins/locale-function-packer.js"
+	`bundler-plugins/${outputStructure === "message-modules" ? "dispatch-matrix-packer" : "locale-function-packer"}.js`
 );
-const packer =
-	outputStructure === "locale-modules" &&
-	(await fs.stat(packerPath).catch(() => null))
-		? await load("bundler-plugins/locale-function-packer.js")
-		: undefined;
+const packer = (await fs.stat(packerPath).catch(() => null))
+	? await load(
+			`bundler-plugins/${outputStructure === "message-modules" ? "dispatch-matrix-packer" : "locale-function-packer"}.js`
+		)
+	: undefined;
 const { createRuntimeFile } = await load("compiler/runtime/create-runtime.js");
 const { defaultCompilerOptions } = await load("compiler/compiler-options.js");
 const { createRegistry } = await load("compiler/registry.js");
@@ -197,12 +199,18 @@ const localeFunctionLocalNames =
 				])
 			)
 		: undefined;
+const bundleCompiler =
+	outputStructure === "message-modules" && packer
+		? compileBundleForVite
+		: compileBundle;
 const compiled = bundles.map((bundle) =>
-	compileBundle({
+	bundleCompiler({
 		bundle,
 		fallbackMap,
 		settings,
 		inlineMessages: outputStructure === "message-modules",
+		viteLocaleDispatch:
+			outputStructure === "message-modules" && Boolean(packer),
 		messageReferenceExpression: output.messageReferenceExpression,
 	})
 );
@@ -335,7 +343,10 @@ for (const library of ["paraglide", "i18next"]) {
 								order: "pre",
 								handler(code, chunk) {
 									const started = performance.now();
-									const packed = packer.packLocaleFunctionChunk(code, {
+									const packed = (
+										packer.packDispatchMatrixChunk ??
+										packer.packLocaleFunctionChunk
+									)(code, {
 										fileName: chunk.fileName,
 									});
 									packingChunks.push({
@@ -429,7 +440,10 @@ const report = {
 	excluded,
 	parityChecks,
 	bundledParityChecks,
-	localeFunctionPacking: Boolean(packer),
+	localeFunctionPacking:
+		outputStructure === "locale-modules" && Boolean(packer),
+	dispatchMatrixPacking:
+		outputStructure === "message-modules" && Boolean(packer),
 	packingChunks,
 	switchChecks,
 	catalogHash,

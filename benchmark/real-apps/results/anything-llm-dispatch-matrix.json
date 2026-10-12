@@ -1,0 +1,71 @@
+{
+	"app": "anything-llm",
+	"label": "dispatch-matrix",
+	"outputStructure": "message-modules",
+	"checkout": "/root/repos-iii/paraglide-real-apps/.real-apps/anything-llm-source",
+	"sourceCommit": "2a10d052a1812d7be12c43f9024072cf26a27a8b",
+	"i18nextVersion": "23.12.1",
+	"compiler": "/root/repos-iii/paraglide-dispatch-pr3/dist",
+	"node": "v22.23.2",
+	"viteVersion": "4.5.3",
+	"locales": 31,
+	"keys": 1254,
+	"included": 1248,
+	"excluded": [
+		"chat_window.source_count_one",
+		"chat_window.source_count_other",
+		"connectors.directory.search-results_one",
+		"connectors.directory.search-results_other",
+		"connectors.directory.total-documents_one",
+		"connectors.directory.total-documents_other"
+	],
+	"parityChecks": 38688,
+	"bundledParityChecks": {
+		"paraglide": 38688,
+		"i18next": 38688
+	},
+	"localeFunctionPacking": false,
+	"dispatchMatrixPacking": true,
+	"packingChunks": [
+		{
+			"fileName": "assets/paraglide-entry-!~{001}~.js",
+			"inputBytes": 7152955,
+			"changed": true,
+			"milliseconds": 231.26881000000003
+		}
+	],
+	"switchChecks": 4992,
+	"catalogHash": "df2ebad8987a4c3585133b789aecf153b15441f3385661f85a0e6aebdd37df73",
+	"nativeResourceHash": "889f114991ac5633ad62f25ef74c20e3a35f8fb77010c6cd78672b878572ad09",
+	"nativeResourceStructure": "source hierarchy and property order; excluded keys removed on both sides",
+	"compilerArtifactHash": "e2b5ad68821ff962ea8ca348c52df6993e2478feb8e7c4c8bb4a204dfd0e54bc",
+	"scope": "isolated catalog JS with app-native Vite; six plural keys excluded; string parity does not validate React Trans",
+	"sizes": {
+		"paraglide": {
+			"raw": 2089098,
+			"gzip": 556916,
+			"brotli": 454032
+		},
+		"i18next": {
+			"raw": 2537186,
+			"gzip": 725623,
+			"brotli": 511597
+		}
+	},
+	"microsecondsPerTranslation": {
+		"paraglide": 0.36097389999995355,
+		"i18next": 1.9341339000000517
+	},
+	"rounds": {
+		"paraglide": [
+			0.3471600000000763, 0.3478984000001219, 0.35867269999998824,
+			0.36017140000003567, 0.36097389999995355, 0.36181759999999485,
+			0.3713044000000082, 0.377990999999929, 0.3850452000000587
+		],
+		"i18next": [
+			1.9254875999999057, 1.9304560000000492, 1.9305480999999418,
+			1.931459900000118, 1.9341339000000517, 1.9383077000000413,
+			1.9390341000000262, 1.9578263999999765, 1.9713969000000362
+		]
+	}
+}

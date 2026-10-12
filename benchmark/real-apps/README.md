@@ -1,6 +1,6 @@
 # Real i18next catalog experiments
 
-These experiments run real catalog text through Paraglide's compiler and **Vite 8 production minification and tree shaking**, then check translation equality and count emitted JavaScript bytes after gzip/Brotli compression. Source-code shortening that Vite already performs does not count as an improvement.
+These experiments run real catalog text through Paraglide's compiler and **Vite production minification and tree shaking**, then check translation equality and count emitted JavaScript bytes after gzip/Brotli compression. Source-code shortening that Vite already performs does not count as an improvement.
 
 The complete-catalog workload deliberately keeps every key reachable, so it measures isolated localization JS rather than a production page. DrawDB embeds all locales in production. Memos dynamically loads locales: its all-locales workload is a stress test, not an initial-page comparison. The native comparator preserves source catalog hierarchy and property order; flattened paths are used only to build compiler messages. The runner fails closed on unsupported syntax; it excludes two plural keys from Memos on both sides. This adapter is benchmark scaffolding, not a supported i18next migration tool.
 
@@ -59,3 +59,7 @@ The second draft's same-layout locale packing results and production fallback li
 ## Third app: AnythingLLM
 
 `anything-llm-results.md` records the pinned eager-loading app, a native French onboarding route, and four isolated catalog variants using the app's actual Vite 4.5.3 and i18next 23.12.1. The runner accepts `anything-llm` and selects that checkout's installed Vite. Six plural keys are excluded symmetrically; string parity does not establish React `<Trans>` rendering parity or a whole-app migration.
+
+## Default dispatcher matrices and production migration
+
+The third draft packs surviving default-layout static dispatchers after tree shaking. [dispatch-matrix-results.md](dispatch-matrix-results.md) records the three component gates and the full AnythingLLM onboarding comparison. The production route saves 51.6% of same-origin subresource transfer versus its pinned native i18next control; that counter includes response headers and excludes the HTML document. Follow [anything-migration/README.md](anything-migration/README.md) for the separate full-app replay. Component figures and route figures have different denominators.

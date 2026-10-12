@@ -1,0 +1,64 @@
+{
+	"app": "drawdb",
+	"label": "dispatch-matrix",
+	"outputStructure": "message-modules",
+	"checkout": "/root/repos-iii/i18n-app-drawdb",
+	"sourceCommit": "351bd6050692d5b7d7fb50cc283ef90a19d817ea",
+	"i18nextVersion": "23.16.8",
+	"compiler": "/root/repos-iii/paraglide-dispatch-pr3/dist",
+	"node": "v22.23.2",
+	"viteVersion": "8.1.4",
+	"locales": 51,
+	"keys": 364,
+	"included": 364,
+	"excluded": [],
+	"parityChecks": 18564,
+	"bundledParityChecks": {
+		"paraglide": 18564,
+		"i18next": 18564
+	},
+	"localeFunctionPacking": false,
+	"dispatchMatrixPacking": true,
+	"packingChunks": [
+		{
+			"fileName": "assets/paraglide-entry-!~{000}~.js",
+			"inputBytes": 2111914,
+			"changed": true,
+			"milliseconds": 204.54051700000002
+		}
+	],
+	"switchChecks": 2184,
+	"catalogHash": "d634aa890da3d26ed44622fa4fa4818ea400084ba80d15538d5fd9d03f4d4e5f",
+	"nativeResourceHash": "39d732c92d98957e5e2053ee254acc6bac6488cbf9a52a1f6b41bb144faa9b26",
+	"nativeResourceStructure": "source hierarchy and property order; excluded keys removed on both sides",
+	"compilerArtifactHash": "e2b5ad68821ff962ea8ca348c52df6993e2478feb8e7c4c8bb4a204dfd0e54bc",
+	"scope": "complete-catalog isolated JS; Memos is an all-locales stress workload, not its lazy production loading",
+	"sizes": {
+		"paraglide": {
+			"raw": 866006,
+			"gzip": 242488,
+			"brotli": 178922
+		},
+		"i18next": {
+			"raw": 1067257,
+			"gzip": 258253,
+			"brotli": 208875
+		}
+	},
+	"microsecondsPerTranslation": {
+		"paraglide": 0.9455585000000155,
+		"i18next": 2.3551426999999876
+	},
+	"rounds": {
+		"paraglide": [
+			0.8441507000000001, 0.9206095999999889, 0.9434925999999906,
+			0.9437271000000237, 0.9455585000000155, 0.9655179999999746,
+			0.9703039999999874, 0.9822344999999586, 1.5004141000000346
+		],
+		"i18next": [
+			2.1006140000000415, 2.1275116000000254, 2.252251200000001,
+			2.313550499999974, 2.3551426999999876, 2.466149600000017,
+			2.531733899999972, 2.699365200000011, 2.7392871999999895
+		]
+	}
+}

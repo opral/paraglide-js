@@ -1,0 +1,64 @@
+{
+	"app": "memos",
+	"label": "dispatch-matrix",
+	"outputStructure": "message-modules",
+	"checkout": "/root/repos-iii/i18n-app-memos",
+	"sourceCommit": "a668bb8f7e3652be029459bc80bd3bffb86f0542",
+	"i18nextVersion": "26.3.6",
+	"compiler": "/root/repos-iii/paraglide-dispatch-pr3/dist",
+	"node": "v22.23.2",
+	"viteVersion": "8.1.4",
+	"locales": 46,
+	"keys": 913,
+	"included": 911,
+	"excluded": ["setting.sso.scope-count_one", "setting.sso.scope-count_other"],
+	"parityChecks": 41906,
+	"bundledParityChecks": {
+		"paraglide": 41906,
+		"i18next": 41906
+	},
+	"localeFunctionPacking": false,
+	"dispatchMatrixPacking": true,
+	"packingChunks": [
+		{
+			"fileName": "assets/paraglide-entry-!~{000}~.js",
+			"inputBytes": 4686500,
+			"changed": true,
+			"milliseconds": 241.47791099999995
+		}
+	],
+	"switchChecks": 7288,
+	"catalogHash": "32f4f680f203598f09a3eeb50be30c999da47dc2dedd2fe2153b7901a371c0f2",
+	"nativeResourceHash": "eeab6a82097539451a20ae4f0bd925956e17b81959917468dfcd35d2f0287c2f",
+	"nativeResourceStructure": "source hierarchy and property order; excluded keys removed on both sides",
+	"compilerArtifactHash": "e2b5ad68821ff962ea8ca348c52df6993e2478feb8e7c4c8bb4a204dfd0e54bc",
+	"scope": "complete-catalog isolated JS; Memos is an all-locales stress workload, not its lazy production loading",
+	"sizes": {
+		"paraglide": {
+			"raw": 1944426,
+			"gzip": 546884,
+			"brotli": 412016
+		},
+		"i18next": {
+			"raw": 2516840,
+			"gzip": 756921,
+			"brotli": 473359
+		}
+	},
+	"microsecondsPerTranslation": {
+		"paraglide": 0.7018671000000722,
+		"i18next": 3.7161847000000305
+	},
+	"rounds": {
+		"paraglide": [
+			0.6631833999999799, 0.6655839000000014, 0.671422900000016,
+			0.6976623000000473, 0.7018671000000722, 0.7209389999999984,
+			0.72842899999996, 0.7466394000000036, 0.9738526999999522
+		],
+		"i18next": [
+			3.4676362000000154, 3.5868244000000233, 3.635820499999954,
+			3.64197209999993, 3.7161847000000305, 3.733867900000041,
+			3.7530400000000554, 3.930201299999953, 3.9398363999999675
+		]
+	}
+}

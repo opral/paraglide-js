@@ -1,0 +1,200 @@
+import { defineConfig } from "vite"
+import { fileURLToPath, pathToFileURL, URL } from "url"
+import { resolve } from "node:path"
+import postcss from "./postcss.config.js"
+import react from "@vitejs/plugin-react"
+import dns from "dns"
+import fs from "node:fs/promises"
+import { parse } from "acorn"
+import { visualizer } from "rollup-plugin-visualizer"
+
+const compilerDist = process.env.PARAGLIDE_COMPILER_DIST
+if (!compilerDist) throw new Error("Set PARAGLIDE_COMPILER_DIST to the built Paraglide dist directory")
+const { packDispatchMatrixChunk } = await import(pathToFileURL(resolve(compilerDist, "bundler-plugins/dispatch-matrix-packer.js")).href)
+
+dns.setDefaultResultOrder("verbatim")
+const packLog = fileURLToPath(new URL("./dispatch-packer-log.ndjson", import.meta.url))
+await fs.writeFile(packLog, "")
+
+function isNode(value) {
+  return typeof value === "object" && value !== null && typeof value.type === "string" && typeof value.start === "number" && typeof value.end === "number";
+}
+function array(value) { return Array.isArray(value) ? value.filter(isNode) : []; }
+function packedDispatcher(init) {
+  if (!isNode(init) || init.type !== "ArrowFunctionExpression" || init.async || init.generator || !isNode(init.body) || init.body.type !== "BlockStatement") return;
+  const body = array(init.body.body);
+  const firstIf = body.findIndex((statement) => statement.type === "IfStatement");
+  if (firstIf < 1) return;
+  let marker, baseLocale;
+  for (const statement of body.slice(0, firstIf)) {
+    if (statement.type === "ExpressionStatement" && isNode(statement.expression) && statement.expression.type === "UnaryExpression" && statement.expression.operator === "void" && isNode(statement.expression.argument) && statement.expression.argument.type === "Identifier" && statement.expression.argument.name === "inputs") continue;
+    if (marker !== undefined || statement.type !== "VariableDeclaration") return;
+    const declarations = array(statement.declarations);
+    if (declarations.length !== 1 || !isNode(declarations[0].id) || declarations[0].id.type !== "Identifier" || !declarations[0].id.name.startsWith("__paraglide_dispatch_locale_")) return;
+    marker = declarations[0].id.name;
+    const encoded = marker.slice("__paraglide_dispatch_locale_".length);
+    const m = /^l(\d+)_(.+)$/.exec(encoded);
+    if (!m) return;
+    const pieces = m[2].split("_");
+    if (pieces.length !== Number(m[1])) return;
+    baseLocale = pieces.map((piece) => String.fromCodePoint(parseInt(piece, 16))).join("");
+  }
+  if (!marker || !baseLocale) return;
+  const tail = body.slice(firstIf);
+  const last = tail.pop();
+  const textOf = (statement) => isNode(statement) && statement.type === "ReturnStatement" && isNode(statement.argument) && statement.argument.type === "Literal" && typeof statement.argument.value === "string" ? statement.argument.value : undefined;
+  const baseText = textOf(last);
+  if (baseText === undefined) return;
+  const locales = [baseLocale], texts = [baseText];
+  for (const statement of tail) {
+    if (statement.type !== "IfStatement" || statement.alternate !== null || !isNode(statement.test) || statement.test.type !== "BinaryExpression" || statement.test.operator !== "===" || !isNode(statement.test.left) || statement.test.left.type !== "Identifier" || statement.test.left.name !== marker || !isNode(statement.test.right) || statement.test.right.type !== "Literal" || typeof statement.test.right.value !== "string") return;
+    const text = textOf(statement.consequent);
+    if (text === undefined || locales.includes(statement.test.right.value)) return;
+    locales.push(statement.test.right.value);
+    texts.push(text);
+  }
+  return { locales, texts };
+}
+function inspectDispatchers(code) {
+  let ast;
+  try { ast = parse(code, { ecmaVersion: "latest", sourceType: "module", allowHashBang: true }); } catch { return { markerCount: (code.match(/__paraglide_dispatch_locale_/g) || []).length, directEvalCalls: 0, withStatements: 0, candidates: 0, groups: [], parseFailed: true }; }
+  let directEvalCalls = 0, withStatements = 0;
+  const walk = (value) => {
+    if (!isNode(value)) return;
+    if (value.type === "WithStatement") withStatements++;
+    if (value.type === "CallExpression" && isNode(value.callee) && value.callee.type === "Identifier" && value.callee.name === "eval") directEvalCalls++;
+    for (const child of Object.values(value)) {
+      if (Array.isArray(child)) for (const item of child) walk(item);
+      else if (isNode(child)) walk(child);
+    }
+  };
+  walk(ast);
+  const groups = new Map();
+  for (const statement of array(ast.body)) {
+    const declaration = statement.type === "ExportNamedDeclaration" ? statement.declaration : statement;
+    if (!isNode(declaration) || declaration.type !== "VariableDeclaration") continue;
+    for (const binding of array(declaration.declarations)) {
+      const info = packedDispatcher(binding.init);
+      if (!info) continue;
+      const key = JSON.stringify(info.locales);
+      const group = groups.get(key) || { locales: info.locales, texts: [] };
+      group.texts.push(info.texts);
+      groups.set(key, group);
+    }
+  }
+  return { markerCount: (code.match(/__paraglide_dispatch_locale_/g) || []).length, directEvalCalls, withStatements, candidates: [...groups.values()].reduce((n, g) => n + g.texts.length, 0), groups: [...groups.values()].map((g) => {
+    const distinctTexts = g.locales.some((_, i) => new Set(g.texts.map((t) => t[i])).size > 1);
+    const qualifies = g.texts.length >= 32 && g.locales.length >= 8 && distinctTexts;
+    return { localeCount: g.locales.length, functions: g.texts.length, qualifies, reason: qualifies ? undefined : g.texts.length < 32 ? "below-32-helper-threshold" : g.locales.length < 8 ? "below-8-locale-threshold" : "all-locales-have-identical-text" };
+  }) };
+}
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  assetsInclude: [
+    './public/piper/ort-wasm-simd-threaded.wasm',
+    './public/piper/piper_phonemize.wasm',
+    './public/piper/piper_phonemize.data',
+  ],
+  worker: {
+    format: 'es'
+  },
+  server: {
+    port: 3000,
+    host: "localhost"
+  },
+  define: {
+    "process.env": process.env
+  },
+  css: {
+    postcss
+  },
+  plugins: [
+    {
+      name: "anything-paraglide-dispatch-matrix-scratch",
+      renderChunk: {
+        order: "pre",
+        async handler(code, chunk, outputOptions) {
+          const hasMarker = code.includes("__paraglide_dispatch_locale_");
+          const inspection = hasMarker ? inspectDispatchers(code) : { markerCount: 0, directEvalCalls: 0, withStatements: 0, candidates: 0, groups: [] };
+          const evalBail = inspection.directEvalCalls > 0 || inspection.withStatements > 0;
+          const packed = packDispatchMatrixChunk(code, {
+            fileName: chunk.fileName,
+            sourcemap: outputOptions.sourcemap,
+          });
+          if (inspection.markerCount || evalBail || inspection.parseFailed) {
+            await fs.appendFile(packLog, JSON.stringify({
+              fileName: chunk.fileName,
+              inputBytes: Buffer.byteLength(code),
+              outputBytes: Buffer.byteLength(packed?.code ?? code),
+              changed: packed !== null,
+              markerCount: inspection.markerCount,
+              candidates: inspection.candidates,
+              groups: inspection.groups,
+              evalBail,
+              directEvalCalls: inspection.directEvalCalls,
+              withStatements: inspection.withStatements,
+              reason: packed ? undefined : evalBail ? "direct eval or with statement; pass conservatively bails the entire chunk" : inspection.parseFailed ? "chunk parser rejected the source" : inspection.candidates === 0 ? "no fully static supported dispatchers survived tree-shaking" : "no group met the minimum 32-helper, 8-locale, and distinct-text thresholds",
+            }) + "\n");
+          }
+          return packed;
+        },
+      },
+    },
+    react(),
+    visualizer({
+      template: "treemap", // or sunburst
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
+      filename: "bundleinspector.html" // will be saved in project's root
+    })
+  ],
+  resolve: {
+    alias: [
+      {
+        find: "@",
+        replacement: fileURLToPath(new URL("./src", import.meta.url))
+      },
+      {
+        process: "process/browser",
+        stream: "stream-browserify",
+        zlib: "browserify-zlib",
+        util: "util",
+        find: /^~.+/,
+        replacement: (val) => {
+          return val.replace(/^~/, "")
+        }
+      }
+    ]
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // These settings ensure the primary JS and CSS file references are always index.{js,css}
+        // so we can SSR the index.html as text response from server/index.js without breaking references each build.
+        entryFileNames: 'index.js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'index.css') return `index.css`;
+          return assetInfo.name;
+        },
+      },
+      external: [
+        // Reduces transformation time by 50% and we don't even use this variant, so we can ignore.
+        /@phosphor-icons\/react\/dist\/ssr/,
+      ]
+    },
+    commonjsOptions: {
+      transformMixedEsModules: true
+    }
+  },
+  optimizeDeps: {
+    include: ["@mintplex-labs/piper-tts-web"],
+    esbuildOptions: {
+      define: {
+        global: "globalThis"
+      },
+      plugins: []
+    }
+  }
+})

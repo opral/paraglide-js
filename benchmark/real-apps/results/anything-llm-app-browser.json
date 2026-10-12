@@ -1,0 +1,176 @@
+{
+	"source": "2a10d052a1812d7be12c43f9024072cf26a27a8b",
+	"route": "/onboarding",
+	"locale": "fr-FR",
+	"browser": "143.0.7499.4",
+	"network": {
+		"latencyMs": 80,
+		"downloadMbps": 20,
+		"uploadMbps": 2
+	},
+	"cpuThrottle": 3,
+	"trials": 5,
+	"fixedPostRenderWaitMs": 1500,
+	"compression": "Brotli Q4 response bodies; no cache",
+	"results": [
+		{
+			"variant": "native",
+			"trial": 0,
+			"fcpMs": 796,
+			"lcpMs": 796,
+			"longTaskMs": 57,
+			"transferBytes": 1004360,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2318
+		},
+		{
+			"variant": "paraglide",
+			"trial": 0,
+			"fcpMs": 548,
+			"lcpMs": 548,
+			"longTaskMs": 0,
+			"transferBytes": 486178,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2063
+		},
+		{
+			"variant": "paraglide",
+			"trial": 1,
+			"fcpMs": 528,
+			"lcpMs": 528,
+			"longTaskMs": 0,
+			"transferBytes": 486178,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2044
+		},
+		{
+			"variant": "native",
+			"trial": 1,
+			"fcpMs": 760,
+			"lcpMs": 760,
+			"longTaskMs": 57,
+			"transferBytes": 1004360,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2279
+		},
+		{
+			"variant": "native",
+			"trial": 2,
+			"fcpMs": 764,
+			"lcpMs": 764,
+			"longTaskMs": 57,
+			"transferBytes": 1004360,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2271
+		},
+		{
+			"variant": "paraglide",
+			"trial": 2,
+			"fcpMs": 532,
+			"lcpMs": 532,
+			"longTaskMs": 0,
+			"transferBytes": 486178,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2052
+		},
+		{
+			"variant": "paraglide",
+			"trial": 3,
+			"fcpMs": 532,
+			"lcpMs": 532,
+			"longTaskMs": 0,
+			"transferBytes": 486178,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2049
+		},
+		{
+			"variant": "native",
+			"trial": 3,
+			"fcpMs": 756,
+			"lcpMs": 756,
+			"longTaskMs": 57,
+			"transferBytes": 1004360,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2275
+		},
+		{
+			"variant": "native",
+			"trial": 4,
+			"fcpMs": 776,
+			"lcpMs": 776,
+			"longTaskMs": 73,
+			"transferBytes": 1004360,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2294
+		},
+		{
+			"variant": "paraglide",
+			"trial": 4,
+			"fcpMs": 528,
+			"lcpMs": 528,
+			"longTaskMs": 0,
+			"transferBytes": 486178,
+			"text": "Bienvenue\nCommencer",
+			"pageErrors": [],
+			"elapsedToSampleMs": 2043
+		}
+	],
+	"summary": {
+		"native": {
+			"fcpMs": 764,
+			"lcpMs": 764,
+			"longTaskMs": 57,
+			"transferBytes": 1004360,
+			"elapsedToSampleMs": 2279
+		},
+		"paraglide": {
+			"fcpMs": 532,
+			"lcpMs": 532,
+			"longTaskMs": 0,
+			"transferBytes": 486178,
+			"elapsedToSampleMs": 2049
+		}
+	},
+	"parity": [
+		{
+			"trial": 0,
+			"equal": true,
+			"nativeChars": 19,
+			"paraglideChars": 19
+		},
+		{
+			"trial": 1,
+			"equal": true,
+			"nativeChars": 19,
+			"paraglideChars": 19
+		},
+		{
+			"trial": 2,
+			"equal": true,
+			"nativeChars": 19,
+			"paraglideChars": 19
+		},
+		{
+			"trial": 3,
+			"equal": true,
+			"nativeChars": 19,
+			"paraglideChars": 19
+		},
+		{
+			"trial": 4,
+			"equal": true,
+			"nativeChars": 19,
+			"paraglideChars": 19
+		}
+	],
+	"failures": []
+}
