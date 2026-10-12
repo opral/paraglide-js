@@ -1,0 +1,270 @@
+{
+  "createdAt": "2026-10-12T18:07:48.088Z",
+  "method": "Recomputed from frozen Playwright resource traces. Static shipped assets include /_app/, /assets/, and /static/ resources; document HTML, mocked /api/config, and the harness's /ws/socket.io response are excluded. Full-route totals remain in parallel. All bytes use Brotli Q4 local server encoding from the original traces.",
+  "controls": {
+    "nativeFull": {
+      "traceFile": "openwebui-auth-ab-corrected-10pairs.json",
+      "variant": "native-es2022",
+      "trialCount": 10,
+      "fullRoute": {
+        "encodedBodyBytes": 1311085,
+        "transferBytes": 1330585,
+        "decodedBodyBytes": 2590672,
+        "resourceCount": 65,
+        "translatedReadyMs": 1370.5
+      },
+      "staticShippedAssets": {
+        "encodedBodyBytes": 1304987,
+        "transferBytes": 1323587,
+        "decodedBodyBytes": 2567144,
+        "resourceCount": 62
+      },
+      "otherEndpointResponses": [
+        {
+          "endpoint": "/auth",
+          "requestCountAcrossSamples": 10,
+          "medianEncodedBodyBytes": 2887,
+          "medianTransferBytes": 3187
+        },
+        {
+          "endpoint": "/api/config",
+          "requestCountAcrossSamples": 10,
+          "medianEncodedBodyBytes": 324,
+          "medianTransferBytes": 624
+        },
+        {
+          "endpoint": "/ws/socket.io/",
+          "requestCountAcrossSamples": 12,
+          "medianEncodedBodyBytes": 2887,
+          "medianTransferBytes": 3187
+        }
+      ]
+    },
+    "nativeScoped": {
+      "traceFile": "openwebui-auth-ab-native-scoped-smoke.json",
+      "variant": "native-scoped",
+      "trialCount": 1,
+      "fullRoute": {
+        "encodedBodyBytes": 1194858,
+        "transferBytes": 1214358,
+        "decodedBodyBytes": 2144149,
+        "resourceCount": 65,
+        "translatedReadyMs": 1262
+      },
+      "staticShippedAssets": {
+        "encodedBodyBytes": 1188772,
+        "transferBytes": 1207372,
+        "decodedBodyBytes": 2120621,
+        "resourceCount": 62
+      },
+      "otherEndpointResponses": [
+        {
+          "endpoint": "/auth",
+          "requestCountAcrossSamples": 1,
+          "medianEncodedBodyBytes": 2881,
+          "medianTransferBytes": 3181
+        },
+        {
+          "endpoint": "/api/config",
+          "requestCountAcrossSamples": 1,
+          "medianEncodedBodyBytes": 324,
+          "medianTransferBytes": 624
+        },
+        {
+          "endpoint": "/ws/socket.io/",
+          "requestCountAcrossSamples": 1,
+          "medianEncodedBodyBytes": 2881,
+          "medianTransferBytes": 3181
+        }
+      ]
+    },
+    "paraglideSplit": {
+      "traceFile": "openwebui-auth-ab-corrected-10pairs.json",
+      "variant": "paraglide-auth-es2022",
+      "trialCount": 10,
+      "fullRoute": {
+        "encodedBodyBytes": 1141881,
+        "transferBytes": 1160781,
+        "decodedBodyBytes": 1941852,
+        "resourceCount": 63,
+        "translatedReadyMs": 1222
+      },
+      "staticShippedAssets": {
+        "encodedBodyBytes": 1135841,
+        "transferBytes": 1153841,
+        "decodedBodyBytes": 1919034,
+        "resourceCount": 60
+      },
+      "otherEndpointResponses": [
+        {
+          "endpoint": "/auth",
+          "requestCountAcrossSamples": 10,
+          "medianEncodedBodyBytes": 2858,
+          "medianTransferBytes": 3158
+        },
+        {
+          "endpoint": "/api/config",
+          "requestCountAcrossSamples": 10,
+          "medianEncodedBodyBytes": 324,
+          "medianTransferBytes": 624
+        },
+        {
+          "endpoint": "/ws/socket.io/",
+          "requestCountAcrossSamples": 10,
+          "medianEncodedBodyBytes": 2858,
+          "medianTransferBytes": 3158
+        }
+      ]
+    },
+    "paraglideDefault": {
+      "traceFile": "openwebui-auth-ab-default-vs-split-smoke.json",
+      "variant": "paraglide-default",
+      "trialCount": 1,
+      "fullRoute": {
+        "encodedBodyBytes": 1228519,
+        "transferBytes": 1246219,
+        "decodedBodyBytes": 2348465,
+        "resourceCount": 59,
+        "translatedReadyMs": 1166
+      },
+      "staticShippedAssets": {
+        "encodedBodyBytes": 1222489,
+        "transferBytes": 1239289,
+        "decodedBodyBytes": 2325647,
+        "resourceCount": 56
+      },
+      "otherEndpointResponses": [
+        {
+          "endpoint": "/auth",
+          "requestCountAcrossSamples": 1,
+          "medianEncodedBodyBytes": 2853,
+          "medianTransferBytes": 3153
+        },
+        {
+          "endpoint": "/api/config",
+          "requestCountAcrossSamples": 1,
+          "medianEncodedBodyBytes": 324,
+          "medianTransferBytes": 624
+        },
+        {
+          "endpoint": "/ws/socket.io/",
+          "requestCountAcrossSamples": 1,
+          "medianEncodedBodyBytes": 2853,
+          "medianTransferBytes": 3153
+        }
+      ]
+    }
+  },
+  "selectedLocaleMessagePayload": {
+    "nativeFull": {
+      "localesLoaded": [
+        {
+          "locale": "fr-FR",
+          "requestPath": "/_app/immutable/chunks/__aXcWf4.js",
+          "encodedBodyBytes": 72194,
+          "transferBytes": 72494
+        },
+        {
+          "locale": "en-US",
+          "requestPath": "/_app/immutable/chunks/C7g3bSvY.js",
+          "encodedBodyBytes": 49217,
+          "transferBytes": 49517
+        }
+      ],
+      "encodedBodyBytes": 121411
+    },
+    "nativeScoped": {
+      "localesLoaded": [
+        {
+          "locale": "fr-FR",
+          "requestPath": "/_app/immutable/chunks/Xs6yuE09.js",
+          "encodedBodyBytes": 2775,
+          "transferBytes": 3075
+        },
+        {
+          "locale": "en-US",
+          "requestPath": "/_app/immutable/chunks/BkMuhPap.js",
+          "encodedBodyBytes": 1604,
+          "transferBytes": 1904
+        }
+      ],
+      "encodedBodyBytes": 4379
+    },
+    "paraglideSplit": {
+      "localeChunks": [
+        {
+          "locale": "en-US",
+          "chunks": [
+            {
+              "requestPath": "/_app/immutable/chunks/Bizt40JX.js",
+              "encodedBodyBytes": 1544,
+              "transferBytes": 1844
+            }
+          ]
+        },
+        {
+          "locale": "fr-FR",
+          "chunks": [
+            {
+              "requestPath": "/_app/immutable/chunks/CG1b9ccW.js",
+              "encodedBodyBytes": 1828,
+              "transferBytes": 2128
+            }
+          ]
+        }
+      ],
+      "uniqueLocaleChunkFiles": [
+        {
+          "requestPath": "/_app/immutable/chunks/Bizt40JX.js",
+          "encodedBodyBytes": 1544,
+          "transferBytes": 1844
+        },
+        {
+          "requestPath": "/_app/immutable/chunks/CG1b9ccW.js",
+          "encodedBodyBytes": 1828,
+          "transferBytes": 2128
+        }
+      ],
+      "encodedBodyBytes": 3372
+    },
+    "paraglideDefault": {
+      "localeChunks": [
+        {
+          "locale": "fr-FR",
+          "chunks": [
+            {
+              "requestPath": "/_app/immutable/chunks/CIrstY1Y.js",
+              "encodedBodyBytes": 97157,
+              "transferBytes": 97457
+            }
+          ]
+        },
+        {
+          "locale": "en-US",
+          "chunks": [
+            {
+              "requestPath": "/_app/immutable/chunks/CIrstY1Y.js",
+              "encodedBodyBytes": 97157,
+              "transferBytes": 97457
+            }
+          ]
+        }
+      ],
+      "uniqueLocaleChunkFiles": [
+        {
+          "requestPath": "/_app/immutable/chunks/CIrstY1Y.js",
+          "encodedBodyBytes": 97157,
+          "transferBytes": 97457
+        }
+      ],
+      "encodedBodyBytes": 97157
+    }
+  },
+  "staticAssetReductionPercent": {
+    "nativeFullToNativeScoped": 8.905,
+    "nativeScopedToParaglideSplit": 4.453,
+    "nativeFullToParaglideSplit": 12.962,
+    "paraglideDefaultToParaglideSplit": 7.088
+  },
+  "interpretation": "The original full-native→split comparison combines auth-route catalog scoping and compiler/runtime integration. Against the same manually scoped 106-key native catalog, the measured split route is below the strict 10% byte threshold. The default-vs-split result is a single graph diagnostic, not a performance sample. Socket polling is served the SPA index fallback; an extra polling request adds an extra copy of the 2.8 KB HTML body and is excluded from static-asset attribution."
+}

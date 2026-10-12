@@ -1,0 +1,1211 @@
+{
+  "date": "2026-10-12T18:01:11.302Z",
+  "browser": "143.0.7499.4",
+  "method": "Pinned Open WebUI production builds, /auth?lang=fr-FR with the same persisted locale key (locale=fr-FR) seeded before navigation in both variants, read-only /api/config fixture, no browser cache/service worker, Brotli-Q4 local static server, 80 ms RTT, 20 Mbps down / 2 Mbps up, 3x CPU. Readiness requires splash removed and French password/login text visible; LCP may still describe the splash, so it is diagnostic only. Variant roots can be supplied with OPENWEBUI_AB_VARIANTS for one-off controls.",
+  "trialCount": 1,
+  "medianMethod": "Conventional median: for even sample counts, arithmetic mean of the two middle sorted values.",
+  "waitAfterReadyMs": 800,
+  "testLocaleNavigation": true,
+  "variants": [
+    {
+      "name": "native-scoped",
+      "root": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-i18next-auth-scoped/build"
+    },
+    {
+      "name": "paraglide-split",
+      "root": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-paraglide-ab-corrected/build"
+    }
+  ],
+  "summary": {
+    "native-scoped": {
+      "readyMs": 1273,
+      "bodyBytes": 1194858,
+      "transferBytes": 1214358,
+      "fcpMs": 952,
+      "lcpMs": 1276,
+      "resourceCount": 65
+    },
+    "paraglide-split": {
+      "readyMs": 1182,
+      "bodyBytes": 1141881,
+      "transferBytes": 1160781,
+      "fcpMs": 872,
+      "lcpMs": 1184,
+      "resourceCount": 63
+    }
+  },
+  "parity": {
+    "pairCount": 1,
+    "allPairsMatch": true,
+    "allTrialsErrorFree": true,
+    "pairs": [
+      {
+        "trial": 0,
+        "completeVisibleText": true,
+        "title": true,
+        "visibleControls": true,
+        "htmlLang": true,
+        "localeNavigation": true,
+        "pageErrors": true
+      }
+    ]
+  },
+  "bodyReductionPercent": 4.434,
+  "transferReductionPercent": 4.412,
+  "readinessReductionPercent": 7.148,
+  "samples": [
+    {
+      "variant": "native-scoped",
+      "trial": 0,
+      "route": "/auth?lang=fr-FR",
+      "ready": true,
+      "readyError": null,
+      "translatedReadyMs": 1273,
+      "htmlLangAtReady": "fr-FR",
+      "splashPresentAtReady": false,
+      "fcpMs": 952,
+      "lcpMs": 1276,
+      "lcpText": "Connectez-vous à Open WebUI",
+      "longTaskMs": 0,
+      "resourceCount": 65,
+      "encodedBodyBytes": 1194858,
+      "transferBytes": 1214358,
+      "decodedBodyBytes": 2144149,
+      "localeResources": [],
+      "pageErrors": [],
+      "visibleText": "Aller au contenu principal\nConnectez-vous à Open WebUI\nE-mail\nMot de passe\nEntrez votre mot de passe\nConnexion",
+      "title": "Open WebUI",
+      "visibleControls": [
+        {
+          "tag": "input",
+          "type": "email",
+          "name": "email",
+          "id": "email",
+          "text": "",
+          "ariaLabel": null,
+          "placeholder": "Entrez votre adresse e-mail",
+          "value": "",
+          "labels": [
+            "E-mail"
+          ]
+        },
+        {
+          "tag": "input",
+          "type": "password",
+          "name": "password",
+          "id": "password",
+          "text": "",
+          "ariaLabel": null,
+          "placeholder": "Entrez votre mot de passe",
+          "value": "",
+          "labels": [
+            "Mot de passe",
+            "Entrez votre mot de passe"
+          ]
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "name": null,
+          "id": null,
+          "text": "",
+          "ariaLabel": "Rendre visible les mots de passe dans l'interface",
+          "placeholder": null,
+          "value": "",
+          "labels": []
+        },
+        {
+          "tag": "button",
+          "type": "submit",
+          "name": null,
+          "id": null,
+          "text": "Connexion",
+          "ariaLabel": null,
+          "placeholder": null,
+          "value": "",
+          "labels": []
+        }
+      ],
+      "localeNavigation": [
+        {
+          "locale": "en-US",
+          "title": "Open WebUI",
+          "language": "en-US",
+          "text": "Skip to main content\nSign in to Open WebUI\nEmail\nPassword\nEnter Your Password\nSign in",
+          "controls": [
+            {
+              "tag": "input",
+              "type": "email",
+              "name": "email",
+              "id": "email",
+              "text": "",
+              "ariaLabel": null,
+              "placeholder": "Enter Your Email",
+              "value": "",
+              "labels": [
+                "Email"
+              ]
+            },
+            {
+              "tag": "input",
+              "type": "password",
+              "name": "password",
+              "id": "password",
+              "text": "",
+              "ariaLabel": null,
+              "placeholder": "Enter Your Password",
+              "value": "",
+              "labels": [
+                "Password",
+                "Enter Your Password"
+              ]
+            },
+            {
+              "tag": "button",
+              "type": "button",
+              "name": null,
+              "id": null,
+              "text": "",
+              "ariaLabel": "Make password visible in the user interface",
+              "placeholder": null,
+              "value": "",
+              "labels": []
+            },
+            {
+              "tag": "button",
+              "type": "submit",
+              "name": null,
+              "id": null,
+              "text": "Sign in",
+              "ariaLabel": null,
+              "placeholder": null,
+              "value": "",
+              "labels": []
+            }
+          ]
+        },
+        {
+          "locale": "fr-FR",
+          "title": "Open WebUI",
+          "language": "fr-FR",
+          "text": "Aller au contenu principal\nConnectez-vous à Open WebUI\nE-mail\nMot de passe\nEntrez votre mot de passe\nConnexion",
+          "controls": [
+            {
+              "tag": "input",
+              "type": "email",
+              "name": "email",
+              "id": "email",
+              "text": "",
+              "ariaLabel": null,
+              "placeholder": "Entrez votre adresse e-mail",
+              "value": "",
+              "labels": [
+                "E-mail"
+              ]
+            },
+            {
+              "tag": "input",
+              "type": "password",
+              "name": "password",
+              "id": "password",
+              "text": "",
+              "ariaLabel": null,
+              "placeholder": "Entrez votre mot de passe",
+              "value": "",
+              "labels": [
+                "Mot de passe",
+                "Entrez votre mot de passe"
+              ]
+            },
+            {
+              "tag": "button",
+              "type": "button",
+              "name": null,
+              "id": null,
+              "text": "",
+              "ariaLabel": "Rendre visible les mots de passe dans l'interface",
+              "placeholder": null,
+              "value": "",
+              "labels": []
+            },
+            {
+              "tag": "button",
+              "type": "submit",
+              "name": null,
+              "id": null,
+              "text": "Connexion",
+              "ariaLabel": null,
+              "placeholder": null,
+              "value": "",
+              "labels": []
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "name": "/auth?lang=fr-FR",
+          "document": true,
+          "transferBytes": 3181,
+          "encodedBytes": 2881,
+          "decodedBytes": 11602
+        },
+        {
+          "name": "/static/loader.js",
+          "transferBytes": 300,
+          "encodedBytes": 0,
+          "decodedBytes": 0
+        },
+        {
+          "name": "/static/custom.css",
+          "transferBytes": 300,
+          "encodedBytes": 0,
+          "decodedBytes": 0
+        },
+        {
+          "name": "/_app/immutable/entry/start.C-e_sAKB.js",
+          "transferBytes": 426,
+          "encodedBytes": 126,
+          "decodedBytes": 126
+        },
+        {
+          "name": "/_app/immutable/chunks/DIeogL5L.js",
+          "transferBytes": 399,
+          "encodedBytes": 99,
+          "decodedBytes": 99
+        },
+        {
+          "name": "/_app/immutable/chunks/pl242Xw5.js",
+          "transferBytes": 11805,
+          "encodedBytes": 11505,
+          "decodedBytes": 29310
+        },
+        {
+          "name": "/_app/immutable/chunks/CXYege5O.js",
+          "transferBytes": 17352,
+          "encodedBytes": 17052,
+          "decodedBytes": 43167
+        },
+        {
+          "name": "/_app/immutable/entry/app.RBR0pUNH.js",
+          "transferBytes": 7228,
+          "encodedBytes": 6928,
+          "decodedBytes": 26000
+        },
+        {
+          "name": "/_app/immutable/chunks/C1FmrZbK.js",
+          "transferBytes": 964,
+          "encodedBytes": 664,
+          "decodedBytes": 1178
+        },
+        {
+          "name": "/_app/immutable/chunks/CGx0NRyk.js",
+          "transferBytes": 1194,
+          "encodedBytes": 894,
+          "decodedBytes": 1673
+        },
+        {
+          "name": "/_app/immutable/chunks/CWj6FrbW.js",
+          "transferBytes": 443,
+          "encodedBytes": 143,
+          "decodedBytes": 143
+        },
+        {
+          "name": "/_app/immutable/chunks/Cufjpljg.js",
+          "transferBytes": 1506,
+          "encodedBytes": 1206,
+          "decodedBytes": 2599
+        },
+        {
+          "name": "/_app/immutable/chunks/Bnp0PqFA.js",
+          "transferBytes": 601,
+          "encodedBytes": 301,
+          "decodedBytes": 409
+        },
+        {
+          "name": "/_app/immutable/chunks/wzXF7qai.js",
+          "transferBytes": 1766,
+          "encodedBytes": 1466,
+          "decodedBytes": 3433
+        },
+        {
+          "name": "/_app/immutable/chunks/69_IOA4Y.js",
+          "transferBytes": 371,
+          "encodedBytes": 71,
+          "decodedBytes": 71
+        },
+        {
+          "name": "/_app/immutable/nodes/0.CJ3gUHML.js",
+          "transferBytes": 23820,
+          "encodedBytes": 23520,
+          "decodedBytes": 64148
+        },
+        {
+          "name": "/_app/immutable/chunks/B0r5eOih.js",
+          "transferBytes": 580,
+          "encodedBytes": 280,
+          "decodedBytes": 361
+        },
+        {
+          "name": "/_app/immutable/chunks/DNtdLgWY.js",
+          "transferBytes": 621,
+          "encodedBytes": 321,
+          "decodedBytes": 430
+        },
+        {
+          "name": "/_app/immutable/chunks/x2Wyhtpx.js",
+          "transferBytes": 3791,
+          "encodedBytes": 3491,
+          "decodedBytes": 7300
+        },
+        {
+          "name": "/_app/immutable/chunks/CcqjQoRt.js",
+          "transferBytes": 668,
+          "encodedBytes": 368,
+          "decodedBytes": 559
+        },
+        {
+          "name": "/_app/immutable/chunks/dm1FmSOd.js",
+          "transferBytes": 13988,
+          "encodedBytes": 13688,
+          "decodedBytes": 41624
+        },
+        {
+          "name": "/_app/immutable/chunks/CoCLUxEM.js",
+          "transferBytes": 2163,
+          "encodedBytes": 1863,
+          "decodedBytes": 3515
+        },
+        {
+          "name": "/_app/immutable/chunks/DZtaNHKJ.js",
+          "transferBytes": 3073,
+          "encodedBytes": 2773,
+          "decodedBytes": 7981
+        },
+        {
+          "name": "/_app/immutable/chunks/Dc_pdFvq.js",
+          "transferBytes": 2580,
+          "encodedBytes": 2280,
+          "decodedBytes": 4474
+        },
+        {
+          "name": "/_app/immutable/chunks/CmycAjxi.js",
+          "transferBytes": 1902,
+          "encodedBytes": 1602,
+          "decodedBytes": 3856
+        },
+        {
+          "name": "/_app/immutable/chunks/DJTje9dM.js",
+          "transferBytes": 4093,
+          "encodedBytes": 3793,
+          "decodedBytes": 14004
+        },
+        {
+          "name": "/_app/immutable/chunks/BfOB3D4i.js",
+          "transferBytes": 109961,
+          "encodedBytes": 109661,
+          "decodedBytes": 322655
+        },
+        {
+          "name": "/_app/immutable/chunks/C3BaahSS.js",
+          "transferBytes": 472,
+          "encodedBytes": 172,
+          "decodedBytes": 264
+        },
+        {
+          "name": "/_app/immutable/chunks/ByxAzw0M.js",
+          "transferBytes": 5692,
+          "encodedBytes": 5392,
+          "decodedBytes": 21591
+        },
+        {
+          "name": "/_app/immutable/chunks/B2185GOa.js",
+          "transferBytes": 15630,
+          "encodedBytes": 15330,
+          "decodedBytes": 48610
+        },
+        {
+          "name": "/_app/immutable/chunks/BT28bLwl.js",
+          "transferBytes": 555,
+          "encodedBytes": 255,
+          "decodedBytes": 370
+        },
+        {
+          "name": "/_app/immutable/chunks/QjJsDpFa.js",
+          "transferBytes": 481,
+          "encodedBytes": 181,
+          "decodedBytes": 309
+        },
+        {
+          "name": "/_app/immutable/chunks/DBWowwe7.js",
+          "transferBytes": 32983,
+          "encodedBytes": 32683,
+          "decodedBytes": 135112
+        },
+        {
+          "name": "/_app/immutable/chunks/B0xt6c5q.js",
+          "transferBytes": 1489,
+          "encodedBytes": 1189,
+          "decodedBytes": 2867
+        },
+        {
+          "name": "/_app/immutable/chunks/xUkezfny.js",
+          "transferBytes": 4836,
+          "encodedBytes": 4536,
+          "decodedBytes": 18804
+        },
+        {
+          "name": "/_app/immutable/chunks/B-s47Vr7.js",
+          "transferBytes": 1436,
+          "encodedBytes": 1136,
+          "decodedBytes": 5615
+        },
+        {
+          "name": "/_app/immutable/chunks/ehCZaPa7.js",
+          "transferBytes": 1475,
+          "encodedBytes": 1175,
+          "decodedBytes": 7410
+        },
+        {
+          "name": "/_app/immutable/chunks/Cojxxu7g.js",
+          "transferBytes": 507,
+          "encodedBytes": 207,
+          "decodedBytes": 207
+        },
+        {
+          "name": "/_app/immutable/chunks/Cki7M4sz.js",
+          "transferBytes": 1496,
+          "encodedBytes": 1196,
+          "decodedBytes": 8529
+        },
+        {
+          "name": "/_app/immutable/chunks/DCgGAj5s.js",
+          "transferBytes": 797,
+          "encodedBytes": 497,
+          "decodedBytes": 765
+        },
+        {
+          "name": "/_app/immutable/chunks/Bfc47y5P.js",
+          "transferBytes": 450,
+          "encodedBytes": 150,
+          "decodedBytes": 271
+        },
+        {
+          "name": "/_app/immutable/chunks/DA2ffBVZ.js",
+          "transferBytes": 516,
+          "encodedBytes": 216,
+          "decodedBytes": 216
+        },
+        {
+          "name": "/_app/immutable/chunks/Kjiznasq.js",
+          "transferBytes": 781,
+          "encodedBytes": 481,
+          "decodedBytes": 772
+        },
+        {
+          "name": "/_app/immutable/chunks/CYQy_S3I.js",
+          "transferBytes": 14524,
+          "encodedBytes": 14224,
+          "decodedBytes": 38156
+        },
+        {
+          "name": "/_app/immutable/chunks/D47E4Gjo.js",
+          "transferBytes": 1756,
+          "encodedBytes": 1456,
+          "decodedBytes": 2887
+        },
+        {
+          "name": "/_app/immutable/chunks/CktS3eDT.js",
+          "transferBytes": 9882,
+          "encodedBytes": 9582,
+          "decodedBytes": 28888
+        },
+        {
+          "name": "/_app/immutable/chunks/KpHH8Gt8.js",
+          "transferBytes": 913,
+          "encodedBytes": 613,
+          "decodedBytes": 998
+        },
+        {
+          "name": "/_app/immutable/chunks/DmXPHsgA.js",
+          "transferBytes": 638,
+          "encodedBytes": 338,
+          "decodedBytes": 452
+        },
+        {
+          "name": "/_app/immutable/assets/Toaster.DKF17Rty.css",
+          "transferBytes": 3149,
+          "encodedBytes": 2849,
+          "decodedBytes": 13157
+        },
+        {
+          "name": "/_app/immutable/chunks/DSBY8NDW.js",
+          "transferBytes": 3851,
+          "encodedBytes": 3551,
+          "decodedBytes": 9434
+        },
+        {
+          "name": "/_app/immutable/chunks/Ba6P2ZSz.js",
+          "transferBytes": 702,
+          "encodedBytes": 402,
+          "decodedBytes": 592
+        },
+        {
+          "name": "/_app/immutable/chunks/D1IG0J9D.js",
+          "transferBytes": 3392,
+          "encodedBytes": 3092,
+          "decodedBytes": 8807
+        },
+        {
+          "name": "/_app/immutable/chunks/2P5Vc6tI.js",
+          "transferBytes": 1343,
+          "encodedBytes": 1043,
+          "decodedBytes": 8635
+        },
+        {
+          "name": "/_app/immutable/assets/Modal.CSlFhZkq.css",
+          "transferBytes": 488,
+          "encodedBytes": 188,
+          "decodedBytes": 188
+        },
+        {
+          "name": "/_app/immutable/assets/0.D-mUQnkH.css",
+          "transferBytes": 36550,
+          "encodedBytes": 36250,
+          "decodedBytes": 307070
+        },
+        {
+          "name": "/static/splash.png",
+          "transferBytes": 5539,
+          "encodedBytes": 5239,
+          "decodedBytes": 5239
+        },
+        {
+          "name": "/_app/immutable/nodes/1.CmNJLnGw.js",
+          "transferBytes": 743,
+          "encodedBytes": 443,
+          "decodedBytes": 708
+        },
+        {
+          "name": "/_app/immutable/nodes/52.BUoxEQhI.js",
+          "transferBytes": 8375,
+          "encodedBytes": 8075,
+          "decodedBytes": 24160
+        },
+        {
+          "name": "/_app/immutable/chunks/BtnGWiZ0.js",
+          "transferBytes": 2179,
+          "encodedBytes": 1879,
+          "decodedBytes": 3699
+        },
+        {
+          "name": "/api/config",
+          "transferBytes": 624,
+          "encodedBytes": 324,
+          "decodedBytes": 324
+        },
+        {
+          "name": "/_app/immutable/chunks/Xs6yuE09.js",
+          "transferBytes": 3075,
+          "encodedBytes": 2775,
+          "decodedBytes": 6665
+        },
+        {
+          "name": "/assets/fonts/Inter-Variable.ttf",
+          "transferBytes": 804912,
+          "encodedBytes": 804612,
+          "decodedBytes": 804612
+        },
+        {
+          "name": "/_app/immutable/chunks/BkMuhPap.js",
+          "transferBytes": 1904,
+          "encodedBytes": 1604,
+          "decodedBytes": 3781
+        },
+        {
+          "name": "/ws/socket.io/?EIO=4&transport=polling&t=k5yj92z2",
+          "transferBytes": 3181,
+          "encodedBytes": 2881,
+          "decodedBytes": 11602
+        },
+        {
+          "name": "/static/favicon.png",
+          "transferBytes": 21966,
+          "encodedBytes": 21666,
+          "decodedBytes": 21666
+        }
+      ]
+    },
+    {
+      "variant": "paraglide-split",
+      "trial": 0,
+      "route": "/auth?lang=fr-FR",
+      "ready": true,
+      "readyError": null,
+      "translatedReadyMs": 1182,
+      "htmlLangAtReady": "fr-FR",
+      "splashPresentAtReady": false,
+      "fcpMs": 872,
+      "lcpMs": 1184,
+      "lcpText": "Connectez-vous à Open WebUI",
+      "longTaskMs": 0,
+      "resourceCount": 63,
+      "encodedBodyBytes": 1141881,
+      "transferBytes": 1160781,
+      "decodedBodyBytes": 1941852,
+      "localeResources": [],
+      "pageErrors": [],
+      "visibleText": "Aller au contenu principal\nConnectez-vous à Open WebUI\nE-mail\nMot de passe\nEntrez votre mot de passe\nConnexion",
+      "title": "Open WebUI",
+      "visibleControls": [
+        {
+          "tag": "input",
+          "type": "email",
+          "name": "email",
+          "id": "email",
+          "text": "",
+          "ariaLabel": null,
+          "placeholder": "Entrez votre adresse e-mail",
+          "value": "",
+          "labels": [
+            "E-mail"
+          ]
+        },
+        {
+          "tag": "input",
+          "type": "password",
+          "name": "password",
+          "id": "password",
+          "text": "",
+          "ariaLabel": null,
+          "placeholder": "Entrez votre mot de passe",
+          "value": "",
+          "labels": [
+            "Mot de passe",
+            "Entrez votre mot de passe"
+          ]
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "name": null,
+          "id": null,
+          "text": "",
+          "ariaLabel": "Rendre visible les mots de passe dans l'interface",
+          "placeholder": null,
+          "value": "",
+          "labels": []
+        },
+        {
+          "tag": "button",
+          "type": "submit",
+          "name": null,
+          "id": null,
+          "text": "Connexion",
+          "ariaLabel": null,
+          "placeholder": null,
+          "value": "",
+          "labels": []
+        }
+      ],
+      "localeNavigation": [
+        {
+          "locale": "en-US",
+          "title": "Open WebUI",
+          "language": "en-US",
+          "text": "Skip to main content\nSign in to Open WebUI\nEmail\nPassword\nEnter Your Password\nSign in",
+          "controls": [
+            {
+              "tag": "input",
+              "type": "email",
+              "name": "email",
+              "id": "email",
+              "text": "",
+              "ariaLabel": null,
+              "placeholder": "Enter Your Email",
+              "value": "",
+              "labels": [
+                "Email"
+              ]
+            },
+            {
+              "tag": "input",
+              "type": "password",
+              "name": "password",
+              "id": "password",
+              "text": "",
+              "ariaLabel": null,
+              "placeholder": "Enter Your Password",
+              "value": "",
+              "labels": [
+                "Password",
+                "Enter Your Password"
+              ]
+            },
+            {
+              "tag": "button",
+              "type": "button",
+              "name": null,
+              "id": null,
+              "text": "",
+              "ariaLabel": "Make password visible in the user interface",
+              "placeholder": null,
+              "value": "",
+              "labels": []
+            },
+            {
+              "tag": "button",
+              "type": "submit",
+              "name": null,
+              "id": null,
+              "text": "Sign in",
+              "ariaLabel": null,
+              "placeholder": null,
+              "value": "",
+              "labels": []
+            }
+          ]
+        },
+        {
+          "locale": "fr-FR",
+          "title": "Open WebUI",
+          "language": "fr-FR",
+          "text": "Aller au contenu principal\nConnectez-vous à Open WebUI\nE-mail\nMot de passe\nEntrez votre mot de passe\nConnexion",
+          "controls": [
+            {
+              "tag": "input",
+              "type": "email",
+              "name": "email",
+              "id": "email",
+              "text": "",
+              "ariaLabel": null,
+              "placeholder": "Entrez votre adresse e-mail",
+              "value": "",
+              "labels": [
+                "E-mail"
+              ]
+            },
+            {
+              "tag": "input",
+              "type": "password",
+              "name": "password",
+              "id": "password",
+              "text": "",
+              "ariaLabel": null,
+              "placeholder": "Entrez votre mot de passe",
+              "value": "",
+              "labels": [
+                "Mot de passe",
+                "Entrez votre mot de passe"
+              ]
+            },
+            {
+              "tag": "button",
+              "type": "button",
+              "name": null,
+              "id": null,
+              "text": "",
+              "ariaLabel": "Rendre visible les mots de passe dans l'interface",
+              "placeholder": null,
+              "value": "",
+              "labels": []
+            },
+            {
+              "tag": "button",
+              "type": "submit",
+              "name": null,
+              "id": null,
+              "text": "Connexion",
+              "ariaLabel": null,
+              "placeholder": null,
+              "value": "",
+              "labels": []
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "name": "/auth?lang=fr-FR",
+          "document": true,
+          "transferBytes": 3158,
+          "encodedBytes": 2858,
+          "decodedBytes": 11247
+        },
+        {
+          "name": "/static/loader.js",
+          "transferBytes": 300,
+          "encodedBytes": 0,
+          "decodedBytes": 0
+        },
+        {
+          "name": "/static/custom.css",
+          "transferBytes": 300,
+          "encodedBytes": 0,
+          "decodedBytes": 0
+        },
+        {
+          "name": "/_app/immutable/entry/start.C4gosgmF.js",
+          "transferBytes": 426,
+          "encodedBytes": 126,
+          "decodedBytes": 126
+        },
+        {
+          "name": "/_app/immutable/chunks/DusfuHAk.js",
+          "transferBytes": 11212,
+          "encodedBytes": 10912,
+          "decodedBytes": 27463
+        },
+        {
+          "name": "/_app/immutable/chunks/BbrGxCok.js",
+          "transferBytes": 16078,
+          "encodedBytes": 15778,
+          "decodedBytes": 39335
+        },
+        {
+          "name": "/_app/immutable/chunks/DIeogL5L.js",
+          "transferBytes": 399,
+          "encodedBytes": 99,
+          "decodedBytes": 99
+        },
+        {
+          "name": "/_app/immutable/entry/app.DpywP4DA.js",
+          "transferBytes": 7204,
+          "encodedBytes": 6904,
+          "decodedBytes": 25742
+        },
+        {
+          "name": "/_app/immutable/chunks/CmsKOCeN.js",
+          "transferBytes": 952,
+          "encodedBytes": 652,
+          "decodedBytes": 1146
+        },
+        {
+          "name": "/_app/immutable/chunks/BWHCnur5.js",
+          "transferBytes": 973,
+          "encodedBytes": 673,
+          "decodedBytes": 1228
+        },
+        {
+          "name": "/_app/immutable/chunks/NZTpNUN0.js",
+          "transferBytes": 413,
+          "encodedBytes": 113,
+          "decodedBytes": 113
+        },
+        {
+          "name": "/_app/immutable/chunks/yz9SGVpO.js",
+          "transferBytes": 1183,
+          "encodedBytes": 883,
+          "decodedBytes": 1860
+        },
+        {
+          "name": "/_app/immutable/chunks/DfbIWtPp.js",
+          "transferBytes": 600,
+          "encodedBytes": 300,
+          "decodedBytes": 409
+        },
+        {
+          "name": "/_app/immutable/chunks/B0XDtZf2.js",
+          "transferBytes": 1743,
+          "encodedBytes": 1443,
+          "decodedBytes": 3365
+        },
+        {
+          "name": "/_app/immutable/chunks/69_IOA4Y.js",
+          "transferBytes": 371,
+          "encodedBytes": 71,
+          "decodedBytes": 71
+        },
+        {
+          "name": "/_app/immutable/nodes/0.BHmX5OdV.js",
+          "transferBytes": 23293,
+          "encodedBytes": 22993,
+          "decodedBytes": 61120
+        },
+        {
+          "name": "/_app/immutable/chunks/BeSHi7w4.js",
+          "transferBytes": 550,
+          "encodedBytes": 250,
+          "decodedBytes": 338
+        },
+        {
+          "name": "/_app/immutable/chunks/D9BJ_3y1.js",
+          "transferBytes": 621,
+          "encodedBytes": 321,
+          "decodedBytes": 430
+        },
+        {
+          "name": "/_app/immutable/chunks/Dj2WFO15.js",
+          "transferBytes": 668,
+          "encodedBytes": 368,
+          "decodedBytes": 559
+        },
+        {
+          "name": "/_app/immutable/chunks/BpIhTBLI.js",
+          "transferBytes": 3770,
+          "encodedBytes": 3470,
+          "decodedBytes": 7225
+        },
+        {
+          "name": "/_app/immutable/chunks/C88CqF9f.js",
+          "transferBytes": 2108,
+          "encodedBytes": 1808,
+          "decodedBytes": 3312
+        },
+        {
+          "name": "/_app/immutable/chunks/dm1FmSOd.js",
+          "transferBytes": 13988,
+          "encodedBytes": 13688,
+          "decodedBytes": 41624
+        },
+        {
+          "name": "/_app/immutable/chunks/vEV9PLo1.js",
+          "transferBytes": 2900,
+          "encodedBytes": 2600,
+          "decodedBytes": 7558
+        },
+        {
+          "name": "/_app/immutable/chunks/CchbWf7h.js",
+          "transferBytes": 109280,
+          "encodedBytes": 108980,
+          "decodedBytes": 319274
+        },
+        {
+          "name": "/_app/immutable/chunks/CK8LoriR.js",
+          "transferBytes": 2394,
+          "encodedBytes": 2094,
+          "decodedBytes": 4226
+        },
+        {
+          "name": "/_app/immutable/chunks/C6gZjMQ-.js",
+          "transferBytes": 1875,
+          "encodedBytes": 1575,
+          "decodedBytes": 3776
+        },
+        {
+          "name": "/_app/immutable/chunks/B4VR69pF.js",
+          "transferBytes": 3955,
+          "encodedBytes": 3655,
+          "decodedBytes": 13345
+        },
+        {
+          "name": "/_app/immutable/chunks/-NIXChqv.js",
+          "transferBytes": 472,
+          "encodedBytes": 172,
+          "decodedBytes": 264
+        },
+        {
+          "name": "/_app/immutable/chunks/B0xt6c5q.js",
+          "transferBytes": 1489,
+          "encodedBytes": 1189,
+          "decodedBytes": 2867
+        },
+        {
+          "name": "/_app/immutable/chunks/B-uMRcau.js",
+          "transferBytes": 1360,
+          "encodedBytes": 1060,
+          "decodedBytes": 5134
+        },
+        {
+          "name": "/_app/immutable/chunks/BSHIhbWr.js",
+          "transferBytes": 4606,
+          "encodedBytes": 4306,
+          "decodedBytes": 17814
+        },
+        {
+          "name": "/_app/immutable/chunks/DXViAiCA.js",
+          "transferBytes": 1473,
+          "encodedBytes": 1173,
+          "decodedBytes": 7410
+        },
+        {
+          "name": "/_app/immutable/chunks/Cojxxu7g.js",
+          "transferBytes": 507,
+          "encodedBytes": 207,
+          "decodedBytes": 207
+        },
+        {
+          "name": "/_app/immutable/chunks/Z8uYhHzL.js",
+          "transferBytes": 1497,
+          "encodedBytes": 1197,
+          "decodedBytes": 8529
+        },
+        {
+          "name": "/_app/immutable/chunks/D3xWSMzQ.js",
+          "transferBytes": 795,
+          "encodedBytes": 495,
+          "decodedBytes": 765
+        },
+        {
+          "name": "/_app/immutable/chunks/CdEA5IGF.js",
+          "transferBytes": 538,
+          "encodedBytes": 238,
+          "decodedBytes": 238
+        },
+        {
+          "name": "/_app/immutable/chunks/CuL0NxW3.js",
+          "transferBytes": 488,
+          "encodedBytes": 188,
+          "decodedBytes": 188
+        },
+        {
+          "name": "/_app/immutable/chunks/Cq6h3L1g.js",
+          "transferBytes": 781,
+          "encodedBytes": 481,
+          "decodedBytes": 772
+        },
+        {
+          "name": "/_app/immutable/chunks/CrSxdPQX.js",
+          "transferBytes": 14459,
+          "encodedBytes": 14159,
+          "decodedBytes": 38088
+        },
+        {
+          "name": "/_app/immutable/chunks/l1oWdp2k.js",
+          "transferBytes": 1747,
+          "encodedBytes": 1447,
+          "decodedBytes": 2861
+        },
+        {
+          "name": "/_app/immutable/chunks/CSLWam4C.js",
+          "transferBytes": 9851,
+          "encodedBytes": 9551,
+          "decodedBytes": 28654
+        },
+        {
+          "name": "/_app/immutable/chunks/WBgye94R.js",
+          "transferBytes": 914,
+          "encodedBytes": 614,
+          "decodedBytes": 998
+        },
+        {
+          "name": "/_app/immutable/assets/Toaster.BWY6fThA.css",
+          "transferBytes": 3147,
+          "encodedBytes": 2847,
+          "decodedBytes": 13113
+        },
+        {
+          "name": "/_app/immutable/chunks/S2ng7HuW.js",
+          "transferBytes": 639,
+          "encodedBytes": 339,
+          "decodedBytes": 452
+        },
+        {
+          "name": "/_app/immutable/chunks/DDtYUPZH.js",
+          "transferBytes": 3846,
+          "encodedBytes": 3546,
+          "decodedBytes": 9416
+        },
+        {
+          "name": "/_app/immutable/chunks/dZN6T64d.js",
+          "transferBytes": 703,
+          "encodedBytes": 403,
+          "decodedBytes": 592
+        },
+        {
+          "name": "/_app/immutable/chunks/tidtkg1Q.js",
+          "transferBytes": 3288,
+          "encodedBytes": 2988,
+          "decodedBytes": 8418
+        },
+        {
+          "name": "/_app/immutable/chunks/DTdnPi3C.js",
+          "transferBytes": 1334,
+          "encodedBytes": 1034,
+          "decodedBytes": 8627
+        },
+        {
+          "name": "/_app/immutable/assets/Modal.CSlFhZkq.css",
+          "transferBytes": 488,
+          "encodedBytes": 188,
+          "decodedBytes": 188
+        },
+        {
+          "name": "/_app/immutable/assets/0.DXqGotoG.css",
+          "transferBytes": 36542,
+          "encodedBytes": 36242,
+          "decodedBytes": 306802
+        },
+        {
+          "name": "/static/splash.png",
+          "transferBytes": 5539,
+          "encodedBytes": 5239,
+          "decodedBytes": 5239
+        },
+        {
+          "name": "/_app/immutable/nodes/1.4TTBOx-2.js",
+          "transferBytes": 727,
+          "encodedBytes": 427,
+          "decodedBytes": 673
+        },
+        {
+          "name": "/_app/immutable/nodes/52.2H4lpPc0.js",
+          "transferBytes": 7991,
+          "encodedBytes": 7691,
+          "decodedBytes": 22705
+        },
+        {
+          "name": "/_app/immutable/chunks/BaDBLZm-.js",
+          "transferBytes": 2185,
+          "encodedBytes": 1885,
+          "decodedBytes": 3699
+        },
+        {
+          "name": "/api/config",
+          "transferBytes": 624,
+          "encodedBytes": 324,
+          "decodedBytes": 324
+        },
+        {
+          "name": "/assets/fonts/Inter-Variable.ttf",
+          "transferBytes": 804912,
+          "encodedBytes": 804612,
+          "decodedBytes": 804612
+        },
+        {
+          "name": "/_app/immutable/chunks/CKl6_Oz4.js",
+          "transferBytes": 3482,
+          "encodedBytes": 3182,
+          "decodedBytes": 14282
+        },
+        {
+          "name": "/_app/immutable/chunks/DFiKWRnD.js",
+          "transferBytes": 3673,
+          "encodedBytes": 3373,
+          "decodedBytes": 11123
+        },
+        {
+          "name": "/_app/immutable/chunks/Bizt40JX.js",
+          "transferBytes": 1844,
+          "encodedBytes": 1544,
+          "decodedBytes": 3512
+        },
+        {
+          "name": "/_app/immutable/chunks/BYwKwf1z.js",
+          "transferBytes": 874,
+          "encodedBytes": 574,
+          "decodedBytes": 1018
+        },
+        {
+          "name": "/_app/immutable/chunks/CG1b9ccW.js",
+          "transferBytes": 2128,
+          "encodedBytes": 1828,
+          "decodedBytes": 4364
+        },
+        {
+          "name": "/ws/socket.io/?EIO=4&transport=polling&t=k61xirxi",
+          "transferBytes": 3158,
+          "encodedBytes": 2858,
+          "decodedBytes": 11247
+        },
+        {
+          "name": "/static/favicon.png",
+          "transferBytes": 21966,
+          "encodedBytes": 21666,
+          "decodedBytes": 21666
+        }
+      ]
+    }
+  ],
+  "classification": "Single-pair equal-scope request-graph and parity smoke; timings are diagnostic only."
+}

@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-10-12T18:07:02.421Z",
+  "source": {
+    "repository": "open-webui/open-webui",
+    "commit": "f8ae8a6c328946dc62cd0712961a0632574581bf",
+    "installedVersions": {
+      "node": "v22.23.2",
+      "vite": "5.4.21",
+      "svelteKit": "2.68.0",
+      "i18next": "23.16.8"
+    }
+  },
+  "compiler": {
+    "checkout": "/root/repos-iii/paraglide-client-split-current-api",
+    "commit": "6997d020813d76f087d585110e62cd54891726e0",
+    "indexJsSha256": "72884458211415a046050e655997ed49caaf56b7697012790dab084d32a62bc1",
+    "unpluginJsSha256": "0854f645c38cb44cb051c8d49569edeeb6e22cb5e9ddc4d3261651f36403299f",
+    "clientLocaleSplitPluginSha256": "c06f8dd894f68f6040deeb8ff62d449d4b133fb12bb78520dd5e7f9a5c49dd70"
+  },
+  "builds": {
+    "native": {
+      "appWorktree": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-native-ab",
+      "worktreeHead": "f8ae8a6c328946dc62cd0712961a0632574581bf",
+      "command": "node --max-old-space-size=8192 node_modules/vite/bin/vite.js build --target es2022",
+      "output": {
+        "path": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-native-ab/build",
+        "files": 5576,
+        "totalBytes": 168103047,
+        "sha256": "db26f771beb6bed9b578284394085d7307e1561e7d0d3eb0ca117c95c79501e4"
+      }
+    },
+    "nativeScoped": {
+      "appWorktree": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-i18next-auth-scoped",
+      "worktreeHead": "f8ae8a6c328946dc62cd0712961a0632574581bf",
+      "command": "node --max-old-space-size=8192 node_modules/vite/bin/vite.js build --target es2022",
+      "adaptation": "i18next is retained; auth-only 106-key/64-locale catalog route for /auth; original full-catalog loader retained elsewhere and when backend overrides are configured",
+      "output": {
+        "path": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-i18next-auth-scoped/build",
+        "files": 5704,
+        "totalBytes": 168593752,
+        "sha256": "efda3aa7ff3094735975ccdadfbcd91d35038e4bcac4425979c03af9563c1af3"
+      }
+    },
+    "paraglide": {
+      "appWorktree": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-paraglide-ab-corrected",
+      "worktreeHead": "f8ae8a6c328946dc62cd0712961a0632574581bf",
+      "command": "node --max-old-space-size=12288 node_modules/vite/bin/vite.js build",
+      "config": {
+        "buildTarget": "es2022",
+        "outputStructure": "locale-modules",
+        "experimentalClientLocaleSplit": true,
+        "strategy": [
+          "localStorage",
+          "baseLocale"
+        ],
+        "localStorageKey": "locale"
+      },
+      "output": {
+        "path": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-paraglide-ab-corrected/build",
+        "files": 5712,
+        "totalBytes": 170192332,
+        "sha256": "1c51cd1ebbe0ac72b8f2fc5e42226160ad7c33d88902731e4d27d1d6e92cd390"
+      }
+    },
+    "paraglideDefault": {
+      "appWorktree": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-paraglide-auth-default",
+      "worktreeHead": "f8ae8a6c328946dc62cd0712961a0632574581bf",
+      "command": "node --max-old-space-size=12288 node_modules/vite/bin/vite.js build",
+      "config": {
+        "buildTarget": "es2022",
+        "outputStructure": "locale-modules",
+        "experimentalClientLocaleSplit": false,
+        "strategy": [
+          "localStorage",
+          "baseLocale"
+        ],
+        "localStorageKey": "locale"
+      },
+      "output": {
+        "path": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-paraglide-auth-default/build",
+        "files": 5578,
+        "totalBytes": 171323304,
+        "sha256": "462ca7d8468ab50000273691de619b870eeed5c36833285fef0660c828322f49"
+      }
+    },
+    "paraglideEdgefix": {
+      "appWorktree": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-paraglide-auth-edgefix",
+      "worktreeHead": "f8ae8a6c328946dc62cd0712961a0632574581bf",
+      "command": "node --max-old-space-size=12288 node_modules/vite/bin/vite.js build",
+      "config": {
+        "buildTarget": "es2022",
+        "outputStructure": "locale-modules",
+        "experimentalClientLocaleSplit": true,
+        "strategy": [
+          "localStorage",
+          "baseLocale"
+        ],
+        "localStorageKey": "locale"
+      },
+      "adaptation": "Parity-only edge behavior fix; not the measured performance tree",
+      "output": {
+        "path": "/root/repos-iii/paraglide-native-route-survey/.real-apps/openwebui-paraglide-auth-edgefix/build",
+        "files": 5712,
+        "totalBytes": 170192478,
+        "sha256": "9e1f9f6d8027e76df9ad94a02caea9a8e592d90d33da22787116d61c2c8bc051"
+      }
+    }
+  }
+}
