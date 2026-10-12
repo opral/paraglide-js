@@ -1,0 +1,83 @@
+:root {
+	font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+	color: #20262e;
+	background: #f0f3f7;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+}
+
+body {
+	min-width: 320px;
+	min-height: 100vh;
+	margin: 0;
+	display: grid;
+	place-items: center;
+}
+
+.card {
+	width: min(440px, calc(100vw - 48px));
+	box-sizing: border-box;
+	padding: 36px;
+	border: 1px solid #dfe5ec;
+	border-radius: 18px;
+	background: white;
+	box-shadow: 0 18px 50px #17314d14;
+}
+
+.eyebrow {
+	margin: 0 0 8px;
+	color: #52677f;
+	font-size: 14px;
+}
+
+h1 {
+	margin: 0;
+	font-size: 30px;
+}
+
+.greeting {
+	margin: 14px 0 28px;
+	color: #52677f;
+}
+
+.preview {
+	margin: -10px 0 24px;
+}
+
+.preview-result {
+	min-height: 20px;
+	margin: 8px 0 0;
+	color: #52677f;
+}
+
+.count {
+	min-height: 28px;
+	font-size: 19px;
+	font-weight: 650;
+}
+
+.actions {
+	display: flex;
+	gap: 10px;
+}
+
+button,
+select {
+	border: 1px solid #ccd5df;
+	border-radius: 8px;
+	background: white;
+	padding: 9px 12px;
+	font: inherit;
+}
+
+button {
+	cursor: pointer;
+}
+
+.locale-picker {
+	margin-top: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: #52677f;
+}

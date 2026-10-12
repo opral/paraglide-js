@@ -1,0 +1,20 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"page_title": "Reading list",
+	"intro": "A little reading, in your language.",
+	"greeting": "Welcome, {name}.",
+	"task_count": [
+		{
+			"declarations": ["input count", "local countExact = count", "local countPlural = count: plural"],
+			"selectors": ["countExact", "countPlural"],
+			"match": {
+				"countExact=0, countPlural=*": "No books on your list yet",
+				"countExact=*, countPlural=one": "{count} book on your list",
+				"countExact=*, countPlural=*": "{count} books on your list"
+			}
+		}
+	],
+	"language_label": "Language",
+	"decrease": "Remove one",
+	"increase": "Add one"
+}

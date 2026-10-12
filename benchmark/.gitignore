@@ -28,3 +28,9 @@ src/pages
 src/i18n/generated.ts
 messages
 project.inlang
+
+# The locale-split agent-experience fixture keeps its source catalogs/project.
+!agent-experience/vite-locale-demo-eval/fixture/messages/
+!agent-experience/vite-locale-demo-eval/fixture/messages/*.json
+!agent-experience/vite-locale-demo-eval/fixture/project.inlang/
+!agent-experience/vite-locale-demo-eval/fixture/project.inlang/settings.json
