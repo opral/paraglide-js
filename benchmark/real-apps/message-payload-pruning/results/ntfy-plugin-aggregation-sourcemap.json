@@ -1,0 +1,74 @@
+{
+	"kind": "aggregation prototype sourcemap diagnostic; no performance claim",
+	"compilerSourceCommit": "728f4300485de3dfb85b9d200183e2039f601d19",
+	"compilerPluginLeafSha256": "5d1c72509cf7ae1eb5d8f3b6ff34e94c31dd481c8eb64329813f70d7b520ad88",
+	"toolchain": {
+		"node": "v22.23.2",
+		"vite": "8.3.4",
+		"rolldown": "1.2.13"
+	},
+	"build": {
+		"sourcemap": true,
+		"all473CatalogMessages": true,
+		"fixtureEntry": "/src/main.js"
+	},
+	"traces": [
+		{
+			"file": "paraglide-locale-payload-fr-CLhuuM9-.js",
+			"needle": "Cela va",
+			"generated": {
+				"line": 1,
+				"column": 144
+			},
+			"original": {
+				"source": "../../src/paraglide/messages/fr.js",
+				"line": 550,
+				"column": 42,
+				"name": null
+			}
+		},
+		{
+			"file": "index-D7EM9XiS.js",
+			"needle": "#static",
+			"generated": {
+				"line": 2,
+				"column": 1538
+			},
+			"original": {
+				"source": "../../src/main.js",
+				"line": 8,
+				"column": 25,
+				"name": null
+			}
+		},
+		{
+			"file": "index-D7EM9XiS.js",
+			"needle": "textContent",
+			"generated": {
+				"line": 2,
+				"column": 1548
+			},
+			"original": {
+				"source": "../../src/main.js",
+				"line": 8,
+				"column": 36,
+				"name": null
+			}
+		},
+		{
+			"file": "paraglide-locale-payload-fr-CLhuuM9-.js",
+			"needle": "Un utilisateur provisionné",
+			"generated": {
+				"line": 1,
+				"column": 51
+			},
+			"original": {
+				"source": null,
+				"line": null,
+				"column": null,
+				"name": null
+			}
+		}
+	],
+	"observation": "Retained dynamic message code maps to its compiled messages locale module; callsites map to the fixture entry source. The static extracted literal has no original mapping because the plugin injects it from metadata without a source location. The suspected lost caller mapping was not reproduced."
+}

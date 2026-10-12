@@ -1,0 +1,60 @@
+{
+  "kind": "single-pair full Ntfy /login diagnostic for the experimental client-message aggregation output; not a qualification run",
+  "app": "ntfy",
+  "sourceCommit": "211ba22860d7483073a8ce13dcda5f467194989b",
+  "compilerSourceCommit": "728f4300485de3dfb85b9d200183e2039f601d19",
+  "compilerLeafDist": "dist/bundler-plugins/client-locale-split/vite-plugin.js",
+  "compilerLeafDistSha256": "5d1c72509cf7ae1eb5d8f3b6ff34e94c31dd481c8eb64329813f70d7b520ad88",
+  "compilerIndexDistSha256": "72884458211415a046050e655997ed49caaf56b7697012790dab084d32a62bc1",
+  "toolchain": {
+    "node": "v22.23.2",
+    "vite": "8.3.4",
+    "i18next": "26.4.2",
+    "reactI18next": "17.0.15"
+  },
+  "outputTrees": {
+    "native": {
+      "path": "/root/repos-iii/ntfy-native-esnext-control/benchmark-output/native-esnext",
+      "fileCount": 86,
+      "bytes": 9639276,
+      "sha256": "9a1401a1a5c20d8cc1f70e727372e54b0e12eefe3910ee11cdbd1eac7c54e431"
+    },
+    "candidate": {
+      "path": "/root/repos-iii/ntfy-aggregate-app/benchmark-output/paraglide-aggregate",
+      "fileCount": 186,
+      "bytes": 6375530,
+      "sha256": "7ac743c321e7a11aeb5b76265393857b1018baf432ab3a58783ab2f80bcc9328"
+    }
+  },
+  "comparison": {
+    "native": {
+      "label": "optimized-i18next",
+      "encodedBytes": 383115,
+      "requestedResources": 14,
+      "readyMs": 1424
+    },
+    "candidate": {
+      "label": "experimentalClientMessageAggregation",
+      "legacyRawLabel": "paraglide-client-locale-split",
+      "encodedBytes": 377694,
+      "requestedResources": 20,
+      "readyMs": 1416
+    },
+    "encodedBytesSaved": 5421,
+    "encodedBytesReductionPercent": 1.415,
+    "readyMsSaved": 8,
+    "readinessReductionPercent": 0.562,
+    "trialCount": 1,
+    "frenchVisibleParity": true
+  },
+  "interpretation": "The compatibility adapter uses dynamic message-namespace access. The aggregation liveness union therefore retains the full 473-message API on the initial route. This one-pair cold /login smoke is descriptive, not a performance qualification; splash timing dominates and the result is below the requested >10% gate.",
+  "limitations": [
+    "This uses an app-local i18next/React-i18next compatibility adapter over generated messages and a static literal-call codemod; it is an experiment, not a supported migration API.",
+    "Service workers are blocked and cache disabled. The native PWA precaches all locales; split candidate build precaches all 51 locale chunks, so this captures first-route cold network only, not install/offline behavior.",
+    "The app imposes a 1,000 ms minimum splash duration plus a 300 ms logo fade and 100 ms background fade. First content paint often reflects the static splash, so route readiness is the more relevant user-facing measure.",
+    "FCP/LCP are the static splash rather than the translated login view and are excluded from the >=10% qualification gate.",
+    "Native frontend build artifacts were captured before modifying the isolated app worktree; this comparison covers /login and its requested asset graph, not every account/notification route."
+  ],
+  "rawReport": "ntfy-full-app-aggregation-smoke.json",
+  "artifactManifest": "ntfy-full-app-artifact-manifest.json"
+}

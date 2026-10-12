@@ -24,6 +24,34 @@ The first facade-level top-level-await design failed in a real Vite build: the b
 
 This result does not qualify against the optimized-native gate: the fixture has only five extracted catalog entries, no complete product route, no i18next baseline, and no user metric comparison. The next useful architecture is a route- or consumer-scoped aggregate that knows the set of statically reachable keys and emits one locale payload per consumer; the generic namespace path must continue to retain all keys. This prototype should not be presented as a production improvement or opened as a product PR.
 
+## Indexed aggregation prototype
+
+Commit `728f4300485de3dfb85b9d200183e2039f601d19` adds the opt-in public-plugin option `experimentalClientMessageAggregation`. It keeps a single indexed payload per locale and creates a wrapper module per message. After bundler tree shaking, `renderChunk` reads the all-chunks module graph, computes the global union of live wrapper indexes, and uses AST edits plus sourcemaps to leave unused payload slots sparse. The runtime validates every live slot before exposing the locale. Dynamic namespace access keeps all messages. The default-only locale facade also avoids the callable `then` namespace/Promise assimilation hazard.
+
+The prototype was built with Ntfy's real 473-key catalog and Vite 8.3.4/Rolldown. The functional fixture uses five static messages, a lazy route, rich `.parts`, plural and interpolation messages, and French/German/English switching. On the same 473-key catalog, aggregation requests 9 resources and transfers 5,889 Brotli-Q4 bytes on the initial route; standard locale splitting requests 8 resources and transfers 21,468 Brotli-Q4 bytes. Browser checks passed for visible translations, lazy route activation, and locale switching. This is a small static-consumer fixture, not a product-route result.
+
+The real Ntfy `/login` adapter path uses dynamic namespace access, so all 473 messages remain live. One cold diagnostic pair against optimized i18next measured 377,694 versus 383,115 encoded route bytes (1.414% lower) and 1,416 versus 1,424 ms to translated UI readiness (0.56% lower), with 20 versus 14 requested resources. It is far below the requested 10% gate and is not a repeated timing qualification; the static splash dominates FCP/LCP. The adapter is a benchmark-only migration, not a claim of a supported whole-app conversion. See [summary](results/ntfy-full-app-aggregation-summary.json), [raw browser capture](results/ntfy-full-app-aggregation-smoke.json), and [artifact manifest](results/ntfy-full-app-artifact-manifest.json).
+
+The liveness set is global to the build. If a lazy route uses a key, that key remains in the selected locale payload requested by the first route; this does not solve per-route retention such as the issue discussed in [#668](https://github.com/opral/paraglide-js/issues/668). Namespace enumeration or dynamic `m[key]` access also retains the full public message surface. Vite 8.3.4/Rolldown `output.codeSplitting.groups` and the all-chunks `renderChunk` metadata were the only tested integration. Vite 7 and other Rollup/Vite versions are unsupported/unverified; when all-chunks metadata is absent the prototype fails closed rather than emitting an unpruned result. The code remains an isolated experiment, not a supported API or product PR.
+
+A separate `sourcemap: true` fixture build traced retained dynamic French message code to `messages/fr.js` and app callsites to `main.js`; the suspected lost caller mapping was not reproduced. A static literal synthesized from compiler metadata has no original source position because that metadata does not carry source locations. See [the mapping probe](results/ntfy-plugin-aggregation-sourcemap.json).
+
+To reproduce the 473-key fixture after preparing the pinned Ntfy catalog, run both modes from this worktree:
+
+```sh
+NTFY_PROJECTION_SOURCE=/path/to/ntfy/web \
+NTFY_SOURCE_COMMIT=211ba22860d7483073a8ce13dcda5f467194989b \
+NTFY_ALL_MESSAGES=1 NTFY_PROJECTION_MODE=split \
+  node benchmark/real-apps/message-payload-pruning/build-ntfy-projection-fixture.mjs
+
+NTFY_PROJECTION_SOURCE=/path/to/ntfy/web \
+NTFY_SOURCE_COMMIT=211ba22860d7483073a8ce13dcda5f467194989b \
+NTFY_ALL_MESSAGES=1 NTFY_PROJECTION_MODE=aggregation \
+  node benchmark/real-apps/message-payload-pruning/build-ntfy-projection-fixture.mjs
+```
+
+The script's default remains the five-key fixture; `NTFY_ALL_MESSAGES=1` uses every message ID in the English catalog. Raw mode outputs are [aggregation](results/ntfy-plugin-aggregation.json) and [standard split](results/ntfy-plugin-split.json). The aggregation result records the compiler source commit and source diff digest, public entry and implementation leaf hashes, built tree hashes, browser-request graph, and visible values.
+
 ### Reproduce the plugin fixture
 
 Install this worktree's dependencies (`npm ci`) and check out Ntfy at `211ba22860d7483073a8ce13dcda5f467194989b` with its dependencies installed. Convert its native catalogs using this worktree's adapter, then run the fixture:
