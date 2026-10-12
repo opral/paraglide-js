@@ -1,0 +1,74 @@
+import { fileURLToPath, URL, pathToFileURL } from "node:url";
+import { resolve } from "node:path";
+import dns from "node:dns";
+import fs from "node:fs";
+import postcss from "./postcss.config.js";
+import react from "@vitejs/plugin-react";
+
+const { paraglideVitePlugin } = await import(
+	pathToFileURL(process.env.PARAGLIDE_PUBLIC_COMPILER).href
+);
+const project = resolve(process.env.PARAGLIDE_PUBLIC_PROJECT);
+const outdir = "./src/paraglide";
+const additionalFiles = JSON.parse(
+	fs.readFileSync(process.env.PARAGLIDE_PUBLIC_ADAPTERS, "utf8")
+);
+const paraglidePlugins = paraglideVitePlugin({
+	project,
+	outdir,
+	strategy: ["globalVariable", "localStorage", "preferredLanguage", "baseLocale"],
+	localStorageKey: "i18nextLng",
+	additionalFiles,
+	experimentalClientLocaleSplit: true,
+});
+
+dns.setDefaultResultOrder("verbatim");
+
+export default {
+	assetsInclude: [
+		"./public/piper/ort-wasm-simd-threaded.wasm",
+		"./public/piper/piper_phonemize.wasm",
+		"./public/piper/piper_phonemize.data",
+	],
+	worker: { format: "es" },
+	server: { port: 3000, host: "localhost" },
+	define: { "process.env.NODE_ENV": JSON.stringify("production") },
+	css: { postcss },
+	plugins: [...(Array.isArray(paraglidePlugins) ? paraglidePlugins : [paraglidePlugins]), react()],
+	resolve: {
+		alias: [
+			{
+				find: "@",
+				replacement: fileURLToPath(new URL("./src", import.meta.url)),
+			},
+			{ find: /^~(.+)$/, replacement: "$1" },
+		],
+	},
+	build: {
+		target: "esnext",
+		modulePreload: {
+			resolveDependencies(filename, deps, { hostType }) {
+				if (
+					hostType === "js" &&
+					filename.includes("_paraglide_client-locale-split_locale_")
+				) {
+					return [];
+				}
+				return deps;
+			},
+		},
+		rollupOptions: {
+			output: {
+				entryFileNames: "index.js",
+				assetFileNames: (assetInfo) =>
+					assetInfo.name === "index.css" ? "index.css" : assetInfo.name,
+			},
+			external: [/@phosphor-icons\/react\/dist\/ssr/],
+		},
+		commonjsOptions: { transformMixedEsModules: true },
+	},
+	optimizeDeps: {
+		include: ["@mintplex-labs/piper-tts-web"],
+		esbuildOptions: { define: { global: "globalThis" }, plugins: [] },
+	},
+};
