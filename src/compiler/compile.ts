@@ -43,14 +43,16 @@ export function compile(options: CompileArguments): Promise<CompilationResult> {
 
 /** Internal Vite layout variant; intentionally not re-exported from the package API. */
 export function compileForVite(
-	options: CompileArguments
+	options: CompileArguments,
+	internalOptions: { clientLocaleSplit?: boolean } = {}
 ): Promise<CompilationResult> {
-	return compileInternal(options, true);
+	return compileInternal(options, true, internalOptions);
 }
 
 async function compileInternal(
 	options: CompileArguments,
-	enableLocaleFunctionNames: boolean
+	enableLocaleFunctionNames: boolean,
+	internalOptions: { clientLocaleSplit?: boolean } = {}
 ): Promise<CompilationResult> {
 	const withDefaultOptions = {
 		...defaultCompilerOptions,
@@ -74,14 +76,14 @@ async function compileInternal(
 				fs,
 			});
 
-			const projectCompiler = enableLocaleFunctionNames
-				? compileProjectForVite
-				: compileProject;
-			const output = await projectCompiler({
+			const projectArgs = {
 				compilerOptions: withDefaultOptions,
 				project,
 				projectPath: withDefaultOptions.project,
-			});
+			};
+			const output = enableLocaleFunctionNames
+				? await compileProjectForVite(projectArgs, internalOptions)
+				: await compileProject(projectArgs);
 
 			const outputHashes = await writeOutput({
 				directory: absoluteOutdir,

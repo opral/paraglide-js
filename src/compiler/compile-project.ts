@@ -13,6 +13,7 @@ import { createRegistry } from "./registry.js";
 import { emitTsDeclarations } from "./emit-ts-declarations.js";
 import { createReadme } from "./create-readme.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
+import { toSafeModuleId } from "./safe-module-id.js";
 
 const outputStructures = {
 	"locale-modules": localeModules,
@@ -39,12 +40,20 @@ export const compileProject = (args: CompileProjectArgs) =>
 	compileProjectInternal(args, false);
 
 /** Internal Vite layout variant; intentionally not re-exported from the package API. */
-export const compileProjectForVite = (args: CompileProjectArgs) =>
-	compileProjectInternal(args, true);
+export const compileProjectForVite = (
+	args: CompileProjectArgs,
+	internalOptions: { clientLocaleSplit?: boolean } = {}
+) =>
+	compileProjectInternal(
+		args,
+		true,
+		internalOptions.clientLocaleSplit === true
+	);
 
 async function compileProjectInternal(
 	args: CompileProjectArgs,
-	enableLocaleFunctionNames: boolean
+	enableLocaleFunctionNames: boolean,
+	clientLocaleSplit = false
 ): Promise<Record<string, string>> {
 	const optionsWithDefaults = {
 		...defaultCompilerOptions,
@@ -110,6 +119,58 @@ async function compileProjectInternal(
 			"export * as m from './messages/_index.js'",
 		].join("\n"),
 	};
+
+	if (clientLocaleSplit) {
+		if (optionsWithDefaults.outputStructure !== "locale-modules") {
+			throw new Error(
+				'experimentalClientLocaleSplit requires outputStructure: "locale-modules".'
+			);
+		}
+		output["client-locale-split.json"] = JSON.stringify(
+			{
+				baseLocale: settings.baseLocale,
+				locales: settings.locales,
+				messages: bundles.map((bundle) => ({
+					safeName: toSafeModuleId(bundle.id),
+					publicName: bundle.id,
+					hasInputs:
+						bundle.declarations?.some(
+							(declaration) => declaration.type === "input-variable"
+						) ?? false,
+					hasMarkup: bundle.messages.some((message) =>
+						message.variants.some((variant) =>
+							variant.pattern.some(
+								(part) =>
+									part.type === "markup-start" ||
+									part.type === "markup-end" ||
+									part.type === "markup-standalone"
+							)
+						)
+					),
+				})),
+			},
+			null,
+			2
+		);
+		const localeType = settings.locales
+			.map((locale) => JSON.stringify(locale))
+			.join(" | ");
+		output["locale-loader.js"] = `import { isLocale } from "./runtime.js";
+/** @typedef {${localeType}} Locale */
+/**
+ * Validate a locale for the Vite client locale-split output.
+ * @param {Locale} locale
+ * @returns {Promise<void>}
+ */
+export async function loadLocale(locale) {
+	if (!isLocale(locale)) {
+		throw new Error("Invalid Paraglide locale: " + locale);
+	}
+}
+`;
+		output["locale-loader.d.ts"] =
+			`export type Locale = ${localeType};\n/** Load a locale's message module before calling its synchronous messages. */\nexport declare function loadLocale(locale: Locale): Promise<void>;\n`;
+	}
 
 	// generate the output modules
 	const generatedMessages = localeFunctionLocalNames

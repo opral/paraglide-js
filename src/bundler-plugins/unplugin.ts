@@ -31,6 +31,15 @@ import {
 
 const PLUGIN_NAME = "unplugin-paraglide-js";
 
+/** Private hand-off from the Vite facade; never part of the package API. */
+export type ViteClientLocaleSplitState = {
+	compilerOptions?: CompilerOptions;
+};
+
+export const viteClientLocaleSplitOption: unique symbol = Symbol(
+	"viteClientLocaleSplitOption"
+);
+
 /**
  * The options accepted by the paraglide bundler plugins.
  *
@@ -149,17 +158,19 @@ function withoutCleanOutdir(
 function getCompilerConfig(
 	args: CompilerOptions,
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
-	localeFunctionNames = false
+	localeFunctionNames = false,
+	clientLocaleSplit = false
 ) {
 	const { fs: _fs, ...serializableArgs } = args;
 	void _fs;
-	return {
+	const config = {
 		...serializableArgs,
 		outputStructure,
 		localeFunctionNames,
 		isServer,
 		compilerVersion: ENV_VARIABLES.PARJS_PACKAGE_VERSION,
 	};
+	return clientLocaleSplit ? { ...config, clientLocaleSplit: true } : config;
 }
 
 /**
@@ -182,7 +193,8 @@ async function computeInputsDigest(
 	state: PluginState,
 	args: CompilerOptions,
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
-	localeFunctionNames = false
+	localeFunctionNames = false,
+	clientLocaleSplit = false
 ): Promise<string | undefined> {
 	if (state.readFiles.size === 0) {
 		return undefined;
@@ -196,7 +208,12 @@ async function computeInputsDigest(
 	try {
 		hash.update(
 			JSON.stringify(
-				getCompilerConfig(args, outputStructure, localeFunctionNames)
+				getCompilerConfig(
+					args,
+					outputStructure,
+					localeFunctionNames,
+					clientLocaleSplit
+				)
 			)
 		);
 		for (const directoryPath of [...targets.directories].sort()) {
@@ -234,7 +251,8 @@ async function computeInputsDigest(
 function getPersistentCachePath(
 	args: CompilerOptions,
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
-	localeFunctionNames = false
+	localeFunctionNames = false,
+	clientLocaleSplit = false
 ): string {
 	const absoluteOutdir = resolve(process.cwd(), args.outdir);
 	const cacheKey = createHash("sha256")
@@ -244,7 +262,8 @@ function getPersistentCachePath(
 				compilerConfig: getCompilerConfig(
 					args,
 					outputStructure,
-					localeFunctionNames
+					localeFunctionNames,
+					clientLocaleSplit
 				),
 			})
 		)
@@ -262,13 +281,19 @@ function getPersistentCachePath(
 async function readPersistentCache(
 	args: CompilerOptions,
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
-	localeFunctionNames = false
+	localeFunctionNames = false,
+	clientLocaleSplit = false
 ): Promise<PersistentCompilationCache | undefined> {
 	const fsp = (args.fs ?? nodeFs).promises;
 	try {
 		const parsed = JSON.parse(
 			await fsp.readFile(
-				getPersistentCachePath(args, outputStructure, localeFunctionNames),
+				getPersistentCachePath(
+					args,
+					outputStructure,
+					localeFunctionNames,
+					clientLocaleSplit
+				),
 				"utf8"
 			)
 		) as Partial<PersistentCompilationCache>;
@@ -291,12 +316,18 @@ async function readPersistentCache(
 async function preparePersistentCacheDirectory(
 	args: CompilerOptions,
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
-	localeFunctionNames = false
+	localeFunctionNames = false,
+	clientLocaleSplit = false
 ): Promise<void> {
 	try {
 		await (args.fs ?? nodeFs).promises.mkdir(
 			dirname(
-				getPersistentCachePath(args, outputStructure, localeFunctionNames)
+				getPersistentCachePath(
+					args,
+					outputStructure,
+					localeFunctionNames,
+					clientLocaleSplit
+				)
 			),
 			{ recursive: true }
 		);
@@ -309,7 +340,8 @@ async function writePersistentCache(
 	state: PluginState,
 	args: CompilerOptions,
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
-	localeFunctionNames = false
+	localeFunctionNames = false,
+	clientLocaleSplit = false
 ): Promise<void> {
 	if (
 		state.previousInputsDigest === undefined ||
@@ -320,7 +352,8 @@ async function writePersistentCache(
 	const cachePath = getPersistentCachePath(
 		args,
 		outputStructure,
-		localeFunctionNames
+		localeFunctionNames,
+		clientLocaleSplit
 	);
 	const cache: PersistentCompilationCache = {
 		version: PERSISTENT_CACHE_VERSION,
@@ -354,11 +387,13 @@ async function restorePersistentCache(args: {
 	compilerOptions: CompilerOptions;
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
 	localeFunctionNames?: boolean;
+	clientLocaleSplit?: boolean;
 }): Promise<boolean> {
 	const cached = await readPersistentCache(
 		args.compilerOptions,
 		args.outputStructure,
-		args.localeFunctionNames
+		args.localeFunctionNames,
+		args.clientLocaleSplit
 	);
 	if (cached === undefined) return false;
 
@@ -376,7 +411,8 @@ async function restorePersistentCache(args: {
 			validationState,
 			args.compilerOptions,
 			args.outputStructure,
-			args.localeFunctionNames
+			args.localeFunctionNames,
+			args.clientLocaleSplit
 		),
 		seedPreviousCompilationFromOutdir({
 			outdir: args.compilerOptions.outdir,
@@ -423,6 +459,7 @@ function hasUnchangedInputs(args: {
 	compilerOptions: CompilerOptions;
 	outputStructure: "message-modules" | "locale-modules";
 	localeFunctionNames?: boolean;
+	clientLocaleSplit?: boolean;
 }): Promise<boolean> {
 	if (args.state.previousCompilation === undefined) {
 		return Promise.resolve(false);
@@ -434,7 +471,8 @@ function hasUnchangedInputs(args: {
 		args.state,
 		args.compilerOptions,
 		args.outputStructure,
-		args.localeFunctionNames
+		args.localeFunctionNames,
+		args.clientLocaleSplit
 	).then((currentDigest) => currentDigest === args.state.previousInputsDigest);
 }
 
@@ -468,9 +506,9 @@ async function compileAndUpdateState(args: {
 	 */
 	isServer: string | undefined;
 	localeFunctionNames?: boolean;
+	clientLocaleSplit?: boolean;
 }): Promise<void> {
-	const compileProject = args.localeFunctionNames ? compileForVite : compile;
-	args.state.previousCompilation = await compileProject({
+	const compileArgs = {
 		previousCompilation: args.previousCompilation,
 		outputStructure: args.outputStructure,
 		isServer: args.isServer,
@@ -479,12 +517,18 @@ async function compileAndUpdateState(args: {
 		// after the options spread so a user-provided fs doesn't bypass
 		// the read tracking (trackedFs wraps options.fs when provided)
 		fs: args.state.trackedFs,
-	});
+	};
+	args.state.previousCompilation = args.localeFunctionNames
+		? await compileForVite(compileArgs, {
+				clientLocaleSplit: args.clientLocaleSplit,
+			})
+		: await compile(compileArgs);
 	args.state.previousInputsDigest = await computeInputsDigest(
 		args.state,
 		args.compilerOptions,
 		args.outputStructure,
-		args.localeFunctionNames
+		args.localeFunctionNames,
+		args.clientLocaleSplit
 	);
 }
 
@@ -496,6 +540,7 @@ async function runCompilation(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
 	localeFunctionNames?: boolean;
+	clientLocaleSplit?: boolean;
 }): Promise<void> {
 	const compilerOptions = args.compilerOptions;
 	const { state } = args;
@@ -507,7 +552,8 @@ async function runCompilation(args: {
 		await preparePersistentCacheDirectory(
 			compilerOptions,
 			outputStructure,
-			args.localeFunctionNames
+			args.localeFunctionNames,
+			args.clientLocaleSplit
 		);
 		if (
 			state.previousCompilation === undefined &&
@@ -516,6 +562,7 @@ async function runCompilation(args: {
 				compilerOptions,
 				outputStructure,
 				localeFunctionNames: args.localeFunctionNames,
+				clientLocaleSplit: args.clientLocaleSplit,
 			}))
 		) {
 			logger.info(
@@ -529,6 +576,7 @@ async function runCompilation(args: {
 				compilerOptions,
 				outputStructure,
 				localeFunctionNames: args.localeFunctionNames,
+				clientLocaleSplit: args.clientLocaleSplit,
 			})
 		) {
 			logger.info(
@@ -552,12 +600,14 @@ async function runCompilation(args: {
 			previousCompilation: seededPrevious,
 			isServer,
 			localeFunctionNames: args.localeFunctionNames,
+			clientLocaleSplit: args.clientLocaleSplit,
 		});
 		await writePersistentCache(
 			state,
 			compilerOptions,
 			outputStructure,
-			args.localeFunctionNames
+			args.localeFunctionNames,
+			args.clientLocaleSplit
 		);
 		logger.success(`Compilation complete (${outputStructure})`);
 	} catch (error) {
@@ -571,12 +621,26 @@ async function runCompilation(args: {
 export const unpluginFactory: UnpluginFactory<ParaglidePluginOptions> = (
 	userArgs,
 	meta
-) => createUnpluginPlugin(userArgs, meta.framework === "vite");
+) => {
+	const isVite = meta.framework === "vite";
+	const extendedArgs = userArgs as ParaglidePluginOptions & {
+		[viteClientLocaleSplitOption]?: ViteClientLocaleSplitState;
+	};
+	const internalState = isVite
+		? extendedArgs[viteClientLocaleSplitOption]
+		: undefined;
+	const { [viteClientLocaleSplitOption]: _internal, ...publicArgs } =
+		extendedArgs;
+	void _internal;
+	return createUnpluginPlugin(publicArgs, isVite, internalState);
+};
 
 function createUnpluginPlugin(
 	userArgs: ParaglidePluginOptions,
-	enableLocaleFunctionNames: boolean
+	enableLocaleFunctionNames: boolean,
+	clientLocaleSplitState?: ViteClientLocaleSplitState
 ): ReturnType<UnpluginFactory<ParaglidePluginOptions>> {
+	const clientLocaleSplitMode = clientLocaleSplitState !== undefined;
 	const state = getPluginState(userArgs);
 	const { readFiles, clearReadFiles } = state;
 	// Project root as reported by the bundler (vite `root`, webpack/rspack
@@ -634,12 +698,41 @@ function createUnpluginPlugin(
 
 	const resolveOptionsWith = (
 		loaded: LoadedParaglideConfig | undefined
-	): CompilerOptions =>
-		resolveCompilerOptions({
+	): CompilerOptions => {
+		const options = resolveCompilerOptions({
 			config: loaded?.config,
 			overrides: userArgs,
 			root: discoveryRoot ?? process.cwd(),
 		});
+		if (!clientLocaleSplitMode) return options;
+
+		const configuredOutput =
+			userArgs.outputStructure ?? loaded?.config.outputStructure;
+		if (
+			configuredOutput !== undefined &&
+			configuredOutput !== "locale-modules"
+		) {
+			throw new Error(
+				'experimentalClientLocaleSplit requires outputStructure: "locale-modules".'
+			);
+		}
+		if (options.experimentalMiddlewareLocaleSplitting) {
+			throw new Error(
+				"experimentalClientLocaleSplit cannot be combined with experimentalMiddlewareLocaleSplitting."
+			);
+		}
+		if (options.experimentalStaticLocale !== undefined) {
+			throw new Error(
+				"experimentalClientLocaleSplit cannot be combined with experimentalStaticLocale."
+			);
+		}
+		const clientOptions: CompilerOptions = {
+			...options,
+			outputStructure: "locale-modules",
+		};
+		clientLocaleSplitState!.compilerOptions = clientOptions;
+		return clientOptions;
+	};
 
 	/**
 	 * Loads the active config, following candidate renames and keeping the
@@ -729,12 +822,14 @@ function createUnpluginPlugin(
 				previousCompilation: state.previousCompilation,
 				isServer,
 				localeFunctionNames: enableLocaleFunctionNames,
+				clientLocaleSplit: clientLocaleSplitMode,
 			});
 			await writePersistentCache(
 				state,
 				args,
 				outputStructure,
-				enableLocaleFunctionNames
+				enableLocaleFunctionNames,
+				clientLocaleSplitMode
 			);
 			logger.success(`Re-compilation complete (${outputStructure})`);
 
@@ -765,6 +860,7 @@ function createUnpluginPlugin(
 					state,
 					compilerOptions: args,
 					localeFunctionNames: enableLocaleFunctionNames,
+					clientLocaleSplit: clientLocaleSplitMode,
 				});
 			} catch (error) {
 				// Config errors are converted to last-good options by

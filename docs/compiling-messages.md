@@ -82,6 +82,64 @@ export default defineConfig({
 });
 ```
 
+#### Experimental client locale splitting
+
+For client-rendered Vite apps, `experimentalClientLocaleSplit` puts each
+locale's messages in a separate dynamic chunk. The plugin loads the base
+locale and the startup locale before message imports run, then loads a new
+locale before `setLocale(locale, { reload: false })` updates the runtime.
+Server-side rendering continues to use the regular generated message graph.
+
+```ts
+export default defineConfig({
+	build: { target: "es2022" },
+	plugins: [paraglideVitePlugin({
+		project: "./project.inlang",
+		outdir: "./src/paraglide",
+		experimentalClientLocaleSplit: true,
+	})],
+});
+```
+
+The option uses `locale-modules` output and requires an explicit Vite
+`build.target` of `"es2022"` or newer, or `"esnext"`, because the client
+facade waits for the startup locale with top-level `await`. It cannot be
+combined with `experimentalStaticLocale`,
+`experimentalMiddlewareLocaleSplitting`, or `experimentalPerLocaleBuild`.
+Use the generated loader to preload another client locale:
+
+```ts
+import { loadLocale } from "./paraglide/locale-loader.js";
+import { setLocale } from "./paraglide/runtime.js";
+import * as m from "./paraglide/messages.js";
+
+await loadLocale("de");
+// Explicit locale calls stay synchronous, after preloading that locale.
+m.greeting({}, { locale: "de" });
+
+// Await an in-place switch before rendering with the new locale.
+await setLocale("de", { reload: false });
+```
+
+`loadLocale` is a client-only API in this mode. Normal locale changes using
+`setLocale` with its default reload behavior continue to navigate or reload
+the document as configured.
+
+This experimental mode loads the complete base and selected locale modules.
+It does not currently prune individual message keys from those locale chunks.
+Measure the production route with your Vite configuration before enabling it;
+apps that already load small JSON catalogs lazily may see little benefit.
+
+Runtime overrides need explicit preloading. If you install a custom
+`overwriteGetLocale` after imports execute, await `loadLocale(getLocale())`
+after installing it and before rendering messages. Installing
+`overwriteSetLocale` replaces the plugin's switching wrapper: your custom
+setter must await `loadLocale(locale)` before committing an in-place locale
+change. Static message imports and the HTML preloader can execute before your
+entry module's body, so entry-body override setup alone does not preload its
+locale. Keep the regular output if your integration needs synchronous custom
+locale switching.
+
 #### Experimental per-locale builds
 
 The Vite 8+ backend builds one independent Rolldown client environment per

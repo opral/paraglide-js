@@ -206,6 +206,125 @@ test("locale-modules retain language-grouped static text helpers", async () => {
 	await project.close();
 });
 
+test("Vite client locale split emits compiler-derived locale and markup metadata", async () => {
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "de", "de-AT"] },
+		}),
+	});
+	await insertBundleNested(
+		project.db,
+		createBundleNested({
+			id: "markup-example",
+			messages: [
+				{
+					locale: "en",
+					variants: [
+						{
+							pattern: [
+								{ type: "text", value: "Hello " },
+								{
+									type: "markup-start",
+									name: "strong",
+									options: [],
+									attributes: [],
+								},
+								{ type: "text", value: "world" },
+								{
+									type: "markup-end",
+									name: "strong",
+									options: [],
+									attributes: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					locale: "de",
+					variants: [{ pattern: [{ type: "text", value: "Hallo" }] }],
+				},
+			],
+		})
+	);
+	for (const id of ["then", "HelloWorld", "loadLocale"]) {
+		await insertBundleNested(
+			project.db,
+			createBundleNested({
+				id,
+				messages: ["en", "de"].map((locale) => ({
+					locale,
+					variants: [
+						{
+							pattern: [{ type: "text", value: `${id} ${locale}` }],
+						},
+					],
+				})),
+			})
+		);
+	}
+
+	const ordinaryOutput = await compileProject({
+		project,
+		compilerOptions: { outputStructure: "locale-modules" },
+	});
+	expect(ordinaryOutput).not.toHaveProperty("client-locale-split.json");
+	expect(ordinaryOutput).not.toHaveProperty("locale-loader.js");
+
+	const output = await compileProjectForVite(
+		{ project, compilerOptions: { outputStructure: "locale-modules" } },
+		{ clientLocaleSplit: true }
+	);
+	const metadata = JSON.parse(output["client-locale-split.json"]!);
+	expect(metadata).toMatchObject({
+		baseLocale: "en",
+		locales: ["en", "de", "de-AT"],
+		messages: expect.arrayContaining([
+			{
+				safeName: "markup_example",
+				publicName: "markup-example",
+				hasInputs: false,
+				hasMarkup: true,
+			},
+			{
+				safeName: "_then",
+				publicName: "then",
+				hasInputs: false,
+				hasMarkup: false,
+			},
+			{
+				safeName: "helloworld2",
+				publicName: "HelloWorld",
+				hasInputs: false,
+				hasMarkup: false,
+			},
+			{
+				safeName: "loadlocale1",
+				publicName: "loadLocale",
+				hasInputs: false,
+				hasMarkup: false,
+			},
+		]),
+	});
+	expect(output["messages/de-AT.js"]).toContain(
+		'export { markup_example } from "./de.js"'
+	);
+	expect(output["messages/_index.js"]).toMatch(/de_at\d*\.markup_example/);
+	expect(output["locale-loader.js"]).toContain(
+		'@typedef {"en" | "de" | "de-AT"} Locale'
+	);
+	expect(output["locale-loader.js"]).toContain(
+		"export async function loadLocale"
+	);
+	expect(output["locale-loader.d.ts"]).toContain(
+		'export type Locale = "en" | "de" | "de-AT";'
+	);
+	expect(output["locale-loader.d.ts"]).toContain(
+		"export declare function loadLocale(locale: Locale): Promise<void>"
+	);
+	await project.close();
+});
+
 test("emitGitignore", async () => {
 	const project = await loadProjectInMemory({
 		blob: await newProject({
