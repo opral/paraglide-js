@@ -1,0 +1,287 @@
+diff --git a/src/compiler/compile-project.test.ts b/src/compiler/compile-project.test.ts
+index ef71748..d312dc4 100644
+--- a/src/compiler/compile-project.test.ts
++++ b/src/compiler/compile-project.test.ts
+@@ -209,7 +209,10 @@ test("locale-modules retain language-grouped static text helpers", async () => {
+ test("Vite client locale split emits compiler-derived locale and markup metadata", async () => {
+ 	const project = await loadProjectInMemory({
+ 		blob: await newProject({
+-			settings: { baseLocale: "en", locales: ["en", "de", "de-AT"] },
++			settings: {
++				baseLocale: "en",
++				locales: ["en", "de", "de-AT", "fr", "fr-CA"],
++			},
+ 		}),
+ 	});
+ 	await insertBundleNested(
+@@ -263,6 +266,57 @@ test("Vite client locale split emits compiler-derived locale and markup metadata
+ 			})
+ 		);
+ 	}
++	await insertBundleNested(
++		project.db,
++		createBundleNested({
++			id: "dynamic-fallback",
++			declarations: [{ type: "input-variable", name: "name" }],
++			messages: [
++				{
++					locale: "en",
++					variants: [
++						{
++							pattern: [
++								{ type: "text", value: "Hello " },
++								{
++									type: "expression",
++									arg: {
++										type: "variable-reference",
++										name: "name",
++									},
++								},
++							],
++						},
++					],
++				},
++			],
++		})
++	);
++	await insertBundleNested(
++		project.db,
++		createBundleNested({
++			id: "single-literal-variant",
++			declarations: [{ type: "input-variable", name: "kind" }],
++			messages: [
++				{
++					locale: "en",
++					selectors: [{ type: "variable-reference", name: "kind" }],
++					variants: [
++						{
++							matches: [
++								{ type: "literal-match", key: "kind", value: "short" },
++							],
++							pattern: [{ type: "text", value: "Only one variant" }],
++						},
++					],
++				},
++			],
++		})
++	);
++	await insertBundleNested(
++		project.db,
++		createBundleNested({ id: "missing-fallback", messages: [] })
++	);
+ 
+ 	const ordinaryOutput = await compileProject({
+ 		project,
+@@ -276,52 +330,71 @@ test("Vite client locale split emits compiler-derived locale and markup metadata
+ 		{ clientLocaleSplit: true }
+ 	);
+ 	const metadata = JSON.parse(output["client-locale-split.json"]!);
++	const metadataById = Object.fromEntries(
++		metadata.messages.map((message: { publicName: string }) => [
++			message.publicName,
++			message,
++		])
++	);
+ 	expect(metadata).toMatchObject({
+ 		baseLocale: "en",
+-		locales: ["en", "de", "de-AT"],
+-		messages: expect.arrayContaining([
+-			{
+-				safeName: "markup_example",
+-				publicName: "markup-example",
+-				staticTexts: { de: "Hallo" },
+-				hasInputs: false,
+-				hasMarkup: true,
+-			},
+-			{
+-				safeName: "_then",
+-				publicName: "then",
+-				staticTexts: { en: "then en", de: "then de" },
+-				hasInputs: false,
+-				hasMarkup: false,
+-			},
+-			{
+-				safeName: "helloworld2",
+-				publicName: "HelloWorld",
+-				staticTexts: { en: "HelloWorld en", de: "HelloWorld de" },
+-				hasInputs: false,
+-				hasMarkup: false,
+-			},
+-			{
+-				safeName: "loadlocale1",
+-				publicName: "loadLocale",
+-				staticTexts: { en: "loadLocale en", de: "loadLocale de" },
+-				hasInputs: false,
+-				hasMarkup: false,
+-			},
+-		]),
++		locales: ["en", "de", "de-AT", "fr", "fr-CA"],
++	});
++	expect(metadataById["markup-example"]).toMatchObject({
++		safeName: "markup_example",
++		staticTexts: { de: "Hallo", "de-AT": "Hallo" },
++		hasInputs: false,
++		hasMarkup: true,
++	});
++	expect(metadataById["then"]).toMatchObject({
++		safeName: "_then",
++		staticTexts: {
++			en: "then en",
++			de: "then de",
++			"de-AT": "then de",
++			fr: "then en",
++			"fr-CA": "then en",
++		},
++		hasInputs: false,
++		hasMarkup: false,
++	});
++	expect(metadataById.HelloWorld).toMatchObject({
++		safeName: "helloworld2",
++		staticTexts: { en: "HelloWorld en", de: "HelloWorld de" },
++	});
++	expect(metadataById.loadLocale).toMatchObject({
++		safeName: "loadlocale1",
++		staticTexts: { en: "loadLocale en", de: "loadLocale de" },
++	});
++	expect(metadataById["dynamic-fallback"].staticTexts).toEqual({});
++	// The current compiler emits a single variant without testing its `matches`;
++	// the metadata projection must mirror that behavior exactly.
++	expect(metadataById["single-literal-variant"].staticTexts).toEqual({
++		en: "Only one variant",
++		de: "Only one variant",
++		"de-AT": "Only one variant",
++		fr: "Only one variant",
++		"fr-CA": "Only one variant",
++	});
++	expect(metadataById["missing-fallback"].staticTexts).toEqual({
++		en: "missing-fallback",
++		de: "missing-fallback",
++		"de-AT": "missing-fallback",
++		fr: "missing-fallback",
++		"fr-CA": "missing-fallback",
+ 	});
+ 	expect(output["messages/de-AT.js"]).toContain(
+ 		'export { markup_example } from "./de.js"'
+ 	);
+ 	expect(output["messages/_index.js"]).toMatch(/de_at\d*\.markup_example/);
+ 	expect(output["locale-loader.js"]).toContain(
+-		'@typedef {"en" | "de" | "de-AT"} Locale'
++		'@typedef {"en" | "de" | "de-AT" | "fr" | "fr-CA"} Locale'
+ 	);
+ 	expect(output["locale-loader.js"]).toContain(
+ 		"export async function loadLocale"
+ 	);
+ 	expect(output["locale-loader.d.ts"]).toContain(
+-		'export type Locale = "en" | "de" | "de-AT";'
++		'export type Locale = "en" | "de" | "de-AT" | "fr" | "fr-CA";'
+ 	);
+ 	expect(output["locale-loader.d.ts"]).toContain(
+ 		"export declare function loadLocale(locale: Locale): Promise<void>"
+diff --git a/src/compiler/compile-project.ts b/src/compiler/compile-project.ts
+index 924d0e7..9f957e0 100644
+--- a/src/compiler/compile-project.ts
++++ b/src/compiler/compile-project.ts
+@@ -1,5 +1,9 @@
+ import { compileBundle, compileBundleForVite } from "./compile-bundle.js";
+-import { selectBundleNested, type InlangProject } from "@inlang/sdk";
++import {
++	selectBundleNested,
++	type BundleNested,
++	type InlangProject,
++} from "@inlang/sdk";
+ import { lookup } from "../services/lookup.js";
+ import * as localeModules from "./output-structure/locale-modules.js";
+ import * as messageModules from "./output-structure/message-modules.js";
+@@ -133,28 +137,25 @@ async function compileProjectInternal(
+ 			{
+ 				baseLocale: settings.baseLocale,
+ 				locales: settings.locales,
+-				messages: bundles.map((bundle) => ({
++			messages: bundles.map((bundle) => {
++				// This map is shared by the bundle's locale fallback lookups.
++				const messagesByLocale = new Map(
++					bundle.messages.map((message) => [message.locale, message])
++				);
++				return {
+ 					safeName: toSafeModuleId(bundle.id),
+ 					publicName: bundle.id,
+-					// Compiler-known literal values; no parsing of generated JS.
++					// Compiler-known literal values, including the locale-module fallback
++					// chain. No parsing of generated JavaScript.
+ 					staticTexts: Object.fromEntries(
+-						bundle.messages.flatMap((message) => {
+-							const variant =
+-								message.variants.length === 1 ? message.variants[0] : undefined;
+-							if (
+-								!variant ||
+-								!variant.pattern.every((part) => part.type === "text")
+-							)
+-								return [];
+-							return [
+-								[
+-									message.locale,
+-									variant.pattern
+-										.map((part) => (part.type === "text" ? part.value : ""))
+-										.join("")
+-										.replace(/\r\n?/g, "\n"),
+-								],
+-							];
++						settings.locales.flatMap((locale) => {
++							const text = resolveStaticText(
++								bundle.id,
++								messagesByLocale,
++								locale,
++								fallbackMap
++							);
++							return text === undefined ? [] : [[locale, text]];
+ 						})
+ 					),
+ 					hasInputs:
+@@ -171,7 +172,8 @@ async function compileProjectInternal(
+ 							)
+ 						)
+ 					),
+-				})),
++				};
++			}),
+ 			},
+ 			null,
+ 			2
+@@ -273,6 +275,37 @@ export async function loadLocale(locale) {
+ 	return output;
+ }
+ 
++function resolveStaticText(
++	bundleId: string,
++	messagesByLocale: Map<string, BundleNested["messages"][number]>,
++	locale: string,
++	fallbackMap: Record<string, string | undefined>
++): string | undefined {
++	const visited = new Set<string>();
++	let currentLocale: string | undefined = locale;
++
++	while (currentLocale && !visited.has(currentLocale)) {
++		visited.add(currentLocale);
++		const message = messagesByLocale.get(currentLocale);
++		if (message) {
++			const variant =
++				message.variants.length === 1 ? message.variants[0] : undefined;
++			if (!variant || !variant.pattern.every((part) => part.type === "text")) {
++				return undefined;
++			}
++			return variant.pattern
++				.map((part) => (part.type === "text" ? part.value : ""))
++				.join("")
++				.replace(/\r\n?/g, "\n");
++		}
++		currentLocale = fallbackMap[currentLocale];
++	}
++
++	// locale-modules emits the bundle ID when no locale in the fallback chain
++	// contains this message.
++	return bundleId;
++}
++
+ export function getFallbackMap<T extends string>(
+ 	locales: T[],
+ 	baseLocale: NoInfer<T>
