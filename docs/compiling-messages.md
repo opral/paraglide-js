@@ -112,6 +112,12 @@ The option uses `locale-modules` output and requires an explicit Vite
 facade waits for the startup locale with top-level `await`. It cannot be
 combined with `experimentalStaticLocale`,
 `experimentalMiddlewareLocaleSplitting`, or `experimentalPerLocaleBuild`.
+Set `build.target` in the Vite configuration itself, including for frameworks
+that run separate client builds. When migrating an existing locale preference,
+configure the matching storage key, for example `strategy: ["localStorage",
+"baseLocale"]` and `localStorageKey: "locale"` in the plugin options. The default
+Paraglide storage key may differ from your existing i18next setup.
+
 Use the generated loader to preload another client locale:
 
 ```ts
