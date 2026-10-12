@@ -1,0 +1,66 @@
+{
+  "kind": "private static-consumer fixture, not full Ntfy production",
+  "catalogMessageCount": 473,
+  "locales": [
+    "en",
+    "fr",
+    "de"
+  ],
+  "prototypePatchSha256": "26be94f163fa79f6d707cc9d83cbc1d895472702f94c3522b01413ba1654e934",
+  "sourceHead": "6997d020813d76f087d585110e62cd54891726e0",
+  "initial": {
+    "aggregation": {
+      "requests": 11,
+      "brotliQ4": 6417
+    },
+    "native": {
+      "requests": 5,
+      "brotliQ4": 17438
+    }
+  },
+  "fixtureByteReductionPercent": 63.201,
+  "lazyStaticIndex": 1,
+  "initialCapsules": {
+    "/assets/paraglide-capsule-en-XURTd7Fe.json": {
+      "0": "A provisioned user cannot be edited or deleted"
+    },
+    "/assets/paraglide-capsule-fr-BigOXlZ-.json": {
+      "0": "Un utilisateur provisionn\u00e9 ne peut pas \u00eatre modifi\u00e9 ou supprim\u00e9"
+    }
+  },
+  "lazyCapsules": {
+    "/assets/paraglide-capsule-en-BWAKKhfI.json": {
+      "1": "Primary address, used as your default email address. Click for actions."
+    },
+    "/assets/paraglide-capsule-fr-D0H1gIrX.json": {
+      "1": "Adresse primaire, utilis\u00e9e comme votre adresse mail par d\u00e9faut. Cliquer pour choisir l'action."
+    }
+  },
+  "errors": {
+    "aggregation": [],
+    "native": []
+  },
+  "semantics": [
+    "initial French",
+    "rich parts",
+    "plural",
+    "lazy import without caller preload",
+    "fr -> de -> en -> fr",
+    "explicit de preload before lazy import",
+    "concurrent de switch and lazy import",
+    "HTTP503 rejects switch, keeps fr, and retry succeeds"
+  ],
+  "limitations": [
+    "not real product route",
+    "formatted/rich lazy functions still in initial shared locale JS",
+    "no timing measurement",
+    "only Vite8.3.4 tested",
+    "per-output-chunk grouping not general fanout bound",
+    "SSR/default compiler unchanged but not executed in this fixture",
+    "relative URL/base/CSP multi-project not validated",
+    "generic namespace dynamic access retains full reachable messages"
+  ],
+  "pluginLeafSha256": "45ffec783a30b432844b2142d2edeeb140e5dd9bd9d912ba688eda95b4e0dec7",
+  "pluginSourceSha256": "1c2e5f64895f19f4ec62e229d3db14231f3f3607339e433af155dd2cca3baef9",
+  "sourcemapProbe": "route-capsules-sourcemap-trace.json"
+}
