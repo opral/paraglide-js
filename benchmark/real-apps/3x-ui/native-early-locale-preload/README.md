@@ -17,7 +17,7 @@ A first attempt added separate HTML module-script entries. Vite folded those imp
 - Command: `npm run build -- --manifest`
 - Translation catalogs: all original catalogs retained; the initial Spanish login route requests the existing `es-ES` chunk. `en-US` remains the app’s static fallback.
 
-`native-early-preload.patch` applies to the pinned app source. The output identity check compares all files in the fresh native ES2022 dist against the instrumented dist: 165 files are identical; only `index.html`, `login.html`, and `subpage.html` differ. The emitted Vite manifest is identical. `build.log`, `dist-file-hashes.json`, and `native-js-identity-check.json` record the build and outputs.
+`native-early-preload.patch` applies to the pinned app source. The output identity check compares all files in the fresh native ES2022 dist against the instrumented dist: 165 files are identical; only `index.html`, `login.html`, and `subpage.html` differ. The emitted Vite manifest is identical. `dist-file-hashes.json` and `native-js-identity-check.json` record the output identity.
 
 ## One-pair results
 
@@ -30,9 +30,9 @@ Each cold pair uses a fresh browser context with cache disabled, `lang=es-ES`, t
 | Desktop: 80ms RTT, 20Mbps down, 2Mbps up, 3× CPU | Base + selected core | 1126 → 1133ms (+0.6%) | 948 → 960ms (+1.3%) | 762,166 → 723,574B (−5.1%) | 755,866 → 716,074B |
 | Mobile: 150ms RTT, 1.6Mbps down, 2Mbps up, 4× CPU | Base + selected core | 4840 → 4634ms (−4.3%) | 4484 → 4280ms (−4.6%) | 762,166 → 723,574B (−5.1%) | 755,866 → 716,074B |
 
-“Full resource transfer” sums browser `transferSize` for all resources and includes transfer headers. “Encoded resource bodies” sums `encodedBodySize` and excludes headers. They are separate denominators. Timings and resource counts are in each raw Playwright JSON file. These are one-pair diagnostics; none of the readiness changes reached 10%, so no repeated batch was run.
+“Full resource transfer” sums browser `transferSize` for all resources and includes transfer headers. “Encoded resource bodies” sums `encodedBodySize` and excludes headers. They are separate denominators; both resource sums exclude the HTML navigation, whose timing is recorded separately. Timings and resource counts are in each raw Playwright JSON file. These are one-pair diagnostics; none of the readiness changes reached 10%, so no repeated batch was run.
 
-The selected-only core startup change has a compatibility limitation: it loads only the selected locale, while synchronous calls with an explicit unsupported locale may need the base locale before fallback works. It remains a private research variant. The base-plus-selected core control preserves the existing base-locale load and was within 5% of the early-preloaded native control.
+The selected-only core startup change has a compatibility limitation: it loads only the selected locale, while explicit `en-US` calls and unsupported explicit locales that fall back to English require `await loadLocale("en-US")` first. It remains a private research variant. The base-plus-selected core control preserves the existing base-locale load and was within 5% of the early-preloaded native control.
 
 ## Cookie fast-path checks
 
