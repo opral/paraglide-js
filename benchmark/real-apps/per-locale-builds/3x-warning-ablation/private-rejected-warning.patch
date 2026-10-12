@@ -1,0 +1,26 @@
+diff --git a/src/compiler/compile-bundle.test.ts b/src/compiler/compile-bundle.test.ts
+index 28b5096..91850fd 100644
+--- a/src/compiler/compile-bundle.test.ts
++++ b/src/compiler/compile-bundle.test.ts
+@@ -450,7 +450,7 @@ test("emits the per-locale build marker inside the message function", () => {
+ 		`const locale = ${expression} ?? options.locale ?? getLocale()`
+ 	);
+ 	expect(result.bundle.code).toContain(
+-		`if (${expression} !== undefined && options.locale !== undefined && options.locale !== ${expression}) console.warn(`
++		`if (${expression} !== undefined && /** @type {any} */ (import.meta).env?.DEV && options.locale !== undefined && options.locale !== ${expression}) console.warn(`
+ 	);
+ 	expect(result.bundle.code).toContain("full document navigation");
+ });
+diff --git a/src/compiler/compile-bundle.ts b/src/compiler/compile-bundle.ts
+index 5cf61ab..455dd0f 100644
+--- a/src/compiler/compile-bundle.ts
++++ b/src/compiler/compile-bundle.ts
+@@ -338,7 +338,7 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
+ 			? `${perLocaleBuildStaticLocaleExpression} ?? options.locale ?? getLocale()`
+ 			: "experimentalStaticLocale ?? options.locale ?? getLocale()";
+ 		const overrideWarning = perLocaleBuild
+-			? `\n${indent}if (${perLocaleBuildStaticLocaleExpression} !== undefined && options.locale !== undefined && options.locale !== ${perLocaleBuildStaticLocaleExpression}) console.warn("Paraglide: options.locale cannot override a locale-specialized client bundle; use a full document navigation to switch locales.")`
++			? `\n${indent}if (${perLocaleBuildStaticLocaleExpression} !== undefined && /** @type {any} */ (import.meta).env?.DEV && options.locale !== undefined && options.locale !== ${perLocaleBuildStaticLocaleExpression}) console.warn("Paraglide: options.locale cannot override a locale-specialized client bundle; use a full document navigation to switch locales.")`
+ 			: "";
+ 
+ 		if (
