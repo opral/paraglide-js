@@ -33,6 +33,15 @@ if (!["message-modules", "locale-modules"].includes(outputStructure)) {
 	throw Error(`Unknown output structure: ${outputStructure}`);
 }
 const output = await load(`compiler/output-structure/${outputStructure}.js`);
+const packerPath = path.resolve(
+	compiler,
+	"bundler-plugins/locale-function-packer.js"
+);
+const packer =
+	outputStructure === "locale-modules" &&
+	(await fs.stat(packerPath).catch(() => null))
+		? await load("bundler-plugins/locale-function-packer.js")
+		: undefined;
 const { createRuntimeFile } = await load("compiler/runtime/create-runtime.js");
 const { defaultCompilerOptions } = await load("compiler/compiler-options.js");
 const { createRegistry } = await load("compiler/registry.js");
@@ -159,6 +168,15 @@ const settings = { baseLocale: "en", locales };
 const fallbackMap = Object.fromEntries(
 	locales.map((locale) => [locale, locale === "en" ? undefined : "en"])
 );
+const localeFunctionLocalNames =
+	packer && output.createLocaleFunctionLocalNames
+		? new Map(
+				locales.map((locale) => [
+					locale,
+					output.createLocaleFunctionLocalNames(bundles, locale),
+				])
+			)
+		: undefined;
 const compiled = bundles.map((bundle) =>
 	compileBundle({
 		bundle,
@@ -171,7 +189,13 @@ const compiled = bundles.map((bundle) =>
 const root = path.resolve(".real-apps", app, label);
 const generated = path.join(root, "paraglide");
 const files = {
-	...output.generateOutput(compiled, settings, fallbackMap),
+	...output.generateOutput(
+		compiled,
+		settings,
+		fallbackMap,
+		false,
+		localeFunctionLocalNames
+	),
 	"runtime.js": createRuntimeFile({
 		...settings,
 		compilerOptions: {
@@ -272,10 +296,37 @@ await fs.writeFile(
 	`import i18next from ${JSON.stringify(i18nextPath)}; const resources=${JSON.stringify(nativeResources)}; await i18next.init({lng:'en',fallbackLng:'en',initImmediate:false,interpolation:{escapeValue:false},resources}); export const translate=(key,inputs)=>i18next.t(key,inputs); export const setLocale=locale=>i18next.changeLanguage(locale);`
 );
 const sizes = {};
+const packingChunks = [];
+const bundledParityChecks = {};
 for (const library of ["paraglide", "i18next"]) {
 	const result = await build({
 		configFile: false,
 		logLevel: "error",
+		plugins:
+			library === "paraglide" && packer
+				? [
+						{
+							name: "real-app-paraglide-locale-packer",
+							enforce: "post",
+							renderChunk: {
+								order: "pre",
+								handler(code, chunk) {
+									const started = performance.now();
+									const packed = packer.packLocaleFunctionChunk(code, {
+										fileName: chunk.fileName,
+									});
+									packingChunks.push({
+										fileName: chunk.fileName,
+										inputBytes: Buffer.byteLength(code),
+										changed: Boolean(packed),
+										milliseconds: performance.now() - started,
+									});
+									return packed;
+								},
+							},
+						},
+					]
+				: [],
 		build: {
 			write: false,
 			minify: true,
@@ -299,6 +350,19 @@ for (const library of ["paraglide", "i18next"]) {
 		path.join(root, `${library}-bundle.js`),
 		chunks.map((c) => c.code).join("\n")
 	);
+	const built = await import(
+		pathToFileURL(path.join(root, `${library}-bundle.js`)).href
+	);
+	bundledParityChecks[library] = 0;
+	for (const locale of locales) {
+		await built.setLocale(locale, { reload: false });
+		await instance.changeLanguage(locale);
+		for (const key of included) {
+			if (built.translate(key, inputs) !== instance.t(key, inputs))
+				throw Error(`Vite bundle parity mismatch ${library}/${locale}/${key}`);
+			bundledParityChecks[library]++;
+		}
+	}
 }
 const median = (a) => a.sort((a, b) => a - b)[Math.floor(a.length / 2)];
 const rounds = { paraglide: [], i18next: [] };
@@ -341,6 +405,9 @@ const report = {
 	included: included.length,
 	excluded,
 	parityChecks,
+	bundledParityChecks,
+	localeFunctionPacking: Boolean(packer),
+	packingChunks,
 	switchChecks,
 	catalogHash,
 	nativeResourceHash,

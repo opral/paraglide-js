@@ -29,11 +29,23 @@ const outputStructures = {
  *   const output = await compileProject({ project, projectPath: "./project.inlang" });
  *   await writeOutput('path', output, fs.promises);
  */
-export const compileProject = async (args: {
+type CompileProjectArgs = {
 	project: InlangProject;
 	projectPath?: string;
 	compilerOptions?: Omit<CompilerOptions, "fs" | "project" | "outdir">;
-}): Promise<Record<string, string>> => {
+};
+
+export const compileProject = (args: CompileProjectArgs) =>
+	compileProjectInternal(args, false);
+
+/** Internal Vite layout variant; intentionally not re-exported from the package API. */
+export const compileProjectForVite = (args: CompileProjectArgs) =>
+	compileProjectInternal(args, true);
+
+async function compileProjectInternal(
+	args: CompileProjectArgs,
+	enableLocaleFunctionNames: boolean
+): Promise<Record<string, string>> {
 	const optionsWithDefaults = {
 		...defaultCompilerOptions,
 		...args.compilerOptions,
@@ -49,6 +61,18 @@ export const compileProject = async (args: {
 	const fallbackMap = getFallbackMap(settings.locales, settings.baseLocale);
 
 	const outputStructure = outputStructures[optionsWithDefaults.outputStructure];
+	const localeFunctionLocalNames =
+		enableLocaleFunctionNames &&
+		optionsWithDefaults.outputStructure === "locale-modules" &&
+		!optionsWithDefaults.experimentalMiddlewareLocaleSplitting &&
+		!optionsWithDefaults.experimentalStaticLocale
+			? new Map(
+					settings.locales.map((locale) => [
+						locale,
+						localeModules.createLocaleFunctionLocalNames(bundles, locale),
+					])
+				)
+			: undefined;
 
 	const compiledBundles = bundles.map((bundle) =>
 		compileBundle({
@@ -82,15 +106,21 @@ export const compileProject = async (args: {
 	};
 
 	// generate the output modules
-	Object.assign(
-		output,
-		outputStructure.generateOutput(
-			compiledBundles,
-			settings,
-			fallbackMap,
-			optionsWithDefaults.experimentalMiddlewareLocaleSplitting
-		)
-	);
+	const generatedMessages = localeFunctionLocalNames
+		? localeModules.generateOutput(
+				compiledBundles,
+				settings,
+				fallbackMap,
+				optionsWithDefaults.experimentalMiddlewareLocaleSplitting,
+				localeFunctionLocalNames
+			)
+		: outputStructure.generateOutput(
+				compiledBundles,
+				settings,
+				fallbackMap,
+				optionsWithDefaults.experimentalMiddlewareLocaleSplitting
+			);
+	Object.assign(output, generatedMessages);
 
 	if (optionsWithDefaults.emitGitIgnore) {
 		output[".gitignore"] = ignoreDirectory;
@@ -150,7 +180,7 @@ export const compileProject = async (args: {
 	}
 
 	return output;
-};
+}
 
 export function getFallbackMap<T extends string>(
 	locales: T[],

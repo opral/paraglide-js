@@ -1,0 +1,42 @@
+{
+  "app": "drawdb",
+  "label": "locale-functions",
+  "outputStructure": "locale-modules",
+  "sourceCommit": "351bd6050692d5b7d7fb50cc283ef90a19d817ea",
+  "i18nextVersion": "23.16.8",
+  "node": "v22.23.2",
+  "viteVersion": "8.1.4",
+  "locales": 51,
+  "keys": 364,
+  "included": 364,
+  "excluded": [],
+  "parityChecks": 18564,
+  "bundledParityChecks": {
+    "paraglide": 18564,
+    "i18next": 18564
+  },
+  "localeFunctionPacking": true,
+  "packingChunks": [
+    {
+      "fileName": "assets/paraglide-entry-!~{000}~.js",
+      "inputBytes": 3374463,
+      "changed": true
+    }
+  ],
+  "switchChecks": 2184,
+  "catalogHash": "d634aa890da3d26ed44622fa4fa4818ea400084ba80d15538d5fd9d03f4d4e5f",
+  "compilerArtifactHash": "bc40d5bc7e892fc444253416b031bb3d8d54731951ec307582c1d4593ca3d3d9",
+  "scope": "complete-catalog isolated JS; Memos is an all-locales stress workload, not its lazy production loading",
+  "sizes": {
+    "paraglide": {
+      "raw": 1111931,
+      "gzip": 261237,
+      "brotli": 183278
+    },
+    "i18next": {
+      "raw": 1067257,
+      "gzip": 257006,
+      "brotli": 208199
+    }
+  }
+}

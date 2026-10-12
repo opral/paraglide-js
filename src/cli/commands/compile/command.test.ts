@@ -161,9 +161,8 @@ test("compile --watch seeds existing outdir and disables cleaning on first compi
 	const testDirectory = await mkdtemp(path.join(tmpdir(), "paraglide-cli-"));
 	testDirectories.push(testDirectory);
 	const outdir = path.join(testDirectory, "output");
-	const { writeOutput } = await import(
-		"../../../services/file-handling/write-output.js"
-	);
+	const { writeOutput } =
+		await import("../../../services/file-handling/write-output.js");
 	await writeOutput({
 		directory: outdir,
 		output: {
@@ -513,9 +512,10 @@ describe("config file integration", () => {
 
 		try {
 			const { compileCommand } = await import("./command.js");
-			const compileModule = (await import("../../../compiler/compile.js")) as {
-				compile: ReturnType<typeof vi.fn>;
-			};
+			const compileModule =
+				(await import("../../../compiler/compile.js")) as unknown as {
+					compile: ReturnType<typeof vi.fn>;
+				};
 
 			await compileCommand.parseAsync(
 				["--project", projectDir, "--watch", "--silent"],

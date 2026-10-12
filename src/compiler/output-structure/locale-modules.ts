@@ -1,4 +1,4 @@
-import type { ProjectSettings } from "@inlang/sdk";
+import type { BundleNested, ProjectSettings } from "@inlang/sdk";
 import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import { toSafeModuleId } from "../safe-module-id.js";
 import { inputsType } from "../jsdoc-types.js";
@@ -10,11 +10,39 @@ export function messageReferenceExpression(locale: string, bundleId: string) {
 	return `${localeImportPrefix}${toSafeModuleId(locale)}.${toSafeModuleId(bundleId)}`;
 }
 
+/** Allocate private message helpers that encode their locale for the Vite packer. */
+export function createLocaleFunctionLocalNames(
+	bundles: Pick<BundleNested, "id">[],
+	locale: string
+): Map<string, string> {
+	const usedNames = new Set(
+		bundles.flatMap(({ id }) => [id, toSafeModuleId(id)])
+	);
+	const localNames = new Map<string, string>();
+	const encodedLocale =
+		Array.from(locale, (character) =>
+			character.codePointAt(0)!.toString(16)
+		).join("_") || "x";
+	let index = 0;
+
+	for (const { id } of bundles) {
+		let localName: string;
+		do {
+			localName = `__paraglide_locale_fn_l${Array.from(locale).length}_${encodedLocale}_n${index++}`;
+		} while (usedNames.has(localName));
+		usedNames.add(localName);
+		localNames.set(id, localName);
+	}
+
+	return localNames;
+}
+
 export function generateOutput(
 	compiledBundles: CompiledBundleWithMessages[],
 	settings: Pick<ProjectSettings, "locales" | "baseLocale">,
 	fallbackMap: Record<string, string | undefined>,
-	experimentalMiddlewareLocaleSplitting = false
+	experimentalMiddlewareLocaleSplitting = false,
+	localeFunctionLocalNames?: Map<string, Map<string, string>>
 ): Record<string, string> {
 	const runtimeImport = experimentalMiddlewareLocaleSplitting
 		? `import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale } from "../runtime.js"`
@@ -91,7 +119,13 @@ export function generateOutput(
 			if (compiledMessage.registryFunctions.length > 0) {
 				usesRegistry = true;
 			}
-			file += `\n\nexport const ${bundleModuleId} = ${compiledMessage.code}`;
+			const localName = localeFunctionLocalNames?.get(locale)?.get(bundleId);
+			if (localName) {
+				file += `\n\nconst ${localName} = ${compiledMessage.code}`;
+				file += `\nexport { ${localName} as ${bundleModuleId} };`;
+			} else {
+				file += `\n\nexport const ${bundleModuleId} = ${compiledMessage.code}`;
+			}
 		}
 
 		// add import if used

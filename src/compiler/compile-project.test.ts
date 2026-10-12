@@ -15,10 +15,15 @@ import {
 	Pattern,
 	VariableReference,
 } from "@inlang/sdk";
-import { compileProject, getFallbackMap } from "./compile-project.js";
+import {
+	compileProject,
+	compileProjectForVite,
+	getFallbackMap,
+} from "./compile-project.js";
 import virtual from "@rollup/plugin-virtual";
 import { rolldown } from "rolldown";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
+import { packLocaleFunctionChunk } from "../bundler-plugins/locale-function-packer.js";
 
 beforeEach(() => {
 	// reset the imports to make sure that the runtime is reloaded
@@ -69,6 +74,54 @@ test("locale-modules retain language-grouped static text helpers", async () => {
 			})),
 		})
 	);
+	await insertBundleNested(
+		project.db,
+		createBundleNested({
+			id: "unused_layout",
+			declarations: [],
+			messages: ["en", "de"].map((locale) => ({
+				locale,
+				variants: [
+					{
+						pattern: [
+							{ type: "text" as const, value: `UNUSED_LOCALE_TEXT_${locale}` },
+						],
+					},
+				],
+			})),
+		})
+	);
+	const additionalLayoutIds = Array.from(
+		{ length: 14 },
+		(_, index) => `additional_layout_${index}`
+	);
+	for (const [index, id] of additionalLayoutIds.entries()) {
+		await insertBundleNested(
+			project.db,
+			createBundleNested({
+				id,
+				declarations: [],
+				messages: ["en", "de"].map((locale) => ({
+					locale,
+					variants: [
+						{
+							pattern: [
+								{
+									type: "text" as const,
+									value: `ADDITIONAL_LAYOUT_${locale}_${index}`,
+								},
+							],
+						},
+					],
+				})),
+			})
+		);
+	}
+	const allLayoutIds = [
+		"literal_layout",
+		"unused_layout",
+		...additionalLayoutIds,
+	];
 	const output = await compileProject({
 		project,
 		compilerOptions: { outputStructure: "locale-modules" },
@@ -76,10 +129,80 @@ test("locale-modules retain language-grouped static text helpers", async () => {
 	expect(output["messages/_index.js"]).toContain(
 		"return __de.literal_layout(inputs)"
 	);
-	expect(output["messages/_index.js"]).not.toContain(
-		'return /** @type {LocalizedString} */ ("layout text de")'
-	);
 	expect(output["messages/de.js"]).toContain("export const literal_layout =");
+	const viteLayoutOutput = await compileProjectForVite({
+		project,
+		compilerOptions: { outputStructure: "locale-modules" },
+	});
+	expect(viteLayoutOutput["messages/_index.js"]).toContain(
+		"return __de.literal_layout(inputs)"
+	);
+	expect(viteLayoutOutput["messages/_index.js"]).not.toContain(
+		"__paraglide_locale_value_"
+	);
+	expect(viteLayoutOutput["messages/de.js"]).toContain("layout text de");
+	expect(viteLayoutOutput["messages/de.js"]).toContain("UNUSED_LOCALE_TEXT_de");
+	expect(viteLayoutOutput["messages/de.js"]).toMatch(
+		/const __paraglide_locale_fn_l2_64_65_n\d+ =/
+	);
+	expect(viteLayoutOutput["messages/de.js"]).toMatch(
+		/export \{ __paraglide_locale_fn_l2_64_65_n\d+ as literal_layout \}/
+	);
+	const treeShakenCode = await bundleCode(
+		viteLayoutOutput,
+		`import { literal_layout } from "./paraglide/messages.js"; export { literal_layout };`
+	);
+	expect(treeShakenCode).toContain("layout text de");
+	expect(treeShakenCode).not.toContain("UNUSED_LOCALE_TEXT");
+	const localeFunctionCode = await bundleCode(
+		viteLayoutOutput,
+		`import { literal_layout } from "./paraglide/messages/de.js"; export { literal_layout };`
+	);
+	const localeModule = await importCode(localeFunctionCode);
+	expect(localeModule.literal_layout()).toBe("layout text de");
+	const compiledLayoutCode = await bundleCode(
+		viteLayoutOutput,
+		`import { ${allLayoutIds.join(", ")} } from "./paraglide/messages.js";
+		 export const read = () => [${allLayoutIds.map((id) => `${id}()`).join(", ")}];`
+	);
+	const packedLayoutCode = packLocaleFunctionChunk(compiledLayoutCode);
+	expect(packedLayoutCode).not.toBeNull();
+	expect(packedLayoutCode?.code).toContain(
+		"__paraglide_packed_locale_l2_65_6e_0"
+	);
+	expect(packedLayoutCode?.code).not.toContain("__paraglide_locale_fn_");
+	expect(packedLayoutCode?.code).toContain("layout text en");
+
+	const specializedOutput = await compileProjectForVite({
+		project,
+		compilerOptions: {
+			outputStructure: "locale-modules",
+			experimentalStaticLocale: perLocaleBuildStaticLocaleExpression,
+		},
+	});
+	expect(specializedOutput["messages/_index.js"]).not.toContain(
+		"__paraglide_locale_fn_"
+	);
+	const customStaticLocaleOutput = await compileProjectForVite({
+		project,
+		compilerOptions: {
+			outputStructure: "locale-modules",
+			experimentalStaticLocale: '"de"',
+		},
+	});
+	expect(customStaticLocaleOutput["messages/_index.js"]).not.toContain(
+		"__paraglide_locale_fn_"
+	);
+	const middlewareOutput = await compileProjectForVite({
+		project,
+		compilerOptions: {
+			outputStructure: "locale-modules",
+			experimentalMiddlewareLocaleSplitting: true,
+		},
+	});
+	expect(middlewareOutput["messages/_index.js"]).not.toContain(
+		"__paraglide_locale_fn_"
+	);
 	await project.close();
 });
 
@@ -563,7 +686,7 @@ test("emits .parts() on bundle functions for markup messages", async () => {
 	const project = await loadProjectInMemory({
 		blob: await newProject({
 			settings: {
-				locales: ["en", "de"],
+				locales: ["en", "de", "de-AT"],
 				baseLocale: "en",
 			},
 		}),
@@ -608,6 +731,33 @@ test("emits .parts() on bundle functions for markup messages", async () => {
 						},
 					],
 				},
+				{
+					locale: "de",
+					variants: [
+						{
+							pattern: [
+								{ type: "text", value: "Du hast " },
+								{
+									type: "markup-start",
+									name: "strong",
+									options: [],
+									attributes: [],
+								},
+								{
+									type: "expression",
+									arg: { type: "variable-reference", name: "amount" },
+								},
+								{ type: "text", value: " Münzen." },
+								{
+									type: "markup-end",
+									name: "strong",
+									options: [],
+									attributes: [],
+								},
+							],
+						},
+					],
+				},
 			],
 		})
 	);
@@ -631,6 +781,28 @@ test("emits .parts() on bundle functions for markup messages", async () => {
 		{ type: "text", value: " coins" },
 		{ type: "markup-end", name: "strong", options: {}, attributes: {} },
 		{ type: "text", value: "." },
+	]);
+
+	const viteOutput = await compileProjectForVite({
+		project,
+		compilerOptions: { outputStructure: "locale-modules" },
+	});
+	const viteCode = await bundleCode(
+		viteOutput,
+		`export * as m from "./paraglide/messages.js"`
+	);
+	const { m: viteMessages } = await importCode(viteCode);
+	expect(viteMessages.balance({ amount: 7 }, { locale: "de-AT" })).toBe(
+		"Du hast 7 Münzen."
+	);
+	expect(
+		viteMessages.balance.parts({ amount: 7 }, { locale: "de-AT" })
+	).toEqual([
+		{ type: "text", value: "Du hast " },
+		{ type: "markup-start", name: "strong", options: {}, attributes: {} },
+		{ type: "text", value: "7" },
+		{ type: "text", value: " Münzen." },
+		{ type: "markup-end", name: "strong", options: {}, attributes: {} },
 	]);
 });
 

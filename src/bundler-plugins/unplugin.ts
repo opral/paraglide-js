@@ -1,5 +1,9 @@
 import type { UnpluginFactory } from "unplugin";
-import { compile, type CompilationResult } from "../compiler/compile.js";
+import {
+	compile,
+	compileForVite,
+	type CompilationResult,
+} from "../compiler/compile.js";
 import { dirname, join, relative, resolve } from "node:path";
 import { createHash } from "node:crypto";
 import nodeFs from "node:fs";
@@ -12,6 +16,7 @@ import {
 	isPathWithinDirectories,
 } from "../services/file-watching/tracked-fs.js";
 import { nodeNormalizePath } from "../utilities/node-normalize-path.js";
+import { packLocaleFunctionChunk } from "./locale-function-packer.js";
 import { seedPreviousCompilationFromOutdir } from "../compiler/seed-previous-compilation.js";
 import {
 	CONFIG_FILE_NAMES,
@@ -142,13 +147,15 @@ function withoutCleanOutdir(
 
 function getCompilerConfig(
 	args: CompilerOptions,
-	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
+	localeFunctionNames = false
 ) {
 	const { fs: _fs, ...serializableArgs } = args;
 	void _fs;
 	return {
 		...serializableArgs,
 		outputStructure,
+		localeFunctionNames,
 		isServer,
 		compilerVersion: ENV_VARIABLES.PARJS_PACKAGE_VERSION,
 	};
@@ -173,7 +180,8 @@ function getCompilerConfig(
 async function computeInputsDigest(
 	state: PluginState,
 	args: CompilerOptions,
-	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
+	localeFunctionNames = false
 ): Promise<string | undefined> {
 	if (state.readFiles.size === 0) {
 		return undefined;
@@ -185,7 +193,11 @@ async function computeInputsDigest(
 	const fsp = (args.fs ?? nodeFs).promises;
 	const hash = createHash("sha256");
 	try {
-		hash.update(JSON.stringify(getCompilerConfig(args, outputStructure)));
+		hash.update(
+			JSON.stringify(
+				getCompilerConfig(args, outputStructure, localeFunctionNames)
+			)
+		);
 		for (const directoryPath of [...targets.directories].sort()) {
 			const entries = await fsp
 				.readdir(directoryPath)
@@ -220,14 +232,19 @@ async function computeInputsDigest(
 
 function getPersistentCachePath(
 	args: CompilerOptions,
-	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
+	localeFunctionNames = false
 ): string {
 	const absoluteOutdir = resolve(process.cwd(), args.outdir);
 	const cacheKey = createHash("sha256")
 		.update(
 			JSON.stringify({
 				absoluteOutdir,
-				compilerConfig: getCompilerConfig(args, outputStructure),
+				compilerConfig: getCompilerConfig(
+					args,
+					outputStructure,
+					localeFunctionNames
+				),
 			})
 		)
 		.digest("hex")
@@ -243,12 +260,16 @@ function getPersistentCachePath(
 
 async function readPersistentCache(
 	args: CompilerOptions,
-	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
+	localeFunctionNames = false
 ): Promise<PersistentCompilationCache | undefined> {
 	const fsp = (args.fs ?? nodeFs).promises;
 	try {
 		const parsed = JSON.parse(
-			await fsp.readFile(getPersistentCachePath(args, outputStructure), "utf8")
+			await fsp.readFile(
+				getPersistentCachePath(args, outputStructure, localeFunctionNames),
+				"utf8"
+			)
 		) as Partial<PersistentCompilationCache>;
 		if (
 			parsed.version !== PERSISTENT_CACHE_VERSION ||
@@ -268,11 +289,14 @@ async function readPersistentCache(
 
 async function preparePersistentCacheDirectory(
 	args: CompilerOptions,
-	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
+	localeFunctionNames = false
 ): Promise<void> {
 	try {
 		await (args.fs ?? nodeFs).promises.mkdir(
-			dirname(getPersistentCachePath(args, outputStructure)),
+			dirname(
+				getPersistentCachePath(args, outputStructure, localeFunctionNames)
+			),
 			{ recursive: true }
 		);
 	} catch {
@@ -283,7 +307,8 @@ async function preparePersistentCacheDirectory(
 async function writePersistentCache(
 	state: PluginState,
 	args: CompilerOptions,
-	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>,
+	localeFunctionNames = false
 ): Promise<void> {
 	if (
 		state.previousInputsDigest === undefined ||
@@ -291,7 +316,11 @@ async function writePersistentCache(
 	) {
 		return;
 	}
-	const cachePath = getPersistentCachePath(args, outputStructure);
+	const cachePath = getPersistentCachePath(
+		args,
+		outputStructure,
+		localeFunctionNames
+	);
 	const cache: PersistentCompilationCache = {
 		version: PERSISTENT_CACHE_VERSION,
 		compilerVersion: ENV_VARIABLES.PARJS_PACKAGE_VERSION,
@@ -323,10 +352,12 @@ async function restorePersistentCache(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
+	localeFunctionNames?: boolean;
 }): Promise<boolean> {
 	const cached = await readPersistentCache(
 		args.compilerOptions,
-		args.outputStructure
+		args.outputStructure,
+		args.localeFunctionNames
 	);
 	if (cached === undefined) return false;
 
@@ -343,7 +374,8 @@ async function restorePersistentCache(args: {
 		computeInputsDigest(
 			validationState,
 			args.compilerOptions,
-			args.outputStructure
+			args.outputStructure,
+			args.localeFunctionNames
 		),
 		seedPreviousCompilationFromOutdir({
 			outdir: args.compilerOptions.outdir,
@@ -389,6 +421,7 @@ function hasUnchangedInputs(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
 	outputStructure: "message-modules" | "locale-modules";
+	localeFunctionNames?: boolean;
 }): Promise<boolean> {
 	if (args.state.previousCompilation === undefined) {
 		return Promise.resolve(false);
@@ -399,7 +432,8 @@ function hasUnchangedInputs(args: {
 	return computeInputsDigest(
 		args.state,
 		args.compilerOptions,
-		args.outputStructure
+		args.outputStructure,
+		args.localeFunctionNames
 	).then((currentDigest) => currentDigest === args.state.previousInputsDigest);
 }
 
@@ -432,8 +466,10 @@ async function compileAndUpdateState(args: {
 	 * Webpack omits it and relies on the compiler default.
 	 */
 	isServer: string | undefined;
+	localeFunctionNames?: boolean;
 }): Promise<void> {
-	args.state.previousCompilation = await compile({
+	const compileProject = args.localeFunctionNames ? compileForVite : compile;
+	args.state.previousCompilation = await compileProject({
 		previousCompilation: args.previousCompilation,
 		outputStructure: args.outputStructure,
 		isServer: args.isServer,
@@ -446,7 +482,8 @@ async function compileAndUpdateState(args: {
 	args.state.previousInputsDigest = await computeInputsDigest(
 		args.state,
 		args.compilerOptions,
-		args.outputStructure
+		args.outputStructure,
+		args.localeFunctionNames
 	);
 }
 
@@ -457,6 +494,7 @@ async function compileAndUpdateState(args: {
 async function runCompilation(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
+	localeFunctionNames?: boolean;
 }): Promise<void> {
 	const compilerOptions = args.compilerOptions;
 	const { state } = args;
@@ -465,13 +503,18 @@ async function runCompilation(args: {
 	try {
 		// Stabilize project directory listings before the first digest. The
 		// ignored cache directory must not invalidate the cache that creates it.
-		await preparePersistentCacheDirectory(compilerOptions, outputStructure);
+		await preparePersistentCacheDirectory(
+			compilerOptions,
+			outputStructure,
+			args.localeFunctionNames
+		);
 		if (
 			state.previousCompilation === undefined &&
 			(await restorePersistentCache({
 				state,
 				compilerOptions,
 				outputStructure,
+				localeFunctionNames: args.localeFunctionNames,
 			}))
 		) {
 			logger.info(
@@ -484,6 +527,7 @@ async function runCompilation(args: {
 				state,
 				compilerOptions,
 				outputStructure,
+				localeFunctionNames: args.localeFunctionNames,
 			})
 		) {
 			logger.info(
@@ -506,8 +550,14 @@ async function runCompilation(args: {
 			outputStructure,
 			previousCompilation: seededPrevious,
 			isServer,
+			localeFunctionNames: args.localeFunctionNames,
 		});
-		await writePersistentCache(state, compilerOptions, outputStructure);
+		await writePersistentCache(
+			state,
+			compilerOptions,
+			outputStructure,
+			args.localeFunctionNames
+		);
 		logger.success(`Compilation complete (${outputStructure})`);
 	} catch (error) {
 		state.previousInputsDigest = undefined;
@@ -517,13 +567,15 @@ async function runCompilation(args: {
 	}
 }
 
-// The return type preserves literal option types (`enforce: "pre"`, ...)
-// while `project` stays required on the input side.
-type UnpluginFactoryWithOptions = (
-	userArgs: ParaglidePluginOptions
-) => ReturnType<UnpluginFactory<ParaglidePluginOptions>>;
+export const unpluginFactory: UnpluginFactory<ParaglidePluginOptions> = (
+	userArgs,
+	meta
+) => createUnpluginPlugin(userArgs, meta.framework === "vite");
 
-export const unpluginFactory: UnpluginFactoryWithOptions = (userArgs) => {
+function createUnpluginPlugin(
+	userArgs: ParaglidePluginOptions,
+	enableLocaleFunctionNames: boolean
+): ReturnType<UnpluginFactory<ParaglidePluginOptions>> {
 	const state = getPluginState(userArgs);
 	const { readFiles, clearReadFiles } = state;
 	// Project root as reported by the bundler (vite `root`, webpack/rspack
@@ -675,8 +727,14 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (userArgs) => {
 				outputStructure,
 				previousCompilation: state.previousCompilation,
 				isServer,
+				localeFunctionNames: enableLocaleFunctionNames,
 			});
-			await writePersistentCache(state, args, outputStructure);
+			await writePersistentCache(
+				state,
+				args,
+				outputStructure,
+				enableLocaleFunctionNames
+			);
 			logger.success(`Re-compilation complete (${outputStructure})`);
 
 			const nextTargets = getWatchTargets(readFiles, { outdir: args.outdir });
@@ -702,7 +760,11 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (userArgs) => {
 				const loaded = await loadActiveConfig();
 				const args = resolveOptionsWith(loaded);
 				lastOptions = args;
-				await runCompilation({ state, compilerOptions: args });
+				await runCompilation({
+					state,
+					compilerOptions: args,
+					localeFunctionNames: enableLocaleFunctionNames,
+				});
 			} catch (error) {
 				// Config errors are converted to last-good options by
 				// loadActiveConfig; compilation errors are handled inside
@@ -757,6 +819,24 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (userArgs) => {
 			}
 		},
 		vite: {
+			renderChunk: {
+				order: "pre",
+				handler(code, chunk, outputOptions) {
+					if (
+						lastOptions === undefined ||
+						!enableLocaleFunctionNames ||
+						resolveOutputStructure(lastOptions) !== "locale-modules" ||
+						lastOptions.experimentalMiddlewareLocaleSplitting ||
+						lastOptions.experimentalStaticLocale
+					) {
+						return null;
+					}
+					return packLocaleFunctionChunk(code, {
+						fileName: chunk.fileName,
+						sourcemap: outputOptions.sourcemap,
+					});
+				},
+			},
 			config: {
 				handler: () => {
 					isServer = "import.meta.env?.SSR ?? typeof window === 'undefined'";
@@ -768,8 +848,17 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (userArgs) => {
 				},
 			},
 			configResolved: {
-				handler: (config: { root?: string }) => {
+				handler: (config: {
+					root?: string;
+					build?: { minify?: boolean | string };
+				}) => {
 					discoveryRoot = config.root;
+					// The generated private names only help the post-tree-shake
+					// packer when the production bundle is minified. Keep the
+					// normal generated output for explicitly unminified builds.
+					if (config.build?.minify === false) {
+						enableLocaleFunctionNames = false;
+					}
 				},
 			},
 		},
@@ -940,4 +1029,4 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (userArgs) => {
 			});
 		},
 	};
-};
+}

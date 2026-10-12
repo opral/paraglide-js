@@ -1,6 +1,6 @@
 import { loadProjectFromDirectory } from "@inlang/sdk";
 import path from "node:path";
-import { compileProject } from "./compile-project.js";
+import { compileProject, compileProjectForVite } from "./compile-project.js";
 import { writeOutput } from "../services/file-handling/write-output.js";
 import {
 	defaultCompilerOptions,
@@ -33,10 +33,24 @@ const logger = new Logger();
  *     outdir: 'path/to/output',
  *   })
  */
-export async function compile(
-	options: CompilerOptions & {
-		previousCompilation?: CompilationResult;
-	}
+type CompileArguments = CompilerOptions & {
+	previousCompilation?: CompilationResult;
+};
+
+export function compile(options: CompileArguments): Promise<CompilationResult> {
+	return compileInternal(options, false);
+}
+
+/** Internal Vite layout variant; intentionally not re-exported from the package API. */
+export function compileForVite(
+	options: CompileArguments
+): Promise<CompilationResult> {
+	return compileInternal(options, true);
+}
+
+async function compileInternal(
+	options: CompileArguments,
+	enableLocaleFunctionNames: boolean
 ): Promise<CompilationResult> {
 	const withDefaultOptions = {
 		...defaultCompilerOptions,
@@ -60,7 +74,10 @@ export async function compile(
 				fs,
 			});
 
-			const output = await compileProject({
+			const projectCompiler = enableLocaleFunctionNames
+				? compileProjectForVite
+				: compileProject;
+			const output = await projectCompiler({
 				compilerOptions: withDefaultOptions,
 				project,
 				projectPath: withDefaultOptions.project,

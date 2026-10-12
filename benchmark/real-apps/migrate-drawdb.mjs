@@ -3,9 +3,10 @@ import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { gzipSync } from "node:zlib";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
-// Rebuild a pinned DrawDB checkout, then compare its native and two generated
+// Rebuild a pinned DrawDB checkout, then compare its native and generated
 // Paraglide output variants. This intentionally writes only under .real-apps.
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const compilerRoot = path.resolve(scriptDir, "../..");
@@ -20,6 +21,13 @@ const generatedRoot = path.resolve(
 );
 const outputRoot = path.resolve(
 	process.env.DRAWDB_OUTPUT ?? path.join(compilerRoot, ".real-apps/drawdb")
+);
+const labels = (process.env.DRAWDB_VARIANTS ?? "baseline,inline").split(",");
+if (labels.some((label) => !/^[a-z0-9-]+$/.test(label)))
+	throw Error("Invalid variant label");
+const packerCompiler = process.env.DRAWDB_PACKER_COMPILER;
+const packerLabels = new Set(
+	(process.env.DRAWDB_PACKER_VARIANTS ?? "").split(",")
 );
 const adapterDir = path.join(scriptDir, "drawdb-support");
 const staging = await fs.mkdtemp(
@@ -66,6 +74,7 @@ async function saveDist(label) {
 			filename: file.filename,
 			rawBytes: bytes.size,
 			gzipBytes: gzipSync(source).byteLength,
+			sha256: createHash("sha256").update(source).digest("hex"),
 		});
 	}
 	const largest = sizes.sort((a, b) => b.rawBytes - a.rawBytes)[0];
@@ -155,16 +164,24 @@ try {
 		],
 		checkout
 	);
-	const viteConfig = `import { defineConfig } from 'vite'\nimport react from '@vitejs/plugin-react'\nimport path from 'node:path'\nimport { fileURLToPath } from 'node:url'\nimport { paraglideAdapter } from './scripts/paraglide-adapter.js'\n\nconst projectRoot = path.dirname(fileURLToPath(import.meta.url))\nconst paraglideOutput = path.resolve(projectRoot, process.env.PARAGLIDE_OUTPUT)\n\nexport default defineConfig({\n  plugins: [paraglideAdapter(), react()],\n  resolve: {\n    alias: [\n      { find: '@paraglide', replacement: paraglideOutput },\n      { find: 'react-i18next', replacement: path.resolve(projectRoot, 'src/i18n/react-i18next-bridge.js') },\n    ],\n  },\n})\n`;
+	const viteConfig = `import { defineConfig } from 'vite'\nimport react from '@vitejs/plugin-react'\nimport path from 'node:path'\nimport { fileURLToPath } from 'node:url'\nimport { paraglideAdapter } from './scripts/paraglide-adapter.js'\nimport { pathToFileURL } from 'node:url'\nconst packer = process.env.PARAGLIDE_PACKER ? await import(pathToFileURL(process.env.PARAGLIDE_PACKER).href) : undefined\n\nconst projectRoot = path.dirname(fileURLToPath(import.meta.url))\nconst paraglideOutput = path.resolve(projectRoot, process.env.PARAGLIDE_OUTPUT)\n\nexport default defineConfig({\n  plugins: [paraglideAdapter(), react(), ...(packer ? [{ name: 'drawdb-locale-packer', enforce: 'post', renderChunk: { order: 'pre', handler(code, chunk) { return packer.packLocaleFunctionChunk(code, { fileName: chunk.fileName }); } } }] : [])],\n  resolve: {\n    alias: [\n      { find: '@paraglide', replacement: paraglideOutput },\n      { find: 'react-i18next', replacement: path.resolve(projectRoot, 'src/i18n/react-i18next-bridge.js') },\n    ],\n  },\n})\n`;
 	await fs.writeFile(path.join(checkout, "vite.config.js"), viteConfig);
 	command("npm", ["ci"], checkout);
 
-	for (const label of ["baseline", "inline"]) {
+	for (const label of labels) {
 		const variantRoot = path.join(generatedRoot, label);
 		const env = {
 			...npmEnv,
 			PARAGLIDE_OUTPUT: path.join(variantRoot, "paraglide"),
 			PARAGLIDE_MAPPING: path.join(variantRoot, "mapping.json"),
+			...(packerCompiler && packerLabels.has(label)
+				? {
+						PARAGLIDE_PACKER: path.resolve(
+							packerCompiler,
+							"bundler-plugins/locale-function-packer.js"
+						),
+					}
+				: {}),
 		};
 		command("npm", ["run", "build"], checkout, env);
 		reports.push(await saveDist(label));
@@ -172,7 +189,15 @@ try {
 	const report = {
 		drawdbCommit: resolvedCommit,
 		node: process.version,
+		viteVersion: JSON.parse(
+			await fs.readFile(
+				path.join(checkout, "node_modules/vite/package.json"),
+				"utf8"
+			)
+		).version,
 		generatedRoot,
+		packerCompiler: packerCompiler ?? null,
+		packerLabels: [...packerLabels].filter(Boolean),
 		outputs: reports,
 	};
 	await fs.mkdir(outputRoot, { recursive: true });

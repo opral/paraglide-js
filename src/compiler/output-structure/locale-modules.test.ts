@@ -1,10 +1,25 @@
 import { test, expect } from "vitest";
 import {
+	createLocaleFunctionLocalNames,
 	generateOutput,
 	messageReferenceExpression,
 } from "./locale-modules.js";
 import type { Bundle, Message, ProjectSettings } from "@inlang/sdk";
 import type { CompiledBundleWithMessages } from "../compile-bundle.js";
+
+test("private locale function names avoid generated message exports", () => {
+	const names = createLocaleFunctionLocalNames(
+		[{ id: "__paraglide_locale_fn_l2_65_6e_n0" }, { id: "ordinary_message" }],
+		"en"
+	);
+	const first = names.get("__paraglide_locale_fn_l2_65_6e_n0");
+	const second = names.get("ordinary_message");
+
+	expect(first).toBeDefined();
+	expect(second).toBeDefined();
+	expect(first).not.toBe("__paraglide_locale_fn_l2_65_6e_n0");
+	expect(first).not.toBe(second);
+});
 
 test("should emit per locale message files", () => {
 	const bundles: CompiledBundleWithMessages[] = [

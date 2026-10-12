@@ -1,0 +1,45 @@
+{
+  "app": "memos",
+  "label": "locale-functions",
+  "outputStructure": "locale-modules",
+  "sourceCommit": "a668bb8f7e3652be029459bc80bd3bffb86f0542",
+  "i18nextVersion": "26.3.6",
+  "node": "v22.23.2",
+  "viteVersion": "8.1.4",
+  "locales": 46,
+  "keys": 913,
+  "included": 911,
+  "excluded": [
+    "setting.sso.scope-count_one",
+    "setting.sso.scope-count_other"
+  ],
+  "parityChecks": 41906,
+  "bundledParityChecks": {
+    "paraglide": 41906,
+    "i18next": 41906
+  },
+  "localeFunctionPacking": true,
+  "packingChunks": [
+    {
+      "fileName": "assets/paraglide-entry-!~{000}~.js",
+      "inputBytes": 7749024,
+      "changed": true
+    }
+  ],
+  "switchChecks": 7288,
+  "catalogHash": "32f4f680f203598f09a3eeb50be30c999da47dc2dedd2fe2153b7901a371c0f2",
+  "compilerArtifactHash": "bc40d5bc7e892fc444253416b031bb3d8d54731951ec307582c1d4593ca3d3d9",
+  "scope": "complete-catalog isolated JS; Memos is an all-locales stress workload, not its lazy production loading",
+  "sizes": {
+    "paraglide": {
+      "raw": 2559759,
+      "gzip": 633912,
+      "brotli": 430396
+    },
+    "i18next": {
+      "raw": 3100672,
+      "gzip": 794130,
+      "brotli": 488386
+    }
+  }
+}

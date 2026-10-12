@@ -14,19 +14,14 @@ const resultPath = path.resolve(
 const outputRoot = path.resolve(
 	process.env.DRAWDB_OUTPUT ?? path.join(repoRoot, ".real-apps/drawdb")
 );
-const variants = [
-	{ name: "native", dir: path.join(outputRoot, "app-native/dist"), port: 4181 },
-	{
-		name: "paraglide-baseline",
-		dir: path.join(outputRoot, "app-baseline/dist"),
-		port: 4182,
-	},
-	{
-		name: "paraglide-inline",
-		dir: path.join(outputRoot, "app-inline/dist"),
-		port: 4183,
-	},
-];
+const labels = (process.env.DRAWDB_VARIANTS ?? "baseline,inline").split(",");
+if (labels.some((label) => !/^[a-z0-9-]+$/.test(label)))
+	throw Error("Invalid variant label");
+const variants = ["native", ...labels].map((label, index) => ({
+	name: label === "native" ? label : `paraglide-${label}`,
+	dir: path.join(outputRoot, `app-${label}/dist`),
+	port: 4181 + index,
+}));
 const locales = ["en", "de", "pa-PK"];
 const routes = ["/", "/editor"];
 const trials = Number(process.env.DRAWDB_BROWSER_TRIALS ?? 3);

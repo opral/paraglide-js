@@ -95,7 +95,11 @@ async function createProjectFixture(
 }
 
 /** Fires Vite's configResolved so the plugin learns its root. */
-function setViteRoot(plugin: any, root: string): void {
+function setViteRoot(
+	plugin: any,
+	root: string,
+	build?: { minify?: boolean | string }
+): void {
 	const configResolved =
 		(plugin.vite?.configResolved as
 			| { handler?: (config: unknown) => void }
@@ -103,7 +107,7 @@ function setViteRoot(plugin: any, root: string): void {
 		(plugin.configResolved as
 			| { handler?: (config: unknown) => void }
 			| undefined);
-	configResolved?.handler?.({ root });
+	configResolved?.handler?.({ root, build });
 }
 
 const mockContext = { addWatchFile: () => {} };
@@ -160,6 +164,98 @@ test("vite plugin does not throw on compilation errors in development", async ()
 
 	// In development mode - should catch errors and NOT throw
 	await expect(plugin.buildStart?.call(mockContext)).resolves.toBeUndefined();
+});
+
+test("the Vite renderChunk hook packs locale modules and ignores other layouts", async () => {
+	const { paraglideVitePlugin } = await import("../bundler-plugins/vite.js");
+	const { projectDir, workspace } = await createProjectFixture();
+	const plugin = paraglideVitePlugin({
+		project: projectDir,
+		outdir: path.join(workspace, "locale-output"),
+		outputStructure: "locale-modules",
+	}) as any;
+	setViteRoot(plugin, workspace);
+	await plugin.buildStart?.call(mockContext);
+
+	const renderChunk = plugin.renderChunk;
+	const handler =
+		typeof renderChunk === "function" ? renderChunk : renderChunk?.handler;
+	expect(handler).toBeTypeOf("function");
+	const privateName = (index: number) =>
+		`__paraglide_locale_fn_l2_65_6e_n${index}`;
+	const names = Array.from({ length: 16 }, (_, index) => privateName(index));
+	const values = Array.from({ length: 16 }, (_, index) => `message ${index}`);
+	const code = [
+		...names.map(
+			(name, index) =>
+				`var ${name} = () => { return ${JSON.stringify(values[index])}; };`
+		),
+		`export const read = () => [${names.map((name) => `${name}()`).join(",")}];`,
+	].join("\n");
+	const packed = await handler.call(
+		{},
+		code,
+		{ fileName: "chunk.js", imports: [] },
+		{ sourcemap: true }
+	);
+	expect(packed?.code).toContain(
+		`[${values.map((value) => JSON.stringify(value)).join(",")}]`
+	);
+	expect(packed?.code).toContain("__paraglide_packed_locale_l2_65_6e_0");
+
+	const messagePlugin = paraglideVitePlugin({
+		project: projectDir,
+		outdir: path.join(workspace, "message-output"),
+		outputStructure: "message-modules",
+	}) as any;
+	setViteRoot(messagePlugin, workspace);
+	await messagePlugin.buildStart?.call(mockContext);
+	const messageHook = messagePlugin.renderChunk;
+	const messageHandler =
+		typeof messageHook === "function" ? messageHook : messageHook?.handler;
+	expect(
+		await messageHandler.call(
+			{},
+			code,
+			{ fileName: "chunk.js", imports: [] },
+			{ sourcemap: true }
+		)
+	).toBeNull();
+});
+
+test("the Vite compiler keeps standard locale modules when minification is disabled", async () => {
+	const { paraglideVitePlugin } = await import("../bundler-plugins/vite.js");
+	const { projectDir, workspace } = await createProjectFixture();
+	const plugin = paraglideVitePlugin({
+		project: projectDir,
+		outdir: path.join(workspace, "unminified-output"),
+		outputStructure: "locale-modules",
+	}) as any;
+	setViteRoot(plugin, workspace, { minify: false });
+	await plugin.buildStart?.call(mockContext);
+
+	const renderChunk = plugin.renderChunk;
+	const handler =
+		typeof renderChunk === "function" ? renderChunk : renderChunk?.handler;
+	const code = [
+		'var __paraglide_locale_fn_l2_65_6e_n0 = () => { return "one"; };',
+		'var __paraglide_locale_fn_l2_65_6e_n1 = () => { return "two"; };',
+		"export const read = () => [__paraglide_locale_fn_l2_65_6e_n0(), __paraglide_locale_fn_l2_65_6e_n1()];",
+	].join("\n");
+	expect(
+		await handler.call(
+			{},
+			code,
+			{ fileName: "chunk.js", imports: [] },
+			{ sourcemap: true }
+		)
+	).toBeNull();
+	expect(
+		await realFs.promises.readFile(
+			path.join(workspace, "unminified-output", "messages", "en.js"),
+			"utf8"
+		)
+	).not.toContain("__paraglide_locale_fn_");
 });
 
 test("vite plugin throws on compilation errors at build time", async () => {
@@ -250,10 +346,11 @@ test("vite plugin skips compile on an unchanged fresh process (#741)", async () 
 	const actualCompileModule = await vi.importActual<
 		typeof import("../compiler/compile.js")
 	>("../compiler/compile.js");
-	const compileSpy = vi.fn(actualCompileModule.compile);
+	const compileSpy = vi.fn(actualCompileModule.compileForVite);
 	vi.doMock("../compiler/compile.js", () => ({
 		...actualCompileModule,
 		compile: compileSpy,
+		compileForVite: compileSpy,
 	}));
 
 	try {
@@ -344,10 +441,11 @@ test("vite plugin skips compile() when buildStart fires again with unchanged inp
 	const actualCompileModule = await vi.importActual<
 		typeof import("../compiler/compile.js")
 	>("../compiler/compile.js");
-	const compileSpy = vi.fn(actualCompileModule.compile);
+	const compileSpy = vi.fn(actualCompileModule.compileForVite);
 	vi.doMock("../compiler/compile.js", () => ({
 		...actualCompileModule,
 		compile: compileSpy,
+		compileForVite: compileSpy,
 	}));
 
 	try {
@@ -389,10 +487,11 @@ test("vite plugin recompiles when a file is added to a tracked directory (#693)"
 	const actualCompileModule = await vi.importActual<
 		typeof import("../compiler/compile.js")
 	>("../compiler/compile.js");
-	const compileSpy = vi.fn(actualCompileModule.compile);
+	const compileSpy = vi.fn(actualCompileModule.compileForVite);
 	vi.doMock("../compiler/compile.js", () => ({
 		...actualCompileModule,
 		compile: compileSpy,
+		compileForVite: compileSpy,
 	}));
 
 	try {
@@ -428,10 +527,11 @@ test("vite plugin does not reuse a digest from before a failed compile (#693)", 
 	const actualCompileModule = await vi.importActual<
 		typeof import("../compiler/compile.js")
 	>("../compiler/compile.js");
-	const compileSpy = vi.fn(actualCompileModule.compile);
+	const compileSpy = vi.fn(actualCompileModule.compileForVite);
 	vi.doMock("../compiler/compile.js", () => ({
 		...actualCompileModule,
 		compile: compileSpy,
+		compileForVite: compileSpy,
 	}));
 
 	try {
