@@ -20,7 +20,7 @@ const [{ resources }, compile, output, runtime, registry, options] =
 			pathToFileURL(path.join(sourceFrontend, "src/locales/resources.js")).href
 		),
 		load("compiler/compile-bundle.js"),
-		load("compiler/output-structure/message-modules.js"),
+		load("compiler/output-structure/locale-modules.js"),
 		load("compiler/runtime/create-runtime.js"),
 		load("compiler/registry.js"),
 		load("compiler/compiler-options.js"),
@@ -240,30 +240,91 @@ const fallbackMap = Object.fromEntries(
 	locales.map((locale) => [locale, locale === "en" ? undefined : "en"])
 );
 const settings = { baseLocale: "en", locales };
-const compileBundleForVite =
-	compile.compileBundleForVite ?? compile.compileBundle;
 const compiled = bundles.map((bundle) =>
-	compileBundleForVite({
+	compile.compileBundle({
 		bundle,
 		fallbackMap,
 		settings,
-		inlineMessages: true,
+		inlineMessages: false,
 		messageReferenceExpression: output.messageReferenceExpression,
 	})
 );
+const localeFunctionLocalNames = new Map(
+	locales.map((locale) => [
+		locale,
+		output.createLocaleFunctionLocalNames(bundles, locale),
+	])
+);
 const files = {
-	...output.generateOutput(compiled, settings, fallbackMap),
+	...output.generateOutput(
+		compiled,
+		settings,
+		fallbackMap,
+		false,
+		localeFunctionLocalNames
+	),
 	"runtime.js": runtime.createRuntimeFile({
 		...settings,
 		compilerOptions: {
 			...options.defaultCompilerOptions,
-			strategy: ["globalVariable", "baseLocale"],
+			strategy: ["globalVariable", "localStorage", "preferredLanguage", "baseLocale"],
+			localStorageKey: "i18nextLng",
 		},
 	}),
 	"registry.js": registry.createRegistry(),
 	"messages.js": "export * from './messages/_index.js'\n",
 	"package.json": '{"type":"module"}\n',
 };
+if (process.env.PARAGLIDE_SPLIT_METADATA === "true") {
+	files["client-locale-split.json"] = JSON.stringify(
+		{
+			baseLocale: settings.baseLocale,
+			locales,
+			messages: bundles.map((bundle) => ({
+				safeName: bundle.id,
+				publicName: bundle.id,
+				...(process.env.PARAGLIDE_STATIC_TEXT_METADATA === "true"
+					? {
+							staticTexts: Object.fromEntries(
+								bundle.messages.flatMap((message) => {
+									const variant =
+										message.variants.length === 1
+											? message.variants[0]
+											: undefined;
+									if (
+										!variant ||
+										!variant.pattern.every((part) => part.type === "text")
+									)
+										return [];
+									return [
+										[
+											message.locale,
+											variant.pattern
+												.map((part) => (part.type === "text" ? part.value : ""))
+												.join("")
+												.replace(/\r\n?/g, "\n"),
+										],
+									];
+								})
+							),
+						}
+					: {}),
+				hasInputs: bundle.declarations.some(
+					(declaration) => declaration.type === "input-variable"
+				),
+				hasMarkup: bundle.messages.some((message) =>
+					message.variants.some((variant) =>
+						variant.pattern.some((part) =>
+							["markup-start", "markup-end", "markup-standalone"].includes(part.type)
+						)
+					)
+				),
+			})),
+		},
+		null,
+		2
+	);
+}
 const outputDirectory = path.join(checkout, "frontend/src/paraglide");
 await fs.rm(outputDirectory, { recursive: true, force: true });
 for (const [filename, code] of Object.entries(files)) {
@@ -278,6 +339,10 @@ await fs.writeFile(
 await fs.writeFile(
 	path.join(checkout, "catalogs.json"),
 	JSON.stringify({ locales, catalogs, pluralBases, transKeys: [...transKeys] })
+);
+await fs.writeFile(
+	path.join(checkout, "bundles.json"),
+	JSON.stringify(bundles)
 );
 console.log(
 	JSON.stringify(

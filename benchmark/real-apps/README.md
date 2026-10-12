@@ -1,5 +1,14 @@
 # Real i18next catalog experiments
 
+The continued campaign includes [114 output experiment cells](round2-output-experiments.md)
+and [12 selected-locale payload probes](round2-locale-payload-experiment.md),
+[six additional native app builds](native-route-additions.md),
+the [Open WebUI sign-in baseline](native-openweb-auth-fixture.md), and recorded
+[Chatbox](chatbox-results.md) / [Stirling-PDF](stirling-results.md) near-misses.
+The [automatic Vite client locale-splitting ledger](locale-split-experiment.md)
+contains the public-plugin route gate, constrained-network repeat, native
+comparison, and fast-network regression. Component savings are not route savings.
+
 These experiments run real catalog text through Paraglide's compiler and **Vite production minification and tree shaking**, then check translation equality and count emitted JavaScript bytes after gzip/Brotli compression. Source-code shortening that Vite already performs does not count as an improvement.
 
 The complete-catalog workload deliberately keeps every key reachable, so it measures isolated localization JS rather than a production page. DrawDB embeds all locales in production. Memos dynamically loads locales: its all-locales workload is a stress test, not an initial-page comparison. The native comparator preserves source catalog hierarchy and property order; flattened paths are used only to build compiler messages. The runner fails closed on unsupported syntax; it excludes two plural keys from Memos on both sides. This adapter is benchmark scaffolding, not a supported i18next migration tool.

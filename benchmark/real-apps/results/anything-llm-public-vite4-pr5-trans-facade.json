@@ -1,0 +1,23 @@
+{
+  "compilerWorktree": "/root/repos-iii/paraglide-client-payload-pr5",
+  "compilerCommit": "d97b836a9156d6073111fc3f28486152b8ba8455",
+  "vite": "4.5.3",
+  "browser": "143.0.7499.4",
+  "key": "agent.mcp.tool-count-warning",
+  "results": [
+    {
+      "locale": "en",
+      "equal": true,
+      "expected": "This MCP server has <span data-component=\"b\">7 tools enabled</span> that will consume context in every chat.<br data-component=\"br\">Consider disabling unwanted tools to conserve context.",
+      "actual": "This MCP server has <span data-component=\"b\">7 tools enabled</span> that will consume context in every chat.<br data-component=\"br\">Consider disabling unwanted tools to conserve context."
+    },
+    {
+      "locale": "fr",
+      "equal": true,
+      "expected": "Ce serveur MCP a <span data-component=\"b\"> des outils 7 activés</span> qui consommeront du contexte dans chaque conversation.<br data-component=\"br\"> Envisagez de désactiver les outils inutiles pour préserver le contexte.",
+      "actual": "Ce serveur MCP a <span data-component=\"b\"> des outils 7 activés</span> qui consommeront du contexte dans chaque conversation.<br data-component=\"br\"> Envisagez de désactiver les outils inutiles pour préserver le contexte."
+    }
+  ],
+  "errors": [],
+  "result": "client split facade rich .parts parity passed"
+}

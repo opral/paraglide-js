@@ -7,13 +7,29 @@ import dns from "dns"
 import fs from "node:fs/promises"
 import { parse } from "acorn"
 import { visualizer } from "rollup-plugin-visualizer"
+const splitPluginPath = process.env.PARAGLIDE_SPLIT_PLUGIN
+if (!splitPluginPath) throw new Error("Set PARAGLIDE_SPLIT_PLUGIN to the locale split prototype")
+const splitPluginModule = await import(pathToFileURL(resolve(splitPluginPath)).href)
+const splitImplementation = process.env.PARAGLIDE_SPLIT_IMPL
+const splitPlugin = splitImplementation === "none"
+  ? undefined
+  : splitImplementation === "typescript"
+  ? splitPluginModule.createClientLocaleSplitPlugin({
+      state: { compilerOptions: { outdir: resolve("./src/paraglide") } },
+    })
+  : splitPluginModule.virtualLocaleSplit({
+      generatedDirectory: resolve("./src/paraglide"),
+      enabled: process.env.PARAGLIDE_SPLIT_ENABLED !== "false",
+    })
 
 const compilerDist = process.env.PARAGLIDE_COMPILER_DIST
 if (!compilerDist) throw new Error("Set PARAGLIDE_COMPILER_DIST to the built Paraglide dist directory")
 const { packDispatchMatrixChunk } = await import(pathToFileURL(resolve(compilerDist, "bundler-plugins/dispatch-matrix-packer.js")).href)
+const { packLocaleFunctionChunk } = await import(pathToFileURL(resolve(compilerDist, "bundler-plugins/locale-function-packer.js")).href)
 
 dns.setDefaultResultOrder("verbatim")
 const packLog = fileURLToPath(new URL("./dispatch-packer-log.ndjson", import.meta.url))
+const packInputCapture = process.env.PARAGLIDE_CAPTURE_CHUNK ?? fileURLToPath(new URL("../locale-render-input.js", import.meta.url))
 await fs.writeFile(packLog, "")
 
 function isNode(value) {
@@ -110,6 +126,7 @@ export default defineConfig({
     postcss
   },
   plugins: [
+    ...(splitPlugin ? [splitPlugin] : []),
     {
       name: "anything-paraglide-dispatch-matrix-scratch",
       renderChunk: {
@@ -118,10 +135,31 @@ export default defineConfig({
           const hasMarker = code.includes("__paraglide_dispatch_locale_");
           const inspection = hasMarker ? inspectDispatchers(code) : { markerCount: 0, directEvalCalls: 0, withStatements: 0, candidates: 0, groups: [] };
           const evalBail = inspection.directEvalCalls > 0 || inspection.withStatements > 0;
-          const packed = packDispatchMatrixChunk(code, {
+          const localePacked = packLocaleFunctionChunk(code, {
             fileName: chunk.fileName,
             sourcemap: outputOptions.sourcemap,
           });
+          const packed = localePacked ?? packDispatchMatrixChunk(code, {
+            fileName: chunk.fileName,
+            sourcemap: outputOptions.sourcemap,
+          });
+          if (Object.keys(chunk.modules).some((id) => id.includes("/paraglide/"))) {
+            if (chunk.fileName === "index.js" && code.includes("__paraglide_locale_fn_")) {
+              await fs.writeFile(
+                packInputCapture,
+                code
+              );
+            }
+            await fs.appendFile(packLog, JSON.stringify({
+              fileName: chunk.fileName,
+              paraglideModules: Object.keys(chunk.modules).filter((id) => id.includes("/paraglide/")).length,
+              inputBytes: Buffer.byteLength(code),
+              outputBytes: Buffer.byteLength(packed?.code ?? code),
+              localeMarkerCount: (code.match(/__paraglide_locale_fn_/g) || []).length,
+              localePacked: localePacked !== null,
+              dispatcherMarkerCount: (code.match(/__paraglide_dispatch_locale_/g) || []).length,
+            }) + "\n");
+          }
           if (inspection.markerCount || evalBail || inspection.parseFailed) {
             await fs.appendFile(packLog, JSON.stringify({
               fileName: chunk.fileName,
@@ -169,6 +207,7 @@ export default defineConfig({
     ]
   },
   build: {
+    target: "esnext",
     rollupOptions: {
       output: {
         // These settings ensure the primary JS and CSS file references are always index.{js,css}

@@ -1,0 +1,77 @@
+{
+  "sourceApp": {
+    "repository": "Mintplex-Labs/anything-llm",
+    "commit": "2a10d052a1812d7be12c43f9024072cf26a27a8b"
+  },
+  "catalog": {
+    "locales": 31,
+    "bundles": 1257,
+    "sha256": "c79755cb0b5f89b572d2c48f353ae73c2125a40d6d1f9dd2648f619dd1c9df91"
+  },
+  "compiler": {
+    "pr4WorktreeHead": "76f2c0e759bffbb315701e608bd3ebc4100dac71",
+    "pr4FeatureCommit": "c51350aa334ea21723e0a6252f96d0e78ebb6e16",
+    "pr5WorktreeHead": "d97b836a9156d6073111fc3f28486152b8ba8455",
+    "vite4": "4.5.3",
+    "vite8": "8.1.4"
+  },
+  "pr5Vite4GeneratedMetadata": {
+    "file": "client-locale-split.json",
+    "sha256": "de1f80dcff036372e12cc4ad56bab665d31bd49f1ef284c1d57c481b3a15d1ee"
+  },
+  "pr5Vite4BuildArtifacts": {
+    "defaultMessageModules": {
+      "fileCount": 257,
+      "treeSha256": "331547ecf5a94c7812cfdbfb74ab21e6fb677166cab021a4a8ce52ae747979a1",
+      "indexJsSha256": "4a0c27bc5af094a328fb3ad9913fb69b2b82702db176d873c9993c951a35f512",
+      "indexHtmlSha256": "1fd89e762396242280e64d3b633314f088b22cd1fb85fcc6ac00d7ea304200c5"
+    },
+    "clientLocaleSplit": {
+      "fileCount": 289,
+      "treeSha256": "2f65ca6f3953f1099c7714068f823c7d53573be7944b3df10b3839933de10298",
+      "indexJsSha256": "fc83faaf8f90f13301c4c7bda79f00c6080fe8191b10adfe274ab9bf7b743c86",
+      "indexHtmlSha256": "3d3f554e62e751c6c6741edfc7aefafa3ed203b068ee3d29b7267d62dc0a6676"
+    }
+  },
+  "reports": [
+    "anything-llm-public-vite4-default-vs-split.json",
+    "anything-llm-public-vite4-locale-vs-split.json",
+    "anything-llm-public-vite4-pr5-default-vs-split.json",
+    "anything-llm-public-vite4-pr5-trans-facade.json",
+    "anything-llm-public-vite4-pr5-preload-locales.json",
+    "anything-llm-public-vite4-pr5-preload-transitive.json",
+    "anything-llm-public-vite8-default-vs-locale.json",
+    "anything-llm-public-vite8-default-vs-split.json",
+    "anything-llm-public-vite8-locale-vs-split.json"
+  ],
+  "finalCombinedFeature": {
+    "sourceCommit": "4cbb10af2a36a4898112d7a57e925a6f93c49cbf",
+    "compilerPluginSha256": "475b0062b7c5e82f0d4a01ed0e2d3e597ff9f40b8a15dde2bb2e38c03c91182e",
+    "generatedMetadataSha256": "de1f80dcff036372e12cc4ad56bab665d31bd49f1ef284c1d57c481b3a15d1ee",
+    "vite": "4.5.3",
+    "artifacts": {
+      "default": {
+        "directory": "/root/repos-iii/paraglide-vite-locale-split/.real-apps/anything-public-final-pr4-default-dist",
+        "fileCount": 257,
+        "treeSha256": "4d084949bd42abd4d6f628a3f17919da2f3dd2b8d90b5c3ae91db9d5539b6292",
+        "treeHashMethod": "sha256(sorted relative path + NUL + sha256(file bytes) + newline)",
+        "indexHtmlSha256": "1fd89e762396242280e64d3b633314f088b22cd1fb85fcc6ac00d7ea304200c5",
+        "indexJsSha256": "4a0c27bc5af094a328fb3ad9913fb69b2b82702db176d873c9993c951a35f512"
+      },
+      "split": {
+        "directory": "/root/repos-iii/paraglide-vite-locale-split/.real-apps/anything-public-final-pr4-split-dist",
+        "fileCount": 289,
+        "treeSha256": "3d1a7dc9c3eeb42afe2f7390857c39a33c22612bdc7236012732f3de21f35f6e",
+        "treeHashMethod": "sha256(sorted relative path + NUL + sha256(file bytes) + newline)",
+        "indexHtmlSha256": "9e0063405418662052e94d3821c34ba655fb2a0c10040f4b8a056513257961d7",
+        "indexJsSha256": "39a4d7e768b375dcc9af7a008cea71c7a08ef7901655cb661166ca125f1e90ac"
+      }
+    },
+    "reports": [
+      "anything-final-mobile-4g-repeat.json",
+      "anything-final-fast-repeat.json",
+      "anything-final-mobile-native-vs-split.json"
+    ],
+    "note": "Historical PR4/PR5 worktree records above are retained; final feature combines arrays and locale splitting plus nullish locale selection fix."
+  }
+}

@@ -40,3 +40,26 @@ The driver generates the catalog adapter, checks ordinary/plural and `<Trans>` p
 ## Recorded replay
 
 The separately saved [replay JSON](../results/anything-llm-app-replay.json) records the latest public-worktree rerun: native median FCP/LCP was 760 ms and Paraglide was 532 ms; route transfer was 1,004,417 B and 486,178 B respectively. All five pairs rendered the same text without page errors. The primary result and its prior cross-replicates are reported separately in [dispatch-matrix-results.md](../dispatch-matrix-results.md); do not combine measurements from different builds.
+
+## Public Vite plugin split replay
+
+`build-public-variants.mjs` runs the actual `paraglideVitePlugin` against an inlang project generated from the pinned app's 31-locale catalog. It creates the generated output from scratch for each build and verifies the split metadata emitted by the compiler against independent source-derived bundle metadata. Point it at a compiler worktree and use the app's installed Vite 4.5.3 binary for app-native comparisons:
+
+```sh
+PARAGLIDE_PUBLIC_COMPILER_WORKTREE=/path/to/paraglide-js-worktree \
+PARAGLIDE_PUBLIC_VITE_BIN="$PWD/.real-apps/anything-migration/frontend/node_modules/vite/bin/vite.js" \
+PARAGLIDE_PUBLIC_VARIANTS=default,locale,split \
+  node benchmark/real-apps/anything-migration/build-public-variants.mjs
+```
+
+For a compiler that emits static-text metadata, set `PARAGLIDE_STATIC_TEXT_METADATA=true`. Build only selected variants with the comma-separated `PARAGLIDE_PUBLIC_VARIANTS` variable. The route harness accepts arbitrary left/right build directories and saves its report to `ANYTHING_PUBLIC_REPORT`:
+
+```sh
+ANYTHING_LEFT_DIST=.real-apps/anything-public-default-dist \
+ANYTHING_RIGHT_DIST=.real-apps/anything-public-split-dist \
+ANYTHING_LEFT_NAME=default ANYTHING_RIGHT_NAME=split \
+ANYTHING_PUBLIC_REPORT=.real-apps/anything-migration/public-route-report.json \
+  node benchmark/real-apps/anything-migration/route-perf-public.mjs
+```
+
+App-native Vite4 results and Vite8 cross-checks are summarized in [locale-split-experiment.md](../locale-split-experiment.md), with the raw paired runs under `../results/anything-llm-public-*.json`.

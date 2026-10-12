@@ -13,6 +13,8 @@ if (!["drawdb", "memos", "anything-llm"].includes(app) || !checkout || !label)
 const viteModulePath =
 	app === "anything-llm"
 		? path.resolve(checkout, "frontend/node_modules/vite/dist/node/index.js")
+		: app === "memos"
+			? path.resolve(checkout, "web/node_modules/vite/dist/node/index.js")
 		: path.resolve("node_modules/vite/dist/node/index.js");
 const { build } = await import(pathToFileURL(viteModulePath).href);
 const i18nextPath =

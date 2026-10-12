@@ -1,0 +1,4063 @@
+{
+  "date": "2026-10-12T13:28:36.639Z",
+  "app": "Stirling-PDF",
+  "sourceCommit": "313794c573df5e92d2f020f5ec53d08b264d6e4f",
+  "i18nextVersion": "26.3.6",
+  "compilerCommit": "ec591218bb814c65e0a9f6a0252f8ec75236aa17",
+  "method": "Pinned production Vite 7.3.6 client, fresh Chromium contexts, French selected locale, Brotli-Q4 local serving, 80 ms RTT / 20 Mbps down / 2 Mbps up / 3x CPU; API and third-party traffic blocked; frontend-only lab LCP",
+  "results": [
+    {
+      "label": "native-i18next",
+      "median": {
+        "fcpMs": 928,
+        "lcpMs": 2468,
+        "longTaskMs": 733,
+        "resourceCount": 60,
+        "transferBytes": 1126850,
+        "encodedBytes": 1108850,
+        "decodedBytes": 3969223
+      },
+      "runs": [
+        {
+          "trial": 0,
+          "locale": "fr-FR",
+          "htmlLang": "fr-FR",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 1116,
+          "lcpMs": 3072,
+          "longTaskMs": 1414,
+          "resourceCount": 60,
+          "transferBytes": 1126850,
+          "encodedBytes": 1108850,
+          "decodedBytes": 3969223,
+          "localeRequests": [
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1740,
+              "encodedBytes": 1440,
+              "decodedBytes": 4395
+            },
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/assets/index-BBNxYVkf.js",
+              "transferBytes": 238935,
+              "encodedBytes": 238635,
+              "decodedBytes": 894432
+            },
+            {
+              "name": "/assets/vendor-i18n-Duaa3CPZ.js",
+              "transferBytes": 16980,
+              "encodedBytes": 16680,
+              "decodedBytes": 50173
+            },
+            {
+              "name": "/assets/vendor-ui-Di22ZjoP.js",
+              "transferBytes": 220466,
+              "encodedBytes": 220166,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            },
+            {
+              "name": "/assets/Landing-DfILbXL8.js",
+              "transferBytes": 124702,
+              "encodedBytes": 124402,
+              "decodedBytes": 410715
+            },
+            {
+              "name": "/assets/AuthLayout-YpeAPBF7.js",
+              "transferBytes": 1803,
+              "encodedBytes": 1503,
+              "decodedBytes": 4062
+            },
+            {
+              "name": "/assets/AuthShell-BNBgG6Ft.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-CSXLmXS6.js",
+              "transferBytes": 567,
+              "encodedBytes": 267,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-j6Kmn1GK.js",
+              "transferBytes": 509,
+              "encodedBytes": 209,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-FFFSEkdn.js",
+              "transferBytes": 5004,
+              "encodedBytes": 4704,
+              "decodedBytes": 11893
+            },
+            {
+              "name": "/assets/useFileActionIcons-DZWAqvkH.js",
+              "transferBytes": 2066,
+              "encodedBytes": 1766,
+              "decodedBytes": 3819
+            },
+            {
+              "name": "/assets/FitText-vOkyTiii.js",
+              "transferBytes": 1458,
+              "encodedBytes": 1158,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-RfjGLJXW.js",
+              "transferBytes": 825,
+              "encodedBytes": 525,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-Dtu-nOFU.js",
+              "transferBytes": 12271,
+              "encodedBytes": 11971,
+              "decodedBytes": 40471
+            },
+            {
+              "name": "/assets/NotificationBell-CoXLJAIS.js",
+              "transferBytes": 2414,
+              "encodedBytes": 2114,
+              "decodedBytes": 4474
+            },
+            {
+              "name": "/assets/SegmentedControl-DhcBmnM-.js",
+              "transferBytes": 735,
+              "encodedBytes": 435,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/exportWithPolicy-BOYNaKy4.js",
+              "transferBytes": 488,
+              "encodedBytes": 188,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/downloadService-C0N9b2a0.js",
+              "transferBytes": 532,
+              "encodedBytes": 232,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/MobileTransferModal-Dj3CyYWL.js",
+              "transferBytes": 2471,
+              "encodedBytes": 2171,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-CkF1YK7b.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DhUH76YX.js",
+              "transferBytes": 8945,
+              "encodedBytes": 8645,
+              "decodedBytes": 26703
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/pdfMetadataService-qXqqxbuj.js",
+              "transferBytes": 1228,
+              "encodedBytes": 928,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/Modal-N3raTd2l.js",
+              "transferBytes": 1287,
+              "encodedBytes": 987,
+              "decodedBytes": 2247
+            },
+            {
+              "name": "/assets/index-CzfzWAHq.js",
+              "transferBytes": 18538,
+              "encodedBytes": 18238,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-UTMN6UTI.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-Cyl8yMd4.js",
+              "transferBytes": 1194,
+              "encodedBytes": 894,
+              "decodedBytes": 1598
+            },
+            {
+              "name": "/assets/thumbnailGenerationService-qHfzUMI5.js",
+              "transferBytes": 1501,
+              "encodedBytes": 1201,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-C5RbeALI.js",
+              "transferBytes": 753,
+              "encodedBytes": 453,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-DHoJeJ5f.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BdumjLHN.js",
+              "transferBytes": 19000,
+              "encodedBytes": 18700,
+              "decodedBytes": 58547
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête."
+        },
+        {
+          "trial": 1,
+          "locale": "fr-FR",
+          "htmlLang": "fr-FR",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 1004,
+          "lcpMs": 2680,
+          "longTaskMs": 960,
+          "resourceCount": 60,
+          "transferBytes": 1126850,
+          "encodedBytes": 1108850,
+          "decodedBytes": 3969223,
+          "localeRequests": [
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1740,
+              "encodedBytes": 1440,
+              "decodedBytes": 4395
+            },
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/assets/index-BBNxYVkf.js",
+              "transferBytes": 238935,
+              "encodedBytes": 238635,
+              "decodedBytes": 894432
+            },
+            {
+              "name": "/assets/vendor-i18n-Duaa3CPZ.js",
+              "transferBytes": 16980,
+              "encodedBytes": 16680,
+              "decodedBytes": 50173
+            },
+            {
+              "name": "/assets/vendor-ui-Di22ZjoP.js",
+              "transferBytes": 220466,
+              "encodedBytes": 220166,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            },
+            {
+              "name": "/assets/Landing-DfILbXL8.js",
+              "transferBytes": 124702,
+              "encodedBytes": 124402,
+              "decodedBytes": 410715
+            },
+            {
+              "name": "/assets/AuthLayout-YpeAPBF7.js",
+              "transferBytes": 1803,
+              "encodedBytes": 1503,
+              "decodedBytes": 4062
+            },
+            {
+              "name": "/assets/AuthShell-BNBgG6Ft.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-CSXLmXS6.js",
+              "transferBytes": 567,
+              "encodedBytes": 267,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-j6Kmn1GK.js",
+              "transferBytes": 509,
+              "encodedBytes": 209,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-FFFSEkdn.js",
+              "transferBytes": 5004,
+              "encodedBytes": 4704,
+              "decodedBytes": 11893
+            },
+            {
+              "name": "/assets/useFileActionIcons-DZWAqvkH.js",
+              "transferBytes": 2066,
+              "encodedBytes": 1766,
+              "decodedBytes": 3819
+            },
+            {
+              "name": "/assets/FitText-vOkyTiii.js",
+              "transferBytes": 1458,
+              "encodedBytes": 1158,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-RfjGLJXW.js",
+              "transferBytes": 825,
+              "encodedBytes": 525,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-Dtu-nOFU.js",
+              "transferBytes": 12271,
+              "encodedBytes": 11971,
+              "decodedBytes": 40471
+            },
+            {
+              "name": "/assets/NotificationBell-CoXLJAIS.js",
+              "transferBytes": 2414,
+              "encodedBytes": 2114,
+              "decodedBytes": 4474
+            },
+            {
+              "name": "/assets/SegmentedControl-DhcBmnM-.js",
+              "transferBytes": 735,
+              "encodedBytes": 435,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/exportWithPolicy-BOYNaKy4.js",
+              "transferBytes": 488,
+              "encodedBytes": 188,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/downloadService-C0N9b2a0.js",
+              "transferBytes": 532,
+              "encodedBytes": 232,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/MobileTransferModal-Dj3CyYWL.js",
+              "transferBytes": 2471,
+              "encodedBytes": 2171,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-CkF1YK7b.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DhUH76YX.js",
+              "transferBytes": 8945,
+              "encodedBytes": 8645,
+              "decodedBytes": 26703
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/pdfMetadataService-qXqqxbuj.js",
+              "transferBytes": 1228,
+              "encodedBytes": 928,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/Modal-N3raTd2l.js",
+              "transferBytes": 1287,
+              "encodedBytes": 987,
+              "decodedBytes": 2247
+            },
+            {
+              "name": "/assets/index-CzfzWAHq.js",
+              "transferBytes": 18538,
+              "encodedBytes": 18238,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-UTMN6UTI.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-Cyl8yMd4.js",
+              "transferBytes": 1194,
+              "encodedBytes": 894,
+              "decodedBytes": 1598
+            },
+            {
+              "name": "/assets/thumbnailGenerationService-qHfzUMI5.js",
+              "transferBytes": 1501,
+              "encodedBytes": 1201,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-C5RbeALI.js",
+              "transferBytes": 753,
+              "encodedBytes": 453,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-DHoJeJ5f.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BdumjLHN.js",
+              "transferBytes": 19000,
+              "encodedBytes": 18700,
+              "decodedBytes": 58547
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête."
+        },
+        {
+          "trial": 2,
+          "locale": "fr-FR",
+          "htmlLang": "fr-FR",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 916,
+          "lcpMs": 2328,
+          "longTaskMs": 693,
+          "resourceCount": 60,
+          "transferBytes": 1126850,
+          "encodedBytes": 1108850,
+          "decodedBytes": 3969223,
+          "localeRequests": [
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1740,
+              "encodedBytes": 1440,
+              "decodedBytes": 4395
+            },
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/assets/index-BBNxYVkf.js",
+              "transferBytes": 238935,
+              "encodedBytes": 238635,
+              "decodedBytes": 894432
+            },
+            {
+              "name": "/assets/vendor-i18n-Duaa3CPZ.js",
+              "transferBytes": 16980,
+              "encodedBytes": 16680,
+              "decodedBytes": 50173
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/vendor-ui-Di22ZjoP.js",
+              "transferBytes": 220466,
+              "encodedBytes": 220166,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            },
+            {
+              "name": "/assets/Landing-DfILbXL8.js",
+              "transferBytes": 124702,
+              "encodedBytes": 124402,
+              "decodedBytes": 410715
+            },
+            {
+              "name": "/assets/AuthLayout-YpeAPBF7.js",
+              "transferBytes": 1803,
+              "encodedBytes": 1503,
+              "decodedBytes": 4062
+            },
+            {
+              "name": "/assets/AuthShell-BNBgG6Ft.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-CSXLmXS6.js",
+              "transferBytes": 567,
+              "encodedBytes": 267,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-j6Kmn1GK.js",
+              "transferBytes": 509,
+              "encodedBytes": 209,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-FFFSEkdn.js",
+              "transferBytes": 5004,
+              "encodedBytes": 4704,
+              "decodedBytes": 11893
+            },
+            {
+              "name": "/assets/useFileActionIcons-DZWAqvkH.js",
+              "transferBytes": 2066,
+              "encodedBytes": 1766,
+              "decodedBytes": 3819
+            },
+            {
+              "name": "/assets/FitText-vOkyTiii.js",
+              "transferBytes": 1458,
+              "encodedBytes": 1158,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-RfjGLJXW.js",
+              "transferBytes": 825,
+              "encodedBytes": 525,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-Dtu-nOFU.js",
+              "transferBytes": 12271,
+              "encodedBytes": 11971,
+              "decodedBytes": 40471
+            },
+            {
+              "name": "/assets/NotificationBell-CoXLJAIS.js",
+              "transferBytes": 2414,
+              "encodedBytes": 2114,
+              "decodedBytes": 4474
+            },
+            {
+              "name": "/assets/SegmentedControl-DhcBmnM-.js",
+              "transferBytes": 735,
+              "encodedBytes": 435,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/exportWithPolicy-BOYNaKy4.js",
+              "transferBytes": 488,
+              "encodedBytes": 188,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/downloadService-C0N9b2a0.js",
+              "transferBytes": 532,
+              "encodedBytes": 232,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/MobileTransferModal-Dj3CyYWL.js",
+              "transferBytes": 2471,
+              "encodedBytes": 2171,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-CkF1YK7b.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DhUH76YX.js",
+              "transferBytes": 8945,
+              "encodedBytes": 8645,
+              "decodedBytes": 26703
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/pdfMetadataService-qXqqxbuj.js",
+              "transferBytes": 1228,
+              "encodedBytes": 928,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/Modal-N3raTd2l.js",
+              "transferBytes": 1287,
+              "encodedBytes": 987,
+              "decodedBytes": 2247
+            },
+            {
+              "name": "/assets/index-CzfzWAHq.js",
+              "transferBytes": 18538,
+              "encodedBytes": 18238,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-UTMN6UTI.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-Cyl8yMd4.js",
+              "transferBytes": 1194,
+              "encodedBytes": 894,
+              "decodedBytes": 1598
+            },
+            {
+              "name": "/assets/thumbnailGenerationService-qHfzUMI5.js",
+              "transferBytes": 1501,
+              "encodedBytes": 1201,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-C5RbeALI.js",
+              "transferBytes": 753,
+              "encodedBytes": 453,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-DHoJeJ5f.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/assets/Onboarding-BdumjLHN.js",
+              "transferBytes": 19000,
+              "encodedBytes": 18700,
+              "decodedBytes": 58547
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête."
+        },
+        {
+          "trial": 3,
+          "locale": "fr-FR",
+          "htmlLang": "fr-FR",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 920,
+          "lcpMs": 2276,
+          "longTaskMs": 610,
+          "resourceCount": 60,
+          "transferBytes": 1126850,
+          "encodedBytes": 1108850,
+          "decodedBytes": 3969223,
+          "localeRequests": [
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1740,
+              "encodedBytes": 1440,
+              "decodedBytes": 4395
+            },
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/assets/index-BBNxYVkf.js",
+              "transferBytes": 238935,
+              "encodedBytes": 238635,
+              "decodedBytes": 894432
+            },
+            {
+              "name": "/assets/vendor-i18n-Duaa3CPZ.js",
+              "transferBytes": 16980,
+              "encodedBytes": 16680,
+              "decodedBytes": 50173
+            },
+            {
+              "name": "/assets/vendor-ui-Di22ZjoP.js",
+              "transferBytes": 220466,
+              "encodedBytes": 220166,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            },
+            {
+              "name": "/assets/Landing-DfILbXL8.js",
+              "transferBytes": 124702,
+              "encodedBytes": 124402,
+              "decodedBytes": 410715
+            },
+            {
+              "name": "/assets/AuthLayout-YpeAPBF7.js",
+              "transferBytes": 1803,
+              "encodedBytes": 1503,
+              "decodedBytes": 4062
+            },
+            {
+              "name": "/assets/AuthShell-BNBgG6Ft.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-CSXLmXS6.js",
+              "transferBytes": 567,
+              "encodedBytes": 267,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-j6Kmn1GK.js",
+              "transferBytes": 509,
+              "encodedBytes": 209,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-FFFSEkdn.js",
+              "transferBytes": 5004,
+              "encodedBytes": 4704,
+              "decodedBytes": 11893
+            },
+            {
+              "name": "/assets/useFileActionIcons-DZWAqvkH.js",
+              "transferBytes": 2066,
+              "encodedBytes": 1766,
+              "decodedBytes": 3819
+            },
+            {
+              "name": "/assets/FitText-vOkyTiii.js",
+              "transferBytes": 1458,
+              "encodedBytes": 1158,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-RfjGLJXW.js",
+              "transferBytes": 825,
+              "encodedBytes": 525,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-Dtu-nOFU.js",
+              "transferBytes": 12271,
+              "encodedBytes": 11971,
+              "decodedBytes": 40471
+            },
+            {
+              "name": "/assets/NotificationBell-CoXLJAIS.js",
+              "transferBytes": 2414,
+              "encodedBytes": 2114,
+              "decodedBytes": 4474
+            },
+            {
+              "name": "/assets/SegmentedControl-DhcBmnM-.js",
+              "transferBytes": 735,
+              "encodedBytes": 435,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/downloadService-C0N9b2a0.js",
+              "transferBytes": 532,
+              "encodedBytes": 232,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/exportWithPolicy-BOYNaKy4.js",
+              "transferBytes": 488,
+              "encodedBytes": 188,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/MobileTransferModal-Dj3CyYWL.js",
+              "transferBytes": 2471,
+              "encodedBytes": 2171,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-CkF1YK7b.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DhUH76YX.js",
+              "transferBytes": 8945,
+              "encodedBytes": 8645,
+              "decodedBytes": 26703
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/pdfMetadataService-qXqqxbuj.js",
+              "transferBytes": 1228,
+              "encodedBytes": 928,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/Modal-N3raTd2l.js",
+              "transferBytes": 1287,
+              "encodedBytes": 987,
+              "decodedBytes": 2247
+            },
+            {
+              "name": "/assets/index-CzfzWAHq.js",
+              "transferBytes": 18538,
+              "encodedBytes": 18238,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-UTMN6UTI.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-Cyl8yMd4.js",
+              "transferBytes": 1194,
+              "encodedBytes": 894,
+              "decodedBytes": 1598
+            },
+            {
+              "name": "/assets/thumbnailGenerationService-qHfzUMI5.js",
+              "transferBytes": 1501,
+              "encodedBytes": 1201,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-C5RbeALI.js",
+              "transferBytes": 753,
+              "encodedBytes": 453,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-DHoJeJ5f.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BdumjLHN.js",
+              "transferBytes": 19000,
+              "encodedBytes": 18700,
+              "decodedBytes": 58547
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête."
+        },
+        {
+          "trial": 4,
+          "locale": "fr-FR",
+          "htmlLang": "fr-FR",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 928,
+          "lcpMs": 2468,
+          "longTaskMs": 733,
+          "resourceCount": 60,
+          "transferBytes": 1126850,
+          "encodedBytes": 1108850,
+          "decodedBytes": 3969223,
+          "localeRequests": [
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1740,
+              "encodedBytes": 1440,
+              "decodedBytes": 4395
+            },
+            {
+              "name": "/locales/en-US/translation.toml",
+              "transferBytes": 155381,
+              "encodedBytes": 155081,
+              "decodedBytes": 519704
+            },
+            {
+              "name": "/assets/index-BBNxYVkf.js",
+              "transferBytes": 238935,
+              "encodedBytes": 238635,
+              "decodedBytes": 894432
+            },
+            {
+              "name": "/assets/vendor-i18n-Duaa3CPZ.js",
+              "transferBytes": 16980,
+              "encodedBytes": 16680,
+              "decodedBytes": 50173
+            },
+            {
+              "name": "/assets/vendor-ui-Di22ZjoP.js",
+              "transferBytes": 220466,
+              "encodedBytes": 220166,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/locales/fr-FR/translation.toml",
+              "transferBytes": 173175,
+              "encodedBytes": 172875,
+              "decodedBytes": 618783
+            },
+            {
+              "name": "/assets/Landing-DfILbXL8.js",
+              "transferBytes": 124702,
+              "encodedBytes": 124402,
+              "decodedBytes": 410715
+            },
+            {
+              "name": "/assets/AuthLayout-YpeAPBF7.js",
+              "transferBytes": 1803,
+              "encodedBytes": 1503,
+              "decodedBytes": 4062
+            },
+            {
+              "name": "/assets/AuthShell-BNBgG6Ft.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-CSXLmXS6.js",
+              "transferBytes": 567,
+              "encodedBytes": 267,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-j6Kmn1GK.js",
+              "transferBytes": 509,
+              "encodedBytes": 209,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-FFFSEkdn.js",
+              "transferBytes": 5004,
+              "encodedBytes": 4704,
+              "decodedBytes": 11893
+            },
+            {
+              "name": "/assets/useFileActionIcons-DZWAqvkH.js",
+              "transferBytes": 2066,
+              "encodedBytes": 1766,
+              "decodedBytes": 3819
+            },
+            {
+              "name": "/assets/FitText-vOkyTiii.js",
+              "transferBytes": 1458,
+              "encodedBytes": 1158,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-RfjGLJXW.js",
+              "transferBytes": 825,
+              "encodedBytes": 525,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-Dtu-nOFU.js",
+              "transferBytes": 12271,
+              "encodedBytes": 11971,
+              "decodedBytes": 40471
+            },
+            {
+              "name": "/assets/NotificationBell-CoXLJAIS.js",
+              "transferBytes": 2414,
+              "encodedBytes": 2114,
+              "decodedBytes": 4474
+            },
+            {
+              "name": "/assets/SegmentedControl-DhcBmnM-.js",
+              "transferBytes": 735,
+              "encodedBytes": 435,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/downloadService-C0N9b2a0.js",
+              "transferBytes": 532,
+              "encodedBytes": 232,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/exportWithPolicy-BOYNaKy4.js",
+              "transferBytes": 488,
+              "encodedBytes": 188,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/MobileTransferModal-Dj3CyYWL.js",
+              "transferBytes": 2471,
+              "encodedBytes": 2171,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-CkF1YK7b.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DhUH76YX.js",
+              "transferBytes": 8945,
+              "encodedBytes": 8645,
+              "decodedBytes": 26703
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/Modal-N3raTd2l.js",
+              "transferBytes": 1287,
+              "encodedBytes": 987,
+              "decodedBytes": 2247
+            },
+            {
+              "name": "/assets/pdfMetadataService-qXqqxbuj.js",
+              "transferBytes": 1228,
+              "encodedBytes": 928,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/index-CzfzWAHq.js",
+              "transferBytes": 18538,
+              "encodedBytes": 18238,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-UTMN6UTI.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-Cyl8yMd4.js",
+              "transferBytes": 1194,
+              "encodedBytes": 894,
+              "decodedBytes": 1598
+            },
+            {
+              "name": "/assets/thumbnailGenerationService-qHfzUMI5.js",
+              "transferBytes": 1501,
+              "encodedBytes": 1201,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-C5RbeALI.js",
+              "transferBytes": 753,
+              "encodedBytes": 453,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-DHoJeJ5f.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BdumjLHN.js",
+              "transferBytes": 19000,
+              "encodedBytes": 18700,
+              "decodedBytes": 58547
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête."
+        }
+      ]
+    },
+    {
+      "label": "paraglide-static-locale-split",
+      "median": {
+        "fcpMs": 900,
+        "lcpMs": 1988,
+        "longTaskMs": 605,
+        "resourceCount": 62,
+        "transferBytes": 839195,
+        "encodedBytes": 820595,
+        "decodedBytes": 2978476
+      },
+      "runs": [
+        {
+          "trial": 0,
+          "locale": "fr-FR",
+          "htmlLang": "en-US",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 924,
+          "lcpMs": 2616,
+          "longTaskMs": 1311,
+          "resourceCount": 62,
+          "transferBytes": 839195,
+          "encodedBytes": 820595,
+          "decodedBytes": 2978476,
+          "localeRequests": [
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1350,
+              "encodedBytes": 1050,
+              "decodedBytes": 3454
+            },
+            {
+              "name": "/assets/paraglide-locale-preload-BA1IqEO1.js",
+              "transferBytes": 1794,
+              "encodedBytes": 1494,
+              "decodedBytes": 7487
+            },
+            {
+              "name": "/assets/index-OwndiJsc.js",
+              "transferBytes": 238932,
+              "encodedBytes": 238632,
+              "decodedBytes": 925954
+            },
+            {
+              "name": "/assets/vendor-i18n-DRwRgg4g.js",
+              "transferBytes": 14767,
+              "encodedBytes": 14467,
+              "decodedBytes": 43244
+            },
+            {
+              "name": "/assets/vendor-ui-Dc_1NiAY.js",
+              "transferBytes": 220468,
+              "encodedBytes": 220168,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/runtime-R2WFef98.js",
+              "transferBytes": 1824,
+              "encodedBytes": 1524,
+              "decodedBytes": 3150
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            },
+            {
+              "name": "/assets/Landing-W7O3MkEI.js",
+              "transferBytes": 119209,
+              "encodedBytes": 118909,
+              "decodedBytes": 383160
+            },
+            {
+              "name": "/assets/AuthLayout-CNJEA8Jx.js",
+              "transferBytes": 1774,
+              "encodedBytes": 1474,
+              "decodedBytes": 3872
+            },
+            {
+              "name": "/assets/AuthShell-BEMPSWpe.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-B6B1jRw-.js",
+              "transferBytes": 566,
+              "encodedBytes": 266,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-tab5sKBq.js",
+              "transferBytes": 507,
+              "encodedBytes": 207,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-CeJiDNxt.js",
+              "transferBytes": 4932,
+              "encodedBytes": 4632,
+              "decodedBytes": 11613
+            },
+            {
+              "name": "/assets/useFileActionIcons-DbjK1JRu.js",
+              "transferBytes": 1932,
+              "encodedBytes": 1632,
+              "decodedBytes": 3204
+            },
+            {
+              "name": "/assets/FitText-DxL57_lf.js",
+              "transferBytes": 1457,
+              "encodedBytes": 1157,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-bNrf5LEt.js",
+              "transferBytes": 827,
+              "encodedBytes": 527,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-BFhTBa21.js",
+              "transferBytes": 12214,
+              "encodedBytes": 11914,
+              "decodedBytes": 39595
+            },
+            {
+              "name": "/assets/NotificationBell-CHW6I7Ks.js",
+              "transferBytes": 2284,
+              "encodedBytes": 1984,
+              "decodedBytes": 4000
+            },
+            {
+              "name": "/assets/SegmentedControl-CcYpW7RS.js",
+              "transferBytes": 733,
+              "encodedBytes": 433,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/exportWithPolicy-DjzyEt7a.js",
+              "transferBytes": 487,
+              "encodedBytes": 187,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/downloadService-DNIYudRM.js",
+              "transferBytes": 530,
+              "encodedBytes": 230,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/MobileTransferModal-B5BPJ7gn.js",
+              "transferBytes": 2469,
+              "encodedBytes": 2169,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-Ce5QADwL.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DJvfR3N2.js",
+              "transferBytes": 8086,
+              "encodedBytes": 7786,
+              "decodedBytes": 23487
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/pdfMetadataService-Yy6--WoG.js",
+              "transferBytes": 1226,
+              "encodedBytes": 926,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/Modal-B134uzDD.js",
+              "transferBytes": 1275,
+              "encodedBytes": 975,
+              "decodedBytes": 2221
+            },
+            {
+              "name": "/assets/index-DUdkf1AH.js",
+              "transferBytes": 18536,
+              "encodedBytes": 18236,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-D6yZJYfs.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-BtJpjSOZ.js",
+              "transferBytes": 1181,
+              "encodedBytes": 881,
+              "decodedBytes": 1548
+            },
+            {
+              "name": "/assets/thumbnailGenerationService--9FbiS3W.js",
+              "transferBytes": 1502,
+              "encodedBytes": 1202,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-CWwb4seg.js",
+              "transferBytes": 752,
+              "encodedBytes": 452,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-BQdglO9P.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BQp9D9r9.js",
+              "transferBytes": 18196,
+              "encodedBytes": 17896,
+              "decodedBytes": 55109
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête.",
+          "sameVisibleText": true
+        },
+        {
+          "trial": 1,
+          "locale": "fr-FR",
+          "htmlLang": "en-US",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 900,
+          "lcpMs": 2760,
+          "longTaskMs": 1413,
+          "resourceCount": 62,
+          "transferBytes": 839195,
+          "encodedBytes": 820595,
+          "decodedBytes": 2978476,
+          "localeRequests": [
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1350,
+              "encodedBytes": 1050,
+              "decodedBytes": 3454
+            },
+            {
+              "name": "/assets/paraglide-locale-preload-BA1IqEO1.js",
+              "transferBytes": 1794,
+              "encodedBytes": 1494,
+              "decodedBytes": 7487
+            },
+            {
+              "name": "/assets/index-OwndiJsc.js",
+              "transferBytes": 238932,
+              "encodedBytes": 238632,
+              "decodedBytes": 925954
+            },
+            {
+              "name": "/assets/vendor-i18n-DRwRgg4g.js",
+              "transferBytes": 14767,
+              "encodedBytes": 14467,
+              "decodedBytes": 43244
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/vendor-ui-Dc_1NiAY.js",
+              "transferBytes": 220468,
+              "encodedBytes": 220168,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/runtime-R2WFef98.js",
+              "transferBytes": 1824,
+              "encodedBytes": 1524,
+              "decodedBytes": 3150
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            },
+            {
+              "name": "/assets/Landing-W7O3MkEI.js",
+              "transferBytes": 119209,
+              "encodedBytes": 118909,
+              "decodedBytes": 383160
+            },
+            {
+              "name": "/assets/AuthLayout-CNJEA8Jx.js",
+              "transferBytes": 1774,
+              "encodedBytes": 1474,
+              "decodedBytes": 3872
+            },
+            {
+              "name": "/assets/AuthShell-BEMPSWpe.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-B6B1jRw-.js",
+              "transferBytes": 566,
+              "encodedBytes": 266,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-tab5sKBq.js",
+              "transferBytes": 507,
+              "encodedBytes": 207,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-CeJiDNxt.js",
+              "transferBytes": 4932,
+              "encodedBytes": 4632,
+              "decodedBytes": 11613
+            },
+            {
+              "name": "/assets/useFileActionIcons-DbjK1JRu.js",
+              "transferBytes": 1932,
+              "encodedBytes": 1632,
+              "decodedBytes": 3204
+            },
+            {
+              "name": "/assets/FitText-DxL57_lf.js",
+              "transferBytes": 1457,
+              "encodedBytes": 1157,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-bNrf5LEt.js",
+              "transferBytes": 827,
+              "encodedBytes": 527,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-BFhTBa21.js",
+              "transferBytes": 12214,
+              "encodedBytes": 11914,
+              "decodedBytes": 39595
+            },
+            {
+              "name": "/assets/NotificationBell-CHW6I7Ks.js",
+              "transferBytes": 2284,
+              "encodedBytes": 1984,
+              "decodedBytes": 4000
+            },
+            {
+              "name": "/assets/SegmentedControl-CcYpW7RS.js",
+              "transferBytes": 733,
+              "encodedBytes": 433,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/exportWithPolicy-DjzyEt7a.js",
+              "transferBytes": 487,
+              "encodedBytes": 187,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/downloadService-DNIYudRM.js",
+              "transferBytes": 530,
+              "encodedBytes": 230,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/MobileTransferModal-B5BPJ7gn.js",
+              "transferBytes": 2469,
+              "encodedBytes": 2169,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-Ce5QADwL.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DJvfR3N2.js",
+              "transferBytes": 8086,
+              "encodedBytes": 7786,
+              "decodedBytes": 23487
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/pdfMetadataService-Yy6--WoG.js",
+              "transferBytes": 1226,
+              "encodedBytes": 926,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/Modal-B134uzDD.js",
+              "transferBytes": 1275,
+              "encodedBytes": 975,
+              "decodedBytes": 2221
+            },
+            {
+              "name": "/assets/index-DUdkf1AH.js",
+              "transferBytes": 18536,
+              "encodedBytes": 18236,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-D6yZJYfs.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-BtJpjSOZ.js",
+              "transferBytes": 1181,
+              "encodedBytes": 881,
+              "decodedBytes": 1548
+            },
+            {
+              "name": "/assets/thumbnailGenerationService--9FbiS3W.js",
+              "transferBytes": 1502,
+              "encodedBytes": 1202,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-CWwb4seg.js",
+              "transferBytes": 752,
+              "encodedBytes": 452,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-BQdglO9P.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BQp9D9r9.js",
+              "transferBytes": 18196,
+              "encodedBytes": 17896,
+              "decodedBytes": 55109
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête.",
+          "sameVisibleText": true
+        },
+        {
+          "trial": 2,
+          "locale": "fr-FR",
+          "htmlLang": "en-US",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 768,
+          "lcpMs": 1956,
+          "longTaskMs": 527,
+          "resourceCount": 62,
+          "transferBytes": 839195,
+          "encodedBytes": 820595,
+          "decodedBytes": 2978476,
+          "localeRequests": [
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1350,
+              "encodedBytes": 1050,
+              "decodedBytes": 3454
+            },
+            {
+              "name": "/assets/paraglide-locale-preload-BA1IqEO1.js",
+              "transferBytes": 1794,
+              "encodedBytes": 1494,
+              "decodedBytes": 7487
+            },
+            {
+              "name": "/assets/vendor-i18n-DRwRgg4g.js",
+              "transferBytes": 14767,
+              "encodedBytes": 14467,
+              "decodedBytes": 43244
+            },
+            {
+              "name": "/assets/index-OwndiJsc.js",
+              "transferBytes": 238932,
+              "encodedBytes": 238632,
+              "decodedBytes": 925954
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/vendor-ui-Dc_1NiAY.js",
+              "transferBytes": 220468,
+              "encodedBytes": 220168,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/runtime-R2WFef98.js",
+              "transferBytes": 1824,
+              "encodedBytes": 1524,
+              "decodedBytes": 3150
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            },
+            {
+              "name": "/assets/Landing-W7O3MkEI.js",
+              "transferBytes": 119209,
+              "encodedBytes": 118909,
+              "decodedBytes": 383160
+            },
+            {
+              "name": "/assets/AuthLayout-CNJEA8Jx.js",
+              "transferBytes": 1774,
+              "encodedBytes": 1474,
+              "decodedBytes": 3872
+            },
+            {
+              "name": "/assets/AuthShell-BEMPSWpe.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-B6B1jRw-.js",
+              "transferBytes": 566,
+              "encodedBytes": 266,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-tab5sKBq.js",
+              "transferBytes": 507,
+              "encodedBytes": 207,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-CeJiDNxt.js",
+              "transferBytes": 4932,
+              "encodedBytes": 4632,
+              "decodedBytes": 11613
+            },
+            {
+              "name": "/assets/useFileActionIcons-DbjK1JRu.js",
+              "transferBytes": 1932,
+              "encodedBytes": 1632,
+              "decodedBytes": 3204
+            },
+            {
+              "name": "/assets/FitText-DxL57_lf.js",
+              "transferBytes": 1457,
+              "encodedBytes": 1157,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-bNrf5LEt.js",
+              "transferBytes": 827,
+              "encodedBytes": 527,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-BFhTBa21.js",
+              "transferBytes": 12214,
+              "encodedBytes": 11914,
+              "decodedBytes": 39595
+            },
+            {
+              "name": "/assets/NotificationBell-CHW6I7Ks.js",
+              "transferBytes": 2284,
+              "encodedBytes": 1984,
+              "decodedBytes": 4000
+            },
+            {
+              "name": "/assets/SegmentedControl-CcYpW7RS.js",
+              "transferBytes": 733,
+              "encodedBytes": 433,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/exportWithPolicy-DjzyEt7a.js",
+              "transferBytes": 487,
+              "encodedBytes": 187,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/downloadService-DNIYudRM.js",
+              "transferBytes": 530,
+              "encodedBytes": 230,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/MobileTransferModal-B5BPJ7gn.js",
+              "transferBytes": 2469,
+              "encodedBytes": 2169,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-Ce5QADwL.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DJvfR3N2.js",
+              "transferBytes": 8086,
+              "encodedBytes": 7786,
+              "decodedBytes": 23487
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/pdfMetadataService-Yy6--WoG.js",
+              "transferBytes": 1226,
+              "encodedBytes": 926,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/Modal-B134uzDD.js",
+              "transferBytes": 1275,
+              "encodedBytes": 975,
+              "decodedBytes": 2221
+            },
+            {
+              "name": "/assets/index-DUdkf1AH.js",
+              "transferBytes": 18536,
+              "encodedBytes": 18236,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-D6yZJYfs.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-BtJpjSOZ.js",
+              "transferBytes": 1181,
+              "encodedBytes": 881,
+              "decodedBytes": 1548
+            },
+            {
+              "name": "/assets/thumbnailGenerationService--9FbiS3W.js",
+              "transferBytes": 1502,
+              "encodedBytes": 1202,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-CWwb4seg.js",
+              "transferBytes": 752,
+              "encodedBytes": 452,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-BQdglO9P.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BQp9D9r9.js",
+              "transferBytes": 18196,
+              "encodedBytes": 17896,
+              "decodedBytes": 55109
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête.",
+          "sameVisibleText": true
+        },
+        {
+          "trial": 3,
+          "locale": "fr-FR",
+          "htmlLang": "en-US",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 756,
+          "lcpMs": 1928,
+          "longTaskMs": 465,
+          "resourceCount": 62,
+          "transferBytes": 839195,
+          "encodedBytes": 820595,
+          "decodedBytes": 2978476,
+          "localeRequests": [
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1350,
+              "encodedBytes": 1050,
+              "decodedBytes": 3454
+            },
+            {
+              "name": "/assets/paraglide-locale-preload-BA1IqEO1.js",
+              "transferBytes": 1794,
+              "encodedBytes": 1494,
+              "decodedBytes": 7487
+            },
+            {
+              "name": "/assets/index-OwndiJsc.js",
+              "transferBytes": 238932,
+              "encodedBytes": 238632,
+              "decodedBytes": 925954
+            },
+            {
+              "name": "/assets/vendor-i18n-DRwRgg4g.js",
+              "transferBytes": 14767,
+              "encodedBytes": 14467,
+              "decodedBytes": 43244
+            },
+            {
+              "name": "/assets/vendor-ui-Dc_1NiAY.js",
+              "transferBytes": 220468,
+              "encodedBytes": 220168,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/runtime-R2WFef98.js",
+              "transferBytes": 1824,
+              "encodedBytes": 1524,
+              "decodedBytes": 3150
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            },
+            {
+              "name": "/assets/Landing-W7O3MkEI.js",
+              "transferBytes": 119209,
+              "encodedBytes": 118909,
+              "decodedBytes": 383160
+            },
+            {
+              "name": "/assets/AuthLayout-CNJEA8Jx.js",
+              "transferBytes": 1774,
+              "encodedBytes": 1474,
+              "decodedBytes": 3872
+            },
+            {
+              "name": "/assets/AuthShell-BEMPSWpe.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-B6B1jRw-.js",
+              "transferBytes": 566,
+              "encodedBytes": 266,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-tab5sKBq.js",
+              "transferBytes": 507,
+              "encodedBytes": 207,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-CeJiDNxt.js",
+              "transferBytes": 4932,
+              "encodedBytes": 4632,
+              "decodedBytes": 11613
+            },
+            {
+              "name": "/assets/useFileActionIcons-DbjK1JRu.js",
+              "transferBytes": 1932,
+              "encodedBytes": 1632,
+              "decodedBytes": 3204
+            },
+            {
+              "name": "/assets/FitText-DxL57_lf.js",
+              "transferBytes": 1457,
+              "encodedBytes": 1157,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-bNrf5LEt.js",
+              "transferBytes": 827,
+              "encodedBytes": 527,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-BFhTBa21.js",
+              "transferBytes": 12214,
+              "encodedBytes": 11914,
+              "decodedBytes": 39595
+            },
+            {
+              "name": "/assets/NotificationBell-CHW6I7Ks.js",
+              "transferBytes": 2284,
+              "encodedBytes": 1984,
+              "decodedBytes": 4000
+            },
+            {
+              "name": "/assets/SegmentedControl-CcYpW7RS.js",
+              "transferBytes": 733,
+              "encodedBytes": 433,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/downloadService-DNIYudRM.js",
+              "transferBytes": 530,
+              "encodedBytes": 230,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/exportWithPolicy-DjzyEt7a.js",
+              "transferBytes": 487,
+              "encodedBytes": 187,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/MobileTransferModal-B5BPJ7gn.js",
+              "transferBytes": 2469,
+              "encodedBytes": 2169,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-Ce5QADwL.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DJvfR3N2.js",
+              "transferBytes": 8086,
+              "encodedBytes": 7786,
+              "decodedBytes": 23487
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/pdfMetadataService-Yy6--WoG.js",
+              "transferBytes": 1226,
+              "encodedBytes": 926,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/Modal-B134uzDD.js",
+              "transferBytes": 1275,
+              "encodedBytes": 975,
+              "decodedBytes": 2221
+            },
+            {
+              "name": "/assets/index-DUdkf1AH.js",
+              "transferBytes": 18536,
+              "encodedBytes": 18236,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-D6yZJYfs.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-BtJpjSOZ.js",
+              "transferBytes": 1181,
+              "encodedBytes": 881,
+              "decodedBytes": 1548
+            },
+            {
+              "name": "/assets/thumbnailGenerationService--9FbiS3W.js",
+              "transferBytes": 1502,
+              "encodedBytes": 1202,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-CWwb4seg.js",
+              "transferBytes": 752,
+              "encodedBytes": 452,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-BQdglO9P.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BQp9D9r9.js",
+              "transferBytes": 18196,
+              "encodedBytes": 17896,
+              "decodedBytes": 55109
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête.",
+          "sameVisibleText": true
+        },
+        {
+          "trial": 4,
+          "locale": "fr-FR",
+          "htmlLang": "en-US",
+          "frenchUiParity": true,
+          "parityWaitError": null,
+          "fcpMs": 1596,
+          "lcpMs": 1988,
+          "longTaskMs": 605,
+          "resourceCount": 62,
+          "transferBytes": 839195,
+          "encodedBytes": 820595,
+          "decodedBytes": 2978476,
+          "localeRequests": [
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            }
+          ],
+          "resources": [
+            {
+              "name": "/",
+              "transferBytes": 1350,
+              "encodedBytes": 1050,
+              "decodedBytes": 3454
+            },
+            {
+              "name": "/assets/paraglide-locale-preload-BA1IqEO1.js",
+              "transferBytes": 1794,
+              "encodedBytes": 1494,
+              "decodedBytes": 7487
+            },
+            {
+              "name": "/assets/vendor-i18n-DRwRgg4g.js",
+              "transferBytes": 14767,
+              "encodedBytes": 14467,
+              "decodedBytes": 43244
+            },
+            {
+              "name": "/assets/index-OwndiJsc.js",
+              "transferBytes": 238932,
+              "encodedBytes": 238632,
+              "decodedBytes": 925954
+            },
+            {
+              "name": "/assets/vendor-preload-PPVm8Dsz.js",
+              "transferBytes": 966,
+              "encodedBytes": 666,
+              "decodedBytes": 1232
+            },
+            {
+              "name": "/assets/vendor-ui-Dc_1NiAY.js",
+              "transferBytes": 220468,
+              "encodedBytes": 220168,
+              "decodedBytes": 706624
+            },
+            {
+              "name": "/assets/runtime-R2WFef98.js",
+              "transferBytes": 1824,
+              "encodedBytes": 1524,
+              "decodedBytes": 3150
+            },
+            {
+              "name": "/assets/index-nKmnbl4C.css",
+              "transferBytes": 30384,
+              "encodedBytes": 30084,
+              "decodedBytes": 159282
+            },
+            {
+              "name": "/assets/vendor-ui-CQXHec7A.css",
+              "transferBytes": 33931,
+              "encodedBytes": 33631,
+              "decodedBytes": 218197
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_fr-FR-vBGQjYaG.js",
+              "transferBytes": 24733,
+              "encodedBytes": 24433,
+              "decodedBytes": 82617
+            },
+            {
+              "name": "/assets/_paraglide_virtual-locale_en-US-DeTKyCr5.js",
+              "transferBytes": 22770,
+              "encodedBytes": 22470,
+              "decodedBytes": 67554
+            },
+            {
+              "name": "/assets/Landing-W7O3MkEI.js",
+              "transferBytes": 119209,
+              "encodedBytes": 118909,
+              "decodedBytes": 383160
+            },
+            {
+              "name": "/assets/AuthLayout-CNJEA8Jx.js",
+              "transferBytes": 1774,
+              "encodedBytes": 1474,
+              "decodedBytes": 3872
+            },
+            {
+              "name": "/assets/AuthShell-BEMPSWpe.js",
+              "transferBytes": 563,
+              "encodedBytes": 263,
+              "decodedBytes": 477
+            },
+            {
+              "name": "/assets/LogoIcon-B6B1jRw-.js",
+              "transferBytes": 566,
+              "encodedBytes": 266,
+              "decodedBytes": 393
+            },
+            {
+              "name": "/assets/Wordmark-tab5sKBq.js",
+              "transferBytes": 507,
+              "encodedBytes": 207,
+              "decodedBytes": 269
+            },
+            {
+              "name": "/assets/automationMeter-CeJiDNxt.js",
+              "transferBytes": 4932,
+              "encodedBytes": 4632,
+              "decodedBytes": 11613
+            },
+            {
+              "name": "/assets/useFileActionIcons-DbjK1JRu.js",
+              "transferBytes": 1932,
+              "encodedBytes": 1632,
+              "decodedBytes": 3204
+            },
+            {
+              "name": "/assets/FitText-DxL57_lf.js",
+              "transferBytes": 1457,
+              "encodedBytes": 1157,
+              "decodedBytes": 2116
+            },
+            {
+              "name": "/assets/HotkeyDisplay-bNrf5LEt.js",
+              "transferBytes": 827,
+              "encodedBytes": 527,
+              "decodedBytes": 987
+            },
+            {
+              "name": "/assets/textUtils-B7NfPJfH.js",
+              "transferBytes": 492,
+              "encodedBytes": 192,
+              "decodedBytes": 330
+            },
+            {
+              "name": "/assets/FilesPage-BFhTBa21.js",
+              "transferBytes": 12214,
+              "encodedBytes": 11914,
+              "decodedBytes": 39595
+            },
+            {
+              "name": "/assets/NotificationBell-CHW6I7Ks.js",
+              "transferBytes": 2284,
+              "encodedBytes": 1984,
+              "decodedBytes": 4000
+            },
+            {
+              "name": "/assets/SegmentedControl-CcYpW7RS.js",
+              "transferBytes": 733,
+              "encodedBytes": 433,
+              "decodedBytes": 687
+            },
+            {
+              "name": "/assets/exportWithPolicy-DjzyEt7a.js",
+              "transferBytes": 487,
+              "encodedBytes": 187,
+              "decodedBytes": 273
+            },
+            {
+              "name": "/assets/downloadService-DNIYudRM.js",
+              "transferBytes": 530,
+              "encodedBytes": 230,
+              "decodedBytes": 491
+            },
+            {
+              "name": "/assets/MobileTransferModal-B5BPJ7gn.js",
+              "transferBytes": 2469,
+              "encodedBytes": 2169,
+              "decodedBytes": 4891
+            },
+            {
+              "name": "/assets/index-Ce5QADwL.js",
+              "transferBytes": 6595,
+              "encodedBytes": 6295,
+              "decodedBytes": 16438
+            },
+            {
+              "name": "/assets/onboardingFlowConfig-DJvfR3N2.js",
+              "transferBytes": 8086,
+              "encodedBytes": 7786,
+              "decodedBytes": 23487
+            },
+            {
+              "name": "/assets/InitialOnboardingModal.module-BPQydVvA.js",
+              "transferBytes": 909,
+              "encodedBytes": 609,
+              "decodedBytes": 1345
+            },
+            {
+              "name": "/assets/pdfMetadataService-Yy6--WoG.js",
+              "transferBytes": 1226,
+              "encodedBytes": 926,
+              "decodedBytes": 1843
+            },
+            {
+              "name": "/assets/Modal-B134uzDD.js",
+              "transferBytes": 1275,
+              "encodedBytes": 975,
+              "decodedBytes": 2221
+            },
+            {
+              "name": "/assets/index-DUdkf1AH.js",
+              "transferBytes": 18536,
+              "encodedBytes": 18236,
+              "decodedBytes": 64628
+            },
+            {
+              "name": "/assets/index-D6yZJYfs.js",
+              "transferBytes": 423,
+              "encodedBytes": 123,
+              "decodedBytes": 123
+            },
+            {
+              "name": "/assets/index-Chjiymov.js",
+              "transferBytes": 813,
+              "encodedBytes": 513,
+              "decodedBytes": 865
+            },
+            {
+              "name": "/assets/useOpenSigning-BtJpjSOZ.js",
+              "transferBytes": 1181,
+              "encodedBytes": 881,
+              "decodedBytes": 1548
+            },
+            {
+              "name": "/assets/thumbnailGenerationService--9FbiS3W.js",
+              "transferBytes": 1502,
+              "encodedBytes": 1202,
+              "decodedBytes": 3177
+            },
+            {
+              "name": "/assets/useBackendProbe-CWwb4seg.js",
+              "transferBytes": 752,
+              "encodedBytes": 452,
+              "decodedBytes": 961
+            },
+            {
+              "name": "/assets/LoginHeader-BQdglO9P.js",
+              "transferBytes": 552,
+              "encodedBytes": 252,
+              "decodedBytes": 462
+            },
+            {
+              "name": "/assets/AuthShell-Cey59fFk.css",
+              "transferBytes": 630,
+              "encodedBytes": 330,
+              "decodedBytes": 611
+            },
+            {
+              "name": "/assets/automationMeter-CUNv0as9.css",
+              "transferBytes": 1359,
+              "encodedBytes": 1059,
+              "decodedBytes": 3493
+            },
+            {
+              "name": "/assets/FilesPage-DiR-Fo4J.css",
+              "transferBytes": 6016,
+              "encodedBytes": 5716,
+              "decodedBytes": 28770
+            },
+            {
+              "name": "/assets/InitialOnboardingModal-fJLMZ9Fz.css",
+              "transferBytes": 2198,
+              "encodedBytes": 1898,
+              "decodedBytes": 6766
+            },
+            {
+              "name": "/assets/Landing-D8UX7U7C.css",
+              "transferBytes": 13105,
+              "encodedBytes": 12805,
+              "decodedBytes": 66405
+            },
+            {
+              "name": "/assets/FileSidebarFileItem-Vju6KV9m.css",
+              "transferBytes": 1815,
+              "encodedBytes": 1515,
+              "decodedBytes": 6681
+            },
+            {
+              "name": "/assets/Onboarding-BQp9D9r9.js",
+              "transferBytes": 18196,
+              "encodedBytes": 17896,
+              "decodedBytes": 55109
+            },
+            {
+              "name": "/assets/Onboarding-BiOHNGzu.css",
+              "transferBytes": 1414,
+              "encodedBytes": 1114,
+              "decodedBytes": 5580
+            },
+            {
+              "name": "/api/v1/info/status",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/app-config",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/login",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/assets/wordmark-light-DHvCYKwX.svg",
+              "transferBytes": 2893,
+              "encodedBytes": 2593,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/assets/wordmark-dark-CVJ27nQR.svg",
+              "transferBytes": 2898,
+              "encodedBytes": 2598,
+              "decodedBytes": 6392
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies/runs",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/config/endpoints-availability",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/proprietary/ui-data/account",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/notifications?limit=20",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            },
+            {
+              "name": "/api/v1/policies",
+              "transferBytes": 302,
+              "encodedBytes": 2,
+              "decodedBytes": 2
+            }
+          ],
+          "pageErrors": [],
+          "text": "U\nBibliothèque PDF\n\nAucun fichier pour le moment\n\nOuvrez des fichiers pour commencer\n\nCtrl+K\nAjouter des fichiers\nTraiter un dossier\nProcesseur PDF\n\nRien ne s’exécute encore à l’importation ou à l’exportation\n\nOutils PDF\nRECOMMANDÉ\nÉditeur de texte PDF\nFusionner\nComparer\nCompresser\nConvertir\nOCR / Nettoyage des numérisations\nExpurger\nOutil multifonction PDF\nSIGNATURE\nSigner avec un certificat\nHorodater le PDF\nSigner\nSÉCURITÉ DU DOCUMENT\nAjouter un mot de passe\nAjouter un filigrane\nAjouter un tampon au PDF\nAssainir\nRendre inerte\nDéverrouiller les formulaires PDF\nModifier les permissions\nVÉRIFICATION\nRécupérer les informations\nValider signature PDF\nRÉVISION DE DOCUMENT\nModifier les métadonnées\nModifier sommaire\nLire\nMISE EN PAGE\nRedimensionner\nPivoter\nRotation automatique\nDiviser\nRéorganiser les pages\nRégler taille/échelle page\nNuméroter pages\nFusionner des pages\nImposition en livret\nFusionner en une seule page\nGérer les pièces jointes\nCréer un Portfolio\nErreur de requête\n×\nUne erreur s'est produite lors du traitement de votre requête.",
+          "sameVisibleText": true
+        }
+      ]
+    }
+  ],
+  "comparison": {
+    "fcpMs": {
+      "native": 928,
+      "paraglide": 900,
+      "changePct": -3.02,
+      "pairedMedianChangePct": -16.16
+    },
+    "lcpMs": {
+      "native": 2468,
+      "paraglide": 1988,
+      "changePct": -19.45,
+      "pairedMedianChangePct": -15.29
+    },
+    "longTaskMs": {
+      "native": 733,
+      "paraglide": 605,
+      "changePct": -17.46,
+      "pairedMedianChangePct": -17.46
+    },
+    "transferBytes": {
+      "native": 1126850,
+      "paraglide": 839195,
+      "changePct": -25.53,
+      "pairedMedianChangePct": -25.53
+    },
+    "encodedBytes": {
+      "native": 1108850,
+      "paraglide": 820595,
+      "changePct": -26,
+      "pairedMedianChangePct": -26
+    },
+    "decodedBytes": {
+      "native": 3969223,
+      "paraglide": 2978476,
+      "changePct": -24.96,
+      "pairedMedianChangePct": -24.96
+    }
+  },
+  "visibleTextMatchesNative": true,
+  "verdict": "Measured; evaluate whole-route and timing changes against the >=10% qualification gate."
+}

@@ -88,7 +88,8 @@ const eventListeners = new Map();
 let version = 0;
 let language = detectLanguage();
 let resolvedLanguage = resolveLocale(language);
-setLocale(resolvedLanguage, { reload: false });
+let changeLanguageIntent = 0;
+await setLocale(resolvedLanguage, { reload: false });
 
 function resolveLocale(input) {
   const normalized = String(input || "en").replaceAll("_", "-").toLowerCase();
@@ -156,16 +157,19 @@ const i18n = {
   get resolvedLanguage() { return resolvedLanguage; },
   get isInitialized() { return true; },
   t,
-  changeLanguage(nextLanguage) {
+  async changeLanguage(nextLanguage) {
     const next = String(nextLanguage || "en").replaceAll("_", "-").toLowerCase();
+    const nextResolvedLanguage = resolveLocale(next);
+    const intent = ++changeLanguageIntent;
+    await setLocale(nextResolvedLanguage, { reload: false });
+    if (intent !== changeLanguageIntent) return i18n;
     language = next;
-    resolvedLanguage = resolveLocale(next);
-    setLocale(resolvedLanguage, { reload: false });
+    resolvedLanguage = nextResolvedLanguage;
     version++;
     for (const listener of listeners) listener();
     for (const listener of eventListeners.get("languageChanged") || []) listener(language);
     try { window.localStorage.setItem("i18nextLng", language); } catch {}
-    return Promise.resolve(i18n);
+    return i18n;
   },
   on(event, listener) {
     const callbacks = eventListeners.get(event) || new Set();
