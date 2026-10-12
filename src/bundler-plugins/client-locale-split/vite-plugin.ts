@@ -381,7 +381,7 @@ overwriteSetLocale((locale, options) => {
 		return originalSetLocale(normalized, options);
 	});
 });
-export const selectedMessageLocale = (locale) => locale === undefined ? (canonicalLocale(getLocale()) ?? baseLocale) : (locales.includes(locale) ? locale : baseLocale);
+export const selectedMessageLocale = (locale) => { const selected = locale ?? getLocale(); return locales.includes(selected) ? selected : baseLocale; };
 export function requireLoadedLocale(locale) {
 	const messages = loadedLocales.get(locale);
 	if (!messages) throw new Error("Paraglide locale " + JSON.stringify(locale) + " is not loaded. Await loadLocale() before calling its synchronous messages.");
