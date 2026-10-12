@@ -329,6 +329,35 @@ test("experimentalClientLocaleSplit validates layout conflicts and top-level-awa
 	).not.toThrow();
 });
 
+test("experimentalClientLocaleSplit rejects multiple Paraglide projects in one Vite config", () => {
+	const makeSplitPlugin = (project: string, outdir: string) => {
+		const plugins = paraglideVitePlugin({
+			project,
+			outdir,
+			experimentalClientLocaleSplit: true,
+		}) as any[];
+		return plugins[1];
+	};
+	const first = makeSplitPlugin(
+		"/app-one/project.inlang",
+		"/app-one/paraglide"
+	);
+	const second = makeSplitPlugin(
+		"/app-two/project.inlang",
+		"/app-two/paraglide"
+	);
+	const resolvedConfig = {
+		command: "build",
+		base: "/",
+		build: { ssr: false, target: "es2022" },
+	};
+
+	first.configResolved(resolvedConfig);
+	expect(() => second.configResolved(resolvedConfig)).toThrow(
+		"supports only one Paraglide project per Vite config because its virtual module IDs are shared"
+	);
+});
+
 test("experimentalClientLocaleSplit builds real Vite locale chunks and a base-aware preload", async () => {
 	const root = await mkdtemp(join(tmpdir(), "paraglide-client-split-vite-"));
 	let project: Awaited<ReturnType<typeof loadProjectInMemory>> | undefined;

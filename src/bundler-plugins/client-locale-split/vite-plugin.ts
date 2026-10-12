@@ -14,6 +14,7 @@ const loaderId = "\0paraglide:client-locale-split:loader";
 const preloadId = "\0paraglide:client-locale-split:preload";
 const localeIdPrefix = "\0paraglide:client-locale-split:locale:";
 const metadataFilename = "client-locale-split.json";
+const configsWithClientLocaleSplit = new WeakMap<ResolvedConfig, object>();
 
 type MessageMetadata = {
 	safeName: string;
@@ -33,6 +34,7 @@ type SplitMetadata = {
 export function createClientLocaleSplitPlugin(args: {
 	state: ViteClientLocaleSplitState;
 }): Plugin {
+	const pluginInstance = {};
 	let config: ResolvedConfig | undefined;
 	let metadata: SplitMetadata | undefined;
 	let metadataPath: string | undefined;
@@ -97,6 +99,13 @@ export function createClientLocaleSplitPlugin(args: {
 		name: "paraglide-vite-client-locale-split",
 		enforce: "pre",
 		configResolved(resolved) {
+			const existingPlugin = configsWithClientLocaleSplit.get(resolved);
+			if (existingPlugin && existingPlugin !== pluginInstance) {
+				throw new Error(
+					"experimentalClientLocaleSplit supports only one Paraglide project per Vite config because its virtual module IDs are shared."
+				);
+			}
+			configsWithClientLocaleSplit.set(resolved, pluginInstance);
 			config = resolved;
 			if (
 				resolved.command === "build" &&

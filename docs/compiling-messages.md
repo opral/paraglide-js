@@ -89,15 +89,21 @@ locale's messages in a separate dynamic chunk. The plugin loads the base
 locale and the startup locale before message imports run, then loads a new
 locale before `setLocale(locale, { reload: false })` updates the runtime.
 Server-side rendering continues to use the regular generated message graph.
+Because this experimental mode uses shared virtual module IDs, a resolved
+Vite config can include only one Paraglide project with
+`experimentalClientLocaleSplit` enabled. A second split-enabled project fails
+during config resolution; use a separate Vite config/build for each project.
 
 ```ts
 export default defineConfig({
 	build: { target: "es2022" },
-	plugins: [paraglideVitePlugin({
-		project: "./project.inlang",
-		outdir: "./src/paraglide",
-		experimentalClientLocaleSplit: true,
-	})],
+	plugins: [
+		paraglideVitePlugin({
+			project: "./project.inlang",
+			outdir: "./src/paraglide",
+			experimentalClientLocaleSplit: true,
+		}),
+	],
 });
 ```
 
