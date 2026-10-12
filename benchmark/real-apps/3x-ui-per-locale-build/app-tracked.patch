@@ -1,0 +1,118 @@
+diff --git a/frontend/src/i18n/react.ts b/frontend/src/i18n/react.ts
+index 01a0254..b41febc 100644
+--- a/frontend/src/i18n/react.ts
++++ b/frontend/src/i18n/react.ts
+@@ -1,49 +1,13 @@
+-import i18next from 'i18next';
+-import { initReactI18next } from 'react-i18next';
+-
+-import { LanguageManager } from '@/utils';
+-import type { LanguageScope } from '@/utils';
+-import enUS from '../../../internal/web/translation/en-US.json';
++import { LanguageManager, type LanguageScope } from '@/utils';
++import i18n, { setActiveLocale } from './paraglide-compat';
+ 
+ const FALLBACK = 'en-US';
+ 
+-const lazyModules = import.meta.glob([
+-  '../../../internal/web/translation/*.json',
+-  '!../../../internal/web/translation/en-US.json',
+-]);
+-
+-function moduleKeyFor(code: string): string {
+-  return `../../../internal/web/translation/${code}.json`;
+-}
+-
+ export async function readyI18n(scope: LanguageScope = 'panel') {
+-  let active = LanguageManager.getLanguage(scope);
+-  if (
+-    active !== FALLBACK &&
+-    !Object.prototype.hasOwnProperty.call(lazyModules, moduleKeyFor(active))
+-  ) {
+-    active = FALLBACK;
+-  }
+-
+-  await i18next.use(initReactI18next).init({
+-    lng: active,
+-    fallbackLng: FALLBACK,
+-    resources: { [FALLBACK]: { translation: enUS } },
+-    interpolation: { escapeValue: false, prefix: '{', suffix: '}' },
+-    returnNull: false,
+-  });
+-  if (active !== FALLBACK) {
+-    const loader = lazyModules[moduleKeyFor(active)] as
+-      | (() => Promise<{ default: Record<string, unknown> }>)
+-      | undefined;
+-    if (loader) {
+-      const mod = await loader();
+-      const messages = (mod.default ?? mod) as Record<string, unknown>;
+-      i18next.addResourceBundle(active, 'translation', messages, true, true);
+-      await i18next.changeLanguage(active);
+-    }
+-  }
+-  return i18next;
++  const requested = LanguageManager.getLanguage(scope);
++  const locale = LanguageManager.isSupportLanguage(requested) ? requested : FALLBACK;
++  setActiveLocale(locale);
++  return i18n;
+ }
+ 
+-export { i18next as i18n };
++export { i18n };
+diff --git a/frontend/vite.config.js b/frontend/vite.config.js
+index d91e523..d7b09c3 100644
+--- a/frontend/vite.config.js
++++ b/frontend/vite.config.js
+@@ -2,10 +2,15 @@ import { defineConfig } from 'vite';
+ import react from '@vitejs/plugin-react';
+ import fs from 'node:fs';
+ import path from 'node:path';
++import { pathToFileURL } from 'node:url';
+ import { DatabaseSync } from 'node:sqlite';
+ 
+-const outDir = path.resolve(import.meta.dirname, '../internal/web/dist');
++const outDir = '.real-apps/per-locale-dist';
+ const BACKEND_TARGET = 'http://localhost:2053';
++const paraglideDist = process.env.PARAGLIDE_DIST || '/root/repos-iii/paraglide-client-split-current-api/dist';
++const { paraglideVitePlugin } = await import(
++  pathToFileURL(path.join(paraglideDist, 'bundler-plugins/vite.js')).href,
++);
+ 
+ function resolveDBPath() {
+   const envFolder = process.env.XUI_DB_FOLDER;
+@@ -203,10 +208,25 @@ const SWAGGER_ONLY_DEPS = [
+ ];
+ 
+ export default defineConfig({
+-  plugins: [react(), injectBasePathPlugin(), rocketLoaderOptOutPlugin()],
++  plugins: [
++    paraglideVitePlugin({
++      project: path.resolve(import.meta.dirname, '.real-apps/project.inlang'),
++      outdir: path.resolve(import.meta.dirname, 'src/paraglide'),
++      outputStructure: 'locale-modules',
++      experimentalPerLocaleBuild: true,
++      strategy: ['cookie', 'baseLocale'],
++      cookieName: 'lang',
++      localStorageKey: 'lang',
++    }),
++    react(),
++    injectBasePathPlugin(),
++    rocketLoaderOptOutPlugin(),
++  ],
+   resolve: {
+     alias: {
+       '@': path.resolve(import.meta.dirname, 'src'),
++      'react-i18next': path.resolve(import.meta.dirname, 'src/i18n/paraglide-compat.ts'),
++      i18next: path.resolve(import.meta.dirname, 'src/i18n/paraglide-compat.ts'),
+     },
+   },
+   experimental: {
+@@ -229,7 +249,7 @@ export default defineConfig({
+     // (including the XUI_DEBUG serve-from-disk path), build once with
+     // XUI_SOURCEMAP=true — no tracked-file edit to accidentally commit.
+     sourcemap: process.env.XUI_SOURCEMAP === 'true',
+-    target: 'es2020',
++    target: 'es2022',
+     chunkSizeWarningLimit: 1500,
+     rollupOptions: {
+       input: {

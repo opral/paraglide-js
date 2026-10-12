@@ -1,0 +1,16 @@
+import { createRequire } from 'node:module';
+import { createHash } from 'node:crypto';
+import { readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+const root = path.resolve(import.meta.dirname, '../..');
+const fromApp = createRequire(path.join(root, 'package.json'));
+const vite = fromApp('vite');
+const started = Date.now();
+const builder = await vite.createBuilder({ root, configFile: path.join(root, 'vite.config.js'), logLevel: 'info' });
+await builder.buildApp();
+const outputRoot = path.join(root, '.real-apps/per-locale-dist');
+const manifest = JSON.parse(await readFile(path.join(outputRoot, 'paraglide-vite-locales.json'), 'utf8'));
+const dist = process.env.PARAGLIDE_DIST;
+const files = ['bundler-plugins/vite.js', 'bundler-plugins/per-locale-build/vite-environments.js', 'compiler/compile-bundle.js', 'compiler/compile-project.js', 'compiler/runtime/create-runtime.js'];
+const compilerHashes = Object.fromEntries(await Promise.all(files.map(async file => [file, createHash('sha256').update(await readFile(path.join(dist, file))).digest('hex')])));
+await writeFile(path.join(root, '.real-apps/3x-per-locale-bench/build-provenance.json'), JSON.stringify({ node: process.version, hostVite: vite.version, hostRolldown: vite.rolldownVersion, elapsedMs: Date.now()-started, compilerDist: dist, compilerHashes, recordedManifestVite: manifest.viteVersion, recordedManifestRolldown: manifest.rolldownVersion, locales: Object.keys(manifest.locales), entryCounts: Object.fromEntries(Object.entries(manifest.locales).map(([locale, entry]) => [locale, Object.keys(entry.entries).length])) }, null, 2)+'\n');

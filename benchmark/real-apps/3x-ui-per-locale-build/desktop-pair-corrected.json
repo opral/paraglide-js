@@ -1,0 +1,678 @@
+{
+  "route": "/login",
+  "localeCookie": "lang=es-ES",
+  "protocol": "HTTP/1.1 loopback; server Brotli-Q4 for compressible assets; no TLS/HTTP2",
+  "profile": {
+    "width": 1365,
+    "height": 768,
+    "rttMs": 80,
+    "downMbps": 20,
+    "upMbps": 2,
+    "cpuMultiplier": 3
+  },
+  "methodology": "One cold run per variant; fresh browser context and cache disabled; profile field specifies viewport, RTT, throughput and CPU throttling. Readiness is sampled immediately after the visible Spanish greeting condition, before collecting response hashes. All same-origin responses are SHA-256 hashed after browser decompression.",
+  "samples": [
+    {
+      "variant": "native-early-preload",
+      "throttle": {
+        "width": 1365,
+        "height": 768,
+        "rttMs": 80,
+        "downMbps": 20,
+        "upMbps": 2,
+        "cpuMultiplier": 3
+      },
+      "wallMs": 1289,
+      "text": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+      "username": "Nombre de Usuario",
+      "password": "Contraseña",
+      "fcpMs": 1100,
+      "lcpMs": 1100,
+      "fontReadyMs": 921,
+      "nextHopProtocol": "http/1.1",
+      "domInteractiveMs": 99,
+      "resources": [
+        {
+          "path": "/assets/login-DZL5y-rd.js",
+          "startMs": 89,
+          "endMs": 183,
+          "transferBytes": 2281,
+          "encodedBytes": 1981,
+          "decodedBytes": 4514
+        },
+        {
+          "path": "/assets/rolldown-runtime-B0Z9INg1.js",
+          "startMs": 89,
+          "endMs": 181,
+          "transferBytes": 804,
+          "encodedBytes": 504,
+          "decodedBytes": 901
+        },
+        {
+          "path": "/assets/vendor-B3k8yGV0.js",
+          "startMs": 89,
+          "endMs": 509,
+          "transferBytes": 167736,
+          "encodedBytes": 167436,
+          "decodedBytes": 622869
+        },
+        {
+          "path": "/assets/vendor-i18next-C-gmWwC8.js",
+          "startMs": 90,
+          "endMs": 207,
+          "transferBytes": 16669,
+          "encodedBytes": 16369,
+          "decodedBytes": 48195
+        },
+        {
+          "path": "/assets/vendor-router-BH4Yc4Ak.js",
+          "startMs": 90,
+          "endMs": 222,
+          "transferBytes": 31067,
+          "encodedBytes": 30767,
+          "decodedBytes": 92919
+        },
+        {
+          "path": "/assets/vendor-react-B74pBk57.js",
+          "startMs": 90,
+          "endMs": 305,
+          "transferBytes": 592,
+          "encodedBytes": 292,
+          "decodedBytes": 435
+        },
+        {
+          "path": "/assets/vendor-tanstack-XVlhArWu.js",
+          "startMs": 90,
+          "endMs": 353,
+          "transferBytes": 10839,
+          "encodedBytes": 10539,
+          "decodedBytes": 34934
+        },
+        {
+          "path": "/assets/QueryProvider-CPmE502j.js",
+          "startMs": 90,
+          "endMs": 370,
+          "transferBytes": 54461,
+          "encodedBytes": 54161,
+          "decodedBytes": 159913
+        },
+        {
+          "path": "/assets/vendor-icons-lbTITm1N.js",
+          "startMs": 90,
+          "endMs": 383,
+          "transferBytes": 27026,
+          "encodedBytes": 26726,
+          "decodedBytes": 111207
+        },
+        {
+          "path": "/assets/vendor-antd-COmlclPx.js",
+          "startMs": 90,
+          "endMs": 615,
+          "transferBytes": 390147,
+          "encodedBytes": 389847,
+          "decodedBytes": 1261280
+        },
+        {
+          "path": "/assets/rhf-Cj_d-IFx.js",
+          "startMs": 90,
+          "endMs": 387,
+          "transferBytes": 951,
+          "encodedBytes": 651,
+          "decodedBytes": 1191
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "startMs": 90,
+          "endMs": 435,
+          "transferBytes": 431,
+          "encodedBytes": 131,
+          "decodedBytes": 131
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "startMs": 90,
+          "endMs": 453,
+          "transferBytes": 705,
+          "encodedBytes": 405,
+          "decodedBytes": 1204
+        },
+        {
+          "path": "/assets/SponsorSlot-ChctxB5D.js",
+          "startMs": 90,
+          "endMs": 467,
+          "transferBytes": 1879,
+          "encodedBytes": 1579,
+          "decodedBytes": 3833
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "startMs": 90,
+          "endMs": 263,
+          "transferBytes": 1364,
+          "encodedBytes": 1064,
+          "decodedBytes": 2987
+        },
+        {
+          "path": "/assets/login-D9d-Wevw.js",
+          "startMs": 90,
+          "endMs": 470,
+          "transferBytes": 485,
+          "encodedBytes": 185,
+          "decodedBytes": 274
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "startMs": 91,
+          "endMs": 264,
+          "transferBytes": 1249,
+          "encodedBytes": 949,
+          "decodedBytes": 3227
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "startMs": 91,
+          "endMs": 290,
+          "transferBytes": 2303,
+          "encodedBytes": 2003,
+          "decodedBytes": 7951
+        },
+        {
+          "path": "/assets/es-ES-CbS94hW4.js",
+          "startMs": 98,
+          "endMs": 555,
+          "transferBytes": 50504,
+          "encodedBytes": 50204,
+          "decodedBytes": 155319
+        },
+        {
+          "path": "/csrf-token",
+          "startMs": 1012,
+          "endMs": 1103,
+          "transferBytes": 345,
+          "encodedBytes": 45,
+          "decodedBytes": 45
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "startMs": 1105,
+          "endMs": 1189,
+          "transferBytes": 328,
+          "encodedBytes": 28,
+          "decodedBytes": 28
+        }
+      ],
+      "translatedReadyMs": 1283,
+      "responseHashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "958",
+          "decodedBodySha256": "d8e1f2b206c492e589ffadbe1f791142ad1021e9c7f112e88e7568bc276dddac"
+        },
+        {
+          "path": "/assets/rolldown-runtime-B0Z9INg1.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "504",
+          "decodedBodySha256": "5e9b0d884d2ebb14e241ab38b43e41efb61bce2e74d71507b0b95b264fba4047"
+        },
+        {
+          "path": "/assets/login-DZL5y-rd.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "1981",
+          "decodedBodySha256": "5e0eb5fad33758028b67d9b52f774dd93f202760e2f721795719e92b7f058a4e"
+        },
+        {
+          "path": "/assets/vendor-i18next-C-gmWwC8.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "16369",
+          "decodedBodySha256": "32ff86407c214e6fa8b68cb89aa0220587939e2100589d61e6498ba1fa3ab0fa"
+        },
+        {
+          "path": "/assets/vendor-router-BH4Yc4Ak.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "30767",
+          "decodedBodySha256": "6e1c636e59490e5b54c414cac8d5fbe7afbb3b7546f653f65f0ba4e36238ae0e"
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "1064",
+          "decodedBodySha256": "6b734531b94fda9950119646124dccee1ee7e70e91b3e5be988c378ca9f9f98d"
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "949",
+          "decodedBodySha256": "7e857a965452b2e4f56d953c57cea2cab71fc8fb2a58dbf48ac660c2bedb8484"
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "2003",
+          "decodedBodySha256": "bb7fe234e01ad0b37e43ea4945d1c67e738f83d67b9079d632cf9d165b5b39ce"
+        },
+        {
+          "path": "/assets/vendor-react-B74pBk57.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "292",
+          "decodedBodySha256": "ce96b629ef2238668db41ee3d2e978176e3b0d4ccc82e168f263b007b69786bc"
+        },
+        {
+          "path": "/assets/vendor-tanstack-XVlhArWu.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "10539",
+          "decodedBodySha256": "0a887e7c1faa9148ae7bebf0027224aca84af316c96d7ceb2f2e1fcd438512b0"
+        },
+        {
+          "path": "/assets/QueryProvider-CPmE502j.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "54161",
+          "decodedBodySha256": "e00b4fce448f3b9bfed256d3dca87a9ab7342d5b5c68f70f57f76ac4f86d8c51"
+        },
+        {
+          "path": "/assets/vendor-icons-lbTITm1N.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "26726",
+          "decodedBodySha256": "583f106e68d9b574b265079a2eadb0c7cf05c1ebcfa13ccd50483964974b9390"
+        },
+        {
+          "path": "/assets/rhf-Cj_d-IFx.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "651",
+          "decodedBodySha256": "60b7a0a8a5b3dfde258ff5ef8347c6ed587fb4618d19cfe1d189a6ede42be5ee"
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "status": 200,
+          "contentEncoding": null,
+          "contentLength": "131",
+          "decodedBodySha256": "69836012b5ba65107913af8dd2e68ce91df9406d34bd0a873b6afc2109111b14"
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "405",
+          "decodedBodySha256": "8bcc6026381c0fa60f68e42ce27aee4a08a94f2a2ceeb7d71898640da5f3dffd"
+        },
+        {
+          "path": "/assets/SponsorSlot-ChctxB5D.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "1579",
+          "decodedBodySha256": "c5419fdb309e4a2afdbb04fc7f822b3e88c8d3fb52daebf81d526d412be6dc18"
+        },
+        {
+          "path": "/assets/login-D9d-Wevw.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "185",
+          "decodedBodySha256": "bc799e423bd7db73c9fed986aac134070dfae75d9c1ed171c6cf4aac3072dd1b"
+        },
+        {
+          "path": "/assets/vendor-B3k8yGV0.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "167436",
+          "decodedBodySha256": "63310026ef5adf9e9015537ba868771805cc385708548e9609289a1d8b1172b6"
+        },
+        {
+          "path": "/assets/es-ES-CbS94hW4.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "50204",
+          "decodedBodySha256": "bd8445cb34d18b4aa0e56ece3b5ce9c4f4c3d0c8fb23ec2de575b9ce9927944f"
+        },
+        {
+          "path": "/assets/vendor-antd-COmlclPx.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "389847",
+          "decodedBodySha256": "b01048b513f39313543d9d83d0967df65b8457996319eee3a98fe06eefed1879"
+        },
+        {
+          "path": "/csrf-token",
+          "status": 200,
+          "contentEncoding": null,
+          "contentLength": null,
+          "decodedBodySha256": "02f4c57091d32c280abdd8c6f6abf440a53c3d1461d63c5dfa3fa9a66a19ebf3"
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "status": 200,
+          "contentEncoding": null,
+          "contentLength": null,
+          "decodedBodySha256": "79cbe3b05f7b9c8a9b0e00c9d3927f3279365091f329739ec7481d6807639173"
+        }
+      ],
+      "localeResources": [
+        {
+          "path": "/assets/es-ES-CbS94hW4.js",
+          "startMs": 98,
+          "endMs": 555,
+          "transferBytes": 50504,
+          "encodedBytes": 50204,
+          "decodedBytes": 155319
+        }
+      ],
+      "errors": []
+    },
+    {
+      "variant": "per-locale-build-es-ES",
+      "throttle": {
+        "width": 1365,
+        "height": 768,
+        "rttMs": 80,
+        "downMbps": 20,
+        "upMbps": 2,
+        "cpuMultiplier": 3
+      },
+      "wallMs": 1246,
+      "text": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+      "username": "Nombre de Usuario",
+      "password": "Contraseña",
+      "fcpMs": 1060,
+      "lcpMs": 1060,
+      "fontReadyMs": 986,
+      "nextHopProtocol": "http/1.1",
+      "domInteractiveMs": 96,
+      "resources": [
+        {
+          "path": "/assets/login-DXYaDFA4.js",
+          "startMs": 88,
+          "endMs": 179,
+          "transferBytes": 2273,
+          "encodedBytes": 1973,
+          "decodedBytes": 4477
+        },
+        {
+          "path": "/assets/vendor-react-CK6FpEXN.js",
+          "startMs": 88,
+          "endMs": 180,
+          "transferBytes": 591,
+          "encodedBytes": 291,
+          "decodedBytes": 435
+        },
+        {
+          "path": "/assets/paraglide-compat-BasjzYAZ.js",
+          "startMs": 88,
+          "endMs": 265,
+          "transferBytes": 71855,
+          "encodedBytes": 71555,
+          "decodedBytes": 777138
+        },
+        {
+          "path": "/assets/vendor-C-MlVnip.js",
+          "startMs": 88,
+          "endMs": 504,
+          "transferBytes": 167565,
+          "encodedBytes": 167265,
+          "decodedBytes": 622106
+        },
+        {
+          "path": "/assets/vendor-antd-COSMFWCW.js",
+          "startMs": 88,
+          "endMs": 589,
+          "transferBytes": 390086,
+          "encodedBytes": 389786,
+          "decodedBytes": 1261285
+        },
+        {
+          "path": "/assets/vendor-tanstack-BAD4o684.js",
+          "startMs": 88,
+          "endMs": 196,
+          "transferBytes": 10837,
+          "encodedBytes": 10537,
+          "decodedBytes": 34934
+        },
+        {
+          "path": "/assets/QueryProvider-DyCy_zk9.js",
+          "startMs": 89,
+          "endMs": 350,
+          "transferBytes": 8739,
+          "encodedBytes": 8439,
+          "decodedBytes": 21989
+        },
+        {
+          "path": "/assets/vendor-icons-CV6Z3ivM.js",
+          "startMs": 89,
+          "endMs": 358,
+          "transferBytes": 27027,
+          "encodedBytes": 26727,
+          "decodedBytes": 111207
+        },
+        {
+          "path": "/assets/rhf-C_yJukRl.js",
+          "startMs": 89,
+          "endMs": 346,
+          "transferBytes": 937,
+          "encodedBytes": 637,
+          "decodedBytes": 1149
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "startMs": 89,
+          "endMs": 363,
+          "transferBytes": 431,
+          "encodedBytes": 131,
+          "decodedBytes": 131
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "startMs": 89,
+          "endMs": 262,
+          "transferBytes": 1364,
+          "encodedBytes": 1064,
+          "decodedBytes": 2987
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "startMs": 89,
+          "endMs": 430,
+          "transferBytes": 705,
+          "encodedBytes": 405,
+          "decodedBytes": 1204
+        },
+        {
+          "path": "/assets/SponsorSlot-B8__6Utm.js",
+          "startMs": 89,
+          "endMs": 434,
+          "transferBytes": 1866,
+          "encodedBytes": 1566,
+          "decodedBytes": 3791
+        },
+        {
+          "path": "/assets/login-B17B17BC.js",
+          "startMs": 89,
+          "endMs": 440,
+          "transferBytes": 485,
+          "encodedBytes": 185,
+          "decodedBytes": 274
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "startMs": 90,
+          "endMs": 263,
+          "transferBytes": 1249,
+          "encodedBytes": 949,
+          "decodedBytes": 3227
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "startMs": 90,
+          "endMs": 279,
+          "transferBytes": 2303,
+          "encodedBytes": 2003,
+          "decodedBytes": 7951
+        },
+        {
+          "path": "/csrf-token",
+          "startMs": 971,
+          "endMs": 1061,
+          "transferBytes": 345,
+          "encodedBytes": 45,
+          "decodedBytes": 45
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "startMs": 1064,
+          "endMs": 1148,
+          "transferBytes": 328,
+          "encodedBytes": 28,
+          "decodedBytes": 28
+        }
+      ],
+      "translatedReadyMs": 1240,
+      "responseHashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "473",
+          "decodedBodySha256": "c8c612f91eb0aa6de660911563b6fc446f3bf6d2d39070935c5c3d1ea40d7c61"
+        },
+        {
+          "path": "/assets/login-DXYaDFA4.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "1973",
+          "decodedBodySha256": "b903c64997032fa2b3812672f812e91ce657d169c4dfe79c99e38c87e733b32d"
+        },
+        {
+          "path": "/assets/vendor-react-CK6FpEXN.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "291",
+          "decodedBodySha256": "4886f3edc32e209d45eb49a94b3d9861c267516e1157601a62d5e93bf6747b62"
+        },
+        {
+          "path": "/assets/vendor-tanstack-BAD4o684.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "10537",
+          "decodedBodySha256": "774c9cece9e13ebadebd9e8a8d49ec82df672a9d9b6d43d0ca195b7b69d72aac"
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "1064",
+          "decodedBodySha256": "6b734531b94fda9950119646124dccee1ee7e70e91b3e5be988c378ca9f9f98d"
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "949",
+          "decodedBodySha256": "7e857a965452b2e4f56d953c57cea2cab71fc8fb2a58dbf48ac660c2bedb8484"
+        },
+        {
+          "path": "/assets/paraglide-compat-BasjzYAZ.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "71555",
+          "decodedBodySha256": "6946d55fc832f05bf41256ca06539fc08e38456a2384150bf86062b4b57ebc61"
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "2003",
+          "decodedBodySha256": "bb7fe234e01ad0b37e43ea4945d1c67e738f83d67b9079d632cf9d165b5b39ce"
+        },
+        {
+          "path": "/assets/rhf-C_yJukRl.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "637",
+          "decodedBodySha256": "869f1ed389a99eb0f51692e8a068b0aefb369c3ac2bba44fc5af2188d1b39a72"
+        },
+        {
+          "path": "/assets/QueryProvider-DyCy_zk9.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "8439",
+          "decodedBodySha256": "1bc2e50fcf56ecc5e8af15d15ddcfc4fe63004768b465c76c811717f20666b25"
+        },
+        {
+          "path": "/assets/vendor-icons-CV6Z3ivM.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "26727",
+          "decodedBodySha256": "9a5c2fae05c27960a09026db038db7ae6fc748b16d3540661021f022f6d78790"
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "status": 200,
+          "contentEncoding": null,
+          "contentLength": "131",
+          "decodedBodySha256": "69836012b5ba65107913af8dd2e68ce91df9406d34bd0a873b6afc2109111b14"
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "405",
+          "decodedBodySha256": "8bcc6026381c0fa60f68e42ce27aee4a08a94f2a2ceeb7d71898640da5f3dffd"
+        },
+        {
+          "path": "/assets/SponsorSlot-B8__6Utm.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "1566",
+          "decodedBodySha256": "324769e4a25cb3cf83e6095166d8ea37b73747ac05698796d84f1d91d51a40cf"
+        },
+        {
+          "path": "/assets/login-B17B17BC.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "185",
+          "decodedBodySha256": "d987ef87e174ea0a50cdd6141b331d6b84a5275cbb6f7b6534d7b661553a00ec"
+        },
+        {
+          "path": "/assets/vendor-C-MlVnip.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "167265",
+          "decodedBodySha256": "78b7580668b75e631b165d0b6d7ab820048be4799b6c67ba35cd612e9d75459f"
+        },
+        {
+          "path": "/assets/vendor-antd-COSMFWCW.js",
+          "status": 200,
+          "contentEncoding": "br",
+          "contentLength": "389786",
+          "decodedBodySha256": "c75615a2a4f6febca12c79856699944e51edc993c736dc2500228d787b09f062"
+        },
+        {
+          "path": "/csrf-token",
+          "status": 200,
+          "contentEncoding": null,
+          "contentLength": null,
+          "decodedBodySha256": "02f4c57091d32c280abdd8c6f6abf440a53c3d1461d63c5dfa3fa9a66a19ebf3"
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "status": 200,
+          "contentEncoding": null,
+          "contentLength": null,
+          "decodedBodySha256": "79cbe3b05f7b9c8a9b0e00c9d3927f3279365091f329739ec7481d6807639173"
+        }
+      ],
+      "localeResources": [],
+      "errors": []
+    }
+  ]
+}
