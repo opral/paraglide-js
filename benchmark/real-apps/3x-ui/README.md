@@ -4,6 +4,8 @@ This archive pins the stock i18next production build and Spanish login-route smo
 
 The source checkout is intentionally kept separate from this benchmark repository. The archived `native-dist.tar.gz` is the exact 8.2 MB `internal/web/dist` output used for the smoke. `native-output-sha256.txt`, the Vite manifest-derived route graph, and the Playwright trace identify the measured files and requests. `native/survey.md` records source hashes, tool versions, and the build procedure.
 
+The frozen upstream application artifact retains its [upstream license](native/UPSTREAM-LICENSE); the corresponding source is the pinned [3x-ui checkout](https://github.com/MHSanaei/3x-ui/tree/74c3cc38821cabd66ad316ea562851422d0b0063).
+
 The native loader statically imports `en-US`, lazily imports the selected catalog, and awaits that import before mounting the login entry. The Spanish smoke uses `lang=es-ES` and read-only fixtures for CSRF, two-factor status, and sponsors. It never submits credentials or contacts a real backend. The page displayed `Hola`, `Nombre de Usuario`, `Contraseña`, and `Acceder`; it fetched one locale asset and reported no page or console errors.
 
 ## Reproduce
@@ -16,11 +18,14 @@ git -C 3x-ui checkout 74c3cc38821cabd66ad316ea562851422d0b0063
 cd 3x-ui/frontend
 npm ci
 npm run build
+# A second build adds the dependency manifest used by graph.mjs:
+npm exec vite build -- --manifest
 ```
 
 The build invokes the checked-in OpenAPI generator and writes `internal/web/dist`. To reproduce the route smoke, place `serve.cjs` and `probe.mjs` from this archive in `frontend/.real-apps/3x-ui-route/`, install the Playwright browser in the app environment if needed, and run:
 
 ```sh
+cd .. # return from frontend/ to the app repository root
 node frontend/.real-apps/3x-ui-route/serve.cjs
 ```
 
