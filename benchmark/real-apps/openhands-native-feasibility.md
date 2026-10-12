@@ -1,6 +1,6 @@
 # OpenHands native French startup baseline
 
-This is a single cold browser trace of the existing native i18next application. It records where locale resources enter the client critical path before deciding whether a Paraglide compiler experiment is justified. It is a feasibility observation, not a performance distribution or a claim that compiler optimization can exceed a particular threshold. This mock-mode build ships the MSW client worker; its bytes and startup work do not qualify as a production migration comparator.
+This is a single cold browser trace of the existing native i18next application. It records where locale resources enter the client critical path before deciding whether a Paraglide compiler experiment is justified. It is a feasibility observation, not a performance distribution or a claim that compiler optimization can exceed a particular threshold. This mock-mode build ships the MSW client worker; its bytes and startup work do not qualify as a production migration comparator. The later [production-mode trace](openhands-production-native-feasibility.md) records the production artifact with external API fixtures.
 
 ## Reproduction and pins
 
