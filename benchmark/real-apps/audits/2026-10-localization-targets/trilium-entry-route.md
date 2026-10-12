@@ -1,6 +1,6 @@
 # Trilium pre-auth localization route inventory
 
-Status: no compiler candidate. The native app already isolates the pre-auth route to its small `entry` namespace, leaving at most 6.64% of French-route Brotli bytes available from deleting all localization code and data before any replacement runtime is added.
+Status: no compiler candidate. The native app already isolates the pre-auth route to its small `entry` namespace, with the identified localization chunk and catalogs accounting for 6.64% of estimated French-route Brotli bytes. No candidate build or page-load comparison was run.
 
 ## Reproducible source/build snapshot
 
@@ -19,7 +19,7 @@ The client ships 41 `entry.json` files totaling 217,006 raw bytes: 20 contain tr
 
 The product has 28 locale IDs in `@triliumnext/commons` (`LOCALES`), while 41 translation directories exist. A migration must preserve the exposed locale list and not assume every shipped catalog is selectable.
 
-## French login route byte ceiling
+## French login route byte accounting
 
 I built the native client and statically accounted the French pre-auth resource graph from the built HTML, its static script/style references, the index module's static imports, the login dynamic-import map, the three default server stylesheets, and French plus English `entry.json` files. After deduplicating URLs, that graph is 72 resources and approximately 342,037 Brotli-Q4 bytes (1,169,014 raw bytes). It is an offline graph accounting, not a browser network capture; it excludes bootstrap response/header bytes and optional icon/theme assets.
 
@@ -32,8 +32,8 @@ I built the native client and statically accounted the French pre-auth resource 
 | French + English `entry.json` | 16,854 | 5,367 |
 | **Total** | **1,169,014** | **342,037** |
 
-The i18next-related browser runtime chunk is 51,352 raw / 17,334 Brotli bytes. Deleting that whole chunk plus both route catalogs would remove at most 22,701 bytes, or 6.64% of the accounted route transfer. That is a strict theoretical ceiling: a Paraglide runtime, generated functions, locale loading, and any adapter would consume some of those savings. The existing namespace split also means the app’s large `translation` catalogs and their request are already absent from the login route.
+The i18next-related browser runtime chunk is 51,352 raw / 17,334 Brotli bytes. Those existing resources sum to 22,701 bytes, or 6.64% of the accounted route transfer. This is a prioritization estimate, not a universal bound on a rebuilt app: changing module grouping can change compressed bytes elsewhere, and page readiness requires a browser comparison. The existing namespace split also means the app’s large `translation` catalogs and their request are already absent from the login route.
 
 ## Decision
 
-Do not integrate an optimization for Trilium’s login route. Its optimized native namespace boundary leaves less than the requested 10% shipped-byte threshold available even under an impossible zero-cost replacement. The large login branch is mostly unrelated UI and shared dependencies; changing those is outside this compiler campaign. This inventory does not evaluate the authenticated app route.
+Deprioritize Trilium’s login route for the next byte experiment. Its identified localization resources account for less than the requested 10% threshold, and no compiler candidate has demonstrated a qualifying gain. A page-load improvement remains untested. The large login branch is mostly unrelated UI and shared dependencies; changing those is outside this compiler campaign. This inventory does not evaluate the authenticated app route.
