@@ -203,6 +203,15 @@ Route code stays TanStack-native: TanStack Router owns route trees, loaders, ser
 npx @inlang/paraglide-js init
 ```
 
+Coding agents and CI can run init without a terminal UI:
+
+```sh
+npx @inlang/paraglide-js init --yes --outdir ./src/paraglide --lint eslint
+# Or choose --lint oxlint; omit --lint to skip lint setup.
+```
+
+`--non-interactive` is an alias for `--yes`. Existing inlang projects are reused, and optional editor recommendations and machine translation are skipped unless explicitly enabled. Dirty git trees require `--allow-dirty`. Use `--no-compile` to stage setup before installing dependencies; then run your build. Run `init --help` for the other options. See [optional lint setup](https://paraglidejs.com/basics#eslint-and-oxlint).
+
 Stable and production-ready — `@inlang/paraglide-js` is on v2 (MIT-licensed), with framework adapters like `@inlang/paraglide-js-react` at v1.
 
 The CLI sets up everything:

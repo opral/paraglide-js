@@ -1,5 +1,9 @@
 import type { Logger } from "../../services/logger/index.js";
-import { toRelativeDisplayPath, type CliStep } from "../utils.js";
+import {
+	toRelativeDisplayPath,
+	shellArgument,
+	type CliStep,
+} from "../utils.js";
 import { updatePackageJson } from "./update-package-json.js";
 
 /**
@@ -41,7 +45,7 @@ export const addInlangCheck: CliStep<
 			addedScript = true;
 			return {
 				...scripts,
-				[CHECK_SCRIPT_NAME]: `inlang check --project ./${projectPath}`,
+				[CHECK_SCRIPT_NAME]: `inlang check --project ${shellArgument("./" + projectPath)}`,
 			};
 		},
 	})(ctx);

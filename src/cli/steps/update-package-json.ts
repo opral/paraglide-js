@@ -37,21 +37,17 @@ export function updatePackageJson(opt: {
 			ctx.logger.error(
 				`Your ./package.json does not contain valid JSON. Please fix it and try again.`
 			);
-			process.exit(1);
+			throw new Error("package.json must contain a valid JSON object.");
 		}
 
-		try {
-			if (opt.dependencies)
-				pkg.dependencies = await opt.dependencies(pkg.dependencies || {});
-			if (opt.devDependencies)
-				pkg.devDependencies = await opt.devDependencies(
-					pkg.devDependencies || {}
-				);
-			if (opt.scripts) pkg.scripts = await opt.scripts(pkg.scripts || {});
-		} catch {
-			return ctx;
-		}
-		await ctx.fs.writeFile("./package.json", stringify(pkg));
+		if (opt.dependencies)
+			pkg.dependencies = await opt.dependencies(pkg.dependencies || {});
+		if (opt.devDependencies)
+			pkg.devDependencies = await opt.devDependencies(
+				pkg.devDependencies || {}
+			);
+		if (opt.scripts) pkg.scripts = await opt.scripts(pkg.scripts || {});
+		await ctx.fs.writeFile(ctx.packageJsonPath, stringify(pkg));
 		return ctx;
 	};
 }

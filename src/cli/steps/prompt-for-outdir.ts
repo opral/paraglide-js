@@ -6,12 +6,16 @@ import type { CliStep } from "../utils.js";
 export const promptForOutdir: CliStep<
 	{
 		logger: Logger;
+		interactive?: boolean;
+		outdir?: string;
 	},
 	{
 		/** Relative path to the output directory */
 		outdir: string;
 	}
 > = async (ctx) => {
+	if (ctx.outdir !== undefined) return { ...ctx, outdir: ctx.outdir };
+	if (ctx.interactive === false) return { ...ctx, outdir: DEFAULT_OUTDIR };
 	const response = await prompt(
 		"Which outdir should Paraglide write generated files to?",
 		{

@@ -4,11 +4,28 @@ import { prompt } from "../utils.js";
 import childProcess from "node:child_process";
 
 export const checkForUncommittedChanges: CliStep<
-	{ logger: Logger },
+	{
+		logger: Logger;
+		interactive?: boolean;
+		allowDirty?: boolean;
+		root?: string;
+	},
 	unknown
 > = async (ctx) => {
+	if (ctx.allowDirty) return ctx;
+	let status: string;
 	try {
-		if ((await execAsync("git status --porcelain")).toString().length === 0) {
+		status = await execAsync("git status --porcelain", ctx.root);
+	} catch {
+		return ctx;
+	}
+	if (ctx.interactive === false && status.length > 0) {
+		throw new Error(
+			"Uncommitted changes found. Commit them or pass --allow-dirty to continue."
+		);
+	}
+	try {
+		if (status.length === 0) {
 			return ctx;
 		}
 
@@ -30,9 +47,9 @@ export const checkForUncommittedChanges: CliStep<
 	}
 };
 
-function execAsync(command: string) {
+function execAsync(command: string, cwd?: string) {
 	return new Promise<string>((resolve, reject) => {
-		childProcess.exec(command, (error, stdout) => {
+		childProcess.exec(command, { cwd }, (error, stdout) => {
 			if (error) {
 				reject(error);
 			} else {

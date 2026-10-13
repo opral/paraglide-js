@@ -9,13 +9,20 @@ export const maybeAddSherlock: CliStep<
 		fs: typeof import("node:fs/promises");
 		logger: Logger;
 		project: InlangProject;
+		interactive?: boolean;
+		sherlock?: boolean;
 	},
 	unknown
 > = async (ctx) => {
+	if (
+		ctx.sherlock === false ||
+		(ctx.interactive === false && ctx.sherlock !== true)
+	)
+		return ctx;
 	const isCertainlyVsCode = process?.env?.TERM_PROGRAM === "vscode";
-	let isUsingVsCode = isCertainlyVsCode;
+	let isUsingVsCode = ctx.sherlock === true || isCertainlyVsCode;
 
-	if (!isCertainlyVsCode) {
+	if (!isCertainlyVsCode && ctx.sherlock !== true) {
 		isUsingVsCode = await prompt(
 			`Are you using Visual Studio Code or a compatible fork (like Cursor)?`,
 			{
@@ -26,13 +33,15 @@ export const maybeAddSherlock: CliStep<
 	}
 	if (isUsingVsCode === false) return ctx;
 
-	const shouldAddSherlock = await prompt(
-		`Do you want to use the Sherlock VSCode (or Cursor) extension for a better DX?`,
-		{
-			type: "confirm",
-			initial: true,
-		}
-	);
+	const shouldAddSherlock =
+		ctx.sherlock ??
+		(await prompt(
+			`Do you want to use the Sherlock VSCode (or Cursor) extension for a better DX?`,
+			{
+				type: "confirm",
+				initial: true,
+			}
+		));
 	if (shouldAddSherlock === false) return ctx;
 
 	const settings = await ctx.project.settings.get();
@@ -63,6 +72,7 @@ export const maybeAddSherlock: CliStep<
 				error,
 			].join("\n")
 		);
+		if (ctx.interactive === false) throw error;
 	}
 
 	return ctx;

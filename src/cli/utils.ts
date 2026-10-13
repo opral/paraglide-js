@@ -65,3 +65,10 @@ export function toRelativeDisplayPath(root: string, path: string): string {
 		.split(nodePath.sep)
 		.join("/");
 }
+
+/** Quote package-script arguments containing shell metacharacters. */
+export function shellArgument(value: string): string {
+	return /^[A-Za-z0-9_./-]+$/.test(value)
+		? value
+		: "'" + value.replaceAll("'", `'"'"'`) + "'";
+}

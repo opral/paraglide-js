@@ -2,6 +2,7 @@ import type { CliStep } from "../utils.js";
 import type { Logger } from "../../services/logger/index.js";
 import { prompt } from "../utils.js";
 import JSON5 from "json5";
+import { parseTree, modify, applyEdits, type ParseError } from "jsonc-parser";
 import { pathExists } from "../../services/file-handling/exists.js";
 import nodePath from "node:path";
 import { createRequire } from "node:module";
@@ -9,7 +10,12 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 
 export const maybeUpdateTsConfig: CliStep<
-	{ fs: typeof import("node:fs/promises"); logger: Logger },
+	{
+		fs: typeof import("node:fs/promises");
+		logger: Logger;
+		interactive?: boolean;
+		root?: string;
+	},
 	unknown
 > = async (ctx) => {
 	const ctx1 = await maybeUpdateTsConfigAllowJs(ctx);
@@ -21,14 +27,30 @@ export const maybeUpdateTsConfig: CliStep<
  * Paraligde JS compiles to JS with JSDoc comments. TypeScript doesn't allow JS files by default.
  */
 export const maybeUpdateTsConfigAllowJs: CliStep<
-	{ fs: typeof import("node:fs/promises"); logger: Logger },
+	{
+		fs: typeof import("node:fs/promises");
+		logger: Logger;
+		interactive?: boolean;
+		root?: string;
+	},
 	unknown
 > = async (ctx) => {
-	if ((await pathExists("./tsconfig.json", ctx.fs)) === false) {
+	const configPath = nodePath.resolve(
+		ctx.root ?? process.cwd(),
+		"tsconfig.json"
+	);
+	if ((await pathExists(configPath, ctx.fs)) === false) {
 		return ctx;
 	}
-	if (await hasAllowJsEnabled("./tsconfig.json", ctx.fs)) {
+	if (await hasAllowJsEnabled(configPath, ctx.fs)) {
 		// all clear, allowJs is already set to true
+		return ctx;
+	}
+
+	if (ctx.interactive === false) {
+		const text = await ctx.fs.readFile(configPath, "utf8");
+		await ctx.fs.writeFile(configPath, enableAllowJs(text));
+		ctx.logger.success("Enabled compilerOptions.allowJs in tsconfig.json.");
 		return ctx;
 	}
 
@@ -57,7 +79,7 @@ export const maybeUpdateTsConfigAllowJs: CliStep<
 			return ctx;
 		}
 
-		if (await hasAllowJsEnabled("./tsconfig.json", ctx.fs)) {
+		if (await hasAllowJsEnabled(configPath, ctx.fs)) {
 			isValid = true;
 			return ctx;
 		} else {
@@ -229,7 +251,7 @@ const resolveReferenceConfig = async (
 //  * errors with Paraglide-JS.
 //  */
 // const maybeUpdateTsConfigModuleResolution: CliStep<
-// 	{ fs: typeof import("node:fs/promises"); logger: Logger },
+// 	{ fs: typeof import("node:fs/promises"); logger: Logger; interactive?: boolean; root?: string },
 // 	unknown
 // > = async (ctx) => {
 // 	if ((await pathExists("./tsconfig.json", ctx.fs)) === false) {
@@ -325,3 +347,22 @@ const resolveReferenceConfig = async (
 
 // 	return ctx;
 // };
+
+/** Edit one property while retaining comments and unrelated configuration text. */
+export function enableAllowJs(text: string): string {
+	const errors: ParseError[] = [];
+	const tree = parseTree(text, errors, { allowTrailingComma: true });
+	if (errors.length || tree?.type !== "object")
+		throw new Error("tsconfig.json must be a valid JSON-with-comments object.");
+	const indent = text.match(/\n([ \t]+)"/)?.[1] ?? "  ";
+	return applyEdits(
+		text,
+		modify(text, ["compilerOptions", "allowJs"], true, {
+			formattingOptions: {
+				insertSpaces: !indent.includes("\t"),
+				tabSize: indent.length,
+				eol: text.includes("\r\n") ? "\r\n" : "\n",
+			},
+		})
+	);
+}

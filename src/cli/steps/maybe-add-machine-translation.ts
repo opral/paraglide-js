@@ -1,6 +1,6 @@
 import type { Logger } from "../../services/logger/index.js";
 import type { CliStep } from "../utils.js";
-import { prompt } from "../utils.js";
+import { prompt, shellArgument } from "../utils.js";
 import { updatePackageJson } from "./update-package-json.js";
 import path from "node:path";
 import { INLANG_CLI_VERSION_RANGE } from "./add-inlang-check.js";
@@ -12,6 +12,8 @@ export const maybeAddMachineTranslation: CliStep<
 		projectPath: string;
 		root: string;
 		packageJsonPath: string;
+		interactive?: boolean;
+		machineTranslation?: boolean;
 	},
 	{
 		fs: typeof import("node:fs/promises");
@@ -19,16 +21,19 @@ export const maybeAddMachineTranslation: CliStep<
 		projectPath: string;
 		root: string;
 		packageJsonPath: string;
+		interactive?: boolean;
+		machineTranslation?: boolean;
 	}
 > = async (ctx) => {
 	// Prompt for machine translation
-	const useMachineTranslation = await prompt(
-		`Do you want to set up machine translations?`,
-		{
-			type: "confirm",
-			initial: true,
-		}
-	);
+	const useMachineTranslation =
+		ctx.machineTranslation ??
+		(ctx.interactive === false
+			? false
+			: await prompt(`Do you want to set up machine translations?`, {
+					type: "confirm",
+					initial: true,
+				}));
 
 	if (!useMachineTranslation) {
 		return ctx;
@@ -53,7 +58,7 @@ export const maybeAddMachineTranslation: CliStep<
 				if (scripts["machine-translate"]) return scripts;
 				return {
 					...scripts,
-					"machine-translate": `inlang machine translate --project ${relativePath}`,
+					"machine-translate": `inlang machine translate --project ${shellArgument(relativePath)}`,
 				};
 			},
 		})(ctx);
@@ -68,6 +73,7 @@ export const maybeAddMachineTranslation: CliStep<
 				error,
 			].join("\n")
 		);
+		if (ctx.interactive === false) throw error;
 	}
 
 	return ctx;

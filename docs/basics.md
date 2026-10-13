@@ -173,6 +173,17 @@ Use typed wrapper functions in the map when messages need different inputs. Unkn
 
 #### ESLint and Oxlint
 
+During interactive `paraglide-js init`, you can opt into ESLint or Oxlint message linting. For coding agents or CI, choose explicitly:
+
+```sh
+npx @inlang/paraglide-js init --yes --lint eslint
+# Alternatively: --lint oxlint
+```
+
+Init adds a dedicated `lint:i18n` script and `eslint.paraglide.config.mjs` or `.oxlintrc.paraglide.json`, preserving existing lint configurations and scripts. Install dependencies, then run `npm run lint:i18n`. The generated ESLint config handles JavaScript and TypeScript with a syntax-only parser; framework component files still need their existing framework lint integration. With no `--lint` choice, unattended init skips lint setup.
+
+`--yes` (also `--non-interactive`) never opens prompts. The default project and output paths are `./project.inlang` and `./src/paraglide`; override them with `--project` and `--outdir`. It reuses existing projects, auto-detects Vite or adds a build-time compile command, enables TypeScript `allowJs` where needed while preserving comments, and retains the existing default translation check setup (`--no-check` skips it). Editor recommendations and machine translation are off unless explicitly selected. `--allow-dirty` is required for uncommitted changes. `--no-compile` defers the initial compile until dependencies are installed. Init does not install dependencies itself. Invalid options/configuration conflicts fail with a nonzero exit status; compilation failures also fail in unattended mode and report that setup files have already been written.
+
 The optional plugin reports dynamic catalog access and whole-catalog spread/rest copies. It allows static access such as `m.greeting()` and `m["user.profile.title"]()`, plus indexing an application-owned map. The rule does not guess the keys the UI supports and has no automatic fix.
 
 With ESLint 9 or 10, add it to your existing flat config:
@@ -211,7 +222,7 @@ By default, the rule recognizes imports ending in `paraglide/messages` or `parag
 ]
 ```
 
-The same rule options work in Oxlint. This is a syntax/scope check, not a guarantee about the final bundle: it follows local `const` aliases but does not evaluate key expressions, resolve re-exports across files, or follow a catalog passed through function arguments. Configure each import path used for the catalog. Oxlint's JavaScript plugin support is still alpha and does not yet support custom framework parsers; use ESLint with the relevant parser for those files.
+Generated lint configs use `messageModuleDirectories` to recognize the output folder name (for example, `["i18n"]` for `./src/i18n`). For unusual aliases or re-export modules, `messageModules` adds exact import specifiers. The same rule options work in Oxlint. This is a syntax/scope check, not a guarantee about the final bundle: it follows local `const` aliases but does not evaluate key expressions, resolve re-exports across files, or follow a catalog passed through function arguments. Configure each import path used for the catalog. Oxlint's JavaScript plugin support is still alpha and does not yet support custom framework parsers; use ESLint with the relevant parser for those files.
 
 ### Type-safe localized strings
 

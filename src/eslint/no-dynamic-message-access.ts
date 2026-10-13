@@ -49,6 +49,11 @@ export const noDynamicMessageAccess: Rule.RuleModule = {
 			{
 				type: "object",
 				properties: {
+					messageModuleDirectories: {
+						type: "array",
+						items: { type: "string", minLength: 1 },
+						uniqueItems: true,
+					},
 					messageModules: {
 						type: "array",
 						items: { type: "string" },
@@ -68,13 +73,23 @@ export const noDynamicMessageAccess: Rule.RuleModule = {
 	create(context) {
 		const sourceCode = context.sourceCode;
 		const options = context.options[0] as
-			| { messageModules?: string[] }
+			| { messageModules?: string[]; messageModuleDirectories?: string[] }
 			| undefined;
 		const configuredModules = new Set(options?.messageModules ?? []);
+		const directories = new Set([
+			"paraglide",
+			...(options?.messageModuleDirectories ?? []),
+		]);
 		const matchesModule = (value: unknown) =>
 			typeof value === "string" &&
-			(/(?:^|\/)paraglide\/messages(?:\.js)?$/.test(value) ||
-				configuredModules.has(value));
+			(configuredModules.has(value) ||
+				[...directories].some((directory) =>
+					["messages", "messages.js"].some(
+						(file) =>
+							value === `${directory}/${file}` ||
+							value.endsWith(`/${directory}/${file}`)
+					)
+				));
 
 		function variableFor(node: Identifier): Scope.Variable | undefined {
 			for (

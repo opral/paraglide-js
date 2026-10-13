@@ -40,6 +40,11 @@ for (const Tester of [
 			'import { greeting as m } from "./paraglide/messages.js"; m[method]();',
 		],
 		invalid: [
+			{
+				code: 'import { m } from "$lib/i18n/messages.js"; m[key]();',
+				options: [{ messageModuleDirectories: ["i18n"] }],
+				errors: dynamic,
+			},
 			{ code: `${named} m[key]();`, errors: dynamic },
 			{ code: `${named} const fn = m[key];`, errors: dynamic },
 			{ code: `${named} m[\`hello_\${name}\`]();`, errors: dynamic },

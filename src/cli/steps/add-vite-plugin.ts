@@ -1,3 +1,5 @@
+import JSON5 from "json5";
+import path from "node:path";
 import type { Logger } from "../../services/logger/index.js";
 import type { CliStep } from "../utils.js";
 
@@ -21,6 +23,7 @@ export const addVitePlugin: CliStep<
 			projectPath: ctx.projectPath,
 			outdir: ctx.outdir,
 		});
+		if (result.reason === "Already present") return ctx;
 		if (result.ok) {
 			await ctx.fs.writeFile(ctx.configPath, result.updated);
 			ctx.logger?.success(
@@ -62,16 +65,46 @@ type UpdateResult =
 /**
  * @private Only exported for testings
  */
-function updateViteConfig(args: {
+export function updateViteConfig(args: {
 	config: string;
 	projectPath: string;
 	outdir: string;
 }): UpdateResult {
 	if (args.config.includes("@inlang/paraglide-js")) {
-		return {
-			ok: false,
-			reason: "Already present",
-		};
+		const call = args.config.match(
+			/\bparaglideVitePlugin\s*\(\s*\{([\s\S]*?)\}\s*\)/
+		);
+		if (!call)
+			return {
+				ok: false,
+				reason: "Existing Paraglide import needs manual plugin integration",
+			};
+		try {
+			const options = JSON5.parse("{" + call[1] + "}");
+			if (
+				typeof options.project !== "string" ||
+				typeof options.outdir !== "string"
+			)
+				return {
+					ok: false,
+					reason: "Existing plugin paths must be configured explicitly",
+				};
+			if (
+				path.resolve(options.project) !== path.resolve(args.projectPath) ||
+				path.resolve(options.outdir) !== path.resolve(args.outdir)
+			)
+				return {
+					ok: false,
+					reason:
+						"Existing Vite plugin paths differ from the requested project/outdir",
+				};
+			return { ok: false, reason: "Already present" };
+		} catch {
+			return {
+				ok: false,
+				reason: "Existing Vite plugin options cannot be verified automatically",
+			};
+		}
 	}
 
 	const PLUGINS_REGEX = /plugins\s*:\s*\[/g;
@@ -91,7 +124,7 @@ function updateViteConfig(args: {
 	const updatedConfig =
 		"import { paraglideVitePlugin } from '@inlang/paraglide-js'\n" +
 		before +
-		`paraglideVitePlugin({ project: '${args.projectPath}', outdir: '${args.outdir}' }),` +
+		`paraglideVitePlugin({ project: ${JSON.stringify(args.projectPath)}, outdir: ${JSON.stringify(args.outdir)} }),` +
 		after;
 
 	return {

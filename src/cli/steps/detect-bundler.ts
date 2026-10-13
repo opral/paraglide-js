@@ -1,7 +1,8 @@
+import path from "node:path";
 import type { CliStep } from "../utils.js";
 
 export const detectBundler: CliStep<
-	{ fs: typeof import("node:fs/promises") },
+	{ fs: typeof import("node:fs/promises"); root?: string },
 	| {
 			bundler?: undefined;
 			configPath?: undefined;
@@ -11,7 +12,12 @@ export const detectBundler: CliStep<
 			configPath: string;
 	  }
 > = async (ctx) => {
-	const potentialViteConfigPaths = ["./vite.config.js", "./vite.config.ts"];
+	const potentialViteConfigPaths = [
+		"./vite.config.js",
+		"./vite.config.ts",
+		"./vite.config.mjs",
+		"./vite.config.mts",
+	].map((file) => (ctx.root ? path.resolve(ctx.root, file) : file));
 
 	const viteConfigPath = await Promise.all(
 		potentialViteConfigPaths.map(async (path) => ({
