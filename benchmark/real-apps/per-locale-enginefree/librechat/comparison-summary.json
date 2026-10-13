@@ -1,0 +1,95 @@
+{
+  "experiment": "Engine-free runtime with full catalog compiler output, per-locale app splitting versus optimized native i18next",
+  "profiles": [
+    {
+      "profile": "desktop",
+      "route": "/login?redirect=false",
+      "nativeReadyMs": 1798,
+      "enginefreeReadyMs": 1792,
+      "readySavingsPercent": 0.33370411568409697,
+      "nativeCompletedInitialEncodedBodyBytes": 2278673,
+      "enginefreeCompletedInitialEncodedBodyBytes": 2269724,
+      "nativeWholeRequestEncodedBodyBounds": {
+        "lower": 2278673,
+        "upper": 2315167
+      },
+      "enginefreeWholeRequestEncodedBodyBounds": {
+        "lower": 2269724,
+        "upper": 2306218
+      },
+      "exactVisibleTextAndInputParity": true,
+      "pageErrors": [],
+      "failedRequests": [],
+      "network": {
+        "latencyMs": 80,
+        "downloadMbps": 20,
+        "uploadMbps": 2,
+        "cpuRate": 3
+      }
+    },
+    {
+      "profile": "mobile",
+      "route": "/login?redirect=false",
+      "nativeReadyMs": 12140,
+      "enginefreeReadyMs": 12075,
+      "readySavingsPercent": 0.5354200988467839,
+      "nativeCompletedInitialEncodedBodyBytes": 2278673,
+      "enginefreeCompletedInitialEncodedBodyBytes": 2269724,
+      "nativeWholeRequestEncodedBodyBounds": {
+        "lower": 2278673,
+        "upper": 2315167
+      },
+      "enginefreeWholeRequestEncodedBodyBounds": {
+        "lower": 2269724,
+        "upper": 2306218
+      },
+      "exactVisibleTextAndInputParity": true,
+      "pageErrors": [],
+      "failedRequests": [],
+      "network": {
+        "latencyMs": 150,
+        "downloadMbps": 1.6,
+        "uploadMbps": 2,
+        "cpuRate": 4
+      }
+    }
+  ],
+  "completedInitialEncodedBodySavingsPercent": 0.39272857492057556,
+  "staticInitialJSBrotliQ4SavingsPercent": 0.3606731792242912,
+  "secondPublicRoute": {
+    "route": "/forgot-password",
+    "lazy": false,
+    "profile": "desktop",
+    "nativeReadyMs": 1730,
+    "enginefreeReadyMs": 1713,
+    "nativeWholeRequestEncodedBodyBounds": {
+      "lower": 2498132,
+      "upper": 2534626
+    },
+    "enginefreeWholeRequestEncodedBodyBounds": {
+      "lower": 2489183,
+      "upper": 2525677
+    },
+    "exactVisibleTextAndInputParity": true,
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  "repeatGate": {
+    "thresholdPercent": 10,
+    "qualified": false,
+    "pairsPerProfile": 1,
+    "fivePairRepeatsPerformed": false
+  },
+  "mediaLimit": "Persistent hidden silence.mp3 document request never closes in Chrome. Completed actual Range media body is counted once. Each upper bound adds at most 36494 bytes for the separate pending bootstrap. Exact all-request total is not asserted; CDP received-at-ready counters are not used as a metric.",
+  "engineAbsent": true,
+  "emittedModuleIDs": 7771,
+  "localesPreserved": 41,
+  "physicalCatalogStrings": 50209,
+  "compiledMessageExports": 3516,
+  "emittedLocaleGraphs": [
+    "fr"
+  ],
+  "semanticOracleChecks": 186433,
+  "TransOracleChecks": 1476,
+  "scope": "French unauthenticated real login and public password reset; authenticated lazy UI unmeasured. All emitted chunk module IDs audited. Fixed-locale navigation requires server-selected locale artifact and full document reload. API adapter covers actual flat single-namespace app use, not arbitrary i18next plugins/third-party API."
+}

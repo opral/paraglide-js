@@ -1,0 +1,75 @@
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
+import i18next from "i18next";
+import { getSystemLanguage } from "@/utils/language-preference";
+
+type LanguageProviderState = {
+  language: string;
+  setLanguage: (language: string) => void;
+};
+
+const initialState: LanguageProviderState = {
+  language: i18next.language || "en",
+  setLanguage: () => null,
+};
+
+const LanguageProviderContext =
+  createContext<LanguageProviderState>(initialState);
+
+export function LanguageProvider({
+  children,
+  defaultLanguage = "en",
+  storageKey = "frigate-ui-language",
+  ...props
+}: {
+  children: React.ReactNode;
+  defaultLanguage?: string;
+  storageKey?: string;
+}) {
+  const systemLanguage = useMemo<string>(() => getSystemLanguage(defaultLanguage), [defaultLanguage]);
+
+  const [language, setLanguage] = useState<string>(() => {
+    try {
+      const storedData = localStorage.getItem(storageKey);
+      const newLanguage = storedData || systemLanguage;
+      i18next.changeLanguage(newLanguage);
+      return newLanguage;
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Error retrieving language data from storage:", error);
+      return defaultLanguage;
+    }
+  });
+
+  useEffect(() => {
+    // set document lang for smart capitalization
+    document.documentElement.lang = language;
+
+    if (language === systemLanguage) return;
+    i18next.changeLanguage(language);
+  }, [language, systemLanguage]);
+
+  const value = {
+    language,
+    setLanguage: (language: string) => {
+      localStorage.setItem(storageKey, language);
+      setLanguage(language);
+      window.location.reload();
+    },
+  };
+
+  return (
+    <LanguageProviderContext {...props} value={value}>
+      {children}
+    </LanguageProviderContext>
+  );
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useLanguage = () => {
+  const context = useContext(LanguageProviderContext);
+
+  if (context === undefined)
+    throw new Error("useLanguage must be used within a LanguageProvider");
+
+  return context;
+};

@@ -1,0 +1,23 @@
+{
+  "nativeAppCommit": "e1dfc10449ff713faffacd60273fddcfe2c0a698",
+  "compilerCommit": "490a5c0d0c4c44b93f61ad494b28f74987e5f245",
+  "compilerMode": "Reuse frozen public PR813 generated code; no compiler/SDK rerun or package patches in enginefree integration. Only export aliases added to unchanged compiled function bodies.",
+  "appSource": "/root/repos-iii/librechat-enginefree-ab",
+  "nativeFrozenDist": "/root/repos-iii/librechat-per-locale-ab/native-source/client/dist-native",
+  "enginefreeFrozenDist": "/root/repos-iii/librechat-enginefree-ab/client/dist-enginefree",
+  "originalCompiledSource": "/root/repos-iii/librechat-per-locale-ab/client/src/paraglide",
+  "derivedCompiledSource": "/root/repos-iii/librechat-enginefree-ab/client/src/paraglide",
+  "compilerSourceAndDist": "/root/repos-iii/librechat-per-locale-ab/compiler",
+  "originalFull41InputConversionReplay": "/root/repos-iii/paraglide-client-split-pr4/benchmark/real-apps/per-locale-production/librechat",
+  "originalMFInputRoot": "/root/repos-iii/librechat-per-locale-ab/client/messages",
+  "dependencyRoots": {
+    "root": "/root/repos-iii/librechat-native-preload-control/node_modules",
+    "client": "/root/repos-iii/librechat-native-preload-control/client/node_modules"
+  },
+  "standaloneParser": {
+    "package": "html-parse-stringify",
+    "version": "3.0.1",
+    "reason": "Native Trans tokenization parity; standalone markup parser, no i18next engine"
+  },
+  "catalogProvenanceNote": "Original TS/JSON input hashes and frozen converted MF hashes retained in catalog-provenance.json; convertedPath is relative to previous output-only app, not enginefree app."
+}

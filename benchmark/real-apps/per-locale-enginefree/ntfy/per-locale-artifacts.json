@@ -1,0 +1,515 @@
+{
+  "builtLocales": 51,
+  "frenchDirectory": "/root/repos-iii/ntfy-per-locale-probe/web/benchmark-output/per-locale/__paraglide/fr-6672",
+  "vite": "8.1.4",
+  "rolldown": "1.1.5",
+  "files": [
+    {
+      "path": ".vite/manifest.json",
+      "raw": 2831,
+      "brotliQ4": 639,
+      "sha256": "f152967f3fdd311a5e1d458616d9e2e3623ec3235ae180b5f0431042db80bbb1"
+    },
+    {
+      "path": "config.js",
+      "raw": 800,
+      "brotliQ4": 435,
+      "sha256": "3634c642ecd68c39e68c1dd0e651777258bcd8fc68968c1c86bcd5a85e8695be"
+    },
+    {
+      "path": "index.html",
+      "raw": 4485,
+      "brotliQ4": 1723,
+      "sha256": "245d5790207d5630fc52c2cd688fcbd5eade9eaff3d1214afa228ec2935d214d"
+    },
+    {
+      "path": "static/css/app.css",
+      "raw": 124,
+      "brotliQ4": 94,
+      "sha256": "1f90092a14bd3941b2e3423ae4a476792e526fc77fed14e37eb9afb248f38f07"
+    },
+    {
+      "path": "static/css/fonts.css",
+      "raw": 901,
+      "brotliQ4": 253,
+      "sha256": "63d06ef6b1dd4ec525d75d3b2a4935ffb69e429906430cb6d586d04e2170f38a"
+    },
+    {
+      "path": "static/fonts/roboto-v29-latin-300.woff2",
+      "raw": 15732,
+      "brotliQ4": 15728,
+      "sha256": "33530b007071281a97e79baab13ddf7cc4b9de942ebd3e212224857335f7cb97"
+    },
+    {
+      "path": "static/fonts/roboto-v29-latin-500.woff2",
+      "raw": 15920,
+      "brotliQ4": 15921,
+      "sha256": "bb46ed079c3dd3c39af5051b4ada48f29f49151dad4fa218117bad2fdb5e616f"
+    },
+    {
+      "path": "static/fonts/roboto-v29-latin-700.woff2",
+      "raw": 15828,
+      "brotliQ4": 15824,
+      "sha256": "0eaeadb58e6995ba85eccb6198aaef77eeb1d4b66699e4e1f3fc10eb6adfcdb9"
+    },
+    {
+      "path": "static/fonts/roboto-v29-latin-regular.woff2",
+      "raw": 15688,
+      "brotliQ4": 15684,
+      "sha256": "cc46322d5c4d41da447f26f7fa714827f2ec9a112968c12ef5736c7494985eca"
+    },
+    {
+      "path": "static/images/apple-touch-icon.png",
+      "raw": 15584,
+      "brotliQ4": 15568,
+      "sha256": "759c2f935eea221433d68d8811ced9d8d0e07143b7a38af7fa023d4e75514013"
+    },
+    {
+      "path": "static/images/favicon.ico",
+      "raw": 15406,
+      "brotliQ4": 5206,
+      "sha256": "f4d25f77f0e2703c7c9db2fb28febc617d2f0449ffa65d1e067f6f6a40ce6f8f"
+    },
+    {
+      "path": "static/images/ntfy-mask.svg",
+      "raw": 1134,
+      "brotliQ4": 645,
+      "sha256": "132e708299e7f23ef1015ded522f49cdad7313b7c89454fc10f8569486b2a2ad"
+    },
+    {
+      "path": "static/images/ntfy-splash.svg",
+      "raw": 2190,
+      "brotliQ4": 1007,
+      "sha256": "6ca521541638085428983e34057135063f29354d90344ae6a18d48f542c86207"
+    },
+    {
+      "path": "static/images/ntfy.png",
+      "raw": 6633,
+      "brotliQ4": 6637,
+      "sha256": "b71cd4a8825067e4f0ddc3f3084473b424c3406da345f1a893586a728916ec08"
+    },
+    {
+      "path": "static/images/pwa-192x192.png",
+      "raw": 10819,
+      "brotliQ4": 10799,
+      "sha256": "673caa5602bd822ed6f37617b9de81c5782ac04c6bc80db782a48e52b6564483"
+    },
+    {
+      "path": "static/images/pwa-512x512.png",
+      "raw": 37475,
+      "brotliQ4": 35299,
+      "sha256": "0a24badbb6628248456e980157bef301701bcfd63430bd4663ecdf04da55a745"
+    },
+    {
+      "path": "static/langs/ar.json",
+      "raw": 32211,
+      "brotliQ4": 7903,
+      "sha256": "52d95df020d61c0ef1de1e14ebcf9ff37330144d2197e4ac319522f784e20516"
+    },
+    {
+      "path": "static/langs/be.json",
+      "raw": 3,
+      "brotliQ4": 7,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "static/langs/bg.json",
+      "raw": 50564,
+      "brotliQ4": 11079,
+      "sha256": "e90ac0b20d11b914090192cd390eb4d0dd108b70a227d74e8486369df4b09634"
+    },
+    {
+      "path": "static/langs/bn.json",
+      "raw": 3,
+      "brotliQ4": 7,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "static/langs/ca.json",
+      "raw": 2302,
+      "brotliQ4": 784,
+      "sha256": "b1b428142278aeeac2f6e59491bd21504a0c708ae88cf9ead59bdc79f32ce44d"
+    },
+    {
+      "path": "static/langs/cs.json",
+      "raw": 33706,
+      "brotliQ4": 8928,
+      "sha256": "c2b02619b671ecf0cc4013a19defe2d676e03de5ccb462b3cb1d275008131a96"
+    },
+    {
+      "path": "static/langs/cu.json",
+      "raw": 257,
+      "brotliQ4": 164,
+      "sha256": "6c91aa13335e347754fa59787230e6167e298ec51f69f4f9fe19481f162b4ef3"
+    },
+    {
+      "path": "static/langs/cy.json",
+      "raw": 2449,
+      "brotliQ4": 883,
+      "sha256": "1e41afb3dc3c1c58e1ca48b96886ae28b4e74217f9f169e4257966df95a2f89f"
+    },
+    {
+      "path": "static/langs/da.json",
+      "raw": 29909,
+      "brotliQ4": 7889,
+      "sha256": "46d6ece79332838739c50ade4ebed9cfc33f1c961a85b6f1852102a0423437ec"
+    },
+    {
+      "path": "static/langs/de.json",
+      "raw": 38453,
+      "brotliQ4": 9795,
+      "sha256": "23eb3e30a08089dc66b104c708c38f1663b63475261c775a9aa5f4be70e91a1f"
+    },
+    {
+      "path": "static/langs/en.json",
+      "raw": 34975,
+      "brotliQ4": 8307,
+      "sha256": "864b0b28c59dafc95eb0693a40f257cb7ed1f3edac3336b35ae68c08ee5f3f7c"
+    },
+    {
+      "path": "static/langs/en_GB.json",
+      "raw": 113,
+      "brotliQ4": 78,
+      "sha256": "0e5efad6330b28e0af5a2ddf48fe9e09d12519dcaae4ef4a0d1f5d094e9893f5"
+    },
+    {
+      "path": "static/langs/eo.json",
+      "raw": 93,
+      "brotliQ4": 74,
+      "sha256": "14da9ede01abc7a3ecec5d0888263c42c50c53aadd2ebb8d27f5747877605c8f"
+    },
+    {
+      "path": "static/langs/es.json",
+      "raw": 35773,
+      "brotliQ4": 8979,
+      "sha256": "50a7e30dc8c9d3277ed30e82dbbe16a997cbddf43f62c41206657cb4bd28843f"
+    },
+    {
+      "path": "static/langs/et.json",
+      "raw": 37985,
+      "brotliQ4": 9753,
+      "sha256": "941d2fe80c3ebbf90ef9699c74a99db86fc4a9255746441e23afd624aa2fd9bb"
+    },
+    {
+      "path": "static/langs/fa.json",
+      "raw": 3675,
+      "brotliQ4": 1248,
+      "sha256": "37b445ab8a6fded8d75f2f347878d48d1967ad0d8d6a03341c42074b5ee8fe20"
+    },
+    {
+      "path": "static/langs/fi.json",
+      "raw": 32653,
+      "brotliQ4": 9122,
+      "sha256": "748132bdc96a053d75d8745de300c125495c5b59092a94679c7875cecceb4d88"
+    },
+    {
+      "path": "static/langs/fr.json",
+      "raw": 39814,
+      "brotliQ4": 9928,
+      "sha256": "301be24a29e1430dfca3ddf96aae97de63f0b4dfb97f5c05b24627ea823c0d3a"
+    },
+    {
+      "path": "static/langs/gl.json",
+      "raw": 32699,
+      "brotliQ4": 8650,
+      "sha256": "461ed1757a8c656df51181ea89a5c7546805b41cdecbbefc62a0ee4e68853b5f"
+    },
+    {
+      "path": "static/langs/he.json",
+      "raw": 4386,
+      "brotliQ4": 1367,
+      "sha256": "3d0c475835fe527e78c30206e4dc623be559e4b3450b64bdc657f6890eaf6344"
+    },
+    {
+      "path": "static/langs/hu.json",
+      "raw": 39944,
+      "brotliQ4": 10540,
+      "sha256": "692f8e0b57c13513fc5ea2617fa3f8757728db0f97b2ad2571f998e6f9f757c0"
+    },
+    {
+      "path": "static/langs/id.json",
+      "raw": 37719,
+      "brotliQ4": 9085,
+      "sha256": "29a3b54928d58200010bc90dcfa22e309789a744f55336f21d515e9c3dcb36e9"
+    },
+    {
+      "path": "static/langs/it.json",
+      "raw": 39005,
+      "brotliQ4": 9717,
+      "sha256": "ca713d725973a5478ab07b1dd79dad070f5701ccc0d44bca36d143837ae34da5"
+    },
+    {
+      "path": "static/langs/ja.json",
+      "raw": 41491,
+      "brotliQ4": 10166,
+      "sha256": "a5607590fc3d6d9d00bf820d670b7274ead7effe1f6a11508a26d046fefa22c7"
+    },
+    {
+      "path": "static/langs/ko.json",
+      "raw": 14603,
+      "brotliQ4": 4144,
+      "sha256": "e3ffa24b84d514eaa180e4a6f922bf608d3f71d8f1df40a966257ea71cacaad6"
+    },
+    {
+      "path": "static/langs/lt.json",
+      "raw": 3,
+      "brotliQ4": 7,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "static/langs/lv.json",
+      "raw": 6523,
+      "brotliQ4": 1811,
+      "sha256": "aeabc6ee1f7151a11cd21eb29b570a341f6259d12c0e6f357a9a365046dbca83"
+    },
+    {
+      "path": "static/langs/mk.json",
+      "raw": 7821,
+      "brotliQ4": 2211,
+      "sha256": "1512e0922355ced62144695f09e45cfaafdcf50c46719ed859c558e89c9e30d6"
+    },
+    {
+      "path": "static/langs/ml.json",
+      "raw": 3,
+      "brotliQ4": 7,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "static/langs/ms.json",
+      "raw": 13711,
+      "brotliQ4": 3735,
+      "sha256": "2dd8d11bebb4e7d00fe7b07618b33d5677115f86fe950cb1c579da8c63b068fc"
+    },
+    {
+      "path": "static/langs/nb_NO.json",
+      "raw": 31533,
+      "brotliQ4": 8282,
+      "sha256": "019ddccf34939d95b382d19a90056cfa67ed4ce132df89323ac3eb3a770e6e67"
+    },
+    {
+      "path": "static/langs/nl.json",
+      "raw": 32979,
+      "brotliQ4": 8275,
+      "sha256": "df51953b23dec05b5f115129e78c245b760ffa14885d0fd7b37d76410f08d595"
+    },
+    {
+      "path": "static/langs/pl.json",
+      "raw": 39095,
+      "brotliQ4": 10289,
+      "sha256": "bfa4f29b727b605b18dfe2e69e6848428afe23a6dddb786484423aef47823237"
+    },
+    {
+      "path": "static/langs/pt.json",
+      "raw": 36076,
+      "brotliQ4": 9005,
+      "sha256": "7f77f2761ca8c72523deba2bb880314c8785c3504d09b03165c7f109be52c161"
+    },
+    {
+      "path": "static/langs/pt_BR.json",
+      "raw": 38129,
+      "brotliQ4": 9640,
+      "sha256": "ea46e826b550ac9bbef14abf6028c164b55d1a0c9115787bef842e10d736dc4e"
+    },
+    {
+      "path": "static/langs/ro.json",
+      "raw": 26789,
+      "brotliQ4": 6809,
+      "sha256": "f97dfeb10e96e4d25a01e54188b1958327dd244d4409772c3164b736118c0b9e"
+    },
+    {
+      "path": "static/langs/ru.json",
+      "raw": 43790,
+      "brotliQ4": 10165,
+      "sha256": "30a04d98037eae579e13fd792843f8123c7b66d24f3bf6e6f7b75f11a525216a"
+    },
+    {
+      "path": "static/langs/sk.json",
+      "raw": 33924,
+      "brotliQ4": 9474,
+      "sha256": "8044082cc4663eeec08f5c533ba2c8075ca807486bea4abb3488f9366fa3e2c4"
+    },
+    {
+      "path": "static/langs/sl.json",
+      "raw": 7080,
+      "brotliQ4": 2020,
+      "sha256": "5e751b73daa4281e4b43efcaa6a0e678321ff247636a892dfcc8056d5e5a67a9"
+    },
+    {
+      "path": "static/langs/sq.json",
+      "raw": 3519,
+      "brotliQ4": 1176,
+      "sha256": "0af4885e121fa04dd4a0375fe2f752269494d6d7d896c322fa8f8ef079be5e35"
+    },
+    {
+      "path": "static/langs/sv.json",
+      "raw": 32435,
+      "brotliQ4": 8376,
+      "sha256": "17e48ff08ab77da6cb29a451c769d629879b87ead701dac8b97f1e0b9c6e6d5a"
+    },
+    {
+      "path": "static/langs/ta.json",
+      "raw": 59099,
+      "brotliQ4": 10490,
+      "sha256": "07001b7161610235fe3115913a59414a9196f41f555964620b33e3932eba57b9"
+    },
+    {
+      "path": "static/langs/te.json",
+      "raw": 3,
+      "brotliQ4": 7,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "static/langs/th.json",
+      "raw": 4459,
+      "brotliQ4": 1227,
+      "sha256": "f233a9d684eea6f102a20ec139305790dcb34b9f25a59296e7708282e5ff338e"
+    },
+    {
+      "path": "static/langs/tr.json",
+      "raw": 38164,
+      "brotliQ4": 9573,
+      "sha256": "e791addec93c3abe29637c1b4228d5dd1f7760d954341ed227fd9016cf4a1272"
+    },
+    {
+      "path": "static/langs/uk.json",
+      "raw": 52074,
+      "brotliQ4": 11651,
+      "sha256": "5420c5f45e09fb78e15d28012af27d6bef4e5e6d9dfd31fbe5072307f06c80a6"
+    },
+    {
+      "path": "static/langs/uz.json",
+      "raw": 1303,
+      "brotliQ4": 555,
+      "sha256": "98c10f6f5703125dff3a8cd34a1704ef2c3c52e051db6c3f1bca60d0db9fe349"
+    },
+    {
+      "path": "static/langs/vi.json",
+      "raw": 6961,
+      "brotliQ4": 2099,
+      "sha256": "a58a90249e606c03d3e254baccfc9066ec2e9d2bd4ba1f03e66825fa6978d369"
+    },
+    {
+      "path": "static/langs/zh_Hans.json",
+      "raw": 34316,
+      "brotliQ4": 9420,
+      "sha256": "8d1505734b234768d6a55d4e50a2e1d7c4113b990e06e2f48c1f454661dd51ad"
+    },
+    {
+      "path": "static/langs/zh_Hant.json",
+      "raw": 30307,
+      "brotliQ4": 8044,
+      "sha256": "c096546bae624513e1e6176bc0cf0bc6e3af1e21919aa6fa652522b8863bab2a"
+    },
+    {
+      "path": "static/langs/zu.json",
+      "raw": 3,
+      "brotliQ4": 7,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "static/media/EmojiPicker-BrhrmOHn.js",
+      "raw": 227746,
+      "brotliQ4": 33680,
+      "sha256": "f092d315eb6c02618610c6cee8a7b0b2ac80b2748f6802ea80031c5d5b65d2bb"
+    },
+    {
+      "path": "static/media/MarkdownContent-BP-D6T9Q.js",
+      "raw": 107445,
+      "brotliQ4": 33436,
+      "sha256": "2a34234825502db4ffd849fef6ee74e7efc2d68e6f976843720cc1f2209a0b0f"
+    },
+    {
+      "path": "static/media/dadum-DPV6bbiV.mp3",
+      "raw": 18880,
+      "brotliQ4": 16549,
+      "sha256": "0a25f5623e9072bc0242ea06afb328d8bf666084e36fd2bff1f2aacd1aba48b7"
+    },
+    {
+      "path": "static/media/ding-C-VaFit1.mp3",
+      "raw": 25266,
+      "brotliQ4": 23407,
+      "sha256": "fa473cef768c803d2a796333dc4bce3b7a15e427c33178bd0eccfcf7dc331099"
+    },
+    {
+      "path": "static/media/index-DkZIuiyD.js",
+      "raw": 993787,
+      "brotliQ4": 256156,
+      "sha256": "dcb43af387d667845967493f48b3c635a5707587b7bdd7558f70c005ccb68abd"
+    },
+    {
+      "path": "static/media/juntos-4OTx6nUx.mp3",
+      "raw": 18835,
+      "brotliQ4": 16866,
+      "sha256": "ca1ee20f0c432d59d4e42e794de10e94706e16182cc62d1eced748e96a858ef2"
+    },
+    {
+      "path": "static/media/ntfy-filled-BeHxCuOR.svg",
+      "raw": 4388,
+      "brotliQ4": 1514,
+      "sha256": "93d7d911146400958719afcdcc66446d62910b6af9f08d92d299a609c32a89d0"
+    },
+    {
+      "path": "static/media/pop-jCTZXXxe.mp3",
+      "raw": 9806,
+      "brotliQ4": 8139,
+      "sha256": "5aad62697a958298e80361c95e6d8717b2621be0a9efa48917696f1a171c0b3b"
+    },
+    {
+      "path": "static/media/pop-swoosh-D4htuWC0.mp3",
+      "raw": 9593,
+      "brotliQ4": 8568,
+      "sha256": "6b847f2914905d7f26c6500b4169ebb6f75df0b313f44c8c8079cb4af0ae9fb6"
+    },
+    {
+      "path": "static/media/pristine-WI8-PGnL.mp3",
+      "raw": 31734,
+      "brotliQ4": 29240,
+      "sha256": "50349af5d0c517e6fa6d1baf1e0b788a00bd63da055998bca5c4a4a03be07068"
+    },
+    {
+      "path": "static/media/rolldown-runtime-B0Z9INg1.js",
+      "raw": 901,
+      "brotliQ4": 504,
+      "sha256": "5e9b0d884d2ebb14e241ab38b43e41efb61bce2e74d71507b0b95b264fba4047"
+    },
+    {
+      "path": "static/media/utils-mmmrspNc.js",
+      "raw": 176852,
+      "brotliQ4": 65169,
+      "sha256": "d39941c4af71c7cdf58112fea56f90c4689ca9e3044cd084d6094c13a7e178a0"
+    },
+    {
+      "path": "static/media/workbox-window.prod.es5-Bd17z0YL.js",
+      "raw": 5653,
+      "brotliQ4": 2206,
+      "sha256": "17bcc17d60dc78f927834b880c39649b03af46fd1f5cdbb8c42c5ae2b515dce9"
+    },
+    {
+      "path": "sw.js",
+      "raw": 2293850,
+      "brotliQ4": 380767,
+      "sha256": "148585982e5f44b3bc6e0681ebcb6b841d16249e048a839d61d82b0303a92c7a"
+    }
+  ],
+  "serviceWorkerStaticLocaleGlobalRemains": true,
+  "serviceWorkerLocaleEvidence": {
+    "en": {
+      "foundInWorker": true,
+      "example": "A provisioned user cannot be edited or deleted"
+    },
+    "fr": {
+      "foundInWorker": true,
+      "example": "Un utilisateur provisionn\u00e9 ne peut pas \u00eatre modifi\u00e9 ou supprim\u00e9"
+    },
+    "ja": {
+      "foundInWorker": true,
+      "example": "\u81ea\u52d5\u4f5c\u6210\u3055\u308c\u305f\u30e6\u30fc\u30b6\u30fc\u306e\u7de8\u96c6\u3084\u524a\u9664\u306f\u3067\u304d\u307e\u305b\u3093"
+    },
+    "ar": {
+      "foundInWorker": true,
+      "example": "A provisioned user cannot be edited or deleted"
+    }
+  },
+  "manifestVersionCaveat": "Manifest reports compiler-owned Vite dependency 8.1.4 rather than actual app host 8.3.4 logged by the builder. Use host versions in provenance.",
+  "actualHostVite": "8.3.4"
+}

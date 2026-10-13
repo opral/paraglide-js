@@ -1,0 +1,265 @@
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - JSON import "../locale-metadata.json" without import attributes (vite.config.ts:12:28). Add `with { type: 'json' }`
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - JSON import "../locale-metadata.json" without import attributes (vite.config.ts:12:28). Add `with { type: 'json' }`
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - JSON import "../locale-metadata.json" without import attributes (vite.config.ts:12:28). Add `with { type: 'json' }`
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - JSON import "../locale-metadata.json" without import attributes (vite.config.ts:12:28). Add `with { type: 'json' }`
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+vite v8.2.2 building paraglide_client_fr_6672 environment for production...
+transforming...
+✓ 13478 modules transformed.
+rendering chunks...
+computing gzip size...
+dist-enginefree/__paraglide/fr-6672/registerSW.js                                        0.13 kB
+dist-enginefree/__paraglide/fr-6672/manifest.webmanifest                                 0.57 kB
+dist-enginefree/__paraglide/fr-6672/sw-heal.js                                           1.78 kB
+dist-enginefree/__paraglide/fr-6672/.vite/manifest.json.br                               3.27 kB
+dist-enginefree/__paraglide/fr-6672/.vite/manifest.json.gz                               3.39 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size3-Regular.woff                4.42 kB
+dist-enginefree/__paraglide/fr-6672/assets/code-editor.DTDPPaEm.js.br                    4.52 kB
+dist-enginefree/__paraglide/fr-6672/assets/react-vtree.nToqO-mh.js.br                    4.54 kB
+dist-enginefree/__paraglide/fr-6672/assets/react-vtree.nToqO-mh.js.gz                    4.74 kB
+dist-enginefree/__paraglide/fr-6672/assets/code-editor.DTDPPaEm.js.gz                    4.75 kB
+dist-enginefree/__paraglide/fr-6672/index.html.br                                        4.90 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size4-Regular.woff2               4.92 kB
+dist-enginefree/__paraglide/fr-6672/assets/useBalanceSummary.D4vsDzI_.js.br              4.98 kB
+dist-enginefree/__paraglide/fr-6672/assets/useBalanceSummary.D4vsDzI_.js.gz              5.20 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size2-Regular.woff2               5.20 kB
+dist-enginefree/__paraglide/fr-6672/index.html.gz                                        5.21 kB
+dist-enginefree/__paraglide/fr-6672/assets/Insights.DNSl1yOQ.js.br                       5.27 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size1-Regular.woff2               5.46 kB
+dist-enginefree/__paraglide/fr-6672/assets/Insights.DNSl1yOQ.js.gz                       5.48 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size4-Regular.woff                5.98 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size2-Regular.woff                6.18 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size1-Regular.woff                6.49 kB
+dist-enginefree/__paraglide/fr-6672/assets/math-katex.uZ8_QngQ.css.br                    6.85 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Caligraphic-Regular.woff2         6.90 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Caligraphic-Bold.woff2            6.91 kB
+dist-enginefree/__paraglide/fr-6672/assets/date-utils.C_DbPEjY.js.br                     7.01 kB
+dist-enginefree/__paraglide/fr-6672/assets/date-utils.C_DbPEjY.js.gz                     7.27 kB
+dist-enginefree/__paraglide/fr-6672/assets/math-katex.uZ8_QngQ.css.gz                    7.38 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size3-Regular.ttf                 7.58 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Caligraphic-Regular.woff          7.65 kB
+dist-enginefree/__paraglide/fr-6672/assets/security-ui.5zGvIlor.js.br                    7.70 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Caligraphic-Bold.woff             7.71 kB
+dist-enginefree/__paraglide/fr-6672/assets/security-ui.5zGvIlor.js.gz                    8.02 kB
+dist-enginefree/__paraglide/fr-6672/assets/SubagentThreadPanel.BFPzrwB_.js.br            8.63 kB
+dist-enginefree/__paraglide/fr-6672/assets/math-katex.RfU0klHh.js.br                     8.64 kB
+dist-enginefree/__paraglide/fr-6672/assets/SubagentThreadPanel.BFPzrwB_.js.gz            8.86 kB
+dist-enginefree/__paraglide/fr-6672/assets/math-katex.RfU0klHh.js.gz                     8.94 kB
+dist-enginefree/__paraglide/fr-6672/assets/duringRun.CWb-pi2c.js.br                      9.20 kB
+dist-enginefree/__paraglide/fr-6672/assets/forms.UHk3QTvM.js.br                          9.40 kB
+dist-enginefree/__paraglide/fr-6672/assets/duringRun.CWb-pi2c.js.gz                      9.55 kB
+dist-enginefree/__paraglide/fr-6672/assets/forms.UHk3QTvM.js.gz                          9.62 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Script-Regular.woff2              9.64 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_SansSerif-Regular.woff2          10.34 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size4-Regular.ttf                10.36 kB
+dist-enginefree/__paraglide/fr-6672/assets/Projects.B1fHonFt.js.br                      10.37 kB
+dist-enginefree/__paraglide/fr-6672/assets/runtime-shims.CVHqn6lG.js.br                 10.43 kB
+dist-enginefree/__paraglide/fr-6672/assets/Artifacts.Bq6sg88J.js.br                     10.45 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Script-Regular.woff              10.58 kB
+dist-enginefree/__paraglide/fr-6672/assets/Projects.B1fHonFt.js.gz                      10.68 kB
+dist-enginefree/__paraglide/fr-6672/assets/Artifacts.Bq6sg88J.js.gz                     10.79 kB
+dist-enginefree/__paraglide/fr-6672/assets/forms.BaMGLMCV.js.br                         11.16 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Fraktur-Regular.woff2            11.31 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Fraktur-Bold.woff2               11.34 kB
+dist-enginefree/__paraglide/fr-6672/assets/runtime-shims.CVHqn6lG.js.gz                 11.38 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size2-Regular.ttf                11.50 kB
+dist-enginefree/__paraglide/fr-6672/assets/forms.BaMGLMCV.js.gz                         11.53 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_SansSerif-Italic.woff2           12.02 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_SansSerif-Bold.woff2             12.21 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Size1-Regular.ttf                12.22 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_SansSerif-Regular.woff           12.31 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Caligraphic-Regular.ttf          12.34 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Caligraphic-Bold.ttf             12.36 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/roboto-mono-latin-700-normal.woff2     12.74 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/roboto-mono-latin-400-normal.woff2     12.76 kB
+dist-enginefree/__paraglide/fr-6672/assets/MessageContent.BBz-wkSh.js.br                13.14 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Fraktur-Regular.woff             13.20 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Fraktur-Bold.woff                13.29 kB
+dist-enginefree/__paraglide/fr-6672/assets/MessageContent.BBz-wkSh.js.gz                13.54 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Typewriter-Regular.woff2         13.56 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/roboto-mono-latin-400-italic.woff2     14.05 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_SansSerif-Italic.woff            14.11 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_SansSerif-Bold.woff              14.40 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Typewriter-Regular.woff          16.02 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Math-BoldItalic.woff2            16.40 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Math-Italic.woff2                16.44 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Script-Regular.ttf               16.64 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-BoldItalic.woff2            16.78 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-Italic.woff2                16.98 kB
+dist-enginefree/__paraglide/fr-6672/index.html                                          17.59 kB │ gzip:   5.23 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/inconsolata-latin-400-normal.woff2     17.66 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/inconsolata-latin-700-normal.woff2     17.96 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/inconsolata-latin-500-normal.woff2     18.03 kB
+dist-enginefree/__paraglide/fr-6672/assets/http-client.DDWhOLC7.js.br                   18.23 kB
+dist-enginefree/__paraglide/fr-6672/assets/http-client.DDWhOLC7.js.gz                   18.60 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Math-BoldItalic.woff             18.66 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Math-Italic.woff                 18.74 kB
+dist-enginefree/__paraglide/fr-6672/assets/shared-libs.CKPm2yyl.js.br                   18.80 kB
+dist-enginefree/__paraglide/fr-6672/assets/react-interactions.RtU4oVai.js.br            19.15 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-BoldItalic.woff             19.41 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_SansSerif-Regular.ttf            19.43 kB
+dist-enginefree/__paraglide/fr-6672/assets/shared-libs.CKPm2yyl.js.gz                   19.45 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Fraktur-Regular.ttf              19.57 kB
+dist-enginefree/__paraglide/fr-6672/assets/react-interactions.RtU4oVai.js.gz            19.58 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Fraktur-Bold.ttf                 19.58 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-Italic.woff                 19.67 kB
+dist-enginefree/__paraglide/fr-6672/assets/query-devtools.C2qG3_c-.js.br                19.93 kB
+dist-enginefree/__paraglide/fr-6672/assets/ProjectEditDialog.DAmCxZAj.js.br             20.32 kB
+dist-enginefree/__paraglide/fr-6672/assets/animations.BtPDPo2e.js.br                    20.57 kB
+dist-enginefree/__paraglide/fr-6672/assets/radix-ui.tIiBXdQR.js.br                      20.74 kB
+dist-enginefree/__paraglide/fr-6672/assets/ProjectEditDialog.DAmCxZAj.js.gz             20.81 kB
+dist-enginefree/__paraglide/fr-6672/assets/query-devtools.C2qG3_c-.js.gz                21.39 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_SansSerif-Italic.ttf             22.36 kB
+dist-enginefree/__paraglide/fr-6672/assets/radix-ui.tIiBXdQR.js.gz                      23.20 kB
+dist-enginefree/__paraglide/fr-6672/assets/validation.OCGaXQWG.js.br                    24.09 kB
+dist-enginefree/__paraglide/fr-6672/assets/virtualization.M5bg1GZJ.js.br                24.29 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_SansSerif-Bold.ttf               24.50 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-Bold.woff2                  25.32 kB
+dist-enginefree/__paraglide/fr-6672/assets/virtualization.M5bg1GZJ.js.gz                25.73 kB
+dist-enginefree/__paraglide/fr-6672/assets/validation.OCGaXQWG.js.gz                    26.00 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-Regular.woff2               26.27 kB
+dist-enginefree/__paraglide/fr-6672/assets/animations.BtPDPo2e.js.gz                    26.92 kB
+dist-enginefree/__paraglide/fr-6672/assets/headlessui.DreQOouR.js.br                    27.50 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Typewriter-Regular.ttf           27.55 kB
+dist-enginefree/__paraglide/fr-6672/assets/tanstack-vendor.DDeX4vva.js.br               27.70 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_AMS-Regular.woff2                28.07 kB
+dist-enginefree/__paraglide/fr-6672/assets/routing.sHonTA0q.js.br                       28.63 kB
+dist-enginefree/__paraglide/fr-6672/assets/headlessui.DreQOouR.js.gz                    28.68 kB
+dist-enginefree/__paraglide/fr-6672/assets/routing.sHonTA0q.js.gz                       29.71 kB
+dist-enginefree/__paraglide/fr-6672/assets/utilities.CtYNcMzG.js.br                     29.89 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-Bold.woff                   29.91 kB
+dist-enginefree/__paraglide/fr-6672/assets/Dialog.DYQBYHAe.js.br                        30.64 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-Regular.woff                30.77 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Math-BoldItalic.ttf              31.19 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Math-Italic.ttf                  31.30 kB
+dist-enginefree/__paraglide/fr-6672/assets/Dialog.DYQBYHAe.js.gz                        32.08 kB
+dist-enginefree/__paraglide/fr-6672/assets/utilities.CtYNcMzG.js.gz                     32.22 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-BoldItalic.ttf              32.96 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_AMS-Regular.woff                 33.51 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-Italic.ttf                  33.58 kB
+dist-enginefree/__paraglide/fr-6672/assets/tanstack-vendor.DDeX4vva.js.gz               36.01 kB
+dist-enginefree/__paraglide/fr-6672/assets/index.DrNoDWmg.css.br                        39.38 kB
+dist-enginefree/__paraglide/fr-6672/assets/framer-motion.CD4Kgn2Q.js.br                 39.48 kB
+dist-enginefree/__paraglide/fr-6672/assets/framer-motion.CD4Kgn2Q.js.gz                 40.39 kB
+dist-enginefree/__paraglide/fr-6672/.vite/manifest.json                                 40.64 kB │ gzip:   3.35 kB
+dist-enginefree/__paraglide/fr-6672/assets/index.DrNoDWmg.css.gz                        44.41 kB
+dist-enginefree/__paraglide/fr-6672/assets/Footer.DhLaxVvG.js.br                        50.74 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-Bold.ttf                    51.33 kB
+dist-enginefree/__paraglide/fr-6672/engine-absence-audit.json.br                        52.86 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_Main-Regular.ttf                 53.58 kB
+dist-enginefree/__paraglide/fr-6672/assets/Footer.DhLaxVvG.js.gz                        53.71 kB
+dist-enginefree/__paraglide/fr-6672/engine-absence-audit.json.gz                        55.98 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/KaTeX_AMS-Regular.ttf                  63.63 kB
+dist-enginefree/__paraglide/fr-6672/assets/sandpack.Bzvaj-cO.js.br                      70.11 kB
+dist-enginefree/__paraglide/fr-6672/assets/advanced-inputs.BJDnsHUg.js.br               70.48 kB
+dist-enginefree/__paraglide/fr-6672/assets/advanced-inputs.BJDnsHUg.js.gz               74.56 kB
+dist-enginefree/__paraglide/fr-6672/assets/sandpack.Bzvaj-cO.js.gz                      95.38 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/Inter-Regular.woff2                   108.48 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/Inter-Bold.woff2                      111.04 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/Inter-SemiBold.woff2                  111.58 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/Inter-Italic.woff2                    114.57 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/Inter-SemiBoldItalic.woff2            118.21 kB
+dist-enginefree/__paraglide/fr-6672/assets/fonts/Inter-BoldItalic.woff2                118.39 kB
+dist-enginefree/__paraglide/fr-6672/assets/rum.D-zugf9n.js.br                          129.38 kB
+dist-enginefree/__paraglide/fr-6672/assets/rum.D-zugf9n.js.gz                          139.53 kB
+dist-enginefree/__paraglide/fr-6672/assets/codemirror-core.CfxYuTL8.js.br              144.07 kB
+dist-enginefree/__paraglide/fr-6672/assets/codemirror-core.CfxYuTL8.js.gz              152.71 kB
+dist-enginefree/__paraglide/fr-6672/assets/markdown-processing.TMtFeQR7.js.br          165.97 kB
+dist-enginefree/__paraglide/fr-6672/assets/markdown-processing.TMtFeQR7.js.gz          181.83 kB
+dist-enginefree/__paraglide/fr-6672/assets/index.CMfM6nxT.js.br                        244.87 kB
+dist-enginefree/__paraglide/fr-6672/assets/index.CMfM6nxT.js.gz                        275.64 kB
+dist-enginefree/__paraglide/fr-6672/assets/vendor.BcomiVU1.js.br                       379.24 kB
+dist-enginefree/__paraglide/fr-6672/assets/heic-converter.Yxm-SPCR.js.br               456.11 kB
+dist-enginefree/__paraglide/fr-6672/assets/vendor.BcomiVU1.js.gz                       486.12 kB
+dist-enginefree/__paraglide/fr-6672/assets/heic-converter.Yxm-SPCR.js.gz               544.45 kB
+dist-enginefree/__paraglide/fr-6672/assets/hooks.CvlW3t2X.js.br                        559.78 kB
+dist-enginefree/__paraglide/fr-6672/assets/hooks.CvlW3t2X.js.gz                        626.28 kB
+dist-enginefree/__paraglide/fr-6672/assets/mermaid.Zrem1ydf.js.br                      666.14 kB
+dist-enginefree/__paraglide/fr-6672/assets/mermaid.Zrem1ydf.js.gz                      798.25 kB
+dist-enginefree/__paraglide/fr-6672/engine-absence-audit.json                          822.68 kB │ gzip:  56.69 kB
+dist-enginefree/__paraglide/fr-6672/assets/Footer.CRq4c_Xn.css                           0.38 kB │ gzip:   0.20 kB
+dist-enginefree/__paraglide/fr-6672/assets/math-katex.uZ8_QngQ.css                      28.23 kB │ gzip:   7.48 kB
+dist-enginefree/__paraglide/fr-6672/assets/index.DrNoDWmg.css                          279.99 kB │ gzip:  44.93 kB
+dist-enginefree/__paraglide/fr-6672/assets/queries.8cip5mwU.js                           0.35 kB │ gzip:   0.24 kB
+dist-enginefree/__paraglide/fr-6672/assets/lazy.ok8MO2Tx.js                              1.19 kB │ gzip:   0.64 kB
+dist-enginefree/__paraglide/fr-6672/assets/heicConverter.W4Y3h2JA.js                     1.20 kB │ gzip:   0.68 kB
+dist-enginefree/__paraglide/fr-6672/assets/rolldown-runtime.C0FnF6B9.js                  1.29 kB │ gzip:   0.71 kB
+dist-enginefree/__paraglide/fr-6672/assets/Settings.DDUUR-LN.js                          1.50 kB │ gzip:   0.87 kB
+dist-enginefree/__paraglide/fr-6672/assets/SandboxArtifactTabs.C14_IhUs.js               1.63 kB │ gzip:   0.84 kB
+dist-enginefree/__paraglide/fr-6672/assets/SkillsView.Dmp2TGht.js                        2.62 kB │ gzip:   0.88 kB
+dist-enginefree/__paraglide/fr-6672/assets/undockedWindow.BNiwgqiY.js                    5.43 kB │ gzip:   2.37 kB
+dist-enginefree/__paraglide/fr-6672/assets/polyfills.DVBsJvPx.js                         7.71 kB │ gzip:   2.87 kB
+dist-enginefree/__paraglide/fr-6672/assets/avatars.XYysrFin.js                           8.16 kB │ gzip:   3.39 kB
+dist-enginefree/__paraglide/fr-6672/assets/markdown.DelO6ktH.js                          9.16 kB │ gzip:   3.41 kB
+dist-enginefree/__paraglide/fr-6672/assets/AccountSettings.DTgCGNTk.js                   9.34 kB │ gzip:   3.40 kB
+dist-enginefree/__paraglide/fr-6672/assets/react-vtree.nToqO-mh.js                      13.16 kB │ gzip:   4.77 kB
+dist-enginefree/__paraglide/fr-6672/assets/code-editor.DTDPPaEm.js                      13.99 kB │ gzip:   4.77 kB
+dist-enginefree/__paraglide/fr-6672/assets/useBalanceSummary.D4vsDzI_.js                16.32 kB │ gzip:   5.22 kB
+dist-enginefree/__paraglide/fr-6672/assets/Insights.DNSl1yOQ.js                         19.04 kB │ gzip:   5.50 kB
+dist-enginefree/__paraglide/fr-6672/assets/security-ui.5zGvIlor.js                      21.62 kB │ gzip:   8.07 kB
+dist-enginefree/__paraglide/fr-6672/assets/date-utils.C_DbPEjY.js                       24.50 kB │ gzip:   7.32 kB
+dist-enginefree/__paraglide/fr-6672/assets/SubagentThreadPanel.BFPzrwB_.js              25.60 kB │ gzip:   8.91 kB
+dist-enginefree/__paraglide/fr-6672/assets/forms.UHk3QTvM.js                            26.51 kB │ gzip:   9.73 kB
+dist-enginefree/__paraglide/fr-6672/assets/Artifacts.Bq6sg88J.js                        30.04 kB │ gzip:  10.86 kB
+dist-enginefree/__paraglide/fr-6672/assets/duringRun.CWb-pi2c.js                        31.66 kB │ gzip:   9.59 kB
+dist-enginefree/__paraglide/fr-6672/assets/math-katex.RfU0klHh.js                       34.93 kB │ gzip:   8.99 kB
+dist-enginefree/__paraglide/fr-6672/assets/Projects.B1fHonFt.js                         38.53 kB │ gzip:  10.74 kB
+dist-enginefree/__paraglide/fr-6672/assets/MessageContent.BBz-wkSh.js                   38.99 kB │ gzip:  13.67 kB
+dist-enginefree/__paraglide/fr-6672/assets/forms.BaMGLMCV.js                            46.00 kB │ gzip:  11.61 kB
+dist-enginefree/__paraglide/fr-6672/assets/http-client.DDWhOLC7.js                      50.01 kB │ gzip:  18.78 kB
+dist-enginefree/__paraglide/fr-6672/assets/shared-libs.CKPm2yyl.js                      51.56 kB │ gzip:  19.57 kB
+dist-enginefree/__paraglide/fr-6672/assets/runtime-shims.CVHqn6lG.js                    57.09 kB │ gzip:  11.52 kB
+dist-enginefree/__paraglide/fr-6672/assets/query-devtools.C2qG3_c-.js                   59.39 kB │ gzip:  21.52 kB
+dist-enginefree/__paraglide/fr-6672/assets/ProjectEditDialog.DAmCxZAj.js                69.44 kB │ gzip:  20.97 kB
+dist-enginefree/__paraglide/fr-6672/assets/react-interactions.RtU4oVai.js               70.08 kB │ gzip:  19.82 kB
+dist-enginefree/__paraglide/fr-6672/assets/animations.BtPDPo2e.js                       72.29 kB │ gzip:  27.19 kB
+dist-enginefree/__paraglide/fr-6672/assets/headlessui.DreQOouR.js                       88.10 kB │ gzip:  28.95 kB
+dist-enginefree/__paraglide/fr-6672/assets/radix-ui.tIiBXdQR.js                         88.66 kB │ gzip:  23.42 kB
+dist-enginefree/__paraglide/fr-6672/assets/routing.sHonTA0q.js                          90.99 kB │ gzip:  30.06 kB
+dist-enginefree/__paraglide/fr-6672/assets/utilities.CtYNcMzG.js                        92.81 kB │ gzip:  32.58 kB
+dist-enginefree/__paraglide/fr-6672/assets/validation.OCGaXQWG.js                      107.63 kB │ gzip:  26.29 kB
+dist-enginefree/__paraglide/fr-6672/assets/virtualization.M5bg1GZJ.js                  113.51 kB │ gzip:  26.02 kB
+dist-enginefree/__paraglide/fr-6672/assets/framer-motion.CD4Kgn2Q.js                   125.18 kB │ gzip:  40.83 kB
+dist-enginefree/__paraglide/fr-6672/assets/Dialog.DYQBYHAe.js                          132.13 kB │ gzip:  32.33 kB
+dist-enginefree/__paraglide/fr-6672/assets/tanstack-vendor.DDeX4vva.js                 147.51 kB │ gzip:  36.47 kB
+dist-enginefree/__paraglide/fr-6672/assets/Footer.DhLaxVvG.js                          190.58 kB │ gzip:  54.23 kB
+dist-enginefree/__paraglide/fr-6672/assets/advanced-inputs.BJDnsHUg.js                 232.39 kB │ gzip:  75.54 kB
+dist-enginefree/__paraglide/fr-6672/assets/codemirror-core.CfxYuTL8.js                 446.31 kB │ gzip: 154.66 kB
+dist-enginefree/__paraglide/fr-6672/assets/sandpack.Bzvaj-cO.js                        458.31 kB │ gzip:  97.42 kB
+dist-enginefree/__paraglide/fr-6672/assets/rum.D-zugf9n.js                             467.24 kB │ gzip: 140.93 kB
+dist-enginefree/__paraglide/fr-6672/assets/markdown-processing.TMtFeQR7.js             614.63 kB │ gzip: 184.06 kB
+dist-enginefree/__paraglide/fr-6672/assets/index.CMfM6nxT.js                         1,005.92 kB │ gzip: 278.17 kB
+dist-enginefree/__paraglide/fr-6672/assets/vendor.BcomiVU1.js                        1,717.32 kB │ gzip: 491.28 kB
+dist-enginefree/__paraglide/fr-6672/assets/hooks.CvlW3t2X.js                         2,137.27 kB │ gzip: 632.80 kB
+dist-enginefree/__paraglide/fr-6672/assets/heic-converter.Yxm-SPCR.js                2,186.25 kB │ gzip: 559.04 kB
+dist-enginefree/__paraglide/fr-6672/assets/mermaid.Zrem1ydf.js                       3,046.40 kB │ gzip: 811.57 kB
+
+[33m[EVAL] [0mUse of direct `eval` function is strongly discouraged as it poses security risks and may cause issues with minification.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m ../../librechat-native-preload-control/node_modules/vm-browserify/index.js:110:12 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m110 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mu[0m[38;5;249mr[0m[38;5;249mn[0m[38;5;249m [0meval[38;5;249m([0m[38;5;249mt[0m[38;5;249mh[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249md[0m[38;5;249me[0m[38;5;249m)[0m[38;5;249m;[0m[38;5;249m [0m[38;5;249m/[0m[38;5;249m/[0m[38;5;249m [0m[38;5;249mm[0m[38;5;249ma[0m[38;5;249my[0m[38;5;249mb[0m[38;5;249me[0m[38;5;249m.[0m[38;5;249m.[0m[38;5;249m.[0m
+ [38;5;240m    │[0m            ──┬─  
+ [38;5;240m    │[0m              ╰─── Use of direct `eval` here.
+ [38;5;240m    │[0m 
+ [38;5;240m    │[0m [38;5;115mHelp[0m: Consider using indirect eval. For more information, check the documentation: https://rolldown.rs/guide/troubleshooting#avoiding-direct-eval
+[38;5;246m─────╯[0m
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 1500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+
+PWA v1.3.0
+mode      generateSW
+precache  61 entries (13873.42 KiB)
+files generated
+  dist-enginefree/__paraglide/fr-6672/sw.js
+  dist-enginefree/__paraglide/fr-6672/workbox-1b73dcc2.js

@@ -1,0 +1,10 @@
+import {getLocale} from '../paraglide/runtime.js';
+import {loaders,fallbacks} from '../compiled-namespaces-single/loaders.js';
+import {createRuntime} from './core.js';
+export const selectedLocale=getLocale();
+const i18n=createRuntime({locale:selectedLocale,loaders,fallbacks});
+export const ensureNamespaces=ns=>i18n.loadNamespaces(ns);
+export const getTranslationFunction=(ns,prefix)=>i18n.getFixedT(selectedLocale,ns,prefix);
+export const t=i18n.t;
+ensureNamespaces(['objects','audio']);
+export default i18n;

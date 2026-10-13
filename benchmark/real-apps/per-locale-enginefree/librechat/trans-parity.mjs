@@ -1,0 +1,18 @@
+import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';import {createRequire} from 'node:module';
+import {createElement as h} from 'react';import {renderToStaticMarkup} from 'react-dom/server';import native from 'i18next';import {Trans as NativeTrans} from 'react-i18next';
+import {createRuntime} from './client/src/i18n/runtime.js';
+const root=path.dirname(new URL(import.meta.url).pathname);const require=createRequire(import.meta.url);const stub='data:text/javascript,'+encodeURIComponent('export default {};export const ensureNamespaces=()=>Promise.resolve();');
+const source=fs.readFileSync(path.join(root,'client/src/i18n/trans.jsx'),'utf8').replace("from 'react'",`from ${JSON.stringify(pathToFileURL(require.resolve('react')).href)}`).replace("from 'html-parse-stringify'",`from ${JSON.stringify(pathToFileURL(require.resolve('html-parse-stringify')).href)}`).replace("from './index.js'",`from ${JSON.stringify(stub)}`);
+const {Trans,renderTransContent}=await import('data:text/javascript,'+encodeURIComponent(source));
+const locales=Object.keys(JSON.parse(fs.readFileSync(path.join(root,'catalog-counts.json'))).counts);const en=JSON.parse(fs.readFileSync(path.join(root,'client/src/locales/en/translation.json')));const enFns=(await import(pathToFileURL(path.join(root,'client/src/i18n/facades/en.js'))))[`messages${locales.indexOf('en')}`];
+const differences=[];let cases=0;const keyCases=['com_ui_delete_confirm_strong','com_auth_legal_consent','com_auth_legal_consent_privacy','com_auth_legal_consent_terms'];
+for(const locale of locales){const data=JSON.parse(fs.readFileSync(path.join(root,'client/src/locales',locale,'translation.json')));const fns=(await import(pathToFileURL(path.join(root,'client/src/i18n/facades',locale+'.js'))))[`messages${locales.indexOf(locale)}`];const oracle=native.createInstance();await oracle.init({lng:locale,fallbackLng:'en',defaultNS:'translation',fallbackNS:'translation',resources:{en:{translation:en},[locale]:{translation:data}},interpolation:{escapeValue:false}});const runtime=createRuntime({locale,locales,resources:{en:enFns,[locale]:fns}});
+ for(const key of keyCases)for(const title of ['Example title','<strong>A&B</strong> <img src="x"/>','<strong>hi</strong>','<&>','<img src=x />','a < 3','&lt;strong&gt; &amp;','\"quoted\" and \'apostrophe\'',0]){
+  const props={i18nKey:key,values:{title},components:{strong:h('strong',{className:'break-all'}),privacy:h('a',{href:'/privacy',rel:'noreferrer',className:'policy'},'Privacy'),terms:h('a',{href:'/terms',rel:'noreferrer',className:'policy'},'Terms')}};
+  const expected=renderToStaticMarkup(h(NativeTrans,{...props,i18n:oracle}));const actual=renderToStaticMarkup(h(Trans,{...props,i18n:runtime}));cases++;if(expected!==actual&&differences.length<10)differences.push({locale,key,title,expected,actual});
+ }
+}
+const click=()=>{};const element=h('a',{href:'/original',rel:'noreferrer',className:'policy',onClick:click});
+const [cloned]=renderTransContent('<privacy href="/translated">Label</privacy>',{components:{privacy:element}});
+if(cloned.props.onClick!==click||cloned.props.rel!=='noreferrer'||cloned.props.className!=='policy'||cloned.props.href!=='/translated')throw new Error('Component attributes/events were not retained');
+const report={eventHandlerAndRemainingPropsRetained:true,allAppTransSites:8,distinctKeysAndLegalVariants:4,locales:41,cases,differences,passed:!differences.length};fs.writeFileSync(path.join(root,'trans-parity.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));if(differences.length)process.exitCode=1;

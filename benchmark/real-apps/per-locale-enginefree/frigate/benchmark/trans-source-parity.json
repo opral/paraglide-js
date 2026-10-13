@@ -1,0 +1,2322 @@
+{
+  "tests": 164,
+  "failures": [],
+  "sourceSites": 80,
+  "realSiteChecks": 156,
+  "childLiteralChecks": 144,
+  "syntheticCases": 8,
+  "sites": [
+    {
+      "file": "components/card/ReviewCard.tsx",
+      "line": 270,
+      "attrs": {
+        "ns": "components/dialog"
+      },
+      "children": [
+        "recording.confirmDelete.title"
+      ],
+      "key": "recording.confirmDelete.title",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "file": "components/card/ReviewCard.tsx",
+      "line": 346,
+      "attrs": {
+        "ns": "components/dialog"
+      },
+      "children": [
+        "recording.confirmDelete.desc.selected"
+      ],
+      "key": "recording.confirmDelete.desc.selected",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 181,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.reviewClassification.title"
+      ],
+      "key": "cameraReview.reviewClassification.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 189,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.reviewClassification.desc"
+      ],
+      "key": "cameraReview.reviewClassification.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 223,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.review.alerts"
+      ],
+      "key": "cameraReview.review.alerts",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 227,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.reviewClassification.selectAlertsZones"
+      ],
+      "key": "cameraReview.reviewClassification.selectAlertsZones",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 254,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.reviewClassification.noDefinedZones"
+      ],
+      "key": "cameraReview.reviewClassification.noDefinedZones",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 286,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.review.detections"
+      ],
+      "key": "cameraReview.review.detections",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 293,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.reviewClassification.selectDetectionsZones"
+      ],
+      "key": "cameraReview.reviewClassification.selectDetectionsZones",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 342,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.reviewClassification.limitDetections"
+      ],
+      "key": "cameraReview.reviewClassification.limitDetections",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 353,
+      "attrs": {
+        "i18nKey": "cameraReview.reviewClassification.zoneObjectDetectionsTips.text",
+        "values": "{{\n                    detectionsLabels,\n                    zone: formatList(\n                      detectionsZones.map((zone) =>\n                        getZoneName(zone, cameraName),\n                      ),\n                    ),\n                    cameraName: selectCameraName,\n                  }}",
+        "ns": "views/settings"
+      },
+      "children": [],
+      "key": "cameraReview.reviewClassification.zoneObjectDetectionsTips.text",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 367,
+      "attrs": {
+        "i18nKey": "cameraReview.reviewClassification.zoneObjectDetectionsTips.notSelectDetections",
+        "values": "{{\n                    detectionsLabels,\n                    zone: formatList(\n                      detectionsZones.map((zone) =>\n                        getZoneName(zone, cameraName),\n                      ),\n                    ),\n                    cameraName: selectCameraName,\n                  }}",
+        "ns": "views/settings"
+      },
+      "children": [],
+      "key": "cameraReview.reviewClassification.zoneObjectDetectionsTips.notSelectDetections",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 382,
+      "attrs": {
+        "i18nKey": "cameraReview.reviewClassification.objectDetectionsTips",
+        "values": "{{\n                  detectionsLabels,\n                  cameraName: selectCameraName,\n                }}",
+        "ns": "views/settings"
+      },
+      "children": [],
+      "key": "cameraReview.reviewClassification.objectDetectionsTips",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 62,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.title"
+      ],
+      "key": "cameraReview.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 77,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.review.alerts"
+      ],
+      "key": "cameraReview.review.alerts",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 93,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.review.detections"
+      ],
+      "key": "cameraReview.review.detections",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 100,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.review.desc"
+      ],
+      "key": "cameraReview.review.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 110,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.object_descriptions.title"
+      ],
+      "key": "cameraReview.object_descriptions.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 127,
+      "attrs": {},
+      "children": [
+        "button.enabled"
+      ],
+      "key": "button.enabled",
+      "ns": "common",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 132,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.object_descriptions.desc"
+      ],
+      "key": "cameraReview.object_descriptions.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 145,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.review_descriptions.title"
+      ],
+      "key": "cameraReview.review_descriptions.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 162,
+      "attrs": {},
+      "children": [
+        "button.enabled"
+      ],
+      "key": "button.enabled",
+      "ns": "common",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 167,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraReview.review_descriptions.desc"
+      ],
+      "key": "cameraReview.review_descriptions.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/SemanticSearchReindex.tsx",
+      "line": 70,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.semanticSearch.reindexNow.desc"
+      ],
+      "key": "enrichments.semanticSearch.reindexNow.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/sectionExtras/SemanticSearchReindex.tsx",
+      "line": 82,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.semanticSearch.reindexNow.confirmDesc"
+      ],
+      "key": "enrichments.semanticSearch.reindexNow.confirmDesc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/config-form/theme/fields/ModelSourcePicker.tsx",
+      "line": 165,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "frigatePlus.modelInfo.modelSelect"
+      ],
+      "key": "frigatePlus.modelInfo.modelSelect",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/filter/CameraGroupSelector.tsx",
+      "line": 648,
+      "attrs": {
+        "ns": "components/camera",
+        "values": "{{ name: group[0] }}"
+      },
+      "children": [
+        "group.delete.confirm.desc"
+      ],
+      "key": "group.delete.confirm.desc",
+      "ns": "components/camera",
+      "literalChildren": true
+    },
+    {
+      "file": "components/filter/ReviewActionGroup.tsx",
+      "line": 125,
+      "attrs": {
+        "ns": "components/dialog"
+      },
+      "children": [
+        "recording.confirmDelete.desc.selected"
+      ],
+      "key": "recording.confirmDelete.desc.selected",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "file": "components/filter/SearchActionGroup.tsx",
+      "line": 95,
+      "attrs": {
+        "ns": "components/filter",
+        "values": "{{ objectLength: selectedObjects.length }}"
+      },
+      "children": [
+        "trackedObjectDelete.desc"
+      ],
+      "key": "trackedObjectDelete.desc",
+      "ns": "components/filter",
+      "literalChildren": true
+    },
+    {
+      "file": "components/menu/SearchResultActions.tsx",
+      "line": 253,
+      "attrs": {
+        "ns": "views/explore"
+      },
+      "children": [
+        "dialog.confirmDelete.desc"
+      ],
+      "key": "dialog.confirmDelete.desc",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/CameraInfoDialog.tsx",
+      "line": 103,
+      "attrs": {
+        "ns": "views/system"
+      },
+      "children": [
+        "cameras.info.streamDataFromFFPROBE"
+      ],
+      "key": "cameras.info.streamDataFromFFPROBE",
+      "ns": "views/system",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/DeleteRoleDialog.tsx",
+      "line": 48,
+      "attrs": {
+        "i18nKey": "roles.dialog.deleteRole.desc",
+        "ns": "views/settings",
+        "values": "{{ role }}",
+        "components": "{{\n                strong: <span className=\"font-medium\" />,\n              }}"
+      },
+      "children": [],
+      "key": "roles.dialog.deleteRole.desc",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "file": "components/overlay/DeleteRoleDialog.tsx",
+      "line": 62,
+      "attrs": {
+        "ns": "views/settings",
+        "values": "{{ role }}",
+        "components": "{{ strong: <span className=\"font-medium\" /> }}"
+      },
+      "children": [
+        "roles.dialog.deleteRole.warn"
+      ],
+      "key": "roles.dialog.deleteRole.warn",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/DeleteTriggerDialog.tsx",
+      "line": 37,
+      "attrs": {
+        "ns": "views/settings",
+        "values": "{{ triggerName }}",
+        "components": "{{ strong: <span className=\"font-medium\" /> }}"
+      },
+      "children": [
+        "triggers.dialog.deleteTrigger.desc"
+      ],
+      "key": "triggers.dialog.deleteTrigger.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/DeleteUserDialog.tsx",
+      "line": 38,
+      "attrs": {
+        "i18nKey": "users.dialog.deleteUser.warn",
+        "ns": "views/settings",
+        "values": "{{ username }}",
+        "components": "{{\n                strong: <span className=\"font-medium\" />,\n              }}"
+      },
+      "children": [],
+      "key": "users.dialog.deleteUser.warn",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "file": "components/overlay/EditRoleCamerasDialog.tsx",
+      "line": 99,
+      "attrs": {
+        "ns": "views/settings",
+        "values": "{{ role }}",
+        "components": "{{ strong: <span className=\"font-medium\" /> }}"
+      },
+      "children": [
+        "roles.dialog.editCameras.desc"
+      ],
+      "key": "roles.dialog.editCameras.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/RoleChangeDialog.tsx",
+      "line": 49,
+      "attrs": {
+        "i18nKey": "users.dialog.changeRole.desc",
+        "ns": "views/settings",
+        "values": "{{ username }}",
+        "components": "{{\n                strong: <span className=\"font-medium\" />,\n              }}"
+      },
+      "children": [],
+      "key": "users.dialog.changeRole.desc",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "file": "components/overlay/detail/AnnotationOffsetSlider.tsx",
+      "line": 192,
+      "attrs": {
+        "ns": "views/explore"
+      },
+      "children": [
+        "trackingDetails.annotationSettings.offset.millisecondsToOffset"
+      ],
+      "key": "trackingDetails.annotationSettings.offset.millisecondsToOffset",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/detail/AnnotationSettingsPane.tsx",
+      "line": 160,
+      "attrs": {
+        "ns": "views/explore"
+      },
+      "children": [
+        "trackingDetails.annotationSettings.offset.millisecondsToOffset"
+      ],
+      "key": "trackingDetails.annotationSettings.offset.millisecondsToOffset",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/detail/FaceCreateWizardDialog.tsx",
+      "line": 160,
+      "attrs": {
+        "ns": "views/faceLibrary"
+      },
+      "children": [
+        "createFaceLibrary.nextSteps"
+      ],
+      "key": "createFaceLibrary.nextSteps",
+      "ns": "views/faceLibrary",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/detail/SearchDetailDialog.tsx",
+      "line": 1556,
+      "attrs": {
+        "ns": "components/dialog",
+        "values": "{{ label: search?.label }}"
+      },
+      "children": [
+        "explore.plus.review.question.ask_an"
+      ],
+      "key": "explore.plus.review.question.ask_an",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/detail/SearchDetailDialog.tsx",
+      "line": 1563,
+      "attrs": {
+        "ns": "components/dialog",
+        "values": "{{ label: search?.label }}"
+      },
+      "children": [
+        "explore.plus.review.question.ask_a"
+      ],
+      "key": "explore.plus.review.question.ask_a",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/detail/SearchDetailDialog.tsx",
+      "line": 1572,
+      "attrs": {
+        "ns": "components/dialog",
+        "values": "{{\n                          untranslatedLabel: search?.label,\n                          translatedLabel: getTranslatedLabel(search?.label),\n                        }}"
+      },
+      "children": [
+        "explore.plus.review.question.ask_full"
+      ],
+      "key": "explore.plus.review.question.ask_full",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/dialog/DeleteCameraDialog.tsx",
+      "line": 149,
+      "attrs": {
+        "ns": "views/settings",
+        "values": "{{ cameraName: selectedCamera }}",
+        "components": "{{ strong: <span className=\"font-medium\" /> }}"
+      },
+      "children": [
+        "cameraManagement.deleteCameraDialog.confirmWarning"
+      ],
+      "key": "cameraManagement.deleteCameraDialog.confirmWarning",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/dialog/FrigatePlusDialog.tsx",
+      "line": 151,
+      "attrs": {
+        "ns": "components/dialog",
+        "values": "{{ label: upload.label }}"
+      },
+      "children": [
+        "explore.plus.review.question.ask_an"
+      ],
+      "key": "explore.plus.review.question.ask_an",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/dialog/FrigatePlusDialog.tsx",
+      "line": 158,
+      "attrs": {
+        "ns": "components/dialog",
+        "values": "{{ label: upload.label }}"
+      },
+      "children": [
+        "explore.plus.review.question.ask_a"
+      ],
+      "key": "explore.plus.review.question.ask_a",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/dialog/FrigatePlusDialog.tsx",
+      "line": 166,
+      "attrs": {
+        "ns": "components/dialog",
+        "values": "{{\n                                    untranslatedLabel: upload.label,\n                                    translatedLabel: getTranslatedLabel(\n                                      upload.label,\n                                    ),\n                                  }}"
+      },
+      "children": [
+        "explore.plus.review.question.ask_full"
+      ],
+      "key": "explore.plus.review.question.ask_full",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "file": "components/overlay/dialog/SearchFilterDialog.tsx",
+      "line": 795,
+      "attrs": {
+        "ns": "components/filter"
+      },
+      "children": [
+        "features.submittedToFrigatePlus.tips"
+      ],
+      "key": "features.submittedToFrigatePlus.tips",
+      "ns": "components/filter",
+      "literalChildren": true
+    },
+    {
+      "file": "components/player/LivePlayer.tsx",
+      "line": 510,
+      "attrs": {
+        "ns": "components/player",
+        "values": "{{\n                      cameraName: cameraName,\n                    }}"
+      },
+      "children": [
+        "streamOffline.desc"
+      ],
+      "key": "streamOffline.desc",
+      "ns": "components/player",
+      "literalChildren": true
+    },
+    {
+      "file": "components/player/LivePlayer.tsx",
+      "line": 532,
+      "attrs": {
+        "ns": "components/player",
+        "values": "{{\n                    cameraName: cameraName,\n                  }}"
+      },
+      "children": [
+        "streamOffline.desc"
+      ],
+      "key": "streamOffline.desc",
+      "ns": "components/player",
+      "literalChildren": true
+    },
+    {
+      "file": "components/settings/CameraStreamingDialog.tsx",
+      "line": 235,
+      "attrs": {
+        "ns": "components/camera"
+      },
+      "children": [
+        "group.camera.setting.desc"
+      ],
+      "key": "group.camera.setting.desc",
+      "ns": "components/camera",
+      "literalChildren": true
+    },
+    {
+      "file": "components/settings/MotionMaskEditPane.tsx",
+      "line": 336,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "masksAndZones.motionMasks.context.title"
+      ],
+      "key": "masksAndZones.motionMasks.context.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/settings/PolygonItem.tsx",
+      "line": 436,
+      "attrs": {
+        "ns": "views/settings",
+        "values": "{{\n                    type: t(\n                      `masksAndZones.form.polygonDrawing.type.${polygon.type}`,\n                      { ns: \"views/settings\" },\n                    ),\n                    name: polygon.friendly_name ?? polygon.name,\n                  }}"
+      },
+      "children": [
+        "masksAndZones.form.polygonDrawing.revertOverride.desc"
+      ],
+      "key": "masksAndZones.form.polygonDrawing.revertOverride.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/settings/PolygonItem.tsx",
+      "line": 449,
+      "attrs": {
+        "ns": "views/settings",
+        "values": "{{\n                    type: t(\n                      `masksAndZones.form.polygonDrawing.type.${polygon.type}`,\n                      { ns: \"views/settings\" },\n                    ),\n                    name: polygon.friendly_name ?? polygon.name,\n                  }}"
+      },
+      "children": [
+        "masksAndZones.form.polygonDrawing.delete.desc"
+      ],
+      "key": "masksAndZones.form.polygonDrawing.delete.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/settings/ZoneEditPane.tsx",
+      "line": 663,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "masksAndZones.zones.inertia.desc"
+      ],
+      "key": "masksAndZones.zones.inertia.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "components/settings/ZoneEditPane.tsx",
+      "line": 688,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "masksAndZones.zones.loiteringTime.desc"
+      ],
+      "key": "masksAndZones.zones.loiteringTime.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "pages/FaceLibrary.tsx",
+      "line": 353,
+      "attrs": {
+        "ns": "views/faceLibrary",
+        "values": "{{ count: deleteDialogOpen?.ids.length }}"
+      },
+      "children": [
+        "deleteFaceAttempts.desc"
+      ],
+      "key": "deleteFaceAttempts.desc",
+      "ns": "views/faceLibrary",
+      "literalChildren": true
+    },
+    {
+      "file": "pages/Replay.tsx",
+      "line": 506,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "debug.boundingBoxes.colors.info"
+      ],
+      "key": "debug.boundingBoxes.colors.info",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "pages/Replay.tsx",
+      "line": 511,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "{`debug.${i18nKey}.tips`}"
+      ],
+      "key": "{`debug.${i18nKey}.tips`}",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "file": "views/classification/ModelTrainingView.tsx",
+      "line": 396,
+      "attrs": {
+        "ns": "views/classificationModel",
+        "values": "{{ count: deleteDialogOpen?.length, dataset: pageToggle }}"
+      },
+      "children": [
+        "{pageToggle == \"train\"\n                ? \"deleteTrainImages.desc\"\n                : \"deleteDatasetImages.desc\"}"
+      ],
+      "key": "{pageToggle == \"train\"\n                ? \"deleteTrainImages.desc\"\n                : \"deleteDatasetImages.desc\"}",
+      "ns": "views/classificationModel",
+      "literalChildren": false
+    },
+    {
+      "file": "views/search/SearchView.tsx",
+      "line": 694,
+      "attrs": {
+        "ns": "views/explore",
+        "values": "{{\n                                    type: t(\n                                      \"filter.searchType.\" +\n                                        value.search_source,\n                                      { ns: \"views/search\" },\n                                    ),\n                                    confidence: zScoreToConfidence(\n                                      value.search_distance,\n                                    ),\n                                  }}"
+      },
+      "children": [
+        "searchResult.tooltip"
+      ],
+      "key": "searchResult.tooltip",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/CameraManagementView.tsx",
+      "line": 295,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraManagement.streams.title"
+      ],
+      "key": "cameraManagement.streams.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/CameraManagementView.tsx",
+      "line": 305,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraManagement.streams.description"
+      ],
+      "key": "cameraManagement.streams.description",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/CameraManagementView.tsx",
+      "line": 354,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "cameraManagement.streams.description"
+      ],
+      "key": "cameraManagement.streams.description",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 302,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.semanticSearch.reindexNow.desc"
+      ],
+      "key": "enrichments.semanticSearch.reindexNow.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 312,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.semanticSearch.modelSize.desc"
+      ],
+      "key": "enrichments.semanticSearch.modelSize.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 318,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.semanticSearch.modelSize.small.desc"
+      ],
+      "key": "enrichments.semanticSearch.modelSize.small.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 323,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.semanticSearch.modelSize.large.desc"
+      ],
+      "key": "enrichments.semanticSearch.modelSize.large.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 374,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.semanticSearch.reindexNow.confirmDesc"
+      ],
+      "key": "enrichments.semanticSearch.reindexNow.confirmDesc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 440,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.faceRecognition.modelSize.desc"
+      ],
+      "key": "enrichments.faceRecognition.modelSize.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 446,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.faceRecognition.modelSize.small.desc"
+      ],
+      "key": "enrichments.faceRecognition.modelSize.small.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 451,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "enrichments.faceRecognition.modelSize.large.desc"
+      ],
+      "key": "enrichments.faceRecognition.modelSize.large.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/FrigatePlusSettingsView.tsx",
+      "line": 110,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "frigatePlus.snapshotConfig.desc"
+      ],
+      "key": "frigatePlus.snapshotConfig.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/MotionTunerView.tsx",
+      "line": 213,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "motionDetectionTuner.Threshold.desc"
+      ],
+      "key": "motionDetectionTuner.Threshold.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/MotionTunerView.tsx",
+      "line": 243,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "motionDetectionTuner.contourArea.desc"
+      ],
+      "key": "motionDetectionTuner.contourArea.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/MotionTunerView.tsx",
+      "line": 274,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "motionDetectionTuner.improveContrast.desc"
+      ],
+      "key": "motionDetectionTuner.improveContrast.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 69,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "debug.boundingBoxes.colors.info"
+      ],
+      "key": "debug.boundingBoxes.colors.info",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 93,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "debug.motion.tips"
+      ],
+      "key": "debug.motion.tips",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 99,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "debug.regions.tips"
+      ],
+      "key": "debug.regions.tips",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 105,
+      "attrs": {
+        "ns": "views/settings"
+      },
+      "children": [
+        "debug.paths.tips"
+      ],
+      "key": "debug.paths.tips",
+      "ns": "views/settings",
+      "literalChildren": true
+    }
+  ],
+  "checked": [
+    {
+      "locale": "en",
+      "file": "components/card/ReviewCard.tsx",
+      "line": 270,
+      "key": "recording.confirmDelete.title",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/card/ReviewCard.tsx",
+      "line": 346,
+      "key": "recording.confirmDelete.desc.selected",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 181,
+      "key": "cameraReview.reviewClassification.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 189,
+      "key": "cameraReview.reviewClassification.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 223,
+      "key": "cameraReview.review.alerts",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 227,
+      "key": "cameraReview.reviewClassification.selectAlertsZones",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 254,
+      "key": "cameraReview.reviewClassification.noDefinedZones",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 286,
+      "key": "cameraReview.review.detections",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 293,
+      "key": "cameraReview.reviewClassification.selectDetectionsZones",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 342,
+      "key": "cameraReview.reviewClassification.limitDetections",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 353,
+      "key": "cameraReview.reviewClassification.zoneObjectDetectionsTips.text",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 367,
+      "key": "cameraReview.reviewClassification.zoneObjectDetectionsTips.notSelectDetections",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 382,
+      "key": "cameraReview.reviewClassification.objectDetectionsTips",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 62,
+      "key": "cameraReview.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 77,
+      "key": "cameraReview.review.alerts",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 93,
+      "key": "cameraReview.review.detections",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 100,
+      "key": "cameraReview.review.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 110,
+      "key": "cameraReview.object_descriptions.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 127,
+      "key": "button.enabled",
+      "ns": "common",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 132,
+      "key": "cameraReview.object_descriptions.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 145,
+      "key": "cameraReview.review_descriptions.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 162,
+      "key": "button.enabled",
+      "ns": "common",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 167,
+      "key": "cameraReview.review_descriptions.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/SemanticSearchReindex.tsx",
+      "line": 70,
+      "key": "enrichments.semanticSearch.reindexNow.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/sectionExtras/SemanticSearchReindex.tsx",
+      "line": 82,
+      "key": "enrichments.semanticSearch.reindexNow.confirmDesc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/config-form/theme/fields/ModelSourcePicker.tsx",
+      "line": 165,
+      "key": "frigatePlus.modelInfo.modelSelect",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/filter/CameraGroupSelector.tsx",
+      "line": 648,
+      "key": "group.delete.confirm.desc",
+      "ns": "components/camera",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/filter/ReviewActionGroup.tsx",
+      "line": 125,
+      "key": "recording.confirmDelete.desc.selected",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/filter/SearchActionGroup.tsx",
+      "line": 95,
+      "key": "trackedObjectDelete.desc",
+      "ns": "components/filter",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/menu/SearchResultActions.tsx",
+      "line": 253,
+      "key": "dialog.confirmDelete.desc",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/CameraInfoDialog.tsx",
+      "line": 103,
+      "key": "cameras.info.streamDataFromFFPROBE",
+      "ns": "views/system",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/DeleteRoleDialog.tsx",
+      "line": 48,
+      "key": "roles.dialog.deleteRole.desc",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/DeleteRoleDialog.tsx",
+      "line": 62,
+      "key": "roles.dialog.deleteRole.warn",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/DeleteTriggerDialog.tsx",
+      "line": 37,
+      "key": "triggers.dialog.deleteTrigger.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/DeleteUserDialog.tsx",
+      "line": 38,
+      "key": "users.dialog.deleteUser.warn",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/EditRoleCamerasDialog.tsx",
+      "line": 99,
+      "key": "roles.dialog.editCameras.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/RoleChangeDialog.tsx",
+      "line": 49,
+      "key": "users.dialog.changeRole.desc",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/detail/AnnotationOffsetSlider.tsx",
+      "line": 192,
+      "key": "trackingDetails.annotationSettings.offset.millisecondsToOffset",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/detail/AnnotationSettingsPane.tsx",
+      "line": 160,
+      "key": "trackingDetails.annotationSettings.offset.millisecondsToOffset",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/detail/FaceCreateWizardDialog.tsx",
+      "line": 160,
+      "key": "createFaceLibrary.nextSteps",
+      "ns": "views/faceLibrary",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/detail/SearchDetailDialog.tsx",
+      "line": 1556,
+      "key": "explore.plus.review.question.ask_an",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/detail/SearchDetailDialog.tsx",
+      "line": 1563,
+      "key": "explore.plus.review.question.ask_a",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/detail/SearchDetailDialog.tsx",
+      "line": 1572,
+      "key": "explore.plus.review.question.ask_full",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/dialog/DeleteCameraDialog.tsx",
+      "line": 149,
+      "key": "cameraManagement.deleteCameraDialog.confirmWarning",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/dialog/FrigatePlusDialog.tsx",
+      "line": 151,
+      "key": "explore.plus.review.question.ask_an",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/dialog/FrigatePlusDialog.tsx",
+      "line": 158,
+      "key": "explore.plus.review.question.ask_a",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/dialog/FrigatePlusDialog.tsx",
+      "line": 166,
+      "key": "explore.plus.review.question.ask_full",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/overlay/dialog/SearchFilterDialog.tsx",
+      "line": 795,
+      "key": "features.submittedToFrigatePlus.tips",
+      "ns": "components/filter",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/player/LivePlayer.tsx",
+      "line": 510,
+      "key": "streamOffline.desc",
+      "ns": "components/player",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/player/LivePlayer.tsx",
+      "line": 532,
+      "key": "streamOffline.desc",
+      "ns": "components/player",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/settings/CameraStreamingDialog.tsx",
+      "line": 235,
+      "key": "group.camera.setting.desc",
+      "ns": "components/camera",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/settings/MotionMaskEditPane.tsx",
+      "line": 336,
+      "key": "masksAndZones.motionMasks.context.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/settings/PolygonItem.tsx",
+      "line": 436,
+      "key": "masksAndZones.form.polygonDrawing.revertOverride.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/settings/PolygonItem.tsx",
+      "line": 449,
+      "key": "masksAndZones.form.polygonDrawing.delete.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/settings/ZoneEditPane.tsx",
+      "line": 663,
+      "key": "masksAndZones.zones.inertia.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "components/settings/ZoneEditPane.tsx",
+      "line": 688,
+      "key": "masksAndZones.zones.loiteringTime.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "pages/FaceLibrary.tsx",
+      "line": 353,
+      "key": "deleteFaceAttempts.desc",
+      "ns": "views/faceLibrary",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "pages/Replay.tsx",
+      "line": 506,
+      "key": "debug.boundingBoxes.colors.info",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/search/SearchView.tsx",
+      "line": 694,
+      "key": "searchResult.tooltip",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/CameraManagementView.tsx",
+      "line": 295,
+      "key": "cameraManagement.streams.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/CameraManagementView.tsx",
+      "line": 305,
+      "key": "cameraManagement.streams.description",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/CameraManagementView.tsx",
+      "line": 354,
+      "key": "cameraManagement.streams.description",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 302,
+      "key": "enrichments.semanticSearch.reindexNow.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 312,
+      "key": "enrichments.semanticSearch.modelSize.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 318,
+      "key": "enrichments.semanticSearch.modelSize.small.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 323,
+      "key": "enrichments.semanticSearch.modelSize.large.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 374,
+      "key": "enrichments.semanticSearch.reindexNow.confirmDesc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 440,
+      "key": "enrichments.faceRecognition.modelSize.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 446,
+      "key": "enrichments.faceRecognition.modelSize.small.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 451,
+      "key": "enrichments.faceRecognition.modelSize.large.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/FrigatePlusSettingsView.tsx",
+      "line": 110,
+      "key": "frigatePlus.snapshotConfig.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/MotionTunerView.tsx",
+      "line": 213,
+      "key": "motionDetectionTuner.Threshold.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/MotionTunerView.tsx",
+      "line": 243,
+      "key": "motionDetectionTuner.contourArea.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/MotionTunerView.tsx",
+      "line": 274,
+      "key": "motionDetectionTuner.improveContrast.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 69,
+      "key": "debug.boundingBoxes.colors.info",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 93,
+      "key": "debug.motion.tips",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 99,
+      "key": "debug.regions.tips",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "en",
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 105,
+      "key": "debug.paths.tips",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/card/ReviewCard.tsx",
+      "line": 270,
+      "key": "recording.confirmDelete.title",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/card/ReviewCard.tsx",
+      "line": 346,
+      "key": "recording.confirmDelete.desc.selected",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 181,
+      "key": "cameraReview.reviewClassification.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 189,
+      "key": "cameraReview.reviewClassification.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 223,
+      "key": "cameraReview.review.alerts",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 227,
+      "key": "cameraReview.reviewClassification.selectAlertsZones",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 254,
+      "key": "cameraReview.reviewClassification.noDefinedZones",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 286,
+      "key": "cameraReview.review.detections",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 293,
+      "key": "cameraReview.reviewClassification.selectDetectionsZones",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 342,
+      "key": "cameraReview.reviewClassification.limitDetections",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 353,
+      "key": "cameraReview.reviewClassification.zoneObjectDetectionsTips.text",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 367,
+      "key": "cameraReview.reviewClassification.zoneObjectDetectionsTips.notSelectDetections",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewClassification.tsx",
+      "line": 382,
+      "key": "cameraReview.reviewClassification.objectDetectionsTips",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 62,
+      "key": "cameraReview.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 77,
+      "key": "cameraReview.review.alerts",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 93,
+      "key": "cameraReview.review.detections",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 100,
+      "key": "cameraReview.review.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 110,
+      "key": "cameraReview.object_descriptions.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 127,
+      "key": "button.enabled",
+      "ns": "common",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 132,
+      "key": "cameraReview.object_descriptions.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 145,
+      "key": "cameraReview.review_descriptions.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 162,
+      "key": "button.enabled",
+      "ns": "common",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/CameraReviewStatusToggles.tsx",
+      "line": 167,
+      "key": "cameraReview.review_descriptions.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/SemanticSearchReindex.tsx",
+      "line": 70,
+      "key": "enrichments.semanticSearch.reindexNow.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/sectionExtras/SemanticSearchReindex.tsx",
+      "line": 82,
+      "key": "enrichments.semanticSearch.reindexNow.confirmDesc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/config-form/theme/fields/ModelSourcePicker.tsx",
+      "line": 165,
+      "key": "frigatePlus.modelInfo.modelSelect",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/filter/CameraGroupSelector.tsx",
+      "line": 648,
+      "key": "group.delete.confirm.desc",
+      "ns": "components/camera",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/filter/ReviewActionGroup.tsx",
+      "line": 125,
+      "key": "recording.confirmDelete.desc.selected",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/filter/SearchActionGroup.tsx",
+      "line": 95,
+      "key": "trackedObjectDelete.desc",
+      "ns": "components/filter",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/menu/SearchResultActions.tsx",
+      "line": 253,
+      "key": "dialog.confirmDelete.desc",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/CameraInfoDialog.tsx",
+      "line": 103,
+      "key": "cameras.info.streamDataFromFFPROBE",
+      "ns": "views/system",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/DeleteRoleDialog.tsx",
+      "line": 48,
+      "key": "roles.dialog.deleteRole.desc",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/DeleteRoleDialog.tsx",
+      "line": 62,
+      "key": "roles.dialog.deleteRole.warn",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/DeleteTriggerDialog.tsx",
+      "line": 37,
+      "key": "triggers.dialog.deleteTrigger.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/DeleteUserDialog.tsx",
+      "line": 38,
+      "key": "users.dialog.deleteUser.warn",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/EditRoleCamerasDialog.tsx",
+      "line": 99,
+      "key": "roles.dialog.editCameras.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/RoleChangeDialog.tsx",
+      "line": 49,
+      "key": "users.dialog.changeRole.desc",
+      "ns": "views/settings",
+      "literalChildren": false
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/detail/AnnotationOffsetSlider.tsx",
+      "line": 192,
+      "key": "trackingDetails.annotationSettings.offset.millisecondsToOffset",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/detail/AnnotationSettingsPane.tsx",
+      "line": 160,
+      "key": "trackingDetails.annotationSettings.offset.millisecondsToOffset",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/detail/FaceCreateWizardDialog.tsx",
+      "line": 160,
+      "key": "createFaceLibrary.nextSteps",
+      "ns": "views/faceLibrary",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/detail/SearchDetailDialog.tsx",
+      "line": 1556,
+      "key": "explore.plus.review.question.ask_an",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/detail/SearchDetailDialog.tsx",
+      "line": 1563,
+      "key": "explore.plus.review.question.ask_a",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/detail/SearchDetailDialog.tsx",
+      "line": 1572,
+      "key": "explore.plus.review.question.ask_full",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/dialog/DeleteCameraDialog.tsx",
+      "line": 149,
+      "key": "cameraManagement.deleteCameraDialog.confirmWarning",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/dialog/FrigatePlusDialog.tsx",
+      "line": 151,
+      "key": "explore.plus.review.question.ask_an",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/dialog/FrigatePlusDialog.tsx",
+      "line": 158,
+      "key": "explore.plus.review.question.ask_a",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/dialog/FrigatePlusDialog.tsx",
+      "line": 166,
+      "key": "explore.plus.review.question.ask_full",
+      "ns": "components/dialog",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/overlay/dialog/SearchFilterDialog.tsx",
+      "line": 795,
+      "key": "features.submittedToFrigatePlus.tips",
+      "ns": "components/filter",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/player/LivePlayer.tsx",
+      "line": 510,
+      "key": "streamOffline.desc",
+      "ns": "components/player",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/player/LivePlayer.tsx",
+      "line": 532,
+      "key": "streamOffline.desc",
+      "ns": "components/player",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/settings/CameraStreamingDialog.tsx",
+      "line": 235,
+      "key": "group.camera.setting.desc",
+      "ns": "components/camera",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/settings/MotionMaskEditPane.tsx",
+      "line": 336,
+      "key": "masksAndZones.motionMasks.context.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/settings/PolygonItem.tsx",
+      "line": 436,
+      "key": "masksAndZones.form.polygonDrawing.revertOverride.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/settings/PolygonItem.tsx",
+      "line": 449,
+      "key": "masksAndZones.form.polygonDrawing.delete.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/settings/ZoneEditPane.tsx",
+      "line": 663,
+      "key": "masksAndZones.zones.inertia.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "components/settings/ZoneEditPane.tsx",
+      "line": 688,
+      "key": "masksAndZones.zones.loiteringTime.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "pages/FaceLibrary.tsx",
+      "line": 353,
+      "key": "deleteFaceAttempts.desc",
+      "ns": "views/faceLibrary",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "pages/Replay.tsx",
+      "line": 506,
+      "key": "debug.boundingBoxes.colors.info",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/search/SearchView.tsx",
+      "line": 694,
+      "key": "searchResult.tooltip",
+      "ns": "views/explore",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/CameraManagementView.tsx",
+      "line": 295,
+      "key": "cameraManagement.streams.title",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/CameraManagementView.tsx",
+      "line": 305,
+      "key": "cameraManagement.streams.description",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/CameraManagementView.tsx",
+      "line": 354,
+      "key": "cameraManagement.streams.description",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 302,
+      "key": "enrichments.semanticSearch.reindexNow.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 312,
+      "key": "enrichments.semanticSearch.modelSize.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 318,
+      "key": "enrichments.semanticSearch.modelSize.small.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 323,
+      "key": "enrichments.semanticSearch.modelSize.large.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 374,
+      "key": "enrichments.semanticSearch.reindexNow.confirmDesc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 440,
+      "key": "enrichments.faceRecognition.modelSize.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 446,
+      "key": "enrichments.faceRecognition.modelSize.small.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/EnrichmentsSettingsView.tsx",
+      "line": 451,
+      "key": "enrichments.faceRecognition.modelSize.large.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/FrigatePlusSettingsView.tsx",
+      "line": 110,
+      "key": "frigatePlus.snapshotConfig.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/MotionTunerView.tsx",
+      "line": 213,
+      "key": "motionDetectionTuner.Threshold.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/MotionTunerView.tsx",
+      "line": 243,
+      "key": "motionDetectionTuner.contourArea.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/MotionTunerView.tsx",
+      "line": 274,
+      "key": "motionDetectionTuner.improveContrast.desc",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 69,
+      "key": "debug.boundingBoxes.colors.info",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 93,
+      "key": "debug.motion.tips",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 99,
+      "key": "debug.regions.tips",
+      "ns": "views/settings",
+      "literalChildren": true
+    },
+    {
+      "locale": "fr",
+      "file": "views/settings/ObjectSettingsView.tsx",
+      "line": 105,
+      "key": "debug.paths.tips",
+      "ns": "views/settings",
+      "literalChildren": true
+    }
+  ]
+}

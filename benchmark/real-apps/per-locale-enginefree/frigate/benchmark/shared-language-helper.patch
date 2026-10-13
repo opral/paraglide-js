@@ -1,0 +1,56 @@
+--- a/web/src/context/language-provider.tsx
++++ b/web/src/context/language-provider.tsx
+@@ -1,6 +1,6 @@
+ import { createContext, useContext, useState, useEffect, useMemo } from "react";
+ import i18next from "i18next";
+-import { supportedLanguageKeys } from "@/lib/const";
++import { getSystemLanguage } from "@/utils/language-preference";
+ 
+ type LanguageProviderState = {
+   language: string;
+@@ -25,26 +25,7 @@
+   defaultLanguage?: string;
+   storageKey?: string;
+ }) {
+-  const systemLanguage = useMemo<string>(() => {
+-    if (typeof window === "undefined") return defaultLanguage;
+-
+-    const systemLanguage = window.navigator.language;
+-
+-    if (supportedLanguageKeys.includes(systemLanguage)) {
+-      return systemLanguage;
+-    }
+-
+-    // browser languages may include a -REGION (ex: en-US)
+-    if (systemLanguage.includes("-")) {
+-      const shortenedSystemLanguage = systemLanguage.split("-")[0];
+-
+-      if (supportedLanguageKeys.includes(shortenedSystemLanguage)) {
+-        return shortenedSystemLanguage;
+-      }
+-    }
+-
+-    return defaultLanguage;
+-  }, [defaultLanguage]);
++  const systemLanguage = useMemo<string>(() => getSystemLanguage(defaultLanguage), [defaultLanguage]);
+ 
+   const [language, setLanguage] = useState<string>(() => {
+     try {
+--- /dev/null
++++ b/web/src/utils/language-preference.ts
+@@ -0,0 +1,15 @@
++import { supportedLanguageKeys } from "@/lib/const";
++export function getSystemLanguage(defaultLanguage = "en") {
++  if (typeof window === "undefined") return defaultLanguage;
++  const systemLanguage = window.navigator.language;
++  if (supportedLanguageKeys.includes(systemLanguage)) return systemLanguage;
++  if (systemLanguage.includes("-")) {
++    const shortenedSystemLanguage = systemLanguage.split("-")[0];
++    if (supportedLanguageKeys.includes(shortenedSystemLanguage)) return shortenedSystemLanguage;
++  }
++  return defaultLanguage;
++}
++export function getInitialLanguage(defaultLanguage = "en", storageKey = "frigate-ui-language") {
++  if (typeof window === "undefined") return defaultLanguage;
++  try { return localStorage.getItem(storageKey) || getSystemLanguage(defaultLanguage); } catch { return defaultLanguage; }
++}

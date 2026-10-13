@@ -1,0 +1,659 @@
+--- a/client/vite.config.ts
++++ b/client/vite.config.ts
+@@ -8,7 +8,8 @@
+ import { nodePolyfills } from 'vite-plugin-node-polyfills';
+ import { compression, defineAlgorithm } from 'vite-plugin-compression2';
+ import type { Plugin } from 'vite';
+-import nativeLocalePreloadControl from './benchmark-native-locale-preload.ts';
++import { createViteLocaleEnvironmentPlugin } from '/root/repos-iii/librechat-per-locale-ab/compiler/dist/bundler-plugins/per-locale-build/vite-environments.js';
++import localeMetadata from '../locale-metadata.json';
+ 
+ const require = createRequire(import.meta.url);
+ 
+@@ -71,6 +72,8 @@
+   envDir: '../',
+   envPrefix: ['VITE_', 'SCRIPT_', 'DOMAIN_', 'ALLOW_', 'REACT_APP_THEME_'],
+   plugins: [
++    createViteLocaleEnvironmentPlugin({settings:()=>{const locales=process.env.LIBRECHAT_BUILD_LOCALES?process.env.LIBRECHAT_BUILD_LOCALES.split(','):localeMetadata.supportedLocales;return Promise.resolve({baseLocale:locales.includes('en')?'en':locales[0],locales});}}),
++    {name:'engine-absence-audit',generateBundle(options,bundle){const chunks=Object.values(bundle).filter(x=>x.type==='chunk');const ids=[...new Set(chunks.flatMap(x=>Object.keys(x.modules||{})))];const forbidden=ids.filter(x=>/node_modules\/(?:i18next|react-i18next|i18next-browser-languagedetector)\//.test(x));if(forbidden.length)throw new Error('Native engine modules retained: '+forbidden.join(','));this.emitFile({type:'asset',fileName:'engine-absence-audit.json',source:JSON.stringify({passed:true,modules:ids,forbidden},null,2)});}},
+     react(),
+     {
+       name: 'node-polyfills-shims-resolver',
+@@ -205,9 +208,7 @@
+         }),
+       ],
+     }),
+-    ...(process.env.LIBRECHAT_BENCHMARK_NATIVE_LOCALE_PRELOAD === '1'
+-      ? [nativeLocalePreloadControl()]
+-      : []),
++
+   ],
+   optimizeDeps: {
+     include: [
+@@ -219,7 +220,7 @@
+   publicDir: command === 'serve' ? './public' : false,
+   build: {
+     sourcemap: buildSourceMap,
+-    outDir: './dist',
++    outDir: './dist-enginefree',
+     minify: 'oxc',
+     rolldownOptions: {
+       preserveEntrySignatures: 'strict',
+@@ -454,6 +455,8 @@
+   resolve: {
+     alias: {
+       '~': path.join(import.meta.dirname, 'src/'),
++      'react-i18next': path.join(import.meta.dirname,'src/i18n/react-adapter.jsx'),
++      'i18next': path.join(import.meta.dirname,'src/i18n/index.js'),
+       'micromark-extension-math': 'micromark-extension-llm-math',
+     },
+   },
+@@ -504,23 +507,24 @@
+     configResolved(config) {
+       outDir = path.resolve(config.root, config.build.outDir);
+     },
+-    async writeBundle() {
+-      await fs.promises.cp(path.join(publicDir, 'assets'), path.join(outDir, 'assets'), {
++    async writeBundle(outputOptions) {
++      const outputRoot = outputOptions.dir ? path.resolve(outputOptions.dir) : outDir;
++      await fs.promises.cp(path.join(publicDir, 'assets'), path.join(outputRoot, 'assets'), {
+         recursive: true,
+       });
+       await fs.promises.copyFile(
+         path.join(publicDir, 'robots.txt'),
+-        path.join(outDir, 'robots.txt'),
++        path.join(outputRoot, 'robots.txt'),
+       );
+       const licences = (await fs.promises.readdir(fontsDir)).filter((name) =>
+         name.endsWith('.txt'),
+       );
+-      await fs.promises.mkdir(path.join(outDir, 'assets', 'fonts'), { recursive: true });
++      await fs.promises.mkdir(path.join(outputRoot, 'assets', 'fonts'), { recursive: true });
+       await Promise.all(
+         licences.map((name) =>
+           fs.promises.copyFile(
+             path.join(fontsDir, name),
+-            path.join(outDir, 'assets', 'fonts', name),
++            path.join(outputRoot, 'assets', 'fonts', name),
+           ),
+         ),
+       );
+--- a/client/src/locales/i18n.ts
++++ b/client/src/locales/i18n.ts
+@@ -1,337 +1,3 @@
+-import i18n from 'i18next';
+-import { initReactI18next } from 'react-i18next';
+-
+-import translationEn from './en/translation.json';
+-
+-export const defaultNS = 'translation';
+-
+-export const supportedLocales = [
+-  'ar',
+-  'bo',
+-  'bs',
+-  'ca',
+-  'cs',
+-  'da',
+-  'de',
+-  'en',
+-  'es',
+-  'et',
+-  'fa',
+-  'fi',
+-  'fr',
+-  'he',
+-  'hu',
+-  'hy',
+-  'id',
+-  'is',
+-  'it',
+-  'ja',
+-  'ka',
+-  'ko',
+-  'lt',
+-  'lv',
+-  'nb',
+-  'nl',
+-  'nn',
+-  'pl',
+-  'pt-BR',
+-  'pt-PT',
+-  'ru',
+-  'sk',
+-  'sl',
+-  'sv',
+-  'th',
+-  'tr',
+-  'ug',
+-  'uk',
+-  'vi',
+-  'zh-Hans',
+-  'zh-Hant',
+-] as const;
+-
+-export type SupportedLocale = (typeof supportedLocales)[number];
+-export type TranslationResource = Record<string, string>;
+-
+-export const resources = {
+-  en: { translation: translationEn },
+-} as const;
+-
+-const localeLoaders: Record<
+-  Exclude<SupportedLocale, 'en'>,
+-  () => Promise<{ default: TranslationResource }>
+-> = {
+-  ar: () => import('./ar/translation.json'),
+-  bo: () => import('./bo/translation.json'),
+-  bs: () => import('./bs/translation.json'),
+-  ca: () => import('./ca/translation.json'),
+-  cs: () => import('./cs/translation.json'),
+-  da: () => import('./da/translation.json'),
+-  de: () => import('./de/translation.json'),
+-  es: () => import('./es/translation.json'),
+-  et: () => import('./et/translation.json'),
+-  fa: () => import('./fa/translation.json'),
+-  fi: () => import('./fi/translation.json'),
+-  fr: () => import('./fr/translation.json'),
+-  he: () => import('./he/translation.json'),
+-  hu: () => import('./hu/translation.json'),
+-  hy: () => import('./hy/translation.json'),
+-  id: () => import('./id/translation.json'),
+-  is: () => import('./is/translation.json'),
+-  it: () => import('./it/translation.json'),
+-  ja: () => import('./ja/translation.json'),
+-  ka: () => import('./ka/translation.json'),
+-  ko: () => import('./ko/translation.json'),
+-  lt: () => import('./lt/translation.json'),
+-  lv: () => import('./lv/translation.json'),
+-  nb: () => import('./nb/translation.json'),
+-  nl: () => import('./nl/translation.json'),
+-  nn: () => import('./nn/translation.json'),
+-  pl: () => import('./pl/translation.json'),
+-  'pt-BR': () => import('./pt-BR/translation.json'),
+-  'pt-PT': () => import('./pt-PT/translation.json'),
+-  ru: () => import('./ru/translation.json'),
+-  sk: () => import('./sk/translation.json'),
+-  sl: () => import('./sl/translation.json'),
+-  sv: () => import('./sv/translation.json'),
+-  th: () => import('./th/translation.json'),
+-  tr: () => import('./tr/translation.json'),
+-  ug: () => import('./ug/translation.json'),
+-  uk: () => import('./uk/translation.json'),
+-  vi: () => import('./vi/translation.json'),
+-  'zh-Hans': () => import('./zh-Hans/translation.json'),
+-  'zh-Hant': () => import('./zh-Hant/translation.json'),
+-};
+-
+-const localeByLowercase = supportedLocales.reduce<Record<string, SupportedLocale>>(
+-  (acc, locale) => {
+-    acc[locale.toLowerCase()] = locale;
+-    return acc;
+-  },
+-  {},
+-);
+-
+-const localeAliases: Record<string, SupportedLocale> = {
+-  'ar-eg': 'ar',
+-  'ca-es': 'ca',
+-  'cs-cz': 'cs',
+-  'da-dk': 'da',
+-  'de-de': 'de',
+-  'en-us': 'en',
+-  'es-es': 'es',
+-  'et-ee': 'et',
+-  'fa-ir': 'fa',
+-  'fi-fi': 'fi',
+-  'fr-fr': 'fr',
+-  'he-he': 'he',
+-  'he-il': 'he',
+-  'hu-hu': 'hu',
+-  'hy-am': 'hy',
+-  'id-id': 'id',
+-  'it-it': 'it',
+-  'ja-jp': 'ja',
+-  'ka-ge': 'ka',
+-  'ko-kr': 'ko',
+-  'lt-lt': 'lt',
+-  'lv-lv': 'lv',
+-  'nl-nl': 'nl',
+-  'pl-pl': 'pl',
+-  pt: 'pt-PT',
+-  'ru-ru': 'ru',
+-  'sv-se': 'sv',
+-  'th-th': 'th',
+-  'tr-tr': 'tr',
+-  'uk-ua': 'uk',
+-  'vi-vn': 'vi',
+-  zh: 'zh-Hans',
+-  'zh-cn': 'zh-Hans',
+-  'zh-sg': 'zh-Hans',
+-  'zh-tw': 'zh-Hant',
+-  'zh-hk': 'zh-Hant',
+-  'zh-mo': 'zh-Hant',
+-};
+-
+-const loadedLocales = new Set<SupportedLocale>(['en']);
+-const loadingLocales: Partial<Record<SupportedLocale, Promise<SupportedLocale>>> = {};
+-let languageRequestId = 0;
+-let latestRequestedLocale: SupportedLocale = 'en';
+-
+-function readCookie(name: string) {
+-  if (typeof document === 'undefined') {
+-    return undefined;
+-  }
+-
+-  const prefix = `${name}=`;
+-  return document.cookie
+-    .split(';')
+-    .map((cookie) => cookie.trim())
+-    .find((cookie) => cookie.startsWith(prefix))
+-    ?.slice(prefix.length);
+-}
+-
+-function readStoredLanguage() {
+-  if (typeof localStorage === 'undefined') {
+-    return undefined;
+-  }
+-
+-  const raw = localStorage.getItem('lang');
+-  if (!raw) {
+-    return undefined;
+-  }
+-
+-  try {
+-    const parsed = JSON.parse(raw);
+-    return typeof parsed === 'string' ? parsed : raw;
+-  } catch {
+-    return raw;
+-  }
+-}
+-
+-function getNavigatorLanguage() {
+-  if (typeof navigator === 'undefined') {
+-    return 'en';
+-  }
+-
+-  return navigator.language || navigator.languages?.[0] || 'en';
+-}
+-
+-export function normalizeLocale(locale?: string | null): SupportedLocale {
+-  const requested = locale === 'auto' ? getNavigatorLanguage() : locale;
+-  if (!requested) {
+-    return 'en';
+-  }
+-
+-  const normalized = requested.replace(/_/g, '-').toLowerCase();
+-  const exact = localeByLowercase[normalized];
+-  if (exact) {
+-    return exact;
+-  }
+-
+-  const alias = localeAliases[normalized];
+-  if (alias) {
+-    return alias;
+-  }
+-
+-  const base = normalized.split('-')[0];
+-  return localeByLowercase[base] ?? localeAliases[base] ?? 'en';
+-}
+-
+-export function detectInitialLanguage() {
+-  const cookieLang = readCookie('lang');
+-  const storedLang = readStoredLanguage();
+-  return normalizeLocale(cookieLang || storedLang || getNavigatorLanguage());
+-}
+-
+-export async function ensureLocale(locale?: string | null): Promise<SupportedLocale> {
+-  const normalized = normalizeLocale(locale);
+-
+-  if (normalized === 'en') {
+-    return normalized;
+-  }
+-
+-  if (loadedLocales.has(normalized)) {
+-    return normalized;
+-  }
+-
+-  if (i18n.hasResourceBundle(normalized, defaultNS)) {
+-    loadedLocales.add(normalized);
+-    return normalized;
+-  }
+-
+-  if (!loadingLocales[normalized]) {
+-    const loader = localeLoaders[normalized];
+-    loadingLocales[normalized] = loader()
+-      .then((module) => {
+-        i18n.addResourceBundle(normalized, defaultNS, module.default, true, true);
+-        loadedLocales.add(normalized);
+-        return normalized;
+-      })
+-      .catch((error): SupportedLocale => {
+-        console.error(`[i18n] Failed to load locale "${normalized}"`, error);
+-        return 'en';
+-      })
+-      .finally(() => {
+-        delete loadingLocales[normalized];
+-      });
+-  }
+-
+-  return loadingLocales[normalized] ?? Promise.resolve('en');
+-}
+-
+-export function __setLocaleLoaderForTests(
+-  locale: Exclude<SupportedLocale, 'en'>,
+-  loader: () => Promise<{ default: TranslationResource }>,
+-) {
+-  const previousLoader = localeLoaders[locale];
+-  localeLoaders[locale] = loader;
+-  return () => {
+-    localeLoaders[locale] = previousLoader;
+-  };
+-}
+-
+-export function __resetLocaleForTests(locale: Exclude<SupportedLocale, 'en'>) {
+-  delete loadingLocales[locale];
+-  loadedLocales.delete(locale);
+-  if (i18n.hasResourceBundle(locale, defaultNS)) {
+-    i18n.removeResourceBundle(locale, defaultNS);
+-  }
+-}
+-
+-export function syncDocumentLanguage(locale: SupportedLocale) {
+-  if (typeof document === 'undefined') {
+-    return;
+-  }
+-
+-  document.documentElement.lang = locale;
+-  document.documentElement.dir = i18n.dir(locale);
+-}
+-
+-export const i18nInitPromise = i18n.use(initReactI18next).init({
+-  lng: 'en',
+-  fallbackLng: {
+-    'zh-TW': ['zh-Hant', 'en'],
+-    'zh-HK': ['zh-Hant', 'en'],
+-    zh: ['zh-Hans', 'en'],
+-    default: ['en'],
+-  },
+-  fallbackNS: defaultNS,
+-  ns: [defaultNS],
+-  debug: false,
+-  defaultNS,
+-  resources,
+-  supportedLngs: [...supportedLocales],
+-  partialBundledLanguages: true,
+-  load: 'currentOnly',
+-  react: { useSuspense: false },
+-  interpolation: { escapeValue: false },
+-});
+-
+-export async function changeLanguageSafely(locale?: string | null) {
+-  const requestId = ++languageRequestId;
+-  const requestedLocale = normalizeLocale(locale);
+-  latestRequestedLocale = requestedLocale;
+-  await i18nInitPromise;
+-
+-  const loadedLocale = await ensureLocale(requestedLocale);
+-  if (requestId !== languageRequestId) {
+-    return i18n.language;
+-  }
+-
+-  await i18n.changeLanguage(loadedLocale);
+-  if (requestId !== languageRequestId) {
+-    const latestLocale = await ensureLocale(latestRequestedLocale);
+-    await i18n.changeLanguage(latestLocale);
+-    syncDocumentLanguage(latestLocale);
+-    return i18n.language;
+-  }
+-
+-  syncDocumentLanguage(loadedLocale);
+-  return loadedLocale;
+-}
+-
+-export async function initializeI18n() {
+-  const initialLanguage = detectInitialLanguage();
+-  await changeLanguageSafely(initialLanguage);
+-  return initialLanguage;
+-}
+-
+-export default i18n;
++export {default,defaultNS,supportedLocales,resources,i18nInitPromise,normalizeLocale,detectInitialLanguage,ensureLocale,changeLanguageSafely,initializeI18n,syncDocumentLanguage,__setLocaleLoaderForTests,__resetLocaleForTests} from '../i18n/index.js';
++export type SupportedLocale = string;
++export type TranslationResource = Record<string,string>;
+--- a/client/package.json
++++ b/client/package.json
+@@ -132,7 +132,8 @@
+     "tailwindcss-animate": "^1.0.5",
+     "ts-md5": "^1.3.1",
+     "web-vitals": "^3.5.2",
+-    "zod": "^3.22.4"
++    "zod": "^3.22.4",
++    "html-parse-stringify": "3.0.1"
+   },
+   "devDependencies": {
+     "@babel/plugin-transform-runtime": "^7.22.15",
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -962,7 +962,8 @@
+         "tailwindcss-animate": "^1.0.5",
+         "ts-md5": "^1.3.1",
+         "web-vitals": "^3.5.2",
+-        "zod": "^3.22.4"
++        "zod": "^3.22.4",
++        "html-parse-stringify": "3.0.1"
+       },
+       "devDependencies": {
+         "@babel/plugin-transform-runtime": "^7.22.15",
+--- /dev/null
++++ b/client/tsconfig.enginefree.json
+@@ -0,0 +1,13 @@
++{
++  "extends": "./tsconfig.json",
++  "include": [
++    "src/**/*"
++  ],
++  "exclude": [
++    "node_modules",
++    "vite.config.ts",
++    "src/**/__tests__/**",
++    "src/**/*.spec.*",
++    "src/**/*.test.*"
++  ]
++}--- /dev/null
++++ b/client/build-enginefree.mjs
+@@ -0,0 +1,3 @@
++import {createBuilder} from 'vite';
++const builder=await createBuilder({configFile:'./vite.config.ts'});
++await builder.buildApp();
+--- /dev/null
++++ b/client/src/i18n/index.js
+@@ -0,0 +1,23 @@
++import { createRuntime } from './runtime.js'
++import {selectedLocale,selectedMessages,englishMessages} from './compiled.js'
++import metadata from '../../../locale-metadata.json'
++const lower=Object.fromEntries(metadata.supportedLocales.map(x=>[x.toLowerCase(),x]))
++export function normalizeLocale(language){const requested=language==='auto'?(globalThis.navigator?.language||'en'):language;if(!requested)return'en';const normalized=requested.replaceAll('_','-').toLowerCase();const base=normalized.split('-')[0];return lower[normalized]||metadata.aliases[normalized]||lower[base]||metadata.aliases[base]||'en'}
++export function detectInitialLanguage(){const cookie=globalThis.document?.cookie.split(';').map(x=>x.trim()).find(x=>x.startsWith('lang='))?.slice(5);let stored;try{const raw=globalThis.localStorage?.getItem('lang');try{stored=JSON.parse(raw)}catch{stored=raw}}catch{}return normalizeLocale(cookie||stored||globalThis.navigator?.language||'en')}
++async function navigate(language){const normalized=normalizeLocale(language);if(normalized===selectedLocale)return normalized;document.cookie='lang='+normalized+';path=/;SameSite=Lax';try{localStorage.setItem('lang',JSON.stringify(normalized))}catch{}location.reload();return new Promise(()=>{})}
++const i18n=createRuntime({locale:selectedLocale,locales:metadata.supportedLocales,resources:{en:englishMessages,[selectedLocale]:selectedMessages},onLocaleChange:navigate})
++export const defaultNS='translation'
++export const supportedLocales=metadata.supportedLocales
++export const resources={en:{translation:englishMessages},[selectedLocale]:{translation:selectedMessages}}
++export const i18nInitPromise=Promise.resolve(i18n)
++export const ensureNamespaces=()=>Promise.resolve(i18n)
++export const getTranslationFunction=(namespaces,prefix)=>i18n.getFixedT(selectedLocale,namespaces,prefix)
++export function syncDocumentLanguage(language=selectedLocale){if(typeof document!=='undefined'){document.documentElement.lang=language;document.documentElement.dir=i18n.dir(language)}}
++export async function ensureLocale(language){const normalized=normalizeLocale(language);if(normalized!==selectedLocale)await navigate(normalized);return normalized}
++export async function changeLanguageSafely(language){const normalized=normalizeLocale(language);if(normalized!==selectedLocale)await navigate(normalized);syncDocumentLanguage(normalized);return normalized}
++export async function initializeI18n(){await changeLanguageSafely(detectInitialLanguage());return selectedLocale}
++/** @returns {()=>void} */
++export function __setLocaleLoaderForTests(locale,loader){throw new Error('Fixed locale builds switch documents; loader injection is not an app runtime API')}
++export function __resetLocaleForTests(locale){}
++export {selectedLocale}
++export default i18n
+--- /dev/null
++++ b/client/src/i18n/runtime.js
+@@ -0,0 +1,52 @@
++const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k)
++const pathValue=(o,key)=>{if(o==null)return undefined;if(own(Object(o),key))return o[key];return key.split('.').reduce((v,k)=>v==null?undefined:v[k],o)}
++const escape=value=>String(value).replace(/[&<>"'\/]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#x2F;'}[c]))
++const pluralRules=new Map()
++function suffix(locale,count,ordinal){const id=locale+':'+!!ordinal;let r=pluralRules.get(id);if(!r){r=new Intl.PluralRules(locale,{type:ordinal?'ordinal':'cardinal'});pluralRules.set(id,r)}return (ordinal?'_ordinal_':'_')+r.select(count)}
++function candidates(key,options,locale){
++ const counted=options.count!==undefined&&typeof options.count!=='string';const s=counted?suffix(locale,options.count,options.ordinal):'';const zero=counted&&!options.ordinal&&options.count===0;
++ const context=(typeof options.context==='string'||typeof options.context==='number')&&options.context!==''?key+'_'+options.context:null;
++ const names=[key];const add=k=>{if(s){if(options.ordinal)names.push(k+s.replace('_ordinal_','_'));names.push(k+s)}if(zero)names.push(k+'_zero')};add(key);if(context){names.push(context);add(context)}return [...new Set(names)].reverse()
++}
++export function interpolate(text,values,options={}){
++ if(typeof text!=='string')return text;const config=options.interpolation||{};
++ return text.replace(/\{\{\s*(-)?\s*([^{}]+?)\s*\}\}/g,(match,unescaped,name)=>{
++  const value=pathValue(values,name.trim());if(value===undefined)return config.skipOnVariables===false?'':match;
++  if(value===null)return '';return config.escapeValue&&!unescaped?escape(value):String(value)
++ })
++}
++export function createRuntime({locale,locales,resources,defaultNamespace='translation',onLocaleChange}){
++ const listeners=new Map();const loaded=new Map(Object.entries(resources));
++ const chain=language=>{const exact=language||locale;return [...new Set([exact,exact.split('-')[0],'en'])]};
++ function find(key,options,language,namespace){
++  for(const lang of chain(language)){
++   const data=loaded.get(lang);if(!data)continue;
++   for(const name of candidates(key,options,lang)){
++    const fn=data[name];const value=typeof fn==='function'?fn():fn;
++    if(value!==undefined&&value!==null&&(value!==''||options.returnEmptyString!==false))return {value,lang,key:name}
++   }
++  }return null
++ }
++ function getFixedT(language,namespace=defaultNamespace,keyPrefix){
++  const t=(rawKey,rawOptions={},thirdOptions)=>{
++   const options=typeof rawOptions==='string'?{...thirdOptions,defaultValue:rawOptions}:rawOptions||{};const keys=Array.isArray(rawKey)?rawKey:[rawKey];let last='';
++   for(const raw of keys){
++    let key=String(raw??'');let ns=options.ns||namespace;const separator=options.nsSeparator===false?null:':';if(separator&&key.includes(separator)){[ns,key]=[key.slice(0,key.indexOf(separator)),key.slice(key.indexOf(separator)+1)]}
++    const prefix=options.keyPrefix===undefined?keyPrefix:options.keyPrefix;if(prefix)key=prefix+'.'+key;last=key;
++    const hit=find(key,options,options.lng||language||locale,ns);if(hit)return interpolate(hit.value,options,options)
++   }
++   const lang=options.lng||language||locale;const defaultSuffix=options.count!==undefined&&typeof options.count!=='string'?suffix(lang,options.count,options.ordinal):'';
++   const fallback=options['defaultValue'+defaultSuffix]??options.defaultValue??last;return interpolate(fallback,options,options)
++  };t.lng=language||locale;t.ns=namespace;t.keyPrefix=keyPrefix;return t
++ }
++ const runtime={language:locale,resolvedLanguage:Object.keys(resources[locale]||{}).length?locale:'en',isInitialized:true,options:{defaultNS:defaultNamespace,interpolation:{escapeValue:false},react:{useSuspense:false}},getFixedT,
++  t:getFixedT(locale),exists:(key,options={})=>find(key,options,options.lng||locale,defaultNamespace)!==null,
++  dir:(language=locale)=>/^(ar|he|fa|ug)(-|$)/.test(language)?'rtl':'ltr',
++  hasLoadedNamespace:namespace=>namespace===defaultNamespace,loadNamespaces:()=>Promise.resolve(runtime),loadNamespace:()=>Promise.resolve(runtime),
++  hasResourceBundle:language=>loaded.has(language),addResourceBundle:(language,namespace,data)=>{if(namespace===defaultNamespace)loaded.set(language,{...loaded.get(language),...data});return runtime},removeResourceBundle:language=>{loaded.delete(language);return runtime},
++  on:(event,fn)=>{const set=listeners.get(event)||new Set();set.add(fn);listeners.set(event,set);return runtime},off:(event,fn)=>{listeners.get(event)?.delete(fn);return runtime},
++  changeLanguage:async(language,callback)=>{if(language!==locale&&onLocaleChange)await onLocaleChange(language);callback?.(null,runtime.t);return runtime.t},
++  use:()=>runtime,init:async()=>runtime,
++ };
++ return runtime
++}
+--- /dev/null
++++ b/client/src/i18n/react-adapter.jsx
+@@ -0,0 +1,5 @@
++import {useMemo} from 'react'
++import i18n from './index.js'
++export function useTranslation(namespace,options={}){const t=useMemo(()=>i18n.getFixedT(i18n.language,namespace||'translation',options.keyPrefix),[namespace,options.keyPrefix]);const result=[t,i18n,true];result.t=t;result.i18n=i18n;result.ready=true;return result}
++export {Trans} from './trans.jsx'
++export const initReactI18next={type:'3rdParty',init(){}}
+--- /dev/null
++++ b/client/src/i18n/trans.jsx
+@@ -0,0 +1,99 @@
++import HTML from 'html-parse-stringify'
++import { Children, Fragment, cloneElement, createElement, isValidElement } from 'react'
++import defaultI18n, { ensureNamespaces } from './index.js'
++
++// LocalAI's declared <kbd> and numbered <1> components use the same native
++// Trans text/React boundary. No DOM/HTML injection or i18next engine is needed.
++const BASIC = new Set(['br', 'strong', 'i', 'p'])
++const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'])
++const ENTITIES = { amp: '&', lt: '<', gt: '>', apos: "'", quot: '"', nbsp: ' ', copy: '©', reg: '®', hellip: '…', '#38': '&', '#60': '<', '#62': '>', '#39': "'", '#34': '"', '#160': ' ', '#169': '©', '#174': '®', '#8230': '…', '#x2F': '/', '#47': '/' }
++const unescapeText = text => text.replace(/&([^;]+);/g, (original, name) => ENTITIES[name] ?? original)
++const asArray = value => value === undefined || value === null ? [] : Array.isArray(value) ? value : [value]
++
++function childTemplate(children, values) {
++  return asArray(children).map((child, index) => {
++    if (typeof child === 'string') return child
++    if (isValidElement(child)) {
++      const contents = childTemplate(child.props.children, values)
++      const keepName = BASIC.has(child.type) && Object.keys(child.props).length <= (child.props.children === undefined ? 0 : 1)
++      const name = keepName ? child.type : index
++      return VOID.has(name) ? `<${name}/>` : `<${name}>${contents}</${name}>`
++    }
++    if (child && typeof child === 'object') {
++      const names = Object.keys(child).filter(name => name !== 'format')
++      if (names.length === 1) {
++        values[names[0]] = child[names[0]]
++        return `{{${names[0]}}}`
++      }
++    }
++    return ''
++  }).join('')
++}
++
++function tokenize(text) {
++  const map=node=>node.type==='text'?{type:'text',value:node.content}:{...node,children:(node.children||[]).map(map)}
++  const wrapper=HTML.parse(`<0>${text}</0>`)[0]
++  return (wrapper?.children||[]).map(map)
++}
++
++export function renderTransContent(translation, { components = {}, children, shouldUnescape = false, textReplacements = {} } = {}) {
++  if (translation === '') return []
++  const componentMap = Array.isArray(components) ? Object.fromEntries(components.map((component, index) => [index, component])) : components || {}
++  const indexedChildren = asArray(children)
++  const replaceText = text => {
++    for (const [token, value] of Object.entries(textReplacements)) text = text.split(token).join(String(value))
++    return shouldUnescape ? unescapeText(text) : text
++  }
++  // Native Trans skips markup parsing when no components/children/basic tags exist.
++  if (!children && Object.keys(componentMap).length === 0 && !/<(?:br|strong|i|p)(?:\s|\/?>)/.test(translation) && !shouldUnescape) return [translation]
++  const render = (nodes, scope = indexedChildren) => nodes.flatMap((node, index) => {
++    if (node.type === 'text') return [replaceText(node.value)]
++    const supplied = Object.hasOwn(componentMap, node.name) ? componentMap[node.name] : /^\d+$/.test(node.name) ? scope[Number(node.name)] : undefined
++    const inner = render(node.children, isValidElement(supplied) ? asArray(supplied.props.children) : scope)
++    if (isValidElement(supplied)) {
++      const attrs = Object.fromEntries(Object.entries(node.attrs).map(([name, value]) => [name, shouldUnescape ? unescapeText(value) : value]))
++      const props = { ...attrs, key: supplied.key ?? index }
++      if (node.voidElement && supplied.props.children !== undefined) return [cloneElement(supplied, props)]
++      return [cloneElement(supplied, props, node.voidElement ? undefined : inner)]
++    }
++    if (typeof supplied === 'string') return [replaceText(supplied)]
++    if (BASIC.has(node.name)) return [createElement(node.name, { key: `${node.name}-${index}` }, node.voidElement ? undefined : inner)]
++    if (/^\d+$/.test(node.name)) return inner
++    // Native Trans serializes unknown HTML names as literal tags, dropping attributes.
++    return node.voidElement ? [`<${node.name} />`] : [`<${node.name}>`, ...inner, `</${node.name}>`]
++  })
++  return render(tokenize(String(translation), componentMap))
++}
++
++export function Trans({ children, count, parent, i18nKey, context, tOptions = {}, values, defaults, components, ns, i18n: overrideI18n, t: suppliedT, shouldUnescape, ...parentProps }) {
++  const runtime = overrideI18n || defaultI18n
++  const namespaces = ns || suppliedT?.ns || runtime.options?.defaultNS || 'translation'
++  const qualifiedNamespace = typeof i18nKey === 'string' && i18nKey.includes(':') ? i18nKey.split(':', 1)[0] : undefined
++  const needed = qualifiedNamespace ? [qualifiedNamespace] : asArray(namespaces)
++  if (runtime.hasLoadedNamespace && needed.some(namespace => !runtime.hasLoadedNamespace(namespace))) {
++    const pending = runtime === defaultI18n ? ensureNamespaces(needed) : runtime.loadNamespaces(needed)
++    throw pending
++  }
++  const childValues = {}
++  const template = childTemplate(children, childValues)
++  const defaultValue = defaults || tOptions.defaultValue || template || i18nKey
++  const key = i18nKey || defaultValue
++  const t = suppliedT || runtime.getFixedT(runtime.language, namespaces)
++  const replacements = {}
++  const interpolationValues = { ...childValues, ...values }
++  // Children interpolation occurs after native Trans parses tags. Keep values
++  // opaque through the compiler call, then restore them only in React text.
++  if (values === undefined && count === undefined && children) {
++    let prefix = '\uE000localai-trans-'
++    while (String(defaultValue).includes(prefix) || Object.values(childValues).some(value => String(value).includes(prefix))) prefix += '-'
++    Object.entries(childValues).forEach(([name, value], index) => {
++      const token = `${prefix}${index}\uE001`
++      replacements[token] = value
++      interpolationValues[name] = token
++    })
++  }
++  let translation = t(key, { ...tOptions, ...interpolationValues, ...(count === undefined ? {} : { count }), ...(context === undefined ? {} : { context }), defaultValue, ns: namespaces })
++  if (translation === key && defaultValue) translation = defaultValue
++  const content = renderTransContent(String(translation ?? ''), { components, children, shouldUnescape, textReplacements: replacements })
++  return parent ? createElement(parent, parentProps, ...content) : createElement(Fragment, null, ...content)
++}

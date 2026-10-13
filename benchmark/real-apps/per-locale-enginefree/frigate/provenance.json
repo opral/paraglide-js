@@ -1,0 +1,37 @@
+{
+  "experiment": "fixed French output-only Vite build with engine-free custom compatibility runtime",
+  "compilerCommit": "490a5c0d0c4c44b93f61ad494b28f74987e5f245",
+  "compiledSourceReusedUnchanged": "/root/repos-iii/frigate-per-locale-ab/web/src/paraglide",
+  "physicalExports": 5348,
+  "generatedModulesDigestFromFrozenInventory": "4811ec6b9e204128fcfb696265fa220a27a19a793250f7c5164bca34ab2d2769",
+  "sourceLeafHashes": {
+    "runtime.js": "f6b227fc8231cfba5cece5b4553add7dc29337daec642492400c0f92671d1c40",
+    "messages/f0.js": "bf6629d4300bc21f9310742c15f730dd2a05cf8c15eb572c4bab6c902982b9c1",
+    "messages/f5347.js": "050f0d1e0563744f39c052b91b18175165085cd2f6a4d788e1e33326b7c21244"
+  },
+  "catalogsAndGenerationProject": "../../per-locale-production/frigate/replay",
+  "locales": 33,
+  "namespaces": 29,
+  "physicalStrings": 128025,
+  "emittedLocales": [
+    "fr"
+  ],
+  "sdkChanges": false,
+  "sdkBuildPerformed": false,
+  "wholeAppCodemod": false,
+  "runtimePackageProof": "benchmark/emitted-module-ids-fr.json",
+  "nativeRuntimeModules": [],
+  "normalOptimization": {
+    "Node": "22.23.2",
+    "Vite": "8.3.3",
+    "Rolldown": "1.2.13",
+    "target": "es2022",
+    "keepNames": true,
+    "manualChunks": false
+  },
+  "nativeInitialRouteEarlyLocale": true,
+  "nativeUnrequestedOtherLazyRouteHasOriginalInitializer": true,
+  "emittedJSFiles": 300,
+  "unreplacedStaticLocaleMarkers": [],
+  "actualTransSourceSiteCount": 80
+}

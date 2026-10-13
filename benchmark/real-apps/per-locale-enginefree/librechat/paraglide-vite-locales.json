@@ -1,0 +1,1543 @@
+{
+	"version": 1,
+	"backend": "vite-rolldown-environments",
+	"viteVersion": "8.2.2",
+	"rolldownVersion": "1.2.6",
+	"baseLocale": "fr",
+	"locales": {
+		"fr": {
+			"environment": "paraglide_client_fr_6672",
+			"directory": "__paraglide/fr-6672",
+			"entries": {
+				"/root/repos-iii/librechat-enginefree-ab/client/index.html": "assets/index.CMfM6nxT.js"
+			},
+			"files": [
+				{
+					"fileName": ".vite/manifest.json",
+					"type": "asset",
+					"bytes": 40641
+				},
+				{
+					"fileName": ".vite/manifest.json.br",
+					"type": "asset",
+					"bytes": 3272
+				},
+				{
+					"fileName": ".vite/manifest.json.gz",
+					"type": "asset",
+					"bytes": 3396
+				},
+				{
+					"fileName": "assets/AccountSettings.DTgCGNTk.js",
+					"type": "chunk",
+					"bytes": 9345,
+					"dynamicEntry": true,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/routing.sHonTA0q.js",
+						"assets/Settings.DDUUR-LN.js"
+					]
+				},
+				{
+					"fileName": "assets/advanced-inputs.BJDnsHUg.js",
+					"type": "chunk",
+					"bytes": 232395,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js"
+					]
+				},
+				{
+					"fileName": "assets/advanced-inputs.BJDnsHUg.js.br",
+					"type": "asset",
+					"bytes": 70485
+				},
+				{
+					"fileName": "assets/advanced-inputs.BJDnsHUg.js.gz",
+					"type": "asset",
+					"bytes": 74565
+				},
+				{
+					"fileName": "assets/animations.BtPDPo2e.js",
+					"type": "chunk",
+					"bytes": 72290,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js"
+					]
+				},
+				{
+					"fileName": "assets/animations.BtPDPo2e.js.br",
+					"type": "asset",
+					"bytes": 20574
+				},
+				{
+					"fileName": "assets/animations.BtPDPo2e.js.gz",
+					"type": "asset",
+					"bytes": 26920
+				},
+				{
+					"fileName": "assets/Artifacts.Bq6sg88J.js",
+					"type": "chunk",
+					"bytes": 30043,
+					"dynamicEntry": true,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/runtime-shims.CVHqn6lG.js",
+						"assets/radix-ui.tIiBXdQR.js",
+						"assets/utilities.CtYNcMzG.js",
+						"assets/markdown.DelO6ktH.js",
+						"assets/lazy.ok8MO2Tx.js",
+						"assets/undockedWindow.BNiwgqiY.js",
+						"assets/code-editor.DTDPPaEm.js"
+					],
+					"dynamicImports": [
+						"assets/SandboxArtifactTabs.C14_IhUs.js"
+					]
+				},
+				{
+					"fileName": "assets/Artifacts.Bq6sg88J.js.br",
+					"type": "asset",
+					"bytes": 10450
+				},
+				{
+					"fileName": "assets/Artifacts.Bq6sg88J.js.gz",
+					"type": "asset",
+					"bytes": 10798
+				},
+				{
+					"fileName": "assets/avatars.XYysrFin.js",
+					"type": "chunk",
+					"bytes": 8160,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js"
+					]
+				},
+				{
+					"fileName": "assets/code-editor.DTDPPaEm.js",
+					"type": "chunk",
+					"bytes": 13990,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js"
+					]
+				},
+				{
+					"fileName": "assets/code-editor.DTDPPaEm.js.br",
+					"type": "asset",
+					"bytes": 4521
+				},
+				{
+					"fileName": "assets/code-editor.DTDPPaEm.js.gz",
+					"type": "asset",
+					"bytes": 4754
+				},
+				{
+					"fileName": "assets/codemirror-core.CfxYuTL8.js",
+					"type": "chunk",
+					"bytes": 446311,
+					"imports": [
+						"assets/runtime-shims.CVHqn6lG.js"
+					]
+				},
+				{
+					"fileName": "assets/codemirror-core.CfxYuTL8.js.br",
+					"type": "asset",
+					"bytes": 144077
+				},
+				{
+					"fileName": "assets/codemirror-core.CfxYuTL8.js.gz",
+					"type": "asset",
+					"bytes": 152711
+				},
+				{
+					"fileName": "assets/date-utils.C_DbPEjY.js",
+					"type": "chunk",
+					"bytes": 24508
+				},
+				{
+					"fileName": "assets/date-utils.C_DbPEjY.js.br",
+					"type": "asset",
+					"bytes": 7010
+				},
+				{
+					"fileName": "assets/date-utils.C_DbPEjY.js.gz",
+					"type": "asset",
+					"bytes": 7275
+				},
+				{
+					"fileName": "assets/Dialog.DYQBYHAe.js",
+					"type": "chunk",
+					"bytes": 132137,
+					"dynamicEntry": true,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/routing.sHonTA0q.js",
+						"assets/radix-ui.tIiBXdQR.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/tanstack-vendor.DDeX4vva.js",
+						"assets/http-client.DDWhOLC7.js",
+						"assets/framer-motion.CD4Kgn2Q.js",
+						"assets/headlessui.DreQOouR.js",
+						"assets/useBalanceSummary.D4vsDzI_.js",
+						"assets/date-utils.C_DbPEjY.js",
+						"assets/duringRun.CWb-pi2c.js"
+					]
+				},
+				{
+					"fileName": "assets/Dialog.DYQBYHAe.js.br",
+					"type": "asset",
+					"bytes": 30646
+				},
+				{
+					"fileName": "assets/Dialog.DYQBYHAe.js.gz",
+					"type": "asset",
+					"bytes": 32084
+				},
+				{
+					"fileName": "assets/duringRun.CWb-pi2c.js",
+					"type": "chunk",
+					"bytes": 31661,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/radix-ui.tIiBXdQR.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/tanstack-vendor.DDeX4vva.js",
+						"assets/framer-motion.CD4Kgn2Q.js",
+						"assets/virtualization.M5bg1GZJ.js",
+						"assets/useBalanceSummary.D4vsDzI_.js",
+						"assets/security-ui.5zGvIlor.js"
+					]
+				},
+				{
+					"fileName": "assets/duringRun.CWb-pi2c.js.br",
+					"type": "asset",
+					"bytes": 9204
+				},
+				{
+					"fileName": "assets/duringRun.CWb-pi2c.js.gz",
+					"type": "asset",
+					"bytes": 9554
+				},
+				{
+					"fileName": "assets/fonts/inconsolata-latin-400-normal.woff2",
+					"type": "asset",
+					"bytes": 17664
+				},
+				{
+					"fileName": "assets/fonts/inconsolata-latin-500-normal.woff2",
+					"type": "asset",
+					"bytes": 18036
+				},
+				{
+					"fileName": "assets/fonts/inconsolata-latin-700-normal.woff2",
+					"type": "asset",
+					"bytes": 17960
+				},
+				{
+					"fileName": "assets/fonts/Inter-Bold.woff2",
+					"type": "asset",
+					"bytes": 111040
+				},
+				{
+					"fileName": "assets/fonts/Inter-BoldItalic.woff2",
+					"type": "asset",
+					"bytes": 118392
+				},
+				{
+					"fileName": "assets/fonts/Inter-Italic.woff2",
+					"type": "asset",
+					"bytes": 114576
+				},
+				{
+					"fileName": "assets/fonts/Inter-Regular.woff2",
+					"type": "asset",
+					"bytes": 108488
+				},
+				{
+					"fileName": "assets/fonts/Inter-SemiBold.woff2",
+					"type": "asset",
+					"bytes": 111588
+				},
+				{
+					"fileName": "assets/fonts/Inter-SemiBoldItalic.woff2",
+					"type": "asset",
+					"bytes": 118216
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_AMS-Regular.ttf",
+					"type": "asset",
+					"bytes": 63632
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_AMS-Regular.woff",
+					"type": "asset",
+					"bytes": 33516
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_AMS-Regular.woff2",
+					"type": "asset",
+					"bytes": 28076
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Caligraphic-Bold.ttf",
+					"type": "asset",
+					"bytes": 12368
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Caligraphic-Bold.woff",
+					"type": "asset",
+					"bytes": 7716
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Caligraphic-Bold.woff2",
+					"type": "asset",
+					"bytes": 6912
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Caligraphic-Regular.ttf",
+					"type": "asset",
+					"bytes": 12344
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Caligraphic-Regular.woff",
+					"type": "asset",
+					"bytes": 7656
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Caligraphic-Regular.woff2",
+					"type": "asset",
+					"bytes": 6908
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Fraktur-Bold.ttf",
+					"type": "asset",
+					"bytes": 19584
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Fraktur-Bold.woff",
+					"type": "asset",
+					"bytes": 13296
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Fraktur-Bold.woff2",
+					"type": "asset",
+					"bytes": 11348
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Fraktur-Regular.ttf",
+					"type": "asset",
+					"bytes": 19572
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Fraktur-Regular.woff",
+					"type": "asset",
+					"bytes": 13208
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Fraktur-Regular.woff2",
+					"type": "asset",
+					"bytes": 11316
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-Bold.ttf",
+					"type": "asset",
+					"bytes": 51336
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-Bold.woff",
+					"type": "asset",
+					"bytes": 29912
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-Bold.woff2",
+					"type": "asset",
+					"bytes": 25324
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-BoldItalic.ttf",
+					"type": "asset",
+					"bytes": 32968
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-BoldItalic.woff",
+					"type": "asset",
+					"bytes": 19412
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-BoldItalic.woff2",
+					"type": "asset",
+					"bytes": 16780
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-Italic.ttf",
+					"type": "asset",
+					"bytes": 33580
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-Italic.woff",
+					"type": "asset",
+					"bytes": 19676
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-Italic.woff2",
+					"type": "asset",
+					"bytes": 16988
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-Regular.ttf",
+					"type": "asset",
+					"bytes": 53580
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-Regular.woff",
+					"type": "asset",
+					"bytes": 30772
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Main-Regular.woff2",
+					"type": "asset",
+					"bytes": 26272
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Math-BoldItalic.ttf",
+					"type": "asset",
+					"bytes": 31196
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Math-BoldItalic.woff",
+					"type": "asset",
+					"bytes": 18668
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Math-BoldItalic.woff2",
+					"type": "asset",
+					"bytes": 16400
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Math-Italic.ttf",
+					"type": "asset",
+					"bytes": 31308
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Math-Italic.woff",
+					"type": "asset",
+					"bytes": 18748
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Math-Italic.woff2",
+					"type": "asset",
+					"bytes": 16440
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_SansSerif-Bold.ttf",
+					"type": "asset",
+					"bytes": 24504
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_SansSerif-Bold.woff",
+					"type": "asset",
+					"bytes": 14408
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_SansSerif-Bold.woff2",
+					"type": "asset",
+					"bytes": 12216
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_SansSerif-Italic.ttf",
+					"type": "asset",
+					"bytes": 22364
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_SansSerif-Italic.woff",
+					"type": "asset",
+					"bytes": 14112
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_SansSerif-Italic.woff2",
+					"type": "asset",
+					"bytes": 12028
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_SansSerif-Regular.ttf",
+					"type": "asset",
+					"bytes": 19436
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_SansSerif-Regular.woff",
+					"type": "asset",
+					"bytes": 12316
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_SansSerif-Regular.woff2",
+					"type": "asset",
+					"bytes": 10344
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Script-Regular.ttf",
+					"type": "asset",
+					"bytes": 16648
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Script-Regular.woff",
+					"type": "asset",
+					"bytes": 10588
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Script-Regular.woff2",
+					"type": "asset",
+					"bytes": 9644
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size1-Regular.ttf",
+					"type": "asset",
+					"bytes": 12228
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size1-Regular.woff",
+					"type": "asset",
+					"bytes": 6496
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size1-Regular.woff2",
+					"type": "asset",
+					"bytes": 5468
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size2-Regular.ttf",
+					"type": "asset",
+					"bytes": 11508
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size2-Regular.woff",
+					"type": "asset",
+					"bytes": 6188
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size2-Regular.woff2",
+					"type": "asset",
+					"bytes": 5208
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size3-Regular.ttf",
+					"type": "asset",
+					"bytes": 7588
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size3-Regular.woff",
+					"type": "asset",
+					"bytes": 4420
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size4-Regular.ttf",
+					"type": "asset",
+					"bytes": 10364
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size4-Regular.woff",
+					"type": "asset",
+					"bytes": 5980
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Size4-Regular.woff2",
+					"type": "asset",
+					"bytes": 4928
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Typewriter-Regular.ttf",
+					"type": "asset",
+					"bytes": 27556
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Typewriter-Regular.woff",
+					"type": "asset",
+					"bytes": 16028
+				},
+				{
+					"fileName": "assets/fonts/KaTeX_Typewriter-Regular.woff2",
+					"type": "asset",
+					"bytes": 13568
+				},
+				{
+					"fileName": "assets/fonts/roboto-mono-latin-400-italic.woff2",
+					"type": "asset",
+					"bytes": 14052
+				},
+				{
+					"fileName": "assets/fonts/roboto-mono-latin-400-normal.woff2",
+					"type": "asset",
+					"bytes": 12764
+				},
+				{
+					"fileName": "assets/fonts/roboto-mono-latin-700-normal.woff2",
+					"type": "asset",
+					"bytes": 12740
+				},
+				{
+					"fileName": "assets/Footer.CRq4c_Xn.css",
+					"type": "asset",
+					"bytes": 384
+				},
+				{
+					"fileName": "assets/Footer.DhLaxVvG.js",
+					"type": "chunk",
+					"bytes": 190589,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/animations.BtPDPo2e.js",
+						"assets/markdown-processing.TMtFeQR7.js",
+						"assets/markdown.DelO6ktH.js",
+						"assets/MessageContent.BBz-wkSh.js"
+					]
+				},
+				{
+					"fileName": "assets/Footer.DhLaxVvG.js.br",
+					"type": "asset",
+					"bytes": 50748
+				},
+				{
+					"fileName": "assets/Footer.DhLaxVvG.js.gz",
+					"type": "asset",
+					"bytes": 53715
+				},
+				{
+					"fileName": "assets/forms.BaMGLMCV.js",
+					"type": "chunk",
+					"bytes": 46007,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/routing.sHonTA0q.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/tanstack-vendor.DDeX4vva.js",
+						"assets/markdown-processing.TMtFeQR7.js",
+						"assets/date-utils.C_DbPEjY.js",
+						"assets/forms.UHk3QTvM.js"
+					]
+				},
+				{
+					"fileName": "assets/forms.BaMGLMCV.js.br",
+					"type": "asset",
+					"bytes": 11169
+				},
+				{
+					"fileName": "assets/forms.BaMGLMCV.js.gz",
+					"type": "asset",
+					"bytes": 11532
+				},
+				{
+					"fileName": "assets/forms.UHk3QTvM.js",
+					"type": "chunk",
+					"bytes": 26511,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js"
+					]
+				},
+				{
+					"fileName": "assets/forms.UHk3QTvM.js.br",
+					"type": "asset",
+					"bytes": 9402
+				},
+				{
+					"fileName": "assets/forms.UHk3QTvM.js.gz",
+					"type": "asset",
+					"bytes": 9627
+				},
+				{
+					"fileName": "assets/framer-motion.CD4Kgn2Q.js",
+					"type": "chunk",
+					"bytes": 125182,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/runtime-shims.CVHqn6lG.js"
+					]
+				},
+				{
+					"fileName": "assets/framer-motion.CD4Kgn2Q.js.br",
+					"type": "asset",
+					"bytes": 39489
+				},
+				{
+					"fileName": "assets/framer-motion.CD4Kgn2Q.js.gz",
+					"type": "asset",
+					"bytes": 40397
+				},
+				{
+					"fileName": "assets/headlessui.DreQOouR.js",
+					"type": "chunk",
+					"bytes": 88109,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/runtime-shims.CVHqn6lG.js"
+					]
+				},
+				{
+					"fileName": "assets/headlessui.DreQOouR.js.br",
+					"type": "asset",
+					"bytes": 27501
+				},
+				{
+					"fileName": "assets/headlessui.DreQOouR.js.gz",
+					"type": "asset",
+					"bytes": 28689
+				},
+				{
+					"fileName": "assets/heic-converter.Yxm-SPCR.js",
+					"type": "chunk",
+					"bytes": 2186250,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js"
+					]
+				},
+				{
+					"fileName": "assets/heic-converter.Yxm-SPCR.js.br",
+					"type": "asset",
+					"bytes": 456112
+				},
+				{
+					"fileName": "assets/heic-converter.Yxm-SPCR.js.gz",
+					"type": "asset",
+					"bytes": 544456
+				},
+				{
+					"fileName": "assets/heicConverter.W4Y3h2JA.js",
+					"type": "chunk",
+					"bytes": 1206,
+					"dynamicEntry": true,
+					"imports": [
+						"assets/runtime-shims.CVHqn6lG.js",
+						"assets/lazy.ok8MO2Tx.js"
+					],
+					"dynamicImports": [
+						"assets/heic-converter.Yxm-SPCR.js"
+					]
+				},
+				{
+					"fileName": "assets/hooks.CvlW3t2X.js",
+					"type": "chunk",
+					"bytes": 2137277,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/runtime-shims.CVHqn6lG.js",
+						"assets/react-interactions.RtU4oVai.js",
+						"assets/routing.sHonTA0q.js",
+						"assets/radix-ui.tIiBXdQR.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/tanstack-vendor.DDeX4vva.js",
+						"assets/validation.OCGaXQWG.js",
+						"assets/http-client.DDWhOLC7.js",
+						"assets/shared-libs.CKPm2yyl.js",
+						"assets/animations.BtPDPo2e.js",
+						"assets/avatars.XYysrFin.js",
+						"assets/framer-motion.CD4Kgn2Q.js",
+						"assets/virtualization.M5bg1GZJ.js",
+						"assets/headlessui.DreQOouR.js",
+						"assets/markdown-processing.TMtFeQR7.js",
+						"assets/date-utils.C_DbPEjY.js",
+						"assets/utilities.CtYNcMzG.js",
+						"assets/lazy.ok8MO2Tx.js",
+						"assets/forms.UHk3QTvM.js",
+						"assets/math-katex.RfU0klHh.js"
+					],
+					"dynamicImports": [
+						"assets/vendor.BcomiVU1.js",
+						"assets/heicConverter.W4Y3h2JA.js",
+						"assets/markdown-processing.TMtFeQR7.js",
+						"assets/mermaid.Zrem1ydf.js"
+					]
+				},
+				{
+					"fileName": "assets/hooks.CvlW3t2X.js.br",
+					"type": "asset",
+					"bytes": 559787
+				},
+				{
+					"fileName": "assets/hooks.CvlW3t2X.js.gz",
+					"type": "asset",
+					"bytes": 626280
+				},
+				{
+					"fileName": "assets/http-client.DDWhOLC7.js",
+					"type": "chunk",
+					"bytes": 50017,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/runtime-shims.CVHqn6lG.js"
+					]
+				},
+				{
+					"fileName": "assets/http-client.DDWhOLC7.js.br",
+					"type": "asset",
+					"bytes": 18230
+				},
+				{
+					"fileName": "assets/http-client.DDWhOLC7.js.gz",
+					"type": "asset",
+					"bytes": 18608
+				},
+				{
+					"fileName": "assets/index.CMfM6nxT.js",
+					"type": "chunk",
+					"bytes": 1005920,
+					"entry": true,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/polyfills.DVBsJvPx.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/runtime-shims.CVHqn6lG.js",
+						"assets/react-interactions.RtU4oVai.js",
+						"assets/routing.sHonTA0q.js",
+						"assets/radix-ui.tIiBXdQR.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/tanstack-vendor.DDeX4vva.js",
+						"assets/http-client.DDWhOLC7.js",
+						"assets/shared-libs.CKPm2yyl.js",
+						"assets/animations.BtPDPo2e.js",
+						"assets/framer-motion.CD4Kgn2Q.js",
+						"assets/virtualization.M5bg1GZJ.js",
+						"assets/Footer.DhLaxVvG.js",
+						"assets/useBalanceSummary.D4vsDzI_.js",
+						"assets/ProjectEditDialog.DAmCxZAj.js",
+						"assets/date-utils.C_DbPEjY.js",
+						"assets/utilities.CtYNcMzG.js",
+						"assets/forms.BaMGLMCV.js",
+						"assets/duringRun.CWb-pi2c.js",
+						"assets/queries.8cip5mwU.js",
+						"assets/lazy.ok8MO2Tx.js",
+						"assets/forms.UHk3QTvM.js",
+						"assets/math-katex.RfU0klHh.js",
+						"assets/security-ui.5zGvIlor.js",
+						"assets/react-vtree.nToqO-mh.js",
+						"assets/MessageContent.BBz-wkSh.js",
+						"assets/undockedWindow.BNiwgqiY.js",
+						"assets/Settings.DDUUR-LN.js"
+					],
+					"dynamicImports": [
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/rum.D-zugf9n.js",
+						"assets/Artifacts.Bq6sg88J.js",
+						"assets/MessageContent.BBz-wkSh.js",
+						"assets/SubagentThreadPanel.BFPzrwB_.js",
+						"assets/AccountSettings.DTgCGNTk.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/SkillsView.Dmp2TGht.js",
+						"assets/Insights.DNSl1yOQ.js",
+						"assets/Projects.B1fHonFt.js"
+					]
+				},
+				{
+					"fileName": "assets/index.CMfM6nxT.js.br",
+					"type": "asset",
+					"bytes": 244873
+				},
+				{
+					"fileName": "assets/index.CMfM6nxT.js.gz",
+					"type": "asset",
+					"bytes": 275641
+				},
+				{
+					"fileName": "assets/index.DrNoDWmg.css",
+					"type": "asset",
+					"bytes": 279998
+				},
+				{
+					"fileName": "assets/index.DrNoDWmg.css.br",
+					"type": "asset",
+					"bytes": 39380
+				},
+				{
+					"fileName": "assets/index.DrNoDWmg.css.gz",
+					"type": "asset",
+					"bytes": 44418
+				},
+				{
+					"fileName": "assets/Insights.DNSl1yOQ.js",
+					"type": "chunk",
+					"bytes": 19041,
+					"dynamicEntry": true,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/routing.sHonTA0q.js",
+						"assets/queries.8cip5mwU.js"
+					]
+				},
+				{
+					"fileName": "assets/Insights.DNSl1yOQ.js.br",
+					"type": "asset",
+					"bytes": 5279
+				},
+				{
+					"fileName": "assets/Insights.DNSl1yOQ.js.gz",
+					"type": "asset",
+					"bytes": 5483
+				},
+				{
+					"fileName": "assets/lazy.ok8MO2Tx.js",
+					"type": "chunk",
+					"bytes": 1190,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js"
+					]
+				},
+				{
+					"fileName": "assets/markdown-processing.TMtFeQR7.js",
+					"type": "chunk",
+					"bytes": 614636,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js"
+					]
+				},
+				{
+					"fileName": "assets/markdown-processing.TMtFeQR7.js.br",
+					"type": "asset",
+					"bytes": 165977
+				},
+				{
+					"fileName": "assets/markdown-processing.TMtFeQR7.js.gz",
+					"type": "asset",
+					"bytes": 181837
+				},
+				{
+					"fileName": "assets/markdown.DelO6ktH.js",
+					"type": "chunk",
+					"bytes": 9164,
+					"imports": [
+						"assets/hooks.CvlW3t2X.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/tanstack-vendor.DDeX4vva.js"
+					]
+				},
+				{
+					"fileName": "assets/math-katex.RfU0klHh.js",
+					"type": "chunk",
+					"bytes": 34932,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/markdown-processing.TMtFeQR7.js"
+					]
+				},
+				{
+					"fileName": "assets/math-katex.RfU0klHh.js.br",
+					"type": "asset",
+					"bytes": 8649
+				},
+				{
+					"fileName": "assets/math-katex.RfU0klHh.js.gz",
+					"type": "asset",
+					"bytes": 8941
+				},
+				{
+					"fileName": "assets/math-katex.uZ8_QngQ.css",
+					"type": "asset",
+					"bytes": 28239
+				},
+				{
+					"fileName": "assets/math-katex.uZ8_QngQ.css.br",
+					"type": "asset",
+					"bytes": 6854
+				},
+				{
+					"fileName": "assets/math-katex.uZ8_QngQ.css.gz",
+					"type": "asset",
+					"bytes": 7382
+				},
+				{
+					"fileName": "assets/mermaid.Zrem1ydf.js",
+					"type": "chunk",
+					"bytes": 3046400,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/runtime-shims.CVHqn6lG.js",
+						"assets/shared-libs.CKPm2yyl.js"
+					],
+					"dynamicImports": [
+						"assets/markdown-processing.TMtFeQR7.js",
+						"assets/mermaid.Zrem1ydf.js"
+					]
+				},
+				{
+					"fileName": "assets/mermaid.Zrem1ydf.js.br",
+					"type": "asset",
+					"bytes": 666141
+				},
+				{
+					"fileName": "assets/mermaid.Zrem1ydf.js.gz",
+					"type": "asset",
+					"bytes": 798254
+				},
+				{
+					"fileName": "assets/MessageContent.BBz-wkSh.js",
+					"type": "chunk",
+					"bytes": 38998,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/useBalanceSummary.D4vsDzI_.js",
+						"assets/forms.UHk3QTvM.js"
+					]
+				},
+				{
+					"fileName": "assets/MessageContent.BBz-wkSh.js.br",
+					"type": "asset",
+					"bytes": 13148
+				},
+				{
+					"fileName": "assets/MessageContent.BBz-wkSh.js.gz",
+					"type": "asset",
+					"bytes": 13541
+				},
+				{
+					"fileName": "assets/polyfills.DVBsJvPx.js",
+					"type": "chunk",
+					"bytes": 7715,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js"
+					]
+				},
+				{
+					"fileName": "assets/ProjectEditDialog.DAmCxZAj.js",
+					"type": "chunk",
+					"bytes": 69444,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/react-interactions.RtU4oVai.js",
+						"assets/routing.sHonTA0q.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/virtualization.M5bg1GZJ.js",
+						"assets/utilities.CtYNcMzG.js",
+						"assets/forms.UHk3QTvM.js",
+						"assets/security-ui.5zGvIlor.js"
+					]
+				},
+				{
+					"fileName": "assets/ProjectEditDialog.DAmCxZAj.js.br",
+					"type": "asset",
+					"bytes": 20327
+				},
+				{
+					"fileName": "assets/ProjectEditDialog.DAmCxZAj.js.gz",
+					"type": "asset",
+					"bytes": 20810
+				},
+				{
+					"fileName": "assets/Projects.B1fHonFt.js",
+					"type": "chunk",
+					"bytes": 38539,
+					"dynamicEntry": true,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/routing.sHonTA0q.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/shared-libs.CKPm2yyl.js",
+						"assets/virtualization.M5bg1GZJ.js",
+						"assets/ProjectEditDialog.DAmCxZAj.js",
+						"assets/utilities.CtYNcMzG.js",
+						"assets/forms.UHk3QTvM.js"
+					]
+				},
+				{
+					"fileName": "assets/Projects.B1fHonFt.js.br",
+					"type": "asset",
+					"bytes": 10379
+				},
+				{
+					"fileName": "assets/Projects.B1fHonFt.js.gz",
+					"type": "asset",
+					"bytes": 10687
+				},
+				{
+					"fileName": "assets/queries.8cip5mwU.js",
+					"type": "chunk",
+					"bytes": 350,
+					"imports": [
+						"assets/hooks.CvlW3t2X.js",
+						"assets/tanstack-vendor.DDeX4vva.js"
+					]
+				},
+				{
+					"fileName": "assets/query-devtools.C2qG3_c-.js",
+					"type": "chunk",
+					"bytes": 59392,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js"
+					]
+				},
+				{
+					"fileName": "assets/query-devtools.C2qG3_c-.js.br",
+					"type": "asset",
+					"bytes": 19938
+				},
+				{
+					"fileName": "assets/query-devtools.C2qG3_c-.js.gz",
+					"type": "asset",
+					"bytes": 21396
+				},
+				{
+					"fileName": "assets/radix-ui.tIiBXdQR.js",
+					"type": "chunk",
+					"bytes": 88660,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/animations.BtPDPo2e.js"
+					]
+				},
+				{
+					"fileName": "assets/radix-ui.tIiBXdQR.js.br",
+					"type": "asset",
+					"bytes": 20742
+				},
+				{
+					"fileName": "assets/radix-ui.tIiBXdQR.js.gz",
+					"type": "asset",
+					"bytes": 23200
+				},
+				{
+					"fileName": "assets/react-interactions.RtU4oVai.js",
+					"type": "chunk",
+					"bytes": 70081,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/runtime-shims.CVHqn6lG.js"
+					]
+				},
+				{
+					"fileName": "assets/react-interactions.RtU4oVai.js.br",
+					"type": "asset",
+					"bytes": 19158
+				},
+				{
+					"fileName": "assets/react-interactions.RtU4oVai.js.gz",
+					"type": "asset",
+					"bytes": 19582
+				},
+				{
+					"fileName": "assets/react-vtree.nToqO-mh.js",
+					"type": "chunk",
+					"bytes": 13164,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/animations.BtPDPo2e.js"
+					]
+				},
+				{
+					"fileName": "assets/react-vtree.nToqO-mh.js.br",
+					"type": "asset",
+					"bytes": 4549
+				},
+				{
+					"fileName": "assets/react-vtree.nToqO-mh.js.gz",
+					"type": "asset",
+					"bytes": 4744
+				},
+				{
+					"fileName": "assets/rolldown-runtime.C0FnF6B9.js",
+					"type": "chunk",
+					"bytes": 1291
+				},
+				{
+					"fileName": "assets/routing.sHonTA0q.js",
+					"type": "chunk",
+					"bytes": 90997,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/runtime-shims.CVHqn6lG.js"
+					]
+				},
+				{
+					"fileName": "assets/routing.sHonTA0q.js.br",
+					"type": "asset",
+					"bytes": 28639
+				},
+				{
+					"fileName": "assets/routing.sHonTA0q.js.gz",
+					"type": "asset",
+					"bytes": 29714
+				},
+				{
+					"fileName": "assets/rum.D-zugf9n.js",
+					"type": "chunk",
+					"bytes": 467248,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/runtime-shims.CVHqn6lG.js"
+					]
+				},
+				{
+					"fileName": "assets/rum.D-zugf9n.js.br",
+					"type": "asset",
+					"bytes": 129386
+				},
+				{
+					"fileName": "assets/rum.D-zugf9n.js.gz",
+					"type": "asset",
+					"bytes": 139532
+				},
+				{
+					"fileName": "assets/runtime-shims.CVHqn6lG.js",
+					"type": "chunk",
+					"bytes": 57095,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js"
+					]
+				},
+				{
+					"fileName": "assets/runtime-shims.CVHqn6lG.js.br",
+					"type": "asset",
+					"bytes": 10430
+				},
+				{
+					"fileName": "assets/runtime-shims.CVHqn6lG.js.gz",
+					"type": "asset",
+					"bytes": 11389
+				},
+				{
+					"fileName": "assets/SandboxArtifactTabs.C14_IhUs.js",
+					"type": "chunk",
+					"bytes": 1630,
+					"dynamicEntry": true,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/radix-ui.tIiBXdQR.js",
+						"assets/Artifacts.Bq6sg88J.js",
+						"assets/sandpack.Bzvaj-cO.js"
+					]
+				},
+				{
+					"fileName": "assets/sandpack.Bzvaj-cO.js",
+					"type": "chunk",
+					"bytes": 458315,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/runtime-shims.CVHqn6lG.js",
+						"assets/codemirror-core.CfxYuTL8.js"
+					],
+					"dynamicImports": [
+						"assets/sandpack.Bzvaj-cO.js"
+					]
+				},
+				{
+					"fileName": "assets/sandpack.Bzvaj-cO.js.br",
+					"type": "asset",
+					"bytes": 70114
+				},
+				{
+					"fileName": "assets/sandpack.Bzvaj-cO.js.gz",
+					"type": "asset",
+					"bytes": 95389
+				},
+				{
+					"fileName": "assets/security-ui.5zGvIlor.js",
+					"type": "chunk",
+					"bytes": 21622,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js"
+					]
+				},
+				{
+					"fileName": "assets/security-ui.5zGvIlor.js.br",
+					"type": "asset",
+					"bytes": 7704
+				},
+				{
+					"fileName": "assets/security-ui.5zGvIlor.js.gz",
+					"type": "asset",
+					"bytes": 8027
+				},
+				{
+					"fileName": "assets/Settings.DDUUR-LN.js",
+					"type": "chunk",
+					"bytes": 1502,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/runtime-shims.CVHqn6lG.js"
+					],
+					"dynamicImports": [
+						"assets/Dialog.DYQBYHAe.js"
+					]
+				},
+				{
+					"fileName": "assets/shared-libs.CKPm2yyl.js",
+					"type": "chunk",
+					"bytes": 51565,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js"
+					]
+				},
+				{
+					"fileName": "assets/shared-libs.CKPm2yyl.js.br",
+					"type": "asset",
+					"bytes": 18808
+				},
+				{
+					"fileName": "assets/shared-libs.CKPm2yyl.js.gz",
+					"type": "asset",
+					"bytes": 19458
+				},
+				{
+					"fileName": "assets/SkillsView.Dmp2TGht.js",
+					"type": "chunk",
+					"bytes": 2623,
+					"dynamicEntry": true,
+					"imports": [
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/routing.sHonTA0q.js",
+						"assets/forms.BaMGLMCV.js"
+					]
+				},
+				{
+					"fileName": "assets/SubagentThreadPanel.BFPzrwB_.js",
+					"type": "chunk",
+					"bytes": 25601,
+					"dynamicEntry": true,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/shared-libs.CKPm2yyl.js",
+						"assets/Footer.DhLaxVvG.js"
+					]
+				},
+				{
+					"fileName": "assets/SubagentThreadPanel.BFPzrwB_.js.br",
+					"type": "asset",
+					"bytes": 8631
+				},
+				{
+					"fileName": "assets/SubagentThreadPanel.BFPzrwB_.js.gz",
+					"type": "asset",
+					"bytes": 8862
+				},
+				{
+					"fileName": "assets/tanstack-vendor.DDeX4vva.js",
+					"type": "chunk",
+					"bytes": 147510,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/query-devtools.C2qG3_c-.js"
+					]
+				},
+				{
+					"fileName": "assets/tanstack-vendor.DDeX4vva.js.br",
+					"type": "asset",
+					"bytes": 27704
+				},
+				{
+					"fileName": "assets/tanstack-vendor.DDeX4vva.js.gz",
+					"type": "asset",
+					"bytes": 36011
+				},
+				{
+					"fileName": "assets/undockedWindow.BNiwgqiY.js",
+					"type": "chunk",
+					"bytes": 5435,
+					"imports": [
+						"assets/vendor.BcomiVU1.js"
+					]
+				},
+				{
+					"fileName": "assets/useBalanceSummary.D4vsDzI_.js",
+					"type": "chunk",
+					"bytes": 16320,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/hooks.CvlW3t2X.js",
+						"assets/validation.OCGaXQWG.js",
+						"assets/forms.UHk3QTvM.js"
+					]
+				},
+				{
+					"fileName": "assets/useBalanceSummary.D4vsDzI_.js.br",
+					"type": "asset",
+					"bytes": 4986
+				},
+				{
+					"fileName": "assets/useBalanceSummary.D4vsDzI_.js.gz",
+					"type": "asset",
+					"bytes": 5207
+				},
+				{
+					"fileName": "assets/utilities.CtYNcMzG.js",
+					"type": "chunk",
+					"bytes": 92813,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/runtime-shims.CVHqn6lG.js"
+					]
+				},
+				{
+					"fileName": "assets/utilities.CtYNcMzG.js.br",
+					"type": "asset",
+					"bytes": 29899
+				},
+				{
+					"fileName": "assets/utilities.CtYNcMzG.js.gz",
+					"type": "asset",
+					"bytes": 32223
+				},
+				{
+					"fileName": "assets/validation.OCGaXQWG.js",
+					"type": "chunk",
+					"bytes": 107633
+				},
+				{
+					"fileName": "assets/validation.OCGaXQWG.js.br",
+					"type": "asset",
+					"bytes": 24098
+				},
+				{
+					"fileName": "assets/validation.OCGaXQWG.js.gz",
+					"type": "asset",
+					"bytes": 26006
+				},
+				{
+					"fileName": "assets/vendor.BcomiVU1.js",
+					"type": "chunk",
+					"bytes": 1717320,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/runtime-shims.CVHqn6lG.js",
+						"assets/query-devtools.C2qG3_c-.js",
+						"assets/validation.OCGaXQWG.js",
+						"assets/animations.BtPDPo2e.js",
+						"assets/react-vtree.nToqO-mh.js"
+					]
+				},
+				{
+					"fileName": "assets/vendor.BcomiVU1.js.br",
+					"type": "asset",
+					"bytes": 379240
+				},
+				{
+					"fileName": "assets/vendor.BcomiVU1.js.gz",
+					"type": "asset",
+					"bytes": 486126
+				},
+				{
+					"fileName": "assets/virtualization.M5bg1GZJ.js",
+					"type": "chunk",
+					"bytes": 113513,
+					"imports": [
+						"assets/rolldown-runtime.C0FnF6B9.js",
+						"assets/advanced-inputs.BJDnsHUg.js",
+						"assets/vendor.BcomiVU1.js",
+						"assets/runtime-shims.CVHqn6lG.js",
+						"assets/tanstack-vendor.DDeX4vva.js",
+						"assets/animations.BtPDPo2e.js"
+					]
+				},
+				{
+					"fileName": "assets/virtualization.M5bg1GZJ.js.br",
+					"type": "asset",
+					"bytes": 24290
+				},
+				{
+					"fileName": "assets/virtualization.M5bg1GZJ.js.gz",
+					"type": "asset",
+					"bytes": 25734
+				},
+				{
+					"fileName": "engine-absence-audit.json",
+					"type": "asset",
+					"bytes": 822680
+				},
+				{
+					"fileName": "engine-absence-audit.json.br",
+					"type": "asset",
+					"bytes": 52863
+				},
+				{
+					"fileName": "engine-absence-audit.json.gz",
+					"type": "asset",
+					"bytes": 55987
+				},
+				{
+					"fileName": "index.html",
+					"type": "asset",
+					"bytes": 17597
+				},
+				{
+					"fileName": "index.html.br",
+					"type": "asset",
+					"bytes": 4904
+				},
+				{
+					"fileName": "index.html.gz",
+					"type": "asset",
+					"bytes": 5218
+				},
+				{
+					"fileName": "manifest.webmanifest",
+					"type": "asset",
+					"bytes": 578
+				},
+				{
+					"fileName": "registerSW.js",
+					"type": "asset",
+					"bytes": 136
+				},
+				{
+					"fileName": "sw-heal.js",
+					"type": "asset",
+					"bytes": 1785
+				}
+			]
+		}
+	}
+}

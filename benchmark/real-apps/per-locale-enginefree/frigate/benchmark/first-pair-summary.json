@@ -1,0 +1,62 @@
+[
+  {
+    "profile": "desktop",
+    "arms": {
+      "native": {
+        "readyMs": 1845.2999999523163,
+        "normalizedBrotliQ4Bytes": 1405545,
+        "observedEncodedBodyBytes": 1434635,
+        "requests": 73,
+        "missingBodies": [],
+        "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5",
+        "title": "Front Door - Direct - Frigate"
+      },
+      "enginefree": {
+        "readyMs": 2037.3000000715256,
+        "normalizedBrotliQ4Bytes": 1418919,
+        "observedEncodedBodyBytes": 1448010,
+        "requests": 73,
+        "missingBodies": [],
+        "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5",
+        "title": "Front Door - Direct - Frigate"
+      }
+    },
+    "deltasPercent": {
+      "readyMs": 10.404812232383387,
+      "normalizedBrotliQ4Bytes": 0.9515170272029749,
+      "observedEncodedBodyBytes": 0.9322928828586985,
+      "requests": 0.0
+    },
+    "screenshotsIdentical": true
+  },
+  {
+    "profile": "mobile",
+    "arms": {
+      "native": {
+        "readyMs": 9988.799999952316,
+        "normalizedBrotliQ4Bytes": 1183066,
+        "observedEncodedBodyBytes": 1212165,
+        "requests": 67,
+        "missingBodies": [],
+        "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3",
+        "title": "Front Door - Direct - Frigate"
+      },
+      "enginefree": {
+        "readyMs": 10061.800000071526,
+        "normalizedBrotliQ4Bytes": 1195650,
+        "observedEncodedBodyBytes": 1224749,
+        "requests": 67,
+        "missingBodies": [],
+        "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3",
+        "title": "Front Door - Direct - Frigate"
+      }
+    },
+    "deltasPercent": {
+      "readyMs": 0.7308185179356608,
+      "normalizedBrotliQ4Bytes": 1.063676920814216,
+      "observedEncodedBodyBytes": 1.0381424971023012,
+      "requests": 0.0
+    },
+    "screenshotsIdentical": true
+  }
+]
