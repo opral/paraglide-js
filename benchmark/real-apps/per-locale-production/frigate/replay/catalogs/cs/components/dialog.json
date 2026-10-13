@@ -1,0 +1,192 @@
+{
+  "restart": {
+    "title": "Jste si jistí, že chcete restartovat Frigate?",
+    "button": "Restartovat",
+    "restarting": {
+      "title": "Frigate restartuje",
+      "content": "Tato stránka bude obnovena za {{countdown}} sekund.",
+      "button": "Vynutit opětovné načtení"
+    },
+    "description": "Frigate bude během restartu krátce nedostupný."
+  },
+  "explore": {
+    "plus": {
+      "review": {
+        "question": {
+          "label": "Potvrďte tento štítek pro Frigate Plus",
+          "ask_a": "Je tento objekt <code>{{label}}</code>?",
+          "ask_an": "Tento objekt je <code>{{label}}</code>?",
+          "ask_full": "Je tento objekt <code>{{untranslatedLabel}}</code> ({{translatedLabel}})?"
+        },
+        "state": {
+          "submitted": "Odesláno"
+        },
+        "toast": {
+          "error": "Odeslání do Frigate+ se nezdařilo. Zkontrolujte své síťové připojení a zkuste to znovu."
+        }
+      },
+      "submitToPlus": {
+        "label": "Odeslat do Frigate+",
+        "desc": "Objekty na místech, kterým se chcete vyhnout, nejsou falešné poplachy. Označení takových objektů jako falešných pozitiv může model zmást."
+      }
+    },
+    "video": {
+      "viewInHistory": "Zobrazit historii"
+    }
+  },
+  "recording": {
+    "confirmDelete": {
+      "toast": {
+        "success": "Videozáznam spojený s vybranými položkami přehledu byl úspěšně smazán.",
+        "error": "Chyba mazání: {{error}}"
+      },
+      "title": "Potvrdit odstranění",
+      "desc": {
+        "selected": "Opravdu chcete smazat všechna nahraná videa spojená s touto položkou přehledu?<br /><br />Chcete-li tento dialog v budoucnu obejít, podržte klávesu <em>Shift</em>."
+      }
+    },
+    "button": {
+      "markAsReviewed": "Označit jako zkontrolované",
+      "deleteNow": "Smazat hned",
+      "export": "Exportovat",
+      "markAsUnreviewed": "Označit jako nezkontrolované"
+    },
+    "shareTimestamp": {
+      "label": "Sdílet časovou značku",
+      "title": "Sdílet časovou značku"
+    }
+  },
+  "export": {
+    "time": {
+      "fromTimeline": "Vybrat z Časové osy",
+      "custom": "Vlastní",
+      "lastHour_one": "Minulou hodinu",
+      "lastHour_few": "Minulé {{count}} hodiny",
+      "lastHour_other": "Minulých {{count}} hodin",
+      "start": {
+        "title": "Čas začátku",
+        "label": "Vybrat čas začátku"
+      },
+      "end": {
+        "title": "Čas konce",
+        "label": "Vybrat čas konce"
+      }
+    },
+    "select": "Vybrat",
+    "export": "Exportovat",
+    "selectOrExport": "Vybrat pro Export",
+    "toast": {
+      "success": "Export úspěšně spuštěn. Soubor najdete na stránce exportů.",
+      "error": {
+        "failed": "Chyba spuštění exportu: {{error}}",
+        "endTimeMustAfterStartTime": "Čas konce musí být po čase začátku"
+      },
+      "view": "Zobrazení",
+      "queued": "Export zařazen do fronty. Průběh zobrazíte na stránce Exporty.",
+      "batchSuccess_one": "Začal 1 export. Nyní se otevírá případ.",
+      "batchSuccess_few": "Začaly {{count}} exporty. Nyní se otevírá případ.",
+      "batchSuccess_other": "Začalo {{count}} exportů. Nyní se otevírá případ.",
+      "batchPartial": "Spuštěno {{successful}} z {{total}} exportů. Neúspěšné kamery: {{failedCameras}}",
+      "batchQueuedPartial": "Ve frontě {{successful}} z {{total}} exportů. Neúspěšné kamery: {{failedCameras}}"
+    },
+    "fromTimeline": {
+      "saveExport": "Uložit export",
+      "previewExport": "Prohlížet export"
+    },
+    "name": {
+      "placeholder": "Jméno exportu"
+    },
+    "case": {
+      "newCaseOption": "Vytvořit nový případ",
+      "newCaseNamePlaceholder": "Název nového případu",
+      "newCaseDescriptionPlaceholder": "Popis případu",
+      "label": "Případ",
+      "nonAdminHelp": "Pro tyto exporty bude vytvořen nový případ.",
+      "placeholder": "Vyberte případ"
+    },
+    "queueing": "Přidávání exportu do fronty…",
+    "tabs": {
+      "export": "Jedna kamera",
+      "multiCamera": "Vícekamerový"
+    },
+    "multiCamera": {
+      "timeRange": "Časový rozsah",
+      "selectFromTimeline": "Vybrat z časové osy",
+      "cameraSelection": "Kamery",
+      "cameraSelectionHelp": "Kamery se sledovanými objekty v tomto časovém rozsahu jsou předem vybrány",
+      "searchOrSelectGroup": "Vyhledejte nebo vyberte skupinu kamer…",
+      "selectAll": "Vybrat všechny kamery",
+      "clearSelection": "Zrušit výběr",
+      "selectWithActivity": "Kamery se sledovanými objekty",
+      "selectGroup": "Vybrat skupinu",
+      "noMatchingCameras": "Žádná kamera neodpovídá vašemu hledání",
+      "selectedCount": "{{selected}} / {{total}} vybráno",
+      "checkingActivity": "Kontrola aktivity kamer…",
+      "noCameras": "Nejsou k dispozici žádné kamery",
+      "detectionCount_one": "1 sledovaný objekt",
+      "detectionCount_few": "{{count}} sledované objekty",
+      "detectionCount_other": "{{count}} sledovaných objektů",
+      "nameLabel": "Název exportu",
+      "namePlaceholder": "Volitelný základní název pro tyto exporty",
+      "queueingButton": "Příprava exportů…",
+      "exportButton_one": "Exportovat 1 kameru",
+      "exportButton_few": "Exportovat {{count}} kamery",
+      "exportButton_other": "Exportovat {{count}} kamer"
+    },
+    "multi": {
+      "title_one": "Exportovat 1 kontrolu",
+      "title_few": "Exportovat {{count}} kontroly",
+      "title_other": "Exportovat {{count}} kontrol",
+      "description": "Exportujte každou vybranou kontrolu. Všechny exporty budou seskupeny do jednoho případu.",
+      "descriptionNoCase": "Exportujte každou vybranou kontrolu.",
+      "caseNamePlaceholder": "Export kontroly – {{date}}",
+      "exportButton_one": "Exportovat 1 kontrolu",
+      "exportButton_few": "Exportovat {{count}} kontroly",
+      "exportButton_other": "Exportovat {{count}} kontrol",
+      "exportingButton": "Exportování…",
+      "toast": {
+        "started_one": "Spuštěn 1 export. Otevírá se případ.",
+        "started_few": "Spuštěny {{count}} exporty. Otevírá se případ.",
+        "started_other": "Spuštěno {{count}} exportů. Otevírá se případ.",
+        "partial": "Spuštěno {{successful}} z {{total}} exportů. Selhalo: {{failedItems}}",
+        "failed": "Nepodařilo se spustit {{total}} exportů. Selhalo: {{failedItems}}"
+      }
+    }
+  },
+  "streaming": {
+    "label": "Stream",
+    "restreaming": {
+      "disabled": "Restreaming pro tuto kameru není povolen.",
+      "desc": {
+        "title": "Nastavte go2rtc pro rozšiřující živé zobrazení a pro zvuk pro tuto kameru."
+      }
+    },
+    "showStats": {
+      "label": "Ukázat statistiky streamu",
+      "desc": "Povolte tuto možnost pro zobrazení překryvných statistik v obraze streamu."
+    },
+    "debugView": "Náhled ladění"
+  },
+  "search": {
+    "saveSearch": {
+      "desc": "Zadejte název tohoto uloženého vyhledávání.",
+      "placeholder": "Zadejte název pro vaše vyhledávání",
+      "success": "Hledání {{searchName}} bylo uloženo.",
+      "button": {
+        "save": {
+          "label": "Uložit toto hledání"
+        }
+      },
+      "label": "Uložit vyhledávání",
+      "overwrite": "{{searchName}} už existuje. Uložení přepíše existující hodnotu."
+    }
+  },
+  "imagePicker": {
+    "selectImage": "Vyber náhled sledovaného objektu",
+    "search": {
+      "placeholder": "Hledej pomocí štítku nebo podštítku..."
+    },
+    "noImages": "Nebyly nalezeny žádné náhledy pro tuto kameru",
+    "unknownLabel": "Uložený obrázek Spouštěče"
+  }
+}

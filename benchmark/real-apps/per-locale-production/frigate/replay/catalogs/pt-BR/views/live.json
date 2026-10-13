@@ -1,0 +1,231 @@
+{
+  "documentTitle": {
+    "default": "Ao vivo - Frigate"
+  },
+  "documentTitle.withCamera": "{{camera}} - Ao vivo - Frigate",
+  "lowBandwidthMode": "Modo de baixa largura de banda",
+  "twoWayTalk": {
+    "enable": "Habilitar Fala em Dois Sentidos",
+    "disable": "Desabilitar Fala em Dois Sentidos",
+    "error": {
+      "microphone": "A conversa bidirecional não conseguiu acessar o seu microfone",
+      "refused": "A conversa bidirecional falhou ao iniciar. Consulte o console do navegador para mais detalhes."
+    },
+    "requiresWebRTC": "A conversa bidirecional exige WebRTC, que não está disponível"
+  },
+  "cameraAudio": {
+    "enable": "Habilitar Áudio da Câmera",
+    "disable": "Desabilitar Audio da Câmera"
+  },
+  "ptz": {
+    "move": {
+      "clickMove": {
+        "label": "Clique no quadro para centralizar a câmera",
+        "enable": "Ativar clique para mover",
+        "disable": "Desativar clique para mover",
+        "enableWithZoom": "Habilitar clicar para mover / arrastar para zoom"
+      },
+      "left": {
+        "label": "Mova a câmera PTZ para a esquerda"
+      },
+      "up": {
+        "label": "Mova a câmera PTZ para cima"
+      },
+      "down": {
+        "label": "Mova a câmera PTZ para baixo"
+      },
+      "right": {
+        "label": "Mova a câmera PTZ para a direita"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "Clique no quadro para centralizar a câmera PTZ"
+      }
+    },
+    "presets": "Predefinições de câmera PTZ",
+    "zoom": {
+      "in": {
+        "label": "Aumentar Zoom na câmera PTZ"
+      },
+      "out": {
+        "label": "Diminuir Zoom na câmera PTZ"
+      }
+    },
+    "focus": {
+      "in": {
+        "label": "Aumentar foco da câmera PTZ"
+      },
+      "out": {
+        "label": "Tirar foco da câmera PTZ"
+      }
+    }
+  },
+  "camera": {
+    "turnOn": "Ligar a câmera",
+    "turnOff": "Desligar a câmera"
+  },
+  "muteCameras": {
+    "enable": "Silenciar Todas as Câmeras",
+    "disable": "Ativar Áudio de Todas as Câmeras"
+  },
+  "detect": {
+    "enable": "Ativar Detecção",
+    "disable": "Desativar Detecção"
+  },
+  "recording": {
+    "enable": "Ativar Gravação",
+    "disable": "Desativar Gravação",
+    "disabledInConfig": "A gravação deve ser habilitada primeiro nas configurações desta câmera."
+  },
+  "snapshots": {
+    "enable": "Permitir Capturas de Imagem",
+    "disable": "Desativar Capturas de Imagem"
+  },
+  "audioDetect": {
+    "enable": "Ativar Detecção de Áudio",
+    "disable": "Desabilitar Detecção de Áudio"
+  },
+  "autotracking": {
+    "enable": "Habilitar Rastreamento Automático",
+    "disable": "Desabilitar Rastreamento Automático"
+  },
+  "streamStats": {
+    "enable": "Exibir Estatísticas de Transmissão",
+    "disable": "Ocultar Estatísticas de Transmissão"
+  },
+  "manualRecording": {
+    "title": "Sob Demanda",
+    "tips": "Baixe uma captura de tela instantânea ou Inicie um evento manual baseado nas configurações de retenção de gravação dessa câmera.",
+    "playInBackground": {
+      "label": "Reproduzir em segundo plano",
+      "desc": "Habilite essa opção para continuar transmitindo quando o reprodutor estiver oculto."
+    },
+    "showStats": {
+      "label": "Exibir Estatísticas",
+      "desc": "Habilite esta opção para exibir as estatísticas da transmissão como uma sobreposição no feed da câmera."
+    },
+    "start": "Iniciar gravação sob demanda",
+    "started": "Iniciou a gravação manual sob demanda.",
+    "failedToStart": "Falha ao iniciar a gravação manual sob demanda.",
+    "recordDisabledTips": "Como a gravação está desabilitada ou restrita na configuração desta câmera, apenas um instantâneo será salvo.",
+    "end": "Fim da gravação sob demanda",
+    "failedToEnd": "Falha ao finalizar a gravação manual sob demanda.",
+    "debugView": "Visualização de Depuração",
+    "ended": "Gravação manual sob demanda finalizada."
+  },
+  "streamingSettings": "Configurações de Transmissão",
+  "notifications": "Notificações",
+  "audio": "Áudio",
+  "suspend": {
+    "forTime": "Suspender por: "
+  },
+  "stream": {
+    "title": "Transmissão",
+    "audio": {
+      "tips": {
+        "title": "O áudio deve sair da sua câmera e configurado no go2rtc para essa transmissão."
+      },
+      "available": "Áudio disponível para essa transmissão",
+      "unavailable": "O áudio não está disponível para essa transmissão"
+    },
+    "twoWayTalk": {
+      "tips": "O seu dispostivio precisa suportar esse recurso e o WebRTC precisa estar configurado para áudio bidirecional.",
+      "available": "Áudio bidirecional está disponível para essa transmissão",
+      "unavailable": "Áudio bidirecional está indisponível para essa transmissão"
+    },
+    "lowBandwidth": {
+      "tips": "A transmissão ao vivo está em modo de economia de dados devido a erros de buffering ou de transmissão.",
+      "resetStream": "Resetar transmissão",
+      "force": {
+        "label": "Forçar modo de baixa largura de banda",
+        "desc": "Sempre reproduz o feed de baixa largura de banda integrado do Frigate em vez do stream selecionado. Funciona em qualquer conexão, mas tem qualidade inferior e não tem áudio."
+      }
+    },
+    "playInBackground": {
+      "label": "Reproduzir em segundo plano",
+      "tips": "Habilitar essa opção para continuar a transmissão quando o reprodutor estiver oculto."
+    },
+    "debug": {
+      "picker": "A seleção da transmissão fica indisponível em modo de depuração. A visualização de depuração sempre usa o papel de detecção atribuído à transmissão.",
+      "technology": "A seleção da tecnologia de stream não está disponível no modo de depuração."
+    },
+    "mode": "Tecnologia de streaming",
+    "technology": {
+      "name": {
+        "mse": "MSE",
+        "webrtc": "WebRTC",
+        "jsmpeg": "JSMpeg"
+      },
+      "description": "Escolha a sua tecnologia de streaming preferida. O Frigate ainda pode recorrer ao modo de baixa largura de banda em caso de erros de reprodução ou de rede.",
+      "tips": {
+        "mse": "Padrão recomendado, ampla compatibilidade e reprodução fluida",
+        "webrtc": "Requer configuração adicional e não é compatível com todos os dispositivos"
+      },
+      "unavailable": {
+        "not-configured": "O WebRTC não está configurado. Defina candidates ou ice_servers do WebRTC no go2rtc.",
+        "unreachable": "O WebRTC não conseguiu se conectar. Verifique se a porta 8555 está acessível e se qualquer servidor STUN/TURN está correto.",
+        "video-codec": "O codec de vídeo deste stream não é compatível com o WebRTC neste navegador.",
+        "audio-codec": "O codec de áudio deste stream não é compatível com o WebRTC. Transcodifique para opus ou G.711 com o go2rtc.",
+        "checking": "Verificando a disponibilidade do WebRTC…",
+        "browser": "Seu navegador não é compatível com WebRTC."
+      }
+    }
+  },
+  "cameraSettings": {
+    "title": "Configurações de {{camera}}",
+    "objectDetection": "Detecção de Objeto",
+    "recording": "Gravação",
+    "snapshots": "Capturas de Imagem",
+    "audioDetection": "Detecção de Áudio",
+    "autotracking": "Auto Rastreamento",
+    "transcription": "Transcrição de Áudio",
+    "camera": "Câmera"
+  },
+  "history": {
+    "label": "Exibir gravação histórica"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "all": "Todos",
+      "motion": "Movimento",
+      "active_objects": "Objetos Ativos"
+    }
+  },
+  "editLayout": {
+    "label": "Editar Layout",
+    "group": {
+      "label": "Editar Grupo de Câmera"
+    },
+    "exitEdit": "Sair da Edição"
+  },
+  "transcription": {
+    "enable": "Habilitar Transcrição de Áudio em Tempo Real",
+    "disable": "Desabilitar Transcrição de Áudio em Tempo Real"
+  },
+  "noCameras": {
+    "title": "Nenhuma Câmera Configurada",
+    "description": "Inicie conectando uma câmera ao Frigate.",
+    "buttonText": "Adicionar Câmera",
+    "restricted": {
+      "title": "Nenhuma Câmera Disponível",
+      "description": "Você não tem permissão para ver quaisquer câmeras neste grupo."
+    },
+    "default": {
+      "title": "Nenhuma Câmera Configurada",
+      "description": "Comece conectando uma câmera ao Frigate.",
+      "buttonText": "Adicionar Câmera"
+    },
+    "group": {
+      "title": "Nenhuma Câmera no Grupo",
+      "description": "Este grupo de câmeras não tem nenhuma câmera atribuída ou habilitada.",
+      "buttonText": "Gerenciar Grupos"
+    }
+  },
+  "snapshot": {
+    "takeSnapshot": "Baixar captura de imagem instantânea",
+    "noVideoSource": "Nenhuma fonte de vídeo disponível para captura de imagem.",
+    "captureFailed": "Falha ao capturar imagem.",
+    "downloadStarted": "Download de capturas de imagem iniciado."
+  }
+}

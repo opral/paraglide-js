@@ -1,0 +1,54 @@
+{
+  "noRecordingsFoundForThisTime": "Не найдено ни одной записи",
+  "noPreviewFound": "Предпросмотр не найден",
+  "submitFrigatePlus": {
+    "title": "Отправить этот кадр в Frigate+?",
+    "submit": "Отправить",
+    "previewError": "Не удалось загрузить предварительный просмотр снимка. Возможно, запись в данный момент недоступна."
+  },
+  "noPreviewFoundFor": "Не найдено предпросмотра для {{cameraName}}",
+  "livePlayerRequiredIOSVersion": "iOS 17.1 или выше требуется для этого типа стрима.",
+  "streamOffline": {
+    "title": "Поток оффлайн",
+    "desc": "С потока <code>detect</code> камеры {{cameraName}} не получено кадров, проверьте логи ошибок"
+  },
+  "stats": {
+    "streamType": {
+      "title": "Тип потока:",
+      "short": "Тип"
+    },
+    "bandwidth": {
+      "title": "Пропускная способность:",
+      "short": "Пропускная способность"
+    },
+    "totalFrames": "Всего кадров:",
+    "droppedFrames": {
+      "title": "Пропущено кадров:",
+      "short": {
+        "title": "Пропущено",
+        "value": "{{droppedFrames}} кадров"
+      }
+    },
+    "decodedFrames": "Декодированные кадры:",
+    "droppedFrameRate": "Частота пропущенных кадров:"
+  },
+  "toast": {
+    "error": {
+      "submitFrigatePlusFailed": "Не удалось отправить кадр в Frigate+"
+    },
+    "success": {
+      "submittedFrigatePlus": "Кадр успешно загружен в Frigate+"
+    }
+  },
+  "cameraOff": "Камера выключена",
+  "quality": {
+    "auto": "Авто",
+    "autoLow": "Воспроизведение в низком качестве (ограниченная пропускная способность)",
+    "autoLowCodec": "Воспроизводится в низком качестве (исходное качество не поддерживается этим браузером)",
+    "autoLowSaveData": "Воспроизведение в низком качестве (режим экономии данных)",
+    "main": "Оригинал",
+    "sub": "Низкое",
+    "notSupportedBrowser": "Не поддерживается этим браузером",
+    "label": "Качество"
+  }
+}

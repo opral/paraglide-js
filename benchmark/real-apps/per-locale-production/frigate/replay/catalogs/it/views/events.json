@@ -1,0 +1,95 @@
+{
+  "alerts": "Avvisi",
+  "detections": "Rilevamenti",
+  "motion": {
+    "label": "Movimento",
+    "only": "Solo movimenti"
+  },
+  "empty": {
+    "alert": "Non ci sono avvisi da rivedere",
+    "detection": "Non ci sono rilevamenti da rivedere",
+    "motion": "Nessun dato di movimento trovato",
+    "recordingsDisabled": {
+      "description": "Gli elementi di revisione possono essere creati per una telecamera solo quando le registrazioni sono abilitate per quella telecamera.",
+      "title": "Le registrazioni devono essere abilitate"
+    }
+  },
+  "newReviewItems": {
+    "label": "Visualizza i nuovi elementi da rivedere",
+    "button": "Nuovi elementi da rivedere"
+  },
+  "markTheseItemsAsReviewed": "Segna questi elementi come visti",
+  "markAsReviewed": "Segna come visto",
+  "documentTitle": "Revisiona - Frigate",
+  "allCameras": "Tutte le telecamere",
+  "timeline": {
+    "label": "Linea temporale"
+  },
+  "timeline.aria": "Seleziona la cronologia",
+  "events": {
+    "label": "Eventi",
+    "aria": "Seleziona eventi",
+    "noFoundForTimePeriod": "Nessun evento trovato per questo intervallo."
+  },
+  "recordings": {
+    "documentTitle": "Registrazioni - Frigate",
+    "invalidSharedLink": "Impossibile aprire il collegamento alla registrazione con orario a causa di un errore di analisi.",
+    "invalidSharedCamera": "Impossibile aprire il collegamento alla registrazione con orario a causa di una telecamera sconosciuta o non autorizzata."
+  },
+  "calendarFilter": {
+    "last24Hours": "Ultime 24 ore"
+  },
+  "camera": "Telecamera",
+  "selected_one": "{{count}} selezionati",
+  "selected_other": "{{count}} selezionati",
+  "detected": "rilevato",
+  "detail": {
+    "noDataFound": "Nessun dato dettagliato da rivedere",
+    "aria": "Abilita/disabilita la visualizzazione dettagliata",
+    "trackedObject_one": "{{count}} oggetto",
+    "trackedObject_other": "{{count}} oggetti",
+    "noObjectDetailData": "Non sono disponibili dati dettagliati sull'oggetto.",
+    "label": "Dettaglio",
+    "settings": "Impostazioni di visualizzazione dettagliata",
+    "alwaysExpandActive": {
+      "title": "Espandi sempre attivo",
+      "desc": "Espandere sempre i dettagli dell'oggetto dell'elemento di revisione attivo quando disponibili."
+    }
+  },
+  "objectTrack": {
+    "trackedPoint": "Punto tracciato",
+    "clickToSeek": "Premi per cercare in questo momento"
+  },
+  "zoomIn": "Ingrandisci",
+  "zoomOut": "Rimpicciolisci",
+  "normalActivity": "Normale",
+  "needsReview": "Necessita revisione",
+  "securityConcern": "Rischio per la sicurezza",
+  "select_all": "Tutti",
+  "motionSearch": {
+    "menuItem": "Ricerca movimento",
+    "openMenu": "Opzioni telecamera"
+  },
+  "motionPreviews": {
+    "title": "Anteprime di movimento: {{camera}}",
+    "mobileSettingsTitle": "Impostazioni di anteprima del movimento",
+    "mobileSettingsDesc": "Regola la velocità di riproduzione, l'attenuazione della luminosità e il ritaglio, e scegli una data per esaminare le clip di solo movimento.",
+    "dim": "Attenua",
+    "dimAria": "Regola l'intensità della luce",
+    "dimDesc": "Aumenta l'attenuazione per migliorare la visibilità delle aree in movimento.",
+    "speed": "Velocità",
+    "speedAria": "Seleziona la velocità di riproduzione dell'anteprima",
+    "speedDesc": "Scegli la velocità di riproduzione dei video di anteprima.",
+    "back": "Indietro",
+    "empty": "Nessuna anteprima disponibile",
+    "noPreview": "Anteprima non disponibile",
+    "seekAria": "Cerca il riproduttore {{camera}} a {{time}}",
+    "filter": "Filtro",
+    "filterDesc": "Seleziona le aree per visualizzare solo i video con movimento in quelle regioni.",
+    "filterClear": "Pulisci",
+    "menuItem": "Visualizza le anteprime del movimento",
+    "crop": "Ritaglia in base al filtro",
+    "cropAria": "Abilita/disabilita il ritaglio delle anteprime sulle aree filtrate",
+    "cropDesc": "Ingrandisci le anteprime sulle aree selezionate del filtro anzichè mostrare l'intera immagine."
+  }
+}

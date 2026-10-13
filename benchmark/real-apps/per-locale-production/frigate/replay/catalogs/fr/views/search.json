@@ -1,0 +1,73 @@
+{
+  "savedSearches": "Recherches enregistrées",
+  "search": "Rechercher",
+  "searchFor": "Rechercher {{inputValue}}",
+  "button": {
+    "clear": "Effacer la recherche",
+    "filterInformation": "Filtrer les informations",
+    "filterActive": "Filtres actifs",
+    "save": "Enregistrer la recherche",
+    "delete": "Supprimer la recherche enregistrée"
+  },
+  "trackedObjectId": "ID d'objet suivi",
+  "filter": {
+    "label": {
+      "zones": "Zones",
+      "sub_labels": "Sous-étiquettes",
+      "search_type": "Type de recherche",
+      "time_range": "Plage horaire",
+      "labels": "Étiquettes",
+      "cameras": "Caméras",
+      "after": "Après",
+      "before": "Avant",
+      "min_speed": "Vitesse minimale",
+      "max_speed": "Vitesse maximale",
+      "min_score": "Score minimum",
+      "recognized_license_plate": "Plaque d'immatriculation reconnue",
+      "has_clip": "Avec une séquence vidéo",
+      "has_snapshot": "Avec un instantané",
+      "max_score": "Score maximum",
+      "attributes": "Attributs"
+    },
+    "searchType": {
+      "thumbnail": "Miniature",
+      "description": "Description"
+    },
+    "toast": {
+      "error": {
+        "beforeDateBeLaterAfter": "La date « avant » doit être postérieure à la date « après ».",
+        "afterDatebeEarlierBefore": "La date « après » doit être antérieure à la date « avant ».",
+        "minScoreMustBeLessOrEqualMaxScore": "Le « min_score » doit être inférieur ou égal au « max_score ».",
+        "maxScoreMustBeGreaterOrEqualMinScore": "Le « max_score » doit être supérieur ou égal au « min_score ».",
+        "minSpeedMustBeLessOrEqualMaxSpeed": "La vitesse minimale doit être inférieure ou égale à la vitesse maximale.",
+        "maxSpeedMustBeGreaterOrEqualMinSpeed": "La « vitesse maximale » doit être supérieure ou égale à la « vitesse minimale »."
+      }
+    },
+    "header": {
+      "currentFilterType": "Valeurs du filtre",
+      "activeFilters": "Filtres actifs",
+      "noFilters": "Filtres"
+    },
+    "tips": {
+      "title": "Comment utiliser les filtres de texte",
+      "desc": {
+        "text": "Les filtres vous aident à affiner vos résultats de recherche. Voici comment les utiliser dans le champ de saisie :",
+        "step1": "Saisissez un nom de clé de filtre suivi de deux points (par exemple, \"cameras:\").",
+        "step2": "Sélectionnez une valeur parmi les suggestions ou saisissez la vôtre.",
+        "step3": "Utilisez plusieurs filtres en les ajoutant les uns après les autres avec un espace entre eux.",
+        "step5": "Le filtre de plage horaire utilise le format {{exampleTime}}.",
+        "step6": "Supprimez les filtres en cliquant sur le \"x\" à côté d'eux.",
+        "step4": "Les filtres de dates (avant : et après :) utilisent le format {{DateFormat}}.",
+        "exampleLabel": "Exemple :"
+      }
+    }
+  },
+  "similaritySearch": {
+    "title": "Recherche par similarité",
+    "active": "Recherche par similarité activée",
+    "clear": "Effacer la recherche par similarité"
+  },
+  "placeholder": {
+    "search": "Rechercher…"
+  }
+}

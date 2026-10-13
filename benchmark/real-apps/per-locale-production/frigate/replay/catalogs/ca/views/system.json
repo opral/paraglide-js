@@ -1,0 +1,375 @@
+{
+  "documentTitle": {
+    "cameras": "Estadístiques de càmera - Frigate",
+    "storage": "Estadístiques d'emmagatzematge - Frigate",
+    "general": "Estadístiques generals - Frigate",
+    "logs": {
+      "frigate": "Registres de Frigate - Frigate",
+      "go2rtc": "Registres de Go2RTC - Frigate",
+      "nginx": "Registres de Nginix - Frigate",
+      "websocket": "Registres de missatges - Frigate"
+    },
+    "enrichments": "Estadístiques complementàries - Frigate",
+    "health": "Salut - Frigate"
+  },
+  "title": "Sistema",
+  "metrics": "Mètriques del sistema",
+  "logs": {
+    "download": {
+      "label": "Descarregar registres"
+    },
+    "copy": {
+      "label": "Copiar al porta-retalls",
+      "success": "Registres copiats al porta-retalls",
+      "error": "No s'han pogut copiar els registres al porta-retalls"
+    },
+    "type": {
+      "label": "Tipus",
+      "timestamp": "Marca temporal",
+      "tag": "Etiqueta",
+      "message": "Missatge"
+    },
+    "tips": "Els registres s'estàn transmetent des del servidor",
+    "toast": {
+      "error": {
+        "fetchingLogsFailed": "Error al obtenir els registres: {{errorMessage}}",
+        "whileStreamingLogs": "Error en la transmissió dels registres: {{errorMessage}}"
+      }
+    },
+    "websocket": {
+      "label": "Missatges",
+      "pause": "Pausa",
+      "resume": "Reprèn",
+      "clear": "Neteja",
+      "filter": {
+        "all": "Tots els temes",
+        "topics": "Temes",
+        "events": "Esdeveniment",
+        "reviews": "Revisions",
+        "classification": "Classificació",
+        "face_recognition": "Reconeixement facial",
+        "lpr": "LPR",
+        "camera_activity": "Activitat de la càmera",
+        "system": "Sistema",
+        "camera": "Càmara",
+        "all_cameras": "Totes les càmeres",
+        "cameras_count_one": "{{count}} càmera",
+        "cameras_count_other": "{{count}} Càmeres"
+      },
+      "empty": "Encara no s'ha capturat cap missatge",
+      "expanded": {
+        "payload": "Payload"
+      },
+      "count_one": "{{count}} missatge",
+      "count_other": "{{count}} missatges"
+    }
+  },
+  "general": {
+    "detector": {
+      "memoryUsage": "Ús de la memòria del detector",
+      "title": "Detectors",
+      "inferenceSpeed": "Velocitat d'inferència del detector",
+      "cpuUsage": "Ús de la CPU del detector",
+      "temperature": "Temperatura del detector",
+      "cpuUsageInformation": "CPU usada en la preparació d'entrades i sortides desde/cap als models de detecció. Aquest valor no mesura l'utilització d'inferència, encara que usis una GPU o accelerador."
+    },
+    "title": "General",
+    "hardwareInfo": {
+      "title": "Informació de maquinari",
+      "gpuUsage": "Ús de la GPU",
+      "gpuMemory": "Memòria de GPU",
+      "gpuDecoder": "Decodificador de GPU",
+      "gpuEncoder": "Codificador de GPU",
+      "gpuInfo": {
+        "vainfoOutput": {
+          "title": "Sortida de Vainfo",
+          "processOutput": "Sortida del procés:",
+          "processError": "Error de procés:",
+          "returnCode": "Codi de retorn: {{code}}"
+        },
+        "nvidiaSMIOutput": {
+          "title": "Sortida de Nvidia SMI",
+          "vbios": "Informació de VBios: {{vbios}}",
+          "cudaComputerCapability": "Capacitat de càlcul CUDA: {{cuda_compute}}",
+          "name": "Nom: {{name}}",
+          "driver": "Controlador: {{driver}}"
+        },
+        "closeInfo": {
+          "label": "Tancar informació de GPU"
+        },
+        "copyInfo": {
+          "label": "Copiar informació de GPU"
+        },
+        "toast": {
+          "success": "Informació de GPU copiada al porta-retalls"
+        }
+      },
+      "npuUsage": "Ús de NPU",
+      "npuMemory": "Memòria de NPU",
+      "gpuTemperature": "Temperatura de la GPU",
+      "npuTemperature": "Temperatura NPU",
+      "gpuCompute": "Càlcul / Codificació per GPU"
+    },
+    "otherProcesses": {
+      "title": "Altres processos",
+      "processMemoryUsage": "Ús de memòria de procés",
+      "processCpuUsage": "Ús de la CPU per procés",
+      "series": {
+        "recording": "gravant",
+        "review_segment": "segment de revisió",
+        "embeddings": "Vectors",
+        "audio_detector": "detector d'àudio",
+        "go2rtc": "go2rtc"
+      }
+    }
+  },
+  "storage": {
+    "title": "Emmagatzematge",
+    "recordings": {
+      "title": "Gravacions",
+      "earliestRecording": "Gravació més antiga disponible:",
+      "tips": "Aquest valor representa l'emmagatzematge total utilitzat per les gravacions a la base de dades de Frigate. Frigate no registre l'ús de tots els arxius del disc."
+    },
+    "cameraStorage": {
+      "camera": "Càmera",
+      "unusedStorageInformation": "Informació d'emmagatzematge no utilitzat",
+      "bandwidth": "Ample de banda",
+      "storageUsed": "Emmagatzematge",
+      "title": "Emmagatzematge de càmera",
+      "unused": {
+        "title": "Sense utilitzar",
+        "tips": "Aquest valor pot no de forma exacta representar l'espai lliure disponible a Frigate si tens altres fitxers emmagatzemats en la vostra unitat més enllà dels registres de Frigate. Frigate no rastreja l'ús d'emmagatzematge extern als seus registres."
+      },
+      "percentageOfTotalUsed": "Percentatge del total",
+      "subStream": {
+        "information": "Informació de l'emmagatzematge del subflux",
+        "tips": "Les càmeres que enregistren un subflux mostren el seu ús original i de baixa qualitat per separat, utilitzant els mateixos noms que les opcions de qualitat en la reproducció de l'enregistrament. Els enregistraments de baixa qualitat es mantenen en disc fins que el seu període de retenció expira, de manera que aquesta avaria encara pot aparèixer per a una càmera després que s'hagi desactivat l'enregistrament de substream."
+      }
+    },
+    "overview": "Visió general",
+    "shm": {
+      "title": "Ubicació de SHM (memória compartida)",
+      "warning": "El tamany de la SHM oh {{total}}MB es massa petita. Augmenta almenys fins a {{min_shm}}MB.",
+      "frameLifetime": {
+        "title": "Temps de vida del fotograma",
+        "description": "Cada càmera té {{frames}} ranures de fotogrames en memòria compartida. A la velocitat de fotogrames més ràpida de la càmera, cada fotograma està disponible per aproximadament {{lifetime}}s abans de ser sobreescrit."
+      }
+    }
+  },
+  "cameras": {
+    "framesAndDetections": "Fotogrames / Deteccions",
+    "label": {
+      "capture": "captura",
+      "cameraDetect": "{{camName}} detectar",
+      "cameraCapture": "{{camName}} captura",
+      "camera": "càmera",
+      "skipped": "omès",
+      "ffmpeg": "FFmpeg",
+      "detect": "detectar",
+      "overallFramesPerSecond": "Fotogrames per segon globals",
+      "overallDetectionsPerSecond": "Deteccions per segon globals",
+      "cameraFfmpeg": "{{camName}} FFmpeg",
+      "cameraFramesPerSecond": "{{camName}} fotogrames per segon",
+      "cameraDetectionsPerSecond": "{{camName}} deteccions per segon",
+      "overallSkippedDetectionsPerSecond": "Nombre total de deteccions descartades per segon",
+      "cameraSkippedDetectionsPerSecond": "Nombre de deteccions descartades per segon a {{camName}}",
+      "cameraGpu": "{{camName}} GPU"
+    },
+    "info": {
+      "codec": "Còdec:",
+      "fps": "FPS:",
+      "resolution": "Resolució:",
+      "video": "Vídeo:",
+      "unknown": "Desconegut",
+      "stream": "Transmissió {{idx}}",
+      "error": "Error: {{error}}",
+      "fetching": "Obtenint dades de càmera",
+      "aspectRatio": "relació d'aspecte",
+      "tips": {
+        "title": "Informació del sondeig de la càmera"
+      },
+      "audio": "Àudio:",
+      "cameraProbeInfo": "Informació del sondeig de la càmera {{camera}}",
+      "streamDataFromFFPROBE": "Les dades de la transmissió són obtingudes mitjançant <code>ffprobe</code>.",
+      "keyframes": {
+        "title": "Anàlisi de fotogrames clau",
+        "analyzing": "S'estan analitzant els fotogrames clau... queden {{seconds}} segons",
+        "stillAnalyzing": "Encara s'estan analitzant els fotogrames clau...",
+        "recordStream": "Registre de flux:",
+        "keyframeCount": "Fotogrames clau observats:",
+        "observedDuration": "Durada observada:",
+        "gap": "Espai de fotogrames clau (mín / avg / max):",
+        "segmentLength": "Longitud del segment d'enregistrament:",
+        "ok": "Fotogrames clau cada ,{{seconds}}s, bons per enregistrar i reproduir.",
+        "unknown": "No s'ha pogut determinar l'espaiat dels fotogrames clau.",
+        "recordDisabled": "L'enregistrament està desactivat per a aquesta càmera.",
+        "warningFixed": "Els fotogrames clau estan uniformement espaiats però dispersos (cada ).{{seconds}}s). L'enregistrament encara funciona, però la reproducció en directe i la recerca comencen més lentament. Estableix l'interval I-frame (keyframe) de la càmera perquè coincideixi amb la seva velocitat de fotogrames.",
+        "warningVariable": "L'espaiat dels fotogrames clau és inconsistent ({{minSeconds}}s a {{maxSeconds}}s), el qual normalment significa que un còdec intel·ligent (H.264+/H.265+) està habilitat. Això no és recomanable.",
+        "errorFixed": "Els fotogrames clau cada the{{seconds}}s és més llarg que la longitud del segment d'enregistrament ({{segmentTime}}s), de manera que alguns segments no tenen fotogrames clau i no es reproduiran. Escurça l'interval I-frame (keyframe) de la càmera perquè coincideixi amb la seva velocitat de fotogrames.",
+        "errorVariable": "Els buits dels fotogrames clau arriben a the{{seconds}}s, més llargs que la longitud del segment d'enregistrament ({{segmentTime}}s). Alguns segments no tindran un fotograma clau, el qual trenca la reproducció. Desactiva el còdec intel·ligent/+ a la càmera o escurça el seu interval de fotogrames clau."
+      }
+    },
+    "title": "Càmeres",
+    "overview": "Visió general",
+    "toast": {
+      "success": {
+        "copyToClipboard": "S'han copiat les dades de sondeig al porta-retalls."
+      },
+      "error": {
+        "unableToProbeCamera": "No s'ha pogut sondejar la càmera: {{errorMessage}}"
+      }
+    },
+    "connectionQuality": {
+      "title": "Qualitat de la connexió",
+      "excellent": "Excel·lent",
+      "fair": "Fira",
+      "poor": "Pobre",
+      "unusable": "No utilitzable",
+      "fps": "FPS",
+      "expectedFps": "FPS esperat",
+      "reconnectsLastHour": "Reconnecta (última hora)",
+      "stallsLastHour": "Parades (última hora)"
+    },
+    "noCameras": {
+      "title": "No s'ha trobat cap càmera"
+    }
+  },
+  "lastRefreshed": "Darrera actualització: ",
+  "stats": {
+    "reindexingEmbeddings": "Reindexant vectors ({{processed}}% completat)",
+    "healthy": "El sistema és saludable",
+    "cameraIsOffline": "{{camera}} està fora de línia",
+    "detectIsVerySlow": "{{detect}} és molt lent ({{speed}} ms)",
+    "detectIsSlow": "{{detect}} és lent ({{speed}} ms)",
+    "debugReplayActive": "La sessió de repetició de depuració està activa",
+    "cameraSkippedDetections": "{{camera}} està ometent la detecció en {{pct}}% de fotogrames",
+    "systemNotices_one": "{{count}} avís del sistema",
+    "systemNotices_other": "{{count}} avisos del sistema",
+    "retentionUnmet": "Els enregistraments s'estan suprimint abans que acabi el seu període de retenció a l'espai lliure",
+    "moreMessages_other": "+{{count}}",
+    "moreMessages_one": "+{{count}}"
+  },
+  "enrichments": {
+    "title": "Anàlisi avançada",
+    "embeddings": {
+      "face_recognition_speed": "Velocitat de reconeixement facial",
+      "image_embedding": "Vectors d'imatges",
+      "text_embedding": "Vectors de text",
+      "face_recognition": "Reconeixement de rostres",
+      "plate_recognition": "Reconeixemnt de matrícules",
+      "image_embedding_speed": "Velocitat de generació de vectors",
+      "face_embedding_speed": "Velocitat de generació de vectors facials",
+      "plate_recognition_speed": "Velocitat de reconeixement de matrícules",
+      "text_embedding_speed": "Velocitat de generació de vectors de text",
+      "yolov9_plate_detection": "Detecció de matrícules YOLOv9",
+      "yolov9_plate_detection_speed": "Velocitat de detecció de matrícules YOLOv9",
+      "review_description": "Descripció de la revisió",
+      "review_description_speed": "Velocitat de la descripció de la revisió",
+      "review_description_events_per_second": "Descripció de la revisió",
+      "object_description": "Descripció de l'objecte",
+      "object_description_speed": "Velocitat de la descripció de l'objecte",
+      "object_description_events_per_second": "Descripció de l'objecte",
+      "classification": "{{name}} Classificació",
+      "classification_speed": "Velocitat de classificació de {{name}}",
+      "classification_events_per_second": "{{name}} Esdeveniments de classificació per segon"
+    },
+    "infPerSecond": "Inferències per segon",
+    "averageInf": "Temps mitjà d'inferència"
+  },
+  "health": {
+    "title": "Salut",
+    "notices": {
+      "title": "Avís",
+      "empty": "La instal·lació de Frigate és saludable",
+      "openSettings": "Obre la configuració",
+      "openLink": "Obre l'enllaç",
+      "noMatches": "No hi ha avisos que coincideixin amb el filtre",
+      "firstSeen_one": "{{time}} vist per primera vegada",
+      "firstSeen_other": "{{time}} · {{count}} vegades",
+      "filter": {
+        "severity": "Severitat",
+        "warning": "Avís",
+        "error": "Error",
+        "info": "Info",
+        "showHidden": "Mostra els ocults"
+      },
+      "kinds": {
+        "detector_stuck": "S'ha reiniciat el detector {{detector}} després que deixés de respondre",
+        "model_download_failed": "Ha fallat la baixada de {{file}} per {{model}}: {{error}}",
+        "skipped_detections": "La detecció no ha pogut mantenir el {{pct}}% de fotogrames durant més d'un minut",
+        "shm_too_low": "L'assignació /dev/shm ({{total}} MB) s'hauria d'augmentar a com a mínim {{min}} MB",
+        "failed_login_one": "Error en l'intent d'inici de sessió de {{user}}",
+        "failed_login_other": "Intents d'inici de sessió fallits per {{user}}",
+        "update_available": "Frigate {{version}} està disponible",
+        "ffmpeg_high_cpu": "L'ús de la CPU FFmpeg és alt ({{cpu}}% mitjana)",
+        "detect_high_cpu": "L'ús de la CPU de detecció és alt ({{cpu}}% mitjana)"
+      },
+      "streamPrefix": "Flux {{index}}: {{message}}",
+      "streamPrefixRestream": "Flux {{index}} (via go2rtc): {{message}}",
+      "streamProbeFailed": "No s'ha pogut provar el flux {{index}}: {{error}}",
+      "cameraProbeFailed": "No s'han pogut explorar els fluxos: {{error}}",
+      "acknowledge": "Agraïment",
+      "acknowledgeHint": "Amaga fins que això torni a passar",
+      "mute": "Silenciar",
+      "muteHint": "No ho mostris mai més",
+      "unmute": "No silenciis",
+      "showAgain": "Torna a mostrar",
+      "hiddenTitle": "Ocultar",
+      "noneHidden": "No hi ha avisos ocults",
+      "showAll": "Mostra-ho tot de nou",
+      "showAllTitle": "Voleu mostrar tots els avisos ocults?",
+      "showAllDesc": "Cada avís reconegut i silenciat torna a la llista d'avisos, incloent-hi les comprovacions de configuració i flux.",
+      "acknowledgedAt": "Reconegut {{time}}",
+      "mutedAt": "Mutat {{time}}"
+    },
+    "hardware": {
+      "title": "Maquinari",
+      "objectDetection": "Detecció d'objectes",
+      "hardwareAcceleration": "Acceleració del maquinari",
+      "enrichments": {
+        "title": "Enriquiments",
+        "semantic_search": "Cerca semàntica",
+        "face_recognition": "Reconeixement facial",
+        "lpr": "Reconeixement de matricules",
+        "audio_transcription": "Transcripció d'àudio"
+      },
+      "cameraConnections": "Connexions de la càmera",
+      "allCamerasExcellent": "Totes les càmeres tenen una excel·lent connexió.",
+      "fps": "{{camera}} / {{expected}} fps",
+      "nothingConfigured": "Res configurat",
+      "allCameras": "Totes les càmeres",
+      "probeUnavailable": "La detecció de maquinari no està disponible",
+      "justStarted": "Frigate acaba de començar",
+      "deviceNotFound": "{{devices}} no s'ha trobat en aquest sistema",
+      "detectorNotRunning": "El procés del detector no s'està executant",
+      "inferenceVerySlow": "La inferència és molt lenta ({{speed}} ms)",
+      "inferenceSlow": "La inferència és lenta ({{speed}} ms)",
+      "customArgs": "Arguments personalitzats del ffmpeg",
+      "customArgsNotVerified": "Arguments personalitzats del ffmpeg, no verificats",
+      "hwaccelNotConfigured": "No s'utilitza cap descodificació de maquinari, però {{family}} està disponible. Seleccioneu-lo a la configuració del ffmpeg",
+      "hwaccelHardwareMissing": "{{family}} està configurat, però la sonda de maquinari no ho ha informat",
+      "unrecognizedDevice": "Sobreescriu el dispositiu no reconegut, no verificat",
+      "decoderUsage": "descodificador {{usage}}",
+      "remoteProvider": "Proveïdor remot",
+      "acceleratorMissing": "Configurat per {{device}} però no s'ha trobat cap accelerador compatible",
+      "modelNotRunYet": "El model encara no s'ha executat, el dispositiu es verifica després del primer ús",
+      "fellBackToCpu": "Configurat per {{device}} però executant-se a la CPU",
+      "cpuDespiteAccelerator": "S'està executant a la CPU encara que hi ha disponible un accelerador",
+      "probed": "Profund",
+      "probing": "S'està sondejant...",
+      "recheck": "Torna a comprovar el maquinari",
+      "cameraStreams": "Fluxos de la càmera",
+      "streamsNotChecked": "Encara no s'ha comprovat",
+      "streamsChecking": "S'està comprovant {{done}} de {{total}}",
+      "streamsClean": "No hi ha problemes de flux",
+      "checked": "Comprovat",
+      "runAgain": "Torna a executar",
+      "runStreamChecks": "Executa les comprovacions de flux",
+      "streamsChecked_one": "S'ha comprovat la càmera {{count}}",
+      "streamsChecked_other": "{{count}} càmeres comprovades",
+      "streamsFlagged_one": "{{count}} amb problemes, llistat a Avisos",
+      "streamsFlagged_other": "{{count}} amb problemes, llistat a Avisos",
+      "inferenceMs": "{{speed}} ms"
+    }
+  }
+}

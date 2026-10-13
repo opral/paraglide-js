@@ -1,0 +1,231 @@
+{
+  "documentTitle": {
+    "default": "Live - Frigate"
+  },
+  "documentTitle.withCamera": "{{camera}} - Frigate - Live",
+  "lowBandwidthMode": "Mod Latime de Banda Limitata",
+  "twoWayTalk": {
+    "enable": "Activare dialog",
+    "disable": "Dezactivează conversația bidirecțională",
+    "requiresWebRTC": "Convorbirea bidirecțională necesită WebRTC, care este indisponibil",
+    "error": {
+      "microphone": "Convorbirea bidirecțională nu ți-a putut accesa microfonul",
+      "refused": "Pornirea convorbirii bidirecționale a eșuat. Vezi consola browserului pentru detalii."
+    }
+  },
+  "ptz": {
+    "zoom": {
+      "out": {
+        "label": "Îndepărtează camera PTZ"
+      },
+      "in": {
+        "label": "Apropie camera PTZ"
+      }
+    },
+    "move": {
+      "clickMove": {
+        "label": "Apasă în cadrul imaginii pentru a centra camera",
+        "enable": "Activează mutarea prin clic",
+        "disable": "Dezactivează mutarea prin clic",
+        "enableWithZoom": "Activează clic pentru mutare / trage pentru zoom"
+      },
+      "left": {
+        "label": "Mișcă camera PTZ spre stânga"
+      },
+      "up": {
+        "label": "Mișcă camera PTZ în sus"
+      },
+      "down": {
+        "label": "Mișcă camera PTZ în jos"
+      },
+      "right": {
+        "label": "Mișcă camera PTZ spre dreapta"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "Apasă în cadru pentru a centra camera PTZ"
+      }
+    },
+    "presets": "Presetări cameră PTZ",
+    "focus": {
+      "in": {
+        "label": "Focalizează camera PTZ în interior"
+      },
+      "out": {
+        "label": "Focalizează camera PTZ în exterior"
+      }
+    }
+  },
+  "cameraAudio": {
+    "enable": "Activează sunetul camerei",
+    "disable": "Dezactivează sunetul camerei"
+  },
+  "camera": {
+    "turnOn": "Camera este pornittă",
+    "turnOff": "Oprește camera"
+  },
+  "muteCameras": {
+    "enable": "Dezactivează sunetul pentru toate camerele",
+    "disable": "Activează sunetul pentru toate camerele"
+  },
+  "detect": {
+    "enable": "Activează detectarea",
+    "disable": "Dezactivează detectarea"
+  },
+  "recording": {
+    "enable": "Activează înregistrarea",
+    "disable": "Dezactivează înregistrarea",
+    "disabledInConfig": "Înregistrarea trebuie mai întâi activată în Setări pentru această cameră."
+  },
+  "snapshots": {
+    "disable": "Dezactivează snapshoturile",
+    "enable": "Activează snapshot-urile"
+  },
+  "audioDetect": {
+    "enable": "Activează detectarea audio",
+    "disable": "Dezactivează detectarea audio"
+  },
+  "autotracking": {
+    "enable": "Activează urmărirea automată",
+    "disable": "Dezactivează urmărirea automată"
+  },
+  "streamStats": {
+    "enable": "Afișează statistici streaming",
+    "disable": "Ascunde statisticile de streaming"
+  },
+  "manualRecording": {
+    "title": "La-cerere",
+    "tips": "Descarcă un snapshot instant sau pornește un eveniment manual pe baza setărilor de reținere a înregistrărilor acestei camere.",
+    "playInBackground": {
+      "label": "Redă în fundal",
+      "desc": "Activează această opțiune pentru a continua redarea streaming-ului chiar și atunci când playerul este ascuns."
+    },
+    "showStats": {
+      "label": "Afișează statistici",
+      "desc": "Activează această opțiune pentru a afișa statisticile de streaming suprapus peste imaginea camerei."
+    },
+    "debugView": "Vizualizator depanare",
+    "start": "Pornește înregistrarea la cerere",
+    "started": "Înregistrare la cerere pornită manual.",
+    "failedToStart": "Nu s-a putut porni înregistrarea manuală la cerere.",
+    "recordDisabledTips": "Deoarece înregistrarea este dezactivată sau restricționată în configurația pentru această cameră, doar un snapshot va fi salvat.",
+    "end": "Oprește înregistrarea la cerere",
+    "ended": "Înregistrarea manuală la cerere s-a încheiat.",
+    "failedToEnd": "Nu s-a reușit încheierea înregistrării manuale la cerere."
+  },
+  "streamingSettings": "Setări streaming",
+  "notifications": "Notificări",
+  "audio": "Audio",
+  "suspend": {
+    "forTime": "Suspendă pentru: "
+  },
+  "stream": {
+    "title": "Stream",
+    "audio": {
+      "tips": {
+        "title": "Sunetul trebuie să fie redat de camera dvs. și configurat în go2rtc pentru acest stream."
+      },
+      "available": "Sunetul este disponibil pentru acest stream",
+      "unavailable": "Sunetul nu este disponibil pentru acest stream"
+    },
+    "twoWayTalk": {
+      "tips": "Dispozitivul dvs. trebuie să suporte această funcție, iar WebRTC trebuie configurat pentru comunicare bidirecțională.",
+      "available": "Comunicarea bidirecțională este disponibilă pentru acest stream",
+      "unavailable": "Comunicarea bidirecțională nu este disponibilă pentru acest stream"
+    },
+    "lowBandwidth": {
+      "tips": "Vizualizarea live este în modul de lățime de bandă redusă din cauza întârzierilor sau a erorilor de streaming.",
+      "resetStream": "Resetează stream-ul",
+      "force": {
+        "label": "Forțează modul de lățime de bandă redusă",
+        "desc": "Redă întotdeauna fluxul integrat Frigate de lățime de bandă redusă în locul stream-ului selectat. Funcționează pe orice conexiune, dar are calitate mai scăzută și este fără audio."
+      }
+    },
+    "playInBackground": {
+      "label": "Redare în fundal",
+      "tips": "Activează această opțiune pentru a continua streaming-ul când player-ul este ascuns."
+    },
+    "debug": {
+      "picker": "Selectarea stream-ului nu este disponibilă în modul de depanare. Vizualizarea de depanare folosește întotdeauna stream-ul atribuit rolului de detectare.",
+      "technology": "Selectarea tehnologiei de stream este indisponibilă în modul de depanare."
+    },
+    "mode": "Tehnologie de streaming",
+    "technology": {
+      "description": "Alege tehnologia de streaming preferată. Frigate poate totuși să revină la modul de lățime de bandă redusă în caz de erori de redare sau de rețea.",
+      "name": {
+        "mse": "MSE",
+        "webrtc": "WebRTC",
+        "jsmpeg": "JSMpeg"
+      },
+      "tips": {
+        "mse": "Opțiunea implicită recomandată, compatibilitate largă și redare fluentă",
+        "webrtc": "Necesită configurare suplimentară și nu este suportat pe orice dispozitiv"
+      },
+      "unavailable": {
+        "browser": "Browserul tău nu suportă WebRTC.",
+        "not-configured": "WebRTC nu este configurat. Setează candidații webrtc sau ice_servers în go2rtc.",
+        "unreachable": "WebRTC nu s-a putut conecta. Verifică dacă portul 8555 este accesibil și dacă serverul STUN/TURN este corect.",
+        "video-codec": "Codecul video al acestui stream nu este suportat de WebRTC în acest browser.",
+        "audio-codec": "Codecul audio al acestui stream nu este suportat de WebRTC. Transcodifică în opus sau G.711 cu go2rtc.",
+        "checking": "Se verifică disponibilitatea WebRTC…"
+      }
+    }
+  },
+  "cameraSettings": {
+    "title": "Setări pentru {{camera}}",
+    "objectDetection": "Detectare obiecte",
+    "recording": "Înregistrare",
+    "snapshots": "Snapshot-uri",
+    "audioDetection": "Detectare sunet",
+    "autotracking": "Urmărire automată",
+    "transcription": "Transcriere audio",
+    "camera": "Cameră"
+  },
+  "history": {
+    "label": "Afișează înregistrările istorice"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "all": "Toate",
+      "motion": "Mișcare",
+      "active_objects": "Obiecte active"
+    }
+  },
+  "editLayout": {
+    "label": "Editează aspectul",
+    "group": {
+      "label": "Editează grupul de camere"
+    },
+    "exitEdit": "Ieși din modul de editare"
+  },
+  "transcription": {
+    "enable": "Activează transcrierea audio în timp real",
+    "disable": "Dezactivează transcrierea audio în timp real"
+  },
+  "snapshot": {
+    "takeSnapshot": "Descarcă snapshot instant",
+    "noVideoSource": "Nicio sursă video disponibilă pentru snapshot.",
+    "captureFailed": "Eșec la capturarea snapshot-ului.",
+    "downloadStarted": "Descărcarea snapshot-ului a început."
+  },
+  "noCameras": {
+    "title": "Nicio Cameră Configurată",
+    "description": "Începe prin a conecta o cameră la Frigate.",
+    "buttonText": "Adaugă cameră",
+    "restricted": {
+      "title": "Nicio Cameră Disponibilă",
+      "description": "Nu aveți permisiunea de a vizualiza camere în acest grup."
+    },
+    "default": {
+      "title": "Nicio cameră configurată",
+      "description": "Începe prin a conecta o cameră la Frigate.",
+      "buttonText": "Adaugă cameră"
+    },
+    "group": {
+      "title": "Nicio cameră în grup",
+      "description": "Acest grup de camere nu are camere alocate sau activate.",
+      "buttonText": "Gestionează grupuri"
+    }
+  }
+}

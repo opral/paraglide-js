@@ -45,7 +45,16 @@
     "sourceCatalogFiles": 115,
     "namespaces": 22,
     "englishKeys": 5368,
-    "allLocaleUnionMessageIds": 5550
+    "allLocaleUnionMessageIds": 5550,
+    "converterReplay": {
+      "script": "source/converter/convert-catalogs.mjs",
+      "scriptSha256": "9b1d47073ea4217cdb286dcc065824fe8b8635ffaa3e9e27b35301bfc2cd1d77",
+      "metadata": "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/catalog-metadata.json",
+      "metadataSha256": "bd770d115d115eddc4a5fc976205a38b7116a37bc64c29c71d382642cc37dd1a",
+      "generatedMessageFilesByteMatched": 8,
+      "generatedShapeFilesByteMatched": 176,
+      "result": "source-only converter replay from the pinned LocalAI catalog tree; no app/compiler build"
+    }
   },
   "sourceHashes": {
     "nativeIndexOriginal": "e9959bd5fc712a2205323e2ac5d2cb8bfd6371f879d3eea04da459fca006fb64",

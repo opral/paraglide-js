@@ -1,0 +1,86 @@
+{
+  "group": {
+    "label": "Grupe kamera",
+    "add": "Dodaj grupu kamera",
+    "edit": "Uredi grupu kamera",
+    "delete": {
+      "label": "Izbriši grupu kamera",
+      "confirm": {
+        "title": "Potvrda brisanja",
+        "desc": "Da li ste sigurni da želite obrisati grupu kamera <em>{{name}}</em>?"
+      }
+    },
+    "name": {
+      "label": "Ime",
+      "placeholder": "Unesite ime…",
+      "errorMessage": {
+        "mustLeastCharacters": "Ime grupe kamera mora sadržavati barem 2 karaktera.",
+        "exists": "Grupa kamera sa ovim imenom već postoji.",
+        "nameMustNotPeriod": "Naziv grupe kamera ne smije sadržavati točku.",
+        "invalid": "Nevažeći naziv grupe kamera."
+      }
+    },
+    "cameras": {
+      "label": "Kamere",
+      "desc": "Izaberite kamere za ovu grupu."
+    },
+    "icon": "Ikona",
+    "success": "Grupa kamera ({{name}}) je pohranjena.",
+    "camera": {
+      "birdseye": "Ptičja perspektiva",
+      "setting": {
+        "label": "Postavke emitiranja kamere",
+        "title": "{{cameraName}} Postavke Emitiranja",
+        "desc": "Promijenite opcije emitiranja uživo za nadzornu ploču ove grupe kamera. <em>Ove postavke su specifične za uređaj/preglednik.</em>",
+        "audioIsAvailable": "Za ovaj prijenos dostupan je zvuk",
+        "audioIsUnavailable": "Za ovaj prijenos zvuk nije dostupan",
+        "audio": {
+          "tips": {
+            "title": "Audio mora dolaziti s vaše kamere i biti konfiguriran u go2rtc za ovaj prijenos."
+          }
+        },
+        "stream": "Emitiranje",
+        "placeholder": "Izaberi emitiranje",
+        "streamMethod": {
+          "label": "Metoda emitiranja",
+          "placeholder": "Odaberi metodu emitiranja",
+          "method": {
+            "noStreaming": {
+              "label": "Nema emitiranja",
+              "desc": "Slike s kamere bit će ažurirane samo jednom u minuti, a emitiranje uživo neće biti dostupno."
+            },
+            "smartStreaming": {
+              "desc": "Pametno emitiranje ažurirat će sliku vaše kamere jednom u minuti kada nema prepoznatljive aktivnosti kako bi uštedjelo propusnost i resurse. Kada se detektira aktivnost, slika će se besprijekorno prebaciti na prijenos uživo.",
+              "label": "Pametno Emitiranje (preporučeno)"
+            },
+            "continuousStreaming": {
+              "label": "Kontinuirano Emitiranje",
+              "desc": {
+                "title": "Slika kamere uvijek će biti prijenos uživo kada je vidljiva na nadzornoj ploči, čak i ako nije detektirana nikakva aktivnost.",
+                "warning": "Neprekidno emitiranje može uzrokovati visok unos propusnosti i probleme s izvedbom. Koristite s oprezom."
+              }
+            }
+          }
+        },
+        "compatibilityMode": {
+          "label": "Način kompatibilnosti",
+          "desc": "Omogućite ovu opciju samo ako vaš prijenos uživo s kamere prikazuje artefakte boje i ima dijagonalnu liniju na desnoj strani slike."
+        }
+      }
+    }
+  },
+  "debug": {
+    "options": {
+      "label": "Postavke",
+      "title": "Opcije",
+      "showOptions": "Pokaži Opcije",
+      "hideOptions": "Sakrij Opcije"
+    },
+    "boundingBox": "Granični okvir",
+    "timestamp": "Vremenska oznaka",
+    "zones": "Zone",
+    "mask": "Maska",
+    "motion": "Kretnja",
+    "regions": "Regije"
+  }
+}

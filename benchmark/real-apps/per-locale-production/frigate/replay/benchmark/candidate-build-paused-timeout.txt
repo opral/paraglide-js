@@ -1,0 +1,6 @@
+Recorded tool-output excerpt from the paused build (not original redirected log):
+Error [LixError]: Lix open did not settle within 30000ms
+at Timeout.<anonymous> (.../@lix-js/sdk/dist/worker/client.js:485:52)
+code: LIX_OPEN_TIMEOUT
+Node.js v22.23.2
+The stock open timer elapsed during an explicitly requested SIGSTOP browser window; this run is excluded from clean-build failure claims.

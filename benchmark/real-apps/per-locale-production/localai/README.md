@@ -30,7 +30,23 @@ One earlier, unpaired candidate mobile sample had nine `net::ERR_NETWORK_CHANGED
 
 ## Reproduction
 
-Use fresh LocalAI worktrees at `a551c83465ee538367358f239de5a364ebea9329`, Node 22.23.2, npm 10.9.8, Playwright 1.64.0, and the Chrome for Testing 156.0.8078.4 runtime. In both worktrees run `npm ci --no-audit --no-fund` from `core/http/react-ui/`. Apply [native-bundled-auth-fallback.patch](patches/native-bundled-auth-fallback.patch) to one worktree. In a second worktree, apply [per-locale-app.patch](patches/per-locale-app.patch), then copy `source/per-locale/core/http/react-ui/src/i18n/` and `source/per-locale/core/http/react-ui/.real-apps/localai.inlang/` into the matching app paths. The private compiler patch provenance pins its source base and tested host-8 build; set `PARAGLIDE_COMPILER_ROOT=/root/repos-iii/paraglide-namespace-facades-private` when reproducing in this workspace. The copied project settings file retains that checkout’s absolute message-format plugin module path; if relocating the archive, update its `modules` path to the corresponding private compiler checkout. The exact frozen host-8 `dist` location and hash are in `provenance.json` and `source/private-compiler/`. `source/per-locale-build-summary.json` is the pre-browser build record; this package adds the browser validation below.
+Use fresh LocalAI worktrees at `a551c83465ee538367358f239de5a364ebea9329`, Node 22.23.2, npm 10.9.8, Playwright 1.64.0, and the Chrome for Testing 156.0.8078.4 runtime. In both worktrees run `npm ci --no-audit --no-fund` from `core/http/react-ui/`. Apply [native-bundled-auth-fallback.patch](patches/native-bundled-auth-fallback.patch) to one worktree. In a second worktree, apply [per-locale-app.patch](patches/per-locale-app.patch), then copy `source/per-locale/core/http/react-ui/src/i18n/` and `source/per-locale/core/http/react-ui/.real-apps/localai.inlang/` into the matching app paths. The archived i18n folder includes all 176 generated selected-locale/fallback shape maps imported by the prototype runtime.
+
+To regenerate those inputs from the pinned stock 115 LocalAI catalog files, run the archived converter against the fresh checkout and copy its three outputs into the candidate worktree. This source-only step does not build the app:
+
+```sh
+PACKAGE=/path/to/paraglide-client-split-pr4/benchmark/real-apps/per-locale-production/localai
+LOCALAI_SOURCE=/path/to/localai-at-a551c83465ee538367358f239de5a364ebea9329 \
+CONVERTER_OUTPUT=/tmp/localai-catalog-converter \
+  node "$PACKAGE/source/converter/convert-catalogs.mjs"
+
+cd /path/to/candidate/core/http/react-ui
+cp -a /tmp/localai-catalog-converter/project.inlang/messages/. .real-apps/localai.inlang/messages/
+cp -a /tmp/localai-catalog-converter/shapes-effective/. src/i18n/generated-shapes/
+cp /tmp/localai-catalog-converter/catalog-metadata.json .real-apps/localai.inlang/catalog-metadata.json
+```
+
+`source/per-locale/core/http/react-ui/.real-apps/localai.inlang/catalog-metadata.json` preserves the exact converter inventory, original trees, leaf mappings, and catalog hashes. The converter replay was checked against the archived candidate inputs: all 8 message files and all 176 shape maps were byte-identical; the metadata records 115 files, 8 locales, 22 namespaces, 5,368 English IDs, and 5,550 union IDs. The project settings file is included separately and retains the private message-format plugin path. The private compiler patch provenance pins its source base and tested host-8 build; set `PARAGLIDE_COMPILER_ROOT=/root/repos-iii/paraglide-namespace-facades-private` when reproducing in this workspace. If relocating the archive, update the settings `modules` path to the corresponding private compiler checkout. The exact frozen host-8 `dist` location and hash are in `provenance.json` and `source/private-compiler/`. `source/per-locale-build-summary.json` is the pre-browser build record; this package adds the browser validation below.
 
 From each worktree's `core/http/react-ui/` directory, build into a separate immutable directory:
 

@@ -1,0 +1,200 @@
+{
+  "documentTitle": {
+    "default": "Direkte - Frigate"
+  },
+  "lowBandwidthMode": "Lav båndbreddemodus",
+  "documentTitle.withCamera": "{{camera}} - Direkte - Frigate",
+  "ptz": {
+    "move": {
+      "clickMove": {
+        "label": "Klikk i rammen for å sentrere kameraet",
+        "enable": "Aktiver klikk for å flytte",
+        "disable": "Deaktiver klikk for å flytte",
+        "enableWithZoom": "Aktiver \"klikk for å flytte\" / \"dra for å zoome\""
+      },
+      "left": {
+        "label": "Flytt PTZ-kameraet til venstre"
+      },
+      "up": {
+        "label": "Flytt PTZ-kameraet opp"
+      },
+      "down": {
+        "label": "Flytt PTZ-kameraet ned"
+      },
+      "right": {
+        "label": "Flytt PTZ-kameraet til høyre"
+      }
+    },
+    "presets": "PTZ-kamera forhåndsinnstillinger",
+    "zoom": {
+      "in": {
+        "label": "Zoom inn på PTZ-kameraet"
+      },
+      "out": {
+        "label": "Zoom ut på PTZ-kameraet"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "Klikk i rammen for å sentrere PTZ-kameraet"
+      }
+    },
+    "focus": {
+      "in": {
+        "label": "Fokuser inn på PTZ-kameraet"
+      },
+      "out": {
+        "label": "Fokuser ut på PTZ-kameraet"
+      }
+    }
+  },
+  "camera": {
+    "turnOn": "Slå kamera på",
+    "turnOff": "Skå kamera av"
+  },
+  "snapshots": {
+    "enable": "Aktiver stillbilder",
+    "disable": "Deaktiver stillbilder"
+  },
+  "audioDetect": {
+    "enable": "Aktiver lydregistrering",
+    "disable": "Deaktiver lydregistrering"
+  },
+  "autotracking": {
+    "enable": "Aktiver automatisk sporing",
+    "disable": "Deaktiver automatisk sporing"
+  },
+  "manualRecording": {
+    "tips": "Last ned et stillbilde, eller start en manuell hendelse basert på dette kameraets innstillinger for opptaksbevaring.",
+    "playInBackground": {
+      "label": "Spill av i bakgrunnen",
+      "desc": "Aktiver dette alternativet for å fortsette strømming når spilleren er skjult."
+    },
+    "showStats": {
+      "label": "Vis statistikk",
+      "desc": "Aktiver dette alternativet for å vise strømmestatistikk som et overlegg på kamerastrømmen."
+    },
+    "started": "Startet manuelt opptak.",
+    "end": "Avslutt manuelt opptak",
+    "title": "Manuelt opptak",
+    "debugView": "Feilsøkingsvisning",
+    "start": "Start manuelt opptak",
+    "failedToStart": "Kunne ikke starte manuelt opptak.",
+    "recordDisabledTips": "Siden opptak er deaktivert eller begrenset i konfigurasjonen for dette kameraet, vil kun et stillbilde bli lagret.",
+    "ended": "Avsluttet manuelt opptak.",
+    "failedToEnd": "Kunne ikke avslutte manuelt opptak."
+  },
+  "audio": "Lyd",
+  "suspend": {
+    "forTime": "Pause i: "
+  },
+  "stream": {
+    "audio": {
+      "tips": {
+        "title": "Lyd må være aktivert på kameraet ditt og konfigurert i go2rtc for denne strømmen."
+      },
+      "available": "Lyd er tilgjengelig for denne strømmen",
+      "unavailable": "Lyd er ikke tilgjengelig for denne strømmen"
+    },
+    "twoWayTalk": {
+      "tips": "Enheten din må støtte funksjonen og WebRTC må være konfigurert for toveis tale.",
+      "available": "Toveis tale er tilgjengelig for denne strømmen",
+      "unavailable": "Toveis tale er ikke tilgjengelig for denne strømmen"
+    },
+    "lowBandwidth": {
+      "tips": "Direktevisning er i lav båndbreddemodus på grunn av buffering eller strømmefeil.",
+      "resetStream": "Tilbakestill strøm"
+    },
+    "title": "Strøm",
+    "playInBackground": {
+      "label": "Spill av i bakgrunnen",
+      "tips": "Aktiver dette alternativet for å fortsette strømming når spilleren er skjult."
+    },
+    "debug": {
+      "picker": "Strømmevalg er ikke tilgjengelig i feilsøkingsmodus. Feilsøkingsvisningen bruker alltid strømmen som er tildelt deteksjonsrollen."
+    }
+  },
+  "history": {
+    "label": "Vis historiske opptak"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "all": "Alle",
+      "motion": "Bevegelse",
+      "active_objects": "Aktive objekter"
+    }
+  },
+  "editLayout": {
+    "label": "Rediger oppsett",
+    "group": {
+      "label": "Rediger kameragruppe"
+    },
+    "exitEdit": "Avslutt redigering"
+  },
+  "twoWayTalk": {
+    "enable": "Aktiver toveis tale",
+    "disable": "Deaktiver toveis tale"
+  },
+  "cameraAudio": {
+    "enable": "Aktiver kameralyd",
+    "disable": "Deaktiver kameralyd"
+  },
+  "muteCameras": {
+    "enable": "Demp alle kameraer",
+    "disable": "Slå på lyd på alle kameraer"
+  },
+  "detect": {
+    "enable": "Aktiver deteksjon",
+    "disable": "Deaktiver deteksjon"
+  },
+  "recording": {
+    "enable": "Aktiver opptak",
+    "disable": "Deaktiver opptak",
+    "disabledInConfig": "Opptak må først aktiveres i Innstillinger for dette kameraet."
+  },
+  "streamStats": {
+    "enable": "Vis Strømmestatistikk",
+    "disable": "Skjul strømmestatistikk"
+  },
+  "streamingSettings": "Strømmingsinnstillinger",
+  "notifications": "Meldingsvarsler",
+  "cameraSettings": {
+    "title": "{{camera}}-innstillinger",
+    "objectDetection": "Objektdeteksjon",
+    "recording": "Opptak",
+    "snapshots": "Stillbilder",
+    "audioDetection": "Lydregistrering",
+    "autotracking": "Automatisk sporing",
+    "transcription": "Lydtranskripsjon",
+    "camera": "Kamera"
+  },
+  "transcription": {
+    "enable": "Aktiver direkte lydtranskripsjon",
+    "disable": "Deaktiver direkte lydtranskripsjon"
+  },
+  "snapshot": {
+    "noVideoSource": "Ingen videokilde tilgjengelig for stillbilde.",
+    "captureFailed": "Kunne ikke ta stillbilde.",
+    "downloadStarted": "Nedlasting av stillbilde startet.",
+    "takeSnapshot": "Last ned stillbilde"
+  },
+  "noCameras": {
+    "title": "Ingen kameraer konfigurert",
+    "description": "Kom i gang ved å koble et kamera til Frigate.",
+    "buttonText": "Legg til kamera",
+    "restricted": {
+      "title": "Ingen kameraer tilgjengelig",
+      "description": "Du har ikke tilgang for å se noen kameraer i denne gruppen."
+    },
+    "default": {
+      "title": "Ingen kameraer konfigurert",
+      "description": "Kom i gang ved å koble et kamera til Frigate.",
+      "buttonText": "Legg til kamera"
+    },
+    "group": {
+      "title": "Ingen kameraer i gruppe",
+      "description": "Denne kameragruppen har ingen tildelte eller aktiverte kameraer.",
+      "buttonText": "Administrer grupper"
+    }
+  }
+}

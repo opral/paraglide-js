@@ -1,0 +1,200 @@
+{
+  "documentTitle": {
+    "default": "In diretta - Frigate"
+  },
+  "documentTitle.withCamera": "{{camera}} - Dal vivo - Frigate",
+  "lowBandwidthMode": "Modalità a bassa larghezza di banda",
+  "twoWayTalk": {
+    "enable": "Abilita audio bidirezionale",
+    "disable": "Disabilita audio bidirezionale"
+  },
+  "snapshots": {
+    "enable": "Abilita Istantanee",
+    "disable": "Disabilita istantanee"
+  },
+  "manualRecording": {
+    "recordDisabledTips": "Poiché la registrazione è disabilitata o limitata nella configurazione di questa telecamera, verrà salvata solo un'istantanea.",
+    "title": "Su richiesta",
+    "tips": "Scarica un'istantanea attuale o avvia un evento manuale in base alle impostazioni di conservazione della registrazione di questa telecamera.",
+    "playInBackground": {
+      "label": "Riproduci in sottofondo",
+      "desc": "Abilita questa opzione per continuare la trasmissione quando il lettore è nascosto."
+    },
+    "showStats": {
+      "label": "Mostra statistiche",
+      "desc": "Abilita questa opzione per visualizzare le statistiche della trasmissione come sovrapposizione sul flusso della telecamera."
+    },
+    "debugView": "Vista correzioni",
+    "start": "Avvia la registrazione su richiesta",
+    "started": "Registrazione manuale su richiesta avviata.",
+    "failedToStart": "Impossibile avviare la registrazione manuale su richiesta.",
+    "end": "Termina la registrazione su richiesta",
+    "ended": "Registrazione manuale su richiesta terminata.",
+    "failedToEnd": "Impossibile terminare la registrazione manuale su richiesta."
+  },
+  "cameraSettings": {
+    "snapshots": "Istantanee",
+    "autotracking": "Tracciamento automatico",
+    "title": "Impostazioni di {{camera}}",
+    "objectDetection": "Rilevamento oggetti",
+    "recording": "Registrazione",
+    "audioDetection": "Rilevamento audio",
+    "transcription": "Trascrizione audio",
+    "camera": "Telecamera"
+  },
+  "history": {
+    "label": "Mostra filmati storici"
+  },
+  "notifications": "Notifiche",
+  "streamingSettings": "Impostazioni di trasmissione",
+  "audio": "Audio",
+  "cameraAudio": {
+    "enable": "Abilita audio della telecamera",
+    "disable": "Disabilita audio della telecamera"
+  },
+  "ptz": {
+    "move": {
+      "clickMove": {
+        "enable": "Abilita clic per spostare",
+        "disable": "Disabilita clic per spostare",
+        "label": "Fai clic nella cornice per centrare la telecamera",
+        "enableWithZoom": "Abilita clic per muovere / trascina per ingrandire"
+      },
+      "left": {
+        "label": "Sposta la telecamera PTZ a sinistra"
+      },
+      "up": {
+        "label": "Sposta la telecamera PTZ verso l'alto"
+      },
+      "down": {
+        "label": "Sposta la telecamera PTZ verso il basso"
+      },
+      "right": {
+        "label": "Sposta la telecamera PTZ a destra"
+      }
+    },
+    "zoom": {
+      "in": {
+        "label": "Ingrandisci la telecamera PTZ"
+      },
+      "out": {
+        "label": "Riduci la telecamera PTZ"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "Fai clic nella cornice per centrare la telecamera PTZ"
+      }
+    },
+    "presets": "Preimpostazioni della telecamera PTZ",
+    "focus": {
+      "in": {
+        "label": "Aumenta fuoco della telecamera PTZ"
+      },
+      "out": {
+        "label": "Diminuisci fuoco della telecamera PTZ"
+      }
+    }
+  },
+  "camera": {
+    "turnOn": "Attiva la telecamera",
+    "turnOff": "Disattiva la telecamera"
+  },
+  "muteCameras": {
+    "enable": "Muta tutte le telecamere",
+    "disable": "Attiva audio di tutte le telecamere"
+  },
+  "detect": {
+    "enable": "Abilita rilevamento",
+    "disable": "Disabilita rilevamento"
+  },
+  "recording": {
+    "enable": "Abilita registrazione",
+    "disable": "Disabilita registrazione",
+    "disabledInConfig": "Per questa telecamera è necessario prima abilitare la registrazione nelle impostazioni."
+  },
+  "audioDetect": {
+    "enable": "Abilita rilevamento audio",
+    "disable": "Disabilita rilevamento audio"
+  },
+  "autotracking": {
+    "enable": "Abilita il tracciamento automatico",
+    "disable": "Disabilita il tracciamento automatico"
+  },
+  "streamStats": {
+    "enable": "Mostra statistiche di trasmissione",
+    "disable": "Nascondi statistiche di trasmissione"
+  },
+  "suspend": {
+    "forTime": "Sospendi per: "
+  },
+  "stream": {
+    "title": "Trasmissione",
+    "audio": {
+      "tips": {
+        "title": "L'audio deve essere trasmesso dalla tua telecamera e configurato in go2rtc per questo flusso."
+      },
+      "unavailable": "L'audio non è disponibile per questo flusso",
+      "available": "L'audio è disponibile per questo flusso"
+    },
+    "twoWayTalk": {
+      "tips": "Il dispositivo deve supportare la funzionalità e WebRTC deve essere configurato per la comunicazione bidirezionale.",
+      "unavailable": "La comunicazione bidirezionale non è disponibile per questo flusso",
+      "available": "La comunicazione bidirezionale è disponibile per questo flusso"
+    },
+    "playInBackground": {
+      "tips": "Abilita questa opzione per continuare la trasmissione quando il lettore è nascosto.",
+      "label": "Riproduci in sottofondo"
+    },
+    "lowBandwidth": {
+      "tips": "La visualizzazione dal vivo è in modalità a bassa larghezza di banda a causa di errori di caricamento o di trasmissione.",
+      "resetStream": "Reimposta flusso"
+    },
+    "debug": {
+      "picker": "Selezione del flusso non disponibile in modalità correzioni. La visualizzazione correzioni utilizza sempre il flusso a cui è assegnato il ruolo di rilevamento."
+    }
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "all": "Tutti",
+      "motion": "Movimento",
+      "active_objects": "Oggetti attivi"
+    }
+  },
+  "editLayout": {
+    "label": "Modifica formato",
+    "group": {
+      "label": "Modifica gruppo telecamere"
+    },
+    "exitEdit": "Esci dalla modifica"
+  },
+  "transcription": {
+    "enable": "Abilita la trascrizione audio in tempo reale",
+    "disable": "Disabilita la trascrizione audio in tempo reale"
+  },
+  "noCameras": {
+    "buttonText": "Aggiungi telecamera",
+    "title": "Nessuna telecamera configurata",
+    "description": "Per iniziare, collega una telecamera a Frigate.",
+    "restricted": {
+      "title": "Nessuna telecamera disponibile",
+      "description": "Non hai l'autorizzazione per visualizzare alcuna telecamera in questo gruppo."
+    },
+    "default": {
+      "title": "Nessuna telecamera configurata",
+      "description": "Per iniziare, collega una telecamera a Frigate.",
+      "buttonText": "Aggiungi telecamera"
+    },
+    "group": {
+      "title": "Nessuna telecamera nel gruppo",
+      "description": "Questo gruppo di telecamere non ha telecamere assegnate o abilitate.",
+      "buttonText": "Gestisci gruppi"
+    }
+  },
+  "snapshot": {
+    "takeSnapshot": "Scarica istantanea attuale",
+    "noVideoSource": "Nessuna sorgente video disponibile per l'istantanea.",
+    "captureFailed": "Impossibile catturare l'istantanea.",
+    "downloadStarted": "Scaricamento istantanea avviato."
+  }
+}

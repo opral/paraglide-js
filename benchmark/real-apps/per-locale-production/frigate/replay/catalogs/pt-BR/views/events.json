@@ -1,0 +1,96 @@
+{
+  "alerts": "Alertas",
+  "detections": "Detecções",
+  "motion": {
+    "label": "Movimento",
+    "only": "Somente Movimento"
+  },
+  "allCameras": "Todas as Câmeras",
+  "empty": {
+    "alert": "Não existe nenhum alerta para revisar",
+    "detection": "Não há nenhuma detecção para revisar",
+    "motion": "Nenhum dado de movimento encontrado",
+    "recordingsDisabled": {
+      "title": "As gravações devem estar habilitadas",
+      "description": "A revisão de itens só pode ser criada para uma câmera quando a gravação está habilitada."
+    }
+  },
+  "timeline": {
+    "label": "Linha do tempo"
+  },
+  "timeline.aria": "Selecione a linha do tempo",
+  "events": {
+    "label": "Eventos",
+    "aria": "Selecione eventos",
+    "noFoundForTimePeriod": "Nenhum evento encontrado neste período."
+  },
+  "recordings": {
+    "documentTitle": "Gravações - Frigate",
+    "invalidSharedLink": "Não foi possível abrir o link da gravação com carimbo de data/hora devido a um erro de análise.",
+    "invalidSharedCamera": "Não foi possível abrir o link da gravação com carimbo de data/hora devido a uma câmera desconhecida ou não autorizada."
+  },
+  "calendarFilter": {
+    "last24Hours": "Últimas 24 horas"
+  },
+  "markTheseItemsAsReviewed": "Marque estes itens como revisados",
+  "newReviewItems": {
+    "button": "Novos Itens para Revisar",
+    "label": "Ver novos itens para revisão"
+  },
+  "selected_one": "{{count}} selecionados",
+  "documentTitle": "Revisar - Frigate",
+  "markAsReviewed": "Marcar como Revisado",
+  "selected_other": "{{count}} selecionados",
+  "camera": "Câmera",
+  "detected": "detectado",
+  "detail": {
+    "noDataFound": "Nenhum dado de detalhe para revisar",
+    "aria": "Alternar visualização de detalhe",
+    "trackedObject_one": "{{count}} objeto(s)",
+    "trackedObject_other": "{{count}} objetos",
+    "noObjectDetailData": "Nenhum dado de detalhe de objeto disponível.",
+    "label": "Detalhe",
+    "settings": "Configurações de visualização detalhada",
+    "alwaysExpandActive": {
+      "title": "Expandir sempre o modo ativo",
+      "desc": "Sempre expandir os detalhes do objeto do item de revisão ativo quando disponíveis."
+    }
+  },
+  "objectTrack": {
+    "trackedPoint": "Ponto rastreado",
+    "clickToSeek": "Clique para ir para esse horário"
+  },
+  "zoomIn": "Ampliar",
+  "zoomOut": "Diminuir o zoom",
+  "select_all": "Todos",
+  "normalActivity": "Normal",
+  "needsReview": "Precisa de revisão",
+  "securityConcern": "Questão de segurança",
+  "motionSearch": {
+    "menuItem": "Busca de movimento",
+    "openMenu": "Opções da câmera"
+  },
+  "motionPreviews": {
+    "menuItem": "Ver prévias de movimento",
+    "title": "Prévias de movimento: {{camera}}",
+    "mobileSettingsTitle": "Configurações da prévia de movimento",
+    "mobileSettingsDesc": "Ajuste a velocidade de reprodução, o escurecimento e o recorte, e escolha uma data para revisar clipes apenas com movimento.",
+    "dimAria": "Ajustar a intensidade do escurecimento",
+    "dim": "Escurecer",
+    "speed": "Velocidade",
+    "dimDesc": "Aumente o escurecimento para aumentar a visibilidade da área de movimento.",
+    "speedAria": "Selecione a velocidade de reprodução da prévia",
+    "speedDesc": "Escolha a rapidez com que os clipes de prévia são reproduzidos.",
+    "back": "Voltar",
+    "empty": "Nenhuma prévia disponível",
+    "noPreview": "Prévia indisponível",
+    "seekAria": "Ir para {{time}} no player de {{camera}}",
+    "filterDesc": "Selecione áreas para mostrar apenas os clipes com movimento nessas regiões.",
+    "filterClear": "Limpar",
+    "filter": "Filtro",
+    "crop": "Recortar para o filtro",
+    "cropAria": "Alterna o recorte das prévias para as áreas filtradas",
+    "cropDesc": "Amplia as prévias nas áreas de filtro selecionadas em vez de mostrar o quadro completo."
+  },
+  "subOnlyQuality": "Apenas gravações de baixa qualidade estão disponíveis neste intervalo de tempo"
+}

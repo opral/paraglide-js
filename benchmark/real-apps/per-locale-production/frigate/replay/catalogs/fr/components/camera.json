@@ -1,0 +1,90 @@
+{
+  "group": {
+    "edit": "Modifier le groupe de caméras",
+    "label": "Groupes de caméras",
+    "add": "Ajouter un groupe de caméras",
+    "delete": {
+      "label": "Supprimer le groupe de caméras",
+      "confirm": {
+        "title": "Confirmez la suppression",
+        "desc": "Êtes-vous sûr de vouloir supprimer le groupe de caméras <em>{{name}}</em> ?"
+      }
+    },
+    "name": {
+      "placeholder": "Saisissez un nom.",
+      "label": "Nom",
+      "errorMessage": {
+        "mustLeastCharacters": "Le nom du groupe de caméras doit comporter au moins 2 caractères.",
+        "exists": "Le nom du groupe de caméras existe déjà.",
+        "nameMustNotPeriod": "Le nom de groupe de caméras ne doit pas contenir de point.",
+        "invalid": "Nom de groupe de caméras invalide"
+      }
+    },
+    "cameras": {
+      "label": "Caméras",
+      "desc": "Sélectionnez les caméras pour ce groupe."
+    },
+    "success": "Le groupe de caméras ({{name}}) a été enregistré.",
+    "icon": "Icône",
+    "camera": {
+      "setting": {
+        "label": "Paramètres du flux de la caméra",
+        "title": "Paramètres du flux de {{cameraName}}",
+        "audioIsUnavailable": "L'audio n'est pas disponible pour ce flux.",
+        "audioIsAvailable": "L'audio est disponible pour ce flux.",
+        "desc": "Modifier les options du flux temps réel pour le tableau de bord de ce groupe de caméras. <em>Ces paramètres sont spécifiques à l'appareil ou au navigateur.</em>",
+        "audio": {
+          "tips": {
+            "title": "L'audio doit provenir de la caméra et être configuré dans go2rtc pour ce flux."
+          }
+        },
+        "streamMethod": {
+          "label": "Méthode de diffusion",
+          "method": {
+            "noStreaming": {
+              "label": "Aucune diffusion",
+              "desc": "Les images provenant de la caméra ne seront mises à jour qu'une fois par minute et il n'y aura aucune diffusion en direct."
+            },
+            "smartStreaming": {
+              "label": "Diffusion intelligente (recommandée)",
+              "desc": "La diffusion intelligente mettra à jour l'image de la caméra une fois par minute lorsqu'aucune activité n'est détectée, afin de préserver la bande passante et les ressources. Quand une activité est détectée, l'image bascule automatiquement en flux temps réel."
+            },
+            "continuousStreaming": {
+              "label": "Diffusion en continu",
+              "desc": {
+                "title": "L'image de la caméra sera toujours un flux temps réel lorsqu'elle est visible dans le tableau de bord, même si aucune activité n'est détectée.",
+                "warning": "La diffusion en continu peut entraîner une consommation de bande passante élevée et des problèmes de performance. À utiliser avec prudence."
+              }
+            }
+          },
+          "placeholder": "Choisissez une méthode de diffusion."
+        },
+        "compatibilityMode": {
+          "label": "Mode de compatibilité",
+          "desc": "Activez cette option uniquement si votre flux temps réel affiche des artefacts chromatiques et présente une ligne diagonale sur le côté droit de l'image."
+        },
+        "stream": "Flux",
+        "placeholder": "Choisissez un flux."
+      },
+      "birdseye": "Birdseye"
+    },
+    "showAll": "Afficher tout les groupes de caméras",
+    "showLess": "Réduire l'affichage",
+    "editGroups": "Modifier les groupes de caméras"
+  },
+  "debug": {
+    "timestamp": "Horodatage",
+    "motion": "Mouvement",
+    "mask": "Masque",
+    "options": {
+      "showOptions": "Afficher les options",
+      "title": "Options",
+      "label": "Paramètres",
+      "hideOptions": "Masquer les options"
+    },
+    "boundingBox": "Cadre de détection",
+    "zones": "Zones",
+    "regions": "Régions",
+    "paths": "Chemins"
+  }
+}

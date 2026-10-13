@@ -1,0 +1,59 @@
+{
+  "noRecordingsFoundForThisTime": "Hetkel ei leidu ühtegi salvestust",
+  "noPreviewFound": "Eelvaadet ei leidu",
+  "noPreviewFoundFor": "{{cameraName}} kaamera eelvaadet ei leidu",
+  "submitFrigatePlus": {
+    "submit": "Saada",
+    "title": "Kas saadad selle kaadri Frigate+ teenusesse?",
+    "previewError": "Hetktõmmise eelvaate laadimine ei õnnestu. Salvestus ei pruugi olla hetkel saadaval."
+  },
+  "stats": {
+    "streamType": {
+      "title": "Voogedastuse tüüp:",
+      "short": "Tüüp"
+    },
+    "bandwidth": {
+      "title": "Ribalaius:",
+      "short": "Ribalaius"
+    },
+    "totalFrames": "Kaadreid kokku:",
+    "droppedFrames": {
+      "title": "Vahelejäänud kaadreid:",
+      "short": {
+        "title": "Vahelejäänud",
+        "value": "{{droppedFrames}} kaadrit"
+      }
+    },
+    "decodedFrames": "Dekodeeritud kaadreid:",
+    "droppedFrameRate": "Vahelejäänud kaadrite sagedus:"
+  },
+  "livePlayerRequiredIOSVersion": "Selle voogedastuse tüübi jaoks on vajalik iOS-i versioon 17.1 või uuem.",
+  "streamOffline": {
+    "title": "Voogedastus ei toimi",
+    "desc": "„{{cameraName}}“ <code>detect</code>-tüüpi voogedastusest pole tulnud ühtegi kaadrit. Täpsemat teavet leiad vealogidest"
+  },
+  "toast": {
+    "success": {
+      "submittedFrigatePlus": "Kaadri saatmine Frigate+ teenusesse õnnestus"
+    },
+    "error": {
+      "submitFrigatePlusFailed": "Kaadri saatmine Frigate+ teenusesse ei õnnestunud",
+      "playRecordingsFailed": "Salvestiste esitamine ei õnnestunud (viga {{code}}): {{message}}"
+    }
+  },
+  "cameraOff": "Kaamera on lülitatud välja",
+  "quality": {
+    "auto": "Automaatne",
+    "autoLow": "Esita madala kvaliteediga (väiksem ribalaius)",
+    "autoLowCodec": "Esitamisel madala kvaliteediga (see brauser ei toeta algset vormingut)",
+    "autoLowSaveData": "Esitamisel madala kvaliteediga (säästab andmeruumi)",
+    "main": "Algne kvaliteet",
+    "sub": "Madal kvaliteet",
+    "notSupportedBrowser": "Pole selles brauseris toetatud",
+    "label": "Kvaliteet",
+    "noAudio": "Ilma heliribata",
+    "audioRate": "{{rate}} kHz heliriba",
+    "audioCodecRate": "{{codec}} {{rate}} kHz",
+    "noRecordings": "Sellest ajavahemikust pole salvestisi"
+  }
+}

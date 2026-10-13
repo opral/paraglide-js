@@ -1,0 +1,22 @@
+{
+  "node": "v22.23.2",
+  "platform": "linux",
+  "architecture": "x64",
+  "compilerCommit": "490a5c0d0c4c44b93f61ad494b28f74987e5f245",
+  "compilerHashes": {
+    "index.js": "72884458211415a046050e655997ed49caaf56b7697012790dab084d32a62bc1",
+    "compiler/compile-project.js": "fbd46c4120d239e79aff57b6c5aec42556a4b541c293b8d477682f32852499b8",
+    "compiler/compile-bundle.js": "98c499e1eebc831244c382d4144f273953ad7a12acb9abd584172aa566625109",
+    "bundler-plugins/vite.js": "6feac75c7bbdcc4934d7d6b5dc75940022bb9fa4a940718111b5e262c6f43771",
+    "bundler-plugins/per-locale-build/vite-environments.js": "63347372e525a1483c528ff090b5d4276fc7f630231306f760763c857f6ef309"
+  },
+  "vite": "8.3.3",
+  "rolldown": "1.2.13",
+  "i18next": "26.4.2",
+  "react-i18next": "17.0.16",
+  "inlangSDKVersion": "4.0.0",
+  "inlangSDKHashes": {
+    "dist/project/loadProjectFromDirectory.js": "fee0646103d1b89740dfdcab03da7423bf235ebac6c9c61efab100fa5bad6065",
+    "dist/import-export/importFiles.js": "47badd0cdeb8db8bba4022132bb9c9f51485a30b1e8febf066a113dd1f7e7e8b"
+  }
+}

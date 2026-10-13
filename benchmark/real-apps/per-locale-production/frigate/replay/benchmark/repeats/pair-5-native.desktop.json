@@ -1,0 +1,2165 @@
+{
+  "project": "desktop",
+  "path": "/#front_door",
+  "documentLanguage": "fr",
+  "title": "Front Door - Direct - Frigate",
+  "requests": [
+    {
+      "locale": "en",
+      "namespace": "audio",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "common",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "components/camera",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "components/dialog",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "components/player",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "objects",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "views/live",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "views/settings",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "views/system",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "audio",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "common",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "components/camera",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "components/dialog",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "components/player",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "objects",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "views/live",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "views/settings",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "views/system",
+      "status": 200
+    }
+  ],
+  "initialResponseBodies": [
+    {
+      "url": "/",
+      "status": 200,
+      "decodedBodyBytes": 8120,
+      "brotliQ4Bytes": 2982,
+      "responseContentEncoding": "br",
+      "contentLength": "2982",
+      "beginEpoch": 1791902559934.4312
+    },
+    {
+      "url": "/assets/main-D4-eM3CH.js",
+      "status": 200,
+      "decodedBodyBytes": 625825,
+      "brotliQ4Bytes": 186711,
+      "responseContentEncoding": "br",
+      "contentLength": "186711",
+      "beginEpoch": 1791902560029.579
+    },
+    {
+      "url": "/assets/rolldown-runtime-B_MQnBba.js",
+      "status": 200,
+      "decodedBodyBytes": 1087,
+      "brotliQ4Bytes": 573,
+      "responseContentEncoding": "br",
+      "contentLength": "573",
+      "beginEpoch": 1791902560029.731
+    },
+    {
+      "url": "/assets/useTranslation-wMbxFB1i.js",
+      "status": 200,
+      "decodedBodyBytes": 43152,
+      "brotliQ4Bytes": 14274,
+      "responseContentEncoding": "br",
+      "contentLength": "14274",
+      "beginEpoch": 1791902560030.453
+    },
+    {
+      "url": "/assets/activity-indicator-D_x4wV58.js",
+      "status": 200,
+      "decodedBodyBytes": 827809,
+      "brotliQ4Bytes": 120690,
+      "responseContentEncoding": "br",
+      "contentLength": "120690",
+      "beginEpoch": 1791902560030.614
+    },
+    {
+      "url": "/assets/label-DukRF4a6.js",
+      "status": 200,
+      "decodedBodyBytes": 46041,
+      "brotliQ4Bytes": 14801,
+      "responseContentEncoding": "br",
+      "contentLength": "14801",
+      "beginEpoch": 1791902560030.8298
+    },
+    {
+      "url": "/assets/src-BCEtIU6s.js",
+      "status": 200,
+      "decodedBodyBytes": 495919,
+      "brotliQ4Bytes": 139157,
+      "responseContentEncoding": "br",
+      "contentLength": "139157",
+      "beginEpoch": 1791902560030.781
+    },
+    {
+      "url": "/assets/use-history-back-JKPm9jgZ.js",
+      "status": 200,
+      "decodedBodyBytes": 45111,
+      "brotliQ4Bytes": 14674,
+      "responseContentEncoding": "br",
+      "contentLength": "14674",
+      "beginEpoch": 1791902560030.939
+    },
+    {
+      "url": "/assets/drawer-Dp9UU7kd.js",
+      "status": 200,
+      "decodedBodyBytes": 101961,
+      "brotliQ4Bytes": 34821,
+      "responseContentEncoding": "br",
+      "contentLength": "34821",
+      "beginEpoch": 1791902560031.145
+    },
+    {
+      "url": "/assets/dist-X38yvQ2h.js",
+      "status": 200,
+      "decodedBodyBytes": 876,
+      "brotliQ4Bytes": 413,
+      "responseContentEncoding": "br",
+      "contentLength": "413",
+      "beginEpoch": 1791902560031.2449
+    },
+    {
+      "url": "/assets/preload-helper-BtBvY-ns.js",
+      "status": 200,
+      "decodedBodyBytes": 1567,
+      "brotliQ4Bytes": 798,
+      "responseContentEncoding": "br",
+      "contentLength": "798",
+      "beginEpoch": 1791902560031.354
+    },
+    {
+      "url": "/assets/cameraUtil-CKlJ1Vsi.js",
+      "status": 200,
+      "decodedBodyBytes": 3679,
+      "brotliQ4Bytes": 1636,
+      "responseContentEncoding": "br",
+      "contentLength": "1636",
+      "beginEpoch": 1791902560031.441
+    },
+    {
+      "url": "/assets/use-is-admin-B6UU-4w8.js",
+      "status": 200,
+      "decodedBodyBytes": 303,
+      "brotliQ4Bytes": 202,
+      "responseContentEncoding": "br",
+      "contentLength": "202",
+      "beginEpoch": 1791902560031.5562
+    },
+    {
+      "url": "/assets/normalizeDates-B8fk6WG0.js",
+      "status": 200,
+      "decodedBodyBytes": 886,
+      "brotliQ4Bytes": 496,
+      "responseContentEncoding": "br",
+      "contentLength": "496",
+      "beginEpoch": 1791902560031.6948
+    },
+    {
+      "url": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+      "status": 200,
+      "decodedBodyBytes": 1563,
+      "brotliQ4Bytes": 617,
+      "responseContentEncoding": "br",
+      "contentLength": "617",
+      "beginEpoch": 1791902560031.7822
+    },
+    {
+      "url": "/assets/use-date-locale-BpBt0QYp.js",
+      "status": 200,
+      "decodedBodyBytes": 43675,
+      "brotliQ4Bytes": 12768,
+      "responseContentEncoding": "br",
+      "contentLength": "12768",
+      "beginEpoch": 1791902560031.879
+    },
+    {
+      "url": "/assets/detectionHardware-BlXbhogZ.js",
+      "status": 200,
+      "decodedBodyBytes": 1084,
+      "brotliQ4Bytes": 554,
+      "responseContentEncoding": "br",
+      "contentLength": "554",
+      "beginEpoch": 1791902560031.949
+    },
+    {
+      "url": "/assets/src-DHngj9Lm.css",
+      "status": 200,
+      "decodedBodyBytes": 173144,
+      "brotliQ4Bytes": 26070,
+      "responseContentEncoding": "br",
+      "contentLength": "26070",
+      "beginEpoch": 1791902560032.0283
+    },
+    {
+      "url": "/locales/fr/objects.json",
+      "status": 200,
+      "decodedBodyBytes": 3203,
+      "brotliQ4Bytes": 1477,
+      "responseContentEncoding": "br",
+      "contentLength": "1477",
+      "beginEpoch": 1791902560569.4229
+    },
+    {
+      "url": "/locales/fr/audio.json",
+      "status": 200,
+      "decodedBodyBytes": 14983,
+      "brotliQ4Bytes": 5712,
+      "responseContentEncoding": "br",
+      "contentLength": "5712",
+      "beginEpoch": 1791902560572.488
+    },
+    {
+      "url": "/locales/en/objects.json",
+      "status": 200,
+      "decodedBodyBytes": 3051,
+      "brotliQ4Bytes": 1290,
+      "responseContentEncoding": "br",
+      "contentLength": "1290",
+      "beginEpoch": 1791902560572.519
+    },
+    {
+      "url": "/locales/en/audio.json",
+      "status": 200,
+      "decodedBodyBytes": 13637,
+      "brotliQ4Bytes": 4853,
+      "responseContentEncoding": "br",
+      "contentLength": "4853",
+      "beginEpoch": 1791902560572.564
+    },
+    {
+      "url": "/locales/fr/common.json",
+      "status": 200,
+      "decodedBodyBytes": 10066,
+      "brotliQ4Bytes": 3796,
+      "responseContentEncoding": "br",
+      "contentLength": "3796",
+      "beginEpoch": 1791902560588.579
+    },
+    {
+      "url": "/locales/en/common.json",
+      "status": 200,
+      "decodedBodyBytes": 10334,
+      "brotliQ4Bytes": 3496,
+      "responseContentEncoding": "br",
+      "contentLength": "3496",
+      "beginEpoch": 1791902560589.4229
+    },
+    {
+      "url": "/locales/fr/components/camera.json",
+      "status": 200,
+      "decodedBodyBytes": 3891,
+      "brotliQ4Bytes": 1422,
+      "responseContentEncoding": "br",
+      "contentLength": "1422",
+      "beginEpoch": 1791902560609.313
+    },
+    {
+      "url": "/locales/en/components/camera.json",
+      "status": 200,
+      "decodedBodyBytes": 3361,
+      "brotliQ4Bytes": 1176,
+      "responseContentEncoding": "br",
+      "contentLength": "1176",
+      "beginEpoch": 1791902560610.082
+    },
+    {
+      "url": "/locales/fr/views/settings.json",
+      "status": 200,
+      "decodedBodyBytes": 69496,
+      "brotliQ4Bytes": 18165,
+      "responseContentEncoding": "br",
+      "contentLength": "18165",
+      "beginEpoch": 1791902560610.152
+    },
+    {
+      "url": "/locales/en/views/settings.json",
+      "status": 200,
+      "decodedBodyBytes": 98843,
+      "brotliQ4Bytes": 25820,
+      "responseContentEncoding": "br",
+      "contentLength": "25820",
+      "beginEpoch": 1791902560610.223
+    },
+    {
+      "url": "/locales/fr/views/system.json",
+      "status": 200,
+      "decodedBodyBytes": 10937,
+      "brotliQ4Bytes": 3480,
+      "responseContentEncoding": "br",
+      "contentLength": "3480",
+      "beginEpoch": 1791902560654.923
+    },
+    {
+      "url": "/locales/en/views/system.json",
+      "status": 200,
+      "decodedBodyBytes": 16461,
+      "brotliQ4Bytes": 5102,
+      "responseContentEncoding": "br",
+      "contentLength": "5102",
+      "beginEpoch": 1791902560658.349
+    },
+    {
+      "url": "/locales/fr/components/dialog.json",
+      "status": 200,
+      "decodedBodyBytes": 9392,
+      "brotliQ4Bytes": 2904,
+      "responseContentEncoding": "br",
+      "contentLength": "2904",
+      "beginEpoch": 1791902560775.5999
+    },
+    {
+      "url": "/locales/en/components/dialog.json",
+      "status": 200,
+      "decodedBodyBytes": 8240,
+      "brotliQ4Bytes": 2525,
+      "responseContentEncoding": "br",
+      "contentLength": "2525",
+      "beginEpoch": 1791902560775.4539
+    },
+    {
+      "url": "/api/config",
+      "status": 200,
+      "decodedBodyBytes": 32181,
+      "brotliQ4Bytes": 4266,
+      "responseContentEncoding": null,
+      "contentLength": "32181",
+      "beginEpoch": 1791902560883.966
+    },
+    {
+      "url": "/api/profile",
+      "status": 200,
+      "decodedBodyBytes": 58,
+      "brotliQ4Bytes": 50,
+      "responseContentEncoding": null,
+      "contentLength": "58",
+      "beginEpoch": 1791902560885.6401
+    },
+    {
+      "url": "/api/profiles",
+      "status": 200,
+      "decodedBodyBytes": 57,
+      "brotliQ4Bytes": 53,
+      "responseContentEncoding": null,
+      "contentLength": "57",
+      "beginEpoch": 1791902560886.204
+    },
+    {
+      "url": "/api/notices",
+      "status": 200,
+      "decodedBodyBytes": 2,
+      "brotliQ4Bytes": 6,
+      "responseContentEncoding": null,
+      "contentLength": "2",
+      "beginEpoch": 1791902560887.371
+    },
+    {
+      "url": "/api/notices/muted_checks",
+      "status": 200,
+      "decodedBodyBytes": 2,
+      "brotliQ4Bytes": 6,
+      "responseContentEncoding": null,
+      "contentLength": "2",
+      "beginEpoch": 1791902560888.325
+    },
+    {
+      "url": "/api/stats",
+      "status": 200,
+      "decodedBodyBytes": 1705,
+      "brotliQ4Bytes": 542,
+      "responseContentEncoding": null,
+      "contentLength": "1705",
+      "beginEpoch": 1791902560889.3088
+    },
+    {
+      "url": "/api/profile",
+      "status": 200,
+      "decodedBodyBytes": 58,
+      "brotliQ4Bytes": 50,
+      "responseContentEncoding": null,
+      "contentLength": "58",
+      "beginEpoch": 1791902560890.2012
+    },
+    {
+      "url": "/assets/fr-DE_g_3N7.js",
+      "status": 200,
+      "decodedBodyBytes": 5521,
+      "brotliQ4Bytes": 2098,
+      "responseContentEncoding": "br",
+      "contentLength": "2098",
+      "beginEpoch": 1791902560901.1829
+    },
+    {
+      "url": "/assets/Inter-Regular-B0QUfDW0.woff2",
+      "status": 200,
+      "decodedBodyBytes": 108488,
+      "brotliQ4Bytes": 108488,
+      "responseContentEncoding": null,
+      "contentLength": "108488",
+      "beginEpoch": 1791902560921.62
+    },
+    {
+      "url": "/assets/Live-B2HxIU4q.js",
+      "status": 200,
+      "decodedBodyBytes": 184877,
+      "brotliQ4Bytes": 46547,
+      "responseContentEncoding": "br",
+      "contentLength": "46547",
+      "beginEpoch": 1791902560991.853
+    },
+    {
+      "url": "/assets/card-BvEx76ZV.js",
+      "status": 200,
+      "decodedBodyBytes": 1060,
+      "brotliQ4Bytes": 387,
+      "responseContentEncoding": "br",
+      "contentLength": "387",
+      "beginEpoch": 1791902560991.967
+    },
+    {
+      "url": "/assets/fa6-LY2KIa2E.js",
+      "status": 200,
+      "decodedBodyBytes": 3022,
+      "brotliQ4Bytes": 903,
+      "responseContentEncoding": "br",
+      "contentLength": "903",
+      "beginEpoch": 1791902560992.088
+    },
+    {
+      "url": "/assets/ReactKonva-BsRqteko.js",
+      "status": 200,
+      "decodedBodyBytes": 377618,
+      "brotliQ4Bytes": 105650,
+      "responseContentEncoding": "br",
+      "contentLength": "105650",
+      "beginEpoch": 1791902560992.138
+    },
+    {
+      "url": "/assets/resize-observer-BM6UK5WB.js",
+      "status": 200,
+      "decodedBodyBytes": 702,
+      "brotliQ4Bytes": 403,
+      "responseContentEncoding": "br",
+      "contentLength": "403",
+      "beginEpoch": 1791902560992.171
+    },
+    {
+      "url": "/assets/ImageShadowOverlay-zudTxtKC.js",
+      "status": 200,
+      "decodedBodyBytes": 541,
+      "brotliQ4Bytes": 283,
+      "responseContentEncoding": "br",
+      "contentLength": "283",
+      "beginEpoch": 1791902560992.4487
+    },
+    {
+      "url": "/assets/skeleton-Doktw_Xe.js",
+      "status": 200,
+      "decodedBodyBytes": 246,
+      "brotliQ4Bytes": 181,
+      "responseContentEncoding": "br",
+      "contentLength": "181",
+      "beginEpoch": 1791902560992.5261
+    },
+    {
+      "url": "/assets/use-keyboard-listener-CcHihlXj.js",
+      "status": 200,
+      "decodedBodyBytes": 1411,
+      "brotliQ4Bytes": 615,
+      "responseContentEncoding": "br",
+      "contentLength": "615",
+      "beginEpoch": 1791902560992.558
+    },
+    {
+      "url": "/assets/FilterSwitch-BumxfPyV.js",
+      "status": 200,
+      "decodedBodyBytes": 1098,
+      "brotliQ4Bytes": 458,
+      "responseContentEncoding": "br",
+      "contentLength": "458",
+      "beginEpoch": 1791902560992.6748
+    },
+    {
+      "url": "/assets/slider-BsRzJqrB.js",
+      "status": 200,
+      "decodedBodyBytes": 13654,
+      "brotliQ4Bytes": 4520,
+      "responseContentEncoding": "br",
+      "contentLength": "4520",
+      "beginEpoch": 1791902560992.708
+    },
+    {
+      "url": "/assets/TimeAgo-h5R57NLp.js",
+      "status": 200,
+      "decodedBodyBytes": 1451,
+      "brotliQ4Bytes": 718,
+      "responseContentEncoding": "br",
+      "contentLength": "718",
+      "beginEpoch": 1791902560992.755
+    },
+    {
+      "url": "/assets/scroll-area-xcHQ56wu.js",
+      "status": 200,
+      "decodedBodyBytes": 15657,
+      "brotliQ4Bytes": 4675,
+      "responseContentEncoding": "br",
+      "contentLength": "4675",
+      "beginEpoch": 1791902560992.8088
+    },
+    {
+      "url": "/assets/record-Bf1xYu2U.js",
+      "status": 200,
+      "decodedBodyBytes": 49087,
+      "brotliQ4Bytes": 16516,
+      "responseContentEncoding": "br",
+      "contentLength": "16516",
+      "beginEpoch": 1791902560992.852
+    },
+    {
+      "url": "/assets/review-D3-Z-h19.js",
+      "status": 200,
+      "decodedBodyBytes": 242,
+      "brotliQ4Bytes": 184,
+      "responseContentEncoding": "br",
+      "contentLength": "184",
+      "beginEpoch": 1791902560992.894
+    },
+    {
+      "url": "/assets/snapshotUtil-DZ4PxfyT.js",
+      "status": 200,
+      "decodedBodyBytes": 7579,
+      "brotliQ4Bytes": 3120,
+      "responseContentEncoding": "br",
+      "contentLength": "3120",
+      "beginEpoch": 1791902560992.9358
+    },
+    {
+      "url": "/assets/tabs-Dv_B-FHX.js",
+      "status": 200,
+      "decodedBodyBytes": 3778,
+      "brotliQ4Bytes": 1534,
+      "responseContentEncoding": "br",
+      "contentLength": "1534",
+      "beginEpoch": 1791902560992.9841
+    },
+    {
+      "url": "/assets/Chip-DV_hU2e5.js",
+      "status": 200,
+      "decodedBodyBytes": 1232,
+      "brotliQ4Bytes": 653,
+      "responseContentEncoding": "br",
+      "contentLength": "653",
+      "beginEpoch": 1791902560993.0361
+    },
+    {
+      "url": "/assets/context-menu-CvTIS5vu.js",
+      "status": 200,
+      "decodedBodyBytes": 8545,
+      "brotliQ4Bytes": 2334,
+      "responseContentEncoding": "br",
+      "contentLength": "2334",
+      "beginEpoch": 1791902560994.561
+    },
+    {
+      "url": "/assets/use-camera-activity-BoxPiCy2.js",
+      "status": 200,
+      "decodedBodyBytes": 3622,
+      "brotliQ4Bytes": 1646,
+      "responseContentEncoding": "br",
+      "contentLength": "1646",
+      "beginEpoch": 1791902560994.633
+    },
+    {
+      "url": "/assets/use-timeline-utils-RZeNJOLk.js",
+      "status": 200,
+      "decodedBodyBytes": 648,
+      "brotliQ4Bytes": 344,
+      "responseContentEncoding": "br",
+      "contentLength": "344",
+      "beginEpoch": 1791902560994.707
+    },
+    {
+      "url": "/assets/EmptyCard-Ci-uVJwr.js",
+      "status": 200,
+      "decodedBodyBytes": 771,
+      "brotliQ4Bytes": 427,
+      "responseContentEncoding": "br",
+      "contentLength": "427",
+      "beginEpoch": 1791902560994.78
+    },
+    {
+      "url": "/assets/BirdseyeLivePlayer-D50Y4o9J.js",
+      "status": 200,
+      "decodedBodyBytes": 137136,
+      "brotliQ4Bytes": 45026,
+      "responseContentEncoding": "br",
+      "contentLength": "45026",
+      "beginEpoch": 1791902560994.847
+    },
+    {
+      "url": "/assets/MsePlayer-BcrvLnvg.js",
+      "status": 200,
+      "decodedBodyBytes": 9213,
+      "brotliQ4Bytes": 3634,
+      "responseContentEncoding": "br",
+      "contentLength": "3634",
+      "beginEpoch": 1791902560995.127
+    },
+    {
+      "url": "/assets/AutoUpdatingCameraImage-Dscb-wIU.js",
+      "status": 200,
+      "decodedBodyBytes": 2587,
+      "brotliQ4Bytes": 1304,
+      "responseContentEncoding": "br",
+      "contentLength": "1304",
+      "beginEpoch": 1791902560995.014
+    },
+    {
+      "url": "/assets/DebugDrawingLayer-B2MYpMj0.js",
+      "status": 200,
+      "decodedBodyBytes": 2531,
+      "brotliQ4Bytes": 1025,
+      "responseContentEncoding": "br",
+      "contentLength": "1025",
+      "beginEpoch": 1791902560995.097
+    },
+    {
+      "url": "/assets/react-apexcharts.esm-DDSdTom0.js",
+      "status": 200,
+      "decodedBodyBytes": 981036,
+      "brotliQ4Bytes": 275201,
+      "responseContentEncoding": "br",
+      "contentLength": "275201",
+      "beginEpoch": 1791902560995.1328
+    },
+    {
+      "url": "/assets/Live-Cb7KG80W.css",
+      "status": 200,
+      "decodedBodyBytes": 3664,
+      "brotliQ4Bytes": 947,
+      "responseContentEncoding": "br",
+      "contentLength": "947",
+      "beginEpoch": 1791902560995.229
+    },
+    {
+      "url": "/locales/fr/views/live.json",
+      "status": 200,
+      "decodedBodyBytes": 6875,
+      "brotliQ4Bytes": 1995,
+      "responseContentEncoding": "br",
+      "contentLength": "1995",
+      "beginEpoch": 1791902561564.6218
+    },
+    {
+      "url": "/locales/en/views/live.json",
+      "status": 200,
+      "decodedBodyBytes": 8191,
+      "brotliQ4Bytes": 2465,
+      "responseContentEncoding": "br",
+      "contentLength": "2465",
+      "beginEpoch": 1791902561565.1929
+    },
+    {
+      "url": "/locales/fr/components/player.json",
+      "status": 200,
+      "decodedBodyBytes": 1500,
+      "brotliQ4Bytes": 674,
+      "responseContentEncoding": "br",
+      "contentLength": "674",
+      "beginEpoch": 1791902561663.863
+    },
+    {
+      "url": "/locales/en/components/player.json",
+      "status": 200,
+      "decodedBodyBytes": 2034,
+      "brotliQ4Bytes": 782,
+      "responseContentEncoding": "br",
+      "contentLength": "782",
+      "beginEpoch": 1791902561664.27
+    },
+    {
+      "url": "/assets/Inter-Medium-B0NFony0.woff2",
+      "status": 200,
+      "decodedBodyBytes": 111380,
+      "brotliQ4Bytes": 111380,
+      "responseContentEncoding": null,
+      "contentLength": "111380",
+      "beginEpoch": 1791902561763.939
+    }
+  ],
+  "initialBrotliQ4Bytes": 1405545,
+  "timing": {
+    "initialResources": [
+      {
+        "url": "/assets/rolldown-runtime-B_MQnBba.js",
+        "startTime": 89.39999997615814,
+        "responseEnd": 179.09999990463257,
+        "encodedBodySize": 573,
+        "transferSize": 873,
+        "decodedBodySize": 1087
+      },
+      {
+        "url": "/assets/main-D4-eM3CH.js",
+        "startTime": 89.39999997615814,
+        "responseEnd": 379.39999997615814,
+        "encodedBodySize": 186711,
+        "transferSize": 187011,
+        "decodedBodySize": 625825
+      },
+      {
+        "url": "/assets/useTranslation-wMbxFB1i.js",
+        "startTime": 90,
+        "responseEnd": 206.89999997615814,
+        "encodedBodySize": 14274,
+        "transferSize": 14574,
+        "decodedBodySize": 43152
+      },
+      {
+        "url": "/assets/activity-indicator-D_x4wV58.js",
+        "startTime": 90,
+        "responseEnd": 353.5,
+        "encodedBodySize": 120690,
+        "transferSize": 120990,
+        "decodedBodySize": 827809
+      },
+      {
+        "url": "/assets/label-DukRF4a6.js",
+        "startTime": 90.09999990463257,
+        "responseEnd": 210.69999992847443,
+        "encodedBodySize": 14801,
+        "transferSize": 15101,
+        "decodedBodySize": 46041
+      },
+      {
+        "url": "/assets/use-history-back-JKPm9jgZ.js",
+        "startTime": 90.09999990463257,
+        "responseEnd": 319,
+        "encodedBodySize": 14674,
+        "transferSize": 14974,
+        "decodedBodySize": 45111
+      },
+      {
+        "url": "/assets/src-BCEtIU6s.js",
+        "startTime": 90.09999990463257,
+        "responseEnd": 474.09999990463257,
+        "encodedBodySize": 139157,
+        "transferSize": 139457,
+        "decodedBodySize": 495919
+      },
+      {
+        "url": "/assets/drawer-Dp9UU7kd.js",
+        "startTime": 90.19999992847443,
+        "responseEnd": 346.6999999284744,
+        "encodedBodySize": 34821,
+        "transferSize": 35121,
+        "decodedBodySize": 101961
+      },
+      {
+        "url": "/assets/dist-X38yvQ2h.js",
+        "startTime": 90.19999992847443,
+        "responseEnd": 390,
+        "encodedBodySize": 413,
+        "transferSize": 713,
+        "decodedBodySize": 876
+      },
+      {
+        "url": "/assets/preload-helper-BtBvY-ns.js",
+        "startTime": 90.19999992847443,
+        "responseEnd": 400.39999997615814,
+        "encodedBodySize": 798,
+        "transferSize": 1098,
+        "decodedBodySize": 1567
+      },
+      {
+        "url": "/assets/cameraUtil-CKlJ1Vsi.js",
+        "startTime": 90.19999992847443,
+        "responseEnd": 428.89999997615814,
+        "encodedBodySize": 1636,
+        "transferSize": 1936,
+        "decodedBodySize": 3679
+      },
+      {
+        "url": "/assets/use-is-admin-B6UU-4w8.js",
+        "startTime": 90.59999990463257,
+        "responseEnd": 435.2999999523163,
+        "encodedBodySize": 202,
+        "transferSize": 502,
+        "decodedBodySize": 303
+      },
+      {
+        "url": "/assets/normalizeDates-B8fk6WG0.js",
+        "startTime": 90.59999990463257,
+        "responseEnd": 461.39999997615814,
+        "encodedBodySize": 496,
+        "transferSize": 796,
+        "decodedBodySize": 886
+      },
+      {
+        "url": "/assets/src-DHngj9Lm.css",
+        "startTime": 90.69999992847443,
+        "responseEnd": 307.59999990463257,
+        "encodedBodySize": 26070,
+        "transferSize": 26370,
+        "decodedBodySize": 173144
+      },
+      {
+        "url": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+        "startTime": 90.69999992847443,
+        "responseEnd": 471.7999999523163,
+        "encodedBodySize": 617,
+        "transferSize": 917,
+        "decodedBodySize": 1563
+      },
+      {
+        "url": "/assets/use-date-locale-BpBt0QYp.js",
+        "startTime": 90.69999992847443,
+        "responseEnd": 487.09999990463257,
+        "encodedBodySize": 12768,
+        "transferSize": 13068,
+        "decodedBodySize": 43675
+      },
+      {
+        "url": "/assets/detectionHardware-BlXbhogZ.js",
+        "startTime": 90.69999992847443,
+        "responseEnd": 510.2999999523163,
+        "encodedBodySize": 554,
+        "transferSize": 854,
+        "decodedBodySize": 1084
+      },
+      {
+        "url": "/locales/fr/objects.json",
+        "startTime": 632.7999999523163,
+        "responseEnd": 719.0999999046326,
+        "encodedBodySize": 1477,
+        "transferSize": 1777,
+        "decodedBodySize": 3203
+      },
+      {
+        "url": "/locales/en/objects.json",
+        "startTime": 633.3999999761581,
+        "responseEnd": 723.5999999046326,
+        "encodedBodySize": 1290,
+        "transferSize": 1590,
+        "decodedBodySize": 3051
+      },
+      {
+        "url": "/locales/fr/audio.json",
+        "startTime": 633.3999999761581,
+        "responseEnd": 724.8999999761581,
+        "encodedBodySize": 5712,
+        "transferSize": 6012,
+        "decodedBodySize": 14983
+      },
+      {
+        "url": "/locales/en/audio.json",
+        "startTime": 633.5,
+        "responseEnd": 726.8999999761581,
+        "encodedBodySize": 4853,
+        "transferSize": 5153,
+        "decodedBodySize": 13637
+      },
+      {
+        "url": "/locales/fr/common.json",
+        "startTime": 654.5,
+        "responseEnd": 740.5,
+        "encodedBodySize": 3796,
+        "transferSize": 4096,
+        "decodedBodySize": 10066
+      },
+      {
+        "url": "/locales/en/common.json",
+        "startTime": 655,
+        "responseEnd": 740.5999999046326,
+        "encodedBodySize": 3496,
+        "transferSize": 3796,
+        "decodedBodySize": 10334
+      },
+      {
+        "url": "/locales/fr/components/camera.json",
+        "startTime": 674,
+        "responseEnd": 801.0999999046326,
+        "encodedBodySize": 1422,
+        "transferSize": 1722,
+        "decodedBodySize": 3891
+      },
+      {
+        "url": "/locales/en/components/camera.json",
+        "startTime": 674.1999999284744,
+        "responseEnd": 805.5,
+        "encodedBodySize": 1176,
+        "transferSize": 1476,
+        "decodedBodySize": 3361
+      },
+      {
+        "url": "/locales/fr/views/settings.json",
+        "startTime": 674.1999999284744,
+        "responseEnd": 818.5,
+        "encodedBodySize": 18165,
+        "transferSize": 18465,
+        "decodedBodySize": 69496
+      },
+      {
+        "url": "/locales/en/views/settings.json",
+        "startTime": 674.6999999284744,
+        "responseEnd": 828.8999999761581,
+        "encodedBodySize": 25820,
+        "transferSize": 26120,
+        "decodedBodySize": 98843
+      },
+      {
+        "url": "/locales/fr/views/system.json",
+        "startTime": 721.3999999761581,
+        "responseEnd": 826.1999999284744,
+        "encodedBodySize": 3480,
+        "transferSize": 3780,
+        "decodedBodySize": 10937
+      },
+      {
+        "url": "/locales/en/views/system.json",
+        "startTime": 724.8999999761581,
+        "responseEnd": 827.3999999761581,
+        "encodedBodySize": 5102,
+        "transferSize": 5402,
+        "decodedBodySize": 16461
+      },
+      {
+        "url": "/locales/fr/components/dialog.json",
+        "startTime": 840.5,
+        "responseEnd": 927.1999999284744,
+        "encodedBodySize": 2904,
+        "transferSize": 3204,
+        "decodedBodySize": 9392
+      },
+      {
+        "url": "/locales/en/components/dialog.json",
+        "startTime": 840.6999999284744,
+        "responseEnd": 926.0999999046326,
+        "encodedBodySize": 2525,
+        "transferSize": 2825,
+        "decodedBodySize": 8240
+      },
+      {
+        "url": "/api/config",
+        "startTime": 951.0999999046326,
+        "responseEnd": 967.7999999523163,
+        "encodedBodySize": 32181,
+        "transferSize": 32481,
+        "decodedBodySize": 32181
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 952.7999999523163,
+        "responseEnd": 969.3999999761581,
+        "encodedBodySize": 58,
+        "transferSize": 358,
+        "decodedBodySize": 58
+      },
+      {
+        "url": "/api/profiles",
+        "startTime": 953.5,
+        "responseEnd": 971.8999999761581,
+        "encodedBodySize": 57,
+        "transferSize": 357,
+        "decodedBodySize": 57
+      },
+      {
+        "url": "/api/notices",
+        "startTime": 954.5999999046326,
+        "responseEnd": 972.0999999046326,
+        "encodedBodySize": 2,
+        "transferSize": 302,
+        "decodedBodySize": 2
+      },
+      {
+        "url": "/api/notices/muted_checks",
+        "startTime": 955.5999999046326,
+        "responseEnd": 972.1999999284744,
+        "encodedBodySize": 2,
+        "transferSize": 302,
+        "decodedBodySize": 2
+      },
+      {
+        "url": "/api/stats",
+        "startTime": 956.2999999523163,
+        "responseEnd": 972.2999999523163,
+        "encodedBodySize": 1705,
+        "transferSize": 2005,
+        "decodedBodySize": 1705
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 957.1999999284744,
+        "responseEnd": 972.2999999523163,
+        "encodedBodySize": 58,
+        "transferSize": 358,
+        "decodedBodySize": 58
+      },
+      {
+        "url": "/assets/fr-DE_g_3N7.js",
+        "startTime": 960.2999999523163,
+        "responseEnd": 1051,
+        "encodedBodySize": 2098,
+        "transferSize": 2398,
+        "decodedBodySize": 5521
+      },
+      {
+        "url": "/assets/Inter-Regular-B0QUfDW0.woff2",
+        "startTime": 973.7999999523163,
+        "responseEnd": 1114.8999999761581,
+        "encodedBodySize": 108488,
+        "transferSize": 108788,
+        "decodedBodySize": 108488
+      },
+      {
+        "url": "/assets/Live-B2HxIU4q.js",
+        "startTime": 1053.8999999761581,
+        "responseEnd": 1179.3999999761581,
+        "encodedBodySize": 46547,
+        "transferSize": 46847,
+        "decodedBodySize": 184877
+      },
+      {
+        "url": "/assets/card-BvEx76ZV.js",
+        "startTime": 1054.3999999761581,
+        "responseEnd": 1140.8999999761581,
+        "encodedBodySize": 387,
+        "transferSize": 687,
+        "decodedBodySize": 1060
+      },
+      {
+        "url": "/assets/fa6-LY2KIa2E.js",
+        "startTime": 1054.3999999761581,
+        "responseEnd": 1141.3999999761581,
+        "encodedBodySize": 903,
+        "transferSize": 1203,
+        "decodedBodySize": 3022
+      },
+      {
+        "url": "/assets/resize-observer-BM6UK5WB.js",
+        "startTime": 1054.3999999761581,
+        "responseEnd": 1142.7999999523163,
+        "encodedBodySize": 403,
+        "transferSize": 703,
+        "decodedBodySize": 702
+      },
+      {
+        "url": "/assets/ReactKonva-BsRqteko.js",
+        "startTime": 1054.3999999761581,
+        "responseEnd": 1204.7999999523163,
+        "encodedBodySize": 105650,
+        "transferSize": 105950,
+        "decodedBodySize": 377618
+      },
+      {
+        "url": "/assets/ImageShadowOverlay-zudTxtKC.js",
+        "startTime": 1054.5,
+        "responseEnd": 1222.3999999761581,
+        "encodedBodySize": 283,
+        "transferSize": 583,
+        "decodedBodySize": 541
+      },
+      {
+        "url": "/assets/skeleton-Doktw_Xe.js",
+        "startTime": 1054.5,
+        "responseEnd": 1223.6999999284744,
+        "encodedBodySize": 181,
+        "transferSize": 481,
+        "decodedBodySize": 246
+      },
+      {
+        "url": "/assets/use-keyboard-listener-CcHihlXj.js",
+        "startTime": 1054.5,
+        "responseEnd": 1225.0999999046326,
+        "encodedBodySize": 615,
+        "transferSize": 915,
+        "decodedBodySize": 1411
+      },
+      {
+        "url": "/assets/FilterSwitch-BumxfPyV.js",
+        "startTime": 1054.5,
+        "responseEnd": 1261.5,
+        "encodedBodySize": 458,
+        "transferSize": 758,
+        "decodedBodySize": 1098
+      },
+      {
+        "url": "/assets/slider-BsRzJqrB.js",
+        "startTime": 1055.0999999046326,
+        "responseEnd": 1280.0999999046326,
+        "encodedBodySize": 4520,
+        "transferSize": 4820,
+        "decodedBodySize": 13654
+      },
+      {
+        "url": "/assets/TimeAgo-h5R57NLp.js",
+        "startTime": 1055.0999999046326,
+        "responseEnd": 1286.3999999761581,
+        "encodedBodySize": 718,
+        "transferSize": 1018,
+        "decodedBodySize": 1451
+      },
+      {
+        "url": "/assets/scroll-area-xcHQ56wu.js",
+        "startTime": 1055.1999999284744,
+        "responseEnd": 1306.0999999046326,
+        "encodedBodySize": 4675,
+        "transferSize": 4975,
+        "decodedBodySize": 15657
+      },
+      {
+        "url": "/assets/record-Bf1xYu2U.js",
+        "startTime": 1055.1999999284744,
+        "responseEnd": 1313.1999999284744,
+        "encodedBodySize": 16516,
+        "transferSize": 16816,
+        "decodedBodySize": 49087
+      },
+      {
+        "url": "/assets/review-D3-Z-h19.js",
+        "startTime": 1055.2999999523163,
+        "responseEnd": 1307.5,
+        "encodedBodySize": 184,
+        "transferSize": 484,
+        "decodedBodySize": 242
+      },
+      {
+        "url": "/assets/snapshotUtil-DZ4PxfyT.js",
+        "startTime": 1055.2999999523163,
+        "responseEnd": 1344.7999999523163,
+        "encodedBodySize": 3120,
+        "transferSize": 3420,
+        "decodedBodySize": 7579
+      },
+      {
+        "url": "/assets/tabs-Dv_B-FHX.js",
+        "startTime": 1055.2999999523163,
+        "responseEnd": 1362.0999999046326,
+        "encodedBodySize": 1534,
+        "transferSize": 1834,
+        "decodedBodySize": 3778
+      },
+      {
+        "url": "/assets/Chip-DV_hU2e5.js",
+        "startTime": 1055.6999999284744,
+        "responseEnd": 1368.3999999761581,
+        "encodedBodySize": 653,
+        "transferSize": 953,
+        "decodedBodySize": 1232
+      },
+      {
+        "url": "/assets/context-menu-CvTIS5vu.js",
+        "startTime": 1055.7999999523163,
+        "responseEnd": 1387.7999999523163,
+        "encodedBodySize": 2334,
+        "transferSize": 2634,
+        "decodedBodySize": 8545
+      },
+      {
+        "url": "/assets/use-camera-activity-BoxPiCy2.js",
+        "startTime": 1056,
+        "responseEnd": 1389.0999999046326,
+        "encodedBodySize": 1646,
+        "transferSize": 1946,
+        "decodedBodySize": 3622
+      },
+      {
+        "url": "/assets/use-timeline-utils-RZeNJOLk.js",
+        "startTime": 1056,
+        "responseEnd": 1395.3999999761581,
+        "encodedBodySize": 344,
+        "transferSize": 644,
+        "decodedBodySize": 648
+      },
+      {
+        "url": "/assets/EmptyCard-Ci-uVJwr.js",
+        "startTime": 1056,
+        "responseEnd": 1426.7999999523163,
+        "encodedBodySize": 427,
+        "transferSize": 727,
+        "decodedBodySize": 771
+      },
+      {
+        "url": "/assets/BirdseyeLivePlayer-D50Y4o9J.js",
+        "startTime": 1056.0999999046326,
+        "responseEnd": 1463.1999999284744,
+        "encodedBodySize": 45026,
+        "transferSize": 45326,
+        "decodedBodySize": 137136
+      },
+      {
+        "url": "/assets/MsePlayer-BcrvLnvg.js",
+        "startTime": 1056.2999999523163,
+        "responseEnd": 1452,
+        "encodedBodySize": 3634,
+        "transferSize": 3934,
+        "decodedBodySize": 9213
+      },
+      {
+        "url": "/assets/AutoUpdatingCameraImage-Dscb-wIU.js",
+        "startTime": 1056.3999999761581,
+        "responseEnd": 1469.5,
+        "encodedBodySize": 1304,
+        "transferSize": 1604,
+        "decodedBodySize": 2587
+      },
+      {
+        "url": "/assets/Live-Cb7KG80W.css",
+        "startTime": 1056.5,
+        "responseEnd": 1196.7999999523163,
+        "encodedBodySize": 947,
+        "transferSize": 1247,
+        "decodedBodySize": 3664
+      },
+      {
+        "url": "/assets/DebugDrawingLayer-B2MYpMj0.js",
+        "startTime": 1056.5,
+        "responseEnd": 1470.5999999046326,
+        "encodedBodySize": 1025,
+        "transferSize": 1325,
+        "decodedBodySize": 2531
+      },
+      {
+        "url": "/assets/react-apexcharts.esm-DDSdTom0.js",
+        "startTime": 1056.5,
+        "responseEnd": 1588.7999999523163,
+        "encodedBodySize": 275201,
+        "transferSize": 275501,
+        "decodedBodySize": 981036
+      },
+      {
+        "url": "/locales/fr/views/live.json",
+        "startTime": 1630.6999999284744,
+        "responseEnd": 1715.5,
+        "encodedBodySize": 1995,
+        "transferSize": 2295,
+        "decodedBodySize": 6875
+      },
+      {
+        "url": "/locales/en/views/live.json",
+        "startTime": 1630.6999999284744,
+        "responseEnd": 1715.5999999046326,
+        "encodedBodySize": 2465,
+        "transferSize": 2765,
+        "decodedBodySize": 8191
+      },
+      {
+        "url": "/locales/fr/components/player.json",
+        "startTime": 1730.1999999284744,
+        "responseEnd": 1813.1999999284744,
+        "encodedBodySize": 674,
+        "transferSize": 974,
+        "decodedBodySize": 1500
+      },
+      {
+        "url": "/locales/en/components/player.json",
+        "startTime": 1730.1999999284744,
+        "responseEnd": 1813.3999999761581,
+        "encodedBodySize": 782,
+        "transferSize": 1082,
+        "decodedBodySize": 2034
+      },
+      {
+        "url": "/assets/Inter-Medium-B0NFony0.woff2",
+        "startTime": 1825.8999999761581,
+        "responseEnd": 1958.0999999046326,
+        "encodedBodySize": 111380,
+        "transferSize": 111680,
+        "decodedBodySize": 111380
+      }
+    ],
+    "navigation": {
+      "encodedBodySize": 2982,
+      "transferSize": 3282,
+      "decodedBodySize": 8120,
+      "protocol": "http/1.1",
+      "requestStart": 2.299999952316284,
+      "responseStart": 2.5999999046325684,
+      "domContentLoadedEventEnd": 628.7999999523163,
+      "loadEventEnd": 634
+    },
+    "fontsReadyAt": 2093,
+    "fontChecks": {
+      "regular": true,
+      "medium": true
+    },
+    "frenchControlReadyAt": 1835.3999999761581,
+    "frenchControl": {
+      "backText": "Retour",
+      "backLabel": "Retour",
+      "historyText": "Historique",
+      "historyLabel": "Afficher les vidéos archivées"
+    },
+    "frenchControlTimeline": {
+      "domAt": 1835.2999999523163,
+      "translatedTextAt": 1835.3999999761581,
+      "accessibleVisibleAt": 1835.3999999761581,
+      "visibleTextAt": 1835.3999999761581
+    },
+    "actionsBeforeFrenchControlReady": [],
+    "fontResources": [
+      {
+        "url": "/assets/Inter-Regular-B0QUfDW0.woff2",
+        "startTime": 973.7999999523163,
+        "responseEnd": 1114.8999999761581,
+        "duration": 141.10000002384186,
+        "encodedBodySize": 108488,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/assets/Inter-Medium-B0NFony0.woff2",
+        "startTime": 1825.8999999761581,
+        "responseEnd": 1958.0999999046326,
+        "duration": 132.19999992847443,
+        "encodedBodySize": 111380,
+        "protocol": "http/1.1"
+      }
+    ],
+    "apiResources": [
+      {
+        "url": "/api/config",
+        "startTime": 951.0999999046326,
+        "responseEnd": 967.7999999523163,
+        "duration": 16.700000047683716,
+        "protocol": ""
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 952.7999999523163,
+        "responseEnd": 969.3999999761581,
+        "duration": 16.600000023841858,
+        "protocol": ""
+      },
+      {
+        "url": "/api/profiles",
+        "startTime": 953.5,
+        "responseEnd": 971.8999999761581,
+        "duration": 18.399999976158142,
+        "protocol": ""
+      },
+      {
+        "url": "/api/notices",
+        "startTime": 954.5999999046326,
+        "responseEnd": 972.0999999046326,
+        "duration": 17.5,
+        "protocol": ""
+      },
+      {
+        "url": "/api/notices/muted_checks",
+        "startTime": 955.5999999046326,
+        "responseEnd": 972.1999999284744,
+        "duration": 16.600000023841858,
+        "protocol": ""
+      },
+      {
+        "url": "/api/stats",
+        "startTime": 956.2999999523163,
+        "responseEnd": 972.2999999523163,
+        "duration": 16,
+        "protocol": ""
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 957.1999999284744,
+        "responseEnd": 972.2999999523163,
+        "duration": 15.100000023841858,
+        "protocol": ""
+      },
+      {
+        "url": "/api/front_door/latest.webp",
+        "startTime": 1837.5,
+        "responseEnd": 1838.8999999761581,
+        "duration": 1.399999976158142,
+        "protocol": ""
+      },
+      {
+        "url": "/api/front_door/latest.webp",
+        "startTime": 1843.5999999046326,
+        "responseEnd": 1844.3999999761581,
+        "duration": 0.8000000715255737,
+        "protocol": ""
+      }
+    ],
+    "jsResources": [
+      {
+        "url": "/assets/rolldown-runtime-B_MQnBba.js",
+        "startTime": 89.39999997615814,
+        "responseEnd": 179.09999990463257,
+        "duration": 89.69999992847443
+      },
+      {
+        "url": "/assets/useTranslation-wMbxFB1i.js",
+        "startTime": 90,
+        "responseEnd": 206.89999997615814,
+        "duration": 116.89999997615814
+      },
+      {
+        "url": "/assets/label-DukRF4a6.js",
+        "startTime": 90.09999990463257,
+        "responseEnd": 210.69999992847443,
+        "duration": 120.60000002384186
+      },
+      {
+        "url": "/assets/use-history-back-JKPm9jgZ.js",
+        "startTime": 90.09999990463257,
+        "responseEnd": 319,
+        "duration": 228.90000009536743
+      },
+      {
+        "url": "/assets/drawer-Dp9UU7kd.js",
+        "startTime": 90.19999992847443,
+        "responseEnd": 346.6999999284744,
+        "duration": 256.5
+      },
+      {
+        "url": "/assets/activity-indicator-D_x4wV58.js",
+        "startTime": 90,
+        "responseEnd": 353.5,
+        "duration": 263.5
+      },
+      {
+        "url": "/assets/main-D4-eM3CH.js",
+        "startTime": 89.39999997615814,
+        "responseEnd": 379.39999997615814,
+        "duration": 290
+      },
+      {
+        "url": "/assets/dist-X38yvQ2h.js",
+        "startTime": 90.19999992847443,
+        "responseEnd": 390,
+        "duration": 299.8000000715256
+      },
+      {
+        "url": "/assets/preload-helper-BtBvY-ns.js",
+        "startTime": 90.19999992847443,
+        "responseEnd": 400.39999997615814,
+        "duration": 310.2000000476837
+      },
+      {
+        "url": "/assets/cameraUtil-CKlJ1Vsi.js",
+        "startTime": 90.19999992847443,
+        "responseEnd": 428.89999997615814,
+        "duration": 338.7000000476837
+      },
+      {
+        "url": "/assets/use-is-admin-B6UU-4w8.js",
+        "startTime": 90.59999990463257,
+        "responseEnd": 435.2999999523163,
+        "duration": 344.7000000476837
+      },
+      {
+        "url": "/assets/normalizeDates-B8fk6WG0.js",
+        "startTime": 90.59999990463257,
+        "responseEnd": 461.39999997615814,
+        "duration": 370.8000000715256
+      },
+      {
+        "url": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+        "startTime": 90.69999992847443,
+        "responseEnd": 471.7999999523163,
+        "duration": 381.10000002384186
+      },
+      {
+        "url": "/assets/src-BCEtIU6s.js",
+        "startTime": 90.09999990463257,
+        "responseEnd": 474.09999990463257,
+        "duration": 384
+      },
+      {
+        "url": "/assets/use-date-locale-BpBt0QYp.js",
+        "startTime": 90.69999992847443,
+        "responseEnd": 487.09999990463257,
+        "duration": 396.39999997615814
+      },
+      {
+        "url": "/assets/detectionHardware-BlXbhogZ.js",
+        "startTime": 90.69999992847443,
+        "responseEnd": 510.2999999523163,
+        "duration": 419.60000002384186
+      },
+      {
+        "url": "/assets/fr-DE_g_3N7.js",
+        "startTime": 960.2999999523163,
+        "responseEnd": 1051,
+        "duration": 90.70000004768372
+      },
+      {
+        "url": "/assets/card-BvEx76ZV.js",
+        "startTime": 1054.3999999761581,
+        "responseEnd": 1140.8999999761581,
+        "duration": 86.5
+      },
+      {
+        "url": "/assets/fa6-LY2KIa2E.js",
+        "startTime": 1054.3999999761581,
+        "responseEnd": 1141.3999999761581,
+        "duration": 87
+      },
+      {
+        "url": "/assets/resize-observer-BM6UK5WB.js",
+        "startTime": 1054.3999999761581,
+        "responseEnd": 1142.7999999523163,
+        "duration": 88.39999997615814
+      },
+      {
+        "url": "/assets/Live-B2HxIU4q.js",
+        "startTime": 1053.8999999761581,
+        "responseEnd": 1179.3999999761581,
+        "duration": 125.5
+      },
+      {
+        "url": "/assets/ReactKonva-BsRqteko.js",
+        "startTime": 1054.3999999761581,
+        "responseEnd": 1204.7999999523163,
+        "duration": 150.39999997615814
+      },
+      {
+        "url": "/assets/ImageShadowOverlay-zudTxtKC.js",
+        "startTime": 1054.5,
+        "responseEnd": 1222.3999999761581,
+        "duration": 167.89999997615814
+      },
+      {
+        "url": "/assets/skeleton-Doktw_Xe.js",
+        "startTime": 1054.5,
+        "responseEnd": 1223.6999999284744,
+        "duration": 169.19999992847443
+      },
+      {
+        "url": "/assets/use-keyboard-listener-CcHihlXj.js",
+        "startTime": 1054.5,
+        "responseEnd": 1225.0999999046326,
+        "duration": 170.59999990463257
+      },
+      {
+        "url": "/assets/FilterSwitch-BumxfPyV.js",
+        "startTime": 1054.5,
+        "responseEnd": 1261.5,
+        "duration": 207
+      },
+      {
+        "url": "/assets/slider-BsRzJqrB.js",
+        "startTime": 1055.0999999046326,
+        "responseEnd": 1280.0999999046326,
+        "duration": 225
+      },
+      {
+        "url": "/assets/TimeAgo-h5R57NLp.js",
+        "startTime": 1055.0999999046326,
+        "responseEnd": 1286.3999999761581,
+        "duration": 231.30000007152557
+      },
+      {
+        "url": "/assets/scroll-area-xcHQ56wu.js",
+        "startTime": 1055.1999999284744,
+        "responseEnd": 1306.0999999046326,
+        "duration": 250.89999997615814
+      },
+      {
+        "url": "/assets/review-D3-Z-h19.js",
+        "startTime": 1055.2999999523163,
+        "responseEnd": 1307.5,
+        "duration": 252.20000004768372
+      },
+      {
+        "url": "/assets/record-Bf1xYu2U.js",
+        "startTime": 1055.1999999284744,
+        "responseEnd": 1313.1999999284744,
+        "duration": 258
+      },
+      {
+        "url": "/assets/snapshotUtil-DZ4PxfyT.js",
+        "startTime": 1055.2999999523163,
+        "responseEnd": 1344.7999999523163,
+        "duration": 289.5
+      },
+      {
+        "url": "/assets/tabs-Dv_B-FHX.js",
+        "startTime": 1055.2999999523163,
+        "responseEnd": 1362.0999999046326,
+        "duration": 306.7999999523163
+      },
+      {
+        "url": "/assets/Chip-DV_hU2e5.js",
+        "startTime": 1055.6999999284744,
+        "responseEnd": 1368.3999999761581,
+        "duration": 312.7000000476837
+      },
+      {
+        "url": "/assets/context-menu-CvTIS5vu.js",
+        "startTime": 1055.7999999523163,
+        "responseEnd": 1387.7999999523163,
+        "duration": 332
+      },
+      {
+        "url": "/assets/use-camera-activity-BoxPiCy2.js",
+        "startTime": 1056,
+        "responseEnd": 1389.0999999046326,
+        "duration": 333.09999990463257
+      },
+      {
+        "url": "/assets/use-timeline-utils-RZeNJOLk.js",
+        "startTime": 1056,
+        "responseEnd": 1395.3999999761581,
+        "duration": 339.39999997615814
+      },
+      {
+        "url": "/assets/EmptyCard-Ci-uVJwr.js",
+        "startTime": 1056,
+        "responseEnd": 1426.7999999523163,
+        "duration": 370.7999999523163
+      },
+      {
+        "url": "/assets/MsePlayer-BcrvLnvg.js",
+        "startTime": 1056.2999999523163,
+        "responseEnd": 1452,
+        "duration": 395.7000000476837
+      },
+      {
+        "url": "/assets/BirdseyeLivePlayer-D50Y4o9J.js",
+        "startTime": 1056.0999999046326,
+        "responseEnd": 1463.1999999284744,
+        "duration": 407.10000002384186
+      },
+      {
+        "url": "/assets/AutoUpdatingCameraImage-Dscb-wIU.js",
+        "startTime": 1056.3999999761581,
+        "responseEnd": 1469.5,
+        "duration": 413.10000002384186
+      },
+      {
+        "url": "/assets/DebugDrawingLayer-B2MYpMj0.js",
+        "startTime": 1056.5,
+        "responseEnd": 1470.5999999046326,
+        "duration": 414.09999990463257
+      },
+      {
+        "url": "/assets/react-apexcharts.esm-DDSdTom0.js",
+        "startTime": 1056.5,
+        "responseEnd": 1588.7999999523163,
+        "duration": 532.2999999523163
+      }
+    ],
+    "locale": [
+      {
+        "url": "/locales/fr/objects.json",
+        "startTime": 632.7999999523163,
+        "responseEnd": 719.0999999046326,
+        "duration": 86.29999995231628,
+        "transferSize": 1777,
+        "encodedBodySize": 1477,
+        "decodedBodySize": 3203,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/objects.json",
+        "startTime": 633.3999999761581,
+        "responseEnd": 723.5999999046326,
+        "duration": 90.19999992847443,
+        "transferSize": 1590,
+        "encodedBodySize": 1290,
+        "decodedBodySize": 3051,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/audio.json",
+        "startTime": 633.3999999761581,
+        "responseEnd": 724.8999999761581,
+        "duration": 91.5,
+        "transferSize": 6012,
+        "encodedBodySize": 5712,
+        "decodedBodySize": 14983,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/audio.json",
+        "startTime": 633.5,
+        "responseEnd": 726.8999999761581,
+        "duration": 93.39999997615814,
+        "transferSize": 5153,
+        "encodedBodySize": 4853,
+        "decodedBodySize": 13637,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/common.json",
+        "startTime": 654.5,
+        "responseEnd": 740.5,
+        "duration": 86,
+        "transferSize": 4096,
+        "encodedBodySize": 3796,
+        "decodedBodySize": 10066,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/common.json",
+        "startTime": 655,
+        "responseEnd": 740.5999999046326,
+        "duration": 85.59999990463257,
+        "transferSize": 3796,
+        "encodedBodySize": 3496,
+        "decodedBodySize": 10334,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/components/camera.json",
+        "startTime": 674,
+        "responseEnd": 801.0999999046326,
+        "duration": 127.09999990463257,
+        "transferSize": 1722,
+        "encodedBodySize": 1422,
+        "decodedBodySize": 3891,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/components/camera.json",
+        "startTime": 674.1999999284744,
+        "responseEnd": 805.5,
+        "duration": 131.30000007152557,
+        "transferSize": 1476,
+        "encodedBodySize": 1176,
+        "decodedBodySize": 3361,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/views/settings.json",
+        "startTime": 674.1999999284744,
+        "responseEnd": 818.5,
+        "duration": 144.30000007152557,
+        "transferSize": 18465,
+        "encodedBodySize": 18165,
+        "decodedBodySize": 69496,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/views/settings.json",
+        "startTime": 674.6999999284744,
+        "responseEnd": 828.8999999761581,
+        "duration": 154.20000004768372,
+        "transferSize": 26120,
+        "encodedBodySize": 25820,
+        "decodedBodySize": 98843,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/views/system.json",
+        "startTime": 721.3999999761581,
+        "responseEnd": 826.1999999284744,
+        "duration": 104.79999995231628,
+        "transferSize": 3780,
+        "encodedBodySize": 3480,
+        "decodedBodySize": 10937,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/views/system.json",
+        "startTime": 724.8999999761581,
+        "responseEnd": 827.3999999761581,
+        "duration": 102.5,
+        "transferSize": 5402,
+        "encodedBodySize": 5102,
+        "decodedBodySize": 16461,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/components/dialog.json",
+        "startTime": 840.5,
+        "responseEnd": 927.1999999284744,
+        "duration": 86.69999992847443,
+        "transferSize": 3204,
+        "encodedBodySize": 2904,
+        "decodedBodySize": 9392,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/components/dialog.json",
+        "startTime": 840.6999999284744,
+        "responseEnd": 926.0999999046326,
+        "duration": 85.39999997615814,
+        "transferSize": 2825,
+        "encodedBodySize": 2525,
+        "decodedBodySize": 8240,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/views/live.json",
+        "startTime": 1630.6999999284744,
+        "responseEnd": 1715.5,
+        "duration": 84.80000007152557,
+        "transferSize": 2295,
+        "encodedBodySize": 1995,
+        "decodedBodySize": 6875,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/views/live.json",
+        "startTime": 1630.6999999284744,
+        "responseEnd": 1715.5999999046326,
+        "duration": 84.89999997615814,
+        "transferSize": 2765,
+        "encodedBodySize": 2465,
+        "decodedBodySize": 8191,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/components/player.json",
+        "startTime": 1730.1999999284744,
+        "responseEnd": 1813.1999999284744,
+        "duration": 83,
+        "transferSize": 974,
+        "encodedBodySize": 674,
+        "decodedBodySize": 1500,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/components/player.json",
+        "startTime": 1730.1999999284744,
+        "responseEnd": 1813.3999999761581,
+        "duration": 83.20000004768372,
+        "transferSize": 1082,
+        "encodedBodySize": 782,
+        "decodedBodySize": 2034,
+        "protocol": "http/1.1"
+      }
+    ],
+    "bodyText": "Cpu est lent (75.5 ms)\n•\n3 system notices\nRetour\nHistorique"
+  },
+  "assets": [
+    {
+      "path": "/assets/activity-indicator-D_x4wV58.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "120690"
+    },
+    {
+      "path": "/assets/AutoUpdatingCameraImage-Dscb-wIU.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1304"
+    },
+    {
+      "path": "/assets/BirdseyeLivePlayer-D50Y4o9J.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "45026"
+    },
+    {
+      "path": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "617"
+    },
+    {
+      "path": "/assets/cameraUtil-CKlJ1Vsi.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1636"
+    },
+    {
+      "path": "/assets/card-BvEx76ZV.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "387"
+    },
+    {
+      "path": "/assets/Chip-DV_hU2e5.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "653"
+    },
+    {
+      "path": "/assets/context-menu-CvTIS5vu.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2334"
+    },
+    {
+      "path": "/assets/DebugDrawingLayer-B2MYpMj0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1025"
+    },
+    {
+      "path": "/assets/detectionHardware-BlXbhogZ.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "554"
+    },
+    {
+      "path": "/assets/dist-X38yvQ2h.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "413"
+    },
+    {
+      "path": "/assets/drawer-Dp9UU7kd.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "34821"
+    },
+    {
+      "path": "/assets/EmptyCard-Ci-uVJwr.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "427"
+    },
+    {
+      "path": "/assets/fa6-LY2KIa2E.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "903"
+    },
+    {
+      "path": "/assets/FilterSwitch-BumxfPyV.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "458"
+    },
+    {
+      "path": "/assets/fr-DE_g_3N7.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2098"
+    },
+    {
+      "path": "/assets/ImageShadowOverlay-zudTxtKC.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "283"
+    },
+    {
+      "path": "/assets/label-DukRF4a6.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "14801"
+    },
+    {
+      "path": "/assets/Live-B2HxIU4q.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "46547"
+    },
+    {
+      "path": "/assets/Live-Cb7KG80W.css",
+      "status": 200,
+      "type": "text/css",
+      "length": "947"
+    },
+    {
+      "path": "/assets/main-D4-eM3CH.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "186711"
+    },
+    {
+      "path": "/assets/MsePlayer-BcrvLnvg.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "3634"
+    },
+    {
+      "path": "/assets/normalizeDates-B8fk6WG0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "496"
+    },
+    {
+      "path": "/assets/preload-helper-BtBvY-ns.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "798"
+    },
+    {
+      "path": "/assets/react-apexcharts.esm-DDSdTom0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "275201"
+    },
+    {
+      "path": "/assets/ReactKonva-BsRqteko.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "105650"
+    },
+    {
+      "path": "/assets/record-Bf1xYu2U.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "16516"
+    },
+    {
+      "path": "/assets/resize-observer-BM6UK5WB.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "403"
+    },
+    {
+      "path": "/assets/review-D3-Z-h19.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "184"
+    },
+    {
+      "path": "/assets/rolldown-runtime-B_MQnBba.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "573"
+    },
+    {
+      "path": "/assets/scroll-area-xcHQ56wu.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "4675"
+    },
+    {
+      "path": "/assets/skeleton-Doktw_Xe.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "181"
+    },
+    {
+      "path": "/assets/slider-BsRzJqrB.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "4520"
+    },
+    {
+      "path": "/assets/snapshotUtil-DZ4PxfyT.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "3120"
+    },
+    {
+      "path": "/assets/src-BCEtIU6s.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "139157"
+    },
+    {
+      "path": "/assets/src-DHngj9Lm.css",
+      "status": 200,
+      "type": "text/css",
+      "length": "26070"
+    },
+    {
+      "path": "/assets/tabs-Dv_B-FHX.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1534"
+    },
+    {
+      "path": "/assets/TimeAgo-h5R57NLp.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "718"
+    },
+    {
+      "path": "/assets/use-camera-activity-BoxPiCy2.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1646"
+    },
+    {
+      "path": "/assets/use-date-locale-BpBt0QYp.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "12768"
+    },
+    {
+      "path": "/assets/use-history-back-JKPm9jgZ.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "14674"
+    },
+    {
+      "path": "/assets/use-is-admin-B6UU-4w8.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "202"
+    },
+    {
+      "path": "/assets/use-keyboard-listener-CcHihlXj.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "615"
+    },
+    {
+      "path": "/assets/use-timeline-utils-RZeNJOLk.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "344"
+    },
+    {
+      "path": "/assets/useTranslation-wMbxFB1i.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "14274"
+    }
+  ]
+}

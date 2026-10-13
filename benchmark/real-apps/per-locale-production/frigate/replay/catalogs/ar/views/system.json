@@ -1,0 +1,145 @@
+{
+  "documentTitle": {
+    "cameras": "إحصاءات الكاميرات - فرايجيت",
+    "storage": "إحصاءات التخزين - فرايجيت",
+    "general": "إحصاءات عامة - فرايجيت",
+    "enrichments": "إحصاء العمليات",
+    "logs": {
+      "frigate": "سجلات Frigate - Frigate",
+      "go2rtc": "Go2RTC  سجلات  -  Frigate",
+      "nginx": "سجلات إنجنإكس - Frigate",
+      "websocket": "سجلات الرسائل"
+    }
+  },
+  "metrics": "مقاييس النظام",
+  "logs": {
+    "download": {
+      "label": "تنزيل السجلات"
+    },
+    "copy": {
+      "label": "نسخ إلى الحافظة",
+      "success": "نسخ السجلات إلى الحافظة",
+      "error": "تعذر نسخ السجلات إلى الحافظة"
+    },
+    "type": {
+      "label": "النوع",
+      "timestamp": "الختم الزمني",
+      "message": "رسالة"
+    },
+    "tips": "يتم الآن جلب السجلات من الخادم",
+    "websocket": {
+      "label": "الرسائل",
+      "pause": "إيقاف مؤقت",
+      "resume": "استئناف",
+      "filter": {
+        "all": "كافة المواضيع",
+        "topics": "المسارات",
+        "events": "الأحداث",
+        "reviews": "المراجعات",
+        "classification": "التصنيف",
+        "face_recognition": "التعرف على الوجه",
+        "camera_activity": "نشاط الكاميرا",
+        "system": "النظام",
+        "camera": "الكاميرا",
+        "all_cameras": "كافة الكاميرات"
+      }
+    },
+    "toast": {
+      "error": {
+        "fetchingLogsFailed": "خطأ أثناء جلب السجلات: {{errorMessage}}",
+        "whileStreamingLogs": "خطأ أثناء تدفق السجلات: {{errorMessage}}"
+      }
+    }
+  },
+  "title": "النظام",
+  "general": {
+    "hardwareInfo": {
+      "gpuEncoder": "مشفر ترميز GPU",
+      "gpuDecoder": "مفكك ترميز GPU",
+      "gpuInfo": {
+        "vainfoOutput": {
+          "title": "مخرجات Vainfo",
+          "processOutput": "مخرجات العملية :",
+          "processError": "خطأ في العملية:",
+          "returnCode": "كود الاستجابة: {{code}}"
+        },
+        "nvidiaSMIOutput": {
+          "title": "مخرجات Nvidia SMI",
+          "name": "الاسم: {{name}}",
+          "driver": "برنامج التشغيل: {{driver}}",
+          "cudaComputerCapability": "قدرة الحوسبة CUDA: {{cuda_compute}}",
+          "vbios": ""
+        },
+        "closeInfo": {
+          "label": "إغلاق معلومات المعالج الرسومي"
+        },
+        "copyInfo": {
+          "label": "نسخ معلومات المعالج الرسومي"
+        },
+        "toast": {
+          "success": "تم نسخ معلومات المعالج الرسومي إلى الحافظة"
+        }
+      },
+      "title": "معلومات الاجهزة المادية",
+      "gpuUsage": "مقدار استخدام GPU",
+      "gpuMemory": "ذاكرة GPU",
+      "gpuTemperature": "درجة حرارة الـ GPU",
+      "npuUsage": "معلومات وحدة معالجة الشبكة",
+      "npuMemory": "استخدام وحدة المعالجة العصبية",
+      "npuTemperature": "درجة حرارة الـ NPU"
+    },
+    "title": "لمحة عامة",
+    "detector": {
+      "title": "أجهزة الكشف",
+      "inferenceSpeed": "سرعة استنتاج الكاشف",
+      "temperature": "درجة حرارة الكاشف",
+      "cpuUsage": "كشف استخدام CPU",
+      "memoryUsage": "كشف استخدام الذاكرة",
+      "cpuUsageInformation": "المعالج المستخدم في تجهيز بيانات الإدخال والإخراج من وإلى نماذج الكشف. هذه القيمة لا تقيس استهلاك الاستنتاج (Inference)، حتى عند استخدام معالج رسومي (GPU) أو مسرع."
+    },
+    "otherProcesses": {
+      "title": "عمليات أخرى",
+      "processCpuUsage": "استخدام وحدة المعالجة المركزية (CPU)",
+      "processMemoryUsage": "استخدام ذاكرة العملية"
+    }
+  },
+  "storage": {
+    "title": "التخزين",
+    "overview": "نظرة عامة",
+    "recordings": {
+      "title": "التسجيلات",
+      "tips": "تمثل هذه القيمة إجمالي مساحة التخزين المستخدمة للتسجيلات في قاعدة بيانات Frigate. لا يتتبع Frigate استخدام مساحة التخزين لجميع الملفات الموجودة على القرص.",
+      "earliestRecording": "أقدم تسجيل متاح:"
+    },
+    "shm": {
+      "warning": "حجم ذاكرة SHM الحالي البالغ {{total}} ميجابايت صغير جداً. يرجى زيادته إلى {{min_shm}} ميجابايت على الأقل.",
+      "frameLifetime": {
+        "description": "تمتلك كل كاميرا {{frames}} خانة (slots) للإطارات في الذاكرة المشتركة. عند أعلى معدل إطارات للكاميرا، يكون كل إطار متاحاً لمدة {{lifetime}} ثانية تقريباً قبل أن يتم الكتابة فوقه."
+      }
+    },
+    "cameraStorage": {
+      "unused": {
+        "tips": "قد لا تمثل هذه القيمة بدقة المساحة الخالية المتاحة لبرنامج فرايجيت (Frigate) إذا كان لديك ملفات أخرى مخزنة على القرص بخلاف تسجيلات البرنامج نفسه. لا يقوم فرايجيت بتتبع استهلاك التخزين خارج نطاق تسجيلاته الخاصة."
+      }
+    }
+  },
+  "cameras": {
+    "overview": "نظرة عامة",
+    "info": {
+      "unknown": "غير معروف"
+    },
+    "connectionQuality": {
+      "fair": "متوسط",
+      "poor": "ضعيف",
+      "unusable": "غير قابل للاستخدام",
+      "fps": "معدل الإطارات",
+      "expectedFps": "معدل الإطارات المتوقع",
+      "reconnectsLastHour": "إعادات الاتصال (خلال الساعة الماضية)",
+      "stallsLastHour": "توقفات البث (خلال الساعة الماضية)"
+    }
+  },
+  "stats": {
+    "detectIsSlow": "عملية الكشف {{detect}} بطيئة ({{speed}} مللي ثانية)",
+    "detectIsVerySlow": "عملية الكشف {{detect}} بطيئة جداً ({{speed}} مللي ثانية)"
+  }
+}

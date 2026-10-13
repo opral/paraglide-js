@@ -1,0 +1,231 @@
+{
+  "generativeAI": "Generativní AI",
+  "documentTitle": "Prozkoumat – Frigate",
+  "details": {
+    "timestamp": "Časové razítko",
+    "snapshotScore": {
+      "label": "Skóre snímku"
+    },
+    "item": {
+      "title": "Zkontrolovat detaily položky",
+      "desc": "Zkontrolovat detaily položky",
+      "button": {
+        "share": "Sdílet tuto položku kontroly",
+        "viewInExplore": "Zobrazit v Průzkumu"
+      },
+      "tips": {
+        "hasMissingObjects": "Upravte svou konfiguraci, pokud chcete, aby Frigate ukládal sledované objekty pro následující štítky: <em>{{objects}}</em>",
+        "mismatch_one": "{{count}} nedostupný objekt byl detekován a vložen do této položky kontroly. Tento objekt se buď nekvalifikoval jako výstraha nebo detekce, nebo již byl vyčištěn/smazán.",
+        "mismatch_few": "{{count}} nedostupné objekty byly detekovány a vloženy do této položky kontroly. Tyto objekty se buď nekvalifikovaly jako výstraha nebo detekce, nebo již byly vyčištěny/smazány.",
+        "mismatch_other": "{{count}} nedostupných objektů bylo detekováno a vloženo do této položky kontroly. Tyto objekty se buď nekvalifikovaly jako výstraha nebo detekce, nebo již byly vyčištěny/smazány."
+      },
+      "toast": {
+        "success": {
+          "regenerate": "Od {{provider}} byl vyžádán nový popis. V závislosti na rychlosti vašeho poskytovatele může obnovení nového popisu nějakou dobu trvat.",
+          "updatedSublabel": "Úspěšně aktualizovaný podružný štítek.",
+          "updatedLPR": "Úspěšně aktualizovaná SPZ.",
+          "audioTranscription": "Požádání o přepis zvuku bylo úspěšné. V závislosti na rychlosti Vašeho Frigate serveru může přepis trvat nějaký čas než bude dokončen.",
+          "updatedAttributes": "Atributy byly úspěšně aktualizovány."
+        },
+        "error": {
+          "regenerate": "Chyba volání {{provider}} pro nový popis: {{errorMessage}}",
+          "updatedSublabelFailed": "Chyba obnovení podružného štítku: {{errorMessage}}",
+          "updatedLPRFailed": "Chyba obnovení SPZ: {{errorMessage}}",
+          "audioTranscription": "Požádání o přepis zvuku bylo neúspěšné: {{errorMessage}}"
+        }
+      }
+    },
+    "editSubLabel": {
+      "descNoLabel": "Vložit nový podružný štítek pro tento sledovaný objekt",
+      "desc": "Vložit nový podružný štítek pro tento {{label}}",
+      "title": "Upravit podružný štítek"
+    },
+    "editLPR": {
+      "title": "Upravit SPZ",
+      "descNoLabel": "Vložit novou SPZ pro tento sledovaný objekt",
+      "desc": "Vložit novou SPZ pro tento {{label}}"
+    },
+    "estimatedSpeed": "Odhadovaná rychlost",
+    "objects": "Objekty",
+    "camera": "Kamera",
+    "zones": "Zóny",
+    "button": {
+      "regenerate": {
+        "label": "Regenerovat popis sledovaného objektu",
+        "title": "Regenerovat"
+      },
+      "findSimilar": "Najít podobné"
+    },
+    "description": {
+      "label": "Popis",
+      "placeholder": "Popis sledovaného objektu",
+      "aiTips": "Frigate nebude vyžadovat popis od vašeho poskytovatele generativní AI, dokud neskončí životní cyklus sledovaného objektu."
+    },
+    "expandRegenerationMenu": "Rozbalte nabídku regenerace",
+    "regenerateFromSnapshot": "Regenerovat ze snímku",
+    "regenerateFromThumbnails": "Regenerovat z náhledu",
+    "tips": {
+      "descriptionSaved": "Popis úspěšně uložen",
+      "saveDescriptionFailed": "Aktualizace popisu se nezdařila: {{errorMessage}}"
+    },
+    "topScore": {
+      "info": "Nejvyšší skóre je nejvyšší střední skóre pro sledovaný objekt, takže se může lišit od skóre zobrazeného na miniatuře výsledku vyhledávání.",
+      "label": "Nejvyšší skóre"
+    },
+    "label": "Štítek",
+    "recognizedLicensePlate": "Rozpoznaná SPZ",
+    "score": {
+      "label": "Skóre"
+    }
+  },
+  "exploreIsUnavailable": {
+    "title": "Prozkoumat je nedostupné",
+    "embeddingsReindexing": {
+      "context": "Prozkoumat může být použito až vložené sledované objekty dokončí přeindexování.",
+      "startingUp": "Spouštění…",
+      "estimatedTime": "Odhadovaný zbývající čas:",
+      "finishingShortly": "Brzy bude dokončeno",
+      "step": {
+        "thumbnailsEmbedded": "Vložené náhledy: ",
+        "descriptionsEmbedded": "Vložené popisy: ",
+        "trackedObjectsProcessed": "Zpracované sledované objekty: "
+      }
+    },
+    "downloadingModels": {
+      "context": "Frigate stahuje potřebné modely vložení pro podporu funkce sémantického vyhledávání. To může trvat několik minut v závislosti na rychlosti vašeho síťového připojení.",
+      "setup": {
+        "visionModelFeatureExtractor": "Extraktor funkcí Vision modelu",
+        "visionModel": "Vision model",
+        "textModel": "Textový model",
+        "textTokenizer": "Textový tokenizér"
+      },
+      "tips": {
+        "context": "Můžete reindexovat vložení vašich sledovaných oběktů hned jak budou modely staženy."
+      },
+      "error": "Nastala chyba. Zkontrolujte protokoly Frigate."
+    }
+  },
+  "trackedObjectsCount_one": "{{count}} sledovaný objekt ",
+  "trackedObjectsCount_few": "{{count}} sledované objekty ",
+  "trackedObjectsCount_other": "{{count}} sledovaných objektů ",
+  "searchResult": {
+    "tooltip": "Shoda s {{type}} na {{confidence}} %",
+    "deleteTrackedObject": {
+      "toast": {
+        "error": "Sledovaný objekt se nepodařilo smazat: {{errorMessage}}",
+        "success": "Sledovaný objekt úspěšně smazán."
+      }
+    },
+    "previousTrackedObject": "Předchozí sledovaný objekt",
+    "nextTrackedObject": "Následující sledovaný objekt"
+  },
+  "objectLifecycle": {
+    "noImageFound": "Žádný obrázek pro toto časové razítko."
+  },
+  "itemMenu": {
+    "downloadSnapshot": {
+      "label": "Stáhnout snímek",
+      "aria": "Stáhnout snímek"
+    },
+    "viewInHistory": {
+      "aria": "Zobrazit v historii",
+      "label": "Zobrazit historii"
+    },
+    "deleteTrackedObject": {
+      "label": "Smazat tento sledovaný objekt"
+    },
+    "downloadVideo": {
+      "label": "Stáhnout video",
+      "aria": "Stáhnout video"
+    },
+    "findSimilar": {
+      "aria": "Najít podobný sledovaný objekt",
+      "label": "Najít podobné"
+    },
+    "submitToPlus": {
+      "aria": "Odeslat do Frigate Plus",
+      "label": "Odeslat do Frigate+"
+    },
+    "addTrigger": {
+      "label": "Přidat spouštěč",
+      "aria": "Přidat spouštěč pro tento sledovaný objekt"
+    },
+    "audioTranscription": {
+      "label": "Přepsat",
+      "aria": "Požádat o přepis zvukového záznamu"
+    },
+    "showObjectDetails": {
+      "label": "Zobrazit trasu objektu"
+    },
+    "hideObjectDetails": {
+      "label": "Skrýt trasu objektu"
+    }
+  },
+  "dialog": {
+    "confirmDelete": {
+      "title": "Potvrdit smazání",
+      "desc": "Odstraněním tohoto sledovaného objektu se odstraní snímek, všechna uložená vložení a všechny související položky s podrobnostmi o sledování. Zaznamenaný záznam tohoto sledovaného objektu v zobrazení Historie <em>NEBUDE</em> smazán.<br /><br />Opravdu chcete pokračovat?"
+    }
+  },
+  "trackedObjectDetails": "Detaily sledovaných objektů",
+  "type": {
+    "details": "detaily",
+    "snapshot": "snímek",
+    "video": "video",
+    "thumbnail": "Náhled",
+    "tracking_details": "detaily sledování"
+  },
+  "noTrackedObjects": "Žádné sledované objekty nebyly nalezeny",
+  "fetchingTrackedObjectsFailed": "Chyba při načítání sledovaných objektů: {{errorMessage}}",
+  "exploreMore": "Prozkoumat více {{label}} objektů",
+  "aiAnalysis": {
+    "title": "Analýza AI"
+  },
+  "concerns": {
+    "label": "Obavy"
+  },
+  "trackingDetails": {
+    "title": "Detaily Sledování",
+    "noImageFound": "Nebyl nalezen obrázek pro tuto časovou značku.",
+    "createObjectMask": "Vytvořit Masku Objektu",
+    "adjustAnnotationSettings": "Upravte nastavení poznámek",
+    "scrollViewTips": "Klikněte pro zobrazení významných okamžiků z životního cyklu tohoto objektu.",
+    "autoTrackingTips": "Pozice ohraničujících rámečků budou nepřesné pro kamery s automatickým sledováním.",
+    "count": "{{first}} z {{second}}",
+    "trackedPoint": "Sledovaný Bod",
+    "lifecycleItemDesc": {
+      "visible": "Detekován {{label}}",
+      "entered_zone": "{{label}} vstoupil do {{zones}}",
+      "active": "{{label}} se stal aktivním",
+      "stationary": "{{label}} se zastavil",
+      "attribute": {
+        "faceOrLicense_plate": "Pro {{label}} zjištěn {{attribute}}"
+      },
+      "header": {
+        "ratio": "Poměr",
+        "area": "Oblast",
+        "score": "Skóre"
+      }
+    },
+    "annotationSettings": {
+      "title": "Nastavení anotací",
+      "showAllZones": {
+        "title": "Zobrazit všechny zóny",
+        "desc": "Vždy zobrazovat zóny na snímcích, na kterých objekty vstoupili do zóny."
+      },
+      "offset": {
+        "label": "Odsazení anotace",
+        "desc": "Tato data pocházejí z detekčního kanálu vaší kamery, ale překrývají se s obrázky ze záznamového kanálu. Je nepravděpodobné, že by oba streamy byly dokonale synchronizované. V důsledku toho se ohraničovací rámeček a záznam nebudou dokonale srovnávat. Toto nastavení můžete použít k časovému posunutí anotací dopředu nebo dozadu, abyste je lépe zarovnali se zaznamenaným záznamem.",
+        "millisecondsToOffset": "Milisekundy na posunutí detekce anotací. <em>Výchozí: 0</em>",
+        "tips": "Snižte hodnotu, pokud je přehrávané video před ohraničením a body cesty, nebo zvyšte hodnotu, pokud je přehrávané video za nimi. Hodnota může být i záporná.",
+        "toast": {
+          "success": "Odsazení anotací pro {{camera}} bylo uloženo do konfiguračního souboru."
+        }
+      }
+    },
+    "carousel": {
+      "previous": "Předcházející snímek",
+      "next": "Další snímek"
+    }
+  }
+}

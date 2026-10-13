@@ -1,0 +1,87 @@
+{
+  "detected": "zaznano",
+  "events": {
+    "noFoundForTimePeriod": "Za to obdobje ni najdenih dogodkov.",
+    "label": "Dogodki",
+    "aria": "Izberi dogodke"
+  },
+  "allCameras": "Vse kamere",
+  "empty": {
+    "motion": "Ni najdenih podatkov o gibanju",
+    "alert": "Ni opozoril za pregled",
+    "detection": "Ni zaznav za pregled",
+    "recordingsDisabled": {
+      "title": "Snemanje mora biti omogočeno",
+      "description": "Postavke za pregled se lahko ustvarijo le za kamere, ki imajo vklopljeno snemanje."
+    }
+  },
+  "recordings": {
+    "documentTitle": "Posnetki - Frigate"
+  },
+  "camera": "Kamera",
+  "documentTitle": "Pregled - Frigate",
+  "alerts": "Opozorila",
+  "detections": "Zaznave",
+  "motion": {
+    "label": "Gibanje",
+    "only": "Samo gibanje"
+  },
+  "timeline.aria": "Izberi časovnico",
+  "calendarFilter": {
+    "last24Hours": "Zadnjih 24 ur"
+  },
+  "markAsReviewed": "Označi kot pregledano",
+  "markTheseItemsAsReviewed": "Označi te postavke kot pregledane",
+  "newReviewItems": {
+    "label": "Prikaži nove postavke za pregled",
+    "button": "Nove postavke za pregled"
+  },
+  "selected_one": "{{count}} izbran",
+  "selected_other": "{{count}} izbranih",
+  "zoomIn": "Povečaj",
+  "zoomOut": "Pomanjšaj",
+  "detail": {
+    "label": "Podrobnosti",
+    "noDataFound": "Ni podrobnih podatkov za pregled",
+    "aria": "Preklopi podrobni pogled",
+    "trackedObject_one": "{{count}} objekt",
+    "trackedObject_other": "{{count}} objektov",
+    "noObjectDetailData": "Podatki o podrobnostih objekta niso na voljo.",
+    "settings": "Nastavitve podrobnega pogleda",
+    "alwaysExpandActive": {
+      "title": "Vedno razširi aktivno",
+      "desc": "Vedno razširi podrobnosti objekta za trenutno aktivno postavko pregleda, ko so na voljo."
+    }
+  },
+  "objectTrack": {
+    "trackedPoint": "Sledena točka",
+    "clickToSeek": "Klikni za skok na ta čas"
+  },
+  "select_all": "Vse",
+  "normalActivity": "Običajno",
+  "needsReview": "Potrebno pregleda",
+  "securityConcern": "Varnostni pomislek",
+  "motionSearch": {
+    "menuItem": "Iskanje gibanja",
+    "openMenu": "Možnosti kamere"
+  },
+  "motionPreviews": {
+    "menuItem": "Ogled predogledov gibanja",
+    "title": "Predogledi gibanja: {{camera}}",
+    "mobileSettingsTitle": "Nastavitve predogleda gibanja",
+    "mobileSettingsDesc": "Prilagodi hitrost predvajanja, zatemnitev in izberi datum za pregled posnetkov s samim gibanjem.",
+    "dim": "Zatemnitev",
+    "dimAria": "Prilagodi intenzivnost zatemnitve",
+    "dimDesc": "Povečaj zatemnitev za boljšo vidnost območja gibanja.",
+    "speed": "Hitrost",
+    "speedAria": "Izberi hitrost predvajanja predogleda",
+    "speedDesc": "Izberi, kako hitro naj se predvajajo predogledi.",
+    "back": "Nazaj",
+    "empty": "Predogledi niso na voljo",
+    "noPreview": "Predogled ni na voljo",
+    "seekAria": "Skoči na predvajalniku {{camera}} na čas {{time}}",
+    "filter": "Filter",
+    "filterDesc": "Izberi območja, da prikažeš le posnetke z gibanjem v teh regijah.",
+    "filterClear": "Počisti"
+  }
+}

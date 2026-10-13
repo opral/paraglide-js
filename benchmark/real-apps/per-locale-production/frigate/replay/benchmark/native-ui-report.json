@@ -1,0 +1,293 @@
+{
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/root/repos-iii/frigate-per-locale-ab/web/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "../benchmark/probe.config.ts"
+    ],
+    "configFile": "/root/repos-iii/frigate-per-locale-ab/benchmark/probe.config.ts",
+    "rootDir": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/root/repos-iii/frigate-per-locale-ab/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "per-locale-probe.spec.ts"
+        ],
+        "timeout": 120000
+      },
+      {
+        "outputDir": "/root/repos-iii/frigate-per-locale-ab/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile",
+        "name": "mobile",
+        "testDir": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "per-locale-probe.spec.ts"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/root/repos-iii/frigate-per-locale-ab/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop",
+        "testDir": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs",
+        "snapshotDir": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs",
+        "testIgnore": [],
+        "testMatch": "per-locale-probe.spec.ts",
+        "timeout": 120000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4197",
+          "trace": "on-first-retry",
+          "screenshot": "only-on-failure",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "viewport": {
+            "width": 1920,
+            "height": 1080
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/root/repos-iii/frigate-per-locale-ab/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "mobile",
+        "testDir": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs",
+        "snapshotDir": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs",
+        "testIgnore": [],
+        "testMatch": "per-locale-probe.spec.ts",
+        "timeout": 120000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4197",
+          "trace": "on-first-retry",
+          "screenshot": "only-on-failure",
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": true,
+          "hasTouch": true,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "mobile"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json",
+        {
+          "outputFile": "/root/repos-iii/frigate-per-locale-ab/benchmark/native-ui-report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "per-locale-probe.spec.ts",
+      "file": "per-locale-probe.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "capture French Live locale namespace requests",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2203,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "FRIGATE_NAMESPACE_GRAPH desktop [{\"locale\":\"en\",\"namespace\":\"audio\",\"status\":200},{\"locale\":\"en\",\"namespace\":\"common\",\"status\":200},{\"locale\":\"en\",\"namespace\":\"components/camera\",\"status\":200},{\"locale\":\"en\",\"namespace\":\"components/dialog\",\"status\":200},{\"locale\":\"en\",\"namespace\":\"components/player\",\"status\":200},{\"locale\":\"en\",\"namespace\":\"objects\",\"status\":200},{\"locale\":\"en\",\"namespace\":\"views/live\",\"status\":200},{\"locale\":\"en\",\"namespace\":\"views/settings\",\"status\":200},{\"locale\":\"en\",\"namespace\":\"views/system\",\"status\":200},{\"locale\":\"fr\",\"namespace\":\"audio\",\"status\":200},{\"locale\":\"fr\",\"namespace\":\"common\",\"status\":200},{\"locale\":\"fr\",\"namespace\":\"components/camera\",\"status\":200},{\"locale\":\"fr\",\"namespace\":\"components/dialog\",\"status\":200},{\"locale\":\"fr\",\"namespace\":\"components/player\",\"status\":200},{\"locale\":\"fr\",\"namespace\":\"objects\",\"status\":200},{\"locale\":\"fr\",\"namespace\":\"views/live\",\"status\":200},{\"locale\":\"fr\",\"namespace\":\"views/settings\",\"status\":200},{\"locale\":\"fr\",\"namespace\":\"views/system\",\"status\":200}]\n"
+                    },
+                    {
+                      "text": "FRIGATE_ROUTE_TIMING desktop {\"initialResources\":[{\"url\":\"/assets/main-D4-eM3CH.js\",\"startTime\":90.10000002384186,\"responseEnd\":380.5,\"encodedBodySize\":186711,\"transferSize\":187011,\"decodedBodySize\":625825},{\"url\":\"/assets/rolldown-runtime-B_MQnBba.js\",\"startTime\":90.20000004768372,\"responseEnd\":179.60000002384186,\"encodedBodySize\":573,\"transferSize\":873,\"decodedBodySize\":1087},{\"url\":\"/assets/useTranslation-wMbxFB1i.js\",\"startTime\":90.20000004768372,\"responseEnd\":208,\"encodedBodySize\":14274,\"transferSize\":14574,\"decodedBodySize\":43152},{\"url\":\"/assets/activity-indicator-D_x4wV58.js\",\"startTime\":90.70000004768372,\"responseEnd\":353.7000000476837,\"encodedBodySize\":120690,\"transferSize\":120990,\"decodedBodySize\":827809},{\"url\":\"/assets/label-DukRF4a6.js\",\"startTime\":90.80000007152557,\"responseEnd\":210.70000004768372,\"encodedBodySize\":14801,\"transferSize\":15101,\"decodedBodySize\":46041},{\"url\":\"/assets/use-history-back-JKPm9jgZ.js\",\"startTime\":90.80000007152557,\"responseEnd\":319.2000000476837,\"encodedBodySize\":14674,\"transferSize\":14974,\"decodedBodySize\":45111},{\"url\":\"/assets/src-BCEtIU6s.js\",\"startTime\":90.80000007152557,\"responseEnd\":476.60000002384186,\"encodedBodySize\":139157,\"transferSize\":139457,\"decodedBodySize\":495919},{\"url\":\"/assets/drawer-Dp9UU7kd.js\",\"startTime\":90.90000009536743,\"responseEnd\":346.90000009536743,\"encodedBodySize\":34821,\"transferSize\":35121,\"decodedBodySize\":101961},{\"url\":\"/assets/dist-X38yvQ2h.js\",\"startTime\":90.90000009536743,\"responseEnd\":391.2000000476837,\"encodedBodySize\":413,\"transferSize\":713,\"decodedBodySize\":876},{\"url\":\"/assets/preload-helper-BtBvY-ns.js\",\"startTime\":90.90000009536743,\"responseEnd\":400.7000000476837,\"encodedBodySize\":798,\"transferSize\":1098,\"decodedBodySize\":1567},{\"url\":\"/assets/cameraUtil-CKlJ1Vsi.js\",\"startTime\":90.90000009536743,\"responseEnd\":429.2000000476837,\"encodedBodySize\":1636,\"transferSize\":1936,\"decodedBodySize\":3679},{\"url\":\"/assets/use-is-admin-B6UU-4w8.js\",\"startTime\":91.40000009536743,\"responseEnd\":435.60000002384186,\"encodedBodySize\":202,\"transferSize\":502,\"decodedBodySize\":303},{\"url\":\"/assets/normalizeDates-B8fk6WG0.js\",\"startTime\":91.5,\"responseEnd\":462.7000000476837,\"encodedBodySize\":496,\"transferSize\":796,\"decodedBodySize\":886},{\"url\":\"/assets/buildMatchPatternFn-ClBAzsDg.js\",\"startTime\":91.5,\"responseEnd\":473.10000002384186,\"encodedBodySize\":617,\"transferSize\":917,\"decodedBodySize\":1563},{\"url\":\"/assets/use-date-locale-BpBt0QYp.js\",\"startTime\":91.5,\"responseEnd\":487.5,\"encodedBodySize\":12768,\"transferSize\":13068,\"decodedBodySize\":43675},{\"url\":\"/assets/detectionHardware-BlXbhogZ.js\",\"startTime\":91.5,\"responseEnd\":510.8000000715256,\"encodedBodySize\":554,\"transferSize\":854,\"decodedBodySize\":1084},{\"url\":\"/assets/src-DHngj9Lm.css\",\"startTime\":91.60000002384186,\"responseEnd\":310,\"encodedBodySize\":26070,\"transferSize\":26370,\"decodedBodySize\":173144},{\"url\":\"/locales/fr/objects.json\",\"startTime\":627.1000000238419,\"responseEnd\":711.7000000476837,\"encodedBodySize\":1477,\"transferSize\":1777,\"decodedBodySize\":3203},{\"url\":\"/locales/fr/audio.json\",\"startTime\":627.1000000238419,\"responseEnd\":718.1000000238419,\"encodedBodySize\":5712,\"transferSize\":6012,\"decodedBodySize\":14983},{\"url\":\"/locales/en/objects.json\",\"startTime\":627.2000000476837,\"responseEnd\":716.9000000953674,\"encodedBodySize\":1290,\"transferSize\":1590,\"decodedBodySize\":3051},{\"url\":\"/locales/en/audio.json\",\"startTime\":627.6000000238419,\"responseEnd\":720.7000000476837,\"encodedBodySize\":4853,\"transferSize\":5153,\"decodedBodySize\":13637},{\"url\":\"/locales/fr/common.json\",\"startTime\":648.2000000476837,\"responseEnd\":734.6000000238419,\"encodedBodySize\":3796,\"transferSize\":4096,\"decodedBodySize\":10066},{\"url\":\"/locales/en/common.json\",\"startTime\":648.4000000953674,\"responseEnd\":734.6000000238419,\"encodedBodySize\":3496,\"transferSize\":3796,\"decodedBodySize\":10334},{\"url\":\"/locales/fr/components/camera.json\",\"startTime\":665.7000000476837,\"responseEnd\":793.2000000476837,\"encodedBodySize\":1422,\"transferSize\":1722,\"decodedBodySize\":3891},{\"url\":\"/locales/en/components/camera.json\",\"startTime\":665.8000000715256,\"responseEnd\":798.6000000238419,\"encodedBodySize\":1176,\"transferSize\":1476,\"decodedBodySize\":3361},{\"url\":\"/locales/fr/views/settings.json\",\"startTime\":665.9000000953674,\"responseEnd\":810.5,\"encodedBodySize\":18165,\"transferSize\":18465,\"decodedBodySize\":69496},{\"url\":\"/locales/en/views/settings.json\",\"startTime\":666.3000000715256,\"responseEnd\":821.4000000953674,\"encodedBodySize\":25820,\"transferSize\":26120,\"decodedBodySize\":98843},{\"url\":\"/locales/fr/views/system.json\",\"startTime\":714.2000000476837,\"responseEnd\":819,\"encodedBodySize\":3480,\"transferSize\":3780,\"decodedBodySize\":10937},{\"url\":\"/locales/en/views/system.json\",\"startTime\":718.1000000238419,\"responseEnd\":821.4000000953674,\"encodedBodySize\":5102,\"transferSize\":5402,\"decodedBodySize\":16461},{\"url\":\"/locales/en/components/dialog.json\",\"startTime\":833.3000000715256,\"responseEnd\":918.2000000476837,\"encodedBodySize\":2525,\"transferSize\":2825,\"decodedBodySize\":8240},{\"url\":\"/locales/fr/components/dialog.json\",\"startTime\":833.3000000715256,\"responseEnd\":919.4000000953674,\"encodedBodySize\":2904,\"transferSize\":3204,\"decodedBodySize\":9392},{\"url\":\"/api/config\",\"startTime\":943.6000000238419,\"responseEnd\":962,\"encodedBodySize\":32181,\"transferSize\":32481,\"decodedBodySize\":32181},{\"url\":\"/api/profile\",\"startTime\":945.6000000238419,\"responseEnd\":963.9000000953674,\"encodedBodySize\":58,\"transferSize\":358,\"decodedBodySize\":58},{\"url\":\"/api/profiles\",\"startTime\":946.4000000953674,\"responseEnd\":964,\"encodedBodySize\":57,\"transferSize\":357,\"decodedBodySize\":57},{\"url\":\"/api/notices\",\"startTime\":947.3000000715256,\"responseEnd\":966.1000000238419,\"encodedBodySize\":2,\"transferSize\":302,\"decodedBodySize\":2},{\"url\":\"/api/notices/muted_checks\",\"startTime\":948.6000000238419,\"responseEnd\":966.2000000476837,\"encodedBodySize\":2,\"transferSize\":302,\"decodedBodySize\":2},{\"url\":\"/api/stats\",\"startTime\":949.7000000476837,\"responseEnd\":966.3000000715256,\"encodedBodySize\":1705,\"transferSize\":2005,\"decodedBodySize\":1705},{\"url\":\"/api/profile\",\"startTime\":950.4000000953674,\"responseEnd\":966.4000000953674,\"encodedBodySize\":58,\"transferSize\":358,\"decodedBodySize\":58},{\"url\":\"/assets/fr-DE_g_3N7.js\",\"startTime\":954.4000000953674,\"responseEnd\":1046.3000000715256,\"encodedBodySize\":2098,\"transferSize\":2398,\"decodedBodySize\":5521},{\"url\":\"/assets/Inter-Regular-B0QUfDW0.woff2\",\"startTime\":968,\"responseEnd\":1106.9000000953674,\"encodedBodySize\":108488,\"transferSize\":108788,\"decodedBodySize\":108488},{\"url\":\"/assets/Live-B2HxIU4q.js\",\"startTime\":1049.5,\"responseEnd\":1175.3000000715256,\"encodedBodySize\":46547,\"transferSize\":46847,\"decodedBodySize\":184877},{\"url\":\"/assets/card-BvEx76ZV.js\",\"startTime\":1049.7000000476837,\"responseEnd\":1137.8000000715256,\"encodedBodySize\":387,\"transferSize\":687,\"decodedBodySize\":1060},{\"url\":\"/assets/fa6-LY2KIa2E.js\",\"startTime\":1050.1000000238419,\"responseEnd\":1138.3000000715256,\"encodedBodySize\":903,\"transferSize\":1203,\"decodedBodySize\":3022},{\"url\":\"/assets/resize-observer-BM6UK5WB.js\",\"startTime\":1050.2000000476837,\"responseEnd\":1139.7000000476837,\"encodedBodySize\":403,\"transferSize\":703,\"decodedBodySize\":702},{\"url\":\"/assets/ReactKonva-BsRqteko.js\",\"startTime\":1050.2000000476837,\"responseEnd\":1200.8000000715256,\"encodedBodySize\":105650,\"transferSize\":105950,\"decodedBodySize\":377618},{\"url\":\"/assets/ImageShadowOverlay-zudTxtKC.js\",\"startTime\":1050.2000000476837,\"responseEnd\":1219.4000000953674,\"encodedBodySize\":283,\"transferSize\":583,\"decodedBodySize\":541},{\"url\":\"/assets/skeleton-Doktw_Xe.js\",\"startTime\":1050.4000000953674,\"responseEnd\":1220.7000000476837,\"encodedBodySize\":181,\"transferSize\":481,\"decodedBodySize\":246},{\"url\":\"/assets/use-keyboard-listener-CcHihlXj.js\",\"startTime\":1050.4000000953674,\"responseEnd\":1221.1000000238419,\"encodedBodySize\":615,\"transferSize\":915,\"decodedBodySize\":1411},{\"url\":\"/assets/FilterSwitch-BumxfPyV.js\",\"startTime\":1050.4000000953674,\"responseEnd\":1257.5,\"encodedBodySize\":458,\"transferSize\":758,\"decodedBodySize\":1098},{\"url\":\"/assets/slider-BsRzJqrB.js\",\"startTime\":1050.8000000715256,\"responseEnd\":1272.1000000238419,\"encodedBodySize\":4520,\"transferSize\":4820,\"decodedBodySize\":13654},{\"url\":\"/assets/TimeAgo-h5R57NLp.js\",\"startTime\":1050.8000000715256,\"responseEnd\":1282.5,\"encodedBodySize\":718,\"transferSize\":1018,\"decodedBodySize\":1451},{\"url\":\"/assets/scroll-area-xcHQ56wu.js\",\"startTime\":1050.9000000953674,\"responseEnd\":1303.2000000476837,\"encodedBodySize\":4675,\"transferSize\":4975,\"decodedBodySize\":15657},{\"url\":\"/assets/review-D3-Z-h19.js\",\"startTime\":1050.9000000953674,\"responseEnd\":1303.3000000715256,\"encodedBodySize\":184,\"transferSize\":484,\"decodedBodySize\":242},{\"url\":\"/assets/record-Bf1xYu2U.js\",\"startTime\":1050.9000000953674,\"responseEnd\":1310.2000000476837,\"encodedBodySize\":16516,\"transferSize\":16816,\"decodedBodySize\":49087},{\"url\":\"/assets/snapshotUtil-DZ4PxfyT.js\",\"startTime\":1051.2000000476837,\"responseEnd\":1341,\"encodedBodySize\":3120,\"transferSize\":3420,\"decodedBodySize\":7579},{\"url\":\"/assets/tabs-Dv_B-FHX.js\",\"startTime\":1051.2000000476837,\"responseEnd\":1353.8000000715256,\"encodedBodySize\":1534,\"transferSize\":1834,\"decodedBodySize\":3778},{\"url\":\"/assets/Chip-DV_hU2e5.js\",\"startTime\":1051.3000000715256,\"responseEnd\":1364.6000000238419,\"encodedBodySize\":653,\"transferSize\":953,\"decodedBodySize\":1232},{\"url\":\"/assets/context-menu-CvTIS5vu.js\",\"startTime\":1051.3000000715256,\"responseEnd\":1386,\"encodedBodySize\":2334,\"transferSize\":2634,\"decodedBodySize\":8545},{\"url\":\"/assets/use-camera-activity-BoxPiCy2.js\",\"startTime\":1051.3000000715256,\"responseEnd\":1387.5,\"encodedBodySize\":1646,\"transferSize\":1946,\"decodedBodySize\":3622},{\"url\":\"/assets/use-timeline-utils-RZeNJOLk.js\",\"startTime\":1051.4000000953674,\"responseEnd\":1392,\"encodedBodySize\":344,\"transferSize\":644,\"decodedBodySize\":648},{\"url\":\"/assets/EmptyCard-Ci-uVJwr.js\",\"startTime\":1051.4000000953674,\"responseEnd\":1422.4000000953674,\"encodedBodySize\":427,\"transferSize\":727,\"decodedBodySize\":771},{\"url\":\"/assets/BirdseyeLivePlayer-D50Y4o9J.js\",\"startTime\":1051.9000000953674,\"responseEnd\":1455.9000000953674,\"encodedBodySize\":45026,\"transferSize\":45326,\"decodedBodySize\":137136},{\"url\":\"/assets/MsePlayer-BcrvLnvg.js\",\"startTime\":1052,\"responseEnd\":1449.4000000953674,\"encodedBodySize\":3634,\"transferSize\":3934,\"decodedBodySize\":9213},{\"url\":\"/assets/Live-Cb7KG80W.css\",\"startTime\":1052.1000000238419,\"responseEnd\":1189.4000000953674,\"encodedBodySize\":947,\"transferSize\":1247,\"decodedBodySize\":3664},{\"url\":\"/assets/AutoUpdatingCameraImage-Dscb-wIU.js\",\"startTime\":1052.1000000238419,\"responseEnd\":1468.2000000476837,\"encodedBodySize\":1304,\"transferSize\":1604,\"decodedBodySize\":2587},{\"url\":\"/assets/DebugDrawingLayer-B2MYpMj0.js\",\"startTime\":1052.1000000238419,\"responseEnd\":1469.4000000953674,\"encodedBodySize\":1025,\"transferSize\":1325,\"decodedBodySize\":2531},{\"url\":\"/assets/react-apexcharts.esm-DDSdTom0.js\",\"startTime\":1052.1000000238419,\"responseEnd\":1586.4000000953674,\"encodedBodySize\":275201,\"transferSize\":275501,\"decodedBodySize\":981036},{\"url\":\"/locales/fr/views/live.json\",\"startTime\":1629.3000000715256,\"responseEnd\":1713.6000000238419,\"encodedBodySize\":1995,\"transferSize\":2295,\"decodedBodySize\":6875},{\"url\":\"/locales/en/views/live.json\",\"startTime\":1629.4000000953674,\"responseEnd\":1714.8000000715256,\"encodedBodySize\":2465,\"transferSize\":2765,\"decodedBodySize\":8191},{\"url\":\"/locales/fr/components/player.json\",\"startTime\":1729.1000000238419,\"responseEnd\":1812.1000000238419,\"encodedBodySize\":674,\"transferSize\":974,\"decodedBodySize\":1500},{\"url\":\"/locales/en/components/player.json\",\"startTime\":1729.1000000238419,\"responseEnd\":1812.2000000476837,\"encodedBodySize\":782,\"transferSize\":1082,\"decodedBodySize\":2034},{\"url\":\"/assets/Inter-Medium-B0NFony0.woff2\",\"startTime\":1823.9000000953674,\"responseEnd\":1954.3000000715256,\"encodedBodySize\":111380,\"transferSize\":111680,\"decodedBodySize\":111380}],\"navigation\":{\"encodedBodySize\":2982,\"transferSize\":3282,\"decodedBodySize\":8120,\"protocol\":\"http/1.1\",\"requestStart\":2.700000047683716,\"responseStart\":4.800000071525574,\"domContentLoadedEventEnd\":622.7000000476837,\"loadEventEnd\":627.7000000476837},\"fontsReadyAt\":2081.3000000715256,\"fontChecks\":{\"regular\":true,\"medium\":true},\"frenchControlReadyAt\":1833.3000000715256,\"frenchControl\":{\"backText\":\"Retour\",\"backLabel\":\"Retour\",\"historyText\":\"Historique\",\"historyLabel\":\"Afficher les vidéos archivées\"},\"frenchControlTimeline\":{\"domAt\":1833.3000000715256,\"translatedTextAt\":1833.3000000715256,\"accessibleVisibleAt\":1833.3000000715256,\"visibleTextAt\":1833.3000000715256},\"actionsBeforeFrenchControlReady\":[],\"fontResources\":[{\"url\":\"/assets/Inter-Regular-B0QUfDW0.woff2\",\"startTime\":968,\"responseEnd\":1106.9000000953674,\"duration\":138.90000009536743,\"encodedBodySize\":108488,\"protocol\":\"http/1.1\"},{\"url\":\"/assets/Inter-Medium-B0NFony0.woff2\",\"startTime\":1823.9000000953674,\"responseEnd\":1954.3000000715256,\"duration\":130.39999997615814,\"encodedBodySize\":111380,\"protocol\":\"http/1.1\"}],\"apiResources\":[{\"url\":\"/api/config\",\"startTime\":943.6000000238419,\"responseEnd\":962,\"duration\":18.399999976158142,\"protocol\":\"\"},{\"url\":\"/api/profile\",\"startTime\":945.6000000238419,\"responseEnd\":963.9000000953674,\"duration\":18.300000071525574,\"protocol\":\"\"},{\"url\":\"/api/profiles\",\"startTime\":946.4000000953674,\"responseEnd\":964,\"duration\":17.59999990463257,\"protocol\":\"\"},{\"url\":\"/api/notices\",\"startTime\":947.3000000715256,\"responseEnd\":966.1000000238419,\"duration\":18.799999952316284,\"protocol\":\"\"},{\"url\":\"/api/notices/muted_checks\",\"startTime\":948.6000000238419,\"responseEnd\":966.2000000476837,\"duration\":17.600000023841858,\"protocol\":\"\"},{\"url\":\"/api/stats\",\"startTime\":949.7000000476837,\"responseEnd\":966.3000000715256,\"duration\":16.600000023841858,\"protocol\":\"\"},{\"url\":\"/api/profile\",\"startTime\":950.4000000953674,\"responseEnd\":966.4000000953674,\"duration\":16,\"protocol\":\"\"},{\"url\":\"/api/front_door/latest.webp\",\"startTime\":1835.6000000238419,\"responseEnd\":1836.6000000238419,\"duration\":1,\"protocol\":\"\"},{\"url\":\"/api/front_door/latest.webp\",\"startTime\":1844.9000000953674,\"responseEnd\":1846,\"duration\":1.0999999046325684,\"protocol\":\"\"}],\"jsResources\":[{\"url\":\"/assets/rolldown-runtime-B_MQnBba.js\",\"startTime\":90.20000004768372,\"responseEnd\":179.60000002384186,\"duration\":89.39999997615814},{\"url\":\"/assets/useTranslation-wMbxFB1i.js\",\"startTime\":90.20000004768372,\"responseEnd\":208,\"duration\":117.79999995231628},{\"url\":\"/assets/label-DukRF4a6.js\",\"startTime\":90.80000007152557,\"responseEnd\":210.70000004768372,\"duration\":119.89999997615814},{\"url\":\"/assets/use-history-back-JKPm9jgZ.js\",\"startTime\":90.80000007152557,\"responseEnd\":319.2000000476837,\"duration\":228.39999997615814},{\"url\":\"/assets/drawer-Dp9UU7kd.js\",\"startTime\":90.90000009536743,\"responseEnd\":346.90000009536743,\"duration\":256},{\"url\":\"/assets/activity-indicator-D_x4wV58.js\",\"startTime\":90.70000004768372,\"responseEnd\":353.7000000476837,\"duration\":263},{\"url\":\"/assets/main-D4-eM3CH.js\",\"startTime\":90.10000002384186,\"responseEnd\":380.5,\"duration\":290.39999997615814},{\"url\":\"/assets/dist-X38yvQ2h.js\",\"startTime\":90.90000009536743,\"responseEnd\":391.2000000476837,\"duration\":300.2999999523163},{\"url\":\"/assets/preload-helper-BtBvY-ns.js\",\"startTime\":90.90000009536743,\"responseEnd\":400.7000000476837,\"duration\":309.7999999523163},{\"url\":\"/assets/cameraUtil-CKlJ1Vsi.js\",\"startTime\":90.90000009536743,\"responseEnd\":429.2000000476837,\"duration\":338.2999999523163},{\"url\":\"/assets/use-is-admin-B6UU-4w8.js\",\"startTime\":91.40000009536743,\"responseEnd\":435.60000002384186,\"duration\":344.1999999284744},{\"url\":\"/assets/normalizeDates-B8fk6WG0.js\",\"startTime\":91.5,\"responseEnd\":462.7000000476837,\"duration\":371.2000000476837},{\"url\":\"/assets/buildMatchPatternFn-ClBAzsDg.js\",\"startTime\":91.5,\"responseEnd\":473.10000002384186,\"duration\":381.60000002384186},{\"url\":\"/assets/src-BCEtIU6s.js\",\"startTime\":90.80000007152557,\"responseEnd\":476.60000002384186,\"duration\":385.7999999523163},{\"url\":\"/assets/use-date-locale-BpBt0QYp.js\",\"startTime\":91.5,\"responseEnd\":487.5,\"duration\":396},{\"url\":\"/assets/detectionHardware-BlXbhogZ.js\",\"startTime\":91.5,\"responseEnd\":510.8000000715256,\"duration\":419.3000000715256},{\"url\":\"/assets/fr-DE_g_3N7.js\",\"startTime\":954.4000000953674,\"responseEnd\":1046.3000000715256,\"duration\":91.89999997615814},{\"url\":\"/assets/card-BvEx76ZV.js\",\"startTime\":1049.7000000476837,\"responseEnd\":1137.8000000715256,\"duration\":88.10000002384186},{\"url\":\"/assets/fa6-LY2KIa2E.js\",\"startTime\":1050.1000000238419,\"responseEnd\":1138.3000000715256,\"duration\":88.20000004768372},{\"url\":\"/assets/resize-observer-BM6UK5WB.js\",\"startTime\":1050.2000000476837,\"responseEnd\":1139.7000000476837,\"duration\":89.5},{\"url\":\"/assets/Live-B2HxIU4q.js\",\"startTime\":1049.5,\"responseEnd\":1175.3000000715256,\"duration\":125.80000007152557},{\"url\":\"/assets/ReactKonva-BsRqteko.js\",\"startTime\":1050.2000000476837,\"responseEnd\":1200.8000000715256,\"duration\":150.60000002384186},{\"url\":\"/assets/ImageShadowOverlay-zudTxtKC.js\",\"startTime\":1050.2000000476837,\"responseEnd\":1219.4000000953674,\"duration\":169.20000004768372},{\"url\":\"/assets/skeleton-Doktw_Xe.js\",\"startTime\":1050.4000000953674,\"responseEnd\":1220.7000000476837,\"duration\":170.29999995231628},{\"url\":\"/assets/use-keyboard-listener-CcHihlXj.js\",\"startTime\":1050.4000000953674,\"responseEnd\":1221.1000000238419,\"duration\":170.69999992847443},{\"url\":\"/assets/FilterSwitch-BumxfPyV.js\",\"startTime\":1050.4000000953674,\"responseEnd\":1257.5,\"duration\":207.09999990463257},{\"url\":\"/assets/slider-BsRzJqrB.js\",\"startTime\":1050.8000000715256,\"responseEnd\":1272.1000000238419,\"duration\":221.29999995231628},{\"url\":\"/assets/TimeAgo-h5R57NLp.js\",\"startTime\":1050.8000000715256,\"responseEnd\":1282.5,\"duration\":231.69999992847443},{\"url\":\"/assets/scroll-area-xcHQ56wu.js\",\"startTime\":1050.9000000953674,\"responseEnd\":1303.2000000476837,\"duration\":252.29999995231628},{\"url\":\"/assets/review-D3-Z-h19.js\",\"startTime\":1050.9000000953674,\"responseEnd\":1303.3000000715256,\"duration\":252.39999997615814},{\"url\":\"/assets/record-Bf1xYu2U.js\",\"startTime\":1050.9000000953674,\"responseEnd\":1310.2000000476837,\"duration\":259.2999999523163},{\"url\":\"/assets/snapshotUtil-DZ4PxfyT.js\",\"startTime\":1051.2000000476837,\"responseEnd\":1341,\"duration\":289.7999999523163},{\"url\":\"/assets/tabs-Dv_B-FHX.js\",\"startTime\":1051.2000000476837,\"responseEnd\":1353.8000000715256,\"duration\":302.60000002384186},{\"url\":\"/assets/Chip-DV_hU2e5.js\",\"startTime\":1051.3000000715256,\"responseEnd\":1364.6000000238419,\"duration\":313.2999999523163},{\"url\":\"/assets/context-menu-CvTIS5vu.js\",\"startTime\":1051.3000000715256,\"responseEnd\":1386,\"duration\":334.6999999284744},{\"url\":\"/assets/use-camera-activity-BoxPiCy2.js\",\"startTime\":1051.3000000715256,\"responseEnd\":1387.5,\"duration\":336.1999999284744},{\"url\":\"/assets/use-timeline-utils-RZeNJOLk.js\",\"startTime\":1051.4000000953674,\"responseEnd\":1392,\"duration\":340.59999990463257},{\"url\":\"/assets/EmptyCard-Ci-uVJwr.js\",\"startTime\":1051.4000000953674,\"responseEnd\":1422.4000000953674,\"duration\":371},{\"url\":\"/assets/MsePlayer-BcrvLnvg.js\",\"startTime\":1052,\"responseEnd\":1449.4000000953674,\"duration\":397.40000009536743},{\"url\":\"/assets/BirdseyeLivePlayer-D50Y4o9J.js\",\"startTime\":1051.9000000953674,\"responseEnd\":1455.9000000953674,\"duration\":404},{\"url\":\"/assets/AutoUpdatingCameraImage-Dscb-wIU.js\",\"startTime\":1052.1000000238419,\"responseEnd\":1468.2000000476837,\"duration\":416.10000002384186},{\"url\":\"/assets/DebugDrawingLayer-B2MYpMj0.js\",\"startTime\":1052.1000000238419,\"responseEnd\":1469.4000000953674,\"duration\":417.3000000715256},{\"url\":\"/assets/react-apexcharts.esm-DDSdTom0.js\",\"startTime\":1052.1000000238419,\"responseEnd\":1586.4000000953674,\"duration\":534.3000000715256}],\"locale\":[{\"url\":\"/locales/fr/objects.json\",\"startTime\":627.1000000238419,\"responseEnd\":711.7000000476837,\"duration\":84.60000002384186,\"transferSize\":1777,\"encodedBodySize\":1477,\"decodedBodySize\":3203,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/fr/audio.json\",\"startTime\":627.1000000238419,\"responseEnd\":718.1000000238419,\"duration\":91,\"transferSize\":6012,\"encodedBodySize\":5712,\"decodedBodySize\":14983,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/en/objects.json\",\"startTime\":627.2000000476837,\"responseEnd\":716.9000000953674,\"duration\":89.70000004768372,\"transferSize\":1590,\"encodedBodySize\":1290,\"decodedBodySize\":3051,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/en/audio.json\",\"startTime\":627.6000000238419,\"responseEnd\":720.7000000476837,\"duration\":93.10000002384186,\"transferSize\":5153,\"encodedBodySize\":4853,\"decodedBodySize\":13637,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/fr/common.json\",\"startTime\":648.2000000476837,\"responseEnd\":734.6000000238419,\"duration\":86.39999997615814,\"transferSize\":4096,\"encodedBodySize\":3796,\"decodedBodySize\":10066,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/en/common.json\",\"startTime\":648.4000000953674,\"responseEnd\":734.6000000238419,\"duration\":86.19999992847443,\"transferSize\":3796,\"encodedBodySize\":3496,\"decodedBodySize\":10334,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/fr/components/camera.json\",\"startTime\":665.7000000476837,\"responseEnd\":793.2000000476837,\"duration\":127.5,\"transferSize\":1722,\"encodedBodySize\":1422,\"decodedBodySize\":3891,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/en/components/camera.json\",\"startTime\":665.8000000715256,\"responseEnd\":798.6000000238419,\"duration\":132.79999995231628,\"transferSize\":1476,\"encodedBodySize\":1176,\"decodedBodySize\":3361,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/fr/views/settings.json\",\"startTime\":665.9000000953674,\"responseEnd\":810.5,\"duration\":144.59999990463257,\"transferSize\":18465,\"encodedBodySize\":18165,\"decodedBodySize\":69496,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/en/views/settings.json\",\"startTime\":666.3000000715256,\"responseEnd\":821.4000000953674,\"duration\":155.10000002384186,\"transferSize\":26120,\"encodedBodySize\":25820,\"decodedBodySize\":98843,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/fr/views/system.json\",\"startTime\":714.2000000476837,\"responseEnd\":819,\"duration\":104.79999995231628,\"transferSize\":3780,\"encodedBodySize\":3480,\"decodedBodySize\":10937,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/en/views/system.json\",\"startTime\":718.1000000238419,\"responseEnd\":821.4000000953674,\"duration\":103.30000007152557,\"transferSize\":5402,\"encodedBodySize\":5102,\"decodedBodySize\":16461,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/en/components/dialog.json\",\"startTime\":833.3000000715256,\"responseEnd\":918.2000000476837,\"duration\":84.89999997615814,\"transferSize\":2825,\"encodedBodySize\":2525,\"decodedBodySize\":8240,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/fr/components/dialog.json\",\"startTime\":833.3000000715256,\"responseEnd\":919.4000000953674,\"duration\":86.10000002384186,\"transferSize\":3204,\"encodedBodySize\":2904,\"decodedBodySize\":9392,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/fr/views/live.json\",\"startTime\":1629.3000000715256,\"responseEnd\":1713.6000000238419,\"duration\":84.29999995231628,\"transferSize\":2295,\"encodedBodySize\":1995,\"decodedBodySize\":6875,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/en/views/live.json\",\"startTime\":1629.4000000953674,\"responseEnd\":1714.8000000715256,\"duration\":85.39999997615814,\"transferSize\":2765,\"encodedBodySize\":2465,\"decodedBodySize\":8191,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/fr/components/player.json\",\"startTime\":1729.1000000238419,\"responseEnd\":1812.1000000238419,\"duration\":83,\"transferSize\":974,\"encodedBodySize\":674,\"decodedBodySize\":1500,\"protocol\":\"http/1.1\"},{\"url\":\"/locales/en/components/player.json\",\"startTime\":1729.1000000238419,\"responseEnd\":1812.2000000476837,\"duration\":83.10000002384186,\"transferSize\":1082,\"encodedBodySize\":782,\"decodedBodySize\":2034,\"protocol\":\"http/1.1\"}],\"bodyText\":\"Cpu est lent (75.5 ms)\\n•\\n3 system notices\\nRetour\\nHistorique\"}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-13T14:04:31.693Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d35650c6ee4cce499d48-b5e313aa4aa49f9933d9",
+          "file": "per-locale-probe.spec.ts",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "capture French Live locale namespace requests",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 9826,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mFront Door - Direct - \u001b[27mFrigate\"\u001b[39m\nReceived: \u001b[31m\"Frigate\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    14 × locator resolved to <html lang=\"fr\" class=\"system theme-default light\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"Frigate\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mFront Door - Direct - \u001b[27mFrigate\"\u001b[39m\nReceived: \u001b[31m\"Frigate\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    14 × locator resolved to <html lang=\"fr\" class=\"system theme-default light\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"Frigate\"\u001b[22m\n\n    at /root/repos-iii/frigate-per-locale-ab/web/e2e/specs/per-locale-probe.spec.ts:140:33",
+                    "location": {
+                      "file": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs/per-locale-probe.spec.ts",
+                      "column": 33,
+                      "line": 140
+                    },
+                    "snippet": "  138 |   frigateApp.page.on(\"request\", (request) => { beganRequests.push({ request, complete: request.response().then(response => response?.finished()) }); });\n  139 |   await frigateApp.goto(\"/#front_door\");\n> 140 |   await expect(frigateApp.page).toHaveTitle(\"Front Door - Direct - Frigate\");\n      |                                 ^\n  141 |   await expect\n  142 |     .poll(() => frigateApp.page.locator(\"html\").getAttribute(\"lang\"))\n  143 |     .toBe(\"fr\");"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs/per-locale-probe.spec.ts",
+                        "column": 33,
+                        "line": 140
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mFront Door - Direct - \u001b[27mFrigate\"\u001b[39m\nReceived: \u001b[31m\"Frigate\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    14 × locator resolved to <html lang=\"fr\" class=\"system theme-default light\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"Frigate\"\u001b[22m\n\n\n  138 |   frigateApp.page.on(\"request\", (request) => { beganRequests.push({ request, complete: request.response().then(response => response?.finished()) }); });\n  139 |   await frigateApp.goto(\"/#front_door\");\n> 140 |   await expect(frigateApp.page).toHaveTitle(\"Front Door - Direct - Frigate\");\n      |                                 ^\n  141 |   await expect\n  142 |     .poll(() => frigateApp.page.locator(\"html\").getAttribute(\"lang\"))\n  143 |     .toBe(\"fr\");\n    at /root/repos-iii/frigate-per-locale-ab/web/e2e/specs/per-locale-probe.spec.ts:140:33"
+                    },
+                    {
+                      "location": {
+                        "file": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs/per-locale-probe.spec.ts",
+                        "column": 134,
+                        "line": 138
+                      },
+                      "message": "Error: Test ended.\n\n  136 |   await cdp.send(\"Emulation.setCPUThrottlingRate\", { rate: mobile ? 4 : 3 });\n  137 |   const beganRequests: { request: any; complete: Promise<unknown> }[] = [];\n> 138 |   frigateApp.page.on(\"request\", (request) => { beganRequests.push({ request, complete: request.response().then(response => response?.finished()) }); });\n      |                                                                                                                                      ^\n  139 |   await frigateApp.goto(\"/#front_door\");\n  140 |   await expect(frigateApp.page).toHaveTitle(\"Front Door - Direct - Frigate\");\n  141 |   await expect\n    at /root/repos-iii/frigate-per-locale-ab/web/e2e/specs/per-locale-probe.spec.ts:138:134"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-13T14:04:34.137Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/root/repos-iii/frigate-per-locale-ab/test-results/per-locale-probe-capture-F-882f7-e-locale-namespace-requests-mobile/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/root/repos-iii/frigate-per-locale-ab/test-results/per-locale-probe-capture-F-882f7-e-locale-namespace-requests-mobile/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/root/repos-iii/frigate-per-locale-ab/web/e2e/specs/per-locale-probe.spec.ts",
+                    "column": 33,
+                    "line": 140
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d35650c6ee4cce499d48-6a5b95dee7fac9f24a36",
+          "file": "per-locale-probe.spec.ts",
+          "line": 7,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-13T14:04:31.502Z",
+    "duration": 12528.656,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

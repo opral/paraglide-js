@@ -1,0 +1,200 @@
+{
+  "lowBandwidthMode": "Modus voor lage bandbreedte",
+  "twoWayTalk": {
+    "enable": "Tweerichtingsgesprek inschakelen",
+    "disable": "Tweerichtingsgesprek uitschakelen"
+  },
+  "cameraAudio": {
+    "enable": "Camera geluid inschakelen",
+    "disable": "Camera geluid uitschakelen"
+  },
+  "ptz": {
+    "move": {
+      "clickMove": {
+        "label": "Klik in het frame om de camera te centreren",
+        "enable": "Klikken om te bewegen inschakelen",
+        "disable": "Klikken om te bewegen uitschakelen",
+        "enableWithZoom": "Schakel klikken om te verplaatsen / slepen om te zoomen in"
+      },
+      "right": {
+        "label": "Beweeg de PTZ-camera naar rechts"
+      },
+      "down": {
+        "label": "Beweeg de PTZ-camera naar beneden"
+      },
+      "up": {
+        "label": "Beweeg de PTZ-camera naar boven"
+      },
+      "left": {
+        "label": "Beweeg de PTZ-camera naar links"
+      }
+    },
+    "zoom": {
+      "in": {
+        "label": "Zoom de PTZ-camera in"
+      },
+      "out": {
+        "label": "Zoom de PTZ-camera uit"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "Klik in het frame om de PTZ-camera te centreren"
+      }
+    },
+    "presets": "PTZ-camerapresets",
+    "focus": {
+      "in": {
+        "label": "Focus PTZ-camera in"
+      },
+      "out": {
+        "label": "Focus PTZ-camera uit"
+      }
+    }
+  },
+  "camera": {
+    "turnOn": "Camera inschakelen",
+    "turnOff": "Camera uitschakelen"
+  },
+  "muteCameras": {
+    "enable": "Alle camera's dempen",
+    "disable": "Dempen van alle camera's opheffen"
+  },
+  "detect": {
+    "disable": "Detectie uitschakelen",
+    "enable": "Detectie inschakelen"
+  },
+  "snapshots": {
+    "enable": "Momentopnamen inschakelen",
+    "disable": "Schakel snapshots uit"
+  },
+  "audioDetect": {
+    "disable": "Audiodetectie uitschakelen",
+    "enable": "Audiodetectie inschakelen"
+  },
+  "streamStats": {
+    "disable": "Verberg streamstatistieken",
+    "enable": "Streamstatistieken weergeven"
+  },
+  "manualRecording": {
+    "showStats": {
+      "label": "Statistieken weergeven",
+      "desc": "Schakel deze optie in om streamstatistieken als overlay op de camerafeed weer te geven."
+    },
+    "started": "Handmatige opname gestart.",
+    "start": "Handmatige opname starten",
+    "debugView": "Debug weergave",
+    "end": "Handmatige opname stoppen",
+    "ended": "Handmatige opname gestopt.",
+    "failedToEnd": "Het beëindigen van de handmatige opname is mislukt.",
+    "playInBackground": {
+      "label": "Speel op de achtergrond",
+      "desc": "Schakel deze optie in om te blijven streamen wanneer de speler verborgen is."
+    },
+    "recordDisabledTips": "Aangezien opnemen is uitgeschakeld of beperkt in de configuratie van deze camera, zal alleen een momentopname worden opgeslagen.",
+    "title": "Op aanvraag",
+    "tips": "Download direct een snapshot of start handmatig een gebeurtenis op basis van de opnamebewaarinstellingen van deze camera.",
+    "failedToStart": "Handmatige opname starten mislukt."
+  },
+  "notifications": "Meldingen",
+  "audio": "Geluid",
+  "documentTitle": {
+    "default": "Live - Frigate"
+  },
+  "documentTitle.withCamera": "{{camera}} - Live - Frigate",
+  "autotracking": {
+    "enable": "Automatisch volgen inschakelen",
+    "disable": "Automatisch volgen uitschakelen"
+  },
+  "recording": {
+    "disable": "Opname uitschakelen",
+    "enable": "Opname inschakelen",
+    "disabledInConfig": "De opnamefunctie moet eerst worden ingeschakeld in de instellingen van deze camera."
+  },
+  "suspend": {
+    "forTime": "Onderbreken voor: "
+  },
+  "streamingSettings": "Streaming-instellingen",
+  "stream": {
+    "twoWayTalk": {
+      "tips": "Uw apparaat moet deze functie ondersteunen en WebRTC moet geconfigureerd zijn voor tweerichtingsgesprekken.",
+      "unavailable": "Tweerichtingsgesprek is niet beschikbaar voor deze stream",
+      "available": "Voor deze stream is tweerichtingsgesprek beschikbaar"
+    },
+    "lowBandwidth": {
+      "resetStream": "Stream resetten",
+      "tips": "Liveweergave staat in de lagebandbreedtemodus vanwege buffering of streamfouten."
+    },
+    "title": "Stream",
+    "audio": {
+      "tips": {
+        "title": "Audio moet via je camera komen en in go2rtc geconfigureerd zijn voor deze stream."
+      },
+      "unavailable": "Audio is niet beschikbaar voor deze stream",
+      "available": "Audio is beschikbaar voor deze stream"
+    },
+    "playInBackground": {
+      "label": "Afspelen op de achtergrond",
+      "tips": "Schakel deze optie in om te blijven streamen wanneer de speler verborgen is."
+    },
+    "debug": {
+      "picker": "Streamselectie is niet beschikbaar in de debugmodus. De debugweergave gebruikt altijd de stream waaraan de detectierol is toegewezen."
+    }
+  },
+  "cameraSettings": {
+    "title": "{{camera}} Instellingen",
+    "objectDetection": "Objectdetectie",
+    "recording": "Opname",
+    "audioDetection": "Audiodetectie",
+    "autotracking": "Automatisch volgen",
+    "snapshots": "Momentopnames",
+    "transcription": "Audiotranscriptie",
+    "camera": "Camera"
+  },
+  "history": {
+    "label": "Historische beelden weergeven"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "all": "Alle",
+      "active_objects": "Actieve objecten",
+      "motion": "Beweging"
+    }
+  },
+  "editLayout": {
+    "label": "Lay-out bewerken",
+    "exitEdit": "Bewerken verlaten",
+    "group": {
+      "label": "Cameragroep bewerken"
+    }
+  },
+  "transcription": {
+    "enable": "Live audiotranscriptie inschakelen",
+    "disable": "Live audiotranscriptie uitschakelen"
+  },
+  "snapshot": {
+    "takeSnapshot": "Direct een snapshot downloaden",
+    "noVideoSource": "Geen videobron beschikbaar voor snapshot.",
+    "captureFailed": "Het is niet gelukt om een snapshot te maken.",
+    "downloadStarted": "Snapshot downloaden gestart."
+  },
+  "noCameras": {
+    "title": "Geen camera’s ingesteld",
+    "description": "Begin door een camera te verbinden met Frigate.",
+    "buttonText": "Camera toevoegen",
+    "restricted": {
+      "title": "Geen camera's beschikbaar",
+      "description": "Je hebt geen toestemming om camera's in deze groep te bekijken."
+    },
+    "default": {
+      "title": "Geen camera’s ingesteld",
+      "description": "Begin door een camera te verbinden met Frigate.",
+      "buttonText": "Camera toevoegen"
+    },
+    "group": {
+      "title": "Geen camera's in groep",
+      "description": "Deze cameragroep heeft geen toegewezen of ingeschakelde camera's.",
+      "buttonText": "Groepen beheren"
+    }
+  }
+}

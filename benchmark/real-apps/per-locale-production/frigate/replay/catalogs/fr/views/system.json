@@ -1,0 +1,264 @@
+{
+  "documentTitle": {
+    "storage": "Statistiques de stockage - Frigate",
+    "cameras": "Statistiques des caméras - Frigate",
+    "general": "Statistiques générales - Frigate",
+    "enrichments": "Statistiques d'enrichissements - Frigate",
+    "logs": {
+      "frigate": "Journaux de Frigate - Frigate",
+      "nginx": "Journaux Nginx - Frigate",
+      "go2rtc": "Journaux Go2RTC - Frigate",
+      "websocket": "Journaux des messages - Frigate"
+    }
+  },
+  "title": "Système",
+  "metrics": "Métriques du système",
+  "logs": {
+    "download": {
+      "label": "Télécharger les journaux"
+    },
+    "copy": {
+      "label": "Copier dans le presse-papiers",
+      "success": "Journaux copiés dans le presse-papiers",
+      "error": "Échec de la copie des journaux dans le presse-papiers"
+    },
+    "type": {
+      "label": "Type",
+      "timestamp": "Horodatage",
+      "tag": "Balise",
+      "message": "Message"
+    },
+    "tips": "Les journaux sont diffusés en continu depuis le serveur",
+    "toast": {
+      "error": {
+        "fetchingLogsFailed": "Erreur lors de la récupération des logs : {{errorMessage}}",
+        "whileStreamingLogs": "Erreur lors de la diffusion des logs : {{errorMessage}}"
+      }
+    },
+    "websocket": {
+      "label": "Messages",
+      "pause": "Pause",
+      "resume": "Reprendre",
+      "clear": "Effacer",
+      "filter": {
+        "all": "Tous les sujets",
+        "topics": "Sujets",
+        "events": "Évènements",
+        "reviews": "Revues",
+        "classification": "Classification",
+        "face_recognition": "Reconnaissance Faciale",
+        "lpr": "LAPI",
+        "camera_activity": "Activités de la caméra",
+        "system": "Système",
+        "camera": "Caméra",
+        "all_cameras": "Toutes les caméras",
+        "cameras_count_one": "{{count}} Caméra",
+        "cameras_count_other": "{{count}} Caméras"
+      },
+      "empty": "Aucun message capturé jusque là",
+      "count_one": "{{count}} message",
+      "count_other": "{{count}} messages",
+      "expanded": {
+        "payload": "Charge utile"
+      }
+    }
+  },
+  "general": {
+    "title": "Général",
+    "detector": {
+      "title": "Détecteurs",
+      "inferenceSpeed": "Vitesse d'inférence du détecteur",
+      "cpuUsage": "Utilisation CPU du détecteur",
+      "memoryUsage": "Utilisation mémoire du détecteur",
+      "temperature": "Température du détecteur",
+      "cpuUsageInformation": "Utilisation CPU pour préparer les données en entrée et en sortie des modèles de détection. Cette valeur ne mesure pas l'utilisation de l'inférence, même si un GPU ou un accélérateur est utilisé."
+    },
+    "hardwareInfo": {
+      "title": "Informations sur le matériel",
+      "gpuUsage": "Utilisation du GPU",
+      "gpuMemory": "Mémoire du GPU",
+      "gpuEncoder": "Encodeur GPU",
+      "gpuDecoder": "Décodeur GPU",
+      "gpuInfo": {
+        "vainfoOutput": {
+          "title": "Sortie Vainfo",
+          "returnCode": "Code de retour : {{code}}",
+          "processOutput": "Sortie du processus :",
+          "processError": "Erreur du processus :"
+        },
+        "nvidiaSMIOutput": {
+          "title": "Sortie Nvidia SMI",
+          "name": "Nom : {{name}}",
+          "cudaComputerCapability": "Capacité de calcul CUDA : {{cuda_compute}}",
+          "vbios": "Informations VBios : {{vbios}}",
+          "driver": "Pilote : {{driver}}"
+        },
+        "copyInfo": {
+          "label": "Copier les informations du GPU"
+        },
+        "toast": {
+          "success": "Informations GPU copiées dans le presse-papiers"
+        },
+        "closeInfo": {
+          "label": "Fermer les informations du GPU"
+        }
+      },
+      "npuUsage": "Utilisation NPU",
+      "npuMemory": "Mémoire NPU",
+      "gpuTemperature": "Température du GPU",
+      "npuTemperature": "Température du NPU",
+      "gpuCompute": "Calcul GPU / Encodage"
+    },
+    "otherProcesses": {
+      "title": "Autres processus",
+      "processCpuUsage": "Utilisation CPU du processus",
+      "processMemoryUsage": "Utilisation mémoire du processus",
+      "series": {
+        "go2rtc": "go2rtc",
+        "recording": "enregistrement",
+        "review_segment": "Segment d'activité",
+        "embeddings": "intégrations",
+        "audio_detector": "détecteur audio"
+      }
+    }
+  },
+  "storage": {
+    "title": "Stockage",
+    "recordings": {
+      "title": "Enregistrements",
+      "earliestRecording": "Enregistrement le plus ancien :",
+      "tips": "Cette valeur correspond au stockage total utilisé par les enregistrements dans la base de données Frigate. Frigate ne suit pas l'utilisation du stockage pour tous les fichiers de votre disque."
+    },
+    "cameraStorage": {
+      "title": "Stockage de la caméra",
+      "bandwidth": "Bande passante",
+      "unused": {
+        "title": "Inutilisé",
+        "tips": "Cette valeur peut ne pas représenter précisément l'espace libre disponible pour Frigate si d'autres fichiers sont stockés sur votre disque en plus des enregistrements Frigate. Frigate ne suit pas l'utilisation du stockage en dehors de ses enregistrements."
+      },
+      "percentageOfTotalUsed": "Pourcentage du total",
+      "storageUsed": "Stockage",
+      "camera": "Caméra",
+      "unusedStorageInformation": "Informations sur le stockage non utilisé"
+    },
+    "overview": "Vue d'ensemble",
+    "shm": {
+      "title": "Allocation de mémoire partagée SHM",
+      "warning": "La taille actuelle de la SHM de {{total}} Mo est trop petite. Augmentez-la au moins à {{min_shm}} Mo.",
+      "frameLifetime": {
+        "title": "Durée de vie de la trame",
+        "description": "Chaque caméra dispose de {{frames}} emplacements de trames en mémoire partagée. À la fréquence d'images de la caméra la plus rapide, chaque trame est disponible pendant environ {{lifetime}}s avant d'être écrasée."
+      }
+    }
+  },
+  "cameras": {
+    "title": "Caméras",
+    "info": {
+      "cameraProbeInfo": "Informations de la sonde pour {{camera}}",
+      "fetching": "Récupération des données de la caméra en cours",
+      "stream": "Flux {{idx}}",
+      "fps": "IPS :",
+      "unknown": "Inconnu",
+      "audio": "Audio :",
+      "tips": {
+        "title": "Informations de la sonde caméra"
+      },
+      "streamDataFromFFPROBE": "Les données du flux sont obtenues avec <code>ffprobe</code>.",
+      "resolution": "Résolution :",
+      "error": "Erreur : {{error}}",
+      "codec": "Codec :",
+      "video": "Vidéo :",
+      "aspectRatio": "rapport d'aspect",
+      "keyframes": {
+        "title": "Analyse par image clef",
+        "analyzing": "Analyse des images clefs... {{seconds}} secondes restantes",
+        "stillAnalyzing": "Analyse des images clefs toujours en cours ...",
+        "recordStream": "Flux d'enregistrement :",
+        "keyframeCount": "Images clefs observées :",
+        "observedDuration": "Durée observée :",
+        "gap": "Écart en images clefs (min / moy / max) :",
+        "segmentLength": "Durée du segment d'enregistrement :",
+        "ok": "Images clefs chaque ~{{seconds}}s, convient à l'enregistrement et au visionnement.",
+        "unknown": "Impossible de déterminer l'espacement en images clefs.",
+        "recordDisabled": "L'enregistrement est désactivé pour cette caméra."
+      }
+    },
+    "framesAndDetections": "Images / Détections",
+    "label": {
+      "camera": "caméra",
+      "detect": "détection",
+      "skipped": "ignorées",
+      "ffmpeg": "FFmpeg",
+      "capture": "capture",
+      "cameraFfmpeg": "{{camName}} FFmpeg",
+      "cameraSkippedDetectionsPerSecond": "{{camName}} détections ignorées par seconde",
+      "overallDetectionsPerSecond": "Moyenne de détections par seconde",
+      "overallFramesPerSecond": "images par seconde (global)",
+      "overallSkippedDetectionsPerSecond": "Moyenne de détections ignorées par seconde",
+      "cameraCapture": "{{camName}} capture",
+      "cameraDetect": "{{camName}} détection",
+      "cameraFramesPerSecond": "{{camName}} images par seconde",
+      "cameraDetectionsPerSecond": "{{camName}} détections par seconde",
+      "cameraGpu": "GPU {{camName}}"
+    },
+    "overview": "Vue d'ensemble",
+    "toast": {
+      "success": {
+        "copyToClipboard": "Données de la sonde copiées dans le presse-papiers."
+      },
+      "error": {
+        "unableToProbeCamera": "Impossible d'interroger la caméra : {{errorMessage}}"
+      }
+    },
+    "connectionQuality": {
+      "title": "Qualité de la connexion",
+      "excellent": "Excellente",
+      "fair": "Acceptable",
+      "poor": "Médiocre",
+      "unusable": "Inutilisable",
+      "fps": "IPS",
+      "expectedFps": "IPS attendues",
+      "reconnectsLastHour": "Reconnexions (dernière heure)",
+      "stallsLastHour": "Baisses de qualité (dernière heure)"
+    },
+    "noCameras": {
+      "title": "Aucune caméra trouvée"
+    }
+  },
+  "lastRefreshed": "Dernier rafraichissement : ",
+  "stats": {
+    "healthy": "Le système est sain",
+    "reindexingEmbeddings": "Réindexation des embeddings ({{processed}} % terminée)",
+    "cameraIsOffline": "{{camera}} est hors ligne",
+    "detectIsSlow": "{{detect}} est lent ({{speed}} ms)",
+    "detectIsVerySlow": "{{detect}} est très lent ({{speed}} ms)",
+    "debugReplayActive": "Session de relecture de débogage active"
+  },
+  "enrichments": {
+    "title": "Enrichissements",
+    "infPerSecond": "Inférences par seconde",
+    "embeddings": {
+      "face_embedding_speed": "Vitesse de vectorisation des visages",
+      "text_embedding_speed": "Vitesse d'embedding de texte",
+      "image_embedding_speed": "Vitesse d'embedding d'image",
+      "plate_recognition_speed": "Vitesse de reconnaissance des plaques d'immatriculation",
+      "face_recognition_speed": "Vitesse de reconnaissance faciale",
+      "plate_recognition": "Reconnaissance de plaques d'immatriculation",
+      "image_embedding": "Embedding d'image",
+      "yolov9_plate_detection": "Détection de plaques d'immatriculation YOLOv9",
+      "face_recognition": "Reconnaissance faciale",
+      "text_embedding": "Vitesse d'embedding de visage",
+      "yolov9_plate_detection_speed": "Vitesse de détection de plaques d'immatriculation YOLOv9",
+      "review_description": "Description de l'activité",
+      "review_description_speed": "Vitesse de description des activités",
+      "review_description_events_per_second": "Description de l'activité",
+      "object_description": "Description de l'objet",
+      "object_description_speed": "Vitesse de la description d'objet",
+      "object_description_events_per_second": "Description de l'objet",
+      "classification": "Classification {{name}}",
+      "classification_speed": "Vitesse de classification {{name}}",
+      "classification_events_per_second": "Événements de classification par seconde {{name}}"
+    },
+    "averageInf": "Temps d'inférence moyen"
+  }
+}

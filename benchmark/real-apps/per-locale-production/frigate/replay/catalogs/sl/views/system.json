@@ -1,0 +1,244 @@
+{
+  "documentTitle": {
+    "cameras": "Statistika kamer - Frigate",
+    "storage": "Statistika shrambe - Frigate",
+    "general": "Splošna statistika - Frigate",
+    "logs": {
+      "frigate": "Frigate dnevniki - Frigate",
+      "go2rtc": "Go2RTC dnevniki - Frigate",
+      "nginx": "Nginx dnevniki - Frigate",
+      "websocket": "Dnevniki sporočil - Frigate"
+    },
+    "enrichments": "Statistika obogatenih podatkov - Frigate"
+  },
+  "logs": {
+    "download": {
+      "label": "Prenesi dnevnike"
+    },
+    "copy": {
+      "label": "Kopiraj v odložišče",
+      "success": "Dnevniki kopirani v odložišče",
+      "error": "Dnevnikov ni bilo mogoče kopirati"
+    },
+    "type": {
+      "label": "Vrsta",
+      "timestamp": "Časovna značka",
+      "message": "Sporočilo",
+      "tag": "Oznaka"
+    },
+    "tips": "Dnevniki se pretakajo s strežnika",
+    "toast": {
+      "error": {
+        "fetchingLogsFailed": "Napaka pri pridobivanju dnevnikov: {{errorMessage}}",
+        "whileStreamingLogs": "Napaka med pretakanjem dnevnikov: {{errorMessage}}"
+      }
+    },
+    "websocket": {
+      "label": "Sporočila",
+      "pause": "Premor",
+      "resume": "Nadaljuj",
+      "clear": "Počisti",
+      "filter": {
+        "all": "Vse teme",
+        "topics": "Teme",
+        "events": "Dogodki",
+        "reviews": "Pregledi",
+        "classification": "Klasifikacija",
+        "face_recognition": "Prepoznava obrazov",
+        "lpr": "Prepoznava tablic",
+        "camera_activity": "Aktivnost kamere",
+        "system": "Sistem",
+        "camera": "Kamera",
+        "all_cameras": "Vse kamere",
+        "cameras_count_one": "{{count}} kamera",
+        "cameras_count_other": "{{count}} kamer"
+      },
+      "empty": "Ni še ujetih sporočil",
+      "expanded": {
+        "payload": "Tovor (payload)"
+      }
+    }
+  },
+  "storage": {
+    "recordings": {
+      "title": "Posnetki",
+      "tips": "Ta vrednost predstavlja skupno shrambo, ki jo zasedajo posnetki v podatkovni bazi Frigate. Frigate ne spremlja porabe shrambe za vse datoteke na tvojem disku.",
+      "earliestRecording": "Najstarejši razpoložljiv posnetek:"
+    },
+    "title": "Shramba",
+    "overview": "Pregled",
+    "cameraStorage": {
+      "title": "Shramba kamer",
+      "camera": "Kamera",
+      "unusedStorageInformation": "Informacije o neporabljeni shrambi",
+      "storageUsed": "Shramba",
+      "percentageOfTotalUsed": "Odstotek skupnega",
+      "bandwidth": "Pasovna širina",
+      "unused": {
+        "title": "Neporabljeno",
+        "tips": "Ta vrednost morda ne predstavlja natančno prostega prostora, ki je na voljo programu Frigate, če imaš na disku poleg posnetkov Frigate shranjene še druge datoteke. Frigate ne spremlja porabe shrambe izven svojih posnetkov."
+      }
+    },
+    "shm": {
+      "warning": "Trenutna velikost SHM ({{total}} MB) je premajhna. Povečaj jo na vsaj {{min_shm}} MB.",
+      "title": "Dodelitev SHM (deljenega pomnilnika)",
+      "frameLifetime": {
+        "title": "Življenjska doba okvirja",
+        "description": "Vsaka kamera ima {{frames}} rež za okvirje v deljenem pomnilniku. Pri najvišji hitrosti sličic kamere je vsak okvir na voljo približno {{lifetime}} s, preden se prepiše."
+      }
+    }
+  },
+  "general": {
+    "hardwareInfo": {
+      "npuMemory": "NPU pomnilnik",
+      "title": "Strojna oprema",
+      "gpuUsage": "Uporaba GPU",
+      "gpuMemory": "GPU pomnilnik",
+      "gpuEncoder": "GPU kodirnik",
+      "gpuDecoder": "GPU dekodirnik",
+      "gpuInfo": {
+        "vainfoOutput": {
+          "title": "Izhod Vainfo",
+          "returnCode": "Vrnjena koda: {{code}}",
+          "processOutput": "Izhod procesa:",
+          "processError": "Napaka procesa:"
+        },
+        "nvidiaSMIOutput": {
+          "title": "Izhod Nvidia SMI",
+          "name": "Ime: {{name}}",
+          "driver": "Gonilnik: {{driver}}",
+          "cudaComputerCapability": "CUDA Compute Capability: {{cuda_compute}}",
+          "vbios": "Informacije VBios: {{vbios}}"
+        },
+        "closeInfo": {
+          "label": "Zapri info o GPU"
+        },
+        "copyInfo": {
+          "label": "Kopiraj info o GPU"
+        },
+        "toast": {
+          "success": "Informacije o GPU kopirane v odložišče"
+        }
+      },
+      "npuUsage": "Uporaba NPU",
+      "gpuTemperature": "Temperatura GPU",
+      "npuTemperature": "Temperatura NPU"
+    },
+    "title": "Splošno",
+    "detector": {
+      "title": "Detektorji",
+      "inferenceSpeed": "Hitrost sklepanja detektorja",
+      "temperature": "Temperatura detektorja",
+      "cpuUsage": "Poraba procesorja detektorja",
+      "memoryUsage": "Poraba pomnilnika detektorja",
+      "cpuUsageInformation": "Procesor, uporabljen za pripravo vhodnih in izhodnih podatkov v/iz modelov za zaznavanje. Ta vrednost ne meri uporabe sklepanja (inference), tudi če uporabljaš GPU ali pospeševalnik."
+    },
+    "otherProcesses": {
+      "title": "Drugi procesi",
+      "processMemoryUsage": "Poraba pomnilnika procesov",
+      "processCpuUsage": "Poraba procesorja procesov",
+      "series": {
+        "go2rtc": "go2rtc",
+        "recording": "snemanje",
+        "audio_detector": "detektor zvoka",
+        "review_segment": "segment pregleda",
+        "embeddings": "vdelave"
+      }
+    }
+  },
+  "title": "Sistem",
+  "metrics": "Sistemske metrike",
+  "cameras": {
+    "title": "Kamere",
+    "overview": "Pregled",
+    "info": {
+      "aspectRatio": "razmerje stranic",
+      "cameraProbeInfo": "Informacije o viru kamere {{camera}}",
+      "streamDataFromFFPROBE": "Podatki o pretoku so pridobljeni s pomočjo <code>ffprobe</code>.",
+      "fetching": "Pridobivanje podatkov o kameri",
+      "stream": "Pretok {{idx}}",
+      "video": "Video:",
+      "codec": "Kodek:",
+      "resolution": "Ločljivost:",
+      "fps": "Sličic na sekundo (FPS):",
+      "unknown": "Neznano",
+      "audio": "Zvok:",
+      "error": "Napaka: {{error}}",
+      "tips": {
+        "title": "Informacije o viru kamere"
+      }
+    },
+    "framesAndDetections": "Okvirji / Zaznave",
+    "label": {
+      "camera": "kamera",
+      "detect": "zaznavanje",
+      "skipped": "preskočeno",
+      "ffmpeg": "FFmpeg",
+      "capture": "zajem",
+      "overallFramesPerSecond": "skupno sličic na sekundo",
+      "overallDetectionsPerSecond": "skupno zaznav na sekundo",
+      "overallSkippedDetectionsPerSecond": "skupno preskočenih zaznav na sekundo",
+      "cameraFfmpeg": "{{camName}} FFmpeg",
+      "cameraCapture": "{{camName}} zajem",
+      "cameraDetect": "{{camName}} zaznavanje",
+      "cameraFramesPerSecond": "{{camName}} sličic na sekundo",
+      "cameraDetectionsPerSecond": "{{camName}} zaznav na sekundo",
+      "cameraSkippedDetectionsPerSecond": "{{camName}} preskočenih zaznav na sekundo"
+    },
+    "toast": {
+      "success": {
+        "copyToClipboard": "Podatki o viru kopirani v odložišče."
+      },
+      "error": {
+        "unableToProbeCamera": "Ni mogoče preveriti vira kamere: {{errorMessage}}"
+      }
+    },
+    "connectionQuality": {
+      "title": "Kakovost povezave",
+      "excellent": "Odlično",
+      "fair": "Zadovoljivo",
+      "poor": "Slabo",
+      "unusable": "Neuporabno",
+      "fps": "FPS",
+      "expectedFps": "Pričakovan FPS",
+      "reconnectsLastHour": "Ponovne povezave (zadnja ura)",
+      "stallsLastHour": "Zastoji (zadnja ura)"
+    }
+  },
+  "lastRefreshed": "Zadnja osvežitev: ",
+  "stats": {
+    "healthy": "Sistem deluje brezhibno",
+    "reindexingEmbeddings": "Ponovno indeksiranje vdelav ({{processed}} % končano)",
+    "cameraIsOffline": "Kamera {{camera}} je brez povezave",
+    "detectIsSlow": "Zaznavanje ({{detect}}) je počasno ({{speed}} ms)",
+    "detectIsVerySlow": "Zaznavanje ({{detect}}) je zelo počasno ({{speed}} ms)",
+    "debugReplayActive": "Seja ponovnega predvajanja za razhroščevanje je aktivna"
+  },
+  "enrichments": {
+    "title": "Obogatitve",
+    "infPerSecond": "Sklepanj na sekundo",
+    "embeddings": {
+      "face_recognition": "Prepoznava obrazov",
+      "plate_recognition": "Prepoznava tablic",
+      "face_recognition_speed": "Hitrost prepoznave obrazov",
+      "plate_recognition_speed": "Hitrost prepoznave tablic",
+      "yolov9_plate_detection": "YOLOv9 zaznava tablic",
+      "image_embedding": "Vdelava slik",
+      "text_embedding": "Vdelava besedila",
+      "image_embedding_speed": "Hitrost vdelave slik",
+      "yolov9_plate_detection_speed": "YOLOv9 hitrost zaznave tablic",
+      "review_description": "Opis za pregled",
+      "review_description_speed": "Hitrost opisa za pregled",
+      "classification": "Klasifikacija {{name}}",
+      "classification_speed": "Hitrost klasifikacije {{name}}",
+      "classification_events_per_second": "Dogodki klasifikacije {{name}} na sekundo",
+      "face_embedding_speed": "Hitrost vdelave obrazov",
+      "text_embedding_speed": "Hitrost vdelave besedila",
+      "review_description_events_per_second": "Dogodki opisa za pregled",
+      "object_description": "Opis objekta",
+      "object_description_speed": "Hitrost opisa objekta",
+      "object_description_events_per_second": "Dogodki opisa objekta"
+    },
+    "averageInf": "Povprečen čas sklepanja"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "restart": {
+    "title": "Ste si istý, že chcete reštartovať Frigate ?",
+    "button": "Reštart",
+    "restarting": {
+      "title": "Frigate sa reštartuje",
+      "content": "Táto stránka bude obnovená o {{countdown}} sekúnd.",
+      "button": "Vynútiť opätovné načítanie teraz"
+    },
+    "description": "Počas reštartu bude Frigate nakrátko zastavený."
+  },
+  "explore": {
+    "plus": {
+      "submitToPlus": {
+        "label": "Odoslať do Frigate+",
+        "desc": "Objekty na miestach, ktorým sa chcete vyhnúť, nie sú falošne pozitívne. Ich odoslanie ako falošne pozitívnych výsledkov spôsobí zmätok v modeli."
+      },
+      "review": {
+        "question": {
+          "label": "Potvrďte tento štítok pre Frigate Plus",
+          "ask_a": "Je tento objekt typom <code>{{label}}</code>?",
+          "ask_an": "Tento objekt je <code>{{label}}</code>?",
+          "ask_full": "Je tento objekt typom <code>{{untranslatedLabel}}</code>{{translatedLabel}}?"
+        },
+        "state": {
+          "submitted": "Predložené"
+        },
+        "toast": {
+          "error": "Odoslanie do Frigate+ zlyhalo. Skontrolujte sieťové pripojenie a skúste znova."
+        }
+      }
+    },
+    "video": {
+      "viewInHistory": "Zobraziť v histórii"
+    }
+  },
+  "export": {
+    "time": {
+      "fromTimeline": "Vyberte z časovej osi",
+      "custom": "Vlastné",
+      "start": {
+        "title": "Čas začiatku",
+        "label": "Vyberte Čas začiatku"
+      },
+      "end": {
+        "title": "Čas ukončenia",
+        "label": "Vybrat čas ukončenia"
+      },
+      "lastHour_one": "Posledná hodina",
+      "lastHour_few": "Posledné {{count}} hodiny",
+      "lastHour_other": "Posledných {{count}} hodín"
+    },
+    "name": {
+      "placeholder": "Pomenujte Export"
+    },
+    "select": "Vybrat",
+    "export": "Exportovať",
+    "selectOrExport": "Vybrať pre Export",
+    "toast": {
+      "success": "Export bol úspešne spustený. Súbor si pozrite na stránke exportov.",
+      "error": {
+        "failed": "Chyba spustenia exportu: {{error}}",
+        "endTimeMustAfterStartTime": "Čas konca musí byť po čase začiatku"
+      },
+      "view": "Zobraziť"
+    },
+    "fromTimeline": {
+      "saveExport": "Uložiť Export",
+      "previewExport": "Export ukážky"
+    },
+    "case": {
+      "newCaseOption": "Vytvoriť nový prípad",
+      "newCaseNamePlaceholder": "Názov nového prípadu",
+      "newCaseDescriptionPlaceholder": "Popis prípadu",
+      "label": "Prípad",
+      "nonAdminHelp": "Pre tieto exporty bude vytvorený nový prípad.",
+      "placeholder": "Vyberte prípad"
+    },
+    "queueing": "Zaradenie exportu do frontu...",
+    "tabs": {
+      "export": "Jedna kamera",
+      "multiCamera": "Viac kamier"
+    },
+    "multiCamera": {
+      "cameraSelection": "Kamery",
+      "cameraSelectionHelp": "Kamery so sledovanými objektmi v tomto časovom rozsahu sú vopred vybrané",
+      "checkingActivity": "Kontrola aktivity kamery...",
+      "noCameras": "Nie sú k dispozícii žiadne kamery",
+      "timeRange": "Časový rámec",
+      "selectFromTimeline": "Vybrať na časovej osi",
+      "searchOrSelectGroup": "Vyhľadať, alebo vybrať skupinu kamier",
+      "selectAll": "Vybrať všetky kamery",
+      "clearSelection": "Zrušiť výber",
+      "selectWithActivity": "Kamery so sledovanými objektami",
+      "selectGroup": "Vybrať skupinu",
+      "noMatchingCameras": "Žiadne kamery nevyhovujú vyhľadávaniu",
+      "selectedCount": "{{selected}} / {{total}} vybraných",
+      "detectionCount_one": "{{count}} sledovaný objekt",
+      "detectionCount_few": "{{count}} sledované objekty",
+      "detectionCount_other": "{{count}} sledovaných objektov",
+      "nameLabel": "Názov exportu",
+      "namePlaceholder": "",
+      "exportButton_one": "",
+      "exportButton_few": "",
+      "exportButton_other": ""
+    }
+  },
+  "streaming": {
+    "label": "Stream",
+    "restreaming": {
+      "disabled": "Opätovné streamovanie nie je pre túto kameru povolené.",
+      "desc": {
+        "title": "Pre ďalšie možnosti živého náhľadu a zvuku pre túto kameru nastavte go2rtc."
+      }
+    },
+    "showStats": {
+      "label": "Zobraziť štatistiky streamu",
+      "desc": "Povoľte túto možnosť, ak chcete zobraziť štatistiky streamu ako prekrytie na obraze z kamery."
+    },
+    "debugView": "Zobrazenie ladenia"
+  },
+  "search": {
+    "saveSearch": {
+      "label": "Uložiť vyhľadávanie",
+      "desc": "Zadajte názov pre toto uložené vyhľadávanie.",
+      "placeholder": "Zadajte názov pre vyhľadávanie",
+      "overwrite": "{{searchName}} už existuje. Uložením sa prepíše existujúca hodnota.",
+      "success": "Hľadanie ({{searchName}}) bolo uložené.",
+      "button": {
+        "save": {
+          "label": "Uložte toto vyhľadávanie"
+        }
+      }
+    }
+  },
+  "recording": {
+    "confirmDelete": {
+      "title": "Potvrďte Odstrániť",
+      "desc": {
+        "selected": "Naozaj chcete odstrániť všetky nahrané videá spojené s touto položkou recenzie?<br /><br />Podržte kláves <em>Shift</em>, aby ste v budúcnosti toto dialógové okno obišli."
+      },
+      "toast": {
+        "success": "Videozáznam spojený s vybranými položkami recenzie bol úspešne odstránený.",
+        "error": "Nepodarilo sa odstrániť: {{error}}"
+      }
+    },
+    "button": {
+      "export": "Exportovať",
+      "markAsReviewed": "Označiť ako skontrolované",
+      "deleteNow": "Odstrániť teraz",
+      "markAsUnreviewed": "Označiť ako neskontrolované"
+    }
+  },
+  "imagePicker": {
+    "selectImage": "Výber miniatúry sledovaného objektu",
+    "search": {
+      "placeholder": "Hľadať podľa štítku alebo podštítku..."
+    },
+    "noImages": "Pre tuto kameru sa nenašli žiadne miniatúry",
+    "unknownLabel": "Uložený obrázok spúšťača"
+  }
+}

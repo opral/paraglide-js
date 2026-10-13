@@ -1,0 +1,83 @@
+{
+  "time": {
+    "untilForTime": "Do {{time}}",
+    "untilForRestart": "Dok se Frigate ponovo ne pokrene.",
+    "untilRestart": "Do ponovnog pokretanja",
+    "ago": "{{timeAgo}} pre",
+    "justNow": "Upravo sada",
+    "today": "Danas",
+    "yesterday": "Juče",
+    "last7": "Zadnjih 7 dana",
+    "last14": "Zadnjih 14 dana",
+    "last30": "Zadnjih 30 dana",
+    "thisWeek": "Ove nedelje",
+    "lastWeek": "Prošle nedelje",
+    "thisMonth": "Ovog meseca",
+    "lastMonth": "Prošlog meseca",
+    "5minutes": "5 minuta",
+    "10minutes": "10 minuta",
+    "30minutes": "30 minuta",
+    "1hour": "1 sat",
+    "12hours": "12 sati",
+    "24hours": "24 sata",
+    "pm": "pm",
+    "am": "am",
+    "yr": "{{time}}god",
+    "year_one": "{{time}} година",
+    "year_few": "{{time}} године",
+    "year_other": "{{time}} година",
+    "mo": "{{time}}mes",
+    "month_one": "{{time}} месец",
+    "month_few": "{{time}} месеца",
+    "month_other": "{{time}} месеци",
+    "d": "{{time}}d",
+    "day_one": "{{time}} дан",
+    "day_few": "{{time}} дана",
+    "day_other": "{{time}} дана",
+    "h": "{{time}}h",
+    "hour_one": "{{time}} сат",
+    "hour_few": "{{time}} сата",
+    "hour_other": "{{time}} сати",
+    "m": "{{time}}m",
+    "minute_one": "{{time}} минут",
+    "minute_few": "{{time}} минута",
+    "minute_other": "{{time}} минута",
+    "s": "{{time}}s",
+    "second_one": "{{time}} секунда",
+    "second_few": "{{time}} секунде",
+    "second_other": "{{time}} секунди",
+    "formattedTimestampHourMinute": {
+      "24hour": "HH:mm"
+    },
+    "formattedTimestampHourMinuteSecond": {
+      "12hour": "h:mm:ss aaa",
+      "24hour": "HH:mm:ss"
+    },
+    "formattedTimestampMonthDayHourMinute": {
+      "12hour": "MMM d, h:mm aaa",
+      "24hour": "MMM d, HH:mm"
+    },
+    "formattedTimestampMonthDayYear": {
+      "12hour": "MMM d, yyyy",
+      "24hour": "MMM d, yyyy"
+    },
+    "formattedTimestampMonthDayYearHourMinute": {
+      "12hour": "MMM d yyyy, h:mm aaa",
+      "24hour": "MMM d yyyy, HH:mm"
+    },
+    "formattedTimestamp": {
+      "12hour": "MMM d, h:mm:ss aaa",
+      "24hour": "MMM d, HH:mm:ss"
+    },
+    "formattedTimestampMonthDay": "MMM d",
+    "formattedTimestampFilename": {
+      "12hour": "MM-dd-yy-h-mm-ss-a",
+      "24hour": "MM-dd-yy-HH-mm-ss"
+    }
+  },
+  "readTheDocumentation": "Прочитајте документацију",
+  "menu": {
+    "system": "Систем",
+    "profiles": "Профили"
+  }
+}

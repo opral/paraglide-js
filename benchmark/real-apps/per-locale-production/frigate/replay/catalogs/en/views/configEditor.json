@@ -1,0 +1,18 @@
+{
+  "documentTitle": "Config Editor - Frigate",
+  "configEditor": "Config Editor",
+  "safeConfigEditor": "Config Editor (Safe Mode)",
+  "safeModeDescription": "Frigate is in safe mode due to a config validation error.",
+  "copyConfig": "Copy Config",
+  "saveAndRestart": "Save & Restart",
+  "saveOnly": "Save Only",
+  "confirm": "Exit without saving?",
+  "toast": {
+    "success": {
+      "copyToClipboard": "Config copied to clipboard."
+    },
+    "error": {
+      "savingError": "Error saving config"
+    }
+  }
+}

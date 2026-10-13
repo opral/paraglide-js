@@ -1,0 +1,2051 @@
+{
+  "project": "desktop",
+  "path": "/#front_door",
+  "documentLanguage": "fr",
+  "title": "Front Door - Direct - Frigate",
+  "requests": [],
+  "initialResponseBodies": [
+    {
+      "url": "/",
+      "status": 200,
+      "decodedBodyBytes": 7959,
+      "brotliQ4Bytes": 2954,
+      "responseContentEncoding": "br",
+      "contentLength": "2954",
+      "beginEpoch": 1791902573449.467
+    },
+    {
+      "url": "/assets/main-DF86LV8Y.js",
+      "status": 200,
+      "decodedBodyBytes": 625609,
+      "brotliQ4Bytes": 186532,
+      "responseContentEncoding": "br",
+      "contentLength": "186532",
+      "beginEpoch": 1791902573545.5042
+    },
+    {
+      "url": "/assets/rolldown-runtime-B_MQnBba.js",
+      "status": 200,
+      "decodedBodyBytes": 1087,
+      "brotliQ4Bytes": 573,
+      "responseContentEncoding": "br",
+      "contentLength": "573",
+      "beginEpoch": 1791902573545.691
+    },
+    {
+      "url": "/assets/useTranslation-wMbxFB1i.js",
+      "status": 200,
+      "decodedBodyBytes": 43152,
+      "brotliQ4Bytes": 14274,
+      "responseContentEncoding": "br",
+      "contentLength": "14274",
+      "beginEpoch": 1791902573545.8628
+    },
+    {
+      "url": "/assets/activity-indicator-D_x4wV58.js",
+      "status": 200,
+      "decodedBodyBytes": 827809,
+      "brotliQ4Bytes": 120690,
+      "responseContentEncoding": "br",
+      "contentLength": "120690",
+      "beginEpoch": 1791902573546.0532
+    },
+    {
+      "url": "/assets/src-BXn8fU6O.js",
+      "status": 200,
+      "decodedBodyBytes": 540687,
+      "brotliQ4Bytes": 153367,
+      "responseContentEncoding": "br",
+      "contentLength": "153367",
+      "beginEpoch": 1791902573546.197
+    },
+    {
+      "url": "/assets/use-history-back-JKPm9jgZ.js",
+      "status": 200,
+      "decodedBodyBytes": 45111,
+      "brotliQ4Bytes": 14674,
+      "responseContentEncoding": "br",
+      "contentLength": "14674",
+      "beginEpoch": 1791902573547.005
+    },
+    {
+      "url": "/assets/drawer-Dp9UU7kd.js",
+      "status": 200,
+      "decodedBodyBytes": 101961,
+      "brotliQ4Bytes": 34821,
+      "responseContentEncoding": "br",
+      "contentLength": "34821",
+      "beginEpoch": 1791902573547.127
+    },
+    {
+      "url": "/assets/dist-X38yvQ2h.js",
+      "status": 200,
+      "decodedBodyBytes": 876,
+      "brotliQ4Bytes": 413,
+      "responseContentEncoding": "br",
+      "contentLength": "413",
+      "beginEpoch": 1791902573547.847
+    },
+    {
+      "url": "/assets/cameraUtil-DlmBd_Ih.js",
+      "status": 200,
+      "decodedBodyBytes": 3677,
+      "brotliQ4Bytes": 1640,
+      "responseContentEncoding": "br",
+      "contentLength": "1640",
+      "beginEpoch": 1791902573547.518
+    },
+    {
+      "url": "/assets/use-is-admin-dNFFp37L.js",
+      "status": 200,
+      "decodedBodyBytes": 303,
+      "brotliQ4Bytes": 204,
+      "responseContentEncoding": "br",
+      "contentLength": "204",
+      "beginEpoch": 1791902573547.591
+    },
+    {
+      "url": "/assets/normalizeDates-B8fk6WG0.js",
+      "status": 200,
+      "decodedBodyBytes": 886,
+      "brotliQ4Bytes": 496,
+      "responseContentEncoding": "br",
+      "contentLength": "496",
+      "beginEpoch": 1791902573547.663
+    },
+    {
+      "url": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+      "status": 200,
+      "decodedBodyBytes": 1563,
+      "brotliQ4Bytes": 617,
+      "responseContentEncoding": "br",
+      "contentLength": "617",
+      "beginEpoch": 1791902573547.7522
+    },
+    {
+      "url": "/assets/use-date-locale-cKXXcX12.js",
+      "status": 200,
+      "decodedBodyBytes": 43638,
+      "brotliQ4Bytes": 12718,
+      "responseContentEncoding": "br",
+      "contentLength": "12718",
+      "beginEpoch": 1791902573547.8918
+    },
+    {
+      "url": "/assets/detectionHardware-BlXbhogZ.js",
+      "status": 200,
+      "decodedBodyBytes": 1084,
+      "brotliQ4Bytes": 554,
+      "responseContentEncoding": "br",
+      "contentLength": "554",
+      "beginEpoch": 1791902573547.974
+    },
+    {
+      "url": "/assets/src-DHngj9Lm.css",
+      "status": 200,
+      "decodedBodyBytes": 173144,
+      "brotliQ4Bytes": 26070,
+      "responseContentEncoding": "br",
+      "contentLength": "26070",
+      "beginEpoch": 1791902573548.041
+    },
+    {
+      "url": "/assets/13-BafFvPTT.js",
+      "status": 200,
+      "decodedBodyBytes": 33017,
+      "brotliQ4Bytes": 3167,
+      "responseContentEncoding": "br",
+      "contentLength": "3167",
+      "beginEpoch": 1791902574063.5833
+    },
+    {
+      "url": "/assets/0-CAhFUcAQ.js",
+      "status": 200,
+      "decodedBodyBytes": 129873,
+      "brotliQ4Bytes": 11613,
+      "responseContentEncoding": "br",
+      "contentLength": "11613",
+      "beginEpoch": 1791902574064.0718
+    },
+    {
+      "url": "/assets/objects-DJWD0_91.js",
+      "status": 200,
+      "decodedBodyBytes": 4723,
+      "brotliQ4Bytes": 2451,
+      "responseContentEncoding": "br",
+      "contentLength": "2451",
+      "beginEpoch": 1791902574064.249
+    },
+    {
+      "url": "/assets/audio-DLwyxSLp.js",
+      "status": 200,
+      "decodedBodyBytes": 21192,
+      "brotliQ4Bytes": 9484,
+      "responseContentEncoding": "br",
+      "contentLength": "9484",
+      "beginEpoch": 1791902574064.2869
+    },
+    {
+      "url": "/assets/1-LPhxtN_0.js",
+      "status": 200,
+      "decodedBodyBytes": 71951,
+      "brotliQ4Bytes": 6502,
+      "responseContentEncoding": "br",
+      "contentLength": "6502",
+      "beginEpoch": 1791902574083.8762
+    },
+    {
+      "url": "/assets/common-CJi5q4xM.js",
+      "status": 200,
+      "decodedBodyBytes": 7857,
+      "brotliQ4Bytes": 3483,
+      "responseContentEncoding": "br",
+      "contentLength": "3483",
+      "beginEpoch": 1791902574084.074
+    },
+    {
+      "url": "/assets/3-Bb_JG-ax.js",
+      "status": 200,
+      "decodedBodyBytes": 16367,
+      "brotliQ4Bytes": 2300,
+      "responseContentEncoding": "br",
+      "contentLength": "2300",
+      "beginEpoch": 1791902574102.457
+    },
+    {
+      "url": "/assets/26-CDpFikLU.js",
+      "status": 200,
+      "decodedBodyBytes": 293631,
+      "brotliQ4Bytes": 28987,
+      "responseContentEncoding": "br",
+      "contentLength": "28987",
+      "beginEpoch": 1791902574102.813
+    },
+    {
+      "url": "/assets/camera-CuWIp0kO.js",
+      "status": 200,
+      "decodedBodyBytes": 2472,
+      "brotliQ4Bytes": 1092,
+      "responseContentEncoding": "br",
+      "contentLength": "1092",
+      "beginEpoch": 1791902574102.963
+    },
+    {
+      "url": "/assets/settings-BrXufybd.js",
+      "status": 200,
+      "decodedBodyBytes": 79776,
+      "brotliQ4Bytes": 24203,
+      "responseContentEncoding": "br",
+      "contentLength": "24203",
+      "beginEpoch": 1791902574103.061
+    },
+    {
+      "url": "/assets/28-qSqyLk4D.js",
+      "status": 200,
+      "decodedBodyBytes": 57566,
+      "brotliQ4Bytes": 5853,
+      "responseContentEncoding": "br",
+      "contentLength": "5853",
+      "beginEpoch": 1791902574152.1143
+    },
+    {
+      "url": "/assets/system-ChncZLoB.js",
+      "status": 200,
+      "decodedBodyBytes": 13123,
+      "brotliQ4Bytes": 4854,
+      "responseContentEncoding": "br",
+      "contentLength": "4854",
+      "beginEpoch": 1791902574154.702
+    },
+    {
+      "url": "/assets/4-DG_bYB4F.js",
+      "status": 200,
+      "decodedBodyBytes": 41536,
+      "brotliQ4Bytes": 4694,
+      "responseContentEncoding": "br",
+      "contentLength": "4694",
+      "beginEpoch": 1791902574277.3792
+    },
+    {
+      "url": "/assets/dialog-DXFJfUIL.js",
+      "status": 200,
+      "decodedBodyBytes": 6479,
+      "brotliQ4Bytes": 2378,
+      "responseContentEncoding": "br",
+      "contentLength": "2378",
+      "beginEpoch": 1791902574277.8728
+    },
+    {
+      "url": "/api/config",
+      "status": 200,
+      "decodedBodyBytes": 32181,
+      "brotliQ4Bytes": 4266,
+      "responseContentEncoding": null,
+      "contentLength": "32181",
+      "beginEpoch": 1791902574387.517
+    },
+    {
+      "url": "/api/profile",
+      "status": 200,
+      "decodedBodyBytes": 58,
+      "brotliQ4Bytes": 50,
+      "responseContentEncoding": null,
+      "contentLength": "58",
+      "beginEpoch": 1791902574389.437
+    },
+    {
+      "url": "/api/profiles",
+      "status": 200,
+      "decodedBodyBytes": 57,
+      "brotliQ4Bytes": 53,
+      "responseContentEncoding": null,
+      "contentLength": "57",
+      "beginEpoch": 1791902574390.644
+    },
+    {
+      "url": "/api/notices",
+      "status": 200,
+      "decodedBodyBytes": 2,
+      "brotliQ4Bytes": 6,
+      "responseContentEncoding": null,
+      "contentLength": "2",
+      "beginEpoch": 1791902574391.5288
+    },
+    {
+      "url": "/api/notices/muted_checks",
+      "status": 200,
+      "decodedBodyBytes": 2,
+      "brotliQ4Bytes": 6,
+      "responseContentEncoding": null,
+      "contentLength": "2",
+      "beginEpoch": 1791902574392.296
+    },
+    {
+      "url": "/api/stats",
+      "status": 200,
+      "decodedBodyBytes": 1705,
+      "brotliQ4Bytes": 541,
+      "responseContentEncoding": null,
+      "contentLength": "1705",
+      "beginEpoch": 1791902574393.1182
+    },
+    {
+      "url": "/api/profile",
+      "status": 200,
+      "decodedBodyBytes": 58,
+      "brotliQ4Bytes": 50,
+      "responseContentEncoding": null,
+      "contentLength": "58",
+      "beginEpoch": 1791902574393.6619
+    },
+    {
+      "url": "/assets/fr-DE_g_3N7.js",
+      "status": 200,
+      "decodedBodyBytes": 5521,
+      "brotliQ4Bytes": 2098,
+      "responseContentEncoding": "br",
+      "contentLength": "2098",
+      "beginEpoch": 1791902574405.2422
+    },
+    {
+      "url": "/assets/Inter-Regular-B0QUfDW0.woff2",
+      "status": 200,
+      "decodedBodyBytes": 108488,
+      "brotliQ4Bytes": 108488,
+      "responseContentEncoding": null,
+      "contentLength": "108488",
+      "beginEpoch": 1791902574422.137
+    },
+    {
+      "url": "/assets/Live-2y5pkcVX.js",
+      "status": 200,
+      "decodedBodyBytes": 184846,
+      "brotliQ4Bytes": 46587,
+      "responseContentEncoding": "br",
+      "contentLength": "46587",
+      "beginEpoch": 1791902574493.04
+    },
+    {
+      "url": "/assets/card-BvEx76ZV.js",
+      "status": 200,
+      "decodedBodyBytes": 1060,
+      "brotliQ4Bytes": 387,
+      "responseContentEncoding": "br",
+      "contentLength": "387",
+      "beginEpoch": 1791902574493.243
+    },
+    {
+      "url": "/assets/fa6-LY2KIa2E.js",
+      "status": 200,
+      "decodedBodyBytes": 3022,
+      "brotliQ4Bytes": 903,
+      "responseContentEncoding": "br",
+      "contentLength": "903",
+      "beginEpoch": 1791902574493.271
+    },
+    {
+      "url": "/assets/ReactKonva-D6EULr_Q.js",
+      "status": 200,
+      "decodedBodyBytes": 377618,
+      "brotliQ4Bytes": 105618,
+      "responseContentEncoding": "br",
+      "contentLength": "105618",
+      "beginEpoch": 1791902574493.297
+    },
+    {
+      "url": "/assets/resize-observer-BM6UK5WB.js",
+      "status": 200,
+      "decodedBodyBytes": 702,
+      "brotliQ4Bytes": 403,
+      "responseContentEncoding": "br",
+      "contentLength": "403",
+      "beginEpoch": 1791902574493.85
+    },
+    {
+      "url": "/assets/ImageShadowOverlay-zudTxtKC.js",
+      "status": 200,
+      "decodedBodyBytes": 541,
+      "brotliQ4Bytes": 283,
+      "responseContentEncoding": "br",
+      "contentLength": "283",
+      "beginEpoch": 1791902574493.477
+    },
+    {
+      "url": "/assets/skeleton-Doktw_Xe.js",
+      "status": 200,
+      "decodedBodyBytes": 246,
+      "brotliQ4Bytes": 181,
+      "responseContentEncoding": "br",
+      "contentLength": "181",
+      "beginEpoch": 1791902574493.514
+    },
+    {
+      "url": "/assets/use-keyboard-listener-CcHihlXj.js",
+      "status": 200,
+      "decodedBodyBytes": 1411,
+      "brotliQ4Bytes": 615,
+      "responseContentEncoding": "br",
+      "contentLength": "615",
+      "beginEpoch": 1791902574493.5789
+    },
+    {
+      "url": "/assets/FilterSwitch-BpC_U6li.js",
+      "status": 200,
+      "decodedBodyBytes": 1101,
+      "brotliQ4Bytes": 466,
+      "responseContentEncoding": "br",
+      "contentLength": "466",
+      "beginEpoch": 1791902574493.622
+    },
+    {
+      "url": "/assets/slider-1M_fKgYe.js",
+      "status": 200,
+      "decodedBodyBytes": 13654,
+      "brotliQ4Bytes": 4521,
+      "responseContentEncoding": "br",
+      "contentLength": "4521",
+      "beginEpoch": 1791902574493.6472
+    },
+    {
+      "url": "/assets/TimeAgo-D2fBSEg5.js",
+      "status": 200,
+      "decodedBodyBytes": 1449,
+      "brotliQ4Bytes": 722,
+      "responseContentEncoding": "br",
+      "contentLength": "722",
+      "beginEpoch": 1791902574493.7
+    },
+    {
+      "url": "/assets/scroll-area-CoaoBl8I.js",
+      "status": 200,
+      "decodedBodyBytes": 15657,
+      "brotliQ4Bytes": 4677,
+      "responseContentEncoding": "br",
+      "contentLength": "4677",
+      "beginEpoch": 1791902574494.094
+    },
+    {
+      "url": "/assets/record-Bf1xYu2U.js",
+      "status": 200,
+      "decodedBodyBytes": 49087,
+      "brotliQ4Bytes": 16516,
+      "responseContentEncoding": "br",
+      "contentLength": "16516",
+      "beginEpoch": 1791902574493.805
+    },
+    {
+      "url": "/assets/review-D3-Z-h19.js",
+      "status": 200,
+      "decodedBodyBytes": 242,
+      "brotliQ4Bytes": 184,
+      "responseContentEncoding": "br",
+      "contentLength": "184",
+      "beginEpoch": 1791902574493.8618
+    },
+    {
+      "url": "/assets/snapshotUtil-DQo3ti__.js",
+      "status": 200,
+      "decodedBodyBytes": 7579,
+      "brotliQ4Bytes": 3120,
+      "responseContentEncoding": "br",
+      "contentLength": "3120",
+      "beginEpoch": 1791902574493.927
+    },
+    {
+      "url": "/assets/tabs-Dv_B-FHX.js",
+      "status": 200,
+      "decodedBodyBytes": 3778,
+      "brotliQ4Bytes": 1534,
+      "responseContentEncoding": "br",
+      "contentLength": "1534",
+      "beginEpoch": 1791902574493.9932
+    },
+    {
+      "url": "/assets/Chip-CeZTKc83.js",
+      "status": 200,
+      "decodedBodyBytes": 1232,
+      "brotliQ4Bytes": 653,
+      "responseContentEncoding": "br",
+      "contentLength": "653",
+      "beginEpoch": 1791902574494.078
+    },
+    {
+      "url": "/assets/context-menu-KhsZUL37.js",
+      "status": 200,
+      "decodedBodyBytes": 8545,
+      "brotliQ4Bytes": 2335,
+      "responseContentEncoding": "br",
+      "contentLength": "2335",
+      "beginEpoch": 1791902574494.141
+    },
+    {
+      "url": "/assets/use-camera-activity-6i9UuTxg.js",
+      "status": 200,
+      "decodedBodyBytes": 3623,
+      "brotliQ4Bytes": 1648,
+      "responseContentEncoding": "br",
+      "contentLength": "1648",
+      "beginEpoch": 1791902574494.2642
+    },
+    {
+      "url": "/assets/use-timeline-utils-RZeNJOLk.js",
+      "status": 200,
+      "decodedBodyBytes": 648,
+      "brotliQ4Bytes": 344,
+      "responseContentEncoding": "br",
+      "contentLength": "344",
+      "beginEpoch": 1791902574494.3262
+    },
+    {
+      "url": "/assets/EmptyCard-ByQkbS3q.js",
+      "status": 200,
+      "decodedBodyBytes": 771,
+      "brotliQ4Bytes": 428,
+      "responseContentEncoding": "br",
+      "contentLength": "428",
+      "beginEpoch": 1791902574494.39
+    },
+    {
+      "url": "/assets/BirdseyeLivePlayer-A5LmECDk.js",
+      "status": 200,
+      "decodedBodyBytes": 137136,
+      "brotliQ4Bytes": 44985,
+      "responseContentEncoding": "br",
+      "contentLength": "44985",
+      "beginEpoch": 1791902574494.468
+    },
+    {
+      "url": "/assets/MsePlayer-DnfMi0Z_.js",
+      "status": 200,
+      "decodedBodyBytes": 9213,
+      "brotliQ4Bytes": 3636,
+      "responseContentEncoding": "br",
+      "contentLength": "3636",
+      "beginEpoch": 1791902574494.536
+    },
+    {
+      "url": "/assets/AutoUpdatingCameraImage-Vm6bbJ7c.js",
+      "status": 200,
+      "decodedBodyBytes": 2587,
+      "brotliQ4Bytes": 1304,
+      "responseContentEncoding": "br",
+      "contentLength": "1304",
+      "beginEpoch": 1791902574494.59
+    },
+    {
+      "url": "/assets/DebugDrawingLayer-BUVWLIuq.js",
+      "status": 200,
+      "decodedBodyBytes": 2531,
+      "brotliQ4Bytes": 1029,
+      "responseContentEncoding": "br",
+      "contentLength": "1029",
+      "beginEpoch": 1791902574494.6567
+    },
+    {
+      "url": "/assets/react-apexcharts.esm-DDSdTom0.js",
+      "status": 200,
+      "decodedBodyBytes": 981036,
+      "brotliQ4Bytes": 275201,
+      "responseContentEncoding": "br",
+      "contentLength": "275201",
+      "beginEpoch": 1791902574494.705
+    },
+    {
+      "url": "/assets/Live-Cb7KG80W.css",
+      "status": 200,
+      "decodedBodyBytes": 3664,
+      "brotliQ4Bytes": 947,
+      "responseContentEncoding": "br",
+      "contentLength": "947",
+      "beginEpoch": 1791902574494.8
+    },
+    {
+      "url": "/assets/21-DLqrQku0.js",
+      "status": 200,
+      "decodedBodyBytes": 30026,
+      "brotliQ4Bytes": 3394,
+      "responseContentEncoding": "br",
+      "contentLength": "3394",
+      "beginEpoch": 1791902575780.6401
+    },
+    {
+      "url": "/assets/live-BZwwxSE_.js",
+      "status": 200,
+      "decodedBodyBytes": 6827,
+      "brotliQ4Bytes": 2558,
+      "responseContentEncoding": "br",
+      "contentLength": "2558",
+      "beginEpoch": 1791902575781.089
+    },
+    {
+      "url": "/assets/8-Bpu8hBLe.js",
+      "status": 200,
+      "decodedBodyBytes": 7149,
+      "brotliQ4Bytes": 1289,
+      "responseContentEncoding": "br",
+      "contentLength": "1289",
+      "beginEpoch": 1791902575882.176
+    },
+    {
+      "url": "/assets/player-COWFOVjI.js",
+      "status": 200,
+      "decodedBodyBytes": 1866,
+      "brotliQ4Bytes": 822,
+      "responseContentEncoding": "br",
+      "contentLength": "822",
+      "beginEpoch": 1791902575882.6853
+    },
+    {
+      "url": "/assets/Inter-Medium-B0NFony0.woff2",
+      "status": 200,
+      "decodedBodyBytes": 111380,
+      "brotliQ4Bytes": 111380,
+      "responseContentEncoding": null,
+      "contentLength": "111380",
+      "beginEpoch": 1791902575982.1401
+    }
+  ],
+  "initialBrotliQ4Bytes": 1435886,
+  "timing": {
+    "initialResources": [
+      {
+        "url": "/assets/main-DF86LV8Y.js",
+        "startTime": 90.5,
+        "responseEnd": 375.7999999523163,
+        "encodedBodySize": 186532,
+        "transferSize": 186832,
+        "decodedBodySize": 625609
+      },
+      {
+        "url": "/assets/rolldown-runtime-B_MQnBba.js",
+        "startTime": 90.89999997615814,
+        "responseEnd": 179.79999995231628,
+        "encodedBodySize": 573,
+        "transferSize": 873,
+        "decodedBodySize": 1087
+      },
+      {
+        "url": "/assets/useTranslation-wMbxFB1i.js",
+        "startTime": 91,
+        "responseEnd": 207.89999997615814,
+        "encodedBodySize": 14274,
+        "transferSize": 14574,
+        "decodedBodySize": 43152
+      },
+      {
+        "url": "/assets/use-history-back-JKPm9jgZ.js",
+        "startTime": 91,
+        "responseEnd": 210.29999995231628,
+        "encodedBodySize": 14674,
+        "transferSize": 14974,
+        "decodedBodySize": 45111
+      },
+      {
+        "url": "/assets/activity-indicator-D_x4wV58.js",
+        "startTime": 91,
+        "responseEnd": 347.89999997615814,
+        "encodedBodySize": 120690,
+        "transferSize": 120990,
+        "decodedBodySize": 827809
+      },
+      {
+        "url": "/assets/src-BXn8fU6O.js",
+        "startTime": 91,
+        "responseEnd": 489.1999999284744,
+        "encodedBodySize": 153367,
+        "transferSize": 153667,
+        "decodedBodySize": 540687
+      },
+      {
+        "url": "/assets/drawer-Dp9UU7kd.js",
+        "startTime": 91.09999990463257,
+        "responseEnd": 340,
+        "encodedBodySize": 34821,
+        "transferSize": 35121,
+        "decodedBodySize": 101961
+      },
+      {
+        "url": "/assets/dist-X38yvQ2h.js",
+        "startTime": 91.5,
+        "responseEnd": 293,
+        "encodedBodySize": 413,
+        "transferSize": 713,
+        "decodedBodySize": 876
+      },
+      {
+        "url": "/assets/cameraUtil-DlmBd_Ih.js",
+        "startTime": 91.59999990463257,
+        "responseEnd": 376,
+        "encodedBodySize": 1640,
+        "transferSize": 1940,
+        "decodedBodySize": 3677
+      },
+      {
+        "url": "/assets/use-is-admin-dNFFp37L.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 389.7999999523163,
+        "encodedBodySize": 204,
+        "transferSize": 504,
+        "decodedBodySize": 303
+      },
+      {
+        "url": "/assets/normalizeDates-B8fk6WG0.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 422.09999990463257,
+        "encodedBodySize": 496,
+        "transferSize": 796,
+        "decodedBodySize": 886
+      },
+      {
+        "url": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 429.5,
+        "encodedBodySize": 617,
+        "transferSize": 917,
+        "decodedBodySize": 1563
+      },
+      {
+        "url": "/assets/detectionHardware-BlXbhogZ.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 458.59999990463257,
+        "encodedBodySize": 554,
+        "transferSize": 854,
+        "decodedBodySize": 1084
+      },
+      {
+        "url": "/assets/use-date-locale-cKXXcX12.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 468.59999990463257,
+        "encodedBodySize": 12718,
+        "transferSize": 13018,
+        "decodedBodySize": 43638
+      },
+      {
+        "url": "/assets/src-DHngj9Lm.css",
+        "startTime": 91.79999995231628,
+        "responseEnd": 307.89999997615814,
+        "encodedBodySize": 26070,
+        "transferSize": 26370,
+        "decodedBodySize": 173144
+      },
+      {
+        "url": "/assets/13-BafFvPTT.js",
+        "startTime": 614.0999999046326,
+        "responseEnd": 703,
+        "encodedBodySize": 3167,
+        "transferSize": 3467,
+        "decodedBodySize": 33017
+      },
+      {
+        "url": "/assets/0-CAhFUcAQ.js",
+        "startTime": 614.6999999284744,
+        "responseEnd": 709.5999999046326,
+        "encodedBodySize": 11613,
+        "transferSize": 11913,
+        "decodedBodySize": 129873
+      },
+      {
+        "url": "/assets/objects-DJWD0_91.js",
+        "startTime": 615.1999999284744,
+        "responseEnd": 701.3999999761581,
+        "encodedBodySize": 2451,
+        "transferSize": 2751,
+        "decodedBodySize": 4723
+      },
+      {
+        "url": "/assets/audio-DLwyxSLp.js",
+        "startTime": 615.2999999523163,
+        "responseEnd": 708.2999999523163,
+        "encodedBodySize": 9484,
+        "transferSize": 9784,
+        "decodedBodySize": 21192
+      },
+      {
+        "url": "/assets/1-LPhxtN_0.js",
+        "startTime": 634.8999999761581,
+        "responseEnd": 721.5,
+        "encodedBodySize": 6502,
+        "transferSize": 6802,
+        "decodedBodySize": 71951
+      },
+      {
+        "url": "/assets/common-CJi5q4xM.js",
+        "startTime": 635.5999999046326,
+        "responseEnd": 720.1999999284744,
+        "encodedBodySize": 3483,
+        "transferSize": 3783,
+        "decodedBodySize": 7857
+      },
+      {
+        "url": "/assets/3-Bb_JG-ax.js",
+        "startTime": 650,
+        "responseEnd": 782.8999999761581,
+        "encodedBodySize": 2300,
+        "transferSize": 2600,
+        "decodedBodySize": 16367
+      },
+      {
+        "url": "/assets/26-CDpFikLU.js",
+        "startTime": 653.0999999046326,
+        "responseEnd": 802.7999999523163,
+        "encodedBodySize": 28987,
+        "transferSize": 29287,
+        "decodedBodySize": 293631
+      },
+      {
+        "url": "/assets/camera-CuWIp0kO.js",
+        "startTime": 654,
+        "responseEnd": 790.2999999523163,
+        "encodedBodySize": 1092,
+        "transferSize": 1392,
+        "decodedBodySize": 2472
+      },
+      {
+        "url": "/assets/settings-BrXufybd.js",
+        "startTime": 654,
+        "responseEnd": 812.5999999046326,
+        "encodedBodySize": 24203,
+        "transferSize": 24503,
+        "decodedBodySize": 79776
+      },
+      {
+        "url": "/assets/28-qSqyLk4D.js",
+        "startTime": 703.0999999046326,
+        "responseEnd": 810.2999999523163,
+        "encodedBodySize": 5853,
+        "transferSize": 6153,
+        "decodedBodySize": 57566
+      },
+      {
+        "url": "/assets/system-ChncZLoB.js",
+        "startTime": 706.6999999284744,
+        "responseEnd": 809.0999999046326,
+        "encodedBodySize": 4854,
+        "transferSize": 5154,
+        "decodedBodySize": 13123
+      },
+      {
+        "url": "/assets/4-DG_bYB4F.js",
+        "startTime": 828.6999999284744,
+        "responseEnd": 914.2999999523163,
+        "encodedBodySize": 4694,
+        "transferSize": 4994,
+        "decodedBodySize": 41536
+      },
+      {
+        "url": "/assets/dialog-DXFJfUIL.js",
+        "startTime": 829.3999999761581,
+        "responseEnd": 913.0999999046326,
+        "encodedBodySize": 2378,
+        "transferSize": 2678,
+        "decodedBodySize": 6479
+      },
+      {
+        "url": "/api/config",
+        "startTime": 939.6999999284744,
+        "responseEnd": 956.8999999761581,
+        "encodedBodySize": 32181,
+        "transferSize": 32481,
+        "decodedBodySize": 32181
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 941.6999999284744,
+        "responseEnd": 958.5,
+        "encodedBodySize": 58,
+        "transferSize": 358,
+        "decodedBodySize": 58
+      },
+      {
+        "url": "/api/profiles",
+        "startTime": 942.5999999046326,
+        "responseEnd": 961,
+        "encodedBodySize": 57,
+        "transferSize": 357,
+        "decodedBodySize": 57
+      },
+      {
+        "url": "/api/notices",
+        "startTime": 943.7999999523163,
+        "responseEnd": 961.1999999284744,
+        "encodedBodySize": 2,
+        "transferSize": 302,
+        "decodedBodySize": 2
+      },
+      {
+        "url": "/api/notices/muted_checks",
+        "startTime": 944.5999999046326,
+        "responseEnd": 961.1999999284744,
+        "encodedBodySize": 2,
+        "transferSize": 302,
+        "decodedBodySize": 2
+      },
+      {
+        "url": "/api/stats",
+        "startTime": 945.3999999761581,
+        "responseEnd": 961.2999999523163,
+        "encodedBodySize": 1705,
+        "transferSize": 2005,
+        "decodedBodySize": 1705
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 945.8999999761581,
+        "responseEnd": 961.2999999523163,
+        "encodedBodySize": 58,
+        "transferSize": 358,
+        "decodedBodySize": 58
+      },
+      {
+        "url": "/assets/fr-DE_g_3N7.js",
+        "startTime": 949.0999999046326,
+        "responseEnd": 1040.5,
+        "encodedBodySize": 2098,
+        "transferSize": 2398,
+        "decodedBodySize": 5521
+      },
+      {
+        "url": "/assets/Inter-Regular-B0QUfDW0.woff2",
+        "startTime": 962.0999999046326,
+        "responseEnd": 1100.5,
+        "encodedBodySize": 108488,
+        "transferSize": 108788,
+        "decodedBodySize": 108488
+      },
+      {
+        "url": "/assets/Live-2y5pkcVX.js",
+        "startTime": 1040.3999999761581,
+        "responseEnd": 1165.5,
+        "encodedBodySize": 46587,
+        "transferSize": 46887,
+        "decodedBodySize": 184846
+      },
+      {
+        "url": "/assets/card-BvEx76ZV.js",
+        "startTime": 1040.5,
+        "responseEnd": 1127.1999999284744,
+        "encodedBodySize": 387,
+        "transferSize": 687,
+        "decodedBodySize": 1060
+      },
+      {
+        "url": "/assets/fa6-LY2KIa2E.js",
+        "startTime": 1040.5,
+        "responseEnd": 1127.5999999046326,
+        "encodedBodySize": 903,
+        "transferSize": 1203,
+        "decodedBodySize": 3022
+      },
+      {
+        "url": "/assets/ReactKonva-D6EULr_Q.js",
+        "startTime": 1040.5,
+        "responseEnd": 1191.3999999761581,
+        "encodedBodySize": 105618,
+        "transferSize": 105918,
+        "decodedBodySize": 377618
+      },
+      {
+        "url": "/assets/resize-observer-BM6UK5WB.js",
+        "startTime": 1041,
+        "responseEnd": 1129,
+        "encodedBodySize": 403,
+        "transferSize": 703,
+        "decodedBodySize": 702
+      },
+      {
+        "url": "/assets/ImageShadowOverlay-zudTxtKC.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1208.8999999761581,
+        "encodedBodySize": 283,
+        "transferSize": 583,
+        "decodedBodySize": 541
+      },
+      {
+        "url": "/assets/skeleton-Doktw_Xe.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1209.0999999046326,
+        "encodedBodySize": 181,
+        "transferSize": 481,
+        "decodedBodySize": 246
+      },
+      {
+        "url": "/assets/use-keyboard-listener-CcHihlXj.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1210.5,
+        "encodedBodySize": 615,
+        "transferSize": 915,
+        "decodedBodySize": 1411
+      },
+      {
+        "url": "/assets/FilterSwitch-BpC_U6li.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1248,
+        "encodedBodySize": 466,
+        "transferSize": 766,
+        "decodedBodySize": 1101
+      },
+      {
+        "url": "/assets/slider-1M_fKgYe.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1264.5999999046326,
+        "encodedBodySize": 4521,
+        "transferSize": 4821,
+        "decodedBodySize": 13654
+      },
+      {
+        "url": "/assets/TimeAgo-D2fBSEg5.js",
+        "startTime": 1041.2999999523163,
+        "responseEnd": 1273.0999999046326,
+        "encodedBodySize": 722,
+        "transferSize": 1022,
+        "decodedBodySize": 1449
+      },
+      {
+        "url": "/assets/review-D3-Z-h19.js",
+        "startTime": 1041.6999999284744,
+        "responseEnd": 1292.8999999761581,
+        "encodedBodySize": 184,
+        "transferSize": 484,
+        "decodedBodySize": 242
+      },
+      {
+        "url": "/assets/scroll-area-CoaoBl8I.js",
+        "startTime": 1041.6999999284744,
+        "responseEnd": 1294.1999999284744,
+        "encodedBodySize": 4677,
+        "transferSize": 4977,
+        "decodedBodySize": 15657
+      },
+      {
+        "url": "/assets/record-Bf1xYu2U.js",
+        "startTime": 1041.6999999284744,
+        "responseEnd": 1299.8999999761581,
+        "encodedBodySize": 16516,
+        "transferSize": 16816,
+        "decodedBodySize": 49087
+      },
+      {
+        "url": "/assets/snapshotUtil-DQo3ti__.js",
+        "startTime": 1041.6999999284744,
+        "responseEnd": 1330.5,
+        "encodedBodySize": 3120,
+        "transferSize": 3420,
+        "decodedBodySize": 7579
+      },
+      {
+        "url": "/assets/tabs-Dv_B-FHX.js",
+        "startTime": 1041.7999999523163,
+        "responseEnd": 1347,
+        "encodedBodySize": 1534,
+        "transferSize": 1834,
+        "decodedBodySize": 3778
+      },
+      {
+        "url": "/assets/Chip-CeZTKc83.js",
+        "startTime": 1042.1999999284744,
+        "responseEnd": 1355.3999999761581,
+        "encodedBodySize": 653,
+        "transferSize": 953,
+        "decodedBodySize": 1232
+      },
+      {
+        "url": "/assets/context-menu-KhsZUL37.js",
+        "startTime": 1042.1999999284744,
+        "responseEnd": 1374.7999999523163,
+        "encodedBodySize": 2335,
+        "transferSize": 2635,
+        "decodedBodySize": 8545
+      },
+      {
+        "url": "/assets/use-camera-activity-6i9UuTxg.js",
+        "startTime": 1042.1999999284744,
+        "responseEnd": 1376.1999999284744,
+        "encodedBodySize": 1648,
+        "transferSize": 1948,
+        "decodedBodySize": 3623
+      },
+      {
+        "url": "/assets/use-timeline-utils-RZeNJOLk.js",
+        "startTime": 1042.1999999284744,
+        "responseEnd": 1381.5,
+        "encodedBodySize": 344,
+        "transferSize": 644,
+        "decodedBodySize": 648
+      },
+      {
+        "url": "/assets/EmptyCard-ByQkbS3q.js",
+        "startTime": 1042.2999999523163,
+        "responseEnd": 1411.7999999523163,
+        "encodedBodySize": 428,
+        "transferSize": 728,
+        "decodedBodySize": 771
+      },
+      {
+        "url": "/assets/MsePlayer-DnfMi0Z_.js",
+        "startTime": 1042.2999999523163,
+        "responseEnd": 1440.3999999761581,
+        "encodedBodySize": 3636,
+        "transferSize": 3936,
+        "decodedBodySize": 9213
+      },
+      {
+        "url": "/assets/BirdseyeLivePlayer-A5LmECDk.js",
+        "startTime": 1042.2999999523163,
+        "responseEnd": 1449.2999999523163,
+        "encodedBodySize": 44985,
+        "transferSize": 45285,
+        "decodedBodySize": 137136
+      },
+      {
+        "url": "/assets/AutoUpdatingCameraImage-Vm6bbJ7c.js",
+        "startTime": 1042.6999999284744,
+        "responseEnd": 1456.5999999046326,
+        "encodedBodySize": 1304,
+        "transferSize": 1604,
+        "decodedBodySize": 2587
+      },
+      {
+        "url": "/assets/DebugDrawingLayer-BUVWLIuq.js",
+        "startTime": 1042.7999999523163,
+        "responseEnd": 1457.8999999761581,
+        "encodedBodySize": 1029,
+        "transferSize": 1329,
+        "decodedBodySize": 2531
+      },
+      {
+        "url": "/assets/react-apexcharts.esm-DDSdTom0.js",
+        "startTime": 1042.7999999523163,
+        "responseEnd": 2287.1999999284744,
+        "encodedBodySize": 275201,
+        "transferSize": 275501,
+        "decodedBodySize": 981036
+      },
+      {
+        "url": "/assets/Live-Cb7KG80W.css",
+        "startTime": 1043,
+        "responseEnd": 1181.8999999761581,
+        "encodedBodySize": 947,
+        "transferSize": 1247,
+        "decodedBodySize": 3664
+      },
+      {
+        "url": "/assets/21-DLqrQku0.js",
+        "startTime": 2331.2999999523163,
+        "responseEnd": 2417.5,
+        "encodedBodySize": 3394,
+        "transferSize": 3694,
+        "decodedBodySize": 30026
+      },
+      {
+        "url": "/assets/live-BZwwxSE_.js",
+        "startTime": 2332.0999999046326,
+        "responseEnd": 2416.2999999523163,
+        "encodedBodySize": 2558,
+        "transferSize": 2858,
+        "decodedBodySize": 6827
+      },
+      {
+        "url": "/assets/8-Bpu8hBLe.js",
+        "startTime": 2433.7999999523163,
+        "responseEnd": 2517.7999999523163,
+        "encodedBodySize": 1289,
+        "transferSize": 1589,
+        "decodedBodySize": 7149
+      },
+      {
+        "url": "/assets/player-COWFOVjI.js",
+        "startTime": 2434.1999999284744,
+        "responseEnd": 2516.6999999284744,
+        "encodedBodySize": 822,
+        "transferSize": 1122,
+        "decodedBodySize": 1866
+      },
+      {
+        "url": "/assets/Inter-Medium-B0NFony0.woff2",
+        "startTime": 2530.1999999284744,
+        "responseEnd": 2660.7999999523163,
+        "encodedBodySize": 111380,
+        "transferSize": 111680,
+        "decodedBodySize": 111380
+      }
+    ],
+    "navigation": {
+      "encodedBodySize": 2954,
+      "transferSize": 3254,
+      "decodedBodySize": 7959,
+      "protocol": "http/1.1",
+      "requestStart": 2.399999976158142,
+      "responseStart": 2.5999999046325684,
+      "domContentLoadedEventEnd": 610.1999999284744,
+      "loadEventEnd": 615.5999999046326
+    },
+    "fontsReadyAt": 3061.7999999523163,
+    "fontChecks": {
+      "regular": true,
+      "medium": true
+    },
+    "frenchControlReadyAt": 2538.399999976158,
+    "frenchControl": {
+      "backText": "Retour",
+      "backLabel": "Retour",
+      "historyText": "Historique",
+      "historyLabel": "Afficher les vidéos archivées"
+    },
+    "frenchControlTimeline": {
+      "domAt": 2538.399999976158,
+      "translatedTextAt": 2538.399999976158,
+      "accessibleVisibleAt": 2538.399999976158,
+      "visibleTextAt": 2538.399999976158
+    },
+    "actionsBeforeFrenchControlReady": [],
+    "fontResources": [
+      {
+        "url": "/assets/Inter-Regular-B0QUfDW0.woff2",
+        "startTime": 962.0999999046326,
+        "responseEnd": 1100.5,
+        "duration": 138.40000009536743,
+        "encodedBodySize": 108488,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/assets/Inter-Medium-B0NFony0.woff2",
+        "startTime": 2530.1999999284744,
+        "responseEnd": 2660.7999999523163,
+        "duration": 130.60000002384186,
+        "encodedBodySize": 111380,
+        "protocol": "http/1.1"
+      }
+    ],
+    "apiResources": [
+      {
+        "url": "/api/config",
+        "startTime": 939.6999999284744,
+        "responseEnd": 956.8999999761581,
+        "duration": 17.200000047683716,
+        "protocol": ""
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 941.6999999284744,
+        "responseEnd": 958.5,
+        "duration": 16.800000071525574,
+        "protocol": ""
+      },
+      {
+        "url": "/api/profiles",
+        "startTime": 942.5999999046326,
+        "responseEnd": 961,
+        "duration": 18.40000009536743,
+        "protocol": ""
+      },
+      {
+        "url": "/api/notices",
+        "startTime": 943.7999999523163,
+        "responseEnd": 961.1999999284744,
+        "duration": 17.399999976158142,
+        "protocol": ""
+      },
+      {
+        "url": "/api/notices/muted_checks",
+        "startTime": 944.5999999046326,
+        "responseEnd": 961.1999999284744,
+        "duration": 16.600000023841858,
+        "protocol": ""
+      },
+      {
+        "url": "/api/stats",
+        "startTime": 945.3999999761581,
+        "responseEnd": 961.2999999523163,
+        "duration": 15.899999976158142,
+        "protocol": ""
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 945.8999999761581,
+        "responseEnd": 961.2999999523163,
+        "duration": 15.399999976158142,
+        "protocol": ""
+      },
+      {
+        "url": "/api/front_door/latest.webp",
+        "startTime": 2541.0999999046326,
+        "responseEnd": 2542.399999976158,
+        "duration": 1.3000000715255737,
+        "protocol": ""
+      },
+      {
+        "url": "/api/front_door/latest.webp",
+        "startTime": 2547,
+        "responseEnd": 2548.1999999284744,
+        "duration": 1.1999999284744263,
+        "protocol": ""
+      }
+    ],
+    "jsResources": [
+      {
+        "url": "/assets/rolldown-runtime-B_MQnBba.js",
+        "startTime": 90.89999997615814,
+        "responseEnd": 179.79999995231628,
+        "duration": 88.89999997615814
+      },
+      {
+        "url": "/assets/useTranslation-wMbxFB1i.js",
+        "startTime": 91,
+        "responseEnd": 207.89999997615814,
+        "duration": 116.89999997615814
+      },
+      {
+        "url": "/assets/use-history-back-JKPm9jgZ.js",
+        "startTime": 91,
+        "responseEnd": 210.29999995231628,
+        "duration": 119.29999995231628
+      },
+      {
+        "url": "/assets/dist-X38yvQ2h.js",
+        "startTime": 91.5,
+        "responseEnd": 293,
+        "duration": 201.5
+      },
+      {
+        "url": "/assets/drawer-Dp9UU7kd.js",
+        "startTime": 91.09999990463257,
+        "responseEnd": 340,
+        "duration": 248.90000009536743
+      },
+      {
+        "url": "/assets/activity-indicator-D_x4wV58.js",
+        "startTime": 91,
+        "responseEnd": 347.89999997615814,
+        "duration": 256.89999997615814
+      },
+      {
+        "url": "/assets/main-DF86LV8Y.js",
+        "startTime": 90.5,
+        "responseEnd": 375.7999999523163,
+        "duration": 285.2999999523163
+      },
+      {
+        "url": "/assets/cameraUtil-DlmBd_Ih.js",
+        "startTime": 91.59999990463257,
+        "responseEnd": 376,
+        "duration": 284.40000009536743
+      },
+      {
+        "url": "/assets/use-is-admin-dNFFp37L.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 389.7999999523163,
+        "duration": 298.10000002384186
+      },
+      {
+        "url": "/assets/normalizeDates-B8fk6WG0.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 422.09999990463257,
+        "duration": 330.39999997615814
+      },
+      {
+        "url": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 429.5,
+        "duration": 337.8000000715256
+      },
+      {
+        "url": "/assets/detectionHardware-BlXbhogZ.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 458.59999990463257,
+        "duration": 366.89999997615814
+      },
+      {
+        "url": "/assets/use-date-locale-cKXXcX12.js",
+        "startTime": 91.69999992847443,
+        "responseEnd": 468.59999990463257,
+        "duration": 376.89999997615814
+      },
+      {
+        "url": "/assets/src-BXn8fU6O.js",
+        "startTime": 91,
+        "responseEnd": 489.1999999284744,
+        "duration": 398.1999999284744
+      },
+      {
+        "url": "/assets/objects-DJWD0_91.js",
+        "startTime": 615.1999999284744,
+        "responseEnd": 701.3999999761581,
+        "duration": 86.20000004768372
+      },
+      {
+        "url": "/assets/13-BafFvPTT.js",
+        "startTime": 614.0999999046326,
+        "responseEnd": 703,
+        "duration": 88.90000009536743
+      },
+      {
+        "url": "/assets/audio-DLwyxSLp.js",
+        "startTime": 615.2999999523163,
+        "responseEnd": 708.2999999523163,
+        "duration": 93
+      },
+      {
+        "url": "/assets/0-CAhFUcAQ.js",
+        "startTime": 614.6999999284744,
+        "responseEnd": 709.5999999046326,
+        "duration": 94.89999997615814
+      },
+      {
+        "url": "/assets/common-CJi5q4xM.js",
+        "startTime": 635.5999999046326,
+        "responseEnd": 720.1999999284744,
+        "duration": 84.60000002384186
+      },
+      {
+        "url": "/assets/1-LPhxtN_0.js",
+        "startTime": 634.8999999761581,
+        "responseEnd": 721.5,
+        "duration": 86.60000002384186
+      },
+      {
+        "url": "/assets/3-Bb_JG-ax.js",
+        "startTime": 650,
+        "responseEnd": 782.8999999761581,
+        "duration": 132.89999997615814
+      },
+      {
+        "url": "/assets/camera-CuWIp0kO.js",
+        "startTime": 654,
+        "responseEnd": 790.2999999523163,
+        "duration": 136.29999995231628
+      },
+      {
+        "url": "/assets/26-CDpFikLU.js",
+        "startTime": 653.0999999046326,
+        "responseEnd": 802.7999999523163,
+        "duration": 149.70000004768372
+      },
+      {
+        "url": "/assets/system-ChncZLoB.js",
+        "startTime": 706.6999999284744,
+        "responseEnd": 809.0999999046326,
+        "duration": 102.39999997615814
+      },
+      {
+        "url": "/assets/28-qSqyLk4D.js",
+        "startTime": 703.0999999046326,
+        "responseEnd": 810.2999999523163,
+        "duration": 107.20000004768372
+      },
+      {
+        "url": "/assets/settings-BrXufybd.js",
+        "startTime": 654,
+        "responseEnd": 812.5999999046326,
+        "duration": 158.59999990463257
+      },
+      {
+        "url": "/assets/dialog-DXFJfUIL.js",
+        "startTime": 829.3999999761581,
+        "responseEnd": 913.0999999046326,
+        "duration": 83.69999992847443
+      },
+      {
+        "url": "/assets/4-DG_bYB4F.js",
+        "startTime": 828.6999999284744,
+        "responseEnd": 914.2999999523163,
+        "duration": 85.60000002384186
+      },
+      {
+        "url": "/assets/fr-DE_g_3N7.js",
+        "startTime": 949.0999999046326,
+        "responseEnd": 1040.5,
+        "duration": 91.40000009536743
+      },
+      {
+        "url": "/assets/card-BvEx76ZV.js",
+        "startTime": 1040.5,
+        "responseEnd": 1127.1999999284744,
+        "duration": 86.69999992847443
+      },
+      {
+        "url": "/assets/fa6-LY2KIa2E.js",
+        "startTime": 1040.5,
+        "responseEnd": 1127.5999999046326,
+        "duration": 87.09999990463257
+      },
+      {
+        "url": "/assets/resize-observer-BM6UK5WB.js",
+        "startTime": 1041,
+        "responseEnd": 1129,
+        "duration": 88
+      },
+      {
+        "url": "/assets/Live-2y5pkcVX.js",
+        "startTime": 1040.3999999761581,
+        "responseEnd": 1165.5,
+        "duration": 125.10000002384186
+      },
+      {
+        "url": "/assets/ReactKonva-D6EULr_Q.js",
+        "startTime": 1040.5,
+        "responseEnd": 1191.3999999761581,
+        "duration": 150.89999997615814
+      },
+      {
+        "url": "/assets/ImageShadowOverlay-zudTxtKC.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1208.8999999761581,
+        "duration": 167.70000004768372
+      },
+      {
+        "url": "/assets/skeleton-Doktw_Xe.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1209.0999999046326,
+        "duration": 167.89999997615814
+      },
+      {
+        "url": "/assets/use-keyboard-listener-CcHihlXj.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1210.5,
+        "duration": 169.30000007152557
+      },
+      {
+        "url": "/assets/FilterSwitch-BpC_U6li.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1248,
+        "duration": 206.80000007152557
+      },
+      {
+        "url": "/assets/slider-1M_fKgYe.js",
+        "startTime": 1041.1999999284744,
+        "responseEnd": 1264.5999999046326,
+        "duration": 223.39999997615814
+      },
+      {
+        "url": "/assets/TimeAgo-D2fBSEg5.js",
+        "startTime": 1041.2999999523163,
+        "responseEnd": 1273.0999999046326,
+        "duration": 231.79999995231628
+      },
+      {
+        "url": "/assets/review-D3-Z-h19.js",
+        "startTime": 1041.6999999284744,
+        "responseEnd": 1292.8999999761581,
+        "duration": 251.20000004768372
+      },
+      {
+        "url": "/assets/scroll-area-CoaoBl8I.js",
+        "startTime": 1041.6999999284744,
+        "responseEnd": 1294.1999999284744,
+        "duration": 252.5
+      },
+      {
+        "url": "/assets/record-Bf1xYu2U.js",
+        "startTime": 1041.6999999284744,
+        "responseEnd": 1299.8999999761581,
+        "duration": 258.2000000476837
+      },
+      {
+        "url": "/assets/snapshotUtil-DQo3ti__.js",
+        "startTime": 1041.6999999284744,
+        "responseEnd": 1330.5,
+        "duration": 288.8000000715256
+      },
+      {
+        "url": "/assets/tabs-Dv_B-FHX.js",
+        "startTime": 1041.7999999523163,
+        "responseEnd": 1347,
+        "duration": 305.2000000476837
+      },
+      {
+        "url": "/assets/Chip-CeZTKc83.js",
+        "startTime": 1042.1999999284744,
+        "responseEnd": 1355.3999999761581,
+        "duration": 313.2000000476837
+      },
+      {
+        "url": "/assets/context-menu-KhsZUL37.js",
+        "startTime": 1042.1999999284744,
+        "responseEnd": 1374.7999999523163,
+        "duration": 332.60000002384186
+      },
+      {
+        "url": "/assets/use-camera-activity-6i9UuTxg.js",
+        "startTime": 1042.1999999284744,
+        "responseEnd": 1376.1999999284744,
+        "duration": 334
+      },
+      {
+        "url": "/assets/use-timeline-utils-RZeNJOLk.js",
+        "startTime": 1042.1999999284744,
+        "responseEnd": 1381.5,
+        "duration": 339.3000000715256
+      },
+      {
+        "url": "/assets/EmptyCard-ByQkbS3q.js",
+        "startTime": 1042.2999999523163,
+        "responseEnd": 1411.7999999523163,
+        "duration": 369.5
+      },
+      {
+        "url": "/assets/MsePlayer-DnfMi0Z_.js",
+        "startTime": 1042.2999999523163,
+        "responseEnd": 1440.3999999761581,
+        "duration": 398.10000002384186
+      },
+      {
+        "url": "/assets/BirdseyeLivePlayer-A5LmECDk.js",
+        "startTime": 1042.2999999523163,
+        "responseEnd": 1449.2999999523163,
+        "duration": 407
+      },
+      {
+        "url": "/assets/AutoUpdatingCameraImage-Vm6bbJ7c.js",
+        "startTime": 1042.6999999284744,
+        "responseEnd": 1456.5999999046326,
+        "duration": 413.89999997615814
+      },
+      {
+        "url": "/assets/DebugDrawingLayer-BUVWLIuq.js",
+        "startTime": 1042.7999999523163,
+        "responseEnd": 1457.8999999761581,
+        "duration": 415.10000002384186
+      },
+      {
+        "url": "/assets/react-apexcharts.esm-DDSdTom0.js",
+        "startTime": 1042.7999999523163,
+        "responseEnd": 2287.1999999284744,
+        "duration": 1244.3999999761581
+      },
+      {
+        "url": "/assets/live-BZwwxSE_.js",
+        "startTime": 2332.0999999046326,
+        "responseEnd": 2416.2999999523163,
+        "duration": 84.20000004768372
+      },
+      {
+        "url": "/assets/21-DLqrQku0.js",
+        "startTime": 2331.2999999523163,
+        "responseEnd": 2417.5,
+        "duration": 86.20000004768372
+      },
+      {
+        "url": "/assets/player-COWFOVjI.js",
+        "startTime": 2434.1999999284744,
+        "responseEnd": 2516.6999999284744,
+        "duration": 82.5
+      },
+      {
+        "url": "/assets/8-Bpu8hBLe.js",
+        "startTime": 2433.7999999523163,
+        "responseEnd": 2517.7999999523163,
+        "duration": 84
+      }
+    ],
+    "locale": [],
+    "bodyText": "Cpu est lent (75.5 ms)\n•\n3 system notices\nRetour\nHistorique"
+  },
+  "assets": [
+    {
+      "path": "/assets/0-CAhFUcAQ.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "11613"
+    },
+    {
+      "path": "/assets/1-LPhxtN_0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "6502"
+    },
+    {
+      "path": "/assets/13-BafFvPTT.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "3167"
+    },
+    {
+      "path": "/assets/21-DLqrQku0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "3394"
+    },
+    {
+      "path": "/assets/26-CDpFikLU.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "28987"
+    },
+    {
+      "path": "/assets/28-qSqyLk4D.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "5853"
+    },
+    {
+      "path": "/assets/3-Bb_JG-ax.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2300"
+    },
+    {
+      "path": "/assets/4-DG_bYB4F.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "4694"
+    },
+    {
+      "path": "/assets/8-Bpu8hBLe.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1289"
+    },
+    {
+      "path": "/assets/activity-indicator-D_x4wV58.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "120690"
+    },
+    {
+      "path": "/assets/audio-DLwyxSLp.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "9484"
+    },
+    {
+      "path": "/assets/AutoUpdatingCameraImage-Vm6bbJ7c.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1304"
+    },
+    {
+      "path": "/assets/BirdseyeLivePlayer-A5LmECDk.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "44985"
+    },
+    {
+      "path": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "617"
+    },
+    {
+      "path": "/assets/camera-CuWIp0kO.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1092"
+    },
+    {
+      "path": "/assets/cameraUtil-DlmBd_Ih.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1640"
+    },
+    {
+      "path": "/assets/card-BvEx76ZV.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "387"
+    },
+    {
+      "path": "/assets/Chip-CeZTKc83.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "653"
+    },
+    {
+      "path": "/assets/common-CJi5q4xM.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "3483"
+    },
+    {
+      "path": "/assets/context-menu-KhsZUL37.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2335"
+    },
+    {
+      "path": "/assets/DebugDrawingLayer-BUVWLIuq.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1029"
+    },
+    {
+      "path": "/assets/detectionHardware-BlXbhogZ.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "554"
+    },
+    {
+      "path": "/assets/dialog-DXFJfUIL.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2378"
+    },
+    {
+      "path": "/assets/dist-X38yvQ2h.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "413"
+    },
+    {
+      "path": "/assets/drawer-Dp9UU7kd.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "34821"
+    },
+    {
+      "path": "/assets/EmptyCard-ByQkbS3q.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "428"
+    },
+    {
+      "path": "/assets/fa6-LY2KIa2E.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "903"
+    },
+    {
+      "path": "/assets/FilterSwitch-BpC_U6li.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "466"
+    },
+    {
+      "path": "/assets/fr-DE_g_3N7.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2098"
+    },
+    {
+      "path": "/assets/ImageShadowOverlay-zudTxtKC.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "283"
+    },
+    {
+      "path": "/assets/Live-2y5pkcVX.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "46587"
+    },
+    {
+      "path": "/assets/live-BZwwxSE_.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2558"
+    },
+    {
+      "path": "/assets/Live-Cb7KG80W.css",
+      "status": 200,
+      "type": "text/css",
+      "length": "947"
+    },
+    {
+      "path": "/assets/main-DF86LV8Y.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "186532"
+    },
+    {
+      "path": "/assets/MsePlayer-DnfMi0Z_.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "3636"
+    },
+    {
+      "path": "/assets/normalizeDates-B8fk6WG0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "496"
+    },
+    {
+      "path": "/assets/objects-DJWD0_91.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2451"
+    },
+    {
+      "path": "/assets/player-COWFOVjI.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "822"
+    },
+    {
+      "path": "/assets/react-apexcharts.esm-DDSdTom0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "275201"
+    },
+    {
+      "path": "/assets/ReactKonva-D6EULr_Q.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "105618"
+    },
+    {
+      "path": "/assets/record-Bf1xYu2U.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "16516"
+    },
+    {
+      "path": "/assets/resize-observer-BM6UK5WB.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "403"
+    },
+    {
+      "path": "/assets/review-D3-Z-h19.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "184"
+    },
+    {
+      "path": "/assets/rolldown-runtime-B_MQnBba.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "573"
+    },
+    {
+      "path": "/assets/scroll-area-CoaoBl8I.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "4677"
+    },
+    {
+      "path": "/assets/settings-BrXufybd.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "24203"
+    },
+    {
+      "path": "/assets/skeleton-Doktw_Xe.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "181"
+    },
+    {
+      "path": "/assets/slider-1M_fKgYe.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "4521"
+    },
+    {
+      "path": "/assets/snapshotUtil-DQo3ti__.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "3120"
+    },
+    {
+      "path": "/assets/src-BXn8fU6O.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "153367"
+    },
+    {
+      "path": "/assets/src-DHngj9Lm.css",
+      "status": 200,
+      "type": "text/css",
+      "length": "26070"
+    },
+    {
+      "path": "/assets/system-ChncZLoB.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "4854"
+    },
+    {
+      "path": "/assets/tabs-Dv_B-FHX.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1534"
+    },
+    {
+      "path": "/assets/TimeAgo-D2fBSEg5.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "722"
+    },
+    {
+      "path": "/assets/use-camera-activity-6i9UuTxg.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1648"
+    },
+    {
+      "path": "/assets/use-date-locale-cKXXcX12.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "12718"
+    },
+    {
+      "path": "/assets/use-history-back-JKPm9jgZ.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "14674"
+    },
+    {
+      "path": "/assets/use-is-admin-dNFFp37L.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "204"
+    },
+    {
+      "path": "/assets/use-keyboard-listener-CcHihlXj.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "615"
+    },
+    {
+      "path": "/assets/use-timeline-utils-RZeNJOLk.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "344"
+    },
+    {
+      "path": "/assets/useTranslation-wMbxFB1i.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "14274"
+    }
+  ]
+}

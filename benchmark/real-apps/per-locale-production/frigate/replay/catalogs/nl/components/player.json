@@ -1,0 +1,58 @@
+{
+  "noRecordingsFoundForThisTime": "Geen opnames gevonden voor deze tijd",
+  "stats": {
+    "totalFrames": "Totaal aantal frames:",
+    "droppedFrames": {
+      "title": "Overgeslagen frames:",
+      "short": {
+        "value": "{{droppedFrames}} frames",
+        "title": "Overgeslagen"
+      }
+    },
+    "droppedFrameRate": "Frequentie van overgeslagen frames:",
+    "bandwidth": {
+      "short": "Bandbreedte",
+      "title": "Bandbreedte:"
+    },
+    "streamType": {
+      "short": "Type",
+      "title": "Stream Type:"
+    },
+    "decodedFrames": "Gedecodeerde frames:"
+  },
+  "submitFrigatePlus": {
+    "title": "Dit frame indienen bij Frigate+?",
+    "submit": "Indienen",
+    "previewError": "Het was niet mogelijk om de snapshot preview te laden. De opname is mogelijk niet beschikbaar op dit moment."
+  },
+  "streamOffline": {
+    "title": "Stream is Offline",
+    "desc": "Er zijn geen frames ontvangen in de <code>detect</code>-stream van {{cameraName}}, controleer de error logs"
+  },
+  "noPreviewFound": "Geen voorbeeld gevonden",
+  "noPreviewFoundFor": "Geen voorbeeld gevonden voor {{cameraName}}",
+  "livePlayerRequiredIOSVersion": "Voor dit type livestream is iOS 17.1 of hoger vereist.",
+  "toast": {
+    "success": {
+      "submittedFrigatePlus": "Frame succesvol ingediend bij Frigate+"
+    },
+    "error": {
+      "submitFrigatePlusFailed": "Het is niet gelukt om een frame naar Frigate+ te sturen",
+      "playRecordingsFailed": "Kan opnames niet afspelen (fout {{code}}): {{message}}"
+    }
+  },
+  "cameraOff": "De camera staat uit",
+  "quality": {
+    "autoLow": "Afspelen in lage kwaliteit (beperkte bandbreedte)",
+    "autoLowCodec": "Afspelen in lage kwaliteit (Orgineel niet ondersteund voor deze browser)",
+    "autoLowSaveData": "Afspelen in lage kwaliteit (databesparing)",
+    "main": "Origineel",
+    "sub": "Laag",
+    "notSupportedBrowser": "Niet ondersteund door deze browser",
+    "label": "Kwaliteit",
+    "noAudio": "Geen audio",
+    "audioRate": "{{rate}} kHz audio",
+    "audioCodecRate": "{{codec}} {{rate}} kHz",
+    "noRecordings": "Geen opnames in dit tijdsframe"
+  }
+}

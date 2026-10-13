@@ -1,0 +1,264 @@
+{
+  "documentTitle": {
+    "cameras": "鏡頭統計 - Frigate",
+    "storage": "儲存裝置統計 - Frigate",
+    "general": "一般統計 - Frigate",
+    "enrichments": "進階功能統計 - Frigate",
+    "logs": {
+      "frigate": "Frigate 日誌 - Frigate",
+      "go2rtc": "Go2RTC 日誌 - Frigate",
+      "nginx": "Nginx 日誌 - Frigate",
+      "websocket": "訊息日誌 - Frigate"
+    }
+  },
+  "title": "系統",
+  "metrics": "系統指標",
+  "logs": {
+    "download": {
+      "label": "下載日誌"
+    },
+    "copy": {
+      "label": "複製到剪貼簿",
+      "success": "已將日誌複製到剪貼簿",
+      "error": "無法將日誌複製到剪貼簿"
+    },
+    "type": {
+      "label": "類型",
+      "timestamp": "時間戳",
+      "tag": "標籤",
+      "message": "訊息"
+    },
+    "tips": "正在從伺服器串流日誌",
+    "toast": {
+      "error": {
+        "fetchingLogsFailed": "擷取日誌時出錯：{{errorMessage}}",
+        "whileStreamingLogs": "串流日誌時出錯：{{errorMessage}}"
+      }
+    },
+    "websocket": {
+      "label": "訊息",
+      "pause": "暫停",
+      "resume": "繼續",
+      "clear": "清除",
+      "filter": {
+        "all": "全部主題",
+        "topics": "主題",
+        "events": "事件",
+        "reviews": "審閱",
+        "classification": "分類",
+        "face_recognition": "人臉辨識",
+        "lpr": "車牌辨識",
+        "camera_activity": "攝影機活動",
+        "system": "系統",
+        "camera": "攝影機",
+        "all_cameras": "所有攝影機",
+        "cameras_count_one": "{{count}} 個攝影機",
+        "cameras_count_other": "{{count}} 個攝影機"
+      },
+      "empty": "未捕獲到訊息",
+      "count_one": "{{count}} 則訊息",
+      "count_other": "{{count}} 則訊息",
+      "expanded": {
+        "payload": "Payload"
+      }
+    }
+  },
+  "general": {
+    "title": "一般",
+    "detector": {
+      "title": "偵測器",
+      "inferenceSpeed": "偵測器推理速度",
+      "temperature": "偵測器溫度",
+      "cpuUsage": "偵測器 CPU 使用率",
+      "memoryUsage": "偵測器記憶體使用量",
+      "cpuUsageInformation": "用於準備輸入和輸出資料至/從偵測模型的 CPU。此值不衡量推論使用量，即使使用 GPU 或加速器。"
+    },
+    "hardwareInfo": {
+      "title": "硬體資訊",
+      "gpuUsage": "GPU 使用率",
+      "gpuMemory": "GPU 記憶體",
+      "gpuEncoder": "GPU 編碼器",
+      "gpuDecoder": "GPU 解碼器",
+      "gpuInfo": {
+        "vainfoOutput": {
+          "title": "Vainfo 輸出",
+          "returnCode": "返回代碼：{{code}}",
+          "processOutput": "行程輸出：",
+          "processError": "行程錯誤："
+        },
+        "nvidiaSMIOutput": {
+          "title": "Nvidia SMI 輸出",
+          "name": "名稱：{{name}}",
+          "driver": "驅動程式：{{driver}}",
+          "cudaComputerCapability": "CUDA 計算能力：{{cuda_compute}}",
+          "vbios": "VBios 資訊：{{vbios}}"
+        },
+        "closeInfo": {
+          "label": "關閉 GPU 資訊"
+        },
+        "copyInfo": {
+          "label": "複製 GPU 訊息"
+        },
+        "toast": {
+          "success": "已複製 GPU 訊息至剪貼簿"
+        }
+      },
+      "npuUsage": "NPU 使用率",
+      "npuMemory": "NPU 記憶體",
+      "gpuCompute": "GPU 計算 / 編碼",
+      "gpuTemperature": "GPU 溫度",
+      "npuTemperature": "NPU 溫度"
+    },
+    "otherProcesses": {
+      "title": "其他行程",
+      "processCpuUsage": "行程 CPU 使用率",
+      "processMemoryUsage": "行程記憶體使用量",
+      "series": {
+        "recording": "記錄",
+        "review_segment": "審核部分",
+        "embeddings": "嵌入",
+        "audio_detector": "音訊偵測器",
+        "go2rtc": "go2rtc"
+      }
+    }
+  },
+  "storage": {
+    "title": "儲存裝置",
+    "overview": "總覽",
+    "recordings": {
+      "title": "錄影檔案",
+      "tips": "此數值僅代表 Frigate 資料庫中錄影資料的儲存空間用量。Frigate 不會追蹤硬碟上所有檔案的使用量。",
+      "earliestRecording": "最早的錄影檔案："
+    },
+    "cameraStorage": {
+      "title": "鏡頭儲存",
+      "camera": "鏡頭",
+      "unusedStorageInformation": "未使用的儲存空間資訊",
+      "storageUsed": "已使用的儲存空間",
+      "percentageOfTotalUsed": "佔總量百分比",
+      "bandwidth": "頻寬",
+      "unused": {
+        "title": "未使用",
+        "tips": "在磁碟中有除了 Frigate 錄影內容以外的檔案時，此數值可能無法正確反應可用的空間。Frigate 不會追蹤錄影資料以外的檔案的儲存空間用量。"
+      }
+    },
+    "shm": {
+      "title": "SHM（共享記憶體）配置",
+      "warning": "目前的 SHM 大小為 {{total}}MB，過小。請將其增加至至少 {{min_shm}}MB。",
+      "frameLifetime": {
+        "title": "幀保留時間",
+        "description": "每個攝影機在共享記憶體中擁有 {{frames}} 個幀槽位。在最快攝影機的幀率下，每一幀在被覆蓋前大約可保留 {{lifetime}} 秒。"
+      }
+    }
+  },
+  "cameras": {
+    "title": "鏡頭",
+    "overview": "總覽",
+    "info": {
+      "aspectRatio": "長寬比",
+      "cameraProbeInfo": "{{camera}} 的攝影機探測詳細資訊",
+      "streamDataFromFFPROBE": "串流資料是透過 <code>ffprobe</code> 取得。",
+      "fetching": "正在讀取鏡頭資訊",
+      "stream": "串流 {{idx}}",
+      "video": "影片：",
+      "codec": "編解碼器：",
+      "resolution": "解析度：",
+      "fps": "幀率：",
+      "unknown": "未知",
+      "audio": "音訊：",
+      "error": "錯誤：{{error}}",
+      "tips": {
+        "title": "攝影機探測詳細資訊"
+      },
+      "keyframes": {
+        "title": "關鍵幀分析",
+        "analyzing": "正在分析關鍵幀... 剩餘 {{seconds}} 秒",
+        "stillAnalyzing": "仍在分析關鍵幀...",
+        "recordStream": "錄影串流：",
+        "keyframeCount": "偵測到的關鍵幀：",
+        "observedDuration": "觀測持續時間：",
+        "gap": "關鍵幀間隔 (最小 / 平均 / 最大)：",
+        "segmentLength": "錄影片段長度：",
+        "ok": "每約 {{seconds}} 秒一個關鍵幀，適合錄影與重播。",
+        "unknown": "無法確定關鍵幀間隔。",
+        "recordDisabled": "此攝影機已停用錄影功能。"
+      }
+    },
+    "framesAndDetections": "幀數 / 偵測數",
+    "label": {
+      "camera": "鏡頭",
+      "detect": "偵測",
+      "skipped": "跳過",
+      "ffmpeg": "FFmpeg",
+      "capture": "抓取",
+      "overallFramesPerSecond": "總體幀率",
+      "overallDetectionsPerSecond": "總體每秒偵測幀數",
+      "overallSkippedDetectionsPerSecond": "總體每秒跳過偵測幀率",
+      "cameraFfmpeg": "{{camName}} FFmpeg",
+      "cameraCapture": "{{camName}} 抓取",
+      "cameraDetect": "{{camName}} 偵測",
+      "cameraFramesPerSecond": "{{camName}} 幀率",
+      "cameraDetectionsPerSecond": "{{camName}} 每秒偵測幀率",
+      "cameraSkippedDetectionsPerSecond": "{{camName}} 每秒跳過偵測幀率",
+      "cameraGpu": "{{camName}} GPU"
+    },
+    "toast": {
+      "success": {
+        "copyToClipboard": "已複製探測資料至剪貼簿。"
+      },
+      "error": {
+        "unableToProbeCamera": "無法探測攝影機：{{errorMessage}}"
+      }
+    },
+    "noCameras": {
+      "title": "沒有找到攝影機"
+    },
+    "connectionQuality": {
+      "title": "連線品質",
+      "excellent": "優秀",
+      "fair": "一般",
+      "poor": "較差",
+      "unusable": "不可用",
+      "fps": "幀率",
+      "expectedFps": "預期幀率",
+      "reconnectsLastHour": "最近一小時重連次數",
+      "stallsLastHour": "最近一小時卡頓次數"
+    }
+  },
+  "lastRefreshed": "最後更新： ",
+  "stats": {
+    "healthy": "系統運作正常",
+    "reindexingEmbeddings": "正在重新替嵌入資料建立索引（已完成 {{processed}}%）",
+    "cameraIsOffline": "{{camera}} 已離線",
+    "detectIsSlow": "{{detect}} 偵測速度較慢（{{speed}} 毫秒）",
+    "detectIsVerySlow": "{{detect}} 偵測速度緩慢（{{speed}} 毫秒）",
+    "debugReplayActive": "除錯重播工作階段正在進行"
+  },
+  "enrichments": {
+    "title": "進階功能",
+    "infPerSecond": "每秒推理次數",
+    "embeddings": {
+      "image_embedding": "圖片特徵提取",
+      "text_embedding": "文字提取",
+      "face_recognition": "人臉辨識",
+      "plate_recognition": "車牌辨識",
+      "image_embedding_speed": "圖片特徵提取速度",
+      "face_embedding_speed": "人臉特徵提取速度",
+      "face_recognition_speed": "人臉辨識速度",
+      "plate_recognition_speed": "車牌辨識速度",
+      "text_embedding_speed": "文字提取速度",
+      "yolov9_plate_detection_speed": "YOLOv9 車牌偵測速度",
+      "yolov9_plate_detection": "YOLOv9 車牌辨識",
+      "review_description": "審查說明",
+      "review_description_speed": "審查描述速度",
+      "review_description_events_per_second": "審查說明",
+      "object_description": "物件說明",
+      "object_description_speed": "物件說明速度",
+      "object_description_events_per_second": "物件說明",
+      "classification": "{{name}} 分類",
+      "classification_speed": "{{name}}分類速度",
+      "classification_events_per_second": "{{name}} 分類每秒事件數"
+    },
+    "averageInf": "平均推論時間"
+  }
+}

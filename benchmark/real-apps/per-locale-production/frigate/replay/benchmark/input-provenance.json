@@ -1,0 +1,3742 @@
+{
+  "catalogFiles": [
+    {
+      "path": "public/locales/en/audio.json",
+      "sha256": "64451e1946d218a495c340aa8c7054554a2cf749c9d906554e580ff9d4e93a82"
+    },
+    {
+      "path": "public/locales/en/common.json",
+      "sha256": "b17682992c66c4c009360cdd8d827d8378059c51099b88ae1eafd96437c55c59"
+    },
+    {
+      "path": "public/locales/en/components/auth.json",
+      "sha256": "48f87de58c0185af3e8a2758c62505aef6e616e81f7a996b5975f4b1c92bbf69"
+    },
+    {
+      "path": "public/locales/en/components/camera.json",
+      "sha256": "82eca8f17f7860a0546812c9b939e297361c8bc26147a65593b0c64010a2df00"
+    },
+    {
+      "path": "public/locales/en/components/dialog.json",
+      "sha256": "01b7c1f3748d522d7af74abbb2d919f2ba1803ccb940d3f0d006040a80dfca8a"
+    },
+    {
+      "path": "public/locales/en/components/filter.json",
+      "sha256": "7e71b8c87f16ec0aa097d18153590d9be68c1670636ad7220e07e52b3e489772"
+    },
+    {
+      "path": "public/locales/en/components/icons.json",
+      "sha256": "2440d7bd7075b53cb25bfa41dae6c412dd588e1f336c0e596f015e1911735a76"
+    },
+    {
+      "path": "public/locales/en/components/input.json",
+      "sha256": "d9df2c4d870b88cb9121b57bc11a23879af54be911c072b97d0740cc886a14f5"
+    },
+    {
+      "path": "public/locales/en/components/player.json",
+      "sha256": "77dde217e00c06b1bc219bd4ccee4706ab5ba768c6347628ebdd49062b284e6d"
+    },
+    {
+      "path": "public/locales/en/config/cameras.json",
+      "sha256": "6615a13cb5f71dd492fae5482cb9c6579492cf1b289c7b1632ce285e54b1a45b"
+    },
+    {
+      "path": "public/locales/en/config/global.json",
+      "sha256": "8a7744acf9c50bb733c042d52e683cdcaa8fcf808aa43bf8ac7bc83c42610d96"
+    },
+    {
+      "path": "public/locales/en/config/groups.json",
+      "sha256": "5843d666361f813ab19e3c12657296f481a019441ed831cdf6c1b6b354a3d1e6"
+    },
+    {
+      "path": "public/locales/en/config/validation.json",
+      "sha256": "c3674f78a94dc965e7bf4ab606b4eec72c17ab9d74c0ecfa352aff9dea20acb7"
+    },
+    {
+      "path": "public/locales/en/objects.json",
+      "sha256": "50135b13ecdb9dc3af09490734da762222357a8cba4219a1da04b16bf051690c"
+    },
+    {
+      "path": "public/locales/en/views/chat.json",
+      "sha256": "6892d8967e85473317059f0433d3d487f7fadd9b4c28ff5f9ccf98789c700da5"
+    },
+    {
+      "path": "public/locales/en/views/classificationModel.json",
+      "sha256": "3caa209c22636a18057f822306ace4ff03f8173a834e948c8de204cca44e1361"
+    },
+    {
+      "path": "public/locales/en/views/configEditor.json",
+      "sha256": "4d31850dea3fa5d9c561b4a41ac7a903d2000da28ea319ee869fb985a493a3ff"
+    },
+    {
+      "path": "public/locales/en/views/events.json",
+      "sha256": "d56623a5fed689eac6d59e6a74cdffe61730554cb62ec803983dbc7ec951f227"
+    },
+    {
+      "path": "public/locales/en/views/explore.json",
+      "sha256": "f7171459b5d5e0d253da94bb5e7ba2f2789a0bedf7e0d86b68e013326aff7958"
+    },
+    {
+      "path": "public/locales/en/views/exports.json",
+      "sha256": "929ee2afcac76125a62cd7ffa2565fb6280d61611ec5e7013d58dbb45ff1fdeb"
+    },
+    {
+      "path": "public/locales/en/views/faceLibrary.json",
+      "sha256": "43040a77a8fa4a1388f8af8b1d5f90b28a302ba2103bade4ff14495c4784c714"
+    },
+    {
+      "path": "public/locales/en/views/live.json",
+      "sha256": "52a26eabc91a47e7c9f784f5c3b33b91c7509da9bc31ee711e89d18719b07d8a"
+    },
+    {
+      "path": "public/locales/en/views/motionSearch.json",
+      "sha256": "cd28afa6723538b022fcd859cd1746e0d50c5e968662d94b49f6bee030bdb493"
+    },
+    {
+      "path": "public/locales/en/views/recording.json",
+      "sha256": "ca1da36ca69379fafaf6fc9241cf55d6db8c57db940eec3655be59c01a7a1f7a"
+    },
+    {
+      "path": "public/locales/en/views/replay.json",
+      "sha256": "127ce640e2f9f940613c579518ef016af3492e55d2c018dbb1ba9c84a2cd5dad"
+    },
+    {
+      "path": "public/locales/en/views/search.json",
+      "sha256": "b2ad31bcf564936ba5a8940d5f903f7f2fb450b24bd6946a62da26714b5daf5c"
+    },
+    {
+      "path": "public/locales/en/views/settings.json",
+      "sha256": "65971b826b493ccf2aba07d42f1153c410db47e3e81d72a66587bd552d8d647c"
+    },
+    {
+      "path": "public/locales/en/views/setup.json",
+      "sha256": "f59df2329e9fd14efda5cfc5ae2c315bd71a44413d3662add91026215fcd6d4d"
+    },
+    {
+      "path": "public/locales/en/views/system.json",
+      "sha256": "3d2285e086309cc11bf0b3ddb4e063f77aa46944b9ca10fa7415a86da01469c7"
+    },
+    {
+      "path": "public/locales/es/audio.json",
+      "sha256": "a2423fda08669c26a3d1c4afd2919fe9050bf5b0065a91717b301c48ed78e495"
+    },
+    {
+      "path": "public/locales/es/common.json",
+      "sha256": "cabc39c293ffbd5e9020bf225614cd279b484e7c46f6c6929e8cc73685b8899d"
+    },
+    {
+      "path": "public/locales/es/components/auth.json",
+      "sha256": "47f06df0924a9fccaaa42f8acaffeed4e945f421e421fe1ef4e7a562ef30d7db"
+    },
+    {
+      "path": "public/locales/es/components/camera.json",
+      "sha256": "d6f81d1ec3cc05ac8689a7004163d31e6962bf60b2d073a05a9fc3c9a63cf1bc"
+    },
+    {
+      "path": "public/locales/es/components/dialog.json",
+      "sha256": "6898c500c8419ba45d64e68847a1f86c2017be46d38157008aeef3f6afcb43d7"
+    },
+    {
+      "path": "public/locales/es/components/filter.json",
+      "sha256": "81553ded9e619ec1d0a795b1a117088f2022a98f21319ad5a36773fc2a2b7a16"
+    },
+    {
+      "path": "public/locales/es/components/icons.json",
+      "sha256": "de5e777e3189596fdc6a9e1384a5dbe159adedeb2a7a89ff95fbd71984b816fe"
+    },
+    {
+      "path": "public/locales/es/components/input.json",
+      "sha256": "1f7ee8071e3a2d52551a7e0aaf39f6cfd35f3890b03e5921f9db7a3b1b45857e"
+    },
+    {
+      "path": "public/locales/es/components/player.json",
+      "sha256": "30c2d8ca51534180bc4b6cc84dabf375d8c51cfdf6081ec7c86c6ab8d14dbac9"
+    },
+    {
+      "path": "public/locales/es/config/cameras.json",
+      "sha256": "e7c60f8c3cfb6a75510b68df83bcc483b193f2de5c5a8263367292ed4a7cd1ca"
+    },
+    {
+      "path": "public/locales/es/config/global.json",
+      "sha256": "0b39c74254a21e18cccf4a79974427de0b4ecf494680ca11ea514cb94b6c80e8"
+    },
+    {
+      "path": "public/locales/es/config/groups.json",
+      "sha256": "85428acc69c7c800b9762d3db8c8474c384cba6b9494dc8c77247390f984ec4b"
+    },
+    {
+      "path": "public/locales/es/config/validation.json",
+      "sha256": "c54fb281e52538a8ce21b80705ba4e77cbfbdca9d21c73bf73ad892a640f6d15"
+    },
+    {
+      "path": "public/locales/es/objects.json",
+      "sha256": "1ec3cecd9806bcac5ae72fd9c0167f6f75ad4c5e403b15e910a4178fc2bc00c4"
+    },
+    {
+      "path": "public/locales/es/views/chat.json",
+      "sha256": "00ad8cc322df780bddc81aa61fda7e6256fcfc6222b8520837987d3e4d06ad92"
+    },
+    {
+      "path": "public/locales/es/views/classificationModel.json",
+      "sha256": "faa6632f1a67e2dfaac9ee3ba8a4e2c65732ce58561124715630c6ceff3c1616"
+    },
+    {
+      "path": "public/locales/es/views/configEditor.json",
+      "sha256": "28b649d5bcb058cadcc0ce240994b781e93e74e8a5ee5b80efaadb03a714e049"
+    },
+    {
+      "path": "public/locales/es/views/events.json",
+      "sha256": "4ad777b82938ee5f86aecd72c0a7adc32ec9805d916716bcaa9dce950c364287"
+    },
+    {
+      "path": "public/locales/es/views/explore.json",
+      "sha256": "7e2798923892b560e17d7d345c5fec03d4d4e21424ea57b17d4c0f49aa959d79"
+    },
+    {
+      "path": "public/locales/es/views/exports.json",
+      "sha256": "d2fd2e5330d4981bbee85dba74a93fc47ec171cb239b776d7be44ec0a94c8d82"
+    },
+    {
+      "path": "public/locales/es/views/faceLibrary.json",
+      "sha256": "42ff655effe4cd64135188e15a3d355d47095fcbb74dfb44930a3bbbf7d48895"
+    },
+    {
+      "path": "public/locales/es/views/live.json",
+      "sha256": "8f401dc8af0421224d6dfd804e7576b383261e25d9c50b2b23b328c7c9768651"
+    },
+    {
+      "path": "public/locales/es/views/motionSearch.json",
+      "sha256": "59585670aaa823c32b428d5173bc1d2eaee65e8811edc90a0636e460bd950e98"
+    },
+    {
+      "path": "public/locales/es/views/recording.json",
+      "sha256": "ae1f4a329c0f0381eb9483b7dfac68dbc2e25a70177cfe5f45daee03f8fa0acb"
+    },
+    {
+      "path": "public/locales/es/views/replay.json",
+      "sha256": "7321d3a93dfad16352fd3c034d185ddab47c2655362a328126a94c242f897956"
+    },
+    {
+      "path": "public/locales/es/views/search.json",
+      "sha256": "e9ff14d34183cd4cd804d6df34c99ee73f8c03f21c4fc8cd2d13c72c3a501596"
+    },
+    {
+      "path": "public/locales/es/views/settings.json",
+      "sha256": "a039f513f89b8c12699f54ba67e3702753b73a3dd28012d9f79d660ffd8d66eb"
+    },
+    {
+      "path": "public/locales/es/views/system.json",
+      "sha256": "05dec210cdbd8ccce2354f0279ab99019d464287fe761b4bafd11f37c9682791"
+    },
+    {
+      "path": "public/locales/pt/audio.json",
+      "sha256": "99cc4082276d74387eeedea2a83d39e02ca244d71d1646c9f1377f1150fedb83"
+    },
+    {
+      "path": "public/locales/pt/common.json",
+      "sha256": "e4678f2598d9a65ad451247b7f31b4a7be7182a8e7f64269e3379e75a8e3a418"
+    },
+    {
+      "path": "public/locales/pt/components/auth.json",
+      "sha256": "c8d7a31fdd2003216c1a5b00eebbe605a8ecc4e84f7bb3aaac72daca76129f3b"
+    },
+    {
+      "path": "public/locales/pt/components/camera.json",
+      "sha256": "05ca72b0965b185908c3baa42f1dbfa0c1c269514acaaebba0566558b7ba2fbc"
+    },
+    {
+      "path": "public/locales/pt/components/dialog.json",
+      "sha256": "992fe8ce1e6cb5097206fb9a814de13e36694867a5da39258d04e5f408f5e38b"
+    },
+    {
+      "path": "public/locales/pt/components/filter.json",
+      "sha256": "f143e9bd54cd1c21361144b4041ff14e802b76a05c8cfd5b6bc103d4f287d88f"
+    },
+    {
+      "path": "public/locales/pt/components/icons.json",
+      "sha256": "c9c1cd8f1a3821cf4d1897115d2d6485e6b06ebb2f7036150c87aae839075241"
+    },
+    {
+      "path": "public/locales/pt/components/input.json",
+      "sha256": "f97ea5b5c67447913444ab147944a5232d90a5413aacbec1c284086d18dc92b0"
+    },
+    {
+      "path": "public/locales/pt/components/player.json",
+      "sha256": "e8428f78f31058a4d20fba26e74e4cee04e1e97b57ef120def6e0e2d3566df7d"
+    },
+    {
+      "path": "public/locales/pt/config/cameras.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/pt/config/global.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/pt/config/groups.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/pt/config/validation.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/pt/objects.json",
+      "sha256": "8c3fd8e2d9b25bfb8afce7687b3b1672618331793c920cf879ed3062d41b4172"
+    },
+    {
+      "path": "public/locales/pt/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/pt/views/classificationModel.json",
+      "sha256": "956ee00de69b6dc5f6774baee94d35215fffc4e12bee4a5fd46688ae62557c69"
+    },
+    {
+      "path": "public/locales/pt/views/configEditor.json",
+      "sha256": "f7185d1054423b8666d1f04431eb939309d0c4a97ffe45cb1b7f9557bf464003"
+    },
+    {
+      "path": "public/locales/pt/views/events.json",
+      "sha256": "e899ec93c210e72f5c7cba1a754b8554cbcd49b3044ca94a2f73ee604a06c4f1"
+    },
+    {
+      "path": "public/locales/pt/views/explore.json",
+      "sha256": "60784ffae4b9a9d2de620dc31b1e468260ebf0b05b01c53c0670bf00250eb390"
+    },
+    {
+      "path": "public/locales/pt/views/exports.json",
+      "sha256": "720adcca93f7a4423a29142c6ca4ad3094524b19d529775774970bc2e2650698"
+    },
+    {
+      "path": "public/locales/pt/views/faceLibrary.json",
+      "sha256": "afc9d60159b6b9f5b4fa6f0c6b4727b2ec670207c1a0dd0fb795a9f515a9bca5"
+    },
+    {
+      "path": "public/locales/pt/views/live.json",
+      "sha256": "c05a957ecbbbcfb8d64b2d3ea1cc091cc286b5b86dc40b4898f53cb4df6f26e3"
+    },
+    {
+      "path": "public/locales/pt/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/pt/views/recording.json",
+      "sha256": "8dc9b3d8b7e5c7de5150138c67740d5c3f63a9950d625cb1070b0fe6411a0613"
+    },
+    {
+      "path": "public/locales/pt/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/pt/views/search.json",
+      "sha256": "38bea4aa0e2c8376824f19159dcdedeef4b3708169114d99368b0da7970a6fc3"
+    },
+    {
+      "path": "public/locales/pt/views/settings.json",
+      "sha256": "116753d01631c5e365e9d370af43312a560a3d4a8f42f499d604fe183ca4455f"
+    },
+    {
+      "path": "public/locales/pt/views/system.json",
+      "sha256": "3608568d54fccc912eef15e665cc66d30f7fca63f908efe4251768e2fdceb65a"
+    },
+    {
+      "path": "public/locales/pt-BR/audio.json",
+      "sha256": "50427f0ce09b8c8109ab82fd3ca3077c4c2d310ce9fcc6193706767a94260090"
+    },
+    {
+      "path": "public/locales/pt-BR/common.json",
+      "sha256": "1108878e8fb640db7ae9e306e9350b8678ffbea5c4d923b536ba4911f76403f6"
+    },
+    {
+      "path": "public/locales/pt-BR/components/auth.json",
+      "sha256": "5d6b9aa0d4015f95102f337183a3b75929d8defe9d17163a776c63f9627449ee"
+    },
+    {
+      "path": "public/locales/pt-BR/components/camera.json",
+      "sha256": "2d4fe82300b23b2c2bd24e920eafe30d70549c1eba80daf562320db3f83cda06"
+    },
+    {
+      "path": "public/locales/pt-BR/components/dialog.json",
+      "sha256": "977e77d92bb2d4cce3a1e8a7e0f7719edfd639462712f5fcfb85ce570ec29a6f"
+    },
+    {
+      "path": "public/locales/pt-BR/components/filter.json",
+      "sha256": "fe17d87acd9b3ea4e480794326ff9ea1a122ce7617e30041385b53df28a99ba8"
+    },
+    {
+      "path": "public/locales/pt-BR/components/icons.json",
+      "sha256": "6628539682339e45b2761b91ec2119600d7e2cf167352d83eaa181139aba8e02"
+    },
+    {
+      "path": "public/locales/pt-BR/components/input.json",
+      "sha256": "1a0c12891ff06a30b0355607130c2cccbd8ec5e3c628a815a3c6105a666ed849"
+    },
+    {
+      "path": "public/locales/pt-BR/components/player.json",
+      "sha256": "fc6f4b40ebf0b360e109b4d1a52f42f16b6aa3d8d172a6787edc36020df388e4"
+    },
+    {
+      "path": "public/locales/pt-BR/config/cameras.json",
+      "sha256": "da9bda88db53ebd9bcef7ea9d36beea3a81ec0275f72fe534dc8fe40e489f67c"
+    },
+    {
+      "path": "public/locales/pt-BR/config/global.json",
+      "sha256": "2ba12e796739939f998387af352421eac68df58470272f6e23dca257f597e4a2"
+    },
+    {
+      "path": "public/locales/pt-BR/config/groups.json",
+      "sha256": "2613486ae199b3ca382e18149d58934d111d1a8c0efda80def2a402413bcb335"
+    },
+    {
+      "path": "public/locales/pt-BR/config/validation.json",
+      "sha256": "8ca98aa5330990ba2014ff696ecadad16dc280f6f5d8767c01469adcab7199ee"
+    },
+    {
+      "path": "public/locales/pt-BR/objects.json",
+      "sha256": "905e421aefab573979923f275837efe9893d25a4e15da6854d806c26cfe72955"
+    },
+    {
+      "path": "public/locales/pt-BR/views/chat.json",
+      "sha256": "21a74e5002c7ab51625b8e97a2bb24584b9185f19cafe76433430fb1540f2755"
+    },
+    {
+      "path": "public/locales/pt-BR/views/classificationModel.json",
+      "sha256": "699d88f2107d1a86bccfdf68e0d7d5cc215169720383551c03a35e96ab90281d"
+    },
+    {
+      "path": "public/locales/pt-BR/views/configEditor.json",
+      "sha256": "07aa00b6eb0369869d37ef17bc9c8896d1cc5fade589f29e7183b57b25a27098"
+    },
+    {
+      "path": "public/locales/pt-BR/views/events.json",
+      "sha256": "26cd659df32ea2a64d14108bc541b0cfde4191ff0e12d3d92961c82e0409ac72"
+    },
+    {
+      "path": "public/locales/pt-BR/views/explore.json",
+      "sha256": "1ed630f040c2766d8f6b06d2ecdbf6e682b10b2af5fd067bd1eaae242188327f"
+    },
+    {
+      "path": "public/locales/pt-BR/views/exports.json",
+      "sha256": "16f7daa825bc387bbf26c9f6ffb95ede557476ace3c072b1da058b991d6f9c40"
+    },
+    {
+      "path": "public/locales/pt-BR/views/faceLibrary.json",
+      "sha256": "db8e0d496086584789481e1035d27ceebd316141dbd6552ea872bcd48f01796c"
+    },
+    {
+      "path": "public/locales/pt-BR/views/live.json",
+      "sha256": "ed68d1387c5ce23314850307927206e7050df5d11676da17e3fb11897694745c"
+    },
+    {
+      "path": "public/locales/pt-BR/views/motionSearch.json",
+      "sha256": "d302803589fa5284ba504b99e1974b1bb629eca590175a4c2a3945a2ce517e70"
+    },
+    {
+      "path": "public/locales/pt-BR/views/recording.json",
+      "sha256": "d4919632829de149fda2c0b6a2b95fed5f5de4a7571d1076868e6c4551d37939"
+    },
+    {
+      "path": "public/locales/pt-BR/views/replay.json",
+      "sha256": "b0789cee32edd86b45e8bc62e3407b6c6d093ce7b811b4e3bd83db01562851d8"
+    },
+    {
+      "path": "public/locales/pt-BR/views/search.json",
+      "sha256": "ad114385f58ca1a7c09428985a55b4dc62de1d033cebbd1e741f9cf7830b1d67"
+    },
+    {
+      "path": "public/locales/pt-BR/views/settings.json",
+      "sha256": "55414d8c0c7f0eb0c4db2e97afb9fb91a3d2ce5d598ec894a0455646a6eac607"
+    },
+    {
+      "path": "public/locales/pt-BR/views/system.json",
+      "sha256": "3f8e6b5a337bdfdd12f39fa8bdec40bb16daefc35d88421e9cbc4657e9cc4ef6"
+    },
+    {
+      "path": "public/locales/fr/audio.json",
+      "sha256": "543e27807c603d108c11736ece0514d460f5627124d832dbf955a9de2b4f5f72"
+    },
+    {
+      "path": "public/locales/fr/common.json",
+      "sha256": "cf5108d2f8d8893ccf4e25e7e454b36d84df3d19c9a48844e228974e7c1fed2d"
+    },
+    {
+      "path": "public/locales/fr/components/auth.json",
+      "sha256": "eac99b42fe6af23822adacc676f6c64589c817d54077dd4dd8f6eff9c7cb1773"
+    },
+    {
+      "path": "public/locales/fr/components/camera.json",
+      "sha256": "6912bfe57ef74b07f33fa15be59bfd4dfe73e97167e0b6e143edf79aad71cf46"
+    },
+    {
+      "path": "public/locales/fr/components/dialog.json",
+      "sha256": "a29849f175099340157aae4852d0d4c83707a3704c1fb18887b1c99e86acebb0"
+    },
+    {
+      "path": "public/locales/fr/components/filter.json",
+      "sha256": "ceba0913ba630f563aac320f75b03aca635fb3fb08665ebbf32386f04db2d3dd"
+    },
+    {
+      "path": "public/locales/fr/components/icons.json",
+      "sha256": "856c5b70fa0c880ab27f1c85c42e737f85766abd90232c5241126507dea27e2c"
+    },
+    {
+      "path": "public/locales/fr/components/input.json",
+      "sha256": "1244e90cfba2958fcbc99ad0660ce4165c2ac70dfe36e3e6a74760990a1cb9d6"
+    },
+    {
+      "path": "public/locales/fr/components/player.json",
+      "sha256": "53321110dc28e79861841f9b54b5f34898c6c35d86fc653e9fdc23521bfe1749"
+    },
+    {
+      "path": "public/locales/fr/config/cameras.json",
+      "sha256": "700ca5418d4f705bbad4453c4d3d54ce24a49ef4bfb943d62b60e387ee33c513"
+    },
+    {
+      "path": "public/locales/fr/config/global.json",
+      "sha256": "130a84fb58a121e1b57d46b86e842744631eb7f70c6c33476b0ded1569092b7f"
+    },
+    {
+      "path": "public/locales/fr/config/groups.json",
+      "sha256": "eea35402d38997ebf9bc4403a92088e5d191f8f0795efc367d5a43492968d2e4"
+    },
+    {
+      "path": "public/locales/fr/config/validation.json",
+      "sha256": "ee245ffa3c3d4d33163d4becc20ac3ccec195bc350f4eef6a68a165274b328d3"
+    },
+    {
+      "path": "public/locales/fr/objects.json",
+      "sha256": "963de998a0529621ea2974574c6fb73996730d87f342c40767136adb7ae911ea"
+    },
+    {
+      "path": "public/locales/fr/views/chat.json",
+      "sha256": "c238a0dea9cbcf91a5b08222fd34fdbe7c9cf9e1bbe9e3daf918378e17154f8b"
+    },
+    {
+      "path": "public/locales/fr/views/classificationModel.json",
+      "sha256": "cea055b743b8b1f8d9c2e02567c8d5658aa50bbd6d3abb88beaeb6cc84eda7a3"
+    },
+    {
+      "path": "public/locales/fr/views/configEditor.json",
+      "sha256": "db17b1fddefba2ebef27f552fbca7dbfb17abb0bd02ef17a32588ae1eccf8311"
+    },
+    {
+      "path": "public/locales/fr/views/events.json",
+      "sha256": "aeaad5ea476997595a189fbbb6af5225426b6c377cc9c449c0da683d1f2eec55"
+    },
+    {
+      "path": "public/locales/fr/views/explore.json",
+      "sha256": "9c2ba92532afcdbc20aa8d7ed4191c19d30df65d3da18dd8a3150e61cfde3283"
+    },
+    {
+      "path": "public/locales/fr/views/exports.json",
+      "sha256": "f06e69e2d9bf42f790f7b58b3400c119761b4e8c9ee14b5a917ed35157394b12"
+    },
+    {
+      "path": "public/locales/fr/views/faceLibrary.json",
+      "sha256": "c2f7cc95194f6c8495fb9a4229a7ebc3e9b7f18644cb7454218fea423d63b80f"
+    },
+    {
+      "path": "public/locales/fr/views/live.json",
+      "sha256": "8af87fc6534cb9ba079353f4e9ab045998b6baa4479027e642d8ee822b30d367"
+    },
+    {
+      "path": "public/locales/fr/views/motionSearch.json",
+      "sha256": "62163a68253cae155d3c868a9075433d5970a6d0436b16a2a24ed9d14fdc0ec3"
+    },
+    {
+      "path": "public/locales/fr/views/recording.json",
+      "sha256": "dcd4d61880d992219e7b190c02a9f7b1f448329c6f8972bab4c28d7371e8153a"
+    },
+    {
+      "path": "public/locales/fr/views/replay.json",
+      "sha256": "ae380f7c1b9a4e42f9342669beadb7da4197df3b39e928de8b91d86606b59496"
+    },
+    {
+      "path": "public/locales/fr/views/search.json",
+      "sha256": "2b21be468fc647647795e5b2a264b7487f8fd125536089bc29db8e323dc555a1"
+    },
+    {
+      "path": "public/locales/fr/views/settings.json",
+      "sha256": "4bd87adb74f2efd17cc000fd09278083efbade2216fdefee137c6cb6cc8f0984"
+    },
+    {
+      "path": "public/locales/fr/views/system.json",
+      "sha256": "d66a9e48d01cb8822ed561ba6c862dfb4ffb09fab9f8f8d6c9f8c99495d7f68c"
+    },
+    {
+      "path": "public/locales/de/audio.json",
+      "sha256": "70b9b62cc78e551e493b627f89ebdbcc318c724e88509ec15a24468760217837"
+    },
+    {
+      "path": "public/locales/de/common.json",
+      "sha256": "f802a355cf515733bccd02ecda6b5a3b238aac6326b66d2d26ec92d748cfa27e"
+    },
+    {
+      "path": "public/locales/de/components/auth.json",
+      "sha256": "b65aac315319fac89f08afb6e91c654a382d68b5ed78faadd532d4c99aaac5e2"
+    },
+    {
+      "path": "public/locales/de/components/camera.json",
+      "sha256": "29dfb3b35c9f4eef473296c7b4cb1f09bc97003cf7165d9c3edf16f09f840bea"
+    },
+    {
+      "path": "public/locales/de/components/dialog.json",
+      "sha256": "a38fe7283fabd6a2944218ea443a3aa18e5adbec508641d39c7146c4b6dd59f0"
+    },
+    {
+      "path": "public/locales/de/components/filter.json",
+      "sha256": "544d0ed2849b89ef3c5bdec2f0521c6515c42623a79dd49a147a0c42f78d9914"
+    },
+    {
+      "path": "public/locales/de/components/icons.json",
+      "sha256": "7d19860bc487db8787bef5b0d2f74a7bcc472f5c98520cf62089597418590e78"
+    },
+    {
+      "path": "public/locales/de/components/input.json",
+      "sha256": "a24ef9be70c6482a51cadc6534b27818de9fa005124ec79ce888548cbedaf9b3"
+    },
+    {
+      "path": "public/locales/de/components/player.json",
+      "sha256": "0949ff5b77355fa21530985731331ba18e00a9ce73b881f52be947698831a558"
+    },
+    {
+      "path": "public/locales/de/config/cameras.json",
+      "sha256": "229f1733aa17c0040af2d127b73adf9867b0f208623d56009457e1b64eab6866"
+    },
+    {
+      "path": "public/locales/de/config/global.json",
+      "sha256": "240210f9775bea30aba27ee8b6834e4b6421889bb8b8c61bc552891e0b65e89c"
+    },
+    {
+      "path": "public/locales/de/config/groups.json",
+      "sha256": "9653a701ed725815cb751eed62767e1e3070cec9a5c921beb71bca834f7f9b92"
+    },
+    {
+      "path": "public/locales/de/config/validation.json",
+      "sha256": "0e7ba3547d17fac49a6a97e89ee8d4c49ad7b805d7f5148ca75dc0b0f547c1cf"
+    },
+    {
+      "path": "public/locales/de/objects.json",
+      "sha256": "73736f0b274a5346048e445f00bc4cee21dc603dcc75a8f40adc3187752e67c6"
+    },
+    {
+      "path": "public/locales/de/views/chat.json",
+      "sha256": "fe93de7bb357b3551e37fc5580ffd2e7559c4f98c76ed1a4db892f318ff10ae7"
+    },
+    {
+      "path": "public/locales/de/views/classificationModel.json",
+      "sha256": "d84addf969eb7b028d7f295fba46ee5ebf14221f9f90016b80ece8366c68cc95"
+    },
+    {
+      "path": "public/locales/de/views/configEditor.json",
+      "sha256": "5381b6aec5a09cd67088dbcec29a95fa0e63b0a9990393c2b9d7f739211a3065"
+    },
+    {
+      "path": "public/locales/de/views/events.json",
+      "sha256": "f0c9a937656e56d0138dab23b0e914317d66cde388e452b41286d87020e7a735"
+    },
+    {
+      "path": "public/locales/de/views/explore.json",
+      "sha256": "f5bae90ab9d9fcc20dd9d1265a1f19039ab0a503158e9f1bb79bff419ae39879"
+    },
+    {
+      "path": "public/locales/de/views/exports.json",
+      "sha256": "cea32ec2f863df78f09ed0d8c2ada0d8193bf2235fdade5c086842e992d69544"
+    },
+    {
+      "path": "public/locales/de/views/faceLibrary.json",
+      "sha256": "6234ccdbbdf3b0248ca7b9068deff1e8529b6b43526df2becb6b5187e5a483c9"
+    },
+    {
+      "path": "public/locales/de/views/live.json",
+      "sha256": "a52bd1f8b9b889612984bf042569bcad954af0345ae253781b5985877050bfc5"
+    },
+    {
+      "path": "public/locales/de/views/motionSearch.json",
+      "sha256": "ad9ef31cb356f1571b685f894920dabbc8a6bc9307c064966eb841a072043dac"
+    },
+    {
+      "path": "public/locales/de/views/recording.json",
+      "sha256": "f9db770610cc98f0ef929a386958cef2c7af66a76d2a897d2d238e4fb3b06f93"
+    },
+    {
+      "path": "public/locales/de/views/replay.json",
+      "sha256": "8414dfb73559e06d13339fcd492be8ac1e5fb9fba9d01b9a0b9696620e3eeedf"
+    },
+    {
+      "path": "public/locales/de/views/search.json",
+      "sha256": "21c37f0da4fedd91c36c6bf8a90835d849be15084f75737a75f5feb83c6f4477"
+    },
+    {
+      "path": "public/locales/de/views/settings.json",
+      "sha256": "ad6d98888438434908fddff710afc88eace5593b6c9c2c367ff10899007559bd"
+    },
+    {
+      "path": "public/locales/de/views/system.json",
+      "sha256": "eed484227327097985eea1fd6109864082a20132d058c12579c4390342e78ea2"
+    },
+    {
+      "path": "public/locales/it/audio.json",
+      "sha256": "87abfd498467aeea7b24411183c02353412e74155216ad94384330eee871d008"
+    },
+    {
+      "path": "public/locales/it/common.json",
+      "sha256": "d72c82c0ba23f3616ca41675103e691c0670c8d86a6d755d22e906e7f3f2efda"
+    },
+    {
+      "path": "public/locales/it/components/auth.json",
+      "sha256": "6cfe987133864fe0e44fd90ba904792f0e52e8d79169c13217a37afacf88a315"
+    },
+    {
+      "path": "public/locales/it/components/camera.json",
+      "sha256": "aa712adaa82ee975b2bb76274afc7e93ef0d7530cb8243ce51f70082a81f2c6a"
+    },
+    {
+      "path": "public/locales/it/components/dialog.json",
+      "sha256": "1c22b87523ff472316fe01d883e664789f84d7f758e6b04de9cf2dc728dc7d9b"
+    },
+    {
+      "path": "public/locales/it/components/filter.json",
+      "sha256": "d252b57bd3afedaa4e317cede9410a29e05fb5af51cccf1082c64ad9433c8271"
+    },
+    {
+      "path": "public/locales/it/components/icons.json",
+      "sha256": "9c70b2be9197f17b54d7c4ae5126c00a6ae29f4d97d12c7523f6c29e51dd76e9"
+    },
+    {
+      "path": "public/locales/it/components/input.json",
+      "sha256": "7e299339e1ef38ca503f7d3e88e8a3fe7f83b71fc5606505a07d14feb870678b"
+    },
+    {
+      "path": "public/locales/it/components/player.json",
+      "sha256": "cdcc2c139f0eafca7f32ff95eeb907b3b5982803808daee90011eecd4d38d524"
+    },
+    {
+      "path": "public/locales/it/config/cameras.json",
+      "sha256": "1efc64333a82fc4a1b44525b248991fcbeff191abcf4ddab55d5a2048afee624"
+    },
+    {
+      "path": "public/locales/it/config/global.json",
+      "sha256": "26167ddb1a0e25d757cc42a0c9747118d60e3928baaeadedc1abd6dfd261ec12"
+    },
+    {
+      "path": "public/locales/it/config/groups.json",
+      "sha256": "7fff558248e4cb57b160add6303be7d4b5e742514538cf70703d7c95f8f0b99a"
+    },
+    {
+      "path": "public/locales/it/config/validation.json",
+      "sha256": "674402dc2674fc2a492cc09539f599842eb1745379643fecf4109c5809b77d32"
+    },
+    {
+      "path": "public/locales/it/objects.json",
+      "sha256": "8bf929c84a2dac47b6c48b8fbd0867e15079fb1a3d2c3121c7f12287ff0026d2"
+    },
+    {
+      "path": "public/locales/it/views/chat.json",
+      "sha256": "09ee7a7841dcf9c3939a3c95c6c0dca2e0948f38d9a859660c2ab4227ab98318"
+    },
+    {
+      "path": "public/locales/it/views/classificationModel.json",
+      "sha256": "5bb4e8cb5334995f76e4ad0bc7a0a6d29af6610226c5d41fe43f5183419d7e3a"
+    },
+    {
+      "path": "public/locales/it/views/configEditor.json",
+      "sha256": "1ce782c39f9a0dfe75415a81348ee08f5b82458aded60074bb2f8820a2525971"
+    },
+    {
+      "path": "public/locales/it/views/events.json",
+      "sha256": "a6fe9964f5178188393d626895b0b9a22e485026daca4b4640abcec379d632ae"
+    },
+    {
+      "path": "public/locales/it/views/explore.json",
+      "sha256": "22c7ba48cd02ca9344c5367d92d3502039761d1ba1085e0758973ce6709b1f41"
+    },
+    {
+      "path": "public/locales/it/views/exports.json",
+      "sha256": "c18ba7ea698f4d94a9643c544d4ac42fcdc4d6abf15aee7bc12c69bab91ec94c"
+    },
+    {
+      "path": "public/locales/it/views/faceLibrary.json",
+      "sha256": "67bf1ca3634a02a886f60cb310a57cc40bebb713007dd52065251ba26628a9b5"
+    },
+    {
+      "path": "public/locales/it/views/live.json",
+      "sha256": "58f0bee74ad597ce9ac6387a346fb02e471032e5a2469ca35f47f3322f36b42b"
+    },
+    {
+      "path": "public/locales/it/views/motionSearch.json",
+      "sha256": "e7b836d6657e90134d558d79fa695feb2d3e11dcf0dd3228a52f96f8dff97ccd"
+    },
+    {
+      "path": "public/locales/it/views/recording.json",
+      "sha256": "7ee18354e8ee0c399f8c317d04e6802948c0015c7a43a48db36993a0169193ef"
+    },
+    {
+      "path": "public/locales/it/views/replay.json",
+      "sha256": "fa009717561eca98e0caef5b7e26182ff336372e30a30020758bc7a649a8bfdb"
+    },
+    {
+      "path": "public/locales/it/views/search.json",
+      "sha256": "217abdfd4fe72dc0b6b32a27cf76c12d6795df1f0a0f23625544efc99407e7e9"
+    },
+    {
+      "path": "public/locales/it/views/settings.json",
+      "sha256": "d16d98dc49e37a5a83d47c313a3c985218f1017fc0a442ba47752c8fc9eb6a6b"
+    },
+    {
+      "path": "public/locales/it/views/system.json",
+      "sha256": "79b80c6e9f3bde4ba7c03ad1af6a60c8ae5b7532dd2a7517a6c171edccec53d9"
+    },
+    {
+      "path": "public/locales/ca/audio.json",
+      "sha256": "3c1a450c805c54ef72e77371f278c37b49664ceb4b74702794991ed208a97ac1"
+    },
+    {
+      "path": "public/locales/ca/common.json",
+      "sha256": "59284f483d366d5fa9f3f8a32cd462d9e59d470c89c2b91a0f84c8fcdd9db9be"
+    },
+    {
+      "path": "public/locales/ca/components/auth.json",
+      "sha256": "c6a3ab536d775320822e155218bff7a30eff26c4e5784d17d6938ef453741490"
+    },
+    {
+      "path": "public/locales/ca/components/camera.json",
+      "sha256": "08cda49cc0923362f32be3dca69609843a4189f0c00d40815bd18243e5d38e48"
+    },
+    {
+      "path": "public/locales/ca/components/dialog.json",
+      "sha256": "d3dadc4eadbedd94352e2dfc718255f8cd1cf404b3687e4229f18ece8e5f60a1"
+    },
+    {
+      "path": "public/locales/ca/components/filter.json",
+      "sha256": "78c2a3cee84b6b75181112f9266d67e3d9ca67b2945c9b71236dc43c548ddf0c"
+    },
+    {
+      "path": "public/locales/ca/components/icons.json",
+      "sha256": "45a11aacd45dedc144ace3138c48e39595ac93dea8c68eb0bba4c8f104d00c5e"
+    },
+    {
+      "path": "public/locales/ca/components/input.json",
+      "sha256": "d61378bbe35bb6f36d3f58f4c70fbcb0b61acd3e1e625f159ec44ea5b355cdc9"
+    },
+    {
+      "path": "public/locales/ca/components/player.json",
+      "sha256": "9c20cc4b31d318b27c5672749f7797d12972fed5823dea7da459870d2095a9ab"
+    },
+    {
+      "path": "public/locales/ca/config/cameras.json",
+      "sha256": "736817bcfcb6794d7899b2824e4ef2c83f2fd11637bcb9cb0774c7ac9c37dd4b"
+    },
+    {
+      "path": "public/locales/ca/config/global.json",
+      "sha256": "fbd15e8c439baa9a7cdc3f640febf7764cf1a22f4ed8ade2932c84dc91a5a4ec"
+    },
+    {
+      "path": "public/locales/ca/config/groups.json",
+      "sha256": "cead144ef28e327e9ea10595cb7aa61dfbaf15175127bd4848e1f4cbc378a327"
+    },
+    {
+      "path": "public/locales/ca/config/validation.json",
+      "sha256": "e1a6fe33adc11ba4f8361e931934b7e80a31fef7e0abc717f6d9d660ec0cd4c7"
+    },
+    {
+      "path": "public/locales/ca/objects.json",
+      "sha256": "a3e53f543d6670efacb0dd8748df4e24845acad6b84a91baf3565f5dec8e1c6a"
+    },
+    {
+      "path": "public/locales/ca/views/chat.json",
+      "sha256": "078834e6387ea0193029c5c21f65dd7bb54a57942d9083800ff53bc6750b9765"
+    },
+    {
+      "path": "public/locales/ca/views/classificationModel.json",
+      "sha256": "2eae85e4f6c8f62071e1c1f4b1772fba8a45cd600ad8002a08ec1421e9833b56"
+    },
+    {
+      "path": "public/locales/ca/views/configEditor.json",
+      "sha256": "12a8f4f3ecd64a41733d51be1d7c8f432083275b00528bac37cf52ba7cd9dd24"
+    },
+    {
+      "path": "public/locales/ca/views/events.json",
+      "sha256": "13f2a3deea1bd53882c213d35c341ed2bf87d311b2fae2b4038acb11fc3d4fe0"
+    },
+    {
+      "path": "public/locales/ca/views/explore.json",
+      "sha256": "9fc6f1f5b4bcffd17c594f640f751247309f76f5a0cd51e7b01220402e9a5ea7"
+    },
+    {
+      "path": "public/locales/ca/views/exports.json",
+      "sha256": "2a1b630534fd692bafd96a7172c33ed1287dfc40d2aaa904b79e808ebec767cb"
+    },
+    {
+      "path": "public/locales/ca/views/faceLibrary.json",
+      "sha256": "4bd58cd31e56629d7de9344c77cb98f34660aca517f8c4c0970323ce068f1def"
+    },
+    {
+      "path": "public/locales/ca/views/live.json",
+      "sha256": "680cc6c220fc6a1b03b32c29f761771f105ee5fc1f45ea100b8cae7c0cdeb117"
+    },
+    {
+      "path": "public/locales/ca/views/motionSearch.json",
+      "sha256": "ee5fbeee8bf2f727a8d5d88893df3b597fb828d933b40d8a41f5512faa1fcf1f"
+    },
+    {
+      "path": "public/locales/ca/views/recording.json",
+      "sha256": "1f6fde0ced17ce0638fef305759ca09c4e866fdf5d9154b54b2c52fb515edd8e"
+    },
+    {
+      "path": "public/locales/ca/views/replay.json",
+      "sha256": "002873c784813f406e0546d9973a6d59f91d9ce6c7bf3f086f59cc68f0248851"
+    },
+    {
+      "path": "public/locales/ca/views/search.json",
+      "sha256": "35338f064b160cb70cc1484796d819e26ce2fdfb3aa9336558d5212a5da58be9"
+    },
+    {
+      "path": "public/locales/ca/views/settings.json",
+      "sha256": "6e2f384f0dcd7872881d26e89c80c126ef9360a4add623c1ac9c9a4b5a268220"
+    },
+    {
+      "path": "public/locales/ca/views/system.json",
+      "sha256": "bee27a8420fc3150aff55968148cbbe3c0ecb007a249b8321511049c5255fa77"
+    },
+    {
+      "path": "public/locales/ro/audio.json",
+      "sha256": "3ff780c5f6e9435bd94e93d45fc7258245c07e62853d5380ad74a58aadb636e8"
+    },
+    {
+      "path": "public/locales/ro/common.json",
+      "sha256": "753af682f732955d35dbab950c429d418e03f0b4b8fec22e70456f833f9891f3"
+    },
+    {
+      "path": "public/locales/ro/components/auth.json",
+      "sha256": "df2b9ad571d8de45dde5f3d702e68f65483d0e71a44462484aed679e91deacec"
+    },
+    {
+      "path": "public/locales/ro/components/camera.json",
+      "sha256": "9cc92caae46b2cb957fa001ba3572f195cde9556985d8d9afda277529c23fab0"
+    },
+    {
+      "path": "public/locales/ro/components/dialog.json",
+      "sha256": "46f59de95ce8fe2a3bc6ef4e2db5b799fad02e7c9510b3b51b11c6fe92d5ae5d"
+    },
+    {
+      "path": "public/locales/ro/components/filter.json",
+      "sha256": "7b765fe1a71ba5210e1d73707b5ffc6161eff644a19448d75a3a3c53ba62a31d"
+    },
+    {
+      "path": "public/locales/ro/components/icons.json",
+      "sha256": "c4e55582532658fb7eb351543c77232b90b3ec8daf372b9cd4a86329f2d88a7e"
+    },
+    {
+      "path": "public/locales/ro/components/input.json",
+      "sha256": "9d36cf1f04fdb867605e2bfe44c7f20b1cb8a6cbf3c4679262272aadc7710c9a"
+    },
+    {
+      "path": "public/locales/ro/components/player.json",
+      "sha256": "402728d4ac582e712bb5d7aaa7d0ec6cf803ac4c250780e06423f89427cc37b2"
+    },
+    {
+      "path": "public/locales/ro/config/cameras.json",
+      "sha256": "5455d64985ca4dacd698f268fd7407848129baa2c06eaff73c2bbb71a3162762"
+    },
+    {
+      "path": "public/locales/ro/config/global.json",
+      "sha256": "37eabe463439cf3eff6e43f3117913c65dda06738473344ae5aaeafcefcb2965"
+    },
+    {
+      "path": "public/locales/ro/config/groups.json",
+      "sha256": "ec319669f91df59c9eb1ab19d36adfe55307f79cc605148f0ba1286bff319b92"
+    },
+    {
+      "path": "public/locales/ro/config/validation.json",
+      "sha256": "79e941413464c9d241c38a2f053c71f7f795ad6853a8238cef369ab2b63c0ba3"
+    },
+    {
+      "path": "public/locales/ro/objects.json",
+      "sha256": "5f2a1755eabe81603fd090b50e88e22d8f3e6a3f99086490d9810e0573d6512d"
+    },
+    {
+      "path": "public/locales/ro/views/chat.json",
+      "sha256": "9e548f75308fbd3fa7f904c87d159bebdeb35fbd498aeaa7ab33dc875af1a8cc"
+    },
+    {
+      "path": "public/locales/ro/views/classificationModel.json",
+      "sha256": "5e803e5d5da16eb59b765681f063cd9efebd8ece424478c912f6c5a83c2a19b7"
+    },
+    {
+      "path": "public/locales/ro/views/configEditor.json",
+      "sha256": "f56ba3dfd8c7478354093a6fc97603efbfa6926e879c0d91b85070a755d92a1e"
+    },
+    {
+      "path": "public/locales/ro/views/events.json",
+      "sha256": "bfe644b9fcedfa5052b5125a637a622ca1b457d1f3d074d74b0a7e42cb659677"
+    },
+    {
+      "path": "public/locales/ro/views/explore.json",
+      "sha256": "0342dfe32f1c584d26cf44abcc34c37839de21b15412fc90aa27a108fb994b98"
+    },
+    {
+      "path": "public/locales/ro/views/exports.json",
+      "sha256": "4cc452f259f2ad84f2f718a2a086582edca89359402091f749961c1d180f10aa"
+    },
+    {
+      "path": "public/locales/ro/views/faceLibrary.json",
+      "sha256": "e0b3eb959f8272128b2953cf8bbbc9c05fc1c706e8b21b4fecc369d1a49d89da"
+    },
+    {
+      "path": "public/locales/ro/views/live.json",
+      "sha256": "d307d30566810058b1da4dcf96e16c7d3fbb318dae6b87fbdcfeef8f3c845b54"
+    },
+    {
+      "path": "public/locales/ro/views/motionSearch.json",
+      "sha256": "e36b8122b52ce38600bae4d4548b25315244b5867c976beaddcd999fa2cdc384"
+    },
+    {
+      "path": "public/locales/ro/views/recording.json",
+      "sha256": "7d27d86c5ba8d10a40c4f9fe79f12c6573f6451e4bd3fea17cc12cdd29723c0b"
+    },
+    {
+      "path": "public/locales/ro/views/replay.json",
+      "sha256": "325c648f179fa4f294011c3ba6595830eea8b4ba0a9ede9d0cfcd8ddf616dda2"
+    },
+    {
+      "path": "public/locales/ro/views/search.json",
+      "sha256": "ed2e4fbf8e05aca0d54f7e2209d01b576ce4c8ed6cf3aec7cb732d0de765f0cd"
+    },
+    {
+      "path": "public/locales/ro/views/settings.json",
+      "sha256": "ddc0c6e17171c1231e5e40febf1ddb3fa8283ad2e76771cb5c942d98929e67d1"
+    },
+    {
+      "path": "public/locales/ro/views/system.json",
+      "sha256": "0d23f8d1b92099419147636ce44f0e4525f7ad5e3eb61a3ec696eb96a10b6219"
+    },
+    {
+      "path": "public/locales/nl/audio.json",
+      "sha256": "cfb73d8522fd6eb989f01be60cdaad538ab9465a29b2b9ef0c70f1d479f15ef2"
+    },
+    {
+      "path": "public/locales/nl/common.json",
+      "sha256": "4446df90287b8ccf4beb170398474b696a31db9c9a2e01fc3e29ecc87047cacc"
+    },
+    {
+      "path": "public/locales/nl/components/auth.json",
+      "sha256": "22f972d66369aa37cff6dd0b9a84e9422d901325dedded7b9d44449dc50c5677"
+    },
+    {
+      "path": "public/locales/nl/components/camera.json",
+      "sha256": "4638d51bddb12ee76efbfa4ce1bdc856480bb6486474630a4d3742d6eb7fef9f"
+    },
+    {
+      "path": "public/locales/nl/components/dialog.json",
+      "sha256": "6b9264216b292749bd3d8630412cd3fb49a94ea3b83f9593fc4d0d889f2826ad"
+    },
+    {
+      "path": "public/locales/nl/components/filter.json",
+      "sha256": "bede239db6eb6db8a2aaa8fb5a593318faeba1df4c96d1b0ac1ff55cbaccc20d"
+    },
+    {
+      "path": "public/locales/nl/components/icons.json",
+      "sha256": "f5ed7cd92d33bc8f54916fdbc7927c96570023070d088176442e757ff335aea3"
+    },
+    {
+      "path": "public/locales/nl/components/input.json",
+      "sha256": "a7d21b40a64acee021989217fc23d74ac924b7c79552160568d996d7d3017a80"
+    },
+    {
+      "path": "public/locales/nl/components/player.json",
+      "sha256": "6233d984f942ffc7a4388da11a4dcfe9bc4879ca62d7837cab027adf9afa414f"
+    },
+    {
+      "path": "public/locales/nl/config/cameras.json",
+      "sha256": "22dba5223f2e7afdc9411c4db4f9092a47d5a509ada4a4521e9264cbb9c707d1"
+    },
+    {
+      "path": "public/locales/nl/config/global.json",
+      "sha256": "bbb8fede854cd2044ae9a67fcd79fd2f175d2094b1e5db23a22c3fa3a1e916f2"
+    },
+    {
+      "path": "public/locales/nl/config/groups.json",
+      "sha256": "f679271c154064369ddc057319f69bbf11c182574cc33390d5deb1de133d788a"
+    },
+    {
+      "path": "public/locales/nl/config/validation.json",
+      "sha256": "f485b50a67a9d59f4e2890fbd04991b1178a95c746dde1fe8151cfa39b7024f3"
+    },
+    {
+      "path": "public/locales/nl/objects.json",
+      "sha256": "6c20ebfb3fed49ea2cb65161f698cd45cd091a3238d62686f5c09dbe207b7014"
+    },
+    {
+      "path": "public/locales/nl/views/chat.json",
+      "sha256": "7adcb1b4caaa3e150d61f15a0ba1626c78c1e6d64608ae2e1516b28501cb604b"
+    },
+    {
+      "path": "public/locales/nl/views/classificationModel.json",
+      "sha256": "0f721e9111d330edde2914821f416fe3ea59a56b737d0a7bd567da1dbdf1098a"
+    },
+    {
+      "path": "public/locales/nl/views/configEditor.json",
+      "sha256": "150a39f132be6b3107bfd40c3356e6fd90339aa91de1669b05b3fb974ed66266"
+    },
+    {
+      "path": "public/locales/nl/views/events.json",
+      "sha256": "15be1e1e7137eca0a804ee2a4fb6e8b5eded154b3377d692a2385625ea0bf08d"
+    },
+    {
+      "path": "public/locales/nl/views/explore.json",
+      "sha256": "c12785eee37728ad9aab4800b59e932196eac179b716c6fc88ab891ca21ad968"
+    },
+    {
+      "path": "public/locales/nl/views/exports.json",
+      "sha256": "80e6969b22af66bae1bb9b104d94cde136556038ac4bbb5d1c3deed863c6e31a"
+    },
+    {
+      "path": "public/locales/nl/views/faceLibrary.json",
+      "sha256": "5793b61eac0d9050d1655429621cdf4a17442fe152a26009249e69f170f4555d"
+    },
+    {
+      "path": "public/locales/nl/views/live.json",
+      "sha256": "0a3839e6be4762f7f318f4366b5b59efd0cf81cad23cd02af404213a8e36462b"
+    },
+    {
+      "path": "public/locales/nl/views/motionSearch.json",
+      "sha256": "ddf291f1ba2b85555aaff83fb7949166798ecbd4ef766c5fed7c2ac8005cfdfd"
+    },
+    {
+      "path": "public/locales/nl/views/recording.json",
+      "sha256": "1d3d60105e23b2040a69969478c331e08510f9318cb32ae12212bf90e6207250"
+    },
+    {
+      "path": "public/locales/nl/views/replay.json",
+      "sha256": "69361465829b12771d781af1cb7900669b707d9ff58d2b52fe8f17c06e06e2a3"
+    },
+    {
+      "path": "public/locales/nl/views/search.json",
+      "sha256": "071db2cfd494c0d8b560d46b861eee846989898cfe8dbe1487b1a1282df6099a"
+    },
+    {
+      "path": "public/locales/nl/views/settings.json",
+      "sha256": "f0ed8174eda9db7a7588f7cfa0456a3f5f029ed099a6716ca44beb7a7732e462"
+    },
+    {
+      "path": "public/locales/nl/views/system.json",
+      "sha256": "4c0f6805e68d4ef9da119fb300738008229a4f10b5f8b128eb0fc4a34662d541"
+    },
+    {
+      "path": "public/locales/nb-NO/audio.json",
+      "sha256": "b3ef15f5b4bf8f35a1d2ad2fbe0e71b32a0bb359d501d422187f6ea02b4418f6"
+    },
+    {
+      "path": "public/locales/nb-NO/common.json",
+      "sha256": "4922500c0acfb6ed7bd985f9490d44fd4bfebcbf5ada3ae195e19128dbf661dd"
+    },
+    {
+      "path": "public/locales/nb-NO/components/auth.json",
+      "sha256": "f99b396e82cd3c2fd412712d35327183063062613b5f8b63bb13869d4517d3c5"
+    },
+    {
+      "path": "public/locales/nb-NO/components/camera.json",
+      "sha256": "5270850a0a9039305a1248c16757db4afa72beae155291907023142f74afec6f"
+    },
+    {
+      "path": "public/locales/nb-NO/components/dialog.json",
+      "sha256": "4ef49587c1f35dbb898de502e58b7103d837d2eecde4d878a0d3edc678dfc7d1"
+    },
+    {
+      "path": "public/locales/nb-NO/components/filter.json",
+      "sha256": "b4ace544720fdec5ed4367c5cc25be00516d07d39a27c0e872370cd7a4ccc982"
+    },
+    {
+      "path": "public/locales/nb-NO/components/icons.json",
+      "sha256": "ae543038f0724108c0cb79666419c22ac2ac561c4cc00e08bd48296ea4be6f07"
+    },
+    {
+      "path": "public/locales/nb-NO/components/input.json",
+      "sha256": "36a653164c5f7e03d58a70bc115283b90468690286aa1e3df2dd11255030c328"
+    },
+    {
+      "path": "public/locales/nb-NO/components/player.json",
+      "sha256": "846906786a07ac6314bde587ce8f0cc8e862c0e0824d83b2631e943555322409"
+    },
+    {
+      "path": "public/locales/nb-NO/config/cameras.json",
+      "sha256": "b28703f8e58560f51f2067ca9370fb421d05747504c0cd5ed2d6738e966960ce"
+    },
+    {
+      "path": "public/locales/nb-NO/config/global.json",
+      "sha256": "c571b23e8a753da4607af3d269cdbd80daa8fa42efd7c533792bff6feb87ce5d"
+    },
+    {
+      "path": "public/locales/nb-NO/config/groups.json",
+      "sha256": "ebbc92b03b219494f67777df03c81f00d9d73a504eec81aa0de2ede6234ceade"
+    },
+    {
+      "path": "public/locales/nb-NO/config/validation.json",
+      "sha256": "5cae2b5e233c60679bf738d54f786689df4cb4094078e9934b06b2d9885747fa"
+    },
+    {
+      "path": "public/locales/nb-NO/objects.json",
+      "sha256": "2a0c0e83cdf9c0b79025acab115f2b5c7700e039d2f875469feabff213f9848e"
+    },
+    {
+      "path": "public/locales/nb-NO/views/chat.json",
+      "sha256": "9ef7429bde5437013fc1ee64f03e4bc6bccef7f113c560a950a4516cfd735309"
+    },
+    {
+      "path": "public/locales/nb-NO/views/classificationModel.json",
+      "sha256": "15e39db461ac44c15934b568e3cf46cd8380131b95331800e32f9f3a66a0ba54"
+    },
+    {
+      "path": "public/locales/nb-NO/views/configEditor.json",
+      "sha256": "d0601f7fa285a4b389f93e4492d418b445b90fa0de872ec4ba45f863d32e92a4"
+    },
+    {
+      "path": "public/locales/nb-NO/views/events.json",
+      "sha256": "122efb90e2deb29ca988a28e352a64e418c96a2fb0ffd40089090c9ea1d24a73"
+    },
+    {
+      "path": "public/locales/nb-NO/views/explore.json",
+      "sha256": "5ea18b6017334b25a6d177153577fbbbb47311ccd3a6e6eb88931fe963def73d"
+    },
+    {
+      "path": "public/locales/nb-NO/views/exports.json",
+      "sha256": "9c9c408755c2de9b2f031501733138fdc62f83dac162239c4a84bbc709df2d0c"
+    },
+    {
+      "path": "public/locales/nb-NO/views/faceLibrary.json",
+      "sha256": "7d1a531a695ddd82b0c9416e7e1ce636564c19131d2c65a55a70abb579a987d8"
+    },
+    {
+      "path": "public/locales/nb-NO/views/live.json",
+      "sha256": "35118735fa96b0780799689b60f8a70008dcd05d1ace00ee6b170cd417386817"
+    },
+    {
+      "path": "public/locales/nb-NO/views/motionSearch.json",
+      "sha256": "0afdb9091a582fa899314a753b9f5c1c4e8d4d6f14e6d4ad7b4a0011be71607b"
+    },
+    {
+      "path": "public/locales/nb-NO/views/recording.json",
+      "sha256": "e767bac6882c8bcfd4c80156d23f3a4ca8684005f1973523300180cddbfb1439"
+    },
+    {
+      "path": "public/locales/nb-NO/views/replay.json",
+      "sha256": "51a1e563d85c7d3afbbb9a22899a95bffc435310d4af080a653059ad04e72e84"
+    },
+    {
+      "path": "public/locales/nb-NO/views/search.json",
+      "sha256": "51d5c27a30f5b4bb29b2de9f22312afc862c176e0fbec2a5d35d8525408efe12"
+    },
+    {
+      "path": "public/locales/nb-NO/views/settings.json",
+      "sha256": "48e067acf27959010cddfce7c24475b807d4c596a45feaacb0cc816535dbafb4"
+    },
+    {
+      "path": "public/locales/nb-NO/views/system.json",
+      "sha256": "0a94a2aaa21328fa56d6ad6790142611ee85e83945062b45ca59f1b9455ae766"
+    },
+    {
+      "path": "public/locales/sv/audio.json",
+      "sha256": "30794fa4123b728c6a0305d39091b09c47960b6f87e08ad430512b7b3e8acc9f"
+    },
+    {
+      "path": "public/locales/sv/common.json",
+      "sha256": "d5c6f4e53d42604aab00ec71275b330ef1e4ccde4e6879166bc757bdd41797ae"
+    },
+    {
+      "path": "public/locales/sv/components/auth.json",
+      "sha256": "78d384621e59153dbfdcb0a05bd0a5988c3cf2fe1dc8316fea6c086a47ddc9b3"
+    },
+    {
+      "path": "public/locales/sv/components/camera.json",
+      "sha256": "ed6cd937617ca5e1629e1f30f40e90d23e5949f4d6008e414f2a230fa18b9169"
+    },
+    {
+      "path": "public/locales/sv/components/dialog.json",
+      "sha256": "181c72f962689b8d977bf2135aba2134173d9d0d49eb9a63ba574f37e57bc51d"
+    },
+    {
+      "path": "public/locales/sv/components/filter.json",
+      "sha256": "fa7cbb9598299aa92c8a8a70cb5cdb01d0c9231f75bc272f9d08c2f48b0af435"
+    },
+    {
+      "path": "public/locales/sv/components/icons.json",
+      "sha256": "f7a7a0ebeba8602026e35aea33c192ef64617b4cc00f4e4ca3275f045e405100"
+    },
+    {
+      "path": "public/locales/sv/components/input.json",
+      "sha256": "0da531a523a83cf0617b643175cb04730080985df15a43960579decbb067359d"
+    },
+    {
+      "path": "public/locales/sv/components/player.json",
+      "sha256": "f587720de5de090e3aada3f067af6db9b739c414e186ffcb308f15d2251c9572"
+    },
+    {
+      "path": "public/locales/sv/config/cameras.json",
+      "sha256": "98e437d2cffdfb682b15d93a1f08f7b02174b3d7664d8f3b3755f31f400082e1"
+    },
+    {
+      "path": "public/locales/sv/config/global.json",
+      "sha256": "01cc060f8f96cf7e0e78078ce71daac90a7a02839c648c24df183fe801cbd398"
+    },
+    {
+      "path": "public/locales/sv/config/groups.json",
+      "sha256": "5e58bd7ff817775432b78edce511817386471915612600c5bcba99857f74256e"
+    },
+    {
+      "path": "public/locales/sv/config/validation.json",
+      "sha256": "d58dd3cdbf1d1575700f82a5ad351a9d480c55a9fba6ca9b15d4763b8f6fc273"
+    },
+    {
+      "path": "public/locales/sv/objects.json",
+      "sha256": "98e32b83e82750eea9bdb30bf972b2394ca54cbc5a7947da7cfc025aa7c75e5b"
+    },
+    {
+      "path": "public/locales/sv/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sv/views/classificationModel.json",
+      "sha256": "f72da61e8893796b831579c7e1fee5a35c68e860bd1427dae2793671f0479f41"
+    },
+    {
+      "path": "public/locales/sv/views/configEditor.json",
+      "sha256": "02d024f669f479982ad480db065b83e36009fdeb42e1bb783677e9fe7a42058b"
+    },
+    {
+      "path": "public/locales/sv/views/events.json",
+      "sha256": "9312c82afb412cfb095e382ecb92de13a06e29db759ae8bb85b1db011e079f19"
+    },
+    {
+      "path": "public/locales/sv/views/explore.json",
+      "sha256": "effbbae2e1b5a95e3d151b8f49713b017459c32daff8036dc22b1fd16b1fedcc"
+    },
+    {
+      "path": "public/locales/sv/views/exports.json",
+      "sha256": "e6eb82aba7f9772f0236785e0af56d20e9150fbb0b4cb7c91107952ba68e59b2"
+    },
+    {
+      "path": "public/locales/sv/views/faceLibrary.json",
+      "sha256": "9b799b680afe4b7a0cb725ad4aa35da1f4a4269b9fcfb19f6b4ae85a2ba14450"
+    },
+    {
+      "path": "public/locales/sv/views/live.json",
+      "sha256": "cbd362418a5f24ec4418115a648c70b8c58f24a075253f862e97d32e03e2ebea"
+    },
+    {
+      "path": "public/locales/sv/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sv/views/recording.json",
+      "sha256": "41b8f678f6e2c5fda266d5538e9557020c58b7b6ca0e4791c8b4f214adedd4bf"
+    },
+    {
+      "path": "public/locales/sv/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sv/views/search.json",
+      "sha256": "ee1f2cacd9ac9758e3aec9e076dc3aee9cb12cef61a46dbc432111b9358c61fb"
+    },
+    {
+      "path": "public/locales/sv/views/settings.json",
+      "sha256": "338dc6490105fd3e321002991a3e65564dbe5afc573bcb185c734deaf577b4a6"
+    },
+    {
+      "path": "public/locales/sv/views/system.json",
+      "sha256": "f7dbf8be74761a01f99d2150015a149022ce95cadba441157a44c88756460819"
+    },
+    {
+      "path": "public/locales/zh-CN/audio.json",
+      "sha256": "c3e01c9608262ff98bdff3b051e09468bf914f4a02b3532486c909b590b9e69b"
+    },
+    {
+      "path": "public/locales/zh-CN/common.json",
+      "sha256": "85f2988c707811c1f7f3aaabc5c66eda50fe6e7676b45d296ee35dfdd8114e33"
+    },
+    {
+      "path": "public/locales/zh-CN/components/auth.json",
+      "sha256": "f1521535b46fb506e9abf9d7caf68ab1e83d590b6e1922c5fbb0d288f5b24d09"
+    },
+    {
+      "path": "public/locales/zh-CN/components/camera.json",
+      "sha256": "fdf43b8e322e840f34ec21169c30875c727cab5d46afb34c34c3de9486c8c06c"
+    },
+    {
+      "path": "public/locales/zh-CN/components/dialog.json",
+      "sha256": "9f719d62303439a59a47cf0d9dd4ce43f7b84ce706ee69612072e64b9da63866"
+    },
+    {
+      "path": "public/locales/zh-CN/components/filter.json",
+      "sha256": "d8779e98d8c57118fa9cf6f4831a10afdac6891c76a27644ca49861d70b293b2"
+    },
+    {
+      "path": "public/locales/zh-CN/components/icons.json",
+      "sha256": "be5fc05286dd26d245dd31e8610b68db27bfd5bcfb5caff6853ac335c6f974fe"
+    },
+    {
+      "path": "public/locales/zh-CN/components/input.json",
+      "sha256": "9a6eaf674ae9f99b7ad27309b0372f6fa5f341ff4899fe2628686a466d18aabc"
+    },
+    {
+      "path": "public/locales/zh-CN/components/player.json",
+      "sha256": "238e3bf494f9d84ad2358a8c92a0ec045b19ee6ca26e3db7be0e0abe5d358575"
+    },
+    {
+      "path": "public/locales/zh-CN/config/cameras.json",
+      "sha256": "331f15021692811c992d2e299ee7f7f7ae78912db1fc0cc5978b4c86a7c29825"
+    },
+    {
+      "path": "public/locales/zh-CN/config/global.json",
+      "sha256": "d817dbeda7389878fc80e63555e565781181d8187094f922a3c52afe3a2a575c"
+    },
+    {
+      "path": "public/locales/zh-CN/config/groups.json",
+      "sha256": "cb73085d4a220f7999db20814c3eadb42c4cab9a88bd38c20e704521e4a66dab"
+    },
+    {
+      "path": "public/locales/zh-CN/config/validation.json",
+      "sha256": "b4650671b739629b4239f1dffeac40794dfa7b3c7220c0edb91b91714925e204"
+    },
+    {
+      "path": "public/locales/zh-CN/objects.json",
+      "sha256": "979eb3b8769c93c23394a920ef76a680ccef259c734f819859401acf0bfa8c17"
+    },
+    {
+      "path": "public/locales/zh-CN/views/chat.json",
+      "sha256": "f767e97f6880ef17ed6ca58dbc65634e2bdc9b1e7c4bd227683fd94c39037b8b"
+    },
+    {
+      "path": "public/locales/zh-CN/views/classificationModel.json",
+      "sha256": "bb7379d49b7f2102c48096464a670ff47a494e67ef356834ede8e9172e5c532a"
+    },
+    {
+      "path": "public/locales/zh-CN/views/configEditor.json",
+      "sha256": "c290bebc7558a30ee47d71fd4d0a7feba40cf31c490feda3098c5dffc4354f6a"
+    },
+    {
+      "path": "public/locales/zh-CN/views/events.json",
+      "sha256": "654f3f84555e28c3bd8f5c35b8e6e192651d4377d1e0b367c78650c571b7b17f"
+    },
+    {
+      "path": "public/locales/zh-CN/views/explore.json",
+      "sha256": "1f11e55b3ae67772c3c409b8ba9fe147780ee6862ba05948d5eb267f25179f44"
+    },
+    {
+      "path": "public/locales/zh-CN/views/exports.json",
+      "sha256": "890d158e87d1215fedab9b8044e13dc981deb0926bb8e1dd85ee7b670b851c3a"
+    },
+    {
+      "path": "public/locales/zh-CN/views/faceLibrary.json",
+      "sha256": "e131760ec4bdf27d1f6c8c1509d17701832e604b58fae83f3e7a5d182802d8ee"
+    },
+    {
+      "path": "public/locales/zh-CN/views/live.json",
+      "sha256": "391ebced26266584b42b384c07dabf55361ba5130abea5acbaa48e514945ac44"
+    },
+    {
+      "path": "public/locales/zh-CN/views/motionSearch.json",
+      "sha256": "10882ae106e016979b15240262a7024aff8eb76118afa028ca4d890bda0e7a01"
+    },
+    {
+      "path": "public/locales/zh-CN/views/recording.json",
+      "sha256": "3241865787772d9da8dbb325d247343535784edb78116be66918a517cd7e01dd"
+    },
+    {
+      "path": "public/locales/zh-CN/views/replay.json",
+      "sha256": "4a044e30b5b5b6d420be470884e9eb2e9f54747e4e33fcbb3815654c37326e7a"
+    },
+    {
+      "path": "public/locales/zh-CN/views/search.json",
+      "sha256": "8031b798cba8413e50ac92a903446a79cd76476fc8aa32ddbeadb34d5afc3e1b"
+    },
+    {
+      "path": "public/locales/zh-CN/views/settings.json",
+      "sha256": "f84f2582c1598b820ca100aba5651b70d413ebb2a8b99254ca73916ed2e013c3"
+    },
+    {
+      "path": "public/locales/zh-CN/views/system.json",
+      "sha256": "8ca99f2b0656a6009eac52a86dbee5297b8c241c261dae9295061f038326beed"
+    },
+    {
+      "path": "public/locales/zh-Hant/audio.json",
+      "sha256": "f8c529e8aa9e929c7e50561932cea4b56fa22732c6a8053adb79d55546f929ce"
+    },
+    {
+      "path": "public/locales/zh-Hant/common.json",
+      "sha256": "e1c2459a865895273458b5214430759265da478d1793fa2bc2f69438274ae94f"
+    },
+    {
+      "path": "public/locales/zh-Hant/components/auth.json",
+      "sha256": "7e539212840de1ce2782e4671148b7994fcddbb22ff27da1289f15511e027055"
+    },
+    {
+      "path": "public/locales/zh-Hant/components/camera.json",
+      "sha256": "8e2c71fec81401d675567e73bdba863f95bbe2bf1b2206c0e5ee988502860fec"
+    },
+    {
+      "path": "public/locales/zh-Hant/components/dialog.json",
+      "sha256": "242deaca3b2fcd3cc46271e4306437469a3f7f2b0d554d1d3dd5f2cec4f8ccb8"
+    },
+    {
+      "path": "public/locales/zh-Hant/components/filter.json",
+      "sha256": "88115f2924a929e00246ca1caff84510dce9cf7fecd0fe8d968f801c73fe8932"
+    },
+    {
+      "path": "public/locales/zh-Hant/components/icons.json",
+      "sha256": "00b0c9ef5eb0a495afb5abfc435768466ac86d60cfec0dd8364e44118232fbba"
+    },
+    {
+      "path": "public/locales/zh-Hant/components/input.json",
+      "sha256": "41301cebd73ed8b9b2fbb6d5c61c4416c00bd2bc0b3f8b7c276f651512d98585"
+    },
+    {
+      "path": "public/locales/zh-Hant/components/player.json",
+      "sha256": "7ebc2b287a27232046d2e1fa1b7b15dd67b009733b443988268c0e21e3b3865c"
+    },
+    {
+      "path": "public/locales/zh-Hant/config/cameras.json",
+      "sha256": "a44074edfda52821f0d098659a7c78e881754750695526d902f1e27d55e38ccd"
+    },
+    {
+      "path": "public/locales/zh-Hant/config/global.json",
+      "sha256": "cdd44c7c25ccb422c21768a10464fd1767d2afae348677b06c0fea0ffcf4d60d"
+    },
+    {
+      "path": "public/locales/zh-Hant/config/groups.json",
+      "sha256": "71af806a66def7dfb23888798d54d74c67f46740ee834e07b2c3cbd5b3a09762"
+    },
+    {
+      "path": "public/locales/zh-Hant/config/validation.json",
+      "sha256": "10f29b5a6ea6775bbe6ff309cbd44300a2e09ce2337f456b02228ed8b9c53280"
+    },
+    {
+      "path": "public/locales/zh-Hant/objects.json",
+      "sha256": "9313cce2811443f1252cd038f7f38be1188d4c02dc8708385c1e2450a6bb22fe"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/chat.json",
+      "sha256": "15cd669cc85370102684c915dba0226ddb1b9bd35919f2e75659f62574508350"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/classificationModel.json",
+      "sha256": "796cfbf7194bd630fd0a066ab502efe808e1967fb2e7af684af65b1715ca3e9e"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/configEditor.json",
+      "sha256": "5b0b3b9f9eb2b313719c17a1962150ef41c5e77b2c0d802d145941f00d3fc895"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/events.json",
+      "sha256": "8b578704ac0ccb21d34cfa99a451d73b68b5a7948c5496822146e2be00eba55a"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/explore.json",
+      "sha256": "f3697dea1341437afc10b68df5f2f3328c12fe7bdde42b17abe10f72df2a9b75"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/exports.json",
+      "sha256": "946fbfad1866e378c44fc42cd59587c8ff95d20062ebe7044ed5835a6a815722"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/faceLibrary.json",
+      "sha256": "9bbe45739671c6fa20691403c0af93eed38bcc75be5474de492badd34164b6d6"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/live.json",
+      "sha256": "742ec5423474982e74d184a084dcb6bd3275d1a58496ac5b1f47e46fdbe70f71"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/motionSearch.json",
+      "sha256": "38fdc9ef91b925d996a4a43fb0fef106990fae27225d5693cfb4c6dafcf2fdcf"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/recording.json",
+      "sha256": "d5f61b2d4f350cfe671a1f42c9f40e8f8b62c9e3a9d2dee3bc9623eba81f1925"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/replay.json",
+      "sha256": "afa3695fb97e4efaac1b40b7afca3aa34ed4a006688ff529eeb67c2d393341dc"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/search.json",
+      "sha256": "4d02a3f343f48fd5a50ae85d622df50f7c5daafee099c7c06ded03c8757606e2"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/settings.json",
+      "sha256": "87f1490b10548440ac45d4b1f2b1ffa40ffdb0caec80d87fe2b86240f4d3f8c2"
+    },
+    {
+      "path": "public/locales/zh-Hant/views/system.json",
+      "sha256": "1c7ca18f1090bbec41d01c855e1586334ce1f1cf3e01884b02cfe8eed20b8e89"
+    },
+    {
+      "path": "public/locales/yue-Hant/audio.json",
+      "sha256": "68579799d7db6ade94205b4b95cb4b65cb54bf61b235a33046e2e43240e7d083"
+    },
+    {
+      "path": "public/locales/yue-Hant/common.json",
+      "sha256": "9014e17e50c638b392e8b188cb456ed57cbd0721b7756b1656ad31edf13c98a3"
+    },
+    {
+      "path": "public/locales/yue-Hant/components/auth.json",
+      "sha256": "743fc8f43bf66e13db9c9553f619f6fd01e58d47e3e410fb18a45802e45b3695"
+    },
+    {
+      "path": "public/locales/yue-Hant/components/camera.json",
+      "sha256": "48fda680bcafa84bc5231474e2683ac89d935314b241d88b0a719ba3dccf39e5"
+    },
+    {
+      "path": "public/locales/yue-Hant/components/dialog.json",
+      "sha256": "9e75fcf0ad05dfd8ac28b2b0bae6fb37eee7861c46fcdf7d9b94eb51cff160a1"
+    },
+    {
+      "path": "public/locales/yue-Hant/components/filter.json",
+      "sha256": "67f6683e557248cef59abde863f2f6b4961f095a38d62eec0292504d88b92601"
+    },
+    {
+      "path": "public/locales/yue-Hant/components/icons.json",
+      "sha256": "00b0c9ef5eb0a495afb5abfc435768466ac86d60cfec0dd8364e44118232fbba"
+    },
+    {
+      "path": "public/locales/yue-Hant/components/input.json",
+      "sha256": "41301cebd73ed8b9b2fbb6d5c61c4416c00bd2bc0b3f8b7c276f651512d98585"
+    },
+    {
+      "path": "public/locales/yue-Hant/components/player.json",
+      "sha256": "95d0630d45e44fbea2ccdad1470fe5e46aab0487daa2fe8adbb0891e60e29af8"
+    },
+    {
+      "path": "public/locales/yue-Hant/config/cameras.json",
+      "sha256": "251b3e1f7b1d0f3734db805f22a51467ae206917f68c8031daab4ad6059328e2"
+    },
+    {
+      "path": "public/locales/yue-Hant/config/global.json",
+      "sha256": "551291b9f338ab9c46090d8fc027f8154a205b12031d0d34955eb4b612295154"
+    },
+    {
+      "path": "public/locales/yue-Hant/config/groups.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/yue-Hant/config/validation.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/yue-Hant/objects.json",
+      "sha256": "cb0baa6a5a6dc6012f5f513f8327fcf131d82982ae9a7fe01450866d7724c392"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/classificationModel.json",
+      "sha256": "bf572c9f2abf5d6c4459751d1dc3aa17c43688baec10210c833c7f148732b839"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/configEditor.json",
+      "sha256": "be7f8d0a60135f00ed6292a5011c5815be842a2ff8bd9a16cb9197f9fe99975e"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/events.json",
+      "sha256": "9186d624b50e2a6cb0a83ee07accb7a47b567dc4705a7a449f8a369b4f4e1b8d"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/explore.json",
+      "sha256": "33f81be74cbdfa79ceb00321984589e0a85bd5575830a9d8d9436512d0ba482c"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/exports.json",
+      "sha256": "1d23cceeab0d002d74031cc7171cddbbeb77befc82884af03db41a7a2ee42245"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/faceLibrary.json",
+      "sha256": "270fd6ed0772caa58df0f7326a17b9968ac188c9f9b4310791565297118a75b4"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/live.json",
+      "sha256": "31d3def00651e9cab5152cfff64552ecbbb1d6e475b9583b1d495c4e0c41277c"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/recording.json",
+      "sha256": "a349532ec3f6368063bce0ef8df3a4fd4c40f3e85e86a17d73c89d0b016ef13a"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/search.json",
+      "sha256": "04e9c3e71dec0e3576d4c6d51b900898f8e087104512094b4d0a2d448f4faefa"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/settings.json",
+      "sha256": "8be988da0b499ad417afd688cad5e2843f73150867bd3ca036fcf53facddd16a"
+    },
+    {
+      "path": "public/locales/yue-Hant/views/system.json",
+      "sha256": "77b78b49231d17e055e3f57e0c3388839007008e3277dd668a678aa6fe5a2af8"
+    },
+    {
+      "path": "public/locales/ko/audio.json",
+      "sha256": "986848de497ca4a8ca03371039ef8a61b9b94c513f09a4136c267bf2bd91aeba"
+    },
+    {
+      "path": "public/locales/ko/common.json",
+      "sha256": "22d20e9d4d99bd1c40c92eb09296201c7ae9e927f407173693a59c41307bac5d"
+    },
+    {
+      "path": "public/locales/ko/components/auth.json",
+      "sha256": "24ddf1e8c1290cd7fdde3b2b0f101150d20858a758860653d68269228a026ca4"
+    },
+    {
+      "path": "public/locales/ko/components/camera.json",
+      "sha256": "69df348481929562ea57a6711db11386da275624afcbdc8d1965e06b85705057"
+    },
+    {
+      "path": "public/locales/ko/components/dialog.json",
+      "sha256": "83e44567880a1010e23cc974ac48f7af22fee517f21c75ff35788827406512a4"
+    },
+    {
+      "path": "public/locales/ko/components/filter.json",
+      "sha256": "1a35d994e2bbf4db54bb9bb913742a187c76e76349645e4e63a25ddf51235e3e"
+    },
+    {
+      "path": "public/locales/ko/components/icons.json",
+      "sha256": "0fc020a7a9581e07a004e88255a536107aba58bb675eba8fc34adfa6f5edac66"
+    },
+    {
+      "path": "public/locales/ko/components/input.json",
+      "sha256": "487397c1b0fbf3fb7da755267a038bbaf481e706daf352146fc22e474b88f71c"
+    },
+    {
+      "path": "public/locales/ko/components/player.json",
+      "sha256": "da7a8a794d0599cc0e4acbbe17e160d91198add2a63d6f162405f642669a0171"
+    },
+    {
+      "path": "public/locales/ko/config/cameras.json",
+      "sha256": "b6f4193a6a107d11b228e41a17d93cff49339d8850aca9d42e838ae00309e5e1"
+    },
+    {
+      "path": "public/locales/ko/config/global.json",
+      "sha256": "5cd83d21f2717d611f3c1b3627c1cce718a530f1b7c4bc16d0422461835c6719"
+    },
+    {
+      "path": "public/locales/ko/config/groups.json",
+      "sha256": "26f70cd8cfda49751f99954a9a70a68e0cdac5b15f0af723a47a7a62a657245e"
+    },
+    {
+      "path": "public/locales/ko/config/validation.json",
+      "sha256": "918e67fb5850cec7e4345cbaa0ba8691ffcc83d8bb8dc6a34be06d9bfef2551c"
+    },
+    {
+      "path": "public/locales/ko/objects.json",
+      "sha256": "b531c1f69c3bb3e78987664cc62aeaff134d796b6a66422e9995f9b2f127fc00"
+    },
+    {
+      "path": "public/locales/ko/views/chat.json",
+      "sha256": "c129bba30433ed4fd25c33385c93081cec85e7cedac73463671bfc8f8103f18c"
+    },
+    {
+      "path": "public/locales/ko/views/classificationModel.json",
+      "sha256": "334d8158503aa9cf5dbc4c9bbf25d623b765e5eabe7a61460d86eb5fa261fec4"
+    },
+    {
+      "path": "public/locales/ko/views/configEditor.json",
+      "sha256": "54f3f9bd9c02e39dc92982b42c2a980b5b144ac998ec2786fa7e402bbecb6f5e"
+    },
+    {
+      "path": "public/locales/ko/views/events.json",
+      "sha256": "d0967ce3c34409debf48338ced43965cd98aad2144e53dbff5bdce569b205bb6"
+    },
+    {
+      "path": "public/locales/ko/views/explore.json",
+      "sha256": "a7585bc98390d2d77d7184fa07f321945bf3665b39c427ad64a991682de7ff2b"
+    },
+    {
+      "path": "public/locales/ko/views/exports.json",
+      "sha256": "fcbfccbc6f9af7c9fb78e98adfa147e9371320b1dd7805e9f53af2406231ef60"
+    },
+    {
+      "path": "public/locales/ko/views/faceLibrary.json",
+      "sha256": "462526c42492553acadc53f3fa01a9a4606d4ffae29b7444be50358e07c67835"
+    },
+    {
+      "path": "public/locales/ko/views/live.json",
+      "sha256": "9137a95d948aaae1cc89dea710e2b583c5d36c2e16dcb667938f7035c0a1e41c"
+    },
+    {
+      "path": "public/locales/ko/views/motionSearch.json",
+      "sha256": "8513bc8926301e2ca5b6650742cd14e0449ed7ce6fbcd80ab9104ca6a75e0cd7"
+    },
+    {
+      "path": "public/locales/ko/views/recording.json",
+      "sha256": "77a688b0cd5cd2dfe7cc9fc842c5a5a2af25cef826a205e81b039e83de7d5908"
+    },
+    {
+      "path": "public/locales/ko/views/replay.json",
+      "sha256": "09710b080af6fdab552a51cf8edbbcb9d3ad9af896bbf74e30aa4870e4338766"
+    },
+    {
+      "path": "public/locales/ko/views/search.json",
+      "sha256": "49bda8ab414c2076ed75882feb2e149c41f7635e386d6a74d290e1cd6ebf95b4"
+    },
+    {
+      "path": "public/locales/ko/views/settings.json",
+      "sha256": "709debfe98ce8a820822b3930583fc2d7e2d7441cf4852af95c10ff4cd2c3e49"
+    },
+    {
+      "path": "public/locales/ko/views/system.json",
+      "sha256": "c855da45dfbc83d2512d33bf3e22868d2436cb3b091eca77fff9b4ed30300836"
+    },
+    {
+      "path": "public/locales/ja/audio.json",
+      "sha256": "7f99236f11a95f597abf50744780d1dbf7158328ec9296404bb8c29af37054e9"
+    },
+    {
+      "path": "public/locales/ja/common.json",
+      "sha256": "f1053bcc57c7794c655d3e11601339e38187ee8f17e639619cb12a64b41bc89f"
+    },
+    {
+      "path": "public/locales/ja/components/auth.json",
+      "sha256": "e65998323727eeaeff6332cf14ef409e2a20f777f4f1494f094f9d5e78263773"
+    },
+    {
+      "path": "public/locales/ja/components/camera.json",
+      "sha256": "ed4407581963be98a9697eef85eb078dc447212eab3d9bef93df922144724a48"
+    },
+    {
+      "path": "public/locales/ja/components/dialog.json",
+      "sha256": "02180c4dc3236c01600751485159a3ab652c5cfb810dc606d262522e89ff5417"
+    },
+    {
+      "path": "public/locales/ja/components/filter.json",
+      "sha256": "d1fd16c2c8203a0743ade60a589c2fa541e773496a133224db040e80375b68ba"
+    },
+    {
+      "path": "public/locales/ja/components/icons.json",
+      "sha256": "3b5339b933f99c5b19b858ca99e1df33b7e493fba432b7a6773e05c0c4dd9390"
+    },
+    {
+      "path": "public/locales/ja/components/input.json",
+      "sha256": "15efedafedddb2e76a940d5034f9b8428fd78103f977b25244b395b7214785a8"
+    },
+    {
+      "path": "public/locales/ja/components/player.json",
+      "sha256": "2e974e8025855861d99849607dcc9373a607dbe5701682869f90f5ad11601b32"
+    },
+    {
+      "path": "public/locales/ja/config/cameras.json",
+      "sha256": "12190f1ef15b0c26a150fd98ea53538bd7d28251fa56a8b631d904434c36cc48"
+    },
+    {
+      "path": "public/locales/ja/config/global.json",
+      "sha256": "2a27296d91aee994fd89e8a7c7cb4a0eae8e579aa93d91d8bbcc5b9ff5967096"
+    },
+    {
+      "path": "public/locales/ja/config/groups.json",
+      "sha256": "16db5364168f1b9160ded7bfcc8414bd431b0dcada519b537633f670e98f364e"
+    },
+    {
+      "path": "public/locales/ja/config/validation.json",
+      "sha256": "04ffbc34fa99be844f5842d35595791b74cf5f63c6ec91e8b3d7e063d42a266c"
+    },
+    {
+      "path": "public/locales/ja/objects.json",
+      "sha256": "f23c4486a4b886bfb1bf7b1cab94dda3faaeee9fbbe6abf65a3d8da1c78a160d"
+    },
+    {
+      "path": "public/locales/ja/views/chat.json",
+      "sha256": "25c09db9afe76a7eedf75feb60c09fdf179f0ce2875a6045436f318e965c4d4b"
+    },
+    {
+      "path": "public/locales/ja/views/classificationModel.json",
+      "sha256": "040f7282a912ac6edafc5a853c7b11b2e4d102c382cc722e519c3fc1ef79774b"
+    },
+    {
+      "path": "public/locales/ja/views/configEditor.json",
+      "sha256": "e47e0c61b7e21bd5af7509541394a0e6ead22289ebe6c81dc1407a67d3c03a6d"
+    },
+    {
+      "path": "public/locales/ja/views/events.json",
+      "sha256": "1bd4a24979b195838240441f9e05595380135c06339431e400fb1d320111b03a"
+    },
+    {
+      "path": "public/locales/ja/views/explore.json",
+      "sha256": "54efe58ac2ef90d604995e0dd51d95c58b0be70b58060fe588302a6652047895"
+    },
+    {
+      "path": "public/locales/ja/views/exports.json",
+      "sha256": "39c4ff024e9b7f47276cd78414a8744fbce753bbadc32e8a451393c28d354085"
+    },
+    {
+      "path": "public/locales/ja/views/faceLibrary.json",
+      "sha256": "dca44d4719268e2dbaf568743f28bf4a93021880d51882a2629aa0a2d90cafd1"
+    },
+    {
+      "path": "public/locales/ja/views/live.json",
+      "sha256": "99b1c3f51c81294836210594d1eb7a2e66bf2955ac498ed03622b6f8258e0a0e"
+    },
+    {
+      "path": "public/locales/ja/views/motionSearch.json",
+      "sha256": "ec9032624ec55a9cb18cf13031ace9a17052ee220dbfa070125e175c5c8cb738"
+    },
+    {
+      "path": "public/locales/ja/views/recording.json",
+      "sha256": "a21b3c95f5bd6a93f9c10a270736ea426acb2a6ebb9d7bebff9666a7015f78b7"
+    },
+    {
+      "path": "public/locales/ja/views/replay.json",
+      "sha256": "bba11fb09d82768c0c49a9978984dbf03cbcf2216604ea6c690484696106f38e"
+    },
+    {
+      "path": "public/locales/ja/views/search.json",
+      "sha256": "3f1261851622c29d2ceb56f64fd2950fd51af4b957a4f2e1e085229044b08e98"
+    },
+    {
+      "path": "public/locales/ja/views/settings.json",
+      "sha256": "30ec4674abba561101574fd15f9f3e7dac1a840888e4bd2b1f50b15b1e625c1f"
+    },
+    {
+      "path": "public/locales/ja/views/system.json",
+      "sha256": "0257319c4c2b744e0b1b105624d9279b3dae258e95415bece2690718202ce4a4"
+    },
+    {
+      "path": "public/locales/vi/audio.json",
+      "sha256": "495de260dd035493f1959d761a3087162b5a52bf7f81682b815c84d38fed49c5"
+    },
+    {
+      "path": "public/locales/vi/common.json",
+      "sha256": "be56e7cdd8413d2efa919b3560f601587f6500105749290b55657a378764dd97"
+    },
+    {
+      "path": "public/locales/vi/components/auth.json",
+      "sha256": "d6db2b4e95ecdebea6a5effe88aa0a10b6bce16c458f3edd8adf6eb7a40c0b7a"
+    },
+    {
+      "path": "public/locales/vi/components/camera.json",
+      "sha256": "67304eaae7c1db780d67a829506566fdb26756af769bd5851ac480309b56fea8"
+    },
+    {
+      "path": "public/locales/vi/components/dialog.json",
+      "sha256": "782499d12989400026a92caaf0890175a2fa4f7fbda2206ad015d19a944b4bbe"
+    },
+    {
+      "path": "public/locales/vi/components/filter.json",
+      "sha256": "6a01bc6eaab5e572e8f424ca69a287d7cb825a891294f2674c0b24eb6f73c372"
+    },
+    {
+      "path": "public/locales/vi/components/icons.json",
+      "sha256": "6cb8fe66ae4985c47e12e891559973a5f49e939c978be6e46308dc4a93a10e5a"
+    },
+    {
+      "path": "public/locales/vi/components/input.json",
+      "sha256": "fc6958179f986785cac57fd341add339e9a962f5e705f2a2a91718f4dd5f3193"
+    },
+    {
+      "path": "public/locales/vi/components/player.json",
+      "sha256": "b260ba8a8dd1e5eb7bc7e0f8a63bed0006cf75a7256d310914785aee39362ec8"
+    },
+    {
+      "path": "public/locales/vi/config/cameras.json",
+      "sha256": "9a1cb96abeaf157b825e37c471db7cdc7103b41588057d44cd9d514c83ec64aa"
+    },
+    {
+      "path": "public/locales/vi/config/global.json",
+      "sha256": "ecd7da64b81060f79a9efe4725a27dd4094cea8cc9a524342349a715e124595c"
+    },
+    {
+      "path": "public/locales/vi/config/groups.json",
+      "sha256": "890985dbfe86ca9ccf16559f5e977586bd2dfafd044654450a04e834e1efc711"
+    },
+    {
+      "path": "public/locales/vi/config/validation.json",
+      "sha256": "8769b71f8b91ad0321849302cf9083b50fc9a8edbdc5c170d11fdd092e1b91ba"
+    },
+    {
+      "path": "public/locales/vi/objects.json",
+      "sha256": "ff0b9d15ed0e1fb123d450e7113faccf4061074c5459cdfea48ea296c8d32c53"
+    },
+    {
+      "path": "public/locales/vi/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/vi/views/classificationModel.json",
+      "sha256": "c35d50bc43b36d76462483ea93ffc407e7f8730e51e3024764ac6d43682d65f7"
+    },
+    {
+      "path": "public/locales/vi/views/configEditor.json",
+      "sha256": "39c7fd25d560bfdb6b18f33513b6ee5b15b7b1a6d8f9e88e26d860ca5b133f52"
+    },
+    {
+      "path": "public/locales/vi/views/events.json",
+      "sha256": "b8065e493741708de0d3225a91a1e4bbe7f4eb6dc82e7e12a2b52f0a429350bc"
+    },
+    {
+      "path": "public/locales/vi/views/explore.json",
+      "sha256": "e8471793dc5d319aa29a0e8d7c86ec90983d00ffaffc35d0f23fcb6b93d51789"
+    },
+    {
+      "path": "public/locales/vi/views/exports.json",
+      "sha256": "9a6a20bba309d914bcae9edeef99b951d0d2165d5cda9c69af8abbfa1add7d37"
+    },
+    {
+      "path": "public/locales/vi/views/faceLibrary.json",
+      "sha256": "4a2c77b0b8534654a00c55ceb876cac62caba6e97ec60791797e72a58a36ca0c"
+    },
+    {
+      "path": "public/locales/vi/views/live.json",
+      "sha256": "122e0b01c68917fe744b0da0a3000b01980b496cede996ffb240beb0c503c9fb"
+    },
+    {
+      "path": "public/locales/vi/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/vi/views/recording.json",
+      "sha256": "afcfb03295c53803e1ea04d74c13ef819768dc3bcb611be286bb653191b225a2"
+    },
+    {
+      "path": "public/locales/vi/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/vi/views/search.json",
+      "sha256": "ea1820b3613d8331efcda049b78114f6a05ac948e24be4aa653e06dd2eed5953"
+    },
+    {
+      "path": "public/locales/vi/views/settings.json",
+      "sha256": "6605d4c9bde99c7ebcc2a3f81fc75723e3e832257adb07224eb1ea6f3c1d6242"
+    },
+    {
+      "path": "public/locales/vi/views/system.json",
+      "sha256": "1a5bcb720a06f60b6eb05db4d5ca2fe6fcb1328640a0e615d39cb6c36f05685b"
+    },
+    {
+      "path": "public/locales/th/audio.json",
+      "sha256": "e41e35346032215d1a1cba757a50e356452dd9f1868c1401ec4abeada5c97015"
+    },
+    {
+      "path": "public/locales/th/common.json",
+      "sha256": "7c0dbe62b66dca23b1a3530737f9dea0d560fadea724ddaf1e54320c8da3dbb2"
+    },
+    {
+      "path": "public/locales/th/components/auth.json",
+      "sha256": "5c8deff3bba9509afbbc47855ded67bbf0e3b36cff94702685c61f2a12a9ec24"
+    },
+    {
+      "path": "public/locales/th/components/camera.json",
+      "sha256": "34a5efc4b48275d95a39ac6f801d9ba1336f097f20595139e3fee0d8183a4bff"
+    },
+    {
+      "path": "public/locales/th/components/dialog.json",
+      "sha256": "e1ba92a14031f69ecabb6a0aa66a03d5dd6620120f7b18afc06cc2852c6d7ef2"
+    },
+    {
+      "path": "public/locales/th/components/filter.json",
+      "sha256": "30e6f2c7f60b85b2580f5f827b96a45f006f36bf714f8131b9758dcf0f76f44c"
+    },
+    {
+      "path": "public/locales/th/components/icons.json",
+      "sha256": "ae0799bbd348bd904b52b23ca89fabb717c066fdd80dd5ba8870c4fc299f3dae"
+    },
+    {
+      "path": "public/locales/th/components/input.json",
+      "sha256": "56a9565172f819aadafd05f7b6d30a35593e5b94391ef5131b233cbbda61e473"
+    },
+    {
+      "path": "public/locales/th/components/player.json",
+      "sha256": "4471d1bfba550dfe069b8cb62fc2c56304317831482bc7f1c9f8ff4aaf183289"
+    },
+    {
+      "path": "public/locales/th/config/cameras.json",
+      "sha256": "298d6375df461afe29675930e00657c69821d35f9623f73d161f5aa0b792bf39"
+    },
+    {
+      "path": "public/locales/th/config/global.json",
+      "sha256": "20a1f6e32cc502d8c1f37137d99fc3be1411abbc096133c748ef77279066b08d"
+    },
+    {
+      "path": "public/locales/th/config/groups.json",
+      "sha256": "d1e5a89506489a989d32fb1bd8778ae65497d4511b386911c88abde85c275442"
+    },
+    {
+      "path": "public/locales/th/config/validation.json",
+      "sha256": "27f3f7bf4fa0d47b2e6a3f835278e08fae14dcb10be6c6759e7b94390a130b65"
+    },
+    {
+      "path": "public/locales/th/objects.json",
+      "sha256": "50553b0047b525485f46fc6cfe82d9589eff29a140eb9ec48663eb3d07b8da8b"
+    },
+    {
+      "path": "public/locales/th/views/chat.json",
+      "sha256": "03794f82d42dfd1064797e85a3387c24f7417648c4804a75b45e94e208d31a76"
+    },
+    {
+      "path": "public/locales/th/views/classificationModel.json",
+      "sha256": "7f028cd62d6934019f844f32a93f7d63f4172d9b18a0f5e150da449c9253ed39"
+    },
+    {
+      "path": "public/locales/th/views/configEditor.json",
+      "sha256": "ff4a04f9b890d001eeaf0dc1895400c1ed0c0d36552c28222ae9b1962055c31f"
+    },
+    {
+      "path": "public/locales/th/views/events.json",
+      "sha256": "04b41bf89bcddd7c4c7e35cb6736b1d6b85c2dcdfd5d43389d9191c7b22ec9d3"
+    },
+    {
+      "path": "public/locales/th/views/explore.json",
+      "sha256": "8897ea7f073f2c0fd7b3eb333b6aca120e635b6370e19e6cb2d3a8cfb8a42556"
+    },
+    {
+      "path": "public/locales/th/views/exports.json",
+      "sha256": "60cdf2abc750c009f5f410a96d55d65c989e166123f51c6784fa16b10f89a654"
+    },
+    {
+      "path": "public/locales/th/views/faceLibrary.json",
+      "sha256": "eddcfd73bfc1e356d12e5790cf1f3e5268fa367fc2786342398ddafad58092e4"
+    },
+    {
+      "path": "public/locales/th/views/live.json",
+      "sha256": "e015cc6b022f57c5be08c355b716e559f8319b69eaa7c184fbac22dc7a0434c2"
+    },
+    {
+      "path": "public/locales/th/views/motionSearch.json",
+      "sha256": "bbb74476a5f2048ec5a13fcda826dd322f98b3b9ed995c041d094557bef4d8af"
+    },
+    {
+      "path": "public/locales/th/views/recording.json",
+      "sha256": "f06a7401a5c840c7f675ab96d3367251ca16a620a84c7600c0559fe884bdad1a"
+    },
+    {
+      "path": "public/locales/th/views/replay.json",
+      "sha256": "6f4984bc9ec012946df32c23941483e0b6977a6f29d2d5116dbc4ee36b4bbce5"
+    },
+    {
+      "path": "public/locales/th/views/search.json",
+      "sha256": "2c7cfe2b67a7fe82253b56bc9efb42323ecc25a68671ba7c81261da43f009584"
+    },
+    {
+      "path": "public/locales/th/views/settings.json",
+      "sha256": "fe89891b0fb6d16c14a97c49428b9d67c1e470d372e5c8f9b386c55f498052d1"
+    },
+    {
+      "path": "public/locales/th/views/system.json",
+      "sha256": "d6386687c24d2a5d190c7e768923a4095f34750de3a1867bfc684426e56f6cee"
+    },
+    {
+      "path": "public/locales/he/audio.json",
+      "sha256": "d4fd0deab58d242b1f278992d3ce0877cf4be29aa2fe1c5c62cbfd2221904b64"
+    },
+    {
+      "path": "public/locales/he/common.json",
+      "sha256": "796a56a7b64ad61c220f4f7cef89e49501ae4b77d3b756ecc0c62cf4ef879571"
+    },
+    {
+      "path": "public/locales/he/components/auth.json",
+      "sha256": "e51d430661dd0196153f8ea02ab9c5c632c9a0529af47076fd14d3b2daff7d42"
+    },
+    {
+      "path": "public/locales/he/components/camera.json",
+      "sha256": "33095ad9a9201c5fe1a88975235576c0fb3593f252a49b53ae1cb8239e90a594"
+    },
+    {
+      "path": "public/locales/he/components/dialog.json",
+      "sha256": "7c2a91178945b9c5fa8f2c5781d27247501c0970f4f36315664969d1ad3daec6"
+    },
+    {
+      "path": "public/locales/he/components/filter.json",
+      "sha256": "b76e5b74fb03a600e0fd07ba1631fb28820f2aa52dc5225846c815b93bb389c7"
+    },
+    {
+      "path": "public/locales/he/components/icons.json",
+      "sha256": "e0716f1c97b4e5fd6a7d763521200127f9ef0fa9937f71c16ff4b39cd65562e0"
+    },
+    {
+      "path": "public/locales/he/components/input.json",
+      "sha256": "6fd56402bc4e88209c87bee983f9fb71a894e8ec1ce0c2a7d5f63a4ded4f55d1"
+    },
+    {
+      "path": "public/locales/he/components/player.json",
+      "sha256": "e40f4f13591b7b909647a06742efd7ab7ee43221fbc10a7e2ddb402e2a26aad5"
+    },
+    {
+      "path": "public/locales/he/config/cameras.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/he/config/global.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/he/config/groups.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/he/config/validation.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/he/objects.json",
+      "sha256": "1f48db3cee48e9dee2177b9c5a820d6ddf3b5610fccd173014d2f6a9daacd38f"
+    },
+    {
+      "path": "public/locales/he/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/he/views/classificationModel.json",
+      "sha256": "c9040989ad2c048b835faffb0b5ff5861b6cf537038808e9b29770bec5d2caf5"
+    },
+    {
+      "path": "public/locales/he/views/configEditor.json",
+      "sha256": "08531a5a02db41f5899294378e259d48cea3c1e64d58159113cac836ff7baeca"
+    },
+    {
+      "path": "public/locales/he/views/events.json",
+      "sha256": "9b63fe346f52c5c81af96f6901357b03dc076a363765f928604c23bb8b87ad00"
+    },
+    {
+      "path": "public/locales/he/views/explore.json",
+      "sha256": "520e77daa8af3c60e0ea548b2c942870ad89ea1e687c0d91c68a2d2ed4e6e5e7"
+    },
+    {
+      "path": "public/locales/he/views/exports.json",
+      "sha256": "8db7b4c90dda083acaf96d1a33f51c09624279a95d7b125c1d299230625aa530"
+    },
+    {
+      "path": "public/locales/he/views/faceLibrary.json",
+      "sha256": "5a712d787aab296daba29ee656435d9fd6439d11c8ed8669fb9d4e4f1f668b73"
+    },
+    {
+      "path": "public/locales/he/views/live.json",
+      "sha256": "5f5729a790c36ea48dced43c82197488333410f3e4ad556f276a5dd125338bf0"
+    },
+    {
+      "path": "public/locales/he/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/he/views/recording.json",
+      "sha256": "bf760ab3cbf6c28fd530c7b18d75a695ae46bf6a46b053f585fef07cbe1fe3cc"
+    },
+    {
+      "path": "public/locales/he/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/he/views/search.json",
+      "sha256": "98bedbd09892a9f558c4f69a123fe468a629ce8bc9c5429437f05c41f96558b3"
+    },
+    {
+      "path": "public/locales/he/views/settings.json",
+      "sha256": "9ef2303476c951cc276b9af4a7f14459179916d083cc4d1378a62868c66f53d0"
+    },
+    {
+      "path": "public/locales/he/views/system.json",
+      "sha256": "04d760b811a7dbd2b85041ffe426097193b6277b0bc8f332308345a382ee72a5"
+    },
+    {
+      "path": "public/locales/fa/audio.json",
+      "sha256": "2e64a61a9f3d5e743997e3ef86000235c5c3b118f1d0f5944e867ebcf59efba8"
+    },
+    {
+      "path": "public/locales/fa/common.json",
+      "sha256": "11cf6f64b2fa61fb194a38d80f59c620dcf36518715cf296a2873d0ab67c75b7"
+    },
+    {
+      "path": "public/locales/fa/components/auth.json",
+      "sha256": "b90c9ee75dbce4d0767e87bcc47a379e45b431b2ffd0abe28b27a538ed93f033"
+    },
+    {
+      "path": "public/locales/fa/components/camera.json",
+      "sha256": "ad625f47ef0fe733b92e7bdee34ad519778577fb5ddb6853f4055bf004b11c80"
+    },
+    {
+      "path": "public/locales/fa/components/dialog.json",
+      "sha256": "85854a1cb2d0d8bf592ee1f604f94ff24cbb2f00da8efdbe803f1b0970c04ae8"
+    },
+    {
+      "path": "public/locales/fa/components/filter.json",
+      "sha256": "aafd68e9e6ab5865615c704d06f03fd025ad4619029a44fad3ec9bcba32e13be"
+    },
+    {
+      "path": "public/locales/fa/components/icons.json",
+      "sha256": "84eed362c9ad8928df386a940e1405586d6027484368bd68afe27c8d297bfef4"
+    },
+    {
+      "path": "public/locales/fa/components/input.json",
+      "sha256": "52904c244f99605cb66428f71f8990d1db93b83de7301da1a8b420a5ce3a1446"
+    },
+    {
+      "path": "public/locales/fa/components/player.json",
+      "sha256": "c35912a4dffd35669a3b59b52e6962d65501e7d7f4f0d2baf546ad217bfa8b40"
+    },
+    {
+      "path": "public/locales/fa/config/cameras.json",
+      "sha256": "ae4436c9be5b9028430314e705246c01408b4092b3eb729c55c86952157d9cc9"
+    },
+    {
+      "path": "public/locales/fa/config/global.json",
+      "sha256": "d4fdeba4400e84e35ecf6ffd288a9a8f7ee7392090652894fb05645dc5cf0e8b"
+    },
+    {
+      "path": "public/locales/fa/config/groups.json",
+      "sha256": "4498b0afab179e745e7d3e3c3defe5440fe9f68a5f4f40e09788826107b279fb"
+    },
+    {
+      "path": "public/locales/fa/config/validation.json",
+      "sha256": "b6cc1a8d5525b65c9f7b2284fd3e411907da4d02f0ca4d65d3ade6dab6f5e6df"
+    },
+    {
+      "path": "public/locales/fa/objects.json",
+      "sha256": "e2ea48a49314b39af62bebdc0f72727417969a6bc4401306d31ce04e0e0abb35"
+    },
+    {
+      "path": "public/locales/fa/views/chat.json",
+      "sha256": "9410a13e9b1c4824898bb83c3890f5e71a9782d90cf9d543ddfde9172c9d4428"
+    },
+    {
+      "path": "public/locales/fa/views/classificationModel.json",
+      "sha256": "de93cdd0b3e2565b20323ef1343867d510a20f91c4570561f01f948f6819fa41"
+    },
+    {
+      "path": "public/locales/fa/views/configEditor.json",
+      "sha256": "40fdda0c71d69dce7a3b90d3c3e8d45c3a8b7b4b12036882f81ba99ffa4f6339"
+    },
+    {
+      "path": "public/locales/fa/views/events.json",
+      "sha256": "0a0dd4b9635e35436a0a4fad1834877562670e89e8a6cc86db1b5cde438bc8bc"
+    },
+    {
+      "path": "public/locales/fa/views/explore.json",
+      "sha256": "0dd7b8a994dc098f65f54a725ceec6022adc53f6b62dd8baf3e2e82889fa406e"
+    },
+    {
+      "path": "public/locales/fa/views/exports.json",
+      "sha256": "6df893f0bc47cc42d5e4651d93a4c783b97199dc0b0af1906a928ad3787007da"
+    },
+    {
+      "path": "public/locales/fa/views/faceLibrary.json",
+      "sha256": "bd78f30ae5f11b2c60ab30f65c6e8aba524fdd12af0a826996ba8728ce5d0cdb"
+    },
+    {
+      "path": "public/locales/fa/views/live.json",
+      "sha256": "5948d7ecbce0bc807cd44087ab7afd47fe360066f4c54f449e20786e32d13b3b"
+    },
+    {
+      "path": "public/locales/fa/views/motionSearch.json",
+      "sha256": "3768b6452497414af456984dfdb274c828f3ce688813f69a027620e41253f39d"
+    },
+    {
+      "path": "public/locales/fa/views/recording.json",
+      "sha256": "258ffac09fa33e268d6f7f86f447cf4dac87f1f0cc48a0a9d1bd03d42b2f6627"
+    },
+    {
+      "path": "public/locales/fa/views/replay.json",
+      "sha256": "c94669d5ea20fc1f9c910341960ce0400ded4f49e7b5c4cde87dee6362586a59"
+    },
+    {
+      "path": "public/locales/fa/views/search.json",
+      "sha256": "68a0fb0083a9dbe6997aa87bc25d5970613d60e7c6347236944c9b66f4b440c1"
+    },
+    {
+      "path": "public/locales/fa/views/settings.json",
+      "sha256": "370b7f107393feb44cb0d5bcd38facbdae33c7c327173ba7f15fe467ca33b8e7"
+    },
+    {
+      "path": "public/locales/fa/views/system.json",
+      "sha256": "95816298c877f148334c25a2de22cf2f34c2868a0ab8233a7898f4e27f5f02e1"
+    },
+    {
+      "path": "public/locales/ru/audio.json",
+      "sha256": "cafabd4bb7f971bfc777ff5856a45b4fe1c516850f8fe33180ca3062b5716d09"
+    },
+    {
+      "path": "public/locales/ru/common.json",
+      "sha256": "18e0b2dac5c045196a6d0e38ae44a4b542392c3fcd144dc1dcd8c453c0cd373f"
+    },
+    {
+      "path": "public/locales/ru/components/auth.json",
+      "sha256": "7e2963719d764aa55487ae0952aa32452736f10c104f89de798ffbaf13b0a584"
+    },
+    {
+      "path": "public/locales/ru/components/camera.json",
+      "sha256": "b62b6adffcbbae9abebe4bd62edcbf5c52266319a827a88ec4500e8c7acdd328"
+    },
+    {
+      "path": "public/locales/ru/components/dialog.json",
+      "sha256": "c4ceb510eca5e27e35e5e4e8d046e352bf07c0244f958e5ac1df44c5f5512efb"
+    },
+    {
+      "path": "public/locales/ru/components/filter.json",
+      "sha256": "e25db853da5764271f998361b0a5b6e54acf0e20dfbd928fc9342420769f71b0"
+    },
+    {
+      "path": "public/locales/ru/components/icons.json",
+      "sha256": "c46202437c5ffbf963d1fda6220b8965031c6de34fae9f9f40347b06eb7a8186"
+    },
+    {
+      "path": "public/locales/ru/components/input.json",
+      "sha256": "28a6c22c1e13a6ef5f5996aa236ebde7ed5786cdf7c487532af429859efea3a7"
+    },
+    {
+      "path": "public/locales/ru/components/player.json",
+      "sha256": "a8b1bd0099064dbbc143de4d3004308497bd288afab376a05ca66c06196adc8d"
+    },
+    {
+      "path": "public/locales/ru/config/cameras.json",
+      "sha256": "102a923a7e01ee0fa032e5ebdcf66182dfae3b98a0e516b62868768b4dd21394"
+    },
+    {
+      "path": "public/locales/ru/config/global.json",
+      "sha256": "e977b33dcdad5ba62b3631149e464796d4ada8c651730fe44f71bf4a7cdca360"
+    },
+    {
+      "path": "public/locales/ru/config/groups.json",
+      "sha256": "4c3d7bbe71e32e2eeaf3b59a7a2fe6909f1970f88944fe7b8ab5f864c405b1e3"
+    },
+    {
+      "path": "public/locales/ru/config/validation.json",
+      "sha256": "51a7f74070c896d0194a71901714b9da78fcf95297c280ec125ed0f6d5002fd9"
+    },
+    {
+      "path": "public/locales/ru/objects.json",
+      "sha256": "3a76ae8c4818bdf6c6f0272426c16d6d650e66f3326e1b6e1b739ee1086b9ace"
+    },
+    {
+      "path": "public/locales/ru/views/chat.json",
+      "sha256": "7acf0b2426a681c9941b79b46fdc31f3c684849cb46a4a0fbccfa47e95eaaddc"
+    },
+    {
+      "path": "public/locales/ru/views/classificationModel.json",
+      "sha256": "c5e140b2414c3705470334efa062987138e4789348ebf9c12a9453649eecd690"
+    },
+    {
+      "path": "public/locales/ru/views/configEditor.json",
+      "sha256": "611f15972bb1593a0983a91e099d2dcd23d272a3e0d28e7d80dd4a71e2c0d5c1"
+    },
+    {
+      "path": "public/locales/ru/views/events.json",
+      "sha256": "9f107a2f7749ec256ce80e309bc6a2ee44248bb3c5d7c48d57788b4bcef2ab37"
+    },
+    {
+      "path": "public/locales/ru/views/explore.json",
+      "sha256": "8064076355eb26dcb4ecb11fe250f04c3474f91b522cb81387038002eed74d45"
+    },
+    {
+      "path": "public/locales/ru/views/exports.json",
+      "sha256": "60facba8ac34bc81f3c42a1d1aa5b76dbc2814a52d0ad99c26b5c57cfe5c3127"
+    },
+    {
+      "path": "public/locales/ru/views/faceLibrary.json",
+      "sha256": "cade6c431c41ccee456dc871873569073d5389946e684bcea650fb079a1ac343"
+    },
+    {
+      "path": "public/locales/ru/views/live.json",
+      "sha256": "d40c9b63e53e6d50bd482a8a54a1ba1f543c088083bc4091e7090afe0e08c0dd"
+    },
+    {
+      "path": "public/locales/ru/views/motionSearch.json",
+      "sha256": "0a478d7a8e3744dff94e3af6791c00b491ac456630f7a379d175b373cdcb5791"
+    },
+    {
+      "path": "public/locales/ru/views/recording.json",
+      "sha256": "0af68c6d5ac9aff027aa6da706b05c0e88a3e72a663f697bdaf9f21dc89d8f76"
+    },
+    {
+      "path": "public/locales/ru/views/replay.json",
+      "sha256": "95c8d696d0b322c5b0784cb55e4632b11e284802a3cec5c402c14d49057c76ab"
+    },
+    {
+      "path": "public/locales/ru/views/search.json",
+      "sha256": "14de8c55dc326a2a8ebf56ef852ce652147410e1f5ad7533df7892df3106ee10"
+    },
+    {
+      "path": "public/locales/ru/views/settings.json",
+      "sha256": "6d9b7f074a32c1ebb6f6911fe2f9450b63f0aeb3692162a8100eadb5cd8b0f67"
+    },
+    {
+      "path": "public/locales/ru/views/system.json",
+      "sha256": "0da111e0bea2c355e500d84949a0a8248e993af9f59bec423c79e5891bb9a3ef"
+    },
+    {
+      "path": "public/locales/tr/audio.json",
+      "sha256": "8271a34e1c457d4dab1554262a26ce7701ef934b60267c4dc5f5fe691b4fd959"
+    },
+    {
+      "path": "public/locales/tr/common.json",
+      "sha256": "bedbc0d70656c5b1bb87d433d84d13f1468a37582f7ba81c104e4f4bd23c67f5"
+    },
+    {
+      "path": "public/locales/tr/components/auth.json",
+      "sha256": "d5074a9d33bfdefeadffce5af5fb3be7989ea7260299b2e834a9a09058d328f8"
+    },
+    {
+      "path": "public/locales/tr/components/camera.json",
+      "sha256": "fc77fb9eb7c786495380a0f71e29c426c4e23c0c3726f54aa2032bf6aacb2175"
+    },
+    {
+      "path": "public/locales/tr/components/dialog.json",
+      "sha256": "3a7a419f421aff7c32b2adb13a8b73d1bb221c34bdeec958baee30f268a396f8"
+    },
+    {
+      "path": "public/locales/tr/components/filter.json",
+      "sha256": "a95e159dd87f677e57092618d5ace736a53683b7122ef08f73f7c7660b0af4b4"
+    },
+    {
+      "path": "public/locales/tr/components/icons.json",
+      "sha256": "2d01cb356e11c7a6fd3d8c112dd06efd7b9c40743e4159616e0be95ce6d964af"
+    },
+    {
+      "path": "public/locales/tr/components/input.json",
+      "sha256": "6e97ada420e851e09a55be1f93eccf51afd9e6c9d55d2855ceb8bb4ff2076427"
+    },
+    {
+      "path": "public/locales/tr/components/player.json",
+      "sha256": "2c47c86fda3f0c6459161ffddb0d3c9f56d9d4fa20fd9d1cee11094986cc07ca"
+    },
+    {
+      "path": "public/locales/tr/config/cameras.json",
+      "sha256": "efbb3a86d55caf9e576b77e1bd7544e3bc512346053a94f92b7451f35a92560c"
+    },
+    {
+      "path": "public/locales/tr/config/global.json",
+      "sha256": "82c0dda31c7608df3ff3ad9f22078c0e12a385c2a694af9f3a302bafd6d8697c"
+    },
+    {
+      "path": "public/locales/tr/config/groups.json",
+      "sha256": "8db686fbcc266eae896d4be03704b738baf7ab99e2c4e36ba1104b28e55971c5"
+    },
+    {
+      "path": "public/locales/tr/config/validation.json",
+      "sha256": "84ec03e1e216bf9cf182b737f4b1632cc0c5cc253bf7587c0498ce6f50f9e5fe"
+    },
+    {
+      "path": "public/locales/tr/objects.json",
+      "sha256": "b60036b1ce15de7cf6e9ba9673181eaf02739f9d7cb6dc9bfda22e059b1d532b"
+    },
+    {
+      "path": "public/locales/tr/views/chat.json",
+      "sha256": "023639e16bc1c3ac9d4c1d6ece1e166d058a0c85f56499dfc2d2966c53182c9e"
+    },
+    {
+      "path": "public/locales/tr/views/classificationModel.json",
+      "sha256": "6437f08c36ee5ab1587e2a12bc98118b6f6a09c2aced280882308897089d1844"
+    },
+    {
+      "path": "public/locales/tr/views/configEditor.json",
+      "sha256": "ec321982ca21ec5b86990b37cb4dbb5db58d4caa4141b7c21d4bd2e61818c8a6"
+    },
+    {
+      "path": "public/locales/tr/views/events.json",
+      "sha256": "5578e9cd06eebaaccd13fa20d66dbfe34cbe3155bc64e273576a7fb295027917"
+    },
+    {
+      "path": "public/locales/tr/views/explore.json",
+      "sha256": "5fa46ae3f4cebe9b29df40aba14a019c56329d4c9543006b390d24221ee30068"
+    },
+    {
+      "path": "public/locales/tr/views/exports.json",
+      "sha256": "280c74797eb4016aab3300b2c7fa3038749cff9fc64cb6b02452f800e3038a83"
+    },
+    {
+      "path": "public/locales/tr/views/faceLibrary.json",
+      "sha256": "6845b0fda390d74da80812c01d0f78acd7579dcba965a3c9024a9c0e9c63b2ff"
+    },
+    {
+      "path": "public/locales/tr/views/live.json",
+      "sha256": "4a1cd318e7f1d24bcad6176aa9619d8caa4c43d4ac35e12eb2c6620ca3fdf5e5"
+    },
+    {
+      "path": "public/locales/tr/views/motionSearch.json",
+      "sha256": "4196b4fc091fa45b3b57d0b4fbeab5dbac35a0c956a79b20650bdd5f727a608b"
+    },
+    {
+      "path": "public/locales/tr/views/recording.json",
+      "sha256": "5793e74a9e883ec578de7f9170b624b7b15a25b2d73ec997ca9e1485afd9b345"
+    },
+    {
+      "path": "public/locales/tr/views/replay.json",
+      "sha256": "fd88bca9541672d0db2f948826635e70de085a0dee1a28a3999bbaca72b341f3"
+    },
+    {
+      "path": "public/locales/tr/views/search.json",
+      "sha256": "5108d23065134c05396fd98182d0ba84b1d9eaa43867739eeb6b8b87ef9cf94a"
+    },
+    {
+      "path": "public/locales/tr/views/settings.json",
+      "sha256": "24275241bdb33456eef447e00f99a8b11a4b5616e59b690a04af10849925f5ff"
+    },
+    {
+      "path": "public/locales/tr/views/system.json",
+      "sha256": "0881a2be45e526e03b813f6b81b993bc7fa503a64dcffa62393c79327ad27f47"
+    },
+    {
+      "path": "public/locales/pl/audio.json",
+      "sha256": "158594a4ac7cab620cb00fdcf34b6c051f56a16826b1084d2bd525f609848d54"
+    },
+    {
+      "path": "public/locales/pl/common.json",
+      "sha256": "7bf26e166bb5136e6ee239e7f18a7ef913afc70b1b0b38effc5f3e956bb5eac7"
+    },
+    {
+      "path": "public/locales/pl/components/auth.json",
+      "sha256": "2e1ad8d9da83b0d24985f4bb64b60773fea3ce8b62686fc8f496993a74b7b9ad"
+    },
+    {
+      "path": "public/locales/pl/components/camera.json",
+      "sha256": "0580e4fd58013e402aa1aca459da4721cef28ff2be00ba2f8cd8ba74bbddd9aa"
+    },
+    {
+      "path": "public/locales/pl/components/dialog.json",
+      "sha256": "10b75bc55c20085b8e81d42bb1bbd84670c3bcee4b31c838053a42b16e69cd0d"
+    },
+    {
+      "path": "public/locales/pl/components/filter.json",
+      "sha256": "02a3444c2ba356a0eb2633085434576212afd5328076d9340a7ed21aa1be6da4"
+    },
+    {
+      "path": "public/locales/pl/components/icons.json",
+      "sha256": "3248346236718f5717bdf2166b4a339c9e95a88c128006ff164fdb0d9e6a9015"
+    },
+    {
+      "path": "public/locales/pl/components/input.json",
+      "sha256": "ff6a95117f8b19921c6169e2235d506b76e0cdde78c50f0ba40483699dde8dfc"
+    },
+    {
+      "path": "public/locales/pl/components/player.json",
+      "sha256": "1c2ab244bbd738d7d4087ca8c399554796e1303b92f7f71cec9beaad695b65bd"
+    },
+    {
+      "path": "public/locales/pl/config/cameras.json",
+      "sha256": "fd98aabf2aba8b2356b49185398b941d173c95b222afff2e2cc18856a885e293"
+    },
+    {
+      "path": "public/locales/pl/config/global.json",
+      "sha256": "d9dcd42162ced1d578967837d26df3e7d88d1cee2ef41aad3bc22590b8621099"
+    },
+    {
+      "path": "public/locales/pl/config/groups.json",
+      "sha256": "a7cb96eccf475f1f2994297acece5f49fa8cf86e90794562795750fd5e8350ea"
+    },
+    {
+      "path": "public/locales/pl/config/validation.json",
+      "sha256": "7d2dcbe88d2ccc90859f7125687fbd0af015ef71048f47ee3fc0c822ec112649"
+    },
+    {
+      "path": "public/locales/pl/objects.json",
+      "sha256": "a53285722b8a854fef257fff73c13620c885451ac1377adb9759a92ef6de5292"
+    },
+    {
+      "path": "public/locales/pl/views/chat.json",
+      "sha256": "9878ba7217dd89c0807cc8e3a21d9967885773f1ddd9b4237402ba58d3e75514"
+    },
+    {
+      "path": "public/locales/pl/views/classificationModel.json",
+      "sha256": "2f3e30568fbd527fb9971053955a6fbc55cdd1d1c8319861cd3c344d7db22f4d"
+    },
+    {
+      "path": "public/locales/pl/views/configEditor.json",
+      "sha256": "0132a1aacde51473f3d2ebe70145dd379f93b435a55f0a6d2a78f68f097f1075"
+    },
+    {
+      "path": "public/locales/pl/views/events.json",
+      "sha256": "915c54b7610271bcc4c771de1c96841c0b7b16f2f536aaf72a17565752b13007"
+    },
+    {
+      "path": "public/locales/pl/views/explore.json",
+      "sha256": "56177e8285fdd9d014d51514e65d2b355181c0f17594f5a7b2c3fb8925a1b2dc"
+    },
+    {
+      "path": "public/locales/pl/views/exports.json",
+      "sha256": "4c7348352655021ae732b0b4a88cef4709c5b2131a9e783de825ca5c6e6d4fd3"
+    },
+    {
+      "path": "public/locales/pl/views/faceLibrary.json",
+      "sha256": "091ec2e05ee5ed378f1b7665b522ae5a87beb85c031ee6c8718e4b7b7c40b10d"
+    },
+    {
+      "path": "public/locales/pl/views/live.json",
+      "sha256": "bf3f5512de2ee1e4a46fa747de5385a4168c557d667ec42fb9fe6b9847ea8704"
+    },
+    {
+      "path": "public/locales/pl/views/motionSearch.json",
+      "sha256": "257491a959d4adb597ca9a3fe010745b50a7bc60a36eae875f75d7c3904c8947"
+    },
+    {
+      "path": "public/locales/pl/views/recording.json",
+      "sha256": "f916aeabe9636fe2e17babf52a1f04322aaf69db216625b0813a5407c1ad79dc"
+    },
+    {
+      "path": "public/locales/pl/views/replay.json",
+      "sha256": "1dc7bcac27fa9a22500d8ad1b65d253dc3d4e4ef4f233b6d744696ef30dad7ac"
+    },
+    {
+      "path": "public/locales/pl/views/search.json",
+      "sha256": "aae96d1b5cbd77a21d323c847688d41a2dd6777debfafe0ac241b11335dffbda"
+    },
+    {
+      "path": "public/locales/pl/views/settings.json",
+      "sha256": "becb5941cde22bcbd87ad4c9b75978094b032ce397d7c30ad68fe68d236dfe99"
+    },
+    {
+      "path": "public/locales/pl/views/system.json",
+      "sha256": "a56242abad088ef4453a85a4e8ec8225acc399a8313b4c952c48ea8c1f8bb2fb"
+    },
+    {
+      "path": "public/locales/hr/audio.json",
+      "sha256": "43e053df95c6a038ae8f20c6ac685e8aa8659c809d7af2eb73375e4544f0a0b3"
+    },
+    {
+      "path": "public/locales/hr/common.json",
+      "sha256": "5e14628249770128e09454285a37189176bd452aa7467968cca20fe0b88c7ea6"
+    },
+    {
+      "path": "public/locales/hr/components/auth.json",
+      "sha256": "4b57b0ea04054fb70b4a515338150b4376e465209cec295adbb7c976906f7c30"
+    },
+    {
+      "path": "public/locales/hr/components/camera.json",
+      "sha256": "6c9e4f5e3769c59a0ab85201435bcab32b29e25b37859f8f932bb7d02cc4d185"
+    },
+    {
+      "path": "public/locales/hr/components/dialog.json",
+      "sha256": "fbf896140fcbb447a80de6f240382ca3e375b24278429c503e5649f889539aef"
+    },
+    {
+      "path": "public/locales/hr/components/filter.json",
+      "sha256": "6a9cb70d3460846b1567b8709d657823d144a855e5cee1d8f58554b8e5491c81"
+    },
+    {
+      "path": "public/locales/hr/components/icons.json",
+      "sha256": "ca6d74dc88cd2c4d984d52b2b54faf5c686f174351b12ef3b51829987efb3db2"
+    },
+    {
+      "path": "public/locales/hr/components/input.json",
+      "sha256": "2d6bb570c0dab30d431896202c4df01df54c9f31a0d4639f5bec54178ed18b6a"
+    },
+    {
+      "path": "public/locales/hr/components/player.json",
+      "sha256": "49468390a094454250b2735c2e66be8432319d44f334fbd6e74426f4374dcffb"
+    },
+    {
+      "path": "public/locales/hr/config/cameras.json",
+      "sha256": "3a1d41011d02ad90476f7f7e31f6c303ca00249c728c3303ca21c560e955e066"
+    },
+    {
+      "path": "public/locales/hr/config/global.json",
+      "sha256": "4f8b9a8ba2ad7acbea3a85e57bed7a68a17af56914ac9627f743144c8b8556e9"
+    },
+    {
+      "path": "public/locales/hr/config/groups.json",
+      "sha256": "3101efc04f3cd3a84964482565772618383e7518a0d18dcc7c2bbc15311e7b0d"
+    },
+    {
+      "path": "public/locales/hr/config/validation.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/hr/objects.json",
+      "sha256": "06f350376c94b81689c22925028fee78133db506b6e4b9f104fb21096bf57dfc"
+    },
+    {
+      "path": "public/locales/hr/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/hr/views/classificationModel.json",
+      "sha256": "e806572e2111415b53d9dcf98945965208ba58380305c15ad3e298e851920a4f"
+    },
+    {
+      "path": "public/locales/hr/views/configEditor.json",
+      "sha256": "846ed89ffc79462d4335c9ca52d459b32271fb4a897ea09e18d8a1af70b8202f"
+    },
+    {
+      "path": "public/locales/hr/views/events.json",
+      "sha256": "9c6d49ea49ef52d4835a204e0bef168bbb22e35ecfad0d5edae4c560f11b0490"
+    },
+    {
+      "path": "public/locales/hr/views/explore.json",
+      "sha256": "1c5716fa5c66dd8b8a282def01b80f06473680cd4e19e9aa91a13efa3e6fd4dd"
+    },
+    {
+      "path": "public/locales/hr/views/exports.json",
+      "sha256": "4738c1f6ae07f1b99be9a89c7f9c89c30cd42a38243a9e9e36b17a0a197a0025"
+    },
+    {
+      "path": "public/locales/hr/views/faceLibrary.json",
+      "sha256": "e1dce082c3401e54192dfe9eb170b8aab2fdd1c3834f634cea4da23b33731bf2"
+    },
+    {
+      "path": "public/locales/hr/views/live.json",
+      "sha256": "daf7c342f296e8368ebf8b98b2add836b9f988d8cd63df695a2e9fe12ec946a8"
+    },
+    {
+      "path": "public/locales/hr/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/hr/views/recording.json",
+      "sha256": "dd03297252d6e998953c46d615f3fab93f76e016b2182b90bbddabf97a9b69ba"
+    },
+    {
+      "path": "public/locales/hr/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/hr/views/search.json",
+      "sha256": "09a77b00e8c7b8ee4b0f9688e6b768cde3f578345b95249efe460a60d5c8cd63"
+    },
+    {
+      "path": "public/locales/hr/views/settings.json",
+      "sha256": "39a14081e241ac3abd0df0db94ee95f48da06720007b1a1271a85cfd500911ba"
+    },
+    {
+      "path": "public/locales/hr/views/system.json",
+      "sha256": "5215b825b1359a2257637496c392fc0449202ae2b12cfd3b1b1acdf2f1f04579"
+    },
+    {
+      "path": "public/locales/bs/audio.json",
+      "sha256": "01b3d239812d1778d2511caa03244ecaa9dd5cca8b30b94c62a80bfb9248ef3a"
+    },
+    {
+      "path": "public/locales/bs/common.json",
+      "sha256": "c719564c742377b734304805300903100f88e840b45bd074fa62b8ca5a7ebb2f"
+    },
+    {
+      "path": "public/locales/bs/components/auth.json",
+      "sha256": "d87d12c2c10921675c91324c99691e62919f27bf63a918deb092c3d59db834f8"
+    },
+    {
+      "path": "public/locales/bs/components/camera.json",
+      "sha256": "3a26a4a8349877076a6996a9ad7f42a921c2390d3714aa426dfddb754f347ddd"
+    },
+    {
+      "path": "public/locales/bs/components/dialog.json",
+      "sha256": "1cf515e079725e5f6cf23a01715dbeeb40463b235ca6f1c09c650bd0c05bacf0"
+    },
+    {
+      "path": "public/locales/bs/components/filter.json",
+      "sha256": "fb25a9933d2417385b34dabb1e6e655dd91705368c913ec5ca443af11a4e714a"
+    },
+    {
+      "path": "public/locales/bs/components/icons.json",
+      "sha256": "0c1e70739a78c2c14943b8ed81d6d53883c1c56f91d310ae98553ed42d106e70"
+    },
+    {
+      "path": "public/locales/bs/components/input.json",
+      "sha256": "2a44e902c73ec1543949d6fbf0aff0bd126464d2ca48c1cb066afd744e8fb784"
+    },
+    {
+      "path": "public/locales/bs/components/player.json",
+      "sha256": "469d225ba7b988701350044cd5a6faf5ee24f5ec9479685b2b5e244b8a1365d9"
+    },
+    {
+      "path": "public/locales/bs/config/cameras.json",
+      "sha256": "b39356315be5c9fcbdff8281fff6525df0527aa9786594e9ff4c9ffa83e9f992"
+    },
+    {
+      "path": "public/locales/bs/config/global.json",
+      "sha256": "cdd3d9bed78ab5f63762366582bb8861ac41c2ccecb0372d5e8bfbb2f5a4b9b7"
+    },
+    {
+      "path": "public/locales/bs/config/groups.json",
+      "sha256": "861893df19fa7683674d24108bbd49df8cbf41695d64d8c63901716ad131ae3e"
+    },
+    {
+      "path": "public/locales/bs/config/validation.json",
+      "sha256": "709aabc5cf380f5f0e8d97440673521a3758e975a6b070db08f916e43aa8d084"
+    },
+    {
+      "path": "public/locales/bs/objects.json",
+      "sha256": "8a7e42aa1dce01050d18db9051eab6cfe70d87f8358a424a41e4019c0073ec04"
+    },
+    {
+      "path": "public/locales/bs/views/chat.json",
+      "sha256": "6c09041f149796951cd96081aa0154e11eac139f099a86cfe212b60cefd1dc08"
+    },
+    {
+      "path": "public/locales/bs/views/classificationModel.json",
+      "sha256": "1d9e28b31893af52081e411d0fbee4eecc33437b2cb49e2bf824a1d08cb6641d"
+    },
+    {
+      "path": "public/locales/bs/views/configEditor.json",
+      "sha256": "2871e0dd26cc4a44496f45a0add900838598dc36b4618a63d3a8cf2fc69bdb54"
+    },
+    {
+      "path": "public/locales/bs/views/events.json",
+      "sha256": "b17aa1c912c360789de3e211cabf093feb1509113454fd869aab3020a8a054d1"
+    },
+    {
+      "path": "public/locales/bs/views/explore.json",
+      "sha256": "422e31c8437da4f8fa67486e30d006ddbf0732da824f63085b5cd211e97ff6a3"
+    },
+    {
+      "path": "public/locales/bs/views/exports.json",
+      "sha256": "4adf705b63b91e5c56047a37e8b6ac38d2bdae27213e48ee28040e11ea1afb0c"
+    },
+    {
+      "path": "public/locales/bs/views/faceLibrary.json",
+      "sha256": "55c06841281728943e9e062f1067909cb99cd3b2a406587c073883f6b940c9b6"
+    },
+    {
+      "path": "public/locales/bs/views/live.json",
+      "sha256": "6797ce1fd4b0e0fceeac8c5103db997faabdce81364b346b9f2eec1b89826fb3"
+    },
+    {
+      "path": "public/locales/bs/views/motionSearch.json",
+      "sha256": "922043d370bc979900e4c08fb41271a10d2b54448cc9ed3537475dcd67f28ce6"
+    },
+    {
+      "path": "public/locales/bs/views/recording.json",
+      "sha256": "4d9fc583f10f11228414b42ecf6b60264ea7a9a5e57d33324923142b5ab241c9"
+    },
+    {
+      "path": "public/locales/bs/views/replay.json",
+      "sha256": "75e633009d5b5db22114387a5ea2095c7aceeb1891ebef15edb669d31d7037e8"
+    },
+    {
+      "path": "public/locales/bs/views/search.json",
+      "sha256": "f7f0d8f3471d4fbdf316acb72a9f0783b7d9fc9539eaf1283b9238dd06e88f27"
+    },
+    {
+      "path": "public/locales/bs/views/settings.json",
+      "sha256": "23b8ec4281df5d5b7a5e2f5e1eee57422ff537943fae4c330a86d22e9f795edb"
+    },
+    {
+      "path": "public/locales/bs/views/system.json",
+      "sha256": "303b67b19f95b555e58948e985c1a1e68723f319c01e7d6c395970a8fc707e81"
+    },
+    {
+      "path": "public/locales/sk/audio.json",
+      "sha256": "732ab84b739c195680b79cc883d09f22ee244150c1af30718979e2aba80a8171"
+    },
+    {
+      "path": "public/locales/sk/common.json",
+      "sha256": "0f36882b027962674f81a94dd33f29f05b8ed56f0b6ce232ae42b405e582d676"
+    },
+    {
+      "path": "public/locales/sk/components/auth.json",
+      "sha256": "7d935714c2a953b8751cdd507a41aae8f5da3d0e6104a4ab76171bc6384cbac4"
+    },
+    {
+      "path": "public/locales/sk/components/camera.json",
+      "sha256": "5cc1e97366cb22361bf6fe0ea79b293adc471f44a0a5db7f79eaea23609253f3"
+    },
+    {
+      "path": "public/locales/sk/components/dialog.json",
+      "sha256": "5ad5b0b5c26ede1826465c105590f217785205838f55d5c1a4ad6ea25ea36a18"
+    },
+    {
+      "path": "public/locales/sk/components/filter.json",
+      "sha256": "ae6097c5de33c09bd971b0a9946bca72ffeeddb7d854ed9500693c609d84829b"
+    },
+    {
+      "path": "public/locales/sk/components/icons.json",
+      "sha256": "3cfb96fc7b7e012a6a2ae8398e8dabe6986fab26164ba6f15ef3754a0e5132b9"
+    },
+    {
+      "path": "public/locales/sk/components/input.json",
+      "sha256": "92f0bc792d358f4c55129dadf33d167814a9687d3d49f9013aa7a373da353d34"
+    },
+    {
+      "path": "public/locales/sk/components/player.json",
+      "sha256": "c838057f5b107d2f00da8c3226faaa39b8203d0b74c2bdd7dfe3354fdd7dba7a"
+    },
+    {
+      "path": "public/locales/sk/config/cameras.json",
+      "sha256": "f5f7d0ab4b453a8fa17b90edaa300c1344bdf8a2070943e274ad68d8d31f8858"
+    },
+    {
+      "path": "public/locales/sk/config/global.json",
+      "sha256": "f5f7d0ab4b453a8fa17b90edaa300c1344bdf8a2070943e274ad68d8d31f8858"
+    },
+    {
+      "path": "public/locales/sk/config/groups.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sk/config/validation.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sk/objects.json",
+      "sha256": "1bbbbb115d59e57b1e5f93dabb8d8755616636bf2ea3eff44fea8f0bfd4b34a8"
+    },
+    {
+      "path": "public/locales/sk/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sk/views/classificationModel.json",
+      "sha256": "3bae566014f3346ce869d667912f6511456b0ba9adbfd67f4f1f5fd3eae558ab"
+    },
+    {
+      "path": "public/locales/sk/views/configEditor.json",
+      "sha256": "14eddf58267d91d4706e78a46ebac07ac66d8b44e8edb430aa3e45d1467cb130"
+    },
+    {
+      "path": "public/locales/sk/views/events.json",
+      "sha256": "6ad8307cd6647f45964827650bd2fd34667afc558c5f1c7933d841373754e272"
+    },
+    {
+      "path": "public/locales/sk/views/explore.json",
+      "sha256": "ea6351d926229744a0feb44a39e9c8656101417eefcb548eb682f09314645fa6"
+    },
+    {
+      "path": "public/locales/sk/views/exports.json",
+      "sha256": "5f72fcf7553c94c6d65a81b6a539dac53a09b9ad56c7751b02010bdc6e652033"
+    },
+    {
+      "path": "public/locales/sk/views/faceLibrary.json",
+      "sha256": "49e1e19ae2590370012ebf41e8c0aeb101a4a43713fce14bf1454135ce4a83de"
+    },
+    {
+      "path": "public/locales/sk/views/live.json",
+      "sha256": "67a0965aa2cfca1586a8f1ef482a8a1ec20cf23c5f426231eb36d941ff5fa35c"
+    },
+    {
+      "path": "public/locales/sk/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sk/views/recording.json",
+      "sha256": "1236d634b1810a2064edcac32fdddb7e9137e791a17b6a94528909faa9e253f9"
+    },
+    {
+      "path": "public/locales/sk/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sk/views/search.json",
+      "sha256": "3f6fa8dd03ab22d3bf1af7bcdf633e2acc841b58ac433a2a9641baab71c7037d"
+    },
+    {
+      "path": "public/locales/sk/views/settings.json",
+      "sha256": "ca3f8a5fe66ce802926214a2ab15718e9a17dcc9b4d1c2a0f8cfe10c6cece03d"
+    },
+    {
+      "path": "public/locales/sk/views/system.json",
+      "sha256": "b992901e939aa70a9c8c24bc40c151b60ceb03138edba4f78baf7e8a8b491d11"
+    },
+    {
+      "path": "public/locales/sl/audio.json",
+      "sha256": "ae54c4631be7bc72b9041fb74c0353f6cc14f518d022b0f0a957609ae16770a3"
+    },
+    {
+      "path": "public/locales/sl/common.json",
+      "sha256": "d6030b4c16da2031fd64c7fec283f12278727bda5846c025160634a1b6a3a8f6"
+    },
+    {
+      "path": "public/locales/sl/components/auth.json",
+      "sha256": "a90f2b39e508ceb635bb9ae2351c0f722d8bef987f537d93bd8ef2c95251361a"
+    },
+    {
+      "path": "public/locales/sl/components/camera.json",
+      "sha256": "f5d245b5c8e6f650c2facf8158f996b5cf877f43308e74620a86f2441002e38e"
+    },
+    {
+      "path": "public/locales/sl/components/dialog.json",
+      "sha256": "7ad0dd416901607b0f92e2baf8caa89e9ed55cf3d2a3963bb5a93656b649fa29"
+    },
+    {
+      "path": "public/locales/sl/components/filter.json",
+      "sha256": "32fa31de7f9244278187f34606d6c2a46cd160a7d686dc8d5f250a5ca8c62ba7"
+    },
+    {
+      "path": "public/locales/sl/components/icons.json",
+      "sha256": "9532c40dda49e4b7dc14d897cafb9e8e3e16a23347bd8b29204cc0c0d3ce2d15"
+    },
+    {
+      "path": "public/locales/sl/components/input.json",
+      "sha256": "9075a4194889991a3ce4e10ef91df9e942122df1a6f27808fb957eed1e40f79b"
+    },
+    {
+      "path": "public/locales/sl/components/player.json",
+      "sha256": "2e8c0775e9073d33b8a3d2d9de5df483e5a7f59509e7f67c9eda09e4eb57d909"
+    },
+    {
+      "path": "public/locales/sl/config/cameras.json",
+      "sha256": "3372fc970c293e609b300fd5fd00451d8a90cbc942cbbd27b071e748fda2c4e7"
+    },
+    {
+      "path": "public/locales/sl/config/global.json",
+      "sha256": "d694d6a0e39efafdcf68f37df0a23c1108bca341fff87202532bec528f3d28e0"
+    },
+    {
+      "path": "public/locales/sl/config/groups.json",
+      "sha256": "52d15fd80a6a6dc649eb64fb1878f26a1dd095805ed4f4c47fd2aacace6edc01"
+    },
+    {
+      "path": "public/locales/sl/config/validation.json",
+      "sha256": "358dc36391fd18fec5af92c100c0cdd7e1471d2151dfeeb998bd7a86a9485c84"
+    },
+    {
+      "path": "public/locales/sl/objects.json",
+      "sha256": "52032ee75cda101cb519e27a7d0162c95d489d6577e16a0fe33e716192ecdf70"
+    },
+    {
+      "path": "public/locales/sl/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sl/views/classificationModel.json",
+      "sha256": "b6baf170129eac26a969b5535c7bd6b557751e967aad33f1ab4fc3710d84811c"
+    },
+    {
+      "path": "public/locales/sl/views/configEditor.json",
+      "sha256": "0e267fd39b07dcdc041bad6a7839de47be927f3a2a7d6bfffb6ab045fc022607"
+    },
+    {
+      "path": "public/locales/sl/views/events.json",
+      "sha256": "1f0607a902427f3219b5f18ec201422a24d0ecb9b66c28b837431afa758414b7"
+    },
+    {
+      "path": "public/locales/sl/views/explore.json",
+      "sha256": "069cda8ad3a47d1f10425dcb90cb0fab9f2bd7104f77d881ab459f574bf8e0ca"
+    },
+    {
+      "path": "public/locales/sl/views/exports.json",
+      "sha256": "685430407047f758f4caa0ef2376a824999cc97e342f8739b01944f44f2fcbee"
+    },
+    {
+      "path": "public/locales/sl/views/faceLibrary.json",
+      "sha256": "a5c61f82bf6d228c6e70163b786798b7a44ac418ff3fdc67cca55303a1e2dfc7"
+    },
+    {
+      "path": "public/locales/sl/views/live.json",
+      "sha256": "d372ccc393d4a4146e7b9c17ba157662f989b970b78eca243c25315ce4001945"
+    },
+    {
+      "path": "public/locales/sl/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sl/views/recording.json",
+      "sha256": "23b8a2d17d60d7b1ab2e34522d3ab0db684d1f1aa2ddeacad98174366ae59c12"
+    },
+    {
+      "path": "public/locales/sl/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/sl/views/search.json",
+      "sha256": "0735eeb4b4eea091121101a2a6a4f4d0ee04fdd77fabe47c454f934a76bc9434"
+    },
+    {
+      "path": "public/locales/sl/views/settings.json",
+      "sha256": "d3eac72e2c1a707ea99d0b9908e5ffff8037c78f65d724d63ee06d0600b396d3"
+    },
+    {
+      "path": "public/locales/sl/views/system.json",
+      "sha256": "fa02eb4aa467d20a653c30c2fc31207f11ebca0b3d9c8e4969fcd2109b6680e8"
+    },
+    {
+      "path": "public/locales/lt/audio.json",
+      "sha256": "ff593997f037eb9cb2ffc078705dfcb100b62d832c0bdb1b736dd6f4169635c9"
+    },
+    {
+      "path": "public/locales/lt/common.json",
+      "sha256": "95f8f99350a8ff8d33e5f2a80377f9c2f37a3b620d00c63909ec91b7e1c8c896"
+    },
+    {
+      "path": "public/locales/lt/components/auth.json",
+      "sha256": "3c1779983e2e478d7191fef4a757109220b6435cd5a0c13dc80eca512674359b"
+    },
+    {
+      "path": "public/locales/lt/components/camera.json",
+      "sha256": "0466aa0b3b8595adba5bc094d3f9e5c0ef85f8691adbde0b7b75221dcb6f1984"
+    },
+    {
+      "path": "public/locales/lt/components/dialog.json",
+      "sha256": "a75445c880fde13138d74881ab30bb7c320093b5955caea71bb7eea1165f3e4b"
+    },
+    {
+      "path": "public/locales/lt/components/filter.json",
+      "sha256": "01b437bf54530346d6e1ea382ea2fc7de3a4825be576e203d781111303f7a37d"
+    },
+    {
+      "path": "public/locales/lt/components/icons.json",
+      "sha256": "9ac13a1f625b8783fe1d82e213e2c3695d98f112b649dbfe09f6d6efc5a7165e"
+    },
+    {
+      "path": "public/locales/lt/components/input.json",
+      "sha256": "cc2350da74f407828aa58a882cc0db92d6cee8f8cfe7dc1dd76b6a1b75959ed3"
+    },
+    {
+      "path": "public/locales/lt/components/player.json",
+      "sha256": "a145e3ee34834bf98bb5fe93f96f2e226b80895ef249a3b3c5d16406f8e1dbce"
+    },
+    {
+      "path": "public/locales/lt/config/cameras.json",
+      "sha256": "5994df618101c462a68fd69e1983fd9b8864b52f6934b8d9bbdb3c61e13c8861"
+    },
+    {
+      "path": "public/locales/lt/config/global.json",
+      "sha256": "04372ce6b4228d7cfa86bf142b6ecff9eac48cc9dc4d0df972397a1e3d91447d"
+    },
+    {
+      "path": "public/locales/lt/config/groups.json",
+      "sha256": "02f8ba558b853a923387894760391bafb8e6ea2db8c5b5eb4cb28fdbabcf8d9d"
+    },
+    {
+      "path": "public/locales/lt/config/validation.json",
+      "sha256": "ba21528ac706031d7d8788da54a0a2bfea7abbeeaee84ff8df985ed3409f39bd"
+    },
+    {
+      "path": "public/locales/lt/objects.json",
+      "sha256": "e918aafdd8de642a8f2b607bc5edb10b17dff62767637320b504d302065cbeb5"
+    },
+    {
+      "path": "public/locales/lt/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/lt/views/classificationModel.json",
+      "sha256": "39c83bd57bfed775d1b9b2a0c0bcc37a883fed5fea5cd33cdda9018f9d9ef071"
+    },
+    {
+      "path": "public/locales/lt/views/configEditor.json",
+      "sha256": "745cb418428b07880839b1f707d50d08047dcd72fa444ef1a7509449ab4cd516"
+    },
+    {
+      "path": "public/locales/lt/views/events.json",
+      "sha256": "174011693baad4a36d00ac3862aed8dc509890ef285437a8476aa3c9007f1653"
+    },
+    {
+      "path": "public/locales/lt/views/explore.json",
+      "sha256": "3b8cda087f38d353d23e715add033c12421fc434b42712113317715f868c1212"
+    },
+    {
+      "path": "public/locales/lt/views/exports.json",
+      "sha256": "7810ac2264c879b274159b7b6bbac1266efc8e34be1cdb88799b1c6f558eaacc"
+    },
+    {
+      "path": "public/locales/lt/views/faceLibrary.json",
+      "sha256": "641ed83ea95c87597d9ea6d241c7c0de277bbc37a300163c29c795ef118ef1f2"
+    },
+    {
+      "path": "public/locales/lt/views/live.json",
+      "sha256": "523485afa678d68c2fc444666968af5dd6b6f12638148c13f297485c04519bfb"
+    },
+    {
+      "path": "public/locales/lt/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/lt/views/recording.json",
+      "sha256": "730f8836647986c4ae80eff2c90816fde62be8e6f0d20304c534a23922672239"
+    },
+    {
+      "path": "public/locales/lt/views/replay.json",
+      "sha256": "6f3897c39a171cce3d9e5ab70e643756bbf2f0f8dc690e466fc15d014e9831ef"
+    },
+    {
+      "path": "public/locales/lt/views/search.json",
+      "sha256": "47e866f20b15dd8620c1446757ed7cc412c37b074e91f457d1257be76595738b"
+    },
+    {
+      "path": "public/locales/lt/views/settings.json",
+      "sha256": "6406546bfb272e8c9912e053caefe16b6fb74a889474bd0976312df554983630"
+    },
+    {
+      "path": "public/locales/lt/views/system.json",
+      "sha256": "31db1c346dc1ea47eb690a0bb74bfbf630886f7a15d9b29bfa85c86c1c7b5b3e"
+    },
+    {
+      "path": "public/locales/uk/audio.json",
+      "sha256": "71b5e7e3437c9858680f198843770287ec034472ad770be0ff18a3464914e5c1"
+    },
+    {
+      "path": "public/locales/uk/common.json",
+      "sha256": "03e90dbd21d7f9fe9a2782d38cb9a2ee963a640e7a46e1f7fef658b5e54f999d"
+    },
+    {
+      "path": "public/locales/uk/components/auth.json",
+      "sha256": "486d7be1d8c9468e58a0e26b5445dd461ee2df78f92f68af5d2d89b1b080badf"
+    },
+    {
+      "path": "public/locales/uk/components/camera.json",
+      "sha256": "265dbbcaf1799b248200cba5147034bee4d0f88606be42935a145a57d546f283"
+    },
+    {
+      "path": "public/locales/uk/components/dialog.json",
+      "sha256": "5da4f5df2a488d88ef502a7fc07da97a4cf006c31fc8d5412e9e328dc205a83f"
+    },
+    {
+      "path": "public/locales/uk/components/filter.json",
+      "sha256": "497ed82b15e68ffeb58bf12bfb5352b0c7728616ec23415985df0f5f860d0aa0"
+    },
+    {
+      "path": "public/locales/uk/components/icons.json",
+      "sha256": "09c2770c8d259cd9fa2f75b5243f222ef0fba959c809c9fd4e46f12b70f90421"
+    },
+    {
+      "path": "public/locales/uk/components/input.json",
+      "sha256": "a68995ea6c4dcfceaad4a8b9963f173f55869ecbcf0f96bd6f2d6f088f153738"
+    },
+    {
+      "path": "public/locales/uk/components/player.json",
+      "sha256": "0803afa9ac129e423a0e77ffe6cfc9036afd5eadc21b569d6ef234821bf76f98"
+    },
+    {
+      "path": "public/locales/uk/config/cameras.json",
+      "sha256": "0dbf6054d92ce41b7a44945c136a91a4026597cc629789d275f2c3a850907454"
+    },
+    {
+      "path": "public/locales/uk/config/global.json",
+      "sha256": "e05dddbe691a39f2680189d17e0e29ea0347be06b7cb1bb1447c09a93c5b915e"
+    },
+    {
+      "path": "public/locales/uk/config/groups.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/uk/config/validation.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/uk/objects.json",
+      "sha256": "d7b7760500864be4dc1bab215453f41299a72a9b7b20d5a33779403e8a1933c2"
+    },
+    {
+      "path": "public/locales/uk/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/uk/views/classificationModel.json",
+      "sha256": "8972bf4613b96302f0424a1131bb0bed05bf7a16a67c6ba42fad01237582f337"
+    },
+    {
+      "path": "public/locales/uk/views/configEditor.json",
+      "sha256": "16631bab099da6e7bdbc361044436b4c6265387f494e1230e618bfac071252fd"
+    },
+    {
+      "path": "public/locales/uk/views/events.json",
+      "sha256": "704f8f5e3b687bbf3c955b30751a6f37fdf640964238cd41bfe978a047573355"
+    },
+    {
+      "path": "public/locales/uk/views/explore.json",
+      "sha256": "65b573606a13398c419ca71e9c48ecd614167d98f23c6f83fdc7b506de0842c2"
+    },
+    {
+      "path": "public/locales/uk/views/exports.json",
+      "sha256": "69e1f6fb8b1ee6aa22dfbb4dc5410d8d17f4d1107d27de86a6def5dcede13ba9"
+    },
+    {
+      "path": "public/locales/uk/views/faceLibrary.json",
+      "sha256": "444b6a61973aeaa1374a70b58e7d9b342568d834afe4198535a34154abcf49a3"
+    },
+    {
+      "path": "public/locales/uk/views/live.json",
+      "sha256": "840ad38b51191645284013207737786ccc97ba51156091c8045e6f4b5cd67fdd"
+    },
+    {
+      "path": "public/locales/uk/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/uk/views/recording.json",
+      "sha256": "8f0307dd2f149496de453c3f2c1cbdf65abcc98388b4660eba38f016c8249ba3"
+    },
+    {
+      "path": "public/locales/uk/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/uk/views/search.json",
+      "sha256": "c3544458ff9a1b1190fe59c1ea68c4c3b53bd8331b060a70b97baf1955c1348e"
+    },
+    {
+      "path": "public/locales/uk/views/settings.json",
+      "sha256": "9b0fad3ee2a394c736fd8bd1cde89f36eda43d6e067d5ab4da459994fb31a8c7"
+    },
+    {
+      "path": "public/locales/uk/views/system.json",
+      "sha256": "690b5d323c81ea3adb827e39fd3d9826ff16d3a474bbb16d337d4f36a5693d56"
+    },
+    {
+      "path": "public/locales/be/audio.json",
+      "sha256": "09c207788c601fd09a2a9c5624a779c3332e36472d45a2f266b5b8cf0aae89fa"
+    },
+    {
+      "path": "public/locales/be/common.json",
+      "sha256": "1e0cc755bc25fbdfe92d61c32bb36e82e155f1d3df7be2f00f9bf8d196c99b26"
+    },
+    {
+      "path": "public/locales/be/components/auth.json",
+      "sha256": "924f63513ce1984094fa1f815ea1374512a36a40ce45d492eb69dc53363edaa0"
+    },
+    {
+      "path": "public/locales/be/components/camera.json",
+      "sha256": "475aabad0954f684eb17ea060946d302fffe97f3b31745122e09a4d5a0674e3a"
+    },
+    {
+      "path": "public/locales/be/components/dialog.json",
+      "sha256": "cd2f07df22aa3eb6b87de859b5d56c0ce5aaa17690315ebbe4b422eb60fd2110"
+    },
+    {
+      "path": "public/locales/be/components/filter.json",
+      "sha256": "00871b731cfc4e1d09cec2261c5f29d663eb24b4f0ac95ad55949125bc7d634f"
+    },
+    {
+      "path": "public/locales/be/components/icons.json",
+      "sha256": "bc4e9520c3e3a1ce800b933f01e5aa6e6746b7152bb3c8c62c443519cbea3d4d"
+    },
+    {
+      "path": "public/locales/be/components/input.json",
+      "sha256": "379195d1073ff1bc0c8462b6444515aea202db43b224991b8bed9d8e88b05431"
+    },
+    {
+      "path": "public/locales/be/components/player.json",
+      "sha256": "352195ca7c9e9f42df372b288c33bc90a391ceefd90e35b8787cd36d27dc90de"
+    },
+    {
+      "path": "public/locales/be/config/cameras.json",
+      "sha256": "0339472e2c63f0462e2698614cc897c611ac38d176020a0e2f2369558e68f73e"
+    },
+    {
+      "path": "public/locales/be/config/global.json",
+      "sha256": "5468cbeebfae8e5dcf36545f0e56f778a3334f8d6322babe2a519d95c81ea5c3"
+    },
+    {
+      "path": "public/locales/be/config/groups.json",
+      "sha256": "a46b37095b62d7062ba6c34721832b6e64fcb5e3795af444e5edb9e2a3ea59b8"
+    },
+    {
+      "path": "public/locales/be/config/validation.json",
+      "sha256": "e0c958b3a9ac9c8684134900c9010c78ef67d2971eb33fc0e1b6950967bac407"
+    },
+    {
+      "path": "public/locales/be/objects.json",
+      "sha256": "a0dbeb5cb43e181dab4e23b713ca4bfa726af2f5a7a3e67e5c337b6fbebda236"
+    },
+    {
+      "path": "public/locales/be/views/chat.json",
+      "sha256": "8e97c0ea2f88376467c303c148e905801a8010616ef4f2ca9fc19d2f17edd14c"
+    },
+    {
+      "path": "public/locales/be/views/classificationModel.json",
+      "sha256": "ca1468622654730dd91e87a86bed66bfd806a09eb99f50b52a721f77580011a6"
+    },
+    {
+      "path": "public/locales/be/views/configEditor.json",
+      "sha256": "54ac928def595ed9fdd5d6cce66977ed1c8f052242aab628a6b7bf5bc9424c86"
+    },
+    {
+      "path": "public/locales/be/views/events.json",
+      "sha256": "516a12609cd0af6df0df26b8f52e8eb2233b6f72795a1172940d05890816375f"
+    },
+    {
+      "path": "public/locales/be/views/explore.json",
+      "sha256": "ac0f3d32f3b527672ca23a57ddb565c85627b5a316819893631aa9f518dd94fe"
+    },
+    {
+      "path": "public/locales/be/views/exports.json",
+      "sha256": "052b03c4ac07761d102012cc8ab72daeffa11b3d8722336804adaddaf2dbe8a8"
+    },
+    {
+      "path": "public/locales/be/views/faceLibrary.json",
+      "sha256": "413cce564478e49aaf5ec894b075d531e7cfd1350bbef779503575fe25d9a0d5"
+    },
+    {
+      "path": "public/locales/be/views/live.json",
+      "sha256": "beb3c97ba0df175b6945c423ebf4f29adb61d2a0848bd5e5bd9e4f8bc3e968b6"
+    },
+    {
+      "path": "public/locales/be/views/motionSearch.json",
+      "sha256": "34b66221c94ff7d48b6e8cbfff4962414f6fea5a9b85d8cb1eebcd0336c85752"
+    },
+    {
+      "path": "public/locales/be/views/recording.json",
+      "sha256": "937aa89d68a50a4a05bfedbdcd52243c9cfc45491d8510a007e79ac95c0f5fa7"
+    },
+    {
+      "path": "public/locales/be/views/replay.json",
+      "sha256": "d7bf4711354f1b9d9ee459d1d2ae058726d584c53f4f9cbe131d0ddc3ff6242c"
+    },
+    {
+      "path": "public/locales/be/views/search.json",
+      "sha256": "71f58fe534780b50e81264cb13a79d2cb9b1bc8c89a17aef0c0d7be9eaae7890"
+    },
+    {
+      "path": "public/locales/be/views/settings.json",
+      "sha256": "2edd071ea4d01f06fa8c291cd0725421569b43c822d0cdf115b571a26489ac9c"
+    },
+    {
+      "path": "public/locales/be/views/system.json",
+      "sha256": "67f5ea76782b5d28ccda752bf73c99bb5045fc64251d20bfaf9c591d4bbce0c7"
+    },
+    {
+      "path": "public/locales/cs/audio.json",
+      "sha256": "c56af907c66f8c3d6fb38e2ebd2abae4ab90043c87017080082ac222d0e5d319"
+    },
+    {
+      "path": "public/locales/cs/common.json",
+      "sha256": "a67ca6cad73201ac74fc434eb00cf8f2deb84323130dd4c501170270c4f85568"
+    },
+    {
+      "path": "public/locales/cs/components/auth.json",
+      "sha256": "1751759a14a5c34f22cfc058fc6fcf349adfc1a7e0588786616f255bb9cee056"
+    },
+    {
+      "path": "public/locales/cs/components/camera.json",
+      "sha256": "f55660ee7f9f6e92a4d4ef961938f4523919f9679457f63e964f4ef2cdffe799"
+    },
+    {
+      "path": "public/locales/cs/components/dialog.json",
+      "sha256": "75c2d0587c150b6e9b4faf4c5a3f259e960465e50d51fca8375e6d959ec09775"
+    },
+    {
+      "path": "public/locales/cs/components/filter.json",
+      "sha256": "e50ff7c5cabd155d9c0087f38d99e834694077fceeb9f2ad9392b2c573e8c277"
+    },
+    {
+      "path": "public/locales/cs/components/icons.json",
+      "sha256": "28f29cd1d297bb315fe6b018427579c4857a7db23dcb2c825357df8887ebc9db"
+    },
+    {
+      "path": "public/locales/cs/components/input.json",
+      "sha256": "2ffab3b31aa51b96002703b5375171bba4a81779d1fe6a6786cc6ec3df32c658"
+    },
+    {
+      "path": "public/locales/cs/components/player.json",
+      "sha256": "ca65c81d0f8500286e381330ec6fd314e7e4f24ca3bc4246e723e5744d694366"
+    },
+    {
+      "path": "public/locales/cs/config/cameras.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/cs/config/global.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/cs/config/groups.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/cs/config/validation.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/cs/objects.json",
+      "sha256": "2b643936967d15503c06e9114b017dcb5d137f4562c69aa41a43d3a5f0bb7578"
+    },
+    {
+      "path": "public/locales/cs/views/chat.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/cs/views/classificationModel.json",
+      "sha256": "e389890a0dd7dc29966aade3489a56310e616339e4a2918c9b953563963d0d6a"
+    },
+    {
+      "path": "public/locales/cs/views/configEditor.json",
+      "sha256": "3da5c46bf68b557cb04adfda21bb361adb066b914baf1c862cacc5e6c567187c"
+    },
+    {
+      "path": "public/locales/cs/views/events.json",
+      "sha256": "a8aac97de7b9eb9091252f549b89048284953b974dab26b2426552e8da02f82f"
+    },
+    {
+      "path": "public/locales/cs/views/explore.json",
+      "sha256": "8c49968bc22942671d2ac142a3354b9b85a8abafda2c5b8cbf4f7786db1564dd"
+    },
+    {
+      "path": "public/locales/cs/views/exports.json",
+      "sha256": "4ffe08af731b336dcb7268fbc1336b1f75f49defa5dba10a525b5e2411c421bb"
+    },
+    {
+      "path": "public/locales/cs/views/faceLibrary.json",
+      "sha256": "aa3e0a10cd1d284ef965c07b71f1b57cdcd661a0fc70a524e75c9cd7e1fa5818"
+    },
+    {
+      "path": "public/locales/cs/views/live.json",
+      "sha256": "c2537d6dc2151b128ab872cccb51339463702836a582112981e88670a948d79e"
+    },
+    {
+      "path": "public/locales/cs/views/motionSearch.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/cs/views/recording.json",
+      "sha256": "cefdcecf1739ed379a41442b3340d68ca00c6448a17b0104f163c4d482e09d45"
+    },
+    {
+      "path": "public/locales/cs/views/replay.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "public/locales/cs/views/search.json",
+      "sha256": "9664b03fcba499907e1eba3d2e719df27bcec3cc1446562b5464cbcc49577760"
+    },
+    {
+      "path": "public/locales/cs/views/settings.json",
+      "sha256": "a82b5fec1f80604ab86805c79e95ec7f94f2d7dbb62ac14775f80aa28516583f"
+    },
+    {
+      "path": "public/locales/cs/views/system.json",
+      "sha256": "dc672aab27172fd9d5123148d78ae6790113277e0d8d30c664d2abb5f6e6388b"
+    },
+    {
+      "path": "public/locales/hu/audio.json",
+      "sha256": "e6f436d1eefe32b214eb701cfd023421272e0f81dc5e9686d4e359094820123f"
+    },
+    {
+      "path": "public/locales/hu/common.json",
+      "sha256": "bae3e7af2133aa58424771233da080b4624872140fd31d9143ed8555e5aa9776"
+    },
+    {
+      "path": "public/locales/hu/components/auth.json",
+      "sha256": "081448a55cc38c10c43952a11087da8f25342245b3574ca50f2975498c3f3bde"
+    },
+    {
+      "path": "public/locales/hu/components/camera.json",
+      "sha256": "2cb6ac906badbb1b081802522748d4981f7b413b386a4f7205e4107b9cdf4cf8"
+    },
+    {
+      "path": "public/locales/hu/components/dialog.json",
+      "sha256": "428353217966cebfe1a3c3c1a9fd23904dfd323220e1a64de50f212a44e16412"
+    },
+    {
+      "path": "public/locales/hu/components/filter.json",
+      "sha256": "b3f91096ffd3fd606d860f044f1553e6fba2404b11344b0987aa1750fea732b7"
+    },
+    {
+      "path": "public/locales/hu/components/icons.json",
+      "sha256": "b75a54b78e1e6279a978486586e950dc8c97f55549c1f1cba1d102008ed4d3ae"
+    },
+    {
+      "path": "public/locales/hu/components/input.json",
+      "sha256": "2c6e93b5d0536e61475d584e9fed0038a5fa6d20913e252b4984e526d306153b"
+    },
+    {
+      "path": "public/locales/hu/components/player.json",
+      "sha256": "3a7a40bed6a2c4ddc5206c190790b8153728e7a304dcc31c76133a3391e12e2d"
+    },
+    {
+      "path": "public/locales/hu/config/cameras.json",
+      "sha256": "d4a60a43d7f99a26227d852c6c85b01a56f330b78fb67f4515aa7507a0028151"
+    },
+    {
+      "path": "public/locales/hu/config/global.json",
+      "sha256": "b84665f47bd7d6790ef73c0544eed356665560dbb529cd50a61b8a5cde129097"
+    },
+    {
+      "path": "public/locales/hu/config/groups.json",
+      "sha256": "e4751e9945b4a4dccddca55f1b9bfbf6c0cbf4993ebf0de150889216b596a495"
+    },
+    {
+      "path": "public/locales/hu/config/validation.json",
+      "sha256": "5aedbb23639fb538fdbde3e8e38c7c6c5d9c92b924441c21c92a8822dcd28c33"
+    },
+    {
+      "path": "public/locales/hu/objects.json",
+      "sha256": "b40770d8fd870628a16c98c69fa12a52dd99f0a687967befdfef0c9361cb8769"
+    },
+    {
+      "path": "public/locales/hu/views/chat.json",
+      "sha256": "fb47a10df81ee494f495c8184b71df8a1ee3dbdab6df1c6db4dfa66df8439db3"
+    },
+    {
+      "path": "public/locales/hu/views/classificationModel.json",
+      "sha256": "91f9c8d1bf48b5d8284c5f13ccdf2c936224663a42115d022df198b20b356b2e"
+    },
+    {
+      "path": "public/locales/hu/views/configEditor.json",
+      "sha256": "3248c4f252e8bb409827b5cf0ee65aac2a442e15687698873ab5caf404651aed"
+    },
+    {
+      "path": "public/locales/hu/views/events.json",
+      "sha256": "0bf459bc1c0225dbafb330f662ae270ff51b352b230a1f6a7486ad9ee23e2669"
+    },
+    {
+      "path": "public/locales/hu/views/explore.json",
+      "sha256": "affc9ee3d0911e7278b19b65d6dc855f54c97e3673163163d7f5909ef3f6f92d"
+    },
+    {
+      "path": "public/locales/hu/views/exports.json",
+      "sha256": "3795cd0e7c2b1e4db6a692a8b2c5e67f52543c7e619f5b7700f603869b38c488"
+    },
+    {
+      "path": "public/locales/hu/views/faceLibrary.json",
+      "sha256": "8978bdfe5acd175901090f719bcf2f558f101609949c366ea3caba473a9d211b"
+    },
+    {
+      "path": "public/locales/hu/views/live.json",
+      "sha256": "a4df7b00902f5d695386956e8dd9b80db82e9759f97f24fee7d7caa8618f5a6a"
+    },
+    {
+      "path": "public/locales/hu/views/motionSearch.json",
+      "sha256": "56ac0cfc96d55bc791baa77ea479b1f9f0b9ede9f46c77688b4f67e5cc33c59c"
+    },
+    {
+      "path": "public/locales/hu/views/recording.json",
+      "sha256": "9b9026a7b6ea8475cd46ea98a961ffe3ddfb0041fe8fad8a71cf5005285d454d"
+    },
+    {
+      "path": "public/locales/hu/views/replay.json",
+      "sha256": "9d29bf28c3f67bf679cdfdf71dbd95bc6f32d6219e84ac21069babc1755ad783"
+    },
+    {
+      "path": "public/locales/hu/views/search.json",
+      "sha256": "c6ddb8fa8a25ca7adab9daf660cfa9a3e924af51841faf73cc1579af2411c936"
+    },
+    {
+      "path": "public/locales/hu/views/settings.json",
+      "sha256": "9a0fe4bfa3d8c5e52d3db6bdaa71f6842b6a073b695fe1bf4dd0aceec668b161"
+    },
+    {
+      "path": "public/locales/hu/views/system.json",
+      "sha256": "fa80ca5f75e0a790f9ecf223e130d1dafd65f6056d9d70d7b2973745091cdfb4"
+    }
+  ],
+  "locales": 33,
+  "namespaces": 29,
+  "unionMessageCount": 5348,
+  "perLocale": {
+    "en": 5208,
+    "es": 4771,
+    "pt": 2034,
+    "pt-BR": 5108,
+    "fr": 3404,
+    "de": 4670,
+    "it": 4718,
+    "ca": 5109,
+    "ro": 5108,
+    "nl": 4463,
+    "nb-NO": 4667,
+    "sv": 3471,
+    "zh-CN": 4631,
+    "zh-Hant": 4624,
+    "yue-Hant": 2950,
+    "ko": 4939,
+    "ja": 4623,
+    "vi": 1927,
+    "th": 1231,
+    "he": 2421,
+    "fa": 4669,
+    "ru": 4672,
+    "tr": 5064,
+    "pl": 4722,
+    "hr": 2395,
+    "bs": 4394,
+    "sk": 2440,
+    "sl": 3922,
+    "lt": 2719,
+    "uk": 3471,
+    "be": 5064,
+    "cs": 2153,
+    "hu": 2263
+  }
+}

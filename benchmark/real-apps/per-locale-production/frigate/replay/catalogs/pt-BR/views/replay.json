@@ -1,0 +1,60 @@
+{
+    "title": "Depuração de Replay",
+    "description": "“Reproduza gravações de câmera para depuração. A lista de objetos exibe um resumo com atraso temporal, dos objetos detectados e a aba de mensagens mostra um fluxo de mensagens internas do Frigate provenientes da gravação reproduzida.",
+    "websocket_messages": "Mensagens",
+    "dialog": {
+        "title": "Iniciar Replay de Depuração",
+        "description": "Crie uma câmera de reprodução temporária que exiba imagens históricas em loop para depurar problemas de detecção e rastreamento de objetos. A câmera de reprodução terá a mesma configuração de detecção da câmera de origem. Escolha um intervalo de tempo para começar.",
+        "camera": "Câmera de origem",
+        "timeRange": "Intervalo de tempo",
+        "preset": {
+            "1m": "Último minuto",
+            "5m": "Últimos 5 minutos",
+            "timeline": "Da Linha do Tempo",
+            "custom": "Personalizada"
+        },
+        "startButton": "Iniciar Reprodução",
+        "selectFromTimeline": "Selecionar",
+        "startLabel": "Início",
+        "endLabel": "Fim",
+        "toast": {
+            "error": "Falha ao iniciar o replay de depuração: {{error}}",
+            "stopError": "Falha ao interromper o replay de depuração: {{error}}",
+            "goToReplay": "Ir para o replay",
+            "alreadyActive": "Já existe uma sessão de replay ativa",
+            "noRecordings": "Nenhuma gravação encontrada no intervalo de tempo selecionado"
+        },
+        "starting": "Iniciando replay..."
+    },
+    "page": {
+        "noSession": "Nenhuma sessão de replay de depuração ativa",
+        "noSessionDesc": "Inicie um replay de depuração na visualização de Histórico clicando no botão Ações da barra de ferramentas e escolhendo Replay de depuração.",
+        "goToRecordings": "Ir para o histórico",
+        "sourceCamera": "Câmera de origem",
+        "initializingReplay": "Inicializando replay de depuração...",
+        "stoppingReplay": "Interrompendo replay de depuração...",
+        "replayCamera": "Câmera de replay",
+        "confirmStop": {
+            "title": "Interromper replay de depuração?",
+            "description": "Isso interromperá a sessão e limpará todos os dados temporários. Tem certeza?",
+            "confirm": "Interromper replay",
+            "cancel": "Cancelar"
+        },
+        "stopReplay": "Interromper replay",
+        "activity": "Atividade",
+        "objects": "Lista de objetos",
+        "audioDetections": "Detecções de áudio",
+        "activeTracking": "Rastreamento ativo",
+        "noActivity": "Nenhuma atividade detectada",
+        "noActiveTracking": "Nenhum rastreamento ativo",
+        "configuration": "Configuração",
+        "configurationDesc": "Ajuste com precisão as configurações de detecção de movimento e rastreamento de objetos da câmera de replay de depuração. Nenhuma alteração é salva no seu arquivo de configuração do Frigate.",
+        "preparingClip": "Preparando o clipe…",
+        "preparingClipDesc": "O Frigate está juntando as gravações do intervalo de tempo selecionado. Isso pode levar um minuto para intervalos mais longos.",
+        "startingCamera": "Iniciando replay de depuração…",
+        "startError": {
+            "back": "Voltar ao histórico",
+            "title": "Falha ao iniciar o replay de depuração"
+        }
+    }
+}

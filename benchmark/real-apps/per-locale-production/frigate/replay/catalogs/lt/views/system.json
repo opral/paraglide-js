@@ -1,0 +1,264 @@
+{
+  "documentTitle": {
+    "cameras": "Kamerų Statistika - Frigate",
+    "storage": "Saugyklos Statistika - Frigate",
+    "logs": {
+      "frigate": "Frigate Žurnalas - Frigate",
+      "go2rtc": "Go2RTC Žurnalas - Frigate",
+      "nginx": "Nginx Žurnalas - Frigate",
+      "websocket": "Žinučių Išrašas - Frigate"
+    },
+    "general": "Bendroji Statistika - Frigate",
+    "enrichments": "Pagerinimų Statistika - Frigate"
+  },
+  "title": "Sistema",
+  "metrics": "Sistemos metrikos",
+  "logs": {
+    "download": {
+      "label": "Parsisiųsti Žurnalą"
+    },
+    "copy": {
+      "label": "Kopijuoti į iškarpinę",
+      "success": "Nukopijuoti įrašai į iškarpinę",
+      "error": "Nepavyko nukopijuoti įrašų į iškarpinę"
+    },
+    "type": {
+      "label": "Tipas",
+      "timestamp": "Laiko žymė",
+      "tag": "Žyma",
+      "message": "Žinutė"
+    },
+    "tips": "Įrašai yra transliuojami iš serverio",
+    "toast": {
+      "error": {
+        "fetchingLogsFailed": "Klaida nuskaitant įrašus: {{errorMessage}}",
+        "whileStreamingLogs": "Klaidai transliuojant įrašus: {{errorMessage}}"
+      }
+    },
+    "websocket": {
+      "label": "Žinutės",
+      "pause": "Pauzė",
+      "resume": "Atkurti",
+      "clear": "Išvalyti",
+      "filter": {
+        "all": "Visos temos",
+        "topics": "Temos",
+        "events": "Įvykiai",
+        "reviews": "Apžiūros",
+        "classification": "Klasifikacijos",
+        "face_recognition": "Veido Atpažinimas",
+        "lpr": "RNA",
+        "camera_activity": "Kameros veikla",
+        "system": "Systema",
+        "camera": "Kamera",
+        "all_cameras": "Visos kameros",
+        "cameras_count_one": "{{count}}Kamera",
+        "cameras_count_other": "{{count}} Kameros"
+      },
+      "empty": "Dar nėra pateiktų žinučių",
+      "count_one": "{{count}} žinutė",
+      "count_other": "{{count}} žinutės",
+      "expanded": {
+        "payload": "Duomenų Paketas"
+      }
+    }
+  },
+  "general": {
+    "title": "Bendrinis",
+    "detector": {
+      "title": "Detektoriai",
+      "inferenceSpeed": "Detektorių darbo greitis",
+      "temperature": "Detektorių Temperatūra",
+      "cpuUsage": "Detektorių CPU Naudojimas",
+      "memoryUsage": "Detektorių Atminties Naudojimas",
+      "cpuUsageInformation": "CPU vartojimas ruošiant duomenis detektorių modeliams. Ši reikšmė nevertina inference vartojimo, net jei yra naudojamas GPU akseleratorius."
+    },
+    "hardwareInfo": {
+      "title": "Techninės įrangos Info",
+      "gpuUsage": "GPU Naudojimas",
+      "gpuMemory": "GPU Atmintis",
+      "gpuEncoder": "GPU Kodavimas",
+      "gpuDecoder": "GPU Dekodavimas",
+      "gpuInfo": {
+        "vainfoOutput": {
+          "title": "Vainfo Išvestis",
+          "returnCode": "Grįžtamas Kodas: {{code}}",
+          "processOutput": "Proceso Išvestis:",
+          "processError": "Proceso Klaida:"
+        },
+        "nvidiaSMIOutput": {
+          "title": "Nvidia SMI Išvestis",
+          "name": "Pavadinimas: {{name}}",
+          "driver": "Tvarkyklė: {{driver}}",
+          "cudaComputerCapability": "CUDA Compute Galimybės: {{cuda_compute}}",
+          "vbios": "VBios Info: {{vbios}}"
+        },
+        "closeInfo": {
+          "label": "Užverti GPU info"
+        },
+        "copyInfo": {
+          "label": "Kopijuoti GPU Info"
+        },
+        "toast": {
+          "success": "Nukopijuota GPU info į iškarpinę"
+        }
+      },
+      "npuUsage": "NPU Naudojimas",
+      "npuMemory": "NPU Atmintis",
+      "gpuCompute": "GPU Skaičiavimai / Transformavimas",
+      "gpuTemperature": "GPU Temperatūra",
+      "npuTemperature": "NPU Temperatūra"
+    },
+    "otherProcesses": {
+      "title": "Kiti Procesai",
+      "processCpuUsage": "Procesų CPU Naudojimas",
+      "processMemoryUsage": "Procesu Atminties Naudojimas",
+      "series": {
+        "go2rtc": "go2rtc",
+        "recording": "įrašas",
+        "review_segment": "peržiūros segmentas",
+        "embeddings": "įterpiniai",
+        "audio_detector": "garso aptikiklis"
+      }
+    }
+  },
+  "storage": {
+    "title": "Saugykla",
+    "overview": "Apžvalga",
+    "recordings": {
+      "title": "Įrašai",
+      "tips": "Ši reikšmė nurodo kiek iš viso Frigate duombazėje esantys įrašai užima vietos saugykloje. Frigate neseka kiek vietos užima visi kiti failai esantys laikmenoje.",
+      "earliestRecording": "Anksčiausias esantis įrašas:"
+    },
+    "cameraStorage": {
+      "title": "Kameros Saugykla",
+      "camera": "Kamera",
+      "unusedStorageInformation": "Neišnaudotos Saugyklos Informacija",
+      "storageUsed": "Saugykla",
+      "percentageOfTotalUsed": "Procentas nuo Viso",
+      "bandwidth": "Pralaidumas",
+      "unused": {
+        "title": "Nepanaudota",
+        "tips": "Jei saugykloje turite daugiau failų apart Frigate įrašų, ši reikšmė neatspindės tikslios likusios laisvos vietos Frigate panaudojimui. Frigate neseka saugyklos panaudojimo už savo įrašų ribų."
+      }
+    },
+    "shm": {
+      "title": "SHM (bendrinama atmintis) priskyrimas",
+      "warning": "Esamas SHM dydis {{total}}MB yra per mažas. Pridėkite bent jau {{min_shm}}MB.",
+      "frameLifetime": {
+        "title": "Kadro gyvavimo trukmė",
+        "description": "Kiekviena kamera turi {{frames}} kadrų vietas dalinamoje atmintyje. Grečiausiu kameros kadrų dažniu, kiekvienas kadras yra prieinamas maždaug {{lifetime}} prieš tai kaip jis yra užkeičiamas."
+      }
+    }
+  },
+  "cameras": {
+    "title": "Kameros",
+    "overview": "Apžvalga",
+    "info": {
+      "aspectRatio": "formato santykis",
+      "cameraProbeInfo": "{{camera}} Kameros srauto informacija",
+      "streamDataFromFFPROBE": "Transliacijos duomenys yra surenkami su <code>ffprobe</code>.",
+      "fetching": "Gaunamai Kameros Duomenys",
+      "stream": "Transliacija {{idx}}",
+      "video": "Vaizdas:",
+      "codec": "Kodekas:",
+      "resolution": "Raiška:",
+      "fps": "FPS:",
+      "unknown": "Nežinoma",
+      "audio": "Garsas:",
+      "error": "Klaida:{{error}}",
+      "tips": {
+        "title": "Kameros Srauto Informacija"
+      },
+      "keyframes": {
+        "title": "Raktinių kadrų analizė",
+        "analyzing": "Analizuojami raktiniai kadrai... liko {{seconds}} sekundžių",
+        "stillAnalyzing": "Vis dar analizuojami Raktriniai Kadrai...",
+        "recordStream": "Įrašyti transliaciją:",
+        "keyframeCount": "Raktiniai kadrai peržvelgti:",
+        "observedDuration": "Peržvelgta trukmė:",
+        "gap": "Raktinių Kadrų tarpsnis (min / avg / max):",
+        "segmentLength": "Įrašo segmento trukmė:",
+        "ok": "Raktiniai Kadrai kas ~{{seconds}} sek., tinkama įrašinėjimui ar peržiūrėjimui.",
+        "unknown": "Nepavyko nustatyti Raktinio Kadro išsidėstymo.",
+        "recordDisabled": "Įrašinėjimas šiai kamerai yra išjungtas."
+      }
+    },
+    "framesAndDetections": "Kadrai / Aptikimai",
+    "label": {
+      "camera": "kamera",
+      "detect": "aptikti",
+      "skipped": "praleista",
+      "ffmpeg": "FFmpeg",
+      "capture": "užfiksuota",
+      "overallFramesPerSecond": "viso kadrų per sekundę",
+      "overallDetectionsPerSecond": "viso aptikimų per sekundę",
+      "overallSkippedDetectionsPerSecond": "viso praleista aptikimų per sekundę",
+      "cameraFfmpeg": "{{camName}} FFmpeg",
+      "cameraCapture": "{{camName}} ufiksuota",
+      "cameraDetect": "{{camName}} susekta",
+      "cameraFramesPerSecond": "{{camName}} kadrai per sekundę",
+      "cameraDetectionsPerSecond": "{{camName}} aptikimai per sekundę",
+      "cameraSkippedDetectionsPerSecond": "{{camName}} praleista aptikimų per sekundę",
+      "cameraGpu": "{{camName}} GPU"
+    },
+    "toast": {
+      "success": {
+        "copyToClipboard": "Srauto informacija nukopijuotą į iškarpinę."
+      },
+      "error": {
+        "unableToProbeCamera": "Negalima gauti kameros mėginio: {{errorMessage}}"
+      }
+    },
+    "noCameras": {
+      "title": "Kamerų Nerasta"
+    },
+    "connectionQuality": {
+      "title": "Ryšio Kokybė",
+      "excellent": "Puiki",
+      "fair": "Pakankama",
+      "poor": "Silpna",
+      "unusable": "Nepakankama",
+      "fps": "FPS",
+      "expectedFps": "Tikėtinas FPS",
+      "reconnectsLastHour": "Atkurti prisijungimai (paskutinę valandą)",
+      "stallsLastHour": "Strigimai (paskutinę valandą)"
+    }
+  },
+  "lastRefreshed": "Paskutinį kartą atnaujinta: ",
+  "stats": {
+    "healthy": "Sistemos būklė sveika",
+    "reindexingEmbeddings": "Įterpinių reideksavimas ({{processed}}% baigtas)",
+    "cameraIsOffline": "{{camera}} yra nepasiekiama",
+    "detectIsSlow": "{{detect}} yra lėtas ({{speed}}ms)",
+    "detectIsVerySlow": "{{detect}} yra labai lėtas ({{speed}}ms)",
+    "debugReplayActive": "Pakartojimo Tyrimo sesija aktyvi"
+  },
+  "enrichments": {
+    "title": "Patobulinimai",
+    "embeddings": {
+      "yolov9_plate_detection": "YOLOv9 Numerių Aptikimai",
+      "yolov9_plate_detection_speed": "YOLOv9 Numerių Aptikimų Greitis",
+      "text_embedding_speed": "Teksto Įterpimų Greitis",
+      "plate_recognition_speed": "Numerių Atpažinimo Greitis",
+      "face_recognition_speed": "Veidų Atpažinimo Greitis",
+      "face_embedding_speed": "Veidų Įterpimų Greitis",
+      "image_embedding_speed": "Vaizdo Įterpimo Greitis",
+      "plate_recognition": "Numerių Atpažinimas",
+      "face_recognition": "Veido Atpažinimas",
+      "text_embedding": "Teksto Įterpimas",
+      "image_embedding": "Vaizdo Įterpimas",
+      "review_description": "Apžvalgos Aprašymas",
+      "review_description_speed": "Apžvalgos Aprašymo Greitis",
+      "review_description_events_per_second": "Apžvalgos Aprašymas",
+      "object_description": "Objekto Aprašymas",
+      "object_description_speed": "Objekto Aprašymo Greitis",
+      "object_description_events_per_second": "Objekto Aprašymas",
+      "classification": "{{name}} Klasifikavimas",
+      "classification_speed": "{{name}} Klasifikavimo Greitis",
+      "classification_events_per_second": "{{name}} Klasifikavimo Įvykiai Per Sekundę"
+    },
+    "infPerSecond": "Išvadų Per Sekundę",
+    "averageInf": "Vidutinis Vertinimo Laikas"
+  }
+}

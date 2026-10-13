@@ -1,0 +1,180 @@
+{
+  "documentTitle.withCamera": "{{camera}} - Trực tiếp - Frigate",
+  "lowBandwidthMode": "Chế độ băng thông thấp",
+  "twoWayTalk": {
+    "enable": "Bật đàm thoại hai chiều",
+    "disable": "Tắt đàm thoại hai chiều"
+  },
+  "stream": {
+    "lowBandwidth": {
+      "tips": "Chế độ xem trực tiếp đang ở chế độ băng thông thấp do bộ đệm hoặc lỗi luồng.",
+      "resetStream": "Đặt lại luồng"
+    },
+    "playInBackground": {
+      "label": "Phát trong nền",
+      "tips": "\"Bật tùy chọn này để tiếp tục phát khi trình phát bị ẩn."
+    },
+    "title": "Luồng",
+    "audio": {
+      "tips": {
+        "title": "Âm thanh phải được phát ra từ camera của bạn và cấu hình trong go2rtc cho luồng này."
+      },
+      "available": "Âm thanh khả dụng cho luồng này",
+      "unavailable": "Âm thanh không khả dụng cho luồng này"
+    },
+    "twoWayTalk": {
+      "tips": "hiết bị của bạn phải hỗ trợ tính năng này và WebRTC phải được cấu hình để đàm thoại hai chiều.",
+      "available": "Đàm thoại hai chiều khả dụng cho luồng này",
+      "unavailable": "Đàm thoại hai chiều không khả dụng cho luồng này"
+    },
+    "debug": {
+      "picker": "Việc chọn luồng phát không khả dụng trong chế độ gỡ lỗi. Chế độ xem gỡ lỗi luôn sử dụng luồng được gán vai trò phát hiện (detect)."
+    }
+  },
+  "editLayout": {
+    "group": {
+      "label": "Chỉnh sửa nhóm Camera"
+    },
+    "label": "Chỉnh sửa bố cục",
+    "exitEdit": "Thoát chế độ chỉnh sửa"
+  },
+  "ptz": {
+    "zoom": {
+      "out": {
+        "label": "Thu nhỏ camera PTZ"
+      },
+      "in": {
+        "label": "Phóng to camera PTZ"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "Nhấp vào khung hình để căn giữa camera PTZ"
+      }
+    },
+    "move": {
+      "clickMove": {
+        "label": "Nhấp vào khung hình để căn giữa camera",
+        "enable": "Bật nhấp để di chuyển",
+        "disable": "Tắt nhấp để di chuyển"
+      },
+      "left": {
+        "label": "Di chuyển camera PTZ sang trái"
+      },
+      "up": {
+        "label": "Di chuyển camera PTZ lên"
+      },
+      "down": {
+        "label": "Di chuyển camera PTZ xuống"
+      },
+      "right": {
+        "label": "Di chuyển camera PTZ sang phải"
+      }
+    },
+    "presets": "Các thiết lập sẵn cho camera PTZ",
+    "focus": {
+      "in": {
+        "label": "Lấy nét gần (camera PTZ)"
+      },
+      "out": {
+        "label": "Lấy nét xa (camera PTZ)"
+      }
+    }
+  },
+  "manualRecording": {
+    "playInBackground": {
+      "label": "Phát trong nền",
+      "desc": "Bật tùy chọn này để tiếp tục phát khi trình phát bị ẩn."
+    },
+    "end": "Kết thúc ghi hình theo yêu cầu",
+    "failedToStart": "Không thể bắt đầu ghi hình theo yêu cầu.",
+    "started": "Đã bắt đầu ghi hình theo yêu cầu.",
+    "ended": "Đã kết thúc ghi hình theo yêu cầu.",
+    "title": "Theo yêu cầu",
+    "tips": "Tải xuống ảnh chụp nhanh tức thì hoặc bắt đầu sự kiện thủ công dựa trên cài đặt lưu giữ bản ghi của máy ảnh này.",
+    "showStats": {
+      "label": "Hiện thống kê",
+      "desc": "Bật tùy chọn này để hiển thị thống kê luồng trên khung hình."
+    },
+    "debugView": "Chế độ gỡ lỗi",
+    "start": "Bắt đầu ghi hình theo yêu cầu",
+    "recordDisabledTips": "Vì ghi hình đã bị vô hiệu hóa hoặc bị giới hạn trong cấu hình của camera này, chỉ ảnh chụp sẽ được lưu.",
+    "failedToEnd": "Không thể kết thúc ghi hình theo yêu cầu."
+  },
+  "cameraAudio": {
+    "enable": "Bật âm thanh Camera",
+    "disable": "Tắt âm thanh Camera"
+  },
+  "muteCameras": {
+    "enable": "Tắt tiếng tất cả Camera",
+    "disable": "Bật tiếng tất cả Camera"
+  },
+  "detect": {
+    "enable": "Bật phát hiện",
+    "disable": "Tắt phát hiện"
+  },
+  "recording": {
+    "enable": "Bật ghi hình",
+    "disable": "Tắt ghi hình"
+  },
+  "snapshots": {
+    "enable": "Bật ảnh chụp",
+    "disable": "Tắt ảnh chụp"
+  },
+  "audioDetect": {
+    "enable": "Bật phát hiện âm thanh",
+    "disable": "Tắt phát hiện âm thanh"
+  },
+  "autotracking": {
+    "enable": "Bật tự động theo dõi",
+    "disable": "Tắt tự động theo dõi"
+  },
+  "streamStats": {
+    "enable": "Hiện thống kê luồng",
+    "disable": "Ẩn thống kê luồng"
+  },
+  "streamingSettings": "Cài đặt truyền phát",
+  "notifications": "Thông báo",
+  "audio": "Âm thanh",
+  "suspend": {
+    "forTime": "Tạm dừng trong: "
+  },
+  "cameraSettings": {
+    "title": "Cài đặt {{camera}}",
+    "objectDetection": "Phát hiện đối tượng",
+    "recording": "Ghi hình",
+    "snapshots": "Ảnh chụp",
+    "audioDetection": "Phát hiện âm thanh",
+    "autotracking": "Tự động theo dõi",
+    "transcription": "Phiên âm"
+  },
+  "history": {
+    "label": "Hiện cảnh quay lịch sử"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "all": "Tất cả",
+      "motion": "Chuyển động",
+      "active_objects": "Đối tượng hoạt động"
+    }
+  },
+  "transcription": {
+    "enable": "Bật phiên âm trực tiếp",
+    "disable": "Tắt phiên âm trực tiếp"
+  },
+  "snapshot": {
+    "takeSnapshot": "Tải xuống ảnh chụp nhanh ngay lập tức",
+    "noVideoSource": "Không có nguồn video để chụp ảnh nhanh.",
+    "captureFailed": "Chụp ảnh nhanh không thành công.",
+    "downloadStarted": "Bắt đầu tải xuống ảnh chụp nhanh."
+  },
+  "noCameras": {
+    "title": "Không có camera nào được cấu hình",
+    "description": "Bắt đầu bằng cách kết nối một camera với Frigate.",
+    "buttonText": "Thêm Camera",
+    "restricted": {
+      "title": "Không có Camera nào khả dụng",
+      "description": "Bạn không có quyền xem bất kỳ camera nào trong nhóm này."
+    }
+  }
+}

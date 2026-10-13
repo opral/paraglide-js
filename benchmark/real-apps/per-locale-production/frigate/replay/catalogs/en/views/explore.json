@@ -1,0 +1,265 @@
+{
+  "documentTitle": "Explore - Frigate",
+  "generativeAI": "Generative AI",
+  "exploreMore": "Explore more {{label}} objects",
+  "exploreIsUnavailable": {
+    "title": "Explore is Unavailable",
+    "embeddingsReindexing": {
+      "context": "Explore can be used after tracked object embeddings have finished reindexing.",
+      "startingUp": "Starting up…",
+      "estimatedTime": "Estimated time remaining:",
+      "finishingShortly": "Finishing shortly",
+      "step": {
+        "thumbnailsEmbedded": "Thumbnails embedded: ",
+        "descriptionsEmbedded": "Descriptions embedded: ",
+        "trackedObjectsProcessed": "Tracked objects processed: "
+      }
+    },
+    "downloadingModels": {
+      "context": "Frigate is downloading the necessary embeddings models to support the Semantic Search feature. This may take several minutes depending on the speed of your network connection.",
+      "setup": {
+        "visionModel": "Vision model",
+        "visionModelFeatureExtractor": "Vision model feature extractor",
+        "textModel": "Text model",
+        "textTokenizer": "Text tokenizer"
+      },
+      "tips": {
+        "context": "You may want to reindex the embeddings of your tracked objects once the models are downloaded."
+      },
+      "error": "An error has occurred. Check Frigate logs."
+    }
+  },
+  "trackedObjectDetails": "Tracked Object Details",
+  "type": {
+    "details": "details",
+    "snapshot": "snapshot",
+    "thumbnail": "thumbnail",
+    "video": "video",
+    "tracking_details": "tracking details"
+  },
+  "trackingDetails": {
+    "title": "Tracking Details",
+    "noImageFound": "No image found for this timestamp.",
+    "createObjectMask": "Create Object Mask",
+    "adjustAnnotationSettings": "Adjust annotation settings",
+    "scrollViewTips": "Click to view the significant moments of this object's lifecycle.",
+    "autoTrackingTips": "Bounding box positions will be inaccurate for autotracking cameras.",
+    "count": "{{first}} of {{second}}",
+    "trackedPoint": "Tracked Point",
+    "lifecycleItemDesc": {
+      "visible": "{{label}} detected",
+      "entered_zone": "{{label}} entered {{zones}}",
+      "active": "{{label}} became active",
+      "stationary": "{{label}} became stationary",
+      "attribute": {
+        "faceOrLicense_plate": "{{attribute}} detected for {{label}}",
+        "other": "{{label}} recognized as {{attribute}}"
+      },
+      "gone": "{{label}} left",
+      "heard": "{{label}} heard",
+      "external": "{{label}} detected",
+      "header": {
+        "zones": "Zones",
+        "ratio": "Ratio",
+        "area": "Area",
+        "score": "Score",
+        "computedScore": "Computed Score",
+        "topScore": "Top Score",
+        "toggleAdvancedScores": "Toggle advanced scores"
+      }
+    },
+    "annotationSettings": {
+      "title": "Annotation Settings",
+      "showAllZones": {
+        "title": "Show All Zones",
+        "desc": "Always show zones on frames where objects have entered a zone."
+      },
+      "offset": {
+        "label": "Annotation Offset",
+        "desc": "This data comes from your camera's detect feed but is overlaid on images from the record feed. It is unlikely that the two streams are perfectly in sync. As a result, the bounding box and the footage will not line up perfectly. You can use this setting to offset the annotations forward or backward in time to better align them with the recorded footage.",
+        "millisecondsToOffset": "Milliseconds to offset detect annotations by. <em>Default: 0</em>",
+        "tips": "Lower the value if the video playback is ahead of the boxes and path points, and increase the value if the video playback is behind them. This value can be negative.",
+        "toast": {
+          "success": "Annotation offset for {{camera}} has been saved to the config file."
+        }
+      }
+    },
+    "carousel": {
+      "previous": "Previous slide",
+      "next": "Next slide"
+    }
+  },
+  "details": {
+    "item": {
+      "title": "Review Item Details",
+      "desc": "Review item details",
+      "button": {
+        "share": "Share this review item",
+        "viewInExplore": "View in Explore"
+      },
+      "tips": {
+        "mismatch_one": "{{count}} unavailable object was detected and included in this review item. Those objects either did not qualify as an alert or detection or have already been cleaned up/deleted.",
+        "mismatch_other": "{{count}} unavailable objects were detected and included in this review item. Those objects either did not qualify as an alert or detection or have already been cleaned up/deleted.",
+        "hasMissingObjects": "Adjust your configuration if you want Frigate to save tracked objects for the following labels: <em>{{objects}}</em>"
+      },
+      "toast": {
+        "success": {
+          "regenerate": "A new description has been requested from {{provider}}. Depending on the speed of your provider, the new description may take some time to regenerate.",
+          "updatedSublabel": "Successfully updated sub label.",
+          "updatedLPR": "Successfully updated license plate.",
+          "updatedAttributes": "Successfully updated attributes.",
+          "audioTranscription": "Successfully requested audio transcription. Depending on the speed of your Frigate server, the transcription may take some time to complete."
+        },
+        "error": {
+          "regenerate": "Failed to call {{provider}} for a new description: {{errorMessage}}",
+          "updatedSublabelFailed": "Failed to update sub label: {{errorMessage}}",
+          "updatedLPRFailed": "Failed to update license plate: {{errorMessage}}",
+          "updatedAttributesFailed": "Failed to update attributes: {{errorMessage}}",
+          "audioTranscription": "Failed to request audio transcription: {{errorMessage}}"
+        }
+      }
+    },
+    "label": "Label",
+    "editSubLabel": {
+      "title": "Edit sub label",
+      "desc": "Enter a new sub label for this {{label}}",
+      "descNoLabel": "Enter a new sub label for this tracked object"
+    },
+    "editLPR": {
+      "title": "Edit license plate",
+      "desc": "Enter a new license plate value for this {{label}}",
+      "descNoLabel": "Enter a new license plate value for this tracked object"
+    },
+    "editAttributes": {
+      "title": "Edit attributes",
+      "desc": "Select classification attributes for this {{label}}"
+    },
+    "snapshotScore": {
+      "label": "Snapshot Score"
+    },
+    "topScore": {
+      "label": "Top Score",
+      "info": "The top score is the highest median score for the tracked object, so this may differ from the score shown on the search result thumbnail."
+    },
+    "score": {
+      "label": "Score"
+    },
+    "recognizedLicensePlate": "Recognized License Plate",
+    "attributes": "Classification Attributes",
+    "estimatedSpeed": "Estimated Speed",
+    "objects": "Objects",
+    "camera": "Camera",
+    "zones": "Zones",
+    "timestamp": "Timestamp",
+    "button": {
+      "findSimilar": "Find Similar",
+      "regenerate": {
+        "title": "Regenerate",
+        "label": "Regenerate tracked object description"
+      }
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Description of the tracked object",
+      "aiTips": "Frigate will not request a description from your Generative AI provider until the tracked object's lifecycle has ended."
+    },
+    "expandRegenerationMenu": "Expand regeneration menu",
+    "regenerateFromSnapshot": "Regenerate from Snapshot",
+    "regenerateFromThumbnails": "Regenerate from Thumbnails",
+    "tips": {
+      "descriptionSaved": "Successfully saved description",
+      "saveDescriptionFailed": "Failed to update the description: {{errorMessage}}"
+    },
+    "title": {
+      "label": "Title"
+    },
+    "scoreInfo": "Score Information"
+  },
+  "itemMenu": {
+    "downloadVideo": {
+      "label": "Download video",
+      "aria": "Download video"
+    },
+    "downloadSnapshot": {
+      "label": "Download snapshot",
+      "aria": "Download snapshot"
+    },
+    "downloadCleanSnapshot": {
+      "label": "Download clean snapshot",
+      "aria": "Download clean snapshot"
+    },
+    "viewTrackingDetails": {
+      "label": "View tracking details",
+      "aria": "Show the tracking details"
+    },
+    "findSimilar": {
+      "label": "Find similar",
+      "aria": "Find similar tracked objects"
+    },
+    "addTrigger": {
+      "label": "Add trigger",
+      "aria": "Add a trigger for this tracked object"
+    },
+    "audioTranscription": {
+      "label": "Transcribe",
+      "aria": "Request audio transcription"
+    },
+    "submitToPlus": {
+      "label": "Submit to Frigate+",
+      "aria": "Submit to Frigate Plus"
+    },
+    "viewInHistory": {
+      "label": "View in History",
+      "aria": "View in History"
+    },
+    "deleteTrackedObject": {
+      "label": "Delete this tracked object"
+    },
+    "showObjectDetails": {
+      "label": "Show object path"
+    },
+    "hideObjectDetails": {
+      "label": "Hide object path"
+    },
+    "debugReplay": {
+      "label": "Debug Replay",
+      "aria": "View this tracked object in the debug replay view"
+    },
+    "more": {
+      "aria": "More"
+    }
+  },
+  "dialog": {
+    "confirmDelete": {
+      "title": "Confirm Delete",
+      "desc": "Deleting this tracked object removes the snapshot, any saved embeddings, and any associated tracking details entries. Recorded footage of this tracked object in History view will <em>NOT</em> be deleted.<br /><br />Are you sure you want to proceed?"
+    },
+    "toast": {
+      "error": "Error deleting this tracked object: {{errorMessage}}"
+    }
+  },
+  "noTrackedObjects": "No Tracked Objects Found",
+  "fetchingTrackedObjectsFailed": "Error fetching tracked objects: {{errorMessage}}",
+  "trackedObjectsCount_one": "{{count}} tracked object ",
+  "trackedObjectsCount_other": "{{count}} tracked objects ",
+  "searchResult": {
+    "tooltip": "Matched {{type}} at {{confidence}}%",
+    "previousTrackedObject": "Previous tracked object",
+    "nextTrackedObject": "Next tracked object",
+    "deleteTrackedObject": {
+      "toast": {
+        "success": "Tracked object deleted successfully.",
+        "error": "Failed to delete tracked object: {{errorMessage}}"
+      }
+    }
+  },
+  "aiAnalysis": {
+    "title": "AI Analysis"
+  },
+  "concerns": {
+    "label": "Concerns"
+  },
+  "objectLifecycle": {
+    "noImageFound": "No image found for this tracked object."
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "alerts": "Alarme",
+  "detections": "Erkennungen",
+  "motion": {
+    "label": "Bewegung",
+    "only": "nur Bewegung"
+  },
+  "empty": {
+    "alert": "Es gibt keine zu prüfenden Alarme",
+    "detection": "Es gibt keine zu prüfenden Erkennungen",
+    "motion": "Keine Bewegungsdaten gefunden",
+    "recordingsDisabled": {
+      "title": "Aufzeichnungen müssen aktiviert sein",
+      "description": "Überprüfungselemente können nur für eine Kamera erstellt werden, wenn Aufzeichnungen für diese Kamera aktiviert sind."
+    }
+  },
+  "timeline": {
+    "label": "Zeitleiste"
+  },
+  "timeline.aria": "Zeitleiste auswählen",
+  "events": {
+    "label": "Ereignisse",
+    "noFoundForTimePeriod": "Keine Ereignisse für diesen Zeitraum gefunden.",
+    "aria": "Wähle Ereignisse aus"
+  },
+  "documentTitle": "Überprüfung - Frigate",
+  "recordings": {
+    "documentTitle": "Aufnahmen - Frigate",
+    "invalidSharedLink": "Der Link zur zeitgestempelten Aufzeichnung kann aufgrund eines Parsing-Fehlers nicht geöffnet werden.",
+    "invalidSharedCamera": "Der Link zur zeitgestempelten Aufzeichnung kann nicht geöffnet werden, da es sich um eine unbekannte oder nicht autorisierte Kamera handelt."
+  },
+  "calendarFilter": {
+    "last24Hours": "Letzte 24 Stunden"
+  },
+  "newReviewItems": {
+    "label": "Neue zu prüfende Objekte anschauen",
+    "button": "Neue zu prüfende Objekte"
+  },
+  "markTheseItemsAsReviewed": "Diese Objekte als geprüft kennzeichnen",
+  "camera": "Kamera",
+  "allCameras": "Alle Kameras",
+  "markAsReviewed": "Als geprüft kennzeichnen",
+  "selected_one": "{{count}} ausgewählt",
+  "selected_other": "{{count}} ausgewählt",
+  "detected": "erkannt",
+  "zoomIn": "Hereinzoomen",
+  "zoomOut": "Herauszoomen",
+  "detail": {
+    "label": "Detail",
+    "aria": "Detailansicht umschalten",
+    "trackedObject_one": "{{count}} Objekt",
+    "trackedObject_other": "{{count}} Objekte",
+    "noObjectDetailData": "Keine detaillierten Daten des Objekt verfügbar.",
+    "noDataFound": "Keine Detaildaten zur Überprüfung",
+    "settings": "Detailansicht Einstellungen",
+    "alwaysExpandActive": {
+      "desc": "Immer die Objektdetails vom aktivem Überprüfungselement erweitern, sofern verfügbar.",
+      "title": "Immer aktiv erweitern"
+    }
+  },
+  "objectTrack": {
+    "trackedPoint": "Verfolgter Punkt",
+    "clickToSeek": "Klicke, um zu dieser Zeit zu springen"
+  },
+  "normalActivity": "normal",
+  "needsReview": "benötigt Überprüfung",
+  "securityConcern": "Sicherheitsbedenken",
+  "select_all": "alle",
+  "motionSearch": {
+    "menuItem": "Bewegungssuche",
+    "openMenu": "Kamera Optionen"
+  },
+  "motionPreviews": {
+    "menuItem": "Bewegungsvorschau anzeigen",
+    "title": "Bewegungsvorschau: {{camera}}",
+    "mobileSettingsTitle": "Einstellungen für die Bewegungsvorschau",
+    "mobileSettingsDesc": "Passen Sie die Wiedergabegeschwindigkeit, die Dimmung und den Zuschnitt an und wählen Sie ein Datum aus, um Clips mit ausschließlich erkannten Bewegungen zu überprüfen.",
+    "dim": "düster",
+    "dimAria": "Dimmintensität einstellen",
+    "dimDesc": "Erhöhen Sie die Dimmung, um die Sichtbarkeit des Bewegungsbereichs zu verbessern.",
+    "speed": "Geschwindigkeit",
+    "speedAria": "Vorschau-Wiedergabegeschwindigkeit auswählen",
+    "speedDesc": "Wählen Sie aus, wie schnell die Vorschau-Clips abgespielt werden sollen.",
+    "back": "zurück",
+    "empty": "Keine Vorschau verfügbar",
+    "noPreview": "Vorschau nicht verfügbar",
+    "seekAria": "{{camera}} Player suchen bis {{time}}",
+    "filter": "Filter",
+    "filterDesc": "Wählen Sie Bereiche aus, um nur Clips mit Bewegungen in diesen Regionen anzuzeigen.",
+    "filterClear": "Säubern",
+    "crop": "Auf Filterbereich zuschneiden",
+    "cropAria": "Vorschauen auf die gefilterten Bereiche zuschneiden ein- oder ausschalten",
+    "cropDesc": "Zeigt eine vergrößerte Vorschau der ausgewählten Filterbereiche an, statt das vollständige Bild zu zeigen."
+  }
+}

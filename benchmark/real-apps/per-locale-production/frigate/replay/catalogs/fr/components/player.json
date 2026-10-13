@@ -1,0 +1,44 @@
+{
+  "noRecordingsFoundForThisTime": "Aucun enregistrement trouvé pour cette période",
+  "noPreviewFoundFor": "Aucun aperçu trouvé pour {{cameraName}}",
+  "noPreviewFound": "Aucun aperçu trouvé",
+  "submitFrigatePlus": {
+    "title": "Soumettre cette image à Frigate+ ?",
+    "submit": "Soumettre",
+    "previewError": "Impossible de télécharger le snapshot. L'enregistrement ne pas disponible sur cette période."
+  },
+  "streamOffline": {
+    "title": "Flux hors ligne",
+    "desc": "Aucune image n'a été reçue sur le flux de <code>détection</code> de la caméra {{cameraName}}. Vérifiez le journal d'erreurs."
+  },
+  "livePlayerRequiredIOSVersion": "iOS 17.1 ou une version supérieure est requise pour ce type de flux en direct.",
+  "stats": {
+    "streamType": {
+      "title": "Type de flux :",
+      "short": "Type"
+    },
+    "bandwidth": {
+      "title": "Bande passante :",
+      "short": "Bande passante"
+    },
+    "droppedFrames": {
+      "short": {
+        "value": "{{droppedFrames}} images",
+        "title": "Perdues"
+      },
+      "title": "Images perdues :"
+    },
+    "decodedFrames": "Images décodées :",
+    "droppedFrameRate": "Taux d'images perdues :",
+    "totalFrames": "Total images :"
+  },
+  "toast": {
+    "error": {
+      "submitFrigatePlusFailed": "Échec de la soumission de l'image à Frigate+"
+    },
+    "success": {
+      "submittedFrigatePlus": "Image soumise avec succès à Frigate+"
+    }
+  },
+  "cameraOff": "La camera est éteinte"
+}

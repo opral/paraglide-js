@@ -1,0 +1,140 @@
+{
+  "labels": {
+    "all": {
+      "title": "Alla etiketter",
+      "short": "Etiketter"
+    },
+    "label": "Etiketter",
+    "count_one": "{{count}} etikett",
+    "count_other": "{{count}} etiketter"
+  },
+  "filter": "Filtrera",
+  "zones": {
+    "label": "Zoner",
+    "all": {
+      "title": "Alla zoner",
+      "short": "Zoner"
+    }
+  },
+  "features": {
+    "hasSnapshot": "Har ögonblicksbild",
+    "hasVideoClip": "Har videoklipp",
+    "submittedToFrigatePlus": {
+      "label": "Skickat till Frigate+",
+      "tips": "Du måste först filtrera på spårade objekt som har en ögonblicksbild. <br /><br />Spårade objekt utan ögonblicksbild kan inte skickas till Frigate+."
+    },
+    "label": "Detaljer"
+  },
+  "sort": {
+    "dateAsc": "Datum (stigande)",
+    "label": "Sortera",
+    "scoreAsc": "Objektpoäng (stigande)",
+    "speedDesc": "Uppskattad hastighet (fallande)",
+    "relevance": "Relevans",
+    "dateDesc": "Datum (fallande)",
+    "scoreDesc": "Objektpoäng (fallande)",
+    "speedAsc": "Uppskattad hastighet (stigande)"
+  },
+  "cameras": {
+    "all": {
+      "short": "Kameror",
+      "title": "Alla kameror"
+    },
+    "label": "Kamerafilter"
+  },
+  "explore": {
+    "settings": {
+      "title": "Inställningar",
+      "defaultView": {
+        "title": "Standardvy",
+        "summary": "Sammanfattning",
+        "desc": "När inga filter är valda visas antingen en översikt över de senaste spårade objekten per etikett eller ett ofiltrerat rutnät.",
+        "unfilteredGrid": "Ofiltrerat rutnät"
+      },
+      "searchSource": {
+        "options": {
+          "description": "Beskrivning",
+          "thumbnailImage": "Miniatyrbild"
+        },
+        "label": "Sökkälla",
+        "desc": "Välj om sökningen ska göras i miniatyrbilder eller i beskrivningar av spårade objekt."
+      },
+      "gridColumns": {
+        "desc": "Välj antalet kolumner i rutnätsvyn.",
+        "title": "Kolumner i rutnätet"
+      }
+    },
+    "date": {
+      "selectDateBy": {
+        "label": "Välj datum att filtrera efter"
+      }
+    }
+  },
+  "review": {
+    "showReviewed": "Visa granskade"
+  },
+  "motion": {
+    "showMotionOnly": "Visa endast rörelse"
+  },
+  "score": "Poäng",
+  "dates": {
+    "all": {
+      "short": "Datum",
+      "title": "Alla datum"
+    },
+    "selectPreset": "Välj förval…"
+  },
+  "recognizedLicensePlates": {
+    "noLicensePlatesFound": "Inga registreringsskyltar hittades.",
+    "selectPlatesFromList": "Välj en eller flera registreringsskyltar i listan.",
+    "title": "Igenkända registreringsskyltar",
+    "loadFailed": "Det gick inte att läsa in igenkända registreringsskyltar.",
+    "placeholder": "Skriv för att söka efter registreringsskyltar…",
+    "loading": "Läser in igenkända registreringsskyltar…",
+    "selectAll": "Välj alla",
+    "clearAll": "Rensa alla"
+  },
+  "more": "Fler filter",
+  "reset": {
+    "label": "Återställ filtren"
+  },
+  "subLabels": {
+    "label": "Underetiketter",
+    "all": "Alla underetiketter"
+  },
+  "estimatedSpeed": "Uppskattad hastighet ({{unit}})",
+  "classes": {
+    "all": {
+      "title": "Alla klasser"
+    },
+    "count_one": "{{count}} klass",
+    "count_other": "{{count}} klasser",
+    "label": "Klasser"
+  },
+  "timeRange": "Tidsintervall",
+  "logSettings": {
+    "loading": {
+      "title": "Laddar",
+      "desc": "När loggvyn har rullats till slutet strömmas nya loggar automatiskt till vyn."
+    },
+    "filterBySeverity": "Filtrera loggar efter allvarlighetsgrad",
+    "disableLogStreaming": "Inaktivera loggströmning",
+    "allLogs": "Alla loggar",
+    "label": "Filtrera efter loggnivå"
+  },
+  "trackedObjectDelete": {
+    "title": "Bekräfta borttagning",
+    "toast": {
+      "success": "De spårade objekten har tagits bort.",
+      "error": "Det gick inte att ta bort spårade objekt: {{errorMessage}}"
+    },
+    "desc": "Om du tar bort dessa {{objectLength}} spårade objekt tas ögonblicksbilder, sparade inbäddningar och tillhörande livscykelposter bort. Inspelat material med objekten i historikvyn tas <em>INTE</em> bort.<br /><br />Vill du fortsätta?<br /><br />Håll ned <em>Skift</em>-tangenten för att hoppa över den här dialogrutan i framtiden."
+  },
+  "zoneMask": {
+    "filterBy": "Filtrera efter zonmask"
+  },
+  "attributes": {
+    "label": "Klassificeringsattribut",
+    "all": "Alla attribut"
+  }
+}

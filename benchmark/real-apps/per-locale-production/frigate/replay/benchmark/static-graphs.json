@@ -1,0 +1,943 @@
+{
+  "definition": "Static HTML/script/stylesheet/import graph, then add Live route static imports. Excludes lazy namespace requests, font choices and media/API responses; actual initial whole-page bytes must come from readiness request capture.",
+  "rows": [
+    {
+      "label": "native-earlylocale",
+      "HTMLModulepreloads": 15,
+      "HTMLStaticClosure": {
+        "files": [
+          {
+            "path": "index.html",
+            "bytes": 8120,
+            "brotliQ4Bytes": 2982
+          },
+          {
+            "path": "assets/activity-indicator-D_x4wV58.js",
+            "bytes": 827809,
+            "brotliQ4Bytes": 120690
+          },
+          {
+            "path": "assets/buildMatchPatternFn-ClBAzsDg.js",
+            "bytes": 1563,
+            "brotliQ4Bytes": 617
+          },
+          {
+            "path": "assets/cameraUtil-CKlJ1Vsi.js",
+            "bytes": 3679,
+            "brotliQ4Bytes": 1636
+          },
+          {
+            "path": "assets/detectionHardware-BlXbhogZ.js",
+            "bytes": 1084,
+            "brotliQ4Bytes": 554
+          },
+          {
+            "path": "assets/dist-X38yvQ2h.js",
+            "bytes": 876,
+            "brotliQ4Bytes": 413
+          },
+          {
+            "path": "assets/drawer-Dp9UU7kd.js",
+            "bytes": 101961,
+            "brotliQ4Bytes": 34821
+          },
+          {
+            "path": "assets/label-DukRF4a6.js",
+            "bytes": 46041,
+            "brotliQ4Bytes": 14801
+          },
+          {
+            "path": "assets/main-D4-eM3CH.js",
+            "bytes": 625825,
+            "brotliQ4Bytes": 186711
+          },
+          {
+            "path": "assets/normalizeDates-B8fk6WG0.js",
+            "bytes": 886,
+            "brotliQ4Bytes": 496
+          },
+          {
+            "path": "assets/preload-helper-BtBvY-ns.js",
+            "bytes": 1567,
+            "brotliQ4Bytes": 798
+          },
+          {
+            "path": "assets/rolldown-runtime-B_MQnBba.js",
+            "bytes": 1087,
+            "brotliQ4Bytes": 573
+          },
+          {
+            "path": "assets/src-BCEtIU6s.js",
+            "bytes": 495919,
+            "brotliQ4Bytes": 139157
+          },
+          {
+            "path": "assets/src-DHngj9Lm.css",
+            "bytes": 173144,
+            "brotliQ4Bytes": 26070
+          },
+          {
+            "path": "assets/use-date-locale-BpBt0QYp.js",
+            "bytes": 43675,
+            "brotliQ4Bytes": 12768
+          },
+          {
+            "path": "assets/use-history-back-JKPm9jgZ.js",
+            "bytes": 45111,
+            "brotliQ4Bytes": 14674
+          },
+          {
+            "path": "assets/use-is-admin-B6UU-4w8.js",
+            "bytes": 303,
+            "brotliQ4Bytes": 202
+          },
+          {
+            "path": "assets/useTranslation-wMbxFB1i.js",
+            "bytes": 43152,
+            "brotliQ4Bytes": 14274
+          }
+        ],
+        "rawBytes": 2421802,
+        "brotliQ4Bytes": 572237
+      },
+      "HTMLAndLiveStaticClosure": {
+        "files": [
+          {
+            "path": "index.html",
+            "bytes": 8120,
+            "brotliQ4Bytes": 2982
+          },
+          {
+            "path": "assets/AutoUpdatingCameraImage-Dscb-wIU.js",
+            "bytes": 2587,
+            "brotliQ4Bytes": 1304
+          },
+          {
+            "path": "assets/BirdseyeLivePlayer-D50Y4o9J.js",
+            "bytes": 137136,
+            "brotliQ4Bytes": 45026
+          },
+          {
+            "path": "assets/Chip-DV_hU2e5.js",
+            "bytes": 1232,
+            "brotliQ4Bytes": 653
+          },
+          {
+            "path": "assets/DebugDrawingLayer-B2MYpMj0.js",
+            "bytes": 2531,
+            "brotliQ4Bytes": 1025
+          },
+          {
+            "path": "assets/EmptyCard-Ci-uVJwr.js",
+            "bytes": 771,
+            "brotliQ4Bytes": 427
+          },
+          {
+            "path": "assets/FilterSwitch-BumxfPyV.js",
+            "bytes": 1098,
+            "brotliQ4Bytes": 458
+          },
+          {
+            "path": "assets/ImageShadowOverlay-zudTxtKC.js",
+            "bytes": 541,
+            "brotliQ4Bytes": 283
+          },
+          {
+            "path": "assets/Live-B2HxIU4q.js",
+            "bytes": 184877,
+            "brotliQ4Bytes": 46547
+          },
+          {
+            "path": "assets/MsePlayer-BcrvLnvg.js",
+            "bytes": 9213,
+            "brotliQ4Bytes": 3634
+          },
+          {
+            "path": "assets/ReactKonva-BsRqteko.js",
+            "bytes": 377618,
+            "brotliQ4Bytes": 105650
+          },
+          {
+            "path": "assets/TimeAgo-h5R57NLp.js",
+            "bytes": 1451,
+            "brotliQ4Bytes": 718
+          },
+          {
+            "path": "assets/activity-indicator-D_x4wV58.js",
+            "bytes": 827809,
+            "brotliQ4Bytes": 120690
+          },
+          {
+            "path": "assets/buildMatchPatternFn-ClBAzsDg.js",
+            "bytes": 1563,
+            "brotliQ4Bytes": 617
+          },
+          {
+            "path": "assets/cameraUtil-CKlJ1Vsi.js",
+            "bytes": 3679,
+            "brotliQ4Bytes": 1636
+          },
+          {
+            "path": "assets/card-BvEx76ZV.js",
+            "bytes": 1060,
+            "brotliQ4Bytes": 387
+          },
+          {
+            "path": "assets/context-menu-CvTIS5vu.js",
+            "bytes": 8545,
+            "brotliQ4Bytes": 2334
+          },
+          {
+            "path": "assets/detectionHardware-BlXbhogZ.js",
+            "bytes": 1084,
+            "brotliQ4Bytes": 554
+          },
+          {
+            "path": "assets/dist-X38yvQ2h.js",
+            "bytes": 876,
+            "brotliQ4Bytes": 413
+          },
+          {
+            "path": "assets/drawer-Dp9UU7kd.js",
+            "bytes": 101961,
+            "brotliQ4Bytes": 34821
+          },
+          {
+            "path": "assets/fa6-LY2KIa2E.js",
+            "bytes": 3022,
+            "brotliQ4Bytes": 903
+          },
+          {
+            "path": "assets/label-DukRF4a6.js",
+            "bytes": 46041,
+            "brotliQ4Bytes": 14801
+          },
+          {
+            "path": "assets/main-D4-eM3CH.js",
+            "bytes": 625825,
+            "brotliQ4Bytes": 186711
+          },
+          {
+            "path": "assets/normalizeDates-B8fk6WG0.js",
+            "bytes": 886,
+            "brotliQ4Bytes": 496
+          },
+          {
+            "path": "assets/preload-helper-BtBvY-ns.js",
+            "bytes": 1567,
+            "brotliQ4Bytes": 798
+          },
+          {
+            "path": "assets/react-apexcharts.esm-DDSdTom0.js",
+            "bytes": 981036,
+            "brotliQ4Bytes": 275201
+          },
+          {
+            "path": "assets/record-Bf1xYu2U.js",
+            "bytes": 49087,
+            "brotliQ4Bytes": 16516
+          },
+          {
+            "path": "assets/resize-observer-BM6UK5WB.js",
+            "bytes": 702,
+            "brotliQ4Bytes": 403
+          },
+          {
+            "path": "assets/review-D3-Z-h19.js",
+            "bytes": 242,
+            "brotliQ4Bytes": 184
+          },
+          {
+            "path": "assets/rolldown-runtime-B_MQnBba.js",
+            "bytes": 1087,
+            "brotliQ4Bytes": 573
+          },
+          {
+            "path": "assets/scroll-area-xcHQ56wu.js",
+            "bytes": 15657,
+            "brotliQ4Bytes": 4675
+          },
+          {
+            "path": "assets/skeleton-Doktw_Xe.js",
+            "bytes": 246,
+            "brotliQ4Bytes": 181
+          },
+          {
+            "path": "assets/slider-BsRzJqrB.js",
+            "bytes": 13654,
+            "brotliQ4Bytes": 4520
+          },
+          {
+            "path": "assets/snapshotUtil-DZ4PxfyT.js",
+            "bytes": 7579,
+            "brotliQ4Bytes": 3120
+          },
+          {
+            "path": "assets/src-BCEtIU6s.js",
+            "bytes": 495919,
+            "brotliQ4Bytes": 139157
+          },
+          {
+            "path": "assets/src-DHngj9Lm.css",
+            "bytes": 173144,
+            "brotliQ4Bytes": 26070
+          },
+          {
+            "path": "assets/tabs-Dv_B-FHX.js",
+            "bytes": 3778,
+            "brotliQ4Bytes": 1534
+          },
+          {
+            "path": "assets/use-camera-activity-BoxPiCy2.js",
+            "bytes": 3622,
+            "brotliQ4Bytes": 1646
+          },
+          {
+            "path": "assets/use-date-locale-BpBt0QYp.js",
+            "bytes": 43675,
+            "brotliQ4Bytes": 12768
+          },
+          {
+            "path": "assets/use-history-back-JKPm9jgZ.js",
+            "bytes": 45111,
+            "brotliQ4Bytes": 14674
+          },
+          {
+            "path": "assets/use-is-admin-B6UU-4w8.js",
+            "bytes": 303,
+            "brotliQ4Bytes": 202
+          },
+          {
+            "path": "assets/use-keyboard-listener-CcHihlXj.js",
+            "bytes": 1411,
+            "brotliQ4Bytes": 615
+          },
+          {
+            "path": "assets/use-timeline-utils-RZeNJOLk.js",
+            "bytes": 648,
+            "brotliQ4Bytes": 344
+          },
+          {
+            "path": "assets/useTranslation-wMbxFB1i.js",
+            "bytes": 43152,
+            "brotliQ4Bytes": 14274
+          }
+        ],
+        "rawBytes": 4231146,
+        "brotliQ4Bytes": 1090525
+      }
+    },
+    {
+      "label": "compiled-fr",
+      "HTMLModulepreloads": 13,
+      "HTMLStaticClosure": {
+        "files": [
+          {
+            "path": "index.html",
+            "bytes": 7959,
+            "brotliQ4Bytes": 2954
+          },
+          {
+            "path": "assets/activity-indicator-D_x4wV58.js",
+            "bytes": 827809,
+            "brotliQ4Bytes": 120690
+          },
+          {
+            "path": "assets/buildMatchPatternFn-ClBAzsDg.js",
+            "bytes": 1563,
+            "brotliQ4Bytes": 617
+          },
+          {
+            "path": "assets/cameraUtil-is9wvgTN.js",
+            "bytes": 3677,
+            "brotliQ4Bytes": 1640
+          },
+          {
+            "path": "assets/detectionHardware-BlXbhogZ.js",
+            "bytes": 1084,
+            "brotliQ4Bytes": 554
+          },
+          {
+            "path": "assets/dist-X38yvQ2h.js",
+            "bytes": 876,
+            "brotliQ4Bytes": 413
+          },
+          {
+            "path": "assets/drawer-Dp9UU7kd.js",
+            "bytes": 101961,
+            "brotliQ4Bytes": 34821
+          },
+          {
+            "path": "assets/main-riyMVPoD.js",
+            "bytes": 625609,
+            "brotliQ4Bytes": 186522
+          },
+          {
+            "path": "assets/normalizeDates-B8fk6WG0.js",
+            "bytes": 886,
+            "brotliQ4Bytes": 496
+          },
+          {
+            "path": "assets/rolldown-runtime-B_MQnBba.js",
+            "bytes": 1087,
+            "brotliQ4Bytes": 573
+          },
+          {
+            "path": "assets/src-BQfYmy70.js",
+            "bytes": 548807,
+            "brotliQ4Bytes": 156700
+          },
+          {
+            "path": "assets/src-DHngj9Lm.css",
+            "bytes": 173144,
+            "brotliQ4Bytes": 26070
+          },
+          {
+            "path": "assets/use-date-locale-3OjfOigJ.js",
+            "bytes": 43638,
+            "brotliQ4Bytes": 12718
+          },
+          {
+            "path": "assets/use-history-back-JKPm9jgZ.js",
+            "bytes": 45111,
+            "brotliQ4Bytes": 14674
+          },
+          {
+            "path": "assets/use-is-admin-DAJY4gJ6.js",
+            "bytes": 303,
+            "brotliQ4Bytes": 204
+          },
+          {
+            "path": "assets/useTranslation-wMbxFB1i.js",
+            "bytes": 43152,
+            "brotliQ4Bytes": 14274
+          }
+        ],
+        "rawBytes": 2426666,
+        "brotliQ4Bytes": 573920
+      },
+      "HTMLAndLiveStaticClosure": {
+        "files": [
+          {
+            "path": "index.html",
+            "bytes": 7959,
+            "brotliQ4Bytes": 2954
+          },
+          {
+            "path": "assets/AutoUpdatingCameraImage-Cue6BUaR.js",
+            "bytes": 2587,
+            "brotliQ4Bytes": 1303
+          },
+          {
+            "path": "assets/BirdseyeLivePlayer-C_ORXIPs.js",
+            "bytes": 137136,
+            "brotliQ4Bytes": 44983
+          },
+          {
+            "path": "assets/Chip-t8x-xepr.js",
+            "bytes": 1232,
+            "brotliQ4Bytes": 651
+          },
+          {
+            "path": "assets/DebugDrawingLayer-BefEPesd.js",
+            "bytes": 2531,
+            "brotliQ4Bytes": 1027
+          },
+          {
+            "path": "assets/EmptyCard-D9MI0HNp.js",
+            "bytes": 771,
+            "brotliQ4Bytes": 427
+          },
+          {
+            "path": "assets/FilterSwitch-DRf1dvWs.js",
+            "bytes": 1101,
+            "brotliQ4Bytes": 463
+          },
+          {
+            "path": "assets/ImageShadowOverlay-zudTxtKC.js",
+            "bytes": 541,
+            "brotliQ4Bytes": 283
+          },
+          {
+            "path": "assets/Live-D1Aop0hC.js",
+            "bytes": 184846,
+            "brotliQ4Bytes": 46590
+          },
+          {
+            "path": "assets/MsePlayer-aQo71TBI.js",
+            "bytes": 9213,
+            "brotliQ4Bytes": 3634
+          },
+          {
+            "path": "assets/ReactKonva-CP_MgAjn.js",
+            "bytes": 377618,
+            "brotliQ4Bytes": 105617
+          },
+          {
+            "path": "assets/TimeAgo-dmaA4Urq.js",
+            "bytes": 1449,
+            "brotliQ4Bytes": 722
+          },
+          {
+            "path": "assets/activity-indicator-D_x4wV58.js",
+            "bytes": 827809,
+            "brotliQ4Bytes": 120690
+          },
+          {
+            "path": "assets/buildMatchPatternFn-ClBAzsDg.js",
+            "bytes": 1563,
+            "brotliQ4Bytes": 617
+          },
+          {
+            "path": "assets/cameraUtil-is9wvgTN.js",
+            "bytes": 3677,
+            "brotliQ4Bytes": 1640
+          },
+          {
+            "path": "assets/card-BvEx76ZV.js",
+            "bytes": 1060,
+            "brotliQ4Bytes": 387
+          },
+          {
+            "path": "assets/context-menu-DhFzadmK.js",
+            "bytes": 8545,
+            "brotliQ4Bytes": 2335
+          },
+          {
+            "path": "assets/detectionHardware-BlXbhogZ.js",
+            "bytes": 1084,
+            "brotliQ4Bytes": 554
+          },
+          {
+            "path": "assets/dist-X38yvQ2h.js",
+            "bytes": 876,
+            "brotliQ4Bytes": 413
+          },
+          {
+            "path": "assets/drawer-Dp9UU7kd.js",
+            "bytes": 101961,
+            "brotliQ4Bytes": 34821
+          },
+          {
+            "path": "assets/fa6-LY2KIa2E.js",
+            "bytes": 3022,
+            "brotliQ4Bytes": 903
+          },
+          {
+            "path": "assets/main-riyMVPoD.js",
+            "bytes": 625609,
+            "brotliQ4Bytes": 186522
+          },
+          {
+            "path": "assets/normalizeDates-B8fk6WG0.js",
+            "bytes": 886,
+            "brotliQ4Bytes": 496
+          },
+          {
+            "path": "assets/react-apexcharts.esm-DDSdTom0.js",
+            "bytes": 981036,
+            "brotliQ4Bytes": 275201
+          },
+          {
+            "path": "assets/record-Bf1xYu2U.js",
+            "bytes": 49087,
+            "brotliQ4Bytes": 16516
+          },
+          {
+            "path": "assets/resize-observer-BM6UK5WB.js",
+            "bytes": 702,
+            "brotliQ4Bytes": 403
+          },
+          {
+            "path": "assets/review-D3-Z-h19.js",
+            "bytes": 242,
+            "brotliQ4Bytes": 184
+          },
+          {
+            "path": "assets/rolldown-runtime-B_MQnBba.js",
+            "bytes": 1087,
+            "brotliQ4Bytes": 573
+          },
+          {
+            "path": "assets/scroll-area-qw1I1OjN.js",
+            "bytes": 15657,
+            "brotliQ4Bytes": 4674
+          },
+          {
+            "path": "assets/skeleton-Doktw_Xe.js",
+            "bytes": 246,
+            "brotliQ4Bytes": 181
+          },
+          {
+            "path": "assets/slider-CTp-Quym.js",
+            "bytes": 13654,
+            "brotliQ4Bytes": 4519
+          },
+          {
+            "path": "assets/snapshotUtil-CB6Uxcq8.js",
+            "bytes": 7579,
+            "brotliQ4Bytes": 3119
+          },
+          {
+            "path": "assets/src-BQfYmy70.js",
+            "bytes": 548807,
+            "brotliQ4Bytes": 156700
+          },
+          {
+            "path": "assets/src-DHngj9Lm.css",
+            "bytes": 173144,
+            "brotliQ4Bytes": 26070
+          },
+          {
+            "path": "assets/tabs-Dv_B-FHX.js",
+            "bytes": 3778,
+            "brotliQ4Bytes": 1534
+          },
+          {
+            "path": "assets/use-camera-activity-puzJpwq0.js",
+            "bytes": 3623,
+            "brotliQ4Bytes": 1646
+          },
+          {
+            "path": "assets/use-date-locale-3OjfOigJ.js",
+            "bytes": 43638,
+            "brotliQ4Bytes": 12718
+          },
+          {
+            "path": "assets/use-history-back-JKPm9jgZ.js",
+            "bytes": 45111,
+            "brotliQ4Bytes": 14674
+          },
+          {
+            "path": "assets/use-is-admin-DAJY4gJ6.js",
+            "bytes": 303,
+            "brotliQ4Bytes": 204
+          },
+          {
+            "path": "assets/use-keyboard-listener-CcHihlXj.js",
+            "bytes": 1411,
+            "brotliQ4Bytes": 615
+          },
+          {
+            "path": "assets/use-timeline-utils-RZeNJOLk.js",
+            "bytes": 648,
+            "brotliQ4Bytes": 344
+          },
+          {
+            "path": "assets/useTranslation-wMbxFB1i.js",
+            "bytes": 43152,
+            "brotliQ4Bytes": 14274
+          }
+        ],
+        "rawBytes": 4235981,
+        "brotliQ4Bytes": 1092181
+      }
+    },
+    {
+      "label": "compiled-single-fr",
+      "HTMLModulepreloads": 13,
+      "HTMLStaticClosure": {
+        "files": [
+          {
+            "path": "index.html",
+            "bytes": 7959,
+            "brotliQ4Bytes": 2954
+          },
+          {
+            "path": "assets/activity-indicator-D_x4wV58.js",
+            "bytes": 827809,
+            "brotliQ4Bytes": 120690
+          },
+          {
+            "path": "assets/buildMatchPatternFn-ClBAzsDg.js",
+            "bytes": 1563,
+            "brotliQ4Bytes": 617
+          },
+          {
+            "path": "assets/cameraUtil-DlmBd_Ih.js",
+            "bytes": 3677,
+            "brotliQ4Bytes": 1640
+          },
+          {
+            "path": "assets/detectionHardware-BlXbhogZ.js",
+            "bytes": 1084,
+            "brotliQ4Bytes": 554
+          },
+          {
+            "path": "assets/dist-X38yvQ2h.js",
+            "bytes": 876,
+            "brotliQ4Bytes": 413
+          },
+          {
+            "path": "assets/drawer-Dp9UU7kd.js",
+            "bytes": 101961,
+            "brotliQ4Bytes": 34821
+          },
+          {
+            "path": "assets/main-DF86LV8Y.js",
+            "bytes": 625609,
+            "brotliQ4Bytes": 186532
+          },
+          {
+            "path": "assets/normalizeDates-B8fk6WG0.js",
+            "bytes": 886,
+            "brotliQ4Bytes": 496
+          },
+          {
+            "path": "assets/rolldown-runtime-B_MQnBba.js",
+            "bytes": 1087,
+            "brotliQ4Bytes": 573
+          },
+          {
+            "path": "assets/src-BXn8fU6O.js",
+            "bytes": 540687,
+            "brotliQ4Bytes": 153367
+          },
+          {
+            "path": "assets/src-DHngj9Lm.css",
+            "bytes": 173144,
+            "brotliQ4Bytes": 26070
+          },
+          {
+            "path": "assets/use-date-locale-cKXXcX12.js",
+            "bytes": 43638,
+            "brotliQ4Bytes": 12718
+          },
+          {
+            "path": "assets/use-history-back-JKPm9jgZ.js",
+            "bytes": 45111,
+            "brotliQ4Bytes": 14674
+          },
+          {
+            "path": "assets/use-is-admin-dNFFp37L.js",
+            "bytes": 303,
+            "brotliQ4Bytes": 204
+          },
+          {
+            "path": "assets/useTranslation-wMbxFB1i.js",
+            "bytes": 43152,
+            "brotliQ4Bytes": 14274
+          }
+        ],
+        "rawBytes": 2418546,
+        "brotliQ4Bytes": 570597
+      },
+      "HTMLAndLiveStaticClosure": {
+        "files": [
+          {
+            "path": "index.html",
+            "bytes": 7959,
+            "brotliQ4Bytes": 2954
+          },
+          {
+            "path": "assets/AutoUpdatingCameraImage-Vm6bbJ7c.js",
+            "bytes": 2587,
+            "brotliQ4Bytes": 1304
+          },
+          {
+            "path": "assets/BirdseyeLivePlayer-A5LmECDk.js",
+            "bytes": 137136,
+            "brotliQ4Bytes": 44985
+          },
+          {
+            "path": "assets/Chip-CeZTKc83.js",
+            "bytes": 1232,
+            "brotliQ4Bytes": 653
+          },
+          {
+            "path": "assets/DebugDrawingLayer-BUVWLIuq.js",
+            "bytes": 2531,
+            "brotliQ4Bytes": 1029
+          },
+          {
+            "path": "assets/EmptyCard-ByQkbS3q.js",
+            "bytes": 771,
+            "brotliQ4Bytes": 428
+          },
+          {
+            "path": "assets/FilterSwitch-BpC_U6li.js",
+            "bytes": 1101,
+            "brotliQ4Bytes": 466
+          },
+          {
+            "path": "assets/ImageShadowOverlay-zudTxtKC.js",
+            "bytes": 541,
+            "brotliQ4Bytes": 283
+          },
+          {
+            "path": "assets/Live-2y5pkcVX.js",
+            "bytes": 184846,
+            "brotliQ4Bytes": 46587
+          },
+          {
+            "path": "assets/MsePlayer-DnfMi0Z_.js",
+            "bytes": 9213,
+            "brotliQ4Bytes": 3636
+          },
+          {
+            "path": "assets/ReactKonva-D6EULr_Q.js",
+            "bytes": 377618,
+            "brotliQ4Bytes": 105618
+          },
+          {
+            "path": "assets/TimeAgo-D2fBSEg5.js",
+            "bytes": 1449,
+            "brotliQ4Bytes": 722
+          },
+          {
+            "path": "assets/activity-indicator-D_x4wV58.js",
+            "bytes": 827809,
+            "brotliQ4Bytes": 120690
+          },
+          {
+            "path": "assets/buildMatchPatternFn-ClBAzsDg.js",
+            "bytes": 1563,
+            "brotliQ4Bytes": 617
+          },
+          {
+            "path": "assets/cameraUtil-DlmBd_Ih.js",
+            "bytes": 3677,
+            "brotliQ4Bytes": 1640
+          },
+          {
+            "path": "assets/card-BvEx76ZV.js",
+            "bytes": 1060,
+            "brotliQ4Bytes": 387
+          },
+          {
+            "path": "assets/context-menu-KhsZUL37.js",
+            "bytes": 8545,
+            "brotliQ4Bytes": 2335
+          },
+          {
+            "path": "assets/detectionHardware-BlXbhogZ.js",
+            "bytes": 1084,
+            "brotliQ4Bytes": 554
+          },
+          {
+            "path": "assets/dist-X38yvQ2h.js",
+            "bytes": 876,
+            "brotliQ4Bytes": 413
+          },
+          {
+            "path": "assets/drawer-Dp9UU7kd.js",
+            "bytes": 101961,
+            "brotliQ4Bytes": 34821
+          },
+          {
+            "path": "assets/fa6-LY2KIa2E.js",
+            "bytes": 3022,
+            "brotliQ4Bytes": 903
+          },
+          {
+            "path": "assets/main-DF86LV8Y.js",
+            "bytes": 625609,
+            "brotliQ4Bytes": 186532
+          },
+          {
+            "path": "assets/normalizeDates-B8fk6WG0.js",
+            "bytes": 886,
+            "brotliQ4Bytes": 496
+          },
+          {
+            "path": "assets/react-apexcharts.esm-DDSdTom0.js",
+            "bytes": 981036,
+            "brotliQ4Bytes": 275201
+          },
+          {
+            "path": "assets/record-Bf1xYu2U.js",
+            "bytes": 49087,
+            "brotliQ4Bytes": 16516
+          },
+          {
+            "path": "assets/resize-observer-BM6UK5WB.js",
+            "bytes": 702,
+            "brotliQ4Bytes": 403
+          },
+          {
+            "path": "assets/review-D3-Z-h19.js",
+            "bytes": 242,
+            "brotliQ4Bytes": 184
+          },
+          {
+            "path": "assets/rolldown-runtime-B_MQnBba.js",
+            "bytes": 1087,
+            "brotliQ4Bytes": 573
+          },
+          {
+            "path": "assets/scroll-area-CoaoBl8I.js",
+            "bytes": 15657,
+            "brotliQ4Bytes": 4677
+          },
+          {
+            "path": "assets/skeleton-Doktw_Xe.js",
+            "bytes": 246,
+            "brotliQ4Bytes": 181
+          },
+          {
+            "path": "assets/slider-1M_fKgYe.js",
+            "bytes": 13654,
+            "brotliQ4Bytes": 4521
+          },
+          {
+            "path": "assets/snapshotUtil-DQo3ti__.js",
+            "bytes": 7579,
+            "brotliQ4Bytes": 3120
+          },
+          {
+            "path": "assets/src-BXn8fU6O.js",
+            "bytes": 540687,
+            "brotliQ4Bytes": 153367
+          },
+          {
+            "path": "assets/src-DHngj9Lm.css",
+            "bytes": 173144,
+            "brotliQ4Bytes": 26070
+          },
+          {
+            "path": "assets/tabs-Dv_B-FHX.js",
+            "bytes": 3778,
+            "brotliQ4Bytes": 1534
+          },
+          {
+            "path": "assets/use-camera-activity-6i9UuTxg.js",
+            "bytes": 3623,
+            "brotliQ4Bytes": 1648
+          },
+          {
+            "path": "assets/use-date-locale-cKXXcX12.js",
+            "bytes": 43638,
+            "brotliQ4Bytes": 12718
+          },
+          {
+            "path": "assets/use-history-back-JKPm9jgZ.js",
+            "bytes": 45111,
+            "brotliQ4Bytes": 14674
+          },
+          {
+            "path": "assets/use-is-admin-dNFFp37L.js",
+            "bytes": 303,
+            "brotliQ4Bytes": 204
+          },
+          {
+            "path": "assets/use-keyboard-listener-CcHihlXj.js",
+            "bytes": 1411,
+            "brotliQ4Bytes": 615
+          },
+          {
+            "path": "assets/use-timeline-utils-RZeNJOLk.js",
+            "bytes": 648,
+            "brotliQ4Bytes": 344
+          },
+          {
+            "path": "assets/useTranslation-wMbxFB1i.js",
+            "bytes": 43152,
+            "brotliQ4Bytes": 14274
+          }
+        ],
+        "rawBytes": 4227861,
+        "brotliQ4Bytes": 1088877
+      }
+    }
+  ]
+}

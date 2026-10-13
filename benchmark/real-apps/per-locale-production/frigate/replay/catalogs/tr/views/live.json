@@ -1,0 +1,231 @@
+{
+  "documentTitle": {
+    "default": "Canlı - Frigate"
+  },
+  "documentTitle.withCamera": "{{camera}} - Canlı - Frigate",
+  "muteCameras": {
+    "disable": "Tüm Kameraların Sesini Aç",
+    "enable": "Tüm Kameraları Sustur"
+  },
+  "autotracking": {
+    "disable": "Otomatik Takibi Kapat",
+    "enable": "Otomatik Takibi Aç"
+  },
+  "manualRecording": {
+    "start": "Talep Üzerine Kaydı Başlat",
+    "failedToEnd": "Manuel talep üzerine kayıt bitirilemedi.",
+    "recordDisabledTips": "Kamera yapılandırmasında kayıtlar devre dışı bırakıldığı veya kısıtlandığı için yalnızca bir anlık fotoğraf kaydedilecektir.",
+    "showStats": {
+      "desc": "Yayın istatistiklerini kamera akışına bir katman olarak eklemek için bu seçeneği açın.",
+      "label": "İstatistikleri Göster"
+    },
+    "started": "Manuel talep üzerine kayıt başlatıldı.",
+    "failedToStart": "Manuel talep üzerine kayıt başlatılamadı.",
+    "title": "Talep Üzerine",
+    "end": "Talep üzerine kaydı bitir",
+    "debugView": "Hata Ayıklama Görünümü",
+    "ended": "Manuel talep üzerine kayıt bitirildi.",
+    "tips": "Bu kameranın kayıt saklama ayarlarına göre bir anlık fotoğraf indirin veya manuel bir olay başlatın.",
+    "playInBackground": {
+      "label": "Arka planda oynat",
+      "desc": "Yayını oynatıcı arkadayken de devam ettirmek için bu seçeneği açın."
+    }
+  },
+  "stream": {
+    "audio": {
+      "tips": {
+        "title": "Bu yayın için kameranızın yayın çıkışında ses olması ve go2rtc'de ayarlanmış olması gerekmektedir."
+      },
+      "unavailable": "Bu yayında ses yok",
+      "available": "Bu yayında ses var"
+    },
+    "twoWayTalk": {
+      "tips": "Çift yönlü konuşma için cihazınızın ve kameranızın bu özelliği desteklemesi ve WebRTC'nin ayarlanmış olması gereklidir.",
+      "available": "Bu yayında çift yönlü konuşma kullanılabilir",
+      "unavailable": "Bu yayında çift yönlü konuşma kullanılamaz"
+    },
+    "lowBandwidth": {
+      "tips": "Canlı görünüm, yayında donmalar veya yayın hataları sebebiyle düşük bant genişliği moduna geçti.",
+      "resetStream": "Yayını sıfırla",
+      "force": {
+        "label": "Düşük bant genişliği moduna zorla",
+        "desc": "Seçili yayın yerine her zaman Frigate'in kendi düşük bant genişlikli akışını oynat. Her bağlantıda çalışır ancak kalitesi daha düşüktür ve ses içermez."
+      }
+    },
+    "playInBackground": {
+      "label": "Arka planda oynat",
+      "tips": "Yayını oynatıcı arkadayken de devam ettirmek için bu seçeneği açın."
+    },
+    "title": "Yayın",
+    "debug": {
+      "picker": "Hata ayıklama modunda yayın seçimi kullanılamaz. Hata ayıklama görünümü her zaman 'tespit' rolüne atanmış yayını kullanır.",
+      "technology": "Hata ayıklama modunda yayın teknolojisi seçimi yapılamaz."
+    },
+    "mode": "Yayın Teknolojisi",
+    "technology": {
+      "description": "Tercih ettiğiniz yayın teknolojisini seçin. Yine de oynatma veya ağ hataları durumunda Frigate düşük bant genişliği moduna geçebilir.",
+      "name": {
+        "mse": "MSE",
+        "webrtc": "WebRTC",
+        "jsmpeg": "JSMpeg"
+      },
+      "tips": {
+        "mse": "Varsayılan ve önerilen seçenek, yaygın uyumluluk ve akıcı oynatma",
+        "webrtc": "Ek kurulum gerektirir ve her cihazda desteklenmez"
+      },
+      "unavailable": {
+        "browser": "Tarayıcınız WebRTC desteklemiyor.",
+        "not-configured": "WebRTC yapılandırılmamış. go2rtc webrtc adaylarını veya ice_servers'ı ayarlayın.",
+        "unreachable": "WebRTC bağlanamadı. 8555 portunun ulaşılabilir ve STUN/TURN sunucu ayarlarının doğru olduğunu kontrol edin.",
+        "video-codec": "Bu yayının video kodeği bu tarayıcıda WebRTC ile desteklenmiyor.",
+        "audio-codec": "Bu yayının ses kodeği WebRTC tarafından desteklenmiyor. go2rtc ile opus veya G.711'e dönüştürün.",
+        "checking": "WebRTC uygunluğu kontrol ediliyor…"
+      }
+    }
+  },
+  "cameraSettings": {
+    "recording": "Kayıt",
+    "snapshots": "Anlık Fotoğraflar",
+    "title": "{{camera}} Ayarları",
+    "autotracking": "Otomatik Takip",
+    "objectDetection": "Nesne Algılaması",
+    "audioDetection": "Ses Algılaması",
+    "transcription": "Ses Dökümü",
+    "camera": "Kamera"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "active_objects": "Aktif Nesneler",
+      "all": "Tümü",
+      "motion": "Hareket"
+    }
+  },
+  "editLayout": {
+    "label": "Düzeni Düzenle",
+    "group": {
+      "label": "Kamera Grubunu Düzenle"
+    },
+    "exitEdit": "Düzenlemeden Çık"
+  },
+  "cameraAudio": {
+    "enable": "Kamera Sesini Etkinleştir",
+    "disable": "Kamera Sesini Kapat"
+  },
+  "ptz": {
+    "move": {
+      "clickMove": {
+        "enable": "Tıklayarak hareket etmeyi aç",
+        "disable": "Tıklayarak hareket etmeyi devre dışı bırak",
+        "label": "Kamerayı ortalamak için görüntüye tıklayın",
+        "enableWithZoom": "\"Tıklayarak hareket et / sürükleyerek yakınlaştır\" özelliğini etkinleştir"
+      },
+      "down": {
+        "label": "PTZ kamerayı aşağı çevir"
+      },
+      "right": {
+        "label": "PTZ kamerayı sağa çevir"
+      },
+      "left": {
+        "label": "PTZ kamerayı sola çevir"
+      },
+      "up": {
+        "label": "PTZ kamerayı yukarı çevir"
+      }
+    },
+    "zoom": {
+      "out": {
+        "label": "PTZ kamerayı uzaklaştır"
+      },
+      "in": {
+        "label": "PTZ kamerayı yakınlaştır"
+      }
+    },
+    "presets": "PTZ kamera varsayılan ayarları",
+    "frame": {
+      "center": {
+        "label": "PTZ kamerayı ortalamak için görüntüye tıklayın"
+      }
+    },
+    "focus": {
+      "in": {
+        "label": "PTZ kamera odağını yakınlaştır"
+      },
+      "out": {
+        "label": "PTZ kamera odağını uzaklaştır"
+      }
+    }
+  },
+  "history": {
+    "label": "Geçmiş görüntüleri göster"
+  },
+  "suspend": {
+    "forTime": "Askıya alınacağı süre: "
+  },
+  "twoWayTalk": {
+    "disable": "Çift Yönlü Konuşmayı Devre Dışı Bırak",
+    "enable": "Çift Yönlü Konuşmayı Etkinleştir",
+    "requiresWebRTC": "Çift yönlü konuşma için WebRTC gereklidir ama yok",
+    "error": {
+      "microphone": "Çift yönlü konuşma, mikrofonunuza erişemedi",
+      "refused": "Çift yönlü konuşma başlayamadı. Ayrıntılar için tarayıcı konsoluna bakın."
+    }
+  },
+  "snapshots": {
+    "enable": "Anlık Fotoğrafları Etkinleştir",
+    "disable": "Anlık Fotoğrafları Devre Dışı Bırak"
+  },
+  "audioDetect": {
+    "enable": "Ses Tespitini Etkinleştir",
+    "disable": "Ses Tespitini Devre Dışı Bırak"
+  },
+  "streamStats": {
+    "disable": "Yayın İstatistiklerini Gizle",
+    "enable": "Yayın İstatistiklerini Göster"
+  },
+  "lowBandwidthMode": "Düşük bant genişliği modu",
+  "streamingSettings": "Yayın Ayarları",
+  "audio": "Ses",
+  "recording": {
+    "enable": "Kaydı Etkinleştir",
+    "disable": "Kaydı Devre Dışı Bırak",
+    "disabledInConfig": "Bu kamera için kayıt özelliğinin önce Ayarlar'dan etkinleştirilmesi gerekir."
+  },
+  "notifications": "Bildirimler",
+  "detect": {
+    "disable": "Tespiti Devre Dışı Bırak",
+    "enable": "Tespiti Etkinleştir"
+  },
+  "transcription": {
+    "enable": "Canlı Ses Dökümünü Aç",
+    "disable": "Canlı Ses Dökümünü Kapat"
+  },
+  "snapshot": {
+    "takeSnapshot": "Anlık Fotoğrafı İndir",
+    "noVideoSource": "Anlık fotoğraf için kullanılabilir bir video kaynağı yok.",
+    "captureFailed": "Anlık fotoğraf yakalanamadı.",
+    "downloadStarted": "Anlık fotoğraf indirilmeye başlandı."
+  },
+  "noCameras": {
+    "title": "Yapılandırılmış Kamera Yok",
+    "description": "Frigate’e bir kamera bağlayarak başlayın.",
+    "buttonText": "Kamera Ekle",
+    "restricted": {
+      "title": "Kullanılabilir Kamera Yok",
+      "description": "Bu gruptaki kameraları görüntüleme izniniz yok."
+    },
+    "default": {
+      "title": "Yapılandırılmış Kamera Yok",
+      "description": "Frigate'e bir kamera bağlayarak başlayın.",
+      "buttonText": "Kamera Ekle"
+    },
+    "group": {
+      "title": "Grupta Kamera Yok",
+      "description": "Bu kamera grubuna atanmış veya etkinleştirilmiş kamera bulunmamaktadır.",
+      "buttonText": "Grupları Yönet"
+    }
+  },
+  "camera": {
+    "turnOn": "Kamerayı Aç",
+    "turnOff": "Kamerayı Kapat"
+  }
+}

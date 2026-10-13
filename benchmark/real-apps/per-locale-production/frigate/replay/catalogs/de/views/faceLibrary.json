@@ -1,0 +1,99 @@
+{
+  "description": {
+    "placeholder": "Gib einen Name für diese Kollektion ein",
+    "addFace": "Eine neue Kollektion zur Gesichtsbibliothek durch hochladen des ersten Bildes hinzufügen.",
+    "invalidName": "Ungültiger Name. Namen dürfen nur Buchstaben, Zahlen, Leerzeichen, Apostrophe, Unterstriche und Bindestriche enthalten.",
+    "nameCannotContainHash": "Der Name darf keine # enthalten."
+  },
+  "details": {
+    "timestamp": "Zeitstempel",
+    "scoreInfo": "Der Sub Label Score ist der gewichtete Score für alle erkannten Gesichter und kann daher vom Score abweichen, der auf dem Schnappschuss angezeigt wird.",
+    "unknown": "Unbekannt"
+  },
+  "uploadFaceImage": {
+    "title": "Lade Gesichtsbild hoch",
+    "desc": "Lade ein Bild zur Gesichtserkennung hoch und füge es für {{pageToggle}} hinzu"
+  },
+  "createFaceLibrary": {
+    "new": "Lege ein neues Gesicht an",
+    "nextSteps": "Um eine solide Grundlage zu bilden: <li> Benutze den \"Aktuelle Erkennungen\" Tab, um Bilder für jede erkannte Person auszuwählen und zu trainieren.</li> <li>Konzentriere dich für gute Ergebnisse auf Frontalfotos; vermeide Bilder zu Trainingszwecken, bei denen Gesichter aus einem Winkel erfasst wurden.</li></ul>"
+  },
+  "documentTitle": "Gesichtsbibliothek - Frigate",
+  "imageEntry": {
+    "dropActive": "Ziehe das Bild hierher…",
+    "dropInstructions": "Ziehe ein Bild hier her, füge es ein oder klicke um eines auszuwählen",
+    "maxSize": "Maximale Größe: {{size}} MB",
+    "validation": {
+      "selectImage": "Bitte wähle ein Bild aus."
+    }
+  },
+  "button": {
+    "addFace": "Gesicht hinzufügen",
+    "uploadImage": "Bild hochladen",
+    "deleteFaceAttempts": "Lösche Gesichter",
+    "reprocessFace": "Gesichter erneut verarbeiten",
+    "renameFace": "Gesicht umbenennen",
+    "deleteFace": "Lösche Gesicht"
+  },
+  "train": {
+    "title": "Neueste Erkennungen",
+    "aria": "Wähle aktuelle Erkennungen",
+    "empty": "Es gibt keine aktuellen Versuche zur Gesichtserkennung",
+    "titleShort": "Neu",
+    "emptyNoLibrary": {
+      "title": "Gesicht hinzufügen",
+      "description": "Sie müssen mindestens ein Gesicht zur Bibliothek hinzufügen, damit die Gesichtserkennung funktioniert."
+    }
+  },
+  "deleteFaceLibrary": {
+    "title": "Lösche Name",
+    "desc": "Möchtest du die Sammlung {{name}} löschen? Alle zugehörigen Gesichter werden gelöscht."
+  },
+  "trainFaceAs": "Trainiere Gesicht als:",
+  "trainFace": "Trainiere Gesicht",
+  "toast": {
+    "success": {
+      "uploadedImage": "Das Bild wurde erfolgreich hochgeladen.",
+      "deletedFace_one": "Erfolgreich {{count}} Gesicht gelöscht.",
+      "deletedFace_other": "Erfolgreich {{count}} Gesichter gelöscht.",
+      "deletedName_one": "{{count}} Gesicht wurde erfolgreich gelöscht.",
+      "deletedName_other": "{{count}} Gesichter wurden erfolgreich gelöscht.",
+      "addFaceLibrary": "{{name}} wurde erfolgreich in die Gesichtsbibliothek aufgenommen!",
+      "trainedFace": "Gesicht erfolgreich trainiert.",
+      "updatedFaceScore": "Gesichtsbewertung erfolgreich auf {{name}} ({{score}}) aktualisiert.",
+      "renamedFace": "Gesicht erfolgreich in {{name}} umbenannt",
+      "reclassifiedFace": "Gesicht erfolgreich neu klassifiziert."
+    },
+    "error": {
+      "deleteFaceFailed": "Das Löschen ist fehlgeschlagen: {{errorMessage}}",
+      "uploadingImageFailed": "Bild kann nicht hochgeladen werden: {{errorMessage}}",
+      "addFaceLibraryFailed": "Der Gesichtsname konnte nicht gesetzt werden: {{errorMessage}}",
+      "trainFailed": "Ausbildung fehlgeschlagen: {{errorMessage}}",
+      "updateFaceScoreFailed": "Aktualisierung der Gesichtsbewertung fehlgeschlagen: {{errorMessage}}",
+      "deleteNameFailed": "Name kann nicht gelöscht werden: {{errorMessage}}",
+      "renameFaceFailed": "Gesicht konnte nicht umbenannt werden: {{errorMessage}}",
+      "reclassifyFailed": "Die Gesichtsbewertung ist fehlgeschlagen: {{errorMessage}}"
+    }
+  },
+  "steps": {
+    "uploadFace": "Lade Bild des Gesichts hoch",
+    "nextSteps": "Nächste Schritte",
+    "faceName": "Gebe Gesichtsname ein",
+    "description": {
+      "uploadFace": "Lade ein Bild von {{name}} hoch, das ihr/sein Gesicht aus einer frontalen Perspektive zeigt. Das Bild muss nicht auf das Gesicht zugeschnitten sein."
+    }
+  },
+  "renameFace": {
+    "title": "Gesicht umbenennen",
+    "desc": "Gib den neuen Namen für {{name}} ein"
+  },
+  "collections": "Sammlungen",
+  "deleteFaceAttempts": {
+    "title": "Lösche Gesichter",
+    "desc_one": "Bist du sicher, dass du {{count}} Gesicht löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "desc_other": "Bist du sicher, dass du {{count}} Gesichter löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden."
+  },
+  "nofaces": "Keine Gesichter verfügbar",
+  "reclassifyFaceAs": "Gesicht neu klassifizieren als:",
+  "reclassifyFace": "Gesicht neu klassifizieren"
+}

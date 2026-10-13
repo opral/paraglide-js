@@ -1,0 +1,64 @@
+{
+  "detections": "Detektioner",
+  "alerts": "Varningar",
+  "motion": {
+    "label": "Rörelse",
+    "only": "Endast rörelse"
+  },
+  "allCameras": "Alla kameror",
+  "empty": {
+    "alert": "Det finns inga varningar att granska",
+    "detection": "Det finns inga detekteringar att granska",
+    "motion": "Inga rörelsedata hittades",
+    "recordingsDisabled": {
+      "title": "Inspelningar måste vara aktiverade",
+      "description": "Granskningsobjekt kan bara skapas för en kamera när inspelningar är aktiverade för kameran."
+    }
+  },
+  "documentTitle": "Granska - Frigate",
+  "events": {
+    "noFoundForTimePeriod": "Inga händelser hittades för den här tidsperioden.",
+    "aria": "Välj händelse",
+    "label": "Händelse"
+  },
+  "recordings": {
+    "documentTitle": "Inspelningar - Frigate"
+  },
+  "newReviewItems": {
+    "label": "Visa nya objekt att granska",
+    "button": "Nya objekt att granska"
+  },
+  "markAsReviewed": "Markera som granskat",
+  "calendarFilter": {
+    "last24Hours": "Senaste 24 timmarna"
+  },
+  "timeline.aria": "Välj tidslinje",
+  "camera": "Kamera",
+  "markTheseItemsAsReviewed": "Markera dessa objekt som granskade",
+  "detected": "upptäckt",
+  "selected_one": "{{count}} valt",
+  "selected_other": "{{count}} valda",
+  "detail": {
+    "noDataFound": "Inga detaljerade data att granska",
+    "aria": "Växla detaljvy",
+    "trackedObject_one": "{{count}} objekt",
+    "trackedObject_other": "{{count}} objekt",
+    "noObjectDetailData": "Inga objektdetaljdata tillgängliga.",
+    "label": "Detalj",
+    "settings": "Inställningar för detaljvy",
+    "alwaysExpandActive": {
+      "title": "Expandera alltid det aktiva objektet",
+      "desc": "Expandera alltid objektinformationen för det aktiva granskningsobjektet när den är tillgänglig."
+    }
+  },
+  "objectTrack": {
+    "trackedPoint": "Spårad punkt",
+    "clickToSeek": "Klicka för att gå till den här tidpunkten"
+  },
+  "zoomIn": "Zooma in",
+  "zoomOut": "Zooma ut",
+  "normalActivity": "Normal aktivitet",
+  "needsReview": "Behöver granskas",
+  "securityConcern": "Säkerhetsproblem",
+  "select_all": "Välj alla"
+}

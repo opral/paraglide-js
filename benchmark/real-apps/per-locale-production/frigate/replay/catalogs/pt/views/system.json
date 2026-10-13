@@ -1,0 +1,183 @@
+{
+  "documentTitle": {
+    "storage": "Frigate - Estatísticas de Armazenamento",
+    "general": "Frigate - Estatísticas Gerais",
+    "enrichments": "Frigate - Estatísticas de Enriquecimento",
+    "logs": {
+      "frigate": "Frigate - Registos de Eventos do Frigate",
+      "go2rtc": "Frigate - Registos de Eventos do Go2RTC",
+      "nginx": "Frigate - Registos de Eventos do Nginx"
+    },
+    "cameras": "Frigate - Estatísticas das Câmaras"
+  },
+  "title": "Sistema",
+  "metrics": "Métricas do sistema",
+  "logs": {
+    "type": {
+      "label": "Tipo",
+      "timestamp": "Carimbo de hora",
+      "tag": "Etiqueta",
+      "message": "Mensagem"
+    },
+    "copy": {
+      "success": "Registos copiados para a área de transferência",
+      "label": "Copiar para a Área de Transferência",
+      "error": "Não foi possível copiar os registos para a área de transferência"
+    },
+    "download": {
+      "label": "Transferir Registos"
+    },
+    "tips": "Os registos estão a ser transmitidos do servidor",
+    "toast": {
+      "error": {
+        "fetchingLogsFailed": "Erro ao obter os registos: {{errorMessage}}",
+        "whileStreamingLogs": "Erro enquanto transmitia os registos: {{errorMessage}}"
+      }
+    }
+  },
+  "storage": {
+    "cameraStorage": {
+      "camera": "Câmara",
+      "storageUsed": "Armazenamento",
+      "percentageOfTotalUsed": "Porcentagem do total",
+      "bandwidth": "Largura de banda",
+      "unused": {
+        "tips": "Este valor pode não representar com precisão o espaço livre disponível para o Frigate se você tiver outros ficheiros armazenados em sua unidade além das gravações do Frigate. O Frigate não rastreia o uso de armazenamento fora de suas gravações.",
+        "title": "Não utilizado"
+      },
+      "unusedStorageInformation": "Informações de armazenamento não utilizado",
+      "title": "Armazenamento da câmara"
+    },
+    "title": "Armazenamento",
+    "overview": "Sinopse",
+    "recordings": {
+      "title": "Gravações",
+      "earliestRecording": "Primeira gravação disponível:",
+      "tips": "Este valor representa o armazenamento total utilizado pelas gravações na base de dados do Frigate. O Frigate não acompanha a utilização do armazenamento de todos os ficheiros no seu disco."
+    },
+    "shm": {
+      "title": "Alocação SHM (memória partilhada)",
+      "warning": "A tamanho atual de SHM de {{total}} MB é muito pequeno. Aumente-o para pelo menos {{min_shm}} MB."
+    }
+  },
+  "cameras": {
+    "title": "Câmaras",
+    "info": {
+      "video": "Vídeo:",
+      "unknown": "Desconhecido",
+      "error": "Erro: {{error}}",
+      "fetching": "Obtendo dados da câmara",
+      "resolution": "Resolução:",
+      "codec": "Codec:",
+      "fps": "FPS:",
+      "stream": "Transmissão {{idx}}",
+      "audio": "Áudio:",
+      "cameraProbeInfo": "{{camera}} Explorar informações da Camara",
+      "tips": {
+        "title": "Explorar informações da Camara"
+      },
+      "streamDataFromFFPROBE": "Os dados de transmissão são obtidos com <code>ffprobe</code>.",
+      "aspectRatio": "relação de aspeto"
+    },
+    "framesAndDetections": "Quadros / Detecções",
+    "label": {
+      "camera": "câmara",
+      "detect": "detectar",
+      "capture": "capturar",
+      "skipped": "ignorado",
+      "ffmpeg": "FFmpeg",
+      "cameraFfmpeg": "{{camName}} FFmpeg",
+      "cameraFramesPerSecond": "imagens por segundo de {{camName}}",
+      "cameraCapture": "captura de {{camName}}",
+      "cameraDetectionsPerSecond": "deteções por segundo de {{camName}}",
+      "overallFramesPerSecond": "imagens por segundo totais (FPS)",
+      "overallDetectionsPerSecond": "deteções por segundo totais",
+      "overallSkippedDetectionsPerSecond": "deteções ignoradas por segundo totais",
+      "cameraDetect": "deteção de {{camName}}",
+      "cameraSkippedDetectionsPerSecond": "deteções ignoradas por segundo de {{camName}}"
+    },
+    "overview": "Visão geral",
+    "toast": {
+      "success": {
+        "copyToClipboard": "Dados de exploração copiados para a área de transferência."
+      },
+      "error": {
+        "unableToProbeCamera": "Não foi possível explorar a câmara: {{errorMessage}}"
+      }
+    }
+  },
+  "lastRefreshed": "Última atualização: ",
+  "stats": {
+    "healthy": "O sistema está saudável",
+    "reindexingEmbeddings": "Reindexando incorporações ({{processed}}% completo)",
+    "detectIsVerySlow": "{{detect}} está muito lento ({{speed}} ms)",
+    "cameraIsOffline": "{{camera}} está off-line",
+    "detectIsSlow": "{{detect}} está lento ({{speed}} ms)"
+  },
+  "general": {
+    "title": "Geral",
+    "detector": {
+      "title": "Detetores",
+      "cpuUsage": "Utilização do CPU do Detetor",
+      "memoryUsage": "Utilização da Memória do Detetor",
+      "inferenceSpeed": "Velocidade de Inferência do Detetor",
+      "temperature": "Temperatura do Detetor",
+      "cpuUsageInformation": "CPU utilizada na preparação de dados de entrada e saída de/para os modelos de deteção. Este valor não mede oa utilização da inferência, mesmo se estiver a utilizar uma GPU ou acelerador."
+    },
+    "hardwareInfo": {
+      "title": "Informação de Hardware",
+      "gpuUsage": "Utilização da GPU",
+      "gpuMemory": "Memória da GPU",
+      "gpuInfo": {
+        "nvidiaSMIOutput": {
+          "driver": "Controlador: {{driver}}",
+          "vbios": "Informação VBios: {{vbios}}",
+          "name": "Nome: {{name}}",
+          "cudaComputerCapability": "Capacidade de computação CUDA: {{cuda_compute}}",
+          "title": "Saída Nvidia SMI"
+        },
+        "copyInfo": {
+          "label": "Copiar informação da GPU"
+        },
+        "closeInfo": {
+          "label": "Fechar informação da GPU"
+        },
+        "toast": {
+          "success": "Informação da GPU copiada para a área de transferência"
+        },
+        "vainfoOutput": {
+          "title": "Saída do Vainfo",
+          "returnCode": "Código de retorno: {{code}}",
+          "processOutput": "Saída do processo:",
+          "processError": "Erro no processo:"
+        }
+      },
+      "gpuEncoder": "Codificador da GPU",
+      "gpuDecoder": "Descodificador da GPU",
+      "npuUsage": "Utilização NPU",
+      "npuMemory": "Memória NPU"
+    },
+    "otherProcesses": {
+      "title": "Outros Processos",
+      "processCpuUsage": "Utilização da CPU do Processo",
+      "processMemoryUsage": "Utilização da Memória do Processo"
+    }
+  },
+  "enrichments": {
+    "title": "Enriquecimentos",
+    "infPerSecond": "Inferências por Segundo",
+    "embeddings": {
+      "image_embedding_speed": "Velocidade de Incorporação de Imagem",
+      "face_embedding_speed": "Velocidade de Incorporação Facial",
+      "plate_recognition_speed": "Velocidade de Reconhecimento de Placas",
+      "text_embedding_speed": "Velocidade de Incorporação de Texto",
+      "face_recognition_speed": "Velocidade de Reconhecimento Facial",
+      "plate_recognition": "Reconhecimento de Placas",
+      "image_embedding": "Incorporação de Imagem",
+      "text_embedding": "Incorporação de Texto",
+      "face_recognition": "Reconhecimento Facial",
+      "yolov9_plate_detection_speed": "Velocidade de Deteção de Placas YOLOv9",
+      "yolov9_plate_detection": "Deteção de Placas YOLOv9"
+    }
+  }
+}

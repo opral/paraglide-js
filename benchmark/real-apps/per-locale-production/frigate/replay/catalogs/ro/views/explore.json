@@ -1,0 +1,267 @@
+{
+  "documentTitle": "Căutare - Frigate",
+  "generativeAI": "AI Generativ",
+  "exploreIsUnavailable": {
+    "title": "Explorarea este Indisponibila",
+    "embeddingsReindexing": {
+      "startingUp": "Porneste…",
+      "estimatedTime": "Timp ramas estimat:",
+      "finishingShortly": "Termina curand",
+      "step": {
+        "descriptionsEmbedded": "Descrieri încorporate: ",
+        "trackedObjectsProcessed": "Obiecte urmărite procesate: ",
+        "thumbnailsEmbedded": "Miniaturi încorporate: "
+      },
+      "context": "Funcția de căutare poate fi utilizată după ce reindexarea obiectelor înglobate este finalizată."
+    },
+    "downloadingModels": {
+      "context": "Frigate descarcă modelele de înglobare necesare pentru a susține funcția de Căutare Semantică. Acest lucru poate dura câteva minute, în funcție de viteza conexiunii rețelei dvs.",
+      "setup": {
+        "visionModel": "Model viziune",
+        "visionModelFeatureExtractor": "Extractor de caracteristici pentru modelul de viziune",
+        "textModel": "Model de text",
+        "textTokenizer": "Tokenizer text"
+      },
+      "tips": {
+        "context": "S-ar putea să dorești să reindexezi înglobările obiectelor urmărite odată ce modelele sunt descărcate."
+      },
+      "error": "A apărut o eroare. Verifică jurnalele Frigate."
+    }
+  },
+  "type": {
+    "details": "detalii",
+    "snapshot": "snapshot",
+    "video": "video",
+    "thumbnail": "miniatură",
+    "tracking_details": "detalii de urmărire"
+  },
+  "objectLifecycle": {
+    "noImageFound": "Nicio imagine găsită pentru această marcă temporală."
+  },
+  "details": {
+    "timestamp": "Marcaj timp",
+    "item": {
+      "title": "Revizuiește detaliile articolului",
+      "desc": "Revizuiește detaliile articolului",
+      "button": {
+        "share": "Partajează acest articol de revizuire",
+        "viewInExplore": "Vezi în explorator"
+      },
+      "tips": {
+        "mismatch_one": "{{count}} obiect indisponibil a fost detectat și inclus în acest element de revizuire. Acest obiect fie nu s-a calificat ca alertă sau detecție, fie a fost deja curățat/șters.",
+        "mismatch_few": "{{count}} obiecte indisponibile au fost detectate și incluse în acest element de revizuire. Aceste obiecte fie nu s-au calificat ca alertă sau detecție, fie au fost deja curățate/șterse.",
+        "mismatch_other": "{{count}} de obiecte indisponibile au fost detectate și incluse în acest element de revizuire. Aceste obiecte fie nu s-au calificat ca alertă sau detecție, fie au fost deja curățate/șterse.",
+        "hasMissingObjects": "Ajustează-ți configurația dacă vrei ca Frigate să salveze obiectele urmărite pentru următoarele etichete: <em>{{objects}}</em>"
+      },
+      "toast": {
+        "success": {
+          "regenerate": "O nouă descriere a fost solicitată de la {{provider}}. În funcție de viteza furnizorului tău, regenerarea noii descrieri poate dura ceva timp.",
+          "updatedSublabel": "Subeticheta a fost actualizată cu succes.",
+          "updatedLPR": "Plăcuța de înmatriculare a fost actualizată cu succes.",
+          "audioTranscription": "Transcrierea audio a fost solicitată cu succes. În funcție de viteza serverului dumneavoastră Frigate, transcrierea poate dura ceva timp până la finalizare.",
+          "updatedAttributes": "Atributele au fost actualizate cu succes."
+        },
+        "error": {
+          "updatedSublabelFailed": "Nu s-a putut actualiza sub-etichetarea: {{errorMessage}}",
+          "updatedLPRFailed": "Plăcuța de înmatriculare nu a putut fi actualizată: {{errorMessage}}",
+          "regenerate": "Eroare la apelarea {{provider}} pentru o nouă descriere: {{errorMessage}}",
+          "audioTranscription": "Solicitarea transcrierii audio a eșuat: {{errorMessage}}",
+          "updatedAttributesFailed": "Actualizarea atributelor a eșuat: {{errorMessage}}"
+        }
+      }
+    },
+    "editSubLabel": {
+      "title": "Editează subeticheta",
+      "desc": "Introdu o sub-etichetă nouă pentru acest/această {{label}}",
+      "descNoLabel": "Introduceți o nouă subetichetă pentru acest obiect urmărit"
+    },
+    "editLPR": {
+      "desc": "Introdu o nouă valoare pentru numărul de înmatriculare pentru acest {{label}}",
+      "descNoLabel": "Introduceți o nouă valoare a plăcuței de înmatriculare pentru acest obiect urmărit",
+      "title": "Editează plăcuța de înmatriculare"
+    },
+    "topScore": {
+      "label": "Cel mai bun scor",
+      "info": "Scorul cel mai bun este scorul median cel mai ridicat pentru obiectul urmărit, prin urmare, acesta poate diferi de scorul afișat pe miniatura rezultatului căutării."
+    },
+    "estimatedSpeed": "Viteză estimată",
+    "objects": "Obiecte",
+    "recognizedLicensePlate": "Plăcuță de înmatriculare recunoscută",
+    "snapshotScore": {
+      "label": "Scor snapshot"
+    },
+    "camera": "Cameră",
+    "zones": "Zone",
+    "button": {
+      "findSimilar": "Găsește similare",
+      "regenerate": {
+        "title": "Regenerează",
+        "label": "Regenerează descrierea obiectului urmărit"
+      }
+    },
+    "tips": {
+      "saveDescriptionFailed": "Actualizarea descrierii a eșuat: {{errorMessage}}",
+      "descriptionSaved": "Descrierea a fost salvată cu succes"
+    },
+    "label": "Etichetă",
+    "description": {
+      "label": "Descriere",
+      "placeholder": "Descrierea obiectului urmărit",
+      "aiTips": "Frigate nu va solicita o descriere de la furnizorul tău de AI până când ciclul de viață al obiectului urmărit nu se încheie."
+    },
+    "expandRegenerationMenu": "Extinde meniul de regenerare",
+    "regenerateFromSnapshot": "Regenerează din snapshot",
+    "regenerateFromThumbnails": "Regenerează din miniaturi",
+    "score": {
+      "label": "Scor"
+    },
+    "editAttributes": {
+      "title": "Editează atribute",
+      "desc": "Selectează atributele de clasificare pentru acest {{label}}"
+    },
+    "attributes": "Atribute de clasificare",
+    "title": {
+      "label": "Titlu"
+    },
+    "scoreInfo": "Informații scor"
+  },
+  "exploreMore": "Explorează mai multe obiecte cu {{label}}",
+  "trackedObjectDetails": "Detalii despre obiectul urmărit",
+  "trackedObjectsCount_one": "{{count}} obiect urmărit ",
+  "trackedObjectsCount_few": "{{count}} obiecte urmărite ",
+  "trackedObjectsCount_other": "{{count}} de obiecte urmărite ",
+  "itemMenu": {
+    "downloadSnapshot": {
+      "aria": "Descarcă snapshot-ul",
+      "label": "Descarcă snapshot-ul"
+    },
+    "findSimilar": {
+      "label": "Găsește similare",
+      "aria": "Găsește obiecte urmărite similare"
+    },
+    "viewInHistory": {
+      "label": "Vizualizează în Istoric",
+      "aria": "Vizualizează în Istoric"
+    },
+    "deleteTrackedObject": {
+      "label": "Șterge acest obiect urmărit"
+    },
+    "downloadVideo": {
+      "label": "Descarcă video-ul",
+      "aria": "Descarcă video-ul"
+    },
+    "submitToPlus": {
+      "label": "Trimite către Frigate+",
+      "aria": "Trimite către Frigate Plus"
+    },
+    "addTrigger": {
+      "label": "Adaugă declanșator",
+      "aria": "Adaugă un declanșator pentru acest obiect urmărit"
+    },
+    "audioTranscription": {
+      "label": "Transcrie",
+      "aria": "Solicită transcrierea audio"
+    },
+    "viewTrackingDetails": {
+      "label": "Vizualizați detaliile de urmărire",
+      "aria": "Vizualizați detaliile de urmărire"
+    },
+    "showObjectDetails": {
+      "label": "Afișează traseul obiectului"
+    },
+    "hideObjectDetails": {
+      "label": "Ascunde traseul obiectului"
+    },
+    "downloadCleanSnapshot": {
+      "label": "Descarcă un snapshot curat",
+      "aria": "Descarcă snapshot curat"
+    },
+    "debugReplay": {
+      "label": "Reluare depanare",
+      "aria": "Vezi acest obiect urmărit în vizualizarea de reluare de depanare"
+    },
+    "more": {
+      "aria": "Mai mult"
+    }
+  },
+  "dialog": {
+    "confirmDelete": {
+      "title": "Confirmă ștergerea",
+      "desc": "Ștergerea acestui obiect urmărit elimină snapshot-ul, orice înglobări salvate și orice intrări asociate detaliilor de urmărire. Materialul video înregistrat al acestui obiect urmărit în vizualizarea Istoric <em>NU</em> va fi șters.<br /><br />Ești sigur că vrei să continui?"
+    },
+    "toast": {
+      "error": "Eroare la ștergerea acestui obiect urmărit: {{errorMessage}}"
+    }
+  },
+  "noTrackedObjects": "Nu au fost găsite obiecte urmărite",
+  "fetchingTrackedObjectsFailed": "Eroare la preluarea obiectelor urmărite: {{errorMessage}}",
+  "searchResult": {
+    "deleteTrackedObject": {
+      "toast": {
+        "success": "Obiectul urmărit a fost șters cu succes.",
+        "error": "Ștergerea obiectului urmărit a eșuat: {{errorMessage}}"
+      }
+    },
+    "tooltip": "Potrivire {{type}} cu {{confidence}}%",
+    "previousTrackedObject": "Obiectul urmărit anterior",
+    "nextTrackedObject": "Următorul obiect urmărit"
+  },
+  "aiAnalysis": {
+    "title": "Analiză AI"
+  },
+  "concerns": {
+    "label": "Îngrijorări"
+  },
+  "trackingDetails": {
+    "title": "Detalii de Urmărire",
+    "noImageFound": "Nu s-a găsit nicio imagine pentru acest marcaj de timp.",
+    "createObjectMask": "Creează Masca Obiectului",
+    "adjustAnnotationSettings": "Ajustează Setările de anotare",
+    "scrollViewTips": "Apasă pentru a vizualiza momentele semnificative din ciclul de viață al acestui obiect.",
+    "autoTrackingTips": "Pozițiile casetelor de delimitare vor fi inexacte pentru camerele cu urmărire automată.",
+    "count": "{{first}} din {{second}}",
+    "trackedPoint": "Punct Urmărit",
+    "lifecycleItemDesc": {
+      "visible": "detectat {{label}}",
+      "entered_zone": "{{label}} a intrat în {{zones}}",
+      "active": "{{label}} a devenit activ",
+      "stationary": "{{label}} a devenit staționar",
+      "attribute": {
+        "faceOrLicense_plate": "{{attribute}} detectat pentru {{label}}",
+        "other": "{{label}} recunoscut ca {{attribute}}"
+      },
+      "gone": "{{label}} a plecat",
+      "heard": "{{label}} auzit",
+      "external": "{{label}} detectat",
+      "header": {
+        "zones": "Zone",
+        "ratio": "Raport",
+        "area": "Aria",
+        "score": "Scor",
+        "computedScore": "Scor calculat",
+        "topScore": "Cel mai mare scor",
+        "toggleAdvancedScores": "Comută scorurile avansate"
+      }
+    },
+    "annotationSettings": {
+      "title": "Setări de adnotare",
+      "showAllZones": {
+        "title": "Afișează toate",
+        "desc": "Afișează întotdeauna zonele pe cadrele în care obiectele au intrat într-o zonă."
+      },
+      "offset": {
+        "label": "Compensare adnotare",
+        "desc": "Aceste date provin din stream-ul de detectare al camerei tale, dar sunt suprapuse pe imaginile din stream-ul de înregistrare. Este puțin probabil ca cele două stream-uri să fie perfect sincronizate. Drept urmare, caseta delimitatoare și materialul video nu se vor alinia perfect. Poți folosi această setare pentru a decală adnotările înainte sau înapoi în timp, pentru a le alinia mai bine cu materialul înregistrat.",
+        "millisecondsToOffset": "Millisecunde pentru a decalca adnotările de detectare. <em>Implicit: 0</em>",
+        "tips": "Reduceți valoarea dacă redarea video este înaintea casetelor și punctelor de traseu și creșteți valoarea dacă redarea video este în urma acestora. Această valoare poate fi negativă.",
+        "toast": {
+          "success": "Decalajul de adnotare pentru {{camera}} a fost salvat în fișierul de configurare."
+        }
+      }
+    },
+    "carousel": {
+      "previous": "Slide-ul anterior",
+      "next": "Slide-ul următor"
+    }
+  }
+}

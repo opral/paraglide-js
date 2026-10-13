@@ -1,0 +1,96 @@
+{
+  "alerts": "Alerte",
+  "motion": {
+    "label": "Mișcare",
+    "only": "Doar mișcare"
+  },
+  "allCameras": "Toate Camerele",
+  "empty": {
+    "alert": "Nu sunt alerte de revizuit",
+    "detection": "Nu sunt detecții de revizuit",
+    "motion": "Nu au fost găsite date despre mișcare",
+    "recordingsDisabled": {
+      "title": "Înregistrările trebuie să fie activate",
+      "description": "Elementele de revizuire pot fi create doar pentru o cameră atunci când înregistrările sunt activate pentru acea cameră."
+    }
+  },
+  "timeline": {
+    "label": "Cronologie"
+  },
+  "timeline.aria": "Selectează cronologia",
+  "events": {
+    "aria": "Selectează evenimente",
+    "noFoundForTimePeriod": "Niciun eveniment gasit pentru acest interval de timp.",
+    "label": "Evenimente"
+  },
+  "documentTitle": "Revizuieste - Frigate",
+  "recordings": {
+    "documentTitle": "Inregistrari - frigate",
+    "invalidSharedLink": "Nu s-a putut deschide linkul înregistrării cu timestamp din cauza unei erori de parsare.",
+    "invalidSharedCamera": "Nu s-a putut deschide linkul înregistrării cu timestamp din cauza unei camere necunoscute sau neautorizate."
+  },
+  "calendarFilter": {
+    "last24Hours": "Ultimele 24 de ore"
+  },
+  "markAsReviewed": "Marchează ca revizuit",
+  "markTheseItemsAsReviewed": "Marchează aceste articole ca revizuite",
+  "newReviewItems": {
+    "label": "Vezi articole noi de revizuit",
+    "button": "Articole Noi de Revizuit"
+  },
+  "camera": "Camera foto",
+  "detections": "Detecții",
+  "detected": "detectat",
+  "selected_one": "{{count}} selectat",
+  "selected_other": "{{count}} selectate",
+  "detail": {
+    "noDataFound": "Nicio dată detaliată de revizuit",
+    "aria": "Comută vizualizarea detaliată",
+    "trackedObject_one": "{{count}} obiect",
+    "trackedObject_other": "{{count}} obiecte",
+    "noObjectDetailData": "Nicio dată de detaliu obiect disponibilă.",
+    "label": "Detaliu",
+    "settings": "Setări vizualizare detaliată",
+    "alwaysExpandActive": {
+      "title": "Extinde întotdeauna activul",
+      "desc": "Extinde întotdeauna detaliile obiectului elementului activ de revizuire, atunci când sunt disponibile."
+    }
+  },
+  "objectTrack": {
+    "trackedPoint": "Punct urmărit",
+    "clickToSeek": "Apasă pentru a naviga la acest moment"
+  },
+  "zoomIn": "Mărește",
+  "zoomOut": "Micșorează",
+  "normalActivity": "Normal",
+  "needsReview": "Necesită revizuire",
+  "securityConcern": "Potențială problemă de securitate",
+  "select_all": "Toate",
+  "motionSearch": {
+    "menuItem": "Căutare mișcare",
+    "openMenu": "Opțiuni cameră"
+  },
+  "motionPreviews": {
+    "menuItem": "Vezi previzualizări mișcare",
+    "title": "Previzualizări mișcare: {{camera}}",
+    "mobileSettingsTitle": "Setări previzualizări mișcare",
+    "mobileSettingsDesc": "Ajustează viteza de redare, întunecarea și decuparea și alege o dată pentru a examina clipurile doar cu mișcare.",
+    "dim": "Estompare",
+    "dimAria": "Ajustează intensitatea estompării",
+    "dimDesc": "Crește intensitatea estompării pentru a mări vizibilitatea zonei de mișcare.",
+    "speed": "Vitez",
+    "speedAria": "Selectează viteza de redare a previzualizării",
+    "speedDesc": "Alege cât de repede sunt redate clipurile de previzualizare.",
+    "back": "Înapoi",
+    "empty": "Nicio previzualizare disponibilă",
+    "noPreview": "Previzualizare indisponibilă",
+    "seekAria": "Derulează player-ul {{camera}} la {{time}}",
+    "filter": "Filtru",
+    "filterDesc": "Selectează zonele pentru a afișa doar clipurile cu mișcare în acele regiuni.",
+    "filterClear": "Șterge",
+    "crop": "Decupează după filtru",
+    "cropDesc": "Mărește previzualizările pe zonele de filtrare selectate în loc să afișeze cadrul complet.",
+    "cropAria": "Comută decuparea previzualizărilor pe zonele filtrate"
+  },
+  "subOnlyQuality": "Doar înregistrări de calitate scăzută sunt disponibile în acest interval de timp"
+}

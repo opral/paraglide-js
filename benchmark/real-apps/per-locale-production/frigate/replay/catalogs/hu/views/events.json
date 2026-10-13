@@ -1,0 +1,65 @@
+{
+  "alerts": "Riasztások",
+  "empty": {
+    "detection": "Nincs megnézendő észlelés",
+    "alert": "Nincs megnézendő riasztás",
+    "motion": "Nem található mozgás",
+    "recordingsDisabled": {
+      "title": "A felvétel készítést engedélyezni kell",
+      "description": "Csak akkor hozhatók létre áttekintési elemek egy kamerához, ha az adott kamerához engedélyezve vannak a felvételek."
+    }
+  },
+  "detections": "Észlelések",
+  "motion": {
+    "label": "Mozgás",
+    "only": "Csak mozgások"
+  },
+  "allCameras": "Összes kamera",
+  "timeline": {
+    "label": "Idővonal"
+  },
+  "detected": "észlelve",
+  "events": {
+    "label": "Események",
+    "aria": "Válassza ki az eseményeket",
+    "noFoundForTimePeriod": "Nem található esemény ebben az idő intervallumban."
+  },
+  "calendarFilter": {
+    "last24Hours": "Elmúlt 24 Óra"
+  },
+  "newReviewItems": {
+    "label": "Új áttekintendő elemek megnézése",
+    "button": "Áttekintendő Új Elemek"
+  },
+  "camera": "Kamera",
+  "timeline.aria": "Válassza ki az idővonalat",
+  "documentTitle": "Áttekintés - Frigate",
+  "recordings": {
+    "documentTitle": "Felvételek - Frigate"
+  },
+  "markTheseItemsAsReviewed": "Ezen elemek megjelölése áttekintettként",
+  "markAsReviewed": "Megjelölés Áttekintettként",
+  "selected_one": "{{count}} kiválasztva",
+  "selected_other": "{{count}} kiválasztva",
+  "zoomIn": "Nagyítás",
+  "zoomOut": "Kicsinyítés",
+  "detail": {
+    "trackedObject_other": "{{count}} objektum",
+    "label": "Részletes",
+    "noDataFound": "Nincsenek részletes adatok áttekintésre",
+    "aria": "Részletes nézet kapcsolása",
+    "trackedObject_one": "{{count}} objektum",
+    "noObjectDetailData": "Nincsenek elérhető objektumrészlet adatok.",
+    "settings": "Részletes nézet beállításai",
+    "alwaysExpandActive": {
+      "title": "Mindig kibontja az aktív részt"
+    }
+  },
+  "objectTrack": {
+    "trackedPoint": "Nyomon követett pont",
+    "clickToSeek": "Kattintson, az időponthoz ugráshoz"
+  },
+  "select_all": "Összes",
+  "needsReview": "Felülvizsgálatra szorul",
+  "securityConcern": "Biztonsági aggályok"
+}

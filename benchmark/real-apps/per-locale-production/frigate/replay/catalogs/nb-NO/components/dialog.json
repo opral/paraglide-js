@@ -1,0 +1,196 @@
+{
+  "restart": {
+    "title": "Er du sikker på at du vil starte Frigate på nytt?",
+    "button": "Start på nytt",
+    "restarting": {
+      "title": "Frigate starter på nytt",
+      "button": "Tving omlasting nå",
+      "content": "Denne siden vil lastes inn på nytt om {{countdown}} sekunder."
+    },
+    "description": "Dette vil stoppe Frigate et øyeblikk mens det starter på nytt."
+  },
+  "explore": {
+    "plus": {
+      "submitToPlus": {
+        "label": "Send til Frigate+",
+        "desc": "Objekter på steder du vil unngå er ikke falske positiver. Å sende dem som falske positiver vil forvirre modellen."
+      },
+      "review": {
+        "state": {
+          "submitted": "Sendt inn"
+        },
+        "question": {
+          "label": "Bekreft denne etiketten for Frigate Plus",
+          "ask_an": "Er dette objekt en <code>{{label}}</code>?",
+          "ask_a": "Er dette objektet en <code>{{label}}</code>?",
+          "ask_full": "Er dette objekt en <code>{{untranslatedLabel}}</code> ({{translatedLabel}})?"
+        },
+        "toast": {
+          "error": "Kunne ikke sende til Frigate+. Vennligst sjekk nettverksforbindelsen din og prøv igjen."
+        }
+      }
+    },
+    "video": {
+      "viewInHistory": "Vis i historikk"
+    }
+  },
+  "export": {
+    "time": {
+      "lastHour_one": "Siste time",
+      "lastHour_other": "Siste {{count}} timer",
+      "custom": "Tilpasset",
+      "start": {
+        "title": "Starttid",
+        "label": "Velg starttid"
+      },
+      "fromTimeline": "Velg fra tidslinje",
+      "end": {
+        "title": "Sluttid",
+        "label": "Velg sluttid"
+      }
+    },
+    "toast": {
+      "success": "Eksport startet. Se filen på eksportsiden.",
+      "error": {
+        "failed": "Kunne ikke legge eksport i kø: {{error}}",
+        "endTimeMustAfterStartTime": "Sluttid må være etter starttid",
+        "noValidTimeSelected": "Ingen gyldig tidsrom valgt"
+      },
+      "view": "Vis",
+      "queued": "Eksport lagt i kø. Se fremdrift på eksportsiden.",
+      "batchPartial": "Startet {{successful}} av {{total}} eksporter. Kameraer som feilet: {{failedCameras}}",
+      "batchFailed": "Kunne ikke starte {{total}} eksporter. Kameraer som feilet: {{failedCameras}}",
+      "batchQueuedPartial": "La {{successful}} av {{total}} eksporter i kø. Kameraer som feilet: {{failedCameras}}",
+      "batchQueueFailed": "Kunne ikke legge {{total}} eksporter i kø. Kameraer som feilet: {{failedCameras}}",
+      "batchSuccess_one": "Startet 1 eksport. Åpner saken nå.",
+      "batchSuccess_other": "Startet {{count}} eksporter. Åpner saken nå.",
+      "batchQueuedSuccess_one": "La 1 eksport i kø.",
+      "batchQueuedSuccess_other": "La {{count}} eksporter i kø."
+    },
+    "fromTimeline": {
+      "previewExport": "Forhåndsvis eksport",
+      "saveExport": "Lagre eksport",
+      "queueingExport": "Legger eksport i kø...",
+      "useThisRange": "Bruk dette tidsrommet"
+    },
+    "name": {
+      "placeholder": "Gi eksporten et navn"
+    },
+    "select": "Velg",
+    "export": "Eksporter",
+    "selectOrExport": "Velg eller eksporter",
+    "case": {
+      "label": "Sak",
+      "placeholder": "Velg en sak",
+      "newCaseOption": "Opprett ny sak",
+      "newCaseNamePlaceholder": "Navn på ny sak",
+      "newCaseDescriptionPlaceholder": "Saksbeskrivelse",
+      "nonAdminHelp": "En ny sak vil bli opprettet for disse eksportene."
+    },
+    "queueing": "Legger eksport i kø...",
+    "tabs": {
+      "export": "Enkeltkamera",
+      "multiCamera": "Multikamera"
+    },
+    "multiCamera": {
+      "timeRange": "Tidsrom",
+      "selectFromTimeline": "Velg fra tidslinje",
+      "cameraSelection": "Kameraer",
+      "cameraSelectionHelp": "Kameraer med sporede objekter i dette tidsrommet er forhåndsvalgt",
+      "checkingActivity": "Sjekker kameraaktivitet...",
+      "noCameras": "Ingen kameraer tilgjengelig",
+      "nameLabel": "Eksportnavn",
+      "namePlaceholder": "Valgfritt navneprefiks for disse eksportene",
+      "queueingButton": "Legger eksporter i kø...",
+      "detectionCount_one": "1 sporet objekt",
+      "detectionCount_other": "{{count}} sporede objekter",
+      "exportButton_one": "Eksporter 1 kamera",
+      "exportButton_other": "Eksporter {{count}} kameraer",
+      "searchOrSelectGroup": "Søk, eller velg en kameragruppe...",
+      "selectAll": "Velg alle kameraer",
+      "clearSelection": "Nullstill valg",
+      "selectWithActivity": "Kameraer med sporede objekter",
+      "selectGroup": "Velg gruppe",
+      "noMatchingCameras": "Ingen kameraer samsvarer med søket ditt",
+      "selectedCount": "{{selected}} / {{total}} valgt"
+    },
+    "multi": {
+      "description": "Eksporter hver valgte inspeksjon. Alle eksporter vil bli gruppert under én sak.",
+      "descriptionNoCase": "Eksporter hver valgte inspeksjon.",
+      "caseNamePlaceholder": "Eksport av inspeksjon - {{date}}",
+      "exportingButton": "Eksporterer...",
+      "toast": {
+        "partial": "Startet {{successful}} av {{total}} eksporter. Feilet: {{failedItems}}",
+        "failed": "Kunne ikke starte {{total}} eksporter. Feilet: {{failedItems}}",
+        "started_one": "Startet 1 eksport.",
+        "started_other": "Startet {{count}} eksporter."
+      },
+      "title_one": "Eksporter 1 inspeksjon",
+      "title_other": "Eksporter {{count}} inspeksjon",
+      "exportButton_one": "Eksporter 1 inspeksjon",
+      "exportButton_other": "Eksporter {{count}} inspeksjon"
+    }
+  },
+  "streaming": {
+    "label": "Strøm",
+    "restreaming": {
+      "disabled": "Viderestrømming er ikke aktivert for dette kameraet.",
+      "desc": {
+        "title": "Konfigurer go2rtc for flere direktestrømmingsalternativer og lyd for dette kameraet."
+      }
+    },
+    "showStats": {
+      "label": "Vis strømmestatistikk",
+      "desc": "Aktiver dette alternativet for å vise strømmestatistikk som et overlegg på kamerabildet."
+    },
+    "debugView": "Feilsøkingsvisning"
+  },
+  "search": {
+    "saveSearch": {
+      "button": {
+        "save": {
+          "label": "Lagre dette søket"
+        }
+      },
+      "label": "Lagre søk",
+      "desc": "Skriv inn et navn for dette lagrede søket.",
+      "placeholder": "Skriv inn et navn for søket",
+      "overwrite": "{{searchName}} finnes allerede. Lagring vil overskrive eksisterende verdi.",
+      "success": "Søk ({{searchName}}) er lagret."
+    }
+  },
+  "recording": {
+    "confirmDelete": {
+      "title": "Bekreft sletting",
+      "desc": {
+        "selected": "Er du sikker på at du vil slette alle opptak knyttet til dette inspeksjonselementet?<br /><br />Hold inne <em>Shift</em>-tasten for å hoppe over denne dialogen i fremtiden."
+      },
+      "toast": {
+        "success": "Videomaterialet knyttet til de valgte inspeksjonselementene har blitt slettet.",
+        "error": "Kunne ikke slette: {{error}}"
+      }
+    },
+    "button": {
+      "export": "Eksportér",
+      "markAsReviewed": "Merk som inspisert",
+      "deleteNow": "Slett nå",
+      "markAsUnreviewed": "Merk som ikke inspisert"
+    },
+    "shareTimestamp": {
+      "description": "Del en tidsstemplet URL fra avspillerens nåværende posisjon, eller velg et egendefinert tidsstempel. Merk at dette ikke er en offentlig delingslenke, og at den kun er tilgjengelig for brukere med tilgang til Frigate og dette kameraet.",
+      "custom": "Egendefinert tidsstempel",
+      "title": "Del tidsstempel",
+      "label": "Del tidsstempel",
+      "button": "Del URL med tidsstempel",
+      "shareTitle": "Tidsstempel for Frigate-inspeksjon: {{camera}}"
+    }
+  },
+  "imagePicker": {
+    "selectImage": "Velg et sporet objekts miniatyrbilde",
+    "search": {
+      "placeholder": "Søk etter (under-)etikett..."
+    },
+    "noImages": "Ingen miniatyrbilder funnet for dette kameraet",
+    "unknownLabel": "Lagret utløserbilde"
+  }
+}

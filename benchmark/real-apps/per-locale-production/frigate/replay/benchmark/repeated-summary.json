@@ -1,0 +1,492 @@
+{
+  "validPairs": 5,
+  "captures": 20,
+  "noExclusions": true,
+  "freshContexts": true,
+  "cache": "no-store, original identical mocks, no interactions",
+  "bytes": "Observed encodedBodySize includes document and all completed resource entries begun before ready. Normalized Q4 compresses text bodies including mocked API; binary identity.",
+  "rows": [
+    {
+      "profile": "desktop",
+      "pairs": [
+        {
+          "pair": 1,
+          "order": [
+            "native",
+            "single"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 1825.1000000238419,
+              "normalizedBrotliQ4Bytes": 1405544,
+              "observedEncodedBodyBytes": 1434635,
+              "requestCount": 73,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            },
+            "single": {
+              "readyMs": 1834.1000000238419,
+              "normalizedBrotliQ4Bytes": 1435886,
+              "observedEncodedBodyBytes": 1464977,
+              "requestCount": 71,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            }
+          },
+          "readyChangePercent": 0.4931236644502901,
+          "screenshotsIdentical": true
+        },
+        {
+          "pair": 2,
+          "order": [
+            "single",
+            "native"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 1832.8999999761581,
+              "normalizedBrotliQ4Bytes": 1405544,
+              "observedEncodedBodyBytes": 1434635,
+              "requestCount": 73,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            },
+            "single": {
+              "readyMs": 2554.2000000476837,
+              "normalizedBrotliQ4Bytes": 1435886,
+              "observedEncodedBodyBytes": 1464977,
+              "requestCount": 71,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            }
+          },
+          "readyChangePercent": 39.35293797157009,
+          "screenshotsIdentical": true
+        },
+        {
+          "pair": 3,
+          "order": [
+            "native",
+            "single"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 1833.7999999523163,
+              "normalizedBrotliQ4Bytes": 1405544,
+              "observedEncodedBodyBytes": 1434635,
+              "requestCount": 73,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            },
+            "single": {
+              "readyMs": 2545.5,
+              "normalizedBrotliQ4Bytes": 1435888,
+              "observedEncodedBodyBytes": 1464977,
+              "requestCount": 71,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            }
+          },
+          "readyChangePercent": 38.81012106370323,
+          "screenshotsIdentical": true
+        },
+        {
+          "pair": 4,
+          "order": [
+            "single",
+            "native"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 1836.1000000238419,
+              "normalizedBrotliQ4Bytes": 1405545,
+              "observedEncodedBodyBytes": 1434635,
+              "requestCount": 73,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            },
+            "single": {
+              "readyMs": 1827.1000000238419,
+              "normalizedBrotliQ4Bytes": 1435887,
+              "observedEncodedBodyBytes": 1464977,
+              "requestCount": 71,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            }
+          },
+          "readyChangePercent": -0.4901693807463192,
+          "screenshotsIdentical": true
+        },
+        {
+          "pair": 5,
+          "order": [
+            "native",
+            "single"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 1835.3999999761581,
+              "normalizedBrotliQ4Bytes": 1405545,
+              "observedEncodedBodyBytes": 1434635,
+              "requestCount": 73,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            },
+            "single": {
+              "readyMs": 2538.399999976158,
+              "normalizedBrotliQ4Bytes": 1435886,
+              "observedEncodedBodyBytes": 1464977,
+              "requestCount": 71,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "Retour",
+                "backLabel": "Retour",
+                "historyText": "Historique",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "b8e0db2c35ad77132554d0ec6f31de3880bf2a8c4e64e63bdea61f5077abebe5"
+            }
+          },
+          "readyChangePercent": 38.30227743320975,
+          "screenshotsIdentical": true
+        }
+      ],
+      "medians": {
+        "native": {
+          "readyMs": 1833.7999999523163,
+          "normalizedBrotliQ4Bytes": 1405544,
+          "observedEncodedBodyBytes": 1434635,
+          "requestCount": 73
+        },
+        "single": {
+          "readyMs": 2538.399999976158,
+          "normalizedBrotliQ4Bytes": 1435886,
+          "observedEncodedBodyBytes": 1464977,
+          "requestCount": 71
+        }
+      },
+      "medianChangesPercent": {
+        "readyMs": 38.42294688854637,
+        "normalizedBrotliQ4Bytes": 2.158737115309095,
+        "observedEncodedBodyBytes": 2.1149630393793473,
+        "requestCount": -2.73972602739726
+      },
+      "pairedReadyChangesMedianPercent": 38.30227743320975
+    },
+    {
+      "profile": "mobile",
+      "pairs": [
+        {
+          "pair": 1,
+          "order": [
+            "native",
+            "single"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 9988.600000023842,
+              "normalizedBrotliQ4Bytes": 1183067,
+              "observedEncodedBodyBytes": 1212165,
+              "requestCount": 67,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            },
+            "single": {
+              "readyMs": 7809.799999952316,
+              "normalizedBrotliQ4Bytes": 1212614,
+              "observedEncodedBodyBytes": 1241713,
+              "requestCount": 65,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            }
+          },
+          "readyChangePercent": -21.81286666866553,
+          "screenshotsIdentical": true
+        },
+        {
+          "pair": 2,
+          "order": [
+            "single",
+            "native"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 7798.100000023842,
+              "normalizedBrotliQ4Bytes": 1183066,
+              "observedEncodedBodyBytes": 1212165,
+              "requestCount": 67,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            },
+            "single": {
+              "readyMs": 7816.199999928474,
+              "normalizedBrotliQ4Bytes": 1212614,
+              "observedEncodedBodyBytes": 1241713,
+              "requestCount": 65,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            }
+          },
+          "readyChangePercent": 0.23210781991225282,
+          "screenshotsIdentical": true
+        },
+        {
+          "pair": 3,
+          "order": [
+            "native",
+            "single"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 7758.399999976158,
+              "normalizedBrotliQ4Bytes": 1183066,
+              "observedEncodedBodyBytes": 1212165,
+              "requestCount": 67,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            },
+            "single": {
+              "readyMs": 7827.600000023842,
+              "normalizedBrotliQ4Bytes": 1212614,
+              "observedEncodedBodyBytes": 1241713,
+              "requestCount": 65,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            }
+          },
+          "readyChangePercent": 0.8919364823661624,
+          "screenshotsIdentical": true
+        },
+        {
+          "pair": 4,
+          "order": [
+            "single",
+            "native"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 9986.599999904633,
+              "normalizedBrotliQ4Bytes": 1183066,
+              "observedEncodedBodyBytes": 1212165,
+              "requestCount": 67,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            },
+            "single": {
+              "readyMs": 7791.699999928474,
+              "normalizedBrotliQ4Bytes": 1212614,
+              "observedEncodedBodyBytes": 1241713,
+              "requestCount": 65,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            }
+          },
+          "readyChangePercent": -21.97845112447798,
+          "screenshotsIdentical": true
+        },
+        {
+          "pair": 5,
+          "order": [
+            "native",
+            "single"
+          ],
+          "arms": {
+            "native": {
+              "readyMs": 10035.400000095367,
+              "normalizedBrotliQ4Bytes": 1183066,
+              "observedEncodedBodyBytes": 1212165,
+              "requestCount": 67,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            },
+            "single": {
+              "readyMs": 7798.900000095367,
+              "normalizedBrotliQ4Bytes": 1212614,
+              "observedEncodedBodyBytes": 1241713,
+              "requestCount": 65,
+              "missingBodies": [],
+              "title": "Front Door - Direct - Frigate",
+              "controls": {
+                "backText": "",
+                "backLabel": "Retour",
+                "historyText": "",
+                "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+              },
+              "actions": [],
+              "screenshotSHA256": "8ffb3904857537694da5713413cee9bf5d0f070e0aca36b48cbf16e82f723fa3"
+            }
+          },
+          "readyChangePercent": -22.28610718036895,
+          "screenshotsIdentical": true
+        }
+      ],
+      "medians": {
+        "native": {
+          "readyMs": 9986.599999904633,
+          "normalizedBrotliQ4Bytes": 1183066,
+          "observedEncodedBodyBytes": 1212165,
+          "requestCount": 67
+        },
+        "single": {
+          "readyMs": 7809.799999952316,
+          "normalizedBrotliQ4Bytes": 1212614,
+          "observedEncodedBodyBytes": 1241713,
+          "requestCount": 65
+        }
+      },
+      "medianChangesPercent": {
+        "readyMs": -21.79720825879783,
+        "normalizedBrotliQ4Bytes": 2.4975783261457885,
+        "observedEncodedBodyBytes": 2.437621940907375,
+        "requestCount": -2.985074626865669
+      },
+      "pairedReadyChangesMedianPercent": -21.81286666866553
+    }
+  ]
+}

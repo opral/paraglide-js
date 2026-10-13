@@ -1,0 +1,43 @@
+{
+  "noPreviewFound": "Esikatselua ei löytynyt",
+  "noPreviewFoundFor": "Ei esikatselua {{cameraName}}lle",
+  "noRecordingsFoundForThisTime": "Ei tallenteita valitulta ajalta",
+  "submitFrigatePlus": {
+    "title": "Lähetä tämä kuva Frigate+:aan?",
+    "submit": "Lähetä",
+    "previewError": "Pysäytyskuvan esikatselua ei voi ladata. Tallenne ei ole ehkä saatavissa tällä hetkellä."
+  },
+  "livePlayerRequiredIOSVersion": "iOS 17.1 tai uudempi vaaditaan tälle suoratoistotyypille.",
+  "streamOffline": {
+    "title": "Kamera poissa verkosta",
+    "desc": "Kuvaruutuja ei vastaanotettu kameran {{cameraName}} <code>detect</code>-kuvavirrasta, tarkista virhelogit"
+  },
+  "stats": {
+    "streamType": {
+      "title": "Kuvavirran tyyppi:",
+      "short": "Tyyppi"
+    },
+    "bandwidth": {
+      "title": "Kaistanleveys:",
+      "short": "Kaistanleveys"
+    },
+    "totalFrames": "Kehyksiä yhteensä:",
+    "droppedFrames": {
+      "title": "Pudotettuja kehyksiä:",
+      "short": {
+        "title": "Pudotettu",
+        "value": "{{droppedFrames}} kehystä"
+      }
+    },
+    "decodedFrames": "Dekoodatut kehykset:",
+    "droppedFrameRate": "Pudotettujen kehysten nopeus:"
+  },
+  "toast": {
+    "success": {
+      "submittedFrigatePlus": "Onnistuneesti lähetetty Frigate+:aan"
+    },
+    "error": {
+      "submitFrigatePlusFailed": "Frigate+:aan lähetys epäonnistui"
+    }
+  }
+}

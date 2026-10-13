@@ -1,0 +1,97 @@
+{
+  "description": {
+    "addFace": "Dodaj novo zbirko v knjižnico obrazov tako, da naložiš svojo prvo sliko.",
+    "placeholder": "Vnesi ime za to zbirko",
+    "invalidName": "Neveljavno ime. Imena lahko vsebujejo le črke, številke, presledke, opuščaje, podčrtaje in vezaje.",
+    "nameCannotContainHash": "Ime ne sme vsebovati znaka #."
+  },
+  "details": {
+    "unknown": "Neznan",
+    "timestamp": "Časovna značka",
+    "scoreInfo": "Ocena je uteženo povprečje vseh ocen obraza, uteženo glede na velikost obraza na posamezni sliki."
+  },
+  "uploadFaceImage": {
+    "title": "Naloži sliko obraza",
+    "desc": "Naloži sliko za iskanje obrazov in vključi za {{pageToggle}}"
+  },
+  "deleteFaceAttempts": {
+    "desc_one": "Ali si prepričan, da želiš izbrisati {{count}} obraz? Tega dejanja ni mogoče razveljaviti.",
+    "desc_two": "Ali si prepričan, da želiš izbrisati {{count}} obraza? Tega dejanja ni mogoče razveljaviti.",
+    "desc_few": "Ali si prepričan, da želiš izbrisati {{count}} obraze? Tega dejanja ni mogoče razveljaviti.",
+    "desc_other": "Ali si prepričan, da želiš izbrisati {{count}} obrazov? Tega dejanja ni mogoče razveljaviti.",
+    "title": "Izbriši obraze"
+  },
+  "toast": {
+    "success": {
+      "deletedFace_one": "Uspešno izbrisan {{count}} obraz.",
+      "deletedFace_two": "Uspešno izbrisana {{count}} obraza.",
+      "deletedFace_few": "Uspešno izbrisani {{count}} obrazi.",
+      "deletedFace_other": "Uspešno izbrisanih {{count}} obrazov.",
+      "deletedName_one": "{{count}} obraz je bil uspešno izbrisan.",
+      "deletedName_two": "{{count}} obraza sta bila uspešno izbrisana.",
+      "deletedName_few": "{{count}} obrazi so bili uspešno izbrisani.",
+      "deletedName_other": "{{count}} obrazov je bilo uspešno izbrisanih.",
+      "uploadedImage": "Slika uspešno naložena.",
+      "addFaceLibrary": "{{name}} je bil uspešno dodan v knjižnico obrazov!",
+      "renamedFace": "Obraz uspešno preimenovan v {{name}}",
+      "trainedFace": "Obraz uspešno naučen.",
+      "updatedFaceScore": "Ocena obraza uspešno posodobljena na {{name}} ({{score}})."
+    },
+    "error": {
+      "uploadingImageFailed": "Nalaganje slike ni uspelo: {{errorMessage}}",
+      "addFaceLibraryFailed": "Nastavitev imena obraza ni uspela: {{errorMessage}}",
+      "deleteFaceFailed": "Brisanje ni uspelo: {{errorMessage}}",
+      "deleteNameFailed": "Brisanje imena ni uspelo: {{errorMessage}}",
+      "renameFaceFailed": "Preimenovanje obraza ni uspelo: {{errorMessage}}",
+      "trainFailed": "Učenje ni uspelo: {{errorMessage}}",
+      "updateFaceScoreFailed": "Posodobitev ocene obraza ni uspela: {{errorMessage}}"
+    }
+  },
+  "documentTitle": "Knjižnica obrazov - Frigate",
+  "collections": "Zbirke",
+  "createFaceLibrary": {
+    "new": "Ustvari nov obraz",
+    "nextSteps": "Za dobre temelje:<li>Uporabi zavihek Zadnje prepoznave za izbiro in učenje slik za vsako zaznano osebo.</li><li>Za najboljše rezultate se osredotoči na slike od spredaj; izogibaj se slikam, ki zajamejo obraz pod kotom.</li></ul>"
+  },
+  "steps": {
+    "faceName": "Vnesi ime obraza",
+    "uploadFace": "Naloži sliko obraza",
+    "nextSteps": "Naslednji koraki",
+    "description": {
+      "uploadFace": "Naloži sliko osebe {{name}}, ki prikazuje njen obraz od spredaj. Slike ni treba obrezati samo na obraz."
+    }
+  },
+  "train": {
+    "title": "Zadnje prepoznave",
+    "aria": "Izberi zadnje prepoznave",
+    "empty": "Ni zadnjih poskusov prepoznave obrazov",
+    "titleShort": "Zadnje"
+  },
+  "deleteFaceLibrary": {
+    "title": "Izbriši ime",
+    "desc": "Ali si prepričan, da želiš izbrisati zbirko {{name}}? To bo trajno izbrisalo vse povezane obraze."
+  },
+  "renameFace": {
+    "title": "Preimenuj obraz",
+    "desc": "Vnesi novo ime za {{name}}"
+  },
+  "button": {
+    "deleteFaceAttempts": "Izbriši obraze",
+    "addFace": "Dodaj obraz",
+    "renameFace": "Preimenuj obraz",
+    "deleteFace": "Izbriši obraz",
+    "uploadImage": "Naloži sliko",
+    "reprocessFace": "Ponovno obdelaj obraz"
+  },
+  "imageEntry": {
+    "validation": {
+      "selectImage": "Prosim, izberi slikovno datoteko."
+    },
+    "dropActive": "Spusti sliko tukaj…",
+    "dropInstructions": "Povleci in spusti ali prilepi sliko sem, ali klikni za izbiro",
+    "maxSize": "Največja velikost: {{size}} MB"
+  },
+  "nofaces": "Ni razpoložljivih obrazov",
+  "trainFaceAs": "Nauči obraz kot:",
+  "trainFace": "Nauči obraz"
+}

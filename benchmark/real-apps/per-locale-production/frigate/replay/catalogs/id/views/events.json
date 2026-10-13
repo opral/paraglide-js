@@ -1,0 +1,92 @@
+{
+  "alerts": "Peringatan",
+  "detections": "Deteksi",
+  "motion": {
+    "label": "Gerakan",
+    "only": "Hanya Gerakan"
+  },
+  "allCameras": "Semua Kamera",
+  "empty": {
+    "detection": "Tidak ada deteksi untuk ditinjau",
+    "alert": "Tidak ada peringatan untuk ditinjau",
+    "motion": "Data gerakan tidak ditemukan",
+    "recordingsDisabled": {
+      "title": "Perekaman harus di aktifkan",
+      "description": "Ulasan item hanya dapat dibuat untuk kamera jika perekaman diaktifkan untuk kamera tersebut."
+    }
+  },
+  "timeline.aria": "Pilih timeline",
+  "timeline": {
+    "label": "Linimasa"
+  },
+  "zoomIn": "Perbesar",
+  "zoomOut": "Perkecil",
+  "events": {
+    "label": "Peristiwa-Peristiwa",
+    "aria": "Pilih peristiwa",
+    "noFoundForTimePeriod": "Tidak ada peristiwa dalam periode waktu berikut."
+  },
+  "detail": {
+    "label": "Detil",
+    "noDataFound": "Tidak ada detil data untuk di review",
+    "aria": "Beralih tampilan detil",
+    "trackedObject_one": "{{count}} objek",
+    "trackedObject_other": "{{count}} objek",
+    "noObjectDetailData": "Tidak ada data objek detil tersedia.",
+    "settings": "Pengaturan Tampilan Detil",
+    "alwaysExpandActive": {
+      "title": "Selalu lebarkan yang aktif",
+      "desc": "Selalu perluas detil objek item tinjauan aktif jika tersedia."
+    }
+  },
+  "objectTrack": {
+    "trackedPoint": "Titik terlacak",
+    "clickToSeek": "Klik untuk mencari waktu ini"
+  },
+  "documentTitle": "Tinjauan - Frigate",
+  "recordings": {
+    "documentTitle": "Rekaman - Frigate",
+    "invalidSharedLink": "Tidak dapat membuka tautan rekaman bertanda waktu karena kesalahan penguraian.",
+    "invalidSharedCamera": "Tidak dapat membuka tautan rekaman bertanda waktu karena kamera tidak dikenal atau tidak berwenang."
+  },
+  "calendarFilter": {
+    "last24Hours": "24 Jam Terakhir"
+  },
+  "markAsReviewed": "Tandai sebagai sudah ditinjau",
+  "markTheseItemsAsReviewed": "Tandai item-item berikut sebagai sudah ditinjau",
+  "newReviewItems": {
+    "button": "Item Batu Untuk Ditinjau",
+    "label": "Lihat item ulasan baru"
+  },
+  "selected_one": "{{count}} dipilih",
+  "selected_other": "{{count}} dipilih",
+  "camera": "Kamera",
+  "detected": "terdeteksi",
+  "select_all": "Semua",
+  "normalActivity": "Normal",
+  "needsReview": "Perlu ditinjau",
+  "securityConcern": "Kendala keamanan",
+  "motionSearch": {
+    "menuItem": "Pencarian gerakan",
+    "openMenu": "Opsi kamera"
+  },
+  "motionPreviews": {
+    "menuItem": "Lihat pratinjau gerakan",
+    "title": "Pratinjau gerakan: {{camera}}",
+    "mobileSettingsTitle": "Setelan Pratinjau Gerakan",
+    "mobileSettingsDesc": "Sesuaikan kecepatan pemutaran dan peredupan, serta pilih tanggal untuk meninjau klip hanya gerakan.",
+    "dim": "Redup",
+    "dimAria": "Sesuaikan intensitas peredupan",
+    "dimDesc": "Tingkatkan peredupan untuk meningkatkan visibilitas area gerakan.",
+    "speed": "Kecepatan",
+    "speedAria": "Pilih kecepatan pemutaran pratinjau",
+    "speedDesc": "Pilih seberapa cepat klip pratinjau diputar.",
+    "back": "Kembali",
+    "empty": "Tidak ada pratinjau tersedia",
+    "noPreview": "Pratinjau tidak tersedia",
+    "seekAria": "Pindahkan {{camera}} pemain ke {{time}}",
+    "filter": "Filter",
+    "filterDesc": "Pilih area untuk hanya menampilkan klip dengan gerakan di wilayah tersebut.",
+    "filterClear": "Hapus"
+  }
+}

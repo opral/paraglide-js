@@ -1,0 +1,204 @@
+{
+  "restart": {
+    "title": "Czy na pewno chcesz ponownie uruchomić Frigate?",
+    "button": "Uruchom ponownie",
+    "restarting": {
+      "title": "Frigate uruchamia się ponownie",
+      "content": "Strona odświeży się za {{countdown}} sekund.",
+      "button": "Wymuś odświeżenie"
+    },
+    "description": "Spowoduje to chwilowe zatrzymanie Frigate i ponowne uruchomienie."
+  },
+  "explore": {
+    "plus": {
+      "submitToPlus": {
+        "label": "Wyślij do Frigate+",
+        "desc": "Obiekty w miejscach, których chcesz unikać, nie są fałszywymi alarmami. Zgłaszanie ich jako fałszywe alarmy zdezorientuje model."
+      },
+      "review": {
+        "state": {
+          "submitted": "Przesłano"
+        },
+        "question": {
+          "ask_a": "Czy ten obiekt to <code>{{label}}</code>?",
+          "ask_an": "Czy ten obiekt to <code>{{label}}</code>?",
+          "ask_full": "Czy ten obiekt to <code>{{untranslatedLabel}}</code> ({{translatedLabel}})?",
+          "label": "Potwierdź tę etykietę dla Frigate Plus"
+        },
+        "toast": {
+          "error": "Nie udało się przesłać do Frigate+. Sprawdź połączenie sieciowe i spróbuj ponownie."
+        }
+      }
+    },
+    "video": {
+      "viewInHistory": "Zobacz w Historii"
+    }
+  },
+  "export": {
+    "time": {
+      "lastHour_one": "Ostatnia godzina",
+      "lastHour_few": "Ostatnie {{count}} godziny",
+      "lastHour_many": "Ostatnie {{count}} godzin",
+      "fromTimeline": "Wybierz z Osi Czasu",
+      "custom": "Niestandardowy",
+      "start": {
+        "title": "Czas Rozpoczęcia",
+        "label": "Wybierz Czas Rozpoczęcia"
+      },
+      "end": {
+        "title": "Czas Zakończenia",
+        "label": "Wybierz Czas Zakończenia"
+      }
+    },
+    "name": {
+      "placeholder": "Nazwij Eksport"
+    },
+    "select": "Wybierz",
+    "export": "Eksportuj",
+    "selectOrExport": "Wybierz lub Eksportuj",
+    "toast": {
+      "success": "Pomyślnie rozpoczęto eksport. Zobacz plik na stronie eksportów.",
+      "error": {
+        "failed": "Nie udało się zakolejkować eksportu: {{error}}",
+        "endTimeMustAfterStartTime": "Czas zakończenia musi być późniejszy niż czas rozpoczęcia",
+        "noValidTimeSelected": "Nie wybrano prawidłowego zakresu czasu"
+      },
+      "view": "Widok",
+      "queued": "Eksport dodany do kolejki. Postęp można sprawdzić na stronie eksportów.",
+      "batchSuccess_one": "Rozpoczęto 1 eksport. Otwieranie przypadku.",
+      "batchSuccess_few": "Rozpoczęto {{count}} eksporty Otwieranie przypadku.",
+      "batchSuccess_many": "Rozpoczęto {{count}} eksportów. Otwieranie przypadku.",
+      "batchPartial": "Rozpoczęto {{successful}} z {{total}} eksportów. Nieudane kamery: {{failedCameras}}",
+      "batchFailed": "Nie udało się uruchomić {{total}} eksportów. Nieudane kamery: {{failedCameras}}",
+      "batchQueuedSuccess_one": "Dodano 1 eksport do kolejki.",
+      "batchQueuedSuccess_few": "Dodano {{count}} eksporty do kolejki.",
+      "batchQueuedSuccess_many": "Dodano {{count}} eksportów do kolejki.",
+      "batchQueuedPartial": "Dodano do kolejki {{successful}} z {{total}} eksportów. Nieudane kamery: {{failedCameras}}",
+      "batchQueueFailed": "Nie udało się dodać do kolejki {{total}} eksportów. Nieudane kamery: {{failedCameras}}"
+    },
+    "fromTimeline": {
+      "saveExport": "Zapisz Eksport",
+      "previewExport": "Podgląd Eksportu",
+      "queueingExport": "Kolejkowanie eksportu...",
+      "useThisRange": "Użyj tego zakresu"
+    },
+    "multiCamera": {
+      "timeRange": "Zakres czasu",
+      "selectFromTimeline": "Wybierz z osi czasu",
+      "cameraSelection": "Kamery",
+      "cameraSelectionHelp": "Kamery ze śledzonymi obiektami w tym przedziale czasowym są wstępnie wybierane",
+      "checkingActivity": "Sprawdzanie aktywności kamery...",
+      "noCameras": "Brak dostępnych kamer",
+      "detectionCount_one": "{{count}} śledzony obiekt",
+      "detectionCount_few": "{{count}} śledzone obiekty",
+      "detectionCount_many": "{{count}} śledzonych obiektów",
+      "nameLabel": "Wyeksportuj nazwę",
+      "namePlaceholder": "Opcjonalna nazwa bazowa eksportów",
+      "queueingButton": "Kolejkowanie eksportów...",
+      "exportButton_one": "Eksport 1 kamery",
+      "exportButton_few": "Eksport {{count}} kamer",
+      "exportButton_many": "Eksport {{count}} kamer",
+      "searchOrSelectGroup": "Szukaj lub wybierz grupę kamer ...",
+      "selectAll": "Wybierz wszystkie kamery",
+      "clearSelection": "Wyczyść wybór",
+      "selectWithActivity": "Kamery z obiektami śledzonymi",
+      "selectGroup": "Wybierz grupę",
+      "noMatchingCameras": "Nie ma kamer spełniających Twoje wyszukiwanie",
+      "selectedCount": "{{selected}} / {{total}} wybrane"
+    },
+    "case": {
+      "newCaseOption": "Utwórz nowy przypadek",
+      "newCaseNamePlaceholder": "Nazwa nowego przypadku",
+      "newCaseDescriptionPlaceholder": "Opis przypadku",
+      "label": "Przypadek",
+      "nonAdminHelp": "Dla tych eksportów zostanie utworzony nowy przypadek.",
+      "placeholder": "Wybierz przypadek"
+    },
+    "queueing": "Dodawanie eksportu do kolejki...",
+    "tabs": {
+      "export": "Pojedyncza kamera",
+      "multiCamera": "Wiele kamer"
+    },
+    "multi": {
+      "title_one": "Eksport 1 recenzji",
+      "title_few": "Eksport {{count}} recenzji",
+      "title_many": "Eksport {{count}} recenzji",
+      "description": "Eksportuj każdą wybraną recenzję. Wszystkie eksporty zostaną pogrupowane w jednym przypadku.",
+      "descriptionNoCase": "Eksportuj każdą wybraną recenzję.",
+      "caseNamePlaceholder": "Eksport recenzji – {{date}}",
+      "exportButton_one": "Eksport 1 recenzji",
+      "exportButton_few": "Eksport {{count}} recenzji",
+      "exportButton_many": "Eksport {{count}} recenzji",
+      "exportingButton": "Eksportowanie...",
+      "toast": {
+        "started_one": "Rozpoczęto 1 eksport.",
+        "started_few": "Rozpoczęto {{count}} eksporty.",
+        "started_many": "Rozpoczęto {{count}} eksportów.",
+        "partial": "Rozpoczęto {{successful}} z {{total}} eksportów. Niepowodzenia: {{failedItems}}",
+        "failed": "Nie udało się uruchomić {{total}} eksportów. Niepowodzenia: {{failedItems}}"
+      }
+    }
+  },
+  "recording": {
+    "button": {
+      "markAsReviewed": "Oznacz jako sprawdzone",
+      "deleteNow": "Usuń teraz",
+      "export": "Eksportuj",
+      "markAsUnreviewed": "Oznacz jako niesprawdzone"
+    },
+    "confirmDelete": {
+      "title": "Potwierdź Usunięcie",
+      "desc": {
+        "selected": "Czy na pewno chcesz usunąć wszystkie nagrane wideo powiązane z tym elementem recenzji?<br /><br />Przytrzymaj klawisz <em>Shift</em>, aby pominąć to okno dialogowe w przyszłości."
+      },
+      "toast": {
+        "success": "Nagrania wideo powiązane z wybranymi elementami przeglądu zostały pomyślnie usunięte.",
+        "error": "Nie udało się usunąć: {{error}}"
+      }
+    },
+    "shareTimestamp": {
+      "label": "Udostępnij znacznik czasu",
+      "title": "Udostępnij znacznik czasu",
+      "description": "Udostępnij adres URL z aktualnym znacznikiem czasu pozycji odtwarzacza lub wybierz niestandardowy znacznik czasu. Należy pamiętać, że nie jest to publiczny link udostępniania i jest dostępny wyłącznie dla użytkowników mających dostęp do Frigate i tej kamery.",
+      "custom": "Własny znacznik czasu",
+      "button": "Udostępnij adres URL ze znacznikiem czasu",
+      "shareTitle": "Znacznik czasu przeglądu Frigate: {{camera}}"
+    }
+  },
+  "streaming": {
+    "label": "Strumień",
+    "restreaming": {
+      "disabled": "Restreaming nie jest włączony dla tej kamery.",
+      "desc": {
+        "title": "Skonfiguruj go2rtc dla dodatkowych opcji podglądu na żywo i dźwięku dla tej kamery."
+      }
+    },
+    "showStats": {
+      "label": "Pokaż statystyki strumienia",
+      "desc": "Włącz tę opcję, aby wyświetlać statystyki strumienia jako nakładkę na obrazie z kamery."
+    },
+    "debugView": "Widok Debugowania"
+  },
+  "search": {
+    "saveSearch": {
+      "label": "Zapisz Wyszukiwanie",
+      "desc": "Podaj nazwę dla tego zapisanego wyszukiwania.",
+      "placeholder": "Wprowadź nazwę dla swojego wyszukiwania",
+      "overwrite": "{{searchName}} już istnieje. Zapisanie nadpisze istniejącą wartość.",
+      "success": "Wyszukiwanie ({{searchName}}) zostało zapisane.",
+      "button": {
+        "save": {
+          "label": "Zapisz to wyszukiwanie"
+        }
+      }
+    }
+  },
+  "imagePicker": {
+    "selectImage": "Wybierz miniaturkę śledzonego obiektu",
+    "search": {
+      "placeholder": "Wyszukaj po etykiecie (label) lub etykiecie potomnej (sub label)..."
+    },
+    "noImages": "Brak miniatur dla tej kamery",
+    "unknownLabel": "Zapisany obraz wyzwalacza"
+  }
+}

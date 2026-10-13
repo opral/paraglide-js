@@ -1,0 +1,264 @@
+{
+  "documentTitle": {
+    "cameras": "Kamerastatistikk - Frigate",
+    "storage": "Lagringsstatistikk - Frigate",
+    "logs": {
+      "frigate": "Frigate-logger - Frigate",
+      "go2rtc": "Go2RTC-logger - Frigate",
+      "nginx": "Nginx-logger - Frigate",
+      "websocket": "Meldingslogger - Frigate"
+    },
+    "general": "Generell statistikk - Frigate",
+    "enrichments": "Statistikk for utvidelser - Frigate"
+  },
+  "logs": {
+    "copy": {
+      "success": "Logger kopiert til utklippstavlen",
+      "error": "Kunne ikke kopiere logger til utklippstavlen",
+      "label": "Kopier til utklippstavle"
+    },
+    "type": {
+      "label": "Type",
+      "timestamp": "Tidsstempel",
+      "tag": "Merke",
+      "message": "Melding"
+    },
+    "toast": {
+      "error": {
+        "fetchingLogsFailed": "Feil ved henting av logger: {{errorMessage}}",
+        "whileStreamingLogs": "Feil under strømming av logger: {{errorMessage}}"
+      }
+    },
+    "download": {
+      "label": "Last ned logger"
+    },
+    "tips": "Logger strømmer fra serveren",
+    "websocket": {
+      "label": "Meldinger",
+      "pause": "Pause",
+      "resume": "Gjenoppta",
+      "clear": "Tøm",
+      "filter": {
+        "all": "Alle emner",
+        "topics": "Emner",
+        "events": "Hendelser",
+        "reviews": "Inspeksjoner",
+        "classification": "Klassifisering",
+        "face_recognition": "Ansiktsgjenkjenning",
+        "lpr": "LPR",
+        "camera_activity": "Kameraaktivitet",
+        "system": "System",
+        "camera": "Kamera",
+        "all_cameras": "Alle kameraer",
+        "cameras_count_one": "{{count}} kamera",
+        "cameras_count_other": "{{count}} kameraer"
+      },
+      "empty": "Ingen meldinger fanget opp ennå",
+      "count_one": "{{count}} melding",
+      "count_other": "{{count}} meldinger",
+      "expanded": {
+        "payload": "Payload"
+      }
+    }
+  },
+  "general": {
+    "title": "Generelt",
+    "detector": {
+      "inferenceSpeed": "Detektor inferenshastighet",
+      "title": "Detektorer",
+      "cpuUsage": "Detektor CPU-belastning",
+      "memoryUsage": "Detektor minnebruk",
+      "temperature": "Detektor temperatur",
+      "cpuUsageInformation": "CPU brukt til å forberede inn- og utdata til/fra deteksjonsmodeller. Denne verdien måler ikke bruk under inferens, selv om en GPU eller akselerator benyttes."
+    },
+    "hardwareInfo": {
+      "gpuMemory": "GPU-minne",
+      "gpuEncoder": "GPU-enkoder",
+      "gpuDecoder": "GPU-dekoder",
+      "gpuInfo": {
+        "nvidiaSMIOutput": {
+          "driver": "Driver: {{driver}}",
+          "cudaComputerCapability": "CUDA beregningsevne: {{cuda_compute}}",
+          "vbios": "VBios-info: {{vbios}}",
+          "title": "Nvidia SMI-utdata",
+          "name": "Navn: {{name}}"
+        },
+        "copyInfo": {
+          "label": "Kopier GPU-informasjon"
+        },
+        "toast": {
+          "success": "GPU-informasjon kopiert til utklippstavlen"
+        },
+        "vainfoOutput": {
+          "title": "Vainfo-utdata",
+          "returnCode": "Returkode: {{code}}",
+          "processOutput": "Prosessutdata:",
+          "processError": "Prosessfeil:"
+        },
+        "closeInfo": {
+          "label": "Lukk GPU-informasjon"
+        }
+      },
+      "title": "Maskinvareinformasjon",
+      "gpuUsage": "GPU-belastning",
+      "npuMemory": "NPU minne",
+      "npuUsage": "NPU-belastning",
+      "gpuTemperature": "GPU-temperatur",
+      "npuTemperature": "NPU-temperatur",
+      "gpuCompute": "GPU prossesering / enkoding"
+    },
+    "otherProcesses": {
+      "title": "Andre prosesser",
+      "processCpuUsage": "Prosessenes CPU-belastning",
+      "processMemoryUsage": "Prosessenes minnebruk",
+      "series": {
+        "go2rtc": "go2rtc",
+        "recording": "opptak",
+        "review_segment": "inspeksjonselementer",
+        "embeddings": "vektorrepresentasjoner",
+        "audio_detector": "lyddetektor"
+      }
+    }
+  },
+  "storage": {
+    "overview": "Oversikt",
+    "recordings": {
+      "earliestRecording": "Tidligste opptak tilgjengelig:",
+      "title": "Opptak",
+      "tips": "Denne verdien representerer total lagringsplass brukt av opptakene i Frigates database. Frigate sporer ikke lagringsbruk for alle filer på disken din."
+    },
+    "cameraStorage": {
+      "storageUsed": "Lagringsbruk",
+      "bandwidth": "Båndbredde",
+      "title": "Kameralagring",
+      "camera": "Kamera",
+      "unusedStorageInformation": "Ubrukt lagringsinformasjon",
+      "percentageOfTotalUsed": "Prosentandel av tilgjengelig",
+      "unused": {
+        "title": "Ubrukt",
+        "tips": "Denne verdien representerer kanskje ikke nøyaktig den ledige plassen Frigate har tilgang til, dersom det finnes andre filer lagret på disken. Frigate sporer kun lagring brukt av egne opptak."
+      }
+    },
+    "title": "Lagring",
+    "shm": {
+      "title": "SHM (delt minne) allokering",
+      "warning": "Den nåværende SHM-størrelsen på {{total}} MB er for liten. Øk den til minst {{min_shm}} MB.",
+      "frameLifetime": {
+        "title": "Bildelevetid",
+        "description": "Hvert kamera har {{frames}} bildeplasser i delt minne (SHM). Ved høyeste bildefrekvens er hvert bilde tilgjengelig i omtrent {{lifetime}} s før det overskrives."
+      }
+    }
+  },
+  "cameras": {
+    "info": {
+      "codec": "Kodek:",
+      "resolution": "Oppløsning:",
+      "audio": "Lyd:",
+      "error": "Feil: {{error}}",
+      "cameraProbeInfo": "{{camera}} - kamerainformasjon",
+      "streamDataFromFFPROBE": "Strømmedata er hentet med <code>ffprobe</code>.",
+      "fetching": "Henter kameradata",
+      "stream": "Strøm {{idx}}",
+      "video": "Video:",
+      "fps": "FPS:",
+      "unknown": "Ukjent",
+      "tips": {
+        "title": "Kamerainformasjon"
+      },
+      "aspectRatio": "bildeforhold",
+      "keyframes": {
+        "unknown": "Kunne ikke bestemme keyframe-intervallet.",
+        "ok": "Keyframes hvert ~{{seconds}}s, optimalt for opptak og avspilling.",
+        "gap": "Keyframe-intervall (min / snitt / maks):",
+        "keyframeCount": "Registrerte keyframes:",
+        "stillAnalyzing": "Analyserer keyframes fremdeles...",
+        "analyzing": "Analyserer keyframes... {{seconds}} sekunder gjenstår",
+        "title": "Keyframe-analyse",
+        "recordStream": "Opptaksstrøm:",
+        "observedDuration": "Observert varighet:",
+        "segmentLength": "Lengde på opptakssegment:",
+        "recordDisabled": "Opptak er deaktivert for dette kameraet."
+      }
+    },
+    "framesAndDetections": "Bilder / Deteksjoner",
+    "title": "Kameraer",
+    "overview": "Oversikt",
+    "label": {
+      "camera": "kamera",
+      "detect": "detektering",
+      "skipped": "forkastet",
+      "ffmpeg": "FFmpeg",
+      "capture": "opptak",
+      "cameraDetectionsPerSecond": "{{camName}} deteksjoner per sekund",
+      "cameraSkippedDetectionsPerSecond": "{{camName}} forkastede deteksjoner per sekund",
+      "cameraFramesPerSecond": "{{camName}} bilder per sekund",
+      "cameraCapture": "{{camName}} opptak",
+      "cameraDetect": "{{camName}} detekt",
+      "cameraFfmpeg": "{{camName}} FFmpeg",
+      "overallDetectionsPerSecond": "totale deteksjoner per sekund",
+      "overallSkippedDetectionsPerSecond": "totalt forkastede deteksjoner per sekund",
+      "overallFramesPerSecond": "totalt bilder per sekund",
+      "cameraGpu": "{{camName}} GPU"
+    },
+    "toast": {
+      "success": {
+        "copyToClipboard": "Kameradata kopiert til utklippstavlen."
+      },
+      "error": {
+        "unableToProbeCamera": "Kunne ikke hente informasjon fra kamera: {{errorMessage}}"
+      }
+    },
+    "connectionQuality": {
+      "title": "Tilkoblingskvalitet",
+      "excellent": "Utmerket",
+      "fair": "Grei",
+      "poor": "Dårlig",
+      "unusable": "Ubrukelig",
+      "fps": "BPS",
+      "expectedFps": "Forventet BPS",
+      "reconnectsLastHour": "Gjentatte tilkoblinger (siste time)",
+      "stallsLastHour": "Avbrudd (siste time)"
+    },
+    "noCameras": {
+      "title": "Ingen kameraer funnet"
+    }
+  },
+  "enrichments": {
+    "embeddings": {
+      "plate_recognition_speed": "Hastighet for kjennemerkegjenkjenning",
+      "face_embedding_speed": "Hastighet ansikt-vektorrepresentasjon",
+      "text_embedding_speed": "Hastighet tekst-vektorrepresentasjoner",
+      "image_embedding_speed": "Hastighet bilde-vektorrepresentasjoner",
+      "face_recognition_speed": "Hastighet for ansiktsgjenkjenning",
+      "image_embedding": "Bilde-vektorrepresentasjoner",
+      "face_recognition": "Ansiktsgjenkjenning",
+      "text_embedding": "Tekst-vektorrepresentasjoner",
+      "plate_recognition": "Kjennemerke gjenkjenning",
+      "yolov9_plate_detection_speed": "Hastighet for YOLOv9 kjennemerkedeteksjon",
+      "yolov9_plate_detection": "YOLOv9 kjennemerkedeteksjon",
+      "object_description": "Objektbeskrivelse",
+      "object_description_speed": "Objektbeskrivelse hastighet",
+      "object_description_events_per_second": "Objektbeskrivelse",
+      "review_description": "Inspeksjonsbeskrivelse",
+      "review_description_events_per_second": "Inspeksjonsbeskrivelse",
+      "review_description_speed": "Inspeksjonsbeskrivelse hastighet",
+      "classification": "{{name}} Klassifisering",
+      "classification_speed": "{{name}} klassifisering hastighet",
+      "classification_events_per_second": "{{name}} klassifiseringshendelser per sekund"
+    },
+    "title": "Utvidelser",
+    "infPerSecond": "Inferenser per sekund",
+    "averageInf": "Gjennomsnittlig inferenstid"
+  },
+  "title": "System",
+  "metrics": "Systemmålinger",
+  "lastRefreshed": "Sist oppdatert: ",
+  "stats": {
+    "healthy": "Systemet fungerer som det skal",
+    "reindexingEmbeddings": "Reindeksering av vektorrepresentasjoner ({{processed}}% fullført)",
+    "cameraIsOffline": "{{camera}} er frakoblet",
+    "detectIsSlow": "{{detect}} er treg ({{speed}} ms)",
+    "detectIsVerySlow": "{{detect}} er veldig treg ({{speed}} ms)",
+    "debugReplayActive": "Debug-reprise pågår"
+  }
+}

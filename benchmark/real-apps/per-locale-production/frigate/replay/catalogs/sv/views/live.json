@@ -1,0 +1,190 @@
+{
+  "documentTitle.withCamera": "{{camera}} – livevy - Frigate",
+  "twoWayTalk": {
+    "enable": "Aktivera tvåvägssamtal",
+    "disable": "Inaktivera tvåvägssamtal"
+  },
+  "cameraAudio": {
+    "disable": "Inaktivera kameraljud",
+    "enable": "Aktivera kameraljud"
+  },
+  "ptz": {
+    "zoom": {
+      "in": {
+        "label": "Zooma in PTZ-kameran"
+      },
+      "out": {
+        "label": "Zooma ut PTZ-kameran"
+      }
+    },
+    "move": {
+      "up": {
+        "label": "Flytta PTZ-kameran uppåt"
+      },
+      "right": {
+        "label": "Flytta PTZ-kameran åt höger"
+      },
+      "clickMove": {
+        "disable": "Inaktivera klick för att flytta",
+        "label": "Klicka i bilden för att centrera kameran",
+        "enable": "Aktivera klick för att flytta"
+      },
+      "left": {
+        "label": "Flytta PTZ-kameran åt vänster"
+      },
+      "down": {
+        "label": "Flytta PTZ-kameran nedåt"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "Klicka i bilden för att centrera PTZ-kameran"
+      }
+    },
+    "presets": "PTZ-kamerans förinställningar",
+    "focus": {
+      "in": {
+        "label": "Fokusera PTZ-kameran närmare"
+      },
+      "out": {
+        "label": "Fokusera PTZ-kameran längre bort"
+      }
+    }
+  },
+  "streamStats": {
+    "enable": "Visa videostatistik",
+    "disable": "Dölj videostatistik"
+  },
+  "detect": {
+    "enable": "Aktivera detektering",
+    "disable": "Inaktivera detektering"
+  },
+  "recording": {
+    "enable": "Aktivera inspelning",
+    "disable": "Inaktivera inspelning"
+  },
+  "snapshots": {
+    "enable": "Aktivera ögonblicksbilder",
+    "disable": "Inaktivera ögonblicksbilder"
+  },
+  "audioDetect": {
+    "enable": "Aktivera ljuddetektering",
+    "disable": "Inaktivera ljuddetektering"
+  },
+  "autotracking": {
+    "enable": "Aktivera autospårning",
+    "disable": "Inaktivera autospårning"
+  },
+  "notifications": "Aviseringar",
+  "audio": "Ljud",
+  "lowBandwidthMode": "Läge för låg bandbredd",
+  "manualRecording": {
+    "failedToEnd": "Det gick inte att avsluta den manuella inspelningen vid behov.",
+    "started": "Manuell inspelning vid behov har startats.",
+    "title": "Vid behov",
+    "tips": "Ladda ned en omedelbar ögonblicksbild eller starta en manuell händelse utifrån kamerans inställningar för lagring av inspelningar.",
+    "playInBackground": {
+      "label": "Spela upp i bakgrunden",
+      "desc": "Strömma vidare när spelaren inte visas."
+    },
+    "showStats": {
+      "label": "Visa statistik",
+      "desc": "Visa statistik ovanpå kamerabilden."
+    },
+    "debugView": "Felsökningsvy",
+    "start": "Starta inspelning vid behov",
+    "failedToStart": "Det gick inte att starta en manuell inspelning vid behov.",
+    "recordDisabledTips": "Eftersom inspelning är inaktiverad eller begränsad i konfigurationen för den här kameran kommer endast en ögonblicksbild att sparas.",
+    "end": "Avsluta inspelning vid behov",
+    "ended": "Den manuella inspelningen vid behov har avslutats."
+  },
+  "cameraSettings": {
+    "audioDetection": "Ljuddetektering",
+    "title": "Inställningar för {{camera}}",
+    "objectDetection": "Objektdetektering",
+    "recording": "Inspelning",
+    "snapshots": "Ögonblicksbilder",
+    "autotracking": "Autospårning",
+    "transcription": "Ljudtranskription"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "active_objects": "Aktiva objekt",
+      "all": "Allt",
+      "motion": "Rörelse"
+    }
+  },
+  "editLayout": {
+    "label": "Redigera layout",
+    "group": {
+      "label": "Redigera kameragrupp"
+    },
+    "exitEdit": "Avsluta redigering"
+  },
+  "muteCameras": {
+    "enable": "Slå av ljudet på alla kameror",
+    "disable": "Slå på ljudet på alla kameror"
+  },
+  "streamingSettings": "Strömningsinställningar",
+  "suspend": {
+    "forTime": "Pausa för: "
+  },
+  "stream": {
+    "title": "Ström",
+    "audio": {
+      "tips": {
+        "title": "Ljud måste skickas ut från din kamera och konfigureras i go2rtc för den här strömmen."
+      },
+      "available": "Ljud är tillgängligt för den här strömmen",
+      "unavailable": "Ljud är inte tillgängligt för den här strömmen"
+    },
+    "twoWayTalk": {
+      "tips": "Din enhet måste stödja funktionen och WebRTC måste vara konfigurerat för tvåvägskommunikation.",
+      "available": "Tvåvägskommunikation är tillgänglig för den här strömmen",
+      "unavailable": "Tvåvägskommunikation är inte tillgänglig för den här strömmen"
+    },
+    "lowBandwidth": {
+      "tips": "Livevisningen använder lågbandbreddsläge på grund av buffring eller strömningsfel.",
+      "resetStream": "Återställ ström"
+    },
+    "playInBackground": {
+      "label": "Spela i bakgrunden",
+      "tips": "Aktivera det här alternativet för att fortsätta strömma när spelaren är dold."
+    },
+    "debug": {
+      "picker": "Strömval är inte tillgängligt i felsökningsläge. Felsökningsvyn använder alltid den ström som tilldelats detekteringsrollen."
+    }
+  },
+  "history": {
+    "label": "Visa historiskt videomaterial"
+  },
+  "transcription": {
+    "enable": "Aktivera live-ljudtranskription",
+    "disable": "Inaktivera live-ljudtranskription"
+  },
+  "noCameras": {
+    "title": "Inga kameror konfigurerade",
+    "description": "Börja med att ansluta en kamera till Frigate.",
+    "buttonText": "Lägg till kamera",
+    "restricted": {
+      "title": "Inga kameror tillgängliga",
+      "description": "Du har inte behörighet att visa några kameror i den här gruppen."
+    },
+    "default": {
+      "title": "Ingen kamera konfigurerad",
+      "description": "Börja med att ansluta en kamera till Frigate.",
+      "buttonText": "Lägg till kamera"
+    },
+    "group": {
+      "title": "Inga kameror i gruppen",
+      "description": "Kameragruppen har inga tilldelade eller aktiverade kameror.",
+      "buttonText": "Hantera grupper"
+    }
+  },
+  "snapshot": {
+    "takeSnapshot": "Ladda ned en omedelbar ögonblicksbild",
+    "noVideoSource": "Ingen videokälla tillgänglig för ögonblicksbilden.",
+    "captureFailed": "Misslyckades med att ta en ögonblicksbild.",
+    "downloadStarted": "Nedladdning av ögonblicksbild har startat."
+  }
+}

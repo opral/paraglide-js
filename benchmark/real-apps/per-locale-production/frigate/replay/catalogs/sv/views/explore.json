@@ -1,0 +1,251 @@
+{
+  "generativeAI": "Generativ AI",
+  "documentTitle": "Utforska - Frigate",
+  "exploreIsUnavailable": {
+    "embeddingsReindexing": {
+      "startingUp": "Startar upp…",
+      "estimatedTime": "Beräknad återstående tid:",
+      "finishingShortly": "Snart klar",
+      "context": "Utforskaren kan användas när inbäddningarna för spårade objekt har indexerats om.",
+      "step": {
+        "thumbnailsEmbedded": "Inbäddade miniatyrbilder: ",
+        "descriptionsEmbedded": "Beskrivningar inbäddade: ",
+        "trackedObjectsProcessed": "Bearbetade spårade objekt: "
+      }
+    },
+    "title": "Utforska är inte tillgänglig",
+    "downloadingModels": {
+      "setup": {
+        "textModel": "Textmodell",
+        "visionModel": "Visionsmodell",
+        "visionModelFeatureExtractor": "Funktionsutdragare för visionsmodell",
+        "textTokenizer": "Texttokeniserare"
+      },
+      "tips": {
+        "context": "Du kanske vill omindexera inbäddningarna av dina spårade objekt när modellerna har laddats ner."
+      },
+      "error": "Ett fel har inträffat. Kontrollera Frigate-loggarna.",
+      "context": "Frigate laddar ned de inbäddningsmodeller som behövs för semantisk sökning. Det kan ta flera minuter beroende på nätverksanslutningens hastighet."
+    }
+  },
+  "details": {
+    "timestamp": "Tidsstämpel",
+    "item": {
+      "title": "Information om granskningsobjekt",
+      "desc": "Information om granskningsobjekt",
+      "button": {
+        "share": "Dela det här granskningsobjektet",
+        "viewInExplore": "Visa i Utforska"
+      },
+      "tips": {
+        "mismatch_one": "{{count}} otillgängligt objekt detekterades och inkluderades i det här granskningsobjektet. Objektet kvalificerade sig antingen inte som en varning eller detektering, eller så har det redan rensats eller tagits bort.",
+        "mismatch_other": "{{count}} otillgängliga objekt detekterades och inkluderades i det här granskningsobjektet. Objekten kvalificerade sig antingen inte som varningar eller detekteringar, eller så har de redan rensats eller tagits bort.",
+        "hasMissingObjects": "Justera din konfiguration om du vill att Frigate ska spara spårade objekt för följande etiketter: <em>{{objects}}</em>"
+      },
+      "toast": {
+        "success": {
+          "regenerate": "En ny beskrivning har begärts från {{provider}}. Beroende på din leverantörs hastighet kan det ta lite tid att generera den nya beskrivningen.",
+          "updatedSublabel": "Underetiketten har uppdaterats.",
+          "updatedLPR": "Registreringsskylten har uppdaterats.",
+          "audioTranscription": "Ljudtranskription har begärts. Beroende på hastigheten på din Frigate-server kan transkriptionen ta lite tid att slutföra.",
+          "updatedAttributes": "Attributen har uppdaterats."
+        },
+        "error": {
+          "regenerate": "Det gick inte att begära en ny beskrivning från {{provider}}: {{errorMessage}}",
+          "updatedSublabelFailed": "Misslyckades med att uppdatera underetiketten: {{errorMessage}}",
+          "audioTranscription": "Misslyckades med att begära ljudtranskription: {{errorMessage}}",
+          "updatedLPRFailed": "Det gick inte att uppdatera registreringsskylten: {{errorMessage}}",
+          "updatedAttributesFailed": "Misslyckades med att uppdatera attribut: {{errorMessage}}"
+        }
+      }
+    },
+    "label": "Etikett",
+    "editSubLabel": {
+      "title": "Redigera underetikett",
+      "desc": "Ange en ny underetikett för denna {{label}}",
+      "descNoLabel": "Ange en ny underetikett för det här spårade objektet"
+    },
+    "editLPR": {
+      "title": "Redigera registreringsskylt",
+      "desc": "Ange ett nytt registreringsnummer för detta {{label}}-objekt",
+      "descNoLabel": "Ange ett nytt registreringsnummer för det här spårade objektet"
+    },
+    "snapshotScore": {
+      "label": "Ögonblicksbildspoäng"
+    },
+    "topScore": {
+      "label": "Högsta poäng",
+      "info": "Topppoängen är den högsta medianpoängen för det spårade objektet, så denna kan skilja sig från poängen som visas på miniatyrbilden av sökresultatet."
+    },
+    "score": {
+      "label": "Poäng"
+    },
+    "recognizedLicensePlate": "Igenkänd registreringsskylt",
+    "estimatedSpeed": "Uppskattad hastighet",
+    "objects": "Objekt",
+    "camera": "Kamera",
+    "zones": "Zoner",
+    "button": {
+      "findSimilar": "Hitta liknande",
+      "regenerate": {
+        "title": "Återskapa",
+        "label": "Återskapa beskrivningen av spårat objekt"
+      }
+    },
+    "description": {
+      "label": "Beskrivning",
+      "placeholder": "Beskrivning av det spårade objektet",
+      "aiTips": "Frigate kommer inte att begära en beskrivning från din generativa AI-leverantör förrän det spårade objektets livscykel har avslutats."
+    },
+    "expandRegenerationMenu": "Visa menyn för återskapande",
+    "regenerateFromSnapshot": "Återskapa från ögonblicksbild",
+    "regenerateFromThumbnails": "Återskapa från miniatyrbilder",
+    "tips": {
+      "descriptionSaved": "Beskrivningen har sparats",
+      "saveDescriptionFailed": "Misslyckades med att uppdatera beskrivningen: {{errorMessage}}"
+    },
+    "editAttributes": {
+      "title": "Redigera attribut",
+      "desc": "Välj klassificeringsattribut för denna {{label}}"
+    },
+    "attributes": "Klassificeringsattribut",
+    "title": {
+      "label": "Titel"
+    }
+  },
+  "exploreMore": "Utforska fler {{label}}-objekt",
+  "type": {
+    "details": "detaljer",
+    "video": "video",
+    "snapshot": "ögonblicksbild",
+    "thumbnail": "miniatyrbild",
+    "tracking_details": "spårningsdetaljer"
+  },
+  "trackedObjectDetails": "Detaljer om spårade objekt",
+  "objectLifecycle": {
+    "noImageFound": "Ingen bild hittades för denna tidsstämpel."
+  },
+  "itemMenu": {
+    "downloadVideo": {
+      "label": "Ladda ned video",
+      "aria": "Ladda ned video"
+    },
+    "downloadSnapshot": {
+      "label": "Ladda ned ögonblicksbild",
+      "aria": "Ladda ned ögonblicksbild"
+    },
+    "findSimilar": {
+      "label": "Hitta liknande",
+      "aria": "Hitta liknande spårade objekt"
+    },
+    "addTrigger": {
+      "label": "Lägg till utlösare",
+      "aria": "Lägg till en utlösare för det här spårade objektet"
+    },
+    "audioTranscription": {
+      "label": "Transkribera",
+      "aria": "Begär ljudtranskribering"
+    },
+    "submitToPlus": {
+      "label": "Skicka till Frigate+",
+      "aria": "Skicka till Frigate+"
+    },
+    "viewInHistory": {
+      "label": "Visa i historik",
+      "aria": "Visa i historik"
+    },
+    "deleteTrackedObject": {
+      "label": "Ta bort det här spårade objektet"
+    },
+    "showObjectDetails": {
+      "label": "Visa objektets bana"
+    },
+    "viewTrackingDetails": {
+      "label": "Visa spårningsinformation",
+      "aria": "Visa spårningsdetaljerna"
+    },
+    "hideObjectDetails": {
+      "label": "Dölj objektets bana"
+    },
+    "downloadCleanSnapshot": {
+      "label": "Ladda ned ren ögonblicksbild",
+      "aria": "Ladda ned ren ögonblicksbild"
+    }
+  },
+  "dialog": {
+    "confirmDelete": {
+      "title": "Bekräfta radering",
+      "desc": "Om du tar bort det här spårade objektet tas ögonblicksbilden, alla sparade inbäddningar och alla tillhörande spårningsdetaljer bort. Inspelat material med det här spårade objektet i historikvyn tas <em>inte</em> bort.<br /><br />Är du säker på att du vill fortsätta?"
+    }
+  },
+  "noTrackedObjects": "Inga spårade objekt hittades",
+  "fetchingTrackedObjectsFailed": "Fel vid hämtning av spårade objekt: {{errorMessage}}",
+  "trackedObjectsCount_one": "{{count}} spårat objekt ",
+  "trackedObjectsCount_other": "{{count}} spårade objekt ",
+  "searchResult": {
+    "tooltip": "Matchade {{type}} vid {{confidence}}%",
+    "deleteTrackedObject": {
+      "toast": {
+        "success": "Det spårade objektet har tagits bort.",
+        "error": "Misslyckades med att ta bort spårat objekt: {{errorMessage}}"
+      }
+    },
+    "previousTrackedObject": "Föregående spårade objekt",
+    "nextTrackedObject": "Nästa spårade objekt"
+  },
+  "aiAnalysis": {
+    "title": "AI-analys"
+  },
+  "concerns": {
+    "label": "Problem"
+  },
+  "trackingDetails": {
+    "title": "Spårningsdetaljer",
+    "noImageFound": "Ingen bild hittades för denna tidsstämpel.",
+    "createObjectMask": "Skapa objektmask",
+    "adjustAnnotationSettings": "Justera annoteringsinställningar",
+    "scrollViewTips": "Klicka för att se de viktiga ögonblicken i objektets livscykel.",
+    "autoTrackingTips": "Begränsningsrutornas positioner kommer att vara felaktiga för autospårningskameror.",
+    "count": "{{first}} av {{second}}",
+    "trackedPoint": "Spårad punkt",
+    "lifecycleItemDesc": {
+      "visible": "{{label}} detekterades",
+      "entered_zone": "{{label}} gick in i {{zones}}",
+      "active": "{{label}} blev aktiv",
+      "stationary": "{{label}} blev stationär",
+      "attribute": {
+        "faceOrLicense_plate": "{{attribute}} detekterades för {{label}}",
+        "other": "{{label}} igenkänd som {{attribute}}"
+      },
+      "gone": "{{label}} lämnade",
+      "heard": "{{label}} hördes",
+      "external": "{{label}} detekterades",
+      "header": {
+        "zones": "Zoner",
+        "ratio": "Förhållande",
+        "area": "Area",
+        "score": "Poäng"
+      }
+    },
+    "annotationSettings": {
+      "title": "Annoteringsinställningar",
+      "showAllZones": {
+        "title": "Visa alla zoner",
+        "desc": "Visa alltid zoner på bildrutor där objekt har gått in i en zon."
+      },
+      "offset": {
+        "label": "Annoteringsförskjutning",
+        "desc": "Dessa data kommer från kamerans detekteringsström men läggs ovanpå bilder från inspelningsströmmen. De två strömmarna är sannolikt inte helt synkroniserade, vilket gör att avgränsningsrutorna och videomaterialet inte alltid ligger helt i linje. Använd den här inställningen för att förskjuta annoteringarna framåt eller bakåt i tiden så att de bättre överensstämmer med det inspelade materialet.",
+        "millisecondsToOffset": "Antal millisekunder som detekteringsannoteringarna ska förskjutas. <em>Standard: 0</em>",
+        "tips": "Sänk värdet om videouppspelningen sker före rutorna och banpunkterna, och öka värdet om videouppspelningen sker bakom dem. Detta värde kan vara negativt.",
+        "toast": {
+          "success": "Annoteringsförskjutningen för {{camera}} har sparats i konfigurationsfilen."
+        }
+      }
+    },
+    "carousel": {
+      "previous": "Föregående bild",
+      "next": "Nästa bild"
+    }
+  }
+}

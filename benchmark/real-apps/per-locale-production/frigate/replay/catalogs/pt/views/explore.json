@@ -1,0 +1,176 @@
+{
+  "generativeAI": "IA Generativa",
+  "exploreIsUnavailable": {
+    "embeddingsReindexing": {
+      "startingUp": "A iniciar…",
+      "estimatedTime": "Tempo restante estimado:",
+      "finishingShortly": "Terminando em breve",
+      "step": {
+        "thumbnailsEmbedded": "Miniaturas incorporadas: ",
+        "descriptionsEmbedded": "Descrições incorporadas: ",
+        "trackedObjectsProcessed": "Objetos rastreados processados: "
+      },
+      "context": "O explorar pode ser usado depois que as incorporações de objetos rastreados terminarem de ser reindexadas."
+    },
+    "downloadingModels": {
+      "setup": {
+        "visionModel": "Modelo de visão",
+        "textModel": "Modelo de texto",
+        "textTokenizer": "Tokenizador de texto",
+        "visionModelFeatureExtractor": "Extrator de funcionalidade de modelo de visão"
+      },
+      "context": "O Frigate está a transferir os modelos de incorporação necessários para suportar a funcionalidade de \"Procura Semântica\". Isto pode levar vários minutos, dependendo da velocidade da sua ligação de rede.",
+      "tips": {
+        "context": "Talvez queira reindexar as incorporações dos seus objetos rastreados depois de os modelos serem transferidos."
+      },
+      "error": "Ocorreu um erro. Verifique os registos do Frigate."
+    },
+    "title": "Explorar não está disponível"
+  },
+  "details": {
+    "timestamp": "Carimbo de hora",
+    "item": {
+      "title": "Analisar detalhes do item",
+      "desc": "Analisar detalhes do item",
+      "tips": {
+        "hasMissingObjects": "Ajuste sua configuração se você quiser que o Frigate guarde os objetos rastreados para os seguintes rótulos: <em>{{objects}}</em>",
+        "mismatch_one": "{{count}} objeto indisponível foi detectado e incluído neste item de análise. Esses objetos não qualificaram como alerta ou detecção ou já foram limpos/excluídos.",
+        "mismatch_many": "{{count}} objetos indisponíveis foram detectados e incluídos neste item de análise. Esses objetos não qualificaram como alerta ou detecção ou já foram limpos/excluídos.",
+        "mismatch_other": "{{count}} objetos indisponíveis foram detectados e incluídos neste item de análise. Esses objetos não qualificaram como alerta ou detecção ou já foram limpos/excluídos."
+      },
+      "toast": {
+        "success": {
+          "regenerate": "Uma nova descrição foi solicitada pelo {{provider}}. Dependendo da velocidade do seu fornecedor, a nova descrição pode levar algum tempo para ser regenerada.",
+          "updatedSublabel": "Sub-rotulo atualizado com sucesso.",
+          "updatedLPR": "Matrícula atualizada com sucesso.",
+          "audioTranscription": "Transcrição de áudio solicitada com sucesso."
+        },
+        "error": {
+          "regenerate": "Falha ao chamar {{provider}} para uma nova descrição: {{errorMessage}}",
+          "updatedSublabelFailed": "Falha ao atualizar o sub-rotulo: {{errorMessage}}",
+          "updatedLPRFailed": "Falha ao atualizar a matrícula: {{errorMessage}}",
+          "audioTranscription": "Falha ao solicitar transcrição de áudio: {{errorMessage}}"
+        }
+      },
+      "button": {
+        "share": "Compartilhe este item para análise",
+        "viewInExplore": "Ver no Explorar"
+      }
+    },
+    "zones": "Zonas",
+    "description": {
+      "label": "Descrição",
+      "aiTips": "O Frigate não solicitará uma descrição do seu fornecedor de IA Generativa até que o ciclo de vida do objeto rastreado tenha terminado.",
+      "placeholder": "Descrição do objeto rastreado"
+    },
+    "camera": "Câmera",
+    "snapshotScore": {
+      "label": "Pontuação da captura"
+    },
+    "topScore": {
+      "label": "Maior pontuação",
+      "info": "A maior pontuação é a maior pontuação mediana para o objeto rastreado, portanto, isso pode diferir da pontuação exibida na miniatura do resultado da pesquisa."
+    },
+    "button": {
+      "findSimilar": "Encontrar similar",
+      "regenerate": {
+        "title": "Regenerar",
+        "label": "Regenerar descrição do objeto rastreado"
+      }
+    },
+    "label": "Rótulo",
+    "editSubLabel": {
+      "title": "Editar sub-rotulo",
+      "desc": "Digite um novo sub-rotulo para este {{label}}",
+      "descNoLabel": "Digite um novo sub-rotulo para este objeto rastreado"
+    },
+    "editLPR": {
+      "title": "Editar matrícula",
+      "desc": "Digite um novo valor da matrícula para este {{label}}",
+      "descNoLabel": "Digite um novo valor da matrícula para este objeto rastreado"
+    },
+    "recognizedLicensePlate": "Matrícula reconhecida",
+    "estimatedSpeed": "Velocidade estimada",
+    "objects": "Objetos",
+    "expandRegenerationMenu": "Expandir menu de regeneração",
+    "regenerateFromSnapshot": "Regenerar a partir da captura",
+    "regenerateFromThumbnails": "Regenerar a partir das miniaturas",
+    "tips": {
+      "descriptionSaved": "Descrição salva com sucesso",
+      "saveDescriptionFailed": "Falha ao atualizar a descrição: {{errorMessage}}"
+    },
+    "score": {
+      "label": "Classificação"
+    }
+  },
+  "documentTitle": "Frigate - Explorar",
+  "trackedObjectDetails": "Detalhes do objeto rastreado",
+  "type": {
+    "details": "detalhes",
+    "video": "vídeo",
+    "snapshot": "captura de ecrã"
+  },
+  "objectLifecycle": {
+    "noImageFound": "Nenhuma imagem encontrada para este carimbo de data/hora."
+  },
+  "itemMenu": {
+    "downloadSnapshot": {
+      "aria": "Descarregar captura",
+      "label": "Descarregar captura"
+    },
+    "viewInHistory": {
+      "label": "Ver no Histórico",
+      "aria": "Ver no Histórico"
+    },
+    "downloadVideo": {
+      "label": "Descarregar vídeo",
+      "aria": "Descarregar vídeo"
+    },
+    "findSimilar": {
+      "label": "Encontrar similar",
+      "aria": "Encontrar objetos rastreados similares"
+    },
+    "submitToPlus": {
+      "label": "Enviar para o Frigate+",
+      "aria": "Enviar para o Frigate Plus"
+    },
+    "deleteTrackedObject": {
+      "label": "Excluir este objeto rastreado"
+    },
+    "addTrigger": {
+      "label": "Adicionar gatilho",
+      "aria": "Adicione um gatilho para este objeto rastreado"
+    },
+    "audioTranscription": {
+      "label": "Transcrever",
+      "aria": "Solicitar transcrição de áudio"
+    }
+  },
+  "searchResult": {
+    "tooltip": "Encontrado {{type}} com {{confidence}}% de confiança",
+    "deleteTrackedObject": {
+      "toast": {
+        "success": "Objeto rastreado excluído com sucesso.",
+        "error": "Falha ao excluir objeto rastreado: {{errorMessage}}"
+      }
+    }
+  },
+  "dialog": {
+    "confirmDelete": {
+      "desc": "Excluir este objeto rastreado remove a captura de imagem, quaisquer incorporações salvas e todas as entradas associadas ao ciclo de vida do objeto. As gravações desse objeto rastreado na visualização do Histórico <em>NÃO</em> serão excluídas.<br /><br />Tem certeza de que deseja continuar?",
+      "title": "Confirmar exclusão"
+    }
+  },
+  "fetchingTrackedObjectsFailed": "Erro ao buscar objetos rastreados: {{errorMessage}}",
+  "noTrackedObjects": "Nenhum objeto rastreado encontrado",
+  "trackedObjectsCount_one": "{{count}} objeto rastreado ",
+  "trackedObjectsCount_many": "{{count}} objetos rastreados ",
+  "trackedObjectsCount_other": "",
+  "exploreMore": "Explora mais objetos {{label}}",
+  "aiAnalysis": {
+    "title": "Análise IA"
+  },
+  "concerns": {
+    "label": "Preocupações"
+  }
+}

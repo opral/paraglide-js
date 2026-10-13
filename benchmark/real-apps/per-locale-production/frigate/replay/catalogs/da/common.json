@@ -1,0 +1,324 @@
+{
+  "time": {
+    "untilForTime": "Indtil {{time}}",
+    "untilForRestart": "Indtil Frigate genstarter.",
+    "untilRestart": "Indtil genstart",
+    "ago": "{{timeAgo}} siden",
+    "justNow": "Lige nu",
+    "today": "I dag",
+    "yesterday": "I går",
+    "last7": "Sidste 7 dage",
+    "last14": "Sidste 14 dage",
+    "last30": "Sidste 30 dage",
+    "thisWeek": "Denne uge",
+    "lastWeek": "Sidste uge",
+    "thisMonth": "Denne måned",
+    "lastMonth": "Sidste måned",
+    "5minutes": "5 minutter",
+    "10minutes": "10 minutter",
+    "30minutes": "30 minutter",
+    "1hour": "1 time",
+    "12hours": "12 timer",
+    "24hours": "24 timer",
+    "pm": "pm",
+    "am": "am",
+    "year_one": "{{time}} år",
+    "year_other": "{{time}} år",
+    "mo": "{{time}}md.",
+    "month_one": "{{time}} måned",
+    "month_other": "{{time}} måneder",
+    "d": "{{time}}d",
+    "day_one": "{{time}} dag",
+    "day_other": "{{time}} dage",
+    "h": "{{time}}t",
+    "yr": "{{time}}yr",
+    "hour_one": "{{time}} time",
+    "hour_other": "{{time}} timer",
+    "m": "{{time}}m",
+    "minute_one": "{{time}} minut",
+    "minute_other": "{{time}} minutter",
+    "s": "{{time}}s",
+    "second_one": "{{time}} sekund",
+    "second_other": "{{time}} sekunder",
+    "formattedTimestamp": {
+      "12hour": "d MMM, h:mm:ss aaa",
+      "24hour": "d. MMM, HH:mm:ss"
+    },
+    "formattedTimestamp2": {
+      "12hour": "dd/MM h:mm:ss",
+      "24hour": "d MMM HH:mm:ss"
+    },
+    "formattedTimestampHourMinute": {
+      "12hour": "h:mm aaa",
+      "24hour": "HH:mm"
+    },
+    "formattedTimestampHourMinuteSecond": {
+      "12hour": "h:mm:ss aaa",
+      "24hour": "HH:mm:ss"
+    },
+    "formattedTimestampMonthDayHourMinute": {
+      "12hour": "d MMM, h:mm aaa",
+      "24hour": "d MMM, HH:mm"
+    },
+    "formattedTimestampMonthDayYear": {
+      "12hour": "d MMM, yyyy",
+      "24hour": "d MMM, yyyy"
+    },
+    "formattedTimestampMonthDayYearHourMinute": {
+      "12hour": "d MMM yyyy, h:mm aaa",
+      "24hour": "d MMM yyyy, HH:mm"
+    },
+    "formattedTimestampMonthDay": "d MMM",
+    "formattedTimestampFilename": {
+      "12hour": "dd-MM-yy-h-mm-ss-a",
+      "24hour": "dd-MM-yy-HH-mm-ss"
+    },
+    "never": "Aldrig",
+    "inProgress": "Under behandling",
+    "invalidStartTime": "Ugyldig starttid",
+    "invalidEndTime": "Ugyldig sluttid"
+  },
+  "unit": {
+    "speed": {
+      "mph": "mph",
+      "kph": "km/t"
+    },
+    "length": {
+      "feet": "fod",
+      "meters": "meter"
+    },
+    "data": {
+      "kbps": "kB/s",
+      "mbps": "MB/s",
+      "gbps": "GB/s",
+      "kbph": "kB/time",
+      "mbph": "MB/time",
+      "gbph": "GB/time"
+    }
+  },
+  "label": {
+    "back": "Gå tilbage",
+    "hide": "Skjul {{item}}",
+    "show": "Vis {{item}}",
+    "ID": "ID",
+    "none": "Ingen",
+    "all": "Alle",
+    "other": "Andet"
+  },
+  "button": {
+    "apply": "Anvend",
+    "reset": "Nulstil",
+    "done": "Udført",
+    "enabled": "Aktiveret",
+    "enable": "Aktiver",
+    "disabled": "Deaktiveret",
+    "disable": "Deaktiver",
+    "save": "Gem",
+    "saving": "Gemmer…",
+    "cancel": "Fortryd",
+    "close": "Luk",
+    "copy": "Kopier",
+    "back": "Tilbage",
+    "history": "Historik",
+    "fullscreen": "Fuldskærm",
+    "exitFullscreen": "Afslut Fuldskærm",
+    "pictureInPicture": "Billede i billede",
+    "twoWayTalk": "Samtale",
+    "cameraAudio": "Kameralyd",
+    "on": "Til",
+    "off": "Fra",
+    "edit": "Rediger",
+    "copyCoordinates": "Kopier koordinater",
+    "delete": "Slet",
+    "yes": "Ja",
+    "no": "Nej",
+    "download": "Hent",
+    "info": "Info",
+    "suspended": "Sat på pause",
+    "unsuspended": "Genoptag",
+    "play": "Afspil",
+    "unselect": "Fravælg",
+    "export": "Eksporter",
+    "deleteNow": "Slet nu",
+    "next": "Næste",
+    "continue": "Fortsæt",
+    "add": "Tilføj",
+    "applying": "Anvender…",
+    "undo": "Annuler",
+    "copiedToClipboard": "Kopieret til udklipsholder",
+    "modified": "Ændret",
+    "overridden": "Overskrevet",
+    "resetToGlobal": "Gendan til global",
+    "resetToDefault": "Gendan standard",
+    "saveAll": "Gem alle",
+    "savingAll": "Gemmer alle…",
+    "undoAll": "Fortryd alle",
+    "retry": "Prøv igen"
+  },
+  "menu": {
+    "system": "System",
+    "systemMetrics": "Systemstatistik",
+    "configuration": "Konfiguration",
+    "systemLogs": "Systemlogfiler",
+    "settings": "Indstillinger",
+    "configurationEditor": "Konfigurationsværktøj",
+    "languages": "Sprog",
+    "language": {
+      "en": "English (Engelsk)",
+      "es": "Español (Spansk)",
+      "zhCN": "简体中文 (Forsimplet Kinesisk)",
+      "hi": "हिन्दी (Hindi)",
+      "fr": "Français (Fransk)",
+      "ar": "العربية (Arabisk)",
+      "pt": "Português (Portugisisk)",
+      "ru": "Русский (Russisk)",
+      "de": "Deutsch (Tysk)",
+      "ja": "日本語 (Japansk)",
+      "tr": "Türkçe (Tyrkisk)",
+      "it": "Italiano (Italiensk)",
+      "nl": "Nederlands (Hollandsk)",
+      "sv": "Svenska (Svensk)",
+      "cs": "Čeština (Tjekkisk)",
+      "nb": "Norsk Bokmål (Norsk Bokmål)",
+      "ko": "한국어 (Koreansk)",
+      "vi": "Tiếng Việt (Vietnamesisk)",
+      "fa": "فارسی (Persisk)",
+      "pl": "Polski (Polsk)",
+      "uk": "Українська (Ukrainsk)",
+      "he": "עברית (Hebraisk)",
+      "el": "Ελληνικά (Græsk)",
+      "ro": "Română (Rumænsk)",
+      "hu": "Magyar (Ungarsk)",
+      "fi": "Suomi (Finsk)",
+      "da": "Dansk (Dansk)",
+      "sk": "Slovenčina (Slovakisk)",
+      "yue": "粵語 (Kantonesisk)",
+      "th": "ไทย (Thai)",
+      "ca": "Català (Katalansk)",
+      "withSystem": {
+        "label": "Brug systemindstillinger for sprog"
+      },
+      "ptBR": "Português brasileiro (Brasiliansk Portugisisk)",
+      "sr": "Српски (Serbisk)",
+      "sl": "Slovenščina (Slovensk)",
+      "lt": "Lietuvių (Litauisk)",
+      "bg": "Български (Bulgarsk)",
+      "gl": "Galego (Galisisk)",
+      "id": "Bahasa Indonesia (Indonesisk)",
+      "ur": "اردو (Urdu)",
+      "hr": "Hrvatski (Kroatisk)",
+      "zhHant": "繁體中文 (Traditionel Kinesisk)",
+      "bs": "Bosanski (Bosnisk)"
+    },
+    "appearance": "Udseende",
+    "darkMode": {
+      "label": "Mørk tilstand",
+      "light": "Lys",
+      "dark": "Mørk",
+      "withSystem": {
+        "label": "Brug system indstillinger for mørk tilstand"
+      }
+    },
+    "withSystem": "System",
+    "theme": {
+      "label": "Tema",
+      "blue": "Blå",
+      "green": "Grøn",
+      "nord": "Nord",
+      "red": "Rød",
+      "highcontrast": "Høj Kontrast",
+      "default": "Standard"
+    },
+    "help": "Hjælp",
+    "documentation": {
+      "title": "Dokumentation",
+      "label": "Frigate dokumentation"
+    },
+    "restart": "Genstart Frigate",
+    "live": {
+      "title": "Direkte",
+      "allCameras": "Alle kameraer",
+      "cameras": {
+        "title": "Kameraer",
+        "count_one": "{{count}} Kamera",
+        "count_other": "{{count}} Kameraer"
+      }
+    },
+    "review": "Gennemse",
+    "explore": "Udforsk",
+    "export": "Eksporter",
+    "uiPlayground": "UI sandkasse",
+    "faceLibrary": "Ansigtsarkiv",
+    "user": {
+      "title": "Bruger",
+      "account": "Konto",
+      "current": "Aktiv bruger: {{user}}",
+      "anonymous": "anonym",
+      "logout": "Log ud",
+      "setPassword": "Vælg kodeord"
+    },
+    "classification": "Kategorisering",
+    "profiles": "Profiler",
+    "actions": "Handlinger",
+    "features": "Funktioner",
+    "chat": "Chat"
+  },
+  "toast": {
+    "copyUrlToClipboard": "Kopieret URL til udklipsholder.",
+    "save": {
+      "title": "Gem",
+      "error": {
+        "title": "Ændringer kunne ikke gemmes: {{errorMessage}}",
+        "noMessage": "Kunne ikke gemme konfigurationsændringer"
+      },
+      "success": "Gemte ændringerne i konfigurationen."
+    }
+  },
+  "role": {
+    "title": "Rolle",
+    "admin": "Admin",
+    "viewer": "Seer",
+    "desc": "Admins har fuld adgang til Frigate UI. Viewers er begrænset til at se kameraer, gennemse items, og historik i UI."
+  },
+  "pagination": {
+    "label": "sideinddeling",
+    "previous": {
+      "title": "Forrige",
+      "label": "Gå til forrige side"
+    },
+    "next": {
+      "title": "Næste",
+      "label": "Gå til næste side"
+    },
+    "more": "Flere sider"
+  },
+  "accessDenied": {
+    "documentTitle": "Adgang nægtet - Frigate",
+    "title": "Adgang nægtet",
+    "desc": "Du har ikke rettigheder til at se denne side."
+  },
+  "notFound": {
+    "documentTitle": "Ikke fundet - Frigate",
+    "title": "404",
+    "desc": "Siden blev ikke fundet"
+  },
+  "selectItem": "Vælg {{item}}",
+  "readTheDocumentation": "Læs dokumentationen",
+  "list": {
+    "two": "{{0}} og {{1}}",
+    "many": "{{items}}, og {{last}}",
+    "separatorWithSpace": ", "
+  },
+  "field": {
+    "optional": "Valgfrit",
+    "internalID": "Det interne ID som Frigate bruger i konfigurationen og databasen"
+  },
+  "information": {
+    "pixels": "{{area}}px"
+  },
+  "no_items": "Intet fundet",
+  "validation_errors": "Valideringsfejl",
+  "credentialField": {
+    "savedPlaceholder": "Gemt - efterlad blank for at bevare nuværende"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "documentTitle": "Exporteren - Frigate",
+  "search": "Zoek",
+  "toast": {
+    "error": {
+      "renameExportFailed": "Het is niet gelukt om de export te hernoemen: {{errorMessage}}",
+      "assignCaseFailed": "Kan toewijzing aan dossier niet bijwerken: {{errorMessage}}",
+      "caseSaveFailed": "Mislukt om zaak op te slaan: {{errorMessage}}"
+    }
+  },
+  "editExport": {
+    "title": "Hernoemen Export",
+    "saveExport": "Export opslaan",
+    "desc": "Voer een nieuwe naam in voor deze export."
+  },
+  "noExports": "Geen export gevonden",
+  "deleteExport": {
+    "label": "Verwijder export"
+  },
+  "deleteExport.desc": "Weet je zeker dat je dit wilt wissen: {{exportName}}?",
+  "tooltip": {
+    "shareExport": "Deel export",
+    "downloadVideo": "Download video",
+    "editName": "Naam bewerken",
+    "deleteExport": "Verwijder export",
+    "assignToCase": "Toevoegen aan dossier",
+    "removeFromCase": "Van zaak verwijderen"
+  },
+  "headings": {
+    "cases": "Gevallen",
+    "uncategorizedExports": "Ongecategoriseerde exporten"
+  },
+  "caseDialog": {
+    "title": "Toevoegen aan dossier",
+    "description": "Kies een bestaand dossier of maak een nieuw dossier aan.",
+    "selectLabel": "Dossier",
+    "newCaseOption": "Nieuw dossier aanmaken",
+    "nameLabel": "Dossiernaam",
+    "descriptionLabel": "Beschrijving"
+  },
+  "deleteCase": {
+    "desc": "Weet je zeker dat je {{caseName}} wilt verwijderen?"
+  },
+  "caseCard": {
+    "emptyCase": "Nog geen exports"
+  },
+  "caseEditor": {
+    "createTitle": "Zaak aanmaken",
+    "editTitle": "Zaak wijzigen",
+    "namePlaceholder": "Zaaknaam",
+    "descriptionPlaceholder": "Voeg notities of context toe voor deze zaak"
+  },
+  "addExportDialog": {
+    "title": "Voeg export toe aan {{caseName}}",
+    "searchPlaceholder": "Zoek ongecategoriseerde exports",
+    "empty": "Geen niet-gecategoriseerde exports voldoen aan deze zoekopdracht.",
+    "addButton_one": "Voeg 1 export toe",
+    "addButton_other": "Voeg {{count}} exports toe",
+    "adding": "Toevoegen..."
+  },
+  "toolbar": {
+    "newCase": "Nieuwe zaak",
+    "addExport": "Export toevoegen",
+    "editCase": "Wijzig zaak",
+    "deleteCase": "Verwijder zaak"
+  },
+  "bulkActions": {
+    "delete": "Verwijderen",
+    "deleteNow": "Nu verwijderen",
+    "addToCase": "Toevoegen aan case",
+    "moveToCase": "Verplaatsen naar case",
+    "removeFromCase": "Verwijderen uit case"
+  },
+  "bulkDelete": {
+    "title": "Exports Verwijderen",
+    "desc_one": "Weet je zeker dat je {{count}} export wilt verwijderen?",
+    "desc_other": "Weet je zeker dat je {{count}} exports wilt verwijderen?"
+  },
+  "bulkRemoveFromCase": {
+    "title": "Uit case verwijderen",
+    "desc_one": "{{count}} export uit deze case verwijderen?",
+    "desc_other": "Remove {{count}} exports from this case?",
+    "deleteExports": "Toch verwijderen",
+    "descDeleteExports": "Exports worden permanent verwijderd."
+  },
+  "bulkToast": {
+    "success": {
+      "delete": "Exports zijn verwijderd",
+      "reassign": "Case-toewijzing is bijgewerkt",
+      "remove": "Exports zijn uit de case verwijderd."
+    },
+    "error": {
+      "deleteFailed": "Exports konden niet worden verwijderd: {{errorMessage}}",
+      "reassignFailed": "Case-toewijzing kon niet worden bijgewerkt: {{errorMessage}}"
+    }
+  },
+  "jobCard": {
+    "copying": "Kopiëren",
+    "encoding": "Coderen",
+    "encodingRetry": "Coderen (opnieuw)",
+    "finalizing": "Afronden"
+  },
+  "caseView": {
+    "noDescription": "Geen beschrijving"
+  }
+}

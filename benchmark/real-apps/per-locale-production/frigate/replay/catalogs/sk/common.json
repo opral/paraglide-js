@@ -1,0 +1,329 @@
+{
+  "time": {
+    "untilForTime": "Do {{time}}",
+    "untilForRestart": "Do reštartu Frigate.",
+    "untilRestart": "Do reštartu",
+    "ago": "pred {{timeAgo}}",
+    "justNow": "Práve teraz",
+    "today": "Dnes",
+    "yesterday": "Včera",
+    "last7": "Posledných 7 dní",
+    "last14": "Posledných 14 dní",
+    "last30": "Posledných 30 dní",
+    "thisWeek": "Tento týždeň",
+    "lastWeek": "Minulý týždeň",
+    "thisMonth": "Tento mesiac",
+    "lastMonth": "Minulý mesiac",
+    "5minutes": "5 minút",
+    "10minutes": "10 minút",
+    "30minutes": "30 minút",
+    "1hour": "1 hodina",
+    "12hours": "12 hodín",
+    "24hours": "24 hodín",
+    "am": "ráno",
+    "yr": "{{time}}r",
+    "pm": "popoludní",
+    "year_one": "{{time}} rok",
+    "year_few": "{{time}} roky",
+    "year_other": "{{time}} rokov",
+    "mo": "{{time}}mes",
+    "month_one": "{{time}} mesiac",
+    "month_few": "{{time}} mesiace",
+    "month_other": "{{time}} mesiacov",
+    "d": "{{time}}d",
+    "day_one": "{{time}} deň",
+    "day_few": "{{time}} dni",
+    "day_other": "{{time}} dní",
+    "h": "{{time}}h",
+    "hour_one": "{{time}} hodina",
+    "hour_few": "{{time}} hodiny",
+    "hour_other": "{{time}} hodín",
+    "m": "{{time}} min",
+    "s": "{{time}}s",
+    "minute_one": "{{time}} minúta",
+    "minute_few": "{{time}} minúty",
+    "minute_other": "{{time}} minút",
+    "second_one": "{{time}} sekunda",
+    "second_few": "{{time}} sekundy",
+    "second_other": "{{time}} sekúnd",
+    "formattedTimestamp": {
+      "12hour": "d MMM, h:mm:ss aaa",
+      "24hour": "d MMM, HH:mm:ss"
+    },
+    "formattedTimestamp2": {
+      "12hour": "MM/dd h:mm:ssa",
+      "24hour": "d MMM HH:mm:ss"
+    },
+    "formattedTimestampHourMinute": {
+      "12hour": "h:mm aaa",
+      "24hour": "HH:mm"
+    },
+    "formattedTimestampHourMinuteSecond": {
+      "12hour": "h:mm:ss aaa",
+      "24hour": "HH:mm:ss"
+    },
+    "formattedTimestampMonthDayHourMinute": {
+      "12hour": "MMM d, h:mm aaa",
+      "24hour": "MMM d, HH:mm"
+    },
+    "formattedTimestampMonthDayYear": {
+      "12hour": "MMM d, yyyy",
+      "24hour": "MMM d, yyyy"
+    },
+    "formattedTimestampMonthDayYearHourMinute": {
+      "12hour": "MMM d yyyy, h:mm aaa",
+      "24hour": "MMM d yyyy, HH:mm"
+    },
+    "formattedTimestampMonthDay": "MMM d",
+    "formattedTimestampFilename": {
+      "12hour": "MM-dd-yy-h-mm-ss-a",
+      "24hour": "MM-dd-yy-HH-mm-ss"
+    },
+    "inProgress": "Spracováva sa",
+    "invalidStartTime": "Neplatný čas štartu",
+    "invalidEndTime": "Neplatný čas ukončenia",
+    "never": "Nikdy"
+  },
+  "selectItem": "Vyberte {{item}}",
+  "unit": {
+    "speed": {
+      "mph": "mph",
+      "kph": "Km/h"
+    },
+    "length": {
+      "feet": "nohy",
+      "meters": "metrov"
+    },
+    "data": {
+      "kbps": "kB/s",
+      "mbps": "MB/s",
+      "gbps": "GB/s",
+      "kbph": "kb/hodina",
+      "mbph": "MB/hodinu",
+      "gbph": "GB/hodinu"
+    }
+  },
+  "readTheDocumentation": "Prečítajte si dokumentáciu",
+  "label": {
+    "back": "Choď späť",
+    "hide": "Skryť {{item}}",
+    "show": "Zobraziť {{item}}",
+    "ID": "ID",
+    "none": "None",
+    "all": "Všetko",
+    "other": "Iné"
+  },
+  "button": {
+    "apply": "Použiť",
+    "reset": "Resetovať",
+    "done": "Hotovo",
+    "enabled": "Povolené",
+    "enable": "Povoliť",
+    "disabled": "Zakázané",
+    "disable": "Zakázať",
+    "save": "Uložiť",
+    "saving": "Ukladá sa…",
+    "cancel": "Zrušiť",
+    "close": "Zavrieť",
+    "copy": "Kopírovať",
+    "back": "Späť",
+    "history": "História",
+    "fullscreen": "Celá obrazovka",
+    "exitFullscreen": "Opustiť režim celú obrazovku",
+    "pictureInPicture": "Obraz v obraze",
+    "twoWayTalk": "Obojsmerná komunikácia",
+    "cameraAudio": "Zvuk kamery",
+    "on": "ON",
+    "off": "OFF",
+    "edit": "Upraviť",
+    "copyCoordinates": "Kopírovať súradnice",
+    "delete": "Odstrániť",
+    "yes": "Ano",
+    "no": "Nie",
+    "download": "Stiahnuť",
+    "info": "Informacie",
+    "suspended": "Pozastavené",
+    "export": "Exportovať",
+    "deleteNow": "Odstrániť teraz",
+    "next": "Ďalej",
+    "unsuspended": "Zrušte pozastavenie",
+    "play": "Hrať",
+    "unselect": "Zrušte výber",
+    "continue": "Pokračovať",
+    "copiedToClipboard": "Skopírované do schránky",
+    "modified": "Upravené",
+    "overridden": "Prepísané",
+    "resetToGlobal": "Obnoviť na globálne",
+    "resetToDefault": "Obnoviť predvolené",
+    "saveAll": "Uložiť všetko",
+    "savingAll": "Ukladá sa všetko…",
+    "undoAll": "Vrátiť späť všetko",
+    "retry": "Skúste to znova",
+    "add": "Pridať",
+    "applying": "Aplikovanie…",
+    "undo": "Späť"
+  },
+  "menu": {
+    "system": "Systém",
+    "systemMetrics": "Systémové metriky",
+    "configuration": "Konfigurácia",
+    "systemLogs": "Systémový záznam",
+    "settings": "Nastavenia",
+    "configurationEditor": "Editor konfigurácie",
+    "languages": "Jazyky",
+    "language": {
+      "en": "English (Angličtina)",
+      "es": "Español (Španielčina)",
+      "zhCN": "简体中文 (Zjednodušená čínština)",
+      "hi": "हिन्दी (Hindčina)",
+      "fr": "Français (Francúzština)",
+      "ar": "العربية (Arabčina)",
+      "pt": "Portugalčina (Portugalčina)",
+      "ptBR": "Português brasileiro (Brazílska Portugalčina)",
+      "ru": "Русский (Ruština)",
+      "de": "nemčina (Nemčina)",
+      "ja": "日本語 (Japončina)",
+      "tr": "Türkçe (Turečtina)",
+      "it": "Italiano (Taliančina)",
+      "nl": "Nederlands (Holandčina)",
+      "sv": "Svenska (Švédčina)",
+      "cs": "Czech (Čeština)",
+      "nb": "Norsk Bokmål (Norský Bokmål)",
+      "ko": "한국어 (Korejština)",
+      "vi": "Tiếng Việt (Vietnamština)",
+      "fa": "فارسی (Perština)",
+      "pl": "Polski (Polština)",
+      "uk": "Українська (Ukrainština)",
+      "he": "עברית (Hebrejština)",
+      "el": "Ελληνικά (Gréčtina)",
+      "ro": "Română (Rumunčina)",
+      "hu": "Magyar (Maďarština)",
+      "fi": "Suomi (Fínčina)",
+      "da": "Dansk (Dánština)",
+      "sk": "Slovenčina (Slovenčina)",
+      "yue": "粵語 (Kantónčina)",
+      "th": "ไทย (Thajčina)",
+      "ca": "Català (Katalánčina)",
+      "sr": "Српски (Serbsky)",
+      "sl": "Slovinština (Slovinsko)",
+      "lt": "Lietuvių (Lithuanian)",
+      "bg": "Български (Bulgarian)",
+      "gl": "Galego (Galician)",
+      "id": "Bahasa Indonesia (Indonesian)",
+      "ur": "اردو (Urdu)",
+      "withSystem": {
+        "label": "Použiť systémové nastavenia pre jazyk"
+      },
+      "hr": "Hrvatski (Croatian)"
+    },
+    "restart": "Reštartovať Frigate",
+    "live": {
+      "title": "Naživo",
+      "allCameras": "Všetky kamery",
+      "cameras": {
+        "title": "Kamery",
+        "count_one": "{{count}} kamera",
+        "count_few": "{{count}} kamery",
+        "count_other": "{{count}} kamier"
+      }
+    },
+    "export": "Exportovať",
+    "uiPlayground": "UI ihrisko",
+    "faceLibrary": "Knižnica Tvárov",
+    "user": {
+      "title": "Užívateľ",
+      "account": "Účet",
+      "current": "Aktuálny používateľ: {{user}}",
+      "anonymous": "anonymný",
+      "logout": "Odhlásiť",
+      "setPassword": "Nastaviť heslo"
+    },
+    "appearance": "Vzhľad",
+    "darkMode": {
+      "label": "Tmavý režim",
+      "light": "Svetlý",
+      "dark": "Tma",
+      "withSystem": {
+        "label": "Použiť systémové nastavenia pre svetlý a tmavý režim"
+      }
+    },
+    "withSystem": "Systém",
+    "theme": {
+      "label": "Téma",
+      "blue": "Modrá",
+      "green": "Zelená",
+      "nord": "Polárna",
+      "red": "Červená",
+      "highcontrast": "Vysoký kontrast",
+      "default": "Predvolené"
+    },
+    "help": "Pomocník",
+    "documentation": {
+      "title": "Dokumentácia",
+      "label": "Dokumentácia Frigate"
+    },
+    "review": "Recenzia",
+    "explore": "Preskúmať",
+    "classification": "Klasifikácia",
+    "profiles": "Profily",
+    "actions": "Akcie",
+    "features": "Vlastnosti",
+    "chat": "Chat"
+  },
+  "toast": {
+    "copyUrlToClipboard": "Adresa URL bola skopírovaná do schránky.",
+    "save": {
+      "title": "Uložiť",
+      "error": {
+        "title": "Chyba pri ukladaní zmien konfigurácie: {{errorMessage}}",
+        "noMessage": "Chyba pri ukladaní zmien konfigurácie"
+      },
+      "success": "Zmeny konfigurácie boli úspešne uložené."
+    }
+  },
+  "role": {
+    "title": "Rola",
+    "admin": "Správca",
+    "viewer": "Divák",
+    "desc": "Správcovia majú plný prístup ku všetkým funkciám v užívateľskom rozhraní Frigate. Diváci sú obmedzení na sledovanie kamier, položiek prehľadu a historických záznamov v UI."
+  },
+  "pagination": {
+    "label": "stránkovanie",
+    "previous": {
+      "title": "Predchádzajúci",
+      "label": "Ísť na predchádzajúcu stranu"
+    },
+    "next": {
+      "title": "Ďalšia",
+      "label": "Ísť na ďalšiu stranu"
+    },
+    "more": "Viac strán"
+  },
+  "accessDenied": {
+    "documentTitle": "Prístup odmietnutý - Frigate",
+    "title": "Prístup odmietnutý",
+    "desc": "Nemáte oprávnenie zobraziť túto stránku."
+  },
+  "notFound": {
+    "documentTitle": "Nenájdené - Frigate",
+    "title": "404",
+    "desc": "Stránka nenájdená"
+  },
+  "information": {
+    "pixels": "{{area}}px"
+  },
+  "list": {
+    "two": "{{0}} a {{1}}",
+    "many": "{{items}}, a {{last}}",
+    "separatorWithSpace": ", "
+  },
+  "field": {
+    "optional": "Voliteľné",
+    "internalID": "Interné ID Frigate používa v konfigurácii a databáze"
+  },
+  "no_items": "Žiadne položky",
+  "validation_errors": "Chyby overenia",
+  "credentialField": {
+    "savedPlaceholder": "Uložené – pre aktuálne informácie nechajte prázdne"
+  }
+}

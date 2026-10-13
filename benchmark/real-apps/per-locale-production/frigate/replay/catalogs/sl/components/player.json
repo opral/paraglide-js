@@ -1,0 +1,42 @@
+{
+  "noRecordingsFoundForThisTime": "Za ta čas ni bilo najdenih posnetkov",
+  "noPreviewFound": "Predogleda ni mogoče najti",
+  "noPreviewFoundFor": "Za kamero {{cameraName}} ni predogleda",
+  "submitFrigatePlus": {
+    "title": "Želiš poslati ta okvir v Frigate+?",
+    "submit": "Pošlji"
+  },
+  "stats": {
+    "streamType": {
+      "title": "Vrsta toka:",
+      "short": "Vrsta"
+    },
+    "bandwidth": {
+      "title": "Pasovna širina:",
+      "short": "Pasovna širina"
+    },
+    "totalFrames": "Skupno število slik:",
+    "droppedFrames": {
+      "title": "Izpuščene slike:",
+      "short": {
+        "title": "Izpuščeno",
+        "value": "{{droppedFrames}} slik"
+      }
+    },
+    "decodedFrames": "Dekodirane slike:",
+    "droppedFrameRate": "Stopnja izpuščenih slik:"
+  },
+  "livePlayerRequiredIOSVersion": "Za to vrsto prenosa v živo potrebuješ iOS 17.1 ali novejši.",
+  "streamOffline": {
+    "title": "Tok ni povezan",
+    "desc": "Pretok <code>detect</code> za kamero {{cameraName}} ne prejema slik, preveri dnevnike napak."
+  },
+  "toast": {
+    "success": {
+      "submittedFrigatePlus": "Okvir je bil uspešno poslan v Frigate+"
+    },
+    "error": {
+      "submitFrigatePlusFailed": "Napaka pri pošiljanju okvirja v Frigate+"
+    }
+  }
+}

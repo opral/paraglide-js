@@ -1,0 +1,200 @@
+{
+  "documentTitle": {
+    "default": "实时监控 - Frigate"
+  },
+  "documentTitle.withCamera": "{{camera}} - 实时监控 - Frigate",
+  "lowBandwidthMode": "低带宽模式",
+  "twoWayTalk": {
+    "enable": "开启实时对话",
+    "disable": "关闭实时通话"
+  },
+  "cameraAudio": {
+    "enable": "开启音频输出",
+    "disable": "关闭音频输出"
+  },
+  "ptz": {
+    "move": {
+      "clickMove": {
+        "label": "点击画面以使摄像头居中",
+        "enable": "开启点击移动",
+        "disable": "禁用点击移动",
+        "enableWithZoom": "开启点击移动 / 拖动缩放功能"
+      },
+      "left": {
+        "label": "PTZ摄像头向左移动"
+      },
+      "up": {
+        "label": "PTZ摄像头向上移动"
+      },
+      "down": {
+        "label": "PTZ摄像头向下移动"
+      },
+      "right": {
+        "label": "PTZ摄像头向右移动"
+      }
+    },
+    "zoom": {
+      "in": {
+        "label": "PTZ摄像头放大"
+      },
+      "out": {
+        "label": "PTZ摄像头缩小"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "点击将PTZ摄像头画面居中"
+      }
+    },
+    "presets": "PTZ摄像头预设",
+    "focus": {
+      "in": {
+        "label": "PTZ摄像头聚焦"
+      },
+      "out": {
+        "label": "PTZ摄像头拉远"
+      }
+    }
+  },
+  "camera": {
+    "turnOn": "开启摄像头",
+    "turnOff": "关闭摄像头"
+  },
+  "muteCameras": {
+    "enable": "屏蔽所有摄像头",
+    "disable": "取消屏蔽所有摄像头"
+  },
+  "detect": {
+    "enable": "开启检测",
+    "disable": "关闭检测"
+  },
+  "recording": {
+    "enable": "开启录制",
+    "disable": "关闭录制",
+    "disabledInConfig": "必须先在该摄像头的设置中开启录制功能。"
+  },
+  "snapshots": {
+    "enable": "开启快照",
+    "disable": "关闭快照"
+  },
+  "audioDetect": {
+    "enable": "开启音频检测",
+    "disable": "关闭音频检测"
+  },
+  "autotracking": {
+    "enable": "启用自动追踪",
+    "disable": "关闭自动追踪"
+  },
+  "streamStats": {
+    "enable": "显示视频流统计信息",
+    "disable": "隐藏视频流统计信息"
+  },
+  "manualRecording": {
+    "title": "按需录制",
+    "tips": "根据此摄像头的录像存储设置，可以下载即时快照或手动触发事件记录。",
+    "playInBackground": {
+      "label": "后台播放",
+      "desc": "启用此选项可在播放器隐藏时继续视频流播放。"
+    },
+    "showStats": {
+      "label": "显示统计信息",
+      "desc": "启用此选项可在摄像头画面上叠加显示视频流统计信息。"
+    },
+    "debugView": "调试视图",
+    "start": "开始手动按需录制",
+    "started": "已启用手动按需录制。",
+    "failedToStart": "启动手动录制失败。",
+    "recordDisabledTips": "由于此摄像头的配置中禁用了录制或对其进行了限制，将只会保存快照。",
+    "end": "停止手动按需录制",
+    "ended": "已完成手动按需录制。",
+    "failedToEnd": "停止手动录制失败。"
+  },
+  "streamingSettings": "视频流设置",
+  "notifications": "通知",
+  "audio": "音频",
+  "suspend": {
+    "forTime": "暂停时长： "
+  },
+  "stream": {
+    "title": "视频流",
+    "audio": {
+      "tips": {
+        "title": "必须要摄像头支持音频，以及需要 go2rtc 支持并配置。"
+      },
+      "available": "此视频流支持音频",
+      "unavailable": "此视频流不支持音频传输"
+    },
+    "twoWayTalk": {
+      "tips": "您的设备必须支持此功能，并且必须配置 WebRTC 以支持双向对讲。",
+      "available": "此视频流支持双向对讲",
+      "unavailable": "此视频流不支持双向对讲"
+    },
+    "lowBandwidth": {
+      "tips": "由于缓冲或视频流错误，实时视图处于低带宽模式。",
+      "resetStream": "重置视频流"
+    },
+    "playInBackground": {
+      "label": "后台播放",
+      "tips": "启用此选项可在播放器隐藏时继续视频流播放。"
+    },
+    "debug": {
+      "picker": "调试模式下无法切换视频流。调试将始终使用检测（detect）功能的视频流。"
+    }
+  },
+  "cameraSettings": {
+    "title": "{{camera}} 设置",
+    "objectDetection": "目标检测",
+    "recording": "录制",
+    "snapshots": "快照",
+    "audioDetection": "音频检测",
+    "autotracking": "自动追踪",
+    "transcription": "音频转录",
+    "camera": "摄像头"
+  },
+  "history": {
+    "label": "显示历史录像"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "all": "全部",
+      "motion": "画面变动",
+      "active_objects": "活动目标"
+    }
+  },
+  "editLayout": {
+    "label": "编辑布局",
+    "group": {
+      "label": "编辑摄像头分组"
+    },
+    "exitEdit": "退出编辑"
+  },
+  "transcription": {
+    "enable": "启用实时音频转录",
+    "disable": "关闭实时音频转录"
+  },
+  "noCameras": {
+    "title": "未设置摄像头",
+    "description": "准备开始连接摄像头至 Frigate 。",
+    "buttonText": "添加摄像头",
+    "restricted": {
+      "title": "无可用摄像头",
+      "description": "你没有权限查看此分组中的任何摄像头。"
+    },
+    "default": {
+      "title": "没有配置摄像头",
+      "description": "现在就将摄像头接入到 Frigate 吧。",
+      "buttonText": "添加摄像头"
+    },
+    "group": {
+      "title": "摄像头组目前为空",
+      "description": "该摄像头组未分配或启动了摄像头。",
+      "buttonText": "管理摄像头组"
+    }
+  },
+  "snapshot": {
+    "takeSnapshot": "下载即时快照",
+    "noVideoSource": "当前无可用于快照的视频源。",
+    "captureFailed": "捕获快照失败。",
+    "downloadStarted": "快照下载已开始。"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "noRecordingsFoundForThisTime": "Ebben az időpontban nem található felvétel",
+  "noPreviewFound": "Nincs elérhető előkép",
+  "submitFrigatePlus": {
+    "title": "Elküldi ezt a képet a Frigate+-nak?",
+    "submit": "Küldés",
+    "previewError": "Nem sikerült betölteni a pillanatkép előnézetét. Előfordulhat, hogy a felvétel jelenleg nem elérhető."
+  },
+  "noPreviewFoundFor": "Nem található előnézet {{cameraName}}-hoz/-hez/-höz",
+  "livePlayerRequiredIOSVersion": "iOS 17.1 vagy újabb szükséges ehhez az élő adás típushoz.",
+  "streamOffline": {
+    "title": "Adás Nem Elérhető",
+    "desc": "Nem érkezett kép a {{cameraName}}-n, <code>észlelés</code> adásban. Ellenőrizze a hibanaplót"
+  },
+  "stats": {
+    "streamType": {
+      "title": "Adás Típus:",
+      "short": "Típus"
+    },
+    "bandwidth": {
+      "title": "Sávszélesség:",
+      "short": "Sávszélesség"
+    },
+    "droppedFrames": {
+      "title": "Hibás Képek:",
+      "short": {
+        "value": "{{droppedFrames}} képek",
+        "title": "Hibás"
+      }
+    },
+    "decodedFrames": "Dekódolt Képek:",
+    "droppedFrameRate": "Hibás Kép Sebesség:",
+    "totalFrames": "Összes Kép:"
+  },
+  "toast": {
+    "error": {
+      "submitFrigatePlusFailed": "Kép küldése a Frigate+-hoz meghiúsult"
+    },
+    "success": {
+      "submittedFrigatePlus": "Kép sikeresen elküldve a Frigate+-nak"
+    }
+  }
+}

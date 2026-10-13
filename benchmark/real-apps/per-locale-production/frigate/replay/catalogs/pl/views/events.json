@@ -1,0 +1,95 @@
+{
+  "camera": "Kamera",
+  "alerts": "Alarmy",
+  "detections": "Detekcje",
+  "motion": {
+    "label": "Ruch",
+    "only": "Tylko ruch"
+  },
+  "allCameras": "Wszystkie kamery",
+  "empty": {
+    "alert": "Brak alertów do przejrzenia",
+    "detection": "Brak detekcji do przejrzenia",
+    "motion": "Nie znaleziono danych o ruchu",
+    "recordingsDisabled": {
+      "title": "Nagrywanie musi być włączone",
+      "description": "Elementy przeglądu można tworzyć dla kamery tylko wtedy, gdy dla tej kamery włączono nagrywanie."
+    }
+  },
+  "timeline": {
+    "label": "Oś czasu"
+  },
+  "timeline.aria": "Wybierz oś czasu",
+  "events": {
+    "label": "Zdarzenia",
+    "aria": "Wybierz zdarzenia",
+    "noFoundForTimePeriod": "Brak zdarzeń w tym okresie czasu."
+  },
+  "documentTitle": "Przegląd - Frigate",
+  "recordings": {
+    "documentTitle": "Nagrania - Frigate",
+    "invalidSharedLink": "Nie można otworzyć linku do nagrania z oznaczeniem czasu z powodu błędu parsowania.",
+    "invalidSharedCamera": "Nie można otworzyć linku do nagrania z oznaczeniem czasu z powodu nieznanej lub nieautoryzowanej kamery."
+  },
+  "markAsReviewed": "Oznacz jako przejrzane",
+  "markTheseItemsAsReviewed": "Oznacz te elementy jako przejrzane",
+  "calendarFilter": {
+    "last24Hours": "Ostatnie 24 godziny"
+  },
+  "newReviewItems": {
+    "label": "Zobacz nowe elementy do przeglądu",
+    "button": "Nowe elementy do przeglądu"
+  },
+  "selected_one": "Wybrano {{count}}",
+  "selected_other": "Wybrano {{count}}",
+  "detected": "wykryto",
+  "zoomIn": "Przybliż",
+  "zoomOut": "Oddal",
+  "detail": {
+    "label": "Szczegóły",
+    "noDataFound": "Brak szczegółów do przejrzenia",
+    "aria": "Przełącz widok szczegółów",
+    "trackedObject_one": "{{count}} obiekt",
+    "trackedObject_other": "{{count}} obiekty",
+    "noObjectDetailData": "Brak danych szczegółowych dla obiektu.",
+    "settings": "Ustawienia widoku szczegółów",
+    "alwaysExpandActive": {
+      "title": "Zawsze rozwiń aktywne",
+      "desc": "Zawsze rozwijaj szczegóły aktywnego obiektu, jeżeli są dostępne."
+    }
+  },
+  "objectTrack": {
+    "trackedPoint": "Śledzony punkt",
+    "clickToSeek": "Kliknij aby przewinąć do tego miejsca"
+  },
+  "needsReview": "Wymaga manualnego sprawdzenia",
+  "normalActivity": "Normalne",
+  "select_all": "Wszystko",
+  "securityConcern": "Kwestie bezpieczeństwa",
+  "motionPreviews": {
+    "cropDesc": "Funkcja powiększania wyświetla podgląd wybranych obszarów filtru zamiast pokazywać całą klatkę.",
+    "menuItem": "Wyświetl podgląd ruchu",
+    "title": "Podgląd ruchu: {{camera}}",
+    "mobileSettingsTitle": "Ustawienia podglądu ruchu",
+    "mobileSettingsDesc": "Dostosuj prędkość odtwarzania, poziom przyciemnienia i kadrowanie, a następnie wybierz datę, aby przejrzeć klipy zawierające wyłącznie ruch.",
+    "dim": "Przyciemnianie",
+    "dimAria": "Ustaw poziom przyciemniania",
+    "dimDesc": "Zwiększ poziom przyciemnienia, aby poprawić widoczność obszaru wykrywania ruchu.",
+    "speed": "Prędkość",
+    "speedAria": "Wybierz prędkość odtwarzania",
+    "speedDesc": "Wybierz, z jaką prędkością mają być odtwarzane nagrania.",
+    "back": "Wstecz",
+    "empty": "Brak dostępnych podglądów",
+    "noPreview": "Podgląd niedostępny",
+    "seekAria": "Wyszukaj odtwarzacz {{camera}} o {{time}}",
+    "filter": "Filtr",
+    "filterDesc": "Wybierz obszary, aby wyświetlić tylko fragmenty zawierające ruch w tych obszarach.",
+    "filterClear": "Wyczyść",
+    "crop": "Przytnij, aby zastosować filtr",
+    "cropAria": "Przełącz podgląd kadrowania na obszary objęte filtrem"
+  },
+  "motionSearch": {
+    "menuItem": "Szukanie ruchu",
+    "openMenu": "Ustawienia kamery"
+  }
+}

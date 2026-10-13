@@ -1,0 +1,44 @@
+{
+  "noRecordingsFoundForThisTime": "Keine Aufnahmen für diesen Zeitpunkt gefunden",
+  "noPreviewFound": "Keine Vorschau gefunden",
+  "submitFrigatePlus": {
+    "title": "Dieses Bild an Frigate+ senden?",
+    "submit": "Absenden",
+    "previewError": "Schnappschuss Vorschau konnte nicht geladen werden. Die Aufnahme ist möglicherweise derzeit nicht verfügbar."
+  },
+  "livePlayerRequiredIOSVersion": "iOS 17.1 oder höher ist für diesen Typ eines Live-Streams erforderlich.",
+  "streamOffline": {
+    "title": "Stream ist offline",
+    "desc": "Es wurden keine Bilder vom <code>Erkennungsstream</code> der Kamera {{cameraName}} empfangen, bitte Logs überprüfen"
+  },
+  "stats": {
+    "streamType": {
+      "title": "Stream Typ:",
+      "short": "Typ"
+    },
+    "bandwidth": {
+      "title": "Bandbreite:",
+      "short": "Bandbreite"
+    },
+    "droppedFrames": {
+      "short": {
+        "title": "Ausgelassen",
+        "value": "{{droppedFrames}} Bilder"
+      },
+      "title": "Ausgelassene Bilder:"
+    },
+    "decodedFrames": "Dekodierte Bilder:",
+    "droppedFrameRate": "Verlorene Bildrate:",
+    "totalFrames": "Bilder insgesamt:"
+  },
+  "toast": {
+    "error": {
+      "submitFrigatePlusFailed": "Bild an Frigate+ senden gescheitert"
+    },
+    "success": {
+      "submittedFrigatePlus": "Bild erfolgreich an Frigate+ gesendet"
+    }
+  },
+  "noPreviewFoundFor": "Keine Vorschau für {{cameraName}} gefunden",
+  "cameraOff": "Kamera ist ausgeschaltet"
+}

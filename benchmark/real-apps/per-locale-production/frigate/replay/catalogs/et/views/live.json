@@ -1,0 +1,231 @@
+{
+  "muteCameras": {
+    "enable": "Summuta kõik kaamerad",
+    "disable": "Lõpeta kõikide kaamerate summutamine"
+  },
+  "streamingSettings": "Voogedastuse seadistused",
+  "cameraSettings": {
+    "title": "Seadistused: {{camera}}",
+    "objectDetection": "Objektide tuvastamine",
+    "audioDetection": "Heli tuvastus",
+    "transcription": "Heli üleskirjutus",
+    "snapshots": "Hetkvõtted",
+    "autotracking": "Automaatne jälgimine",
+    "recording": "Salvestus",
+    "camera": "Kaamera"
+  },
+  "documentTitle": {
+    "default": "Frigate reaalajas"
+  },
+  "documentTitle.withCamera": "{{camera}} - Otseülekanne - Frigate",
+  "lowBandwidthMode": "Väikese ribalaiusega režiim",
+  "twoWayTalk": {
+    "enable": "Lülita kahepoolne kõneside sisse",
+    "disable": "Lülita kahepoolne kõneside välja",
+    "requiresWebRTC": "Kahepoolne suhtlus eeldab WebRTC kasutamist, aga see poel saadaval",
+    "error": {
+      "microphone": "Kahepoolsel suhtlusel puudub ligipääs sinu mikrofonile",
+      "refused": "Kahepoolse suhtluse käivitamine ei õnnestunud. Lisateavet leiad veebibrauseri konsoolist."
+    }
+  },
+  "cameraAudio": {
+    "enable": "Lülita kaamera heli sisse",
+    "disable": "Lülita kaamera heli välja"
+  },
+  "ptz": {
+    "move": {
+      "clickMove": {
+        "label": "Kaamerapildi joondamiseks keskele klõpsa kaadris",
+        "enable": "Kasuta klõpsamisega teisaldamist",
+        "disable": "Ära kasuta klõpsamisega teisaldamist",
+        "enableWithZoom": "Luba liigutamine klõpsuga / suumimine lohistamisega"
+      },
+      "left": {
+        "label": "Pööra liigutatavat kaamerat vasakule"
+      },
+      "up": {
+        "label": "Pööra liigutatavat kaamerat üles"
+      },
+      "down": {
+        "label": "Pööra liigutatavat kaamerat alla"
+      },
+      "right": {
+        "label": "Pööra liigutatavat kaamerat paremale"
+      }
+    },
+    "zoom": {
+      "in": {
+        "label": "Suumi liigutatavat kaamerat sisse"
+      },
+      "out": {
+        "label": "Suumi liigutatavat kaamerat välja"
+      }
+    },
+    "focus": {
+      "in": {
+        "label": "Fookusta liigutatavat kaamerat sisse"
+      },
+      "out": {
+        "label": "Fookusta liigutatavat kaamerat välja"
+      }
+    },
+    "presets": "Liigutatava kaamera eelseadistused",
+    "frame": {
+      "center": {
+        "label": "Klõpsa kaadrit liigutatava kaamera pildi sättimiseks keskele"
+      }
+    }
+  },
+  "camera": {
+    "turnOn": "Lülita kaamera sisse",
+    "turnOff": "Lülita kaamera välja"
+  },
+  "detect": {
+    "enable": "Lülita tuvastamine sisse",
+    "disable": "Lülita tuvastamine välja"
+  },
+  "recording": {
+    "enable": "Lülita salvestamine sisse",
+    "disable": "Lülita salvestamine välja",
+    "disabledInConfig": "Pead olema selle kaamera jaoks Seadistustest määranud salvestamise."
+  },
+  "snapshots": {
+    "enable": "Lülita hetkvõtted sisse",
+    "disable": "Lülita hetkvõtted välja"
+  },
+  "streamStats": {
+    "enable": "Näita voogedastuse statistikat",
+    "disable": "Peida voogedastuse statistika"
+  },
+  "stream": {
+    "twoWayTalk": {
+      "available": "Kahepoolne kõneside on selle voogedastuse puhul saadaval",
+      "unavailable": "Kahepoolne kõneside pole selle voogedastuse puhul saadaval",
+      "tips": "Sinu seadme peab seda funktsionaalsust toetama ja WebRTC peab olema kahepoolse kõneside jaoks seadistatud."
+    },
+    "playInBackground": {
+      "label": "Esita taustal",
+      "tips": "Selle eelistusega saad määrata, et voogedastus jääb tööle ka siis, kui meesiaesitaja on suletud."
+    },
+    "audio": {
+      "available": "Selles voogedastuses on heliriba saadaval",
+      "unavailable": "Selles voogedastuses pole heliriba saadaval",
+      "tips": {
+        "title": "Heli peab tulema sinu kaamerast ja selle voogedastuse jaoks peab see go2rtc-s olema seadistatud."
+      }
+    },
+    "title": "Voogedastus",
+    "lowBandwidth": {
+      "resetStream": "Lähtesta voogedastus",
+      "tips": "Reaalaja pilt on puhverdamise või voogedastuse vigade tõttu madala ribalaiusega režiimis.",
+      "force": {
+        "label": "Kasuta sundkorras väikese ribalaiusega režiimi",
+        "desc": "Valitud voogedastuse asemel esita sisu alati Frigate'i sisseehitatud väikese ribalaiusega voogedastusena. Toimib igasuguste ühendustega, aga pildikvaliteet on kehvem ning heliriba pole kasutusel."
+      }
+    },
+    "debug": {
+      "picker": "Voogedastuse osa valik pole silumisrežiimis saadaval. Silumisvaade kasutab alati voogedastust, millele on määratud tuvastamisroll.",
+      "technology": "Voogedastuse tehnoloogia valik pole silumisrežiimis saadaval."
+    },
+    "mode": "Voogedastuse tehnoloogia",
+    "technology": {
+      "description": "Vali eelistatud voogedastuse tehnoloogia. Taasesituse ja võrguvigade puhul võib Frigate tagavaravariandina kasutada väikese ribalaiusega režiimi.",
+      "name": {
+        "mse": "MSE",
+        "webrtc": "WebRTC",
+        "jsmpeg": "JSMpeg"
+      },
+      "tips": {
+        "mse": "Soovitatud vaikimisi väärtus, millel on lai ühilduvus ja sujuv taasesitus",
+        "webrtc": "Vajab täiendavat seadistust ja pole igas seadmes toetatud"
+      },
+      "unavailable": {
+        "browser": "Sinu veebibrauseris puudub WebRTC tugi.",
+        "not-configured": "WebRTC pole seadistatud. Seadista go2rtc webrtc kandidaadid või ice_server teenused.",
+        "unreachable": "WebRTC ühendamine ei õnnestunud. Kontrolli, et port 8555 on kättesaadav ja STUN/TURN-serveri seadistus on õige.",
+        "video-codec": "Selles veebibrauseris puudub WebRTC jaoks antud voogedastuse videokoodeki tugi.",
+        "audio-codec": "WebRTC ei toeta selle voogedastuse helikoodekit. Kodeeri go2rtc abil opus või G.711 vormingusse.",
+        "checking": "Kontrollin WebRTC saadavust…"
+      }
+    }
+  },
+  "notifications": "Teavitused",
+  "audio": "Heli",
+  "snapshot": {
+    "takeSnapshot": "Laadi hetkvõte alla",
+    "noVideoSource": "Hetkvõtte tegemiseks pole saadaval ühtegi videoallikat.",
+    "captureFailed": "Hetkvõtte jäädvustamine ei õnnestunud.",
+    "downloadStarted": "Hetkvõtte allalaadimine algas."
+  },
+  "audioDetect": {
+    "enable": "Lülita helituvastus sisse",
+    "disable": "Lülita helituvastus välja"
+  },
+  "transcription": {
+    "enable": "Lülita reaalajas heli üleskirjutus sisse",
+    "disable": "Lülita reaalajas heli üleskirjutus välja"
+  },
+  "autotracking": {
+    "enable": "Lülita automaatne jälgimine sisse",
+    "disable": "Lülita automaatne jälgimine välja"
+  },
+  "manualRecording": {
+    "title": "Nõudmisel",
+    "playInBackground": {
+      "label": "Esita taustal",
+      "desc": "Kasuta seda valikut, kui tahad voogedastuse jätkumist ka siis, kui pildivaade on peidetud."
+    },
+    "debugView": "Veaotsinguvaade",
+    "showStats": {
+      "label": "Näita statistikat",
+      "desc": "Selle eelistuse puhul näidatakse voogedastuse statistikat kaamerapildi peal."
+    },
+    "tips": "Laadi alla hetktõmmis või käivita käsitsi sündmus vastavalt selle kaamera salvestiste säilitamise seadistustele.",
+    "start": "Alusta tellimuspõhist salvestamist",
+    "started": "Alustasin käsitsi tellitavat salvestamist.",
+    "failedToStart": "Käsitsi tellitava salvestamise alustamine ei õnnestunud.",
+    "recordDisabledTips": "Kuna selle kaamera seadistustes on salvestamine keelatud või piiratud, siis salvestatakse ainult pilt.",
+    "end": "Lõpeta tellimuspõhine salvestamine",
+    "ended": "Lõpetasin käsitsi tellitava salvestamise.",
+    "failedToEnd": "Käsitsi tellitava salvestamise lõpetamine ei õnnestunud."
+  },
+  "noCameras": {
+    "buttonText": "Lisa kaamera",
+    "restricted": {
+      "title": "Ühtegi kaamerat pole saadaval",
+      "description": "Sul pole õigust ühegi selle grupi kaamera vaatamiseks."
+    },
+    "title": "Ühtegi kaamerat pole seadistatud",
+    "description": "Alustamiseks ühenda mõni kaamera Frigate'iga.",
+    "default": {
+      "title": "Ühtegi kaamerat pole seadistatud",
+      "description": "Alustamiseks ühenda mõni kaamera Frigate'iga.",
+      "buttonText": "Lisa kaamera"
+    },
+    "group": {
+      "title": "Grupid pole ühtegi kaamerat",
+      "description": "Selles kaameragrupis pole ühtegi määratud ega kasutusel kaamerat.",
+      "buttonText": "Halda gruppe"
+    }
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "active_objects": "Aktiivsed objektid",
+      "all": "Kõik",
+      "motion": "Liikumine"
+    }
+  },
+  "editLayout": {
+    "label": "Muuda paigutust",
+    "group": {
+      "label": "Muuda kaameragruppi"
+    },
+    "exitEdit": "Välju muutmisest"
+  },
+  "history": {
+    "label": "Näita varasemat sisu"
+  },
+  "suspend": {
+    "forTime": "Peatamise aeg: "
+  }
+}

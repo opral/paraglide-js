@@ -1,0 +1,219 @@
+{
+  "documentTitle": "Klasifikavimo Modeliai - Frigate",
+  "button": {
+    "deleteClassificationAttempts": "Trinti Klasisifikavimo Nuotraukas",
+    "renameCategory": "Pervadinti Klasę",
+    "deleteCategory": "Trinti Klasę",
+    "deleteImages": "Trinti Nuotraukas",
+    "trainModel": "Treniruoti Modelį",
+    "addClassification": "Pridėti Klasifikatorių",
+    "deleteModels": "Ištrinti Modelius",
+    "editModel": "Koreguoti Modelį"
+  },
+  "toast": {
+    "success": {
+      "deletedCategory_one": "Ištrinta {{count}} klasė",
+      "deletedCategory_few": "Ištrinta {{count}} klasės",
+      "deletedCategory_other": "Ištrinta {{count}} klasių",
+      "deletedImage_one": "Ištrintas {{count}} paveikslėlis",
+      "deletedImage_few": "Ištrinti {{count}} paveikslėliai",
+      "deletedImage_other": "Ištrinta {{count}} paveikslėlių",
+      "categorizedImage": "Sekmingai Klasifikuotas Nuotrauka",
+      "trainedModel": "Modelis sėkmingai apmokytas.",
+      "trainingModel": "Sėkmingai pradėtas modelio apmokymas.",
+      "deletedModel_one": "Sėkmingai ištrintas {{count}} modelis",
+      "deletedModel_few": "Sėkmingai ištrinti {{count}} modeliai",
+      "deletedModel_other": "Sėkmingai ištrinta {{count}} modelių",
+      "updatedModel": "Modelio nustatymai atnaujinti sėkmingai",
+      "renamedCategory": "Klasifikatorius sėkmingai pervadintas į {{name}}",
+      "reclassifiedImage": "Paveikslėlis sėkmingai perklasifikuotas"
+    },
+    "error": {
+      "deleteImageFailed": "Nepavyko ištrinti:{{errorMessage}}",
+      "deleteCategoryFailed": "Nepavyko ištrinti klasės:{{errorMessage}}",
+      "categorizeFailed": "Nepavyko kategorizuoti nuotraukos:{{errorMessage}}",
+      "trainingFailed": "Modelio treniravimas nepavyko. Patikrinkite Frigate log'ų detales.",
+      "deleteModelFailed": "Nepavyko ištrinti modelio: {{errorMessage}}",
+      "trainingFailedToStart": "Nepavyko pradėti modelio treniravimo: {{errorMessage}}",
+      "updateModelFailed": "Nepavyko atnaujinti modelio: {{errorMessage}}",
+      "renameCategoryFailed": "Nepavyko pervadinti klasifikatoriaus: {{errorMessage}}",
+      "reclassifyFailed": "Nepavyko perklasifikuoti paveikslėlio: {{errorMessage}}"
+    }
+  },
+  "deleteCategory": {
+    "title": "Trinti Klasę",
+    "desc": "Esate įsitikinę, norite ištrinti klasę {{name}}? Tai negrįžtamai ištrins visas susijusias nuotraukas ir reikės iš naujo apmokinti modelį.",
+    "minClassesTitle": "Negalima Ištrinti Klasifikatoriaus",
+    "minClassesDesc": "Klasifikavimo modelis turi turėti bent 2 klasifikatorius. Pridėkite dar vieną klasifikatoriu prieš ištrinant šį."
+  },
+  "deleteDatasetImages": {
+    "title": "Ištrinti Imties Nuotraukas",
+    "desc_one": "Esate įsitikinę norite ištrinti {{count}} nautrauką iš {{dataset}}? Šis veiksmas negrįžtamas ir reikės iš naujo apmokinti modelį.",
+    "desc_few": "Esate įsitikinę norite ištrinti {{count}} nautraukas iš {{dataset}}? Šis veiksmas negrįžtamas ir reikės iš naujo apmokinti modelį.",
+    "desc_other": "Esate įsitikinę norite ištrinti {{count}} nautraukų iš {{dataset}}? Šis veiksmas negrįžtamas ir reikės iš naujo apmokinti modelį."
+  },
+  "deleteTrainImages": {
+    "title": "Ištrinti Apmokymo Nuotraukas",
+    "desc_one": "Ar esate įsitikinę, kad norite ištrinti {{count}} nuotrauką? Šis veiksmas negrįžtamas.",
+    "desc_few": "Ar esate įsitikinę, kad norite ištrinti {{count}} nuotraukas? Šis veiksmas negrįžtamas.",
+    "desc_other": "Ar esate įsitikinę, kad norite ištrinti {{count}} nuotraukų? Šis veiksmas negrįžtamas."
+  },
+  "renameCategory": {
+    "title": "Pervadinti Klasę",
+    "desc": "Įveskite naują vardą vietoje {{name}}. Jums reikės iš naujo apmokinti modelį, kad pavadinimas įsigaliotų."
+  },
+  "description": {
+    "invalidName": "Netinkamas vardas. Vardas gali būti sudarytas tik iš raidžiū, skaičių, tarpų, apostrofų, pabraukimų ar brūkšnelių."
+  },
+  "train": {
+    "title": "Pastarosios Klasifikacijos",
+    "aria": "Pasirinkti Pastarasias Klasifikacijas",
+    "titleShort": "Paskutiniai"
+  },
+  "categories": "Klasės",
+  "createCategory": {
+    "new": "Sukurti Naują Klasę"
+  },
+  "categorizeImageAs": "Klasifikuoti Nuotrauką Kaip:",
+  "categorizeImage": "Klasifikuoti Nuotrauką",
+  "noModels": {
+    "object": {
+      "title": "Nėra Objektų Klasifikavimo Modelių",
+      "description": "Sukurti individualų modelį ištrintų objektų klasifikavimui.",
+      "buttonText": "Sukurti Objekto Modelį"
+    },
+    "state": {
+      "title": "Nėra Būklės Klasifikavimo Modelių",
+      "description": "Sukurti individualų modelį sekti ir klasifikuoti būsenų pokyčius konkrečiuose kameros plotuose.",
+      "buttonText": "Sukurti Būsenos Modelį"
+    }
+  },
+  "details": {
+    "scoreInfo": "Įvertinimas atspindi vidutinį klasivikavimo pasitikėjimą tarp visų šio objekto atpažinimų.",
+    "none": "Nėra",
+    "unknown": "Nežinoma"
+  },
+  "tooltip": {
+    "trainingInProgress": "Šiuo metu vyksta modelio apmokymas",
+    "noNewImages": "Nėra naujų paveikslėlių apmokymui. Pradžiai suklasifikuokite daugiau paveikslėlių duomenų rinkinyje.",
+    "noChanges": "Po paskutinio apmokymo duomenų rinkinyje pakeitimų nėra.",
+    "modelNotReady": "Modelis neparuoštas apmokymui"
+  },
+  "deleteModel": {
+    "title": "Ištrinti Klasifikavimo Modelį",
+    "single": "Ar įsitikinę kad norite trinti {{name}}? Tai negrįžtamai ištrins ir susijusius paveikslėlius bei apmokymo duomenis. Tai negali būti sugražinta.",
+    "desc_one": "Ar esate įsitikinę kad norite ištrinti {{count}} modelį? Tai negrįžtamai ištrins ir susijusius paveikslėlius bei apmokymo duomenis. Tai negali būti sugražinta.",
+    "desc_few": "Ar esate įsitikinę kad norite ištrinti {{count}} modelius? Tai negrįžtamai ištrins ir susijusius paveikslėlius bei apmokymo duomenis. Tai negali būti sugražinta.",
+    "desc_other": "Ar esate įsitikinę kad norite ištrinti {{count}} modelių? Tai negrįžtamai ištrins ir susijusius paveikslėlius bei apmokymo duomenis. Tai negali būti sugražinta."
+  },
+  "edit": {
+    "title": "Koreguoti Klasifikavimo Modelį",
+    "descriptionState": "Koreguoti klasifikatorius šiam būklės klasifikavimo modeliui. Pokyčiams reikės išnaujo apmokinti modelį.",
+    "descriptionObject": "Koreguoti objekto tipą ir klasifikavimo tipą šiam objektų klasifikavimo modeliui.",
+    "stateClassesInfo": "Modelis atnaujintas. iš naujo apmokinkite modelį, kad pokyčiai įsigaliotų.",
+    "enabled": "Įjungta",
+    "enabledDesc": "Paleisti šį modelį. Kai išjungta, jis nustos veikęs ir daugiau neklasifikuos.",
+    "saveAttempts": "Bandymai išsaugoti",
+    "saveAttemptsDesc": "Kiekis paveikslėlių klasifikavimui kurį saugoti pastarūjų klasifikavimų puslapyje.",
+    "motion": "Leisti esant Judesiui",
+    "motionDesc": "Leist klasifikavimą kai aptinkamas judesys sukonfiguruotoje zonoje.",
+    "interval": "Intervalas",
+    "intervalDesc": "Sekundžių tarp periodinių klasifikavimo užduočių. Palikite tuščią kad suveiktų tik esant judesiui.",
+    "intervalPlaceholder": "Nėra intervalo",
+    "errors": {
+      "saveAttemptsInvalid": "Išsaugomų bandymų privalo buti sveikas skaičius arba daugiau už 0",
+      "intervalInvalid": "Intervalas privalo būti sveikas skaičius didesnis už 0"
+    }
+  },
+  "wizard": {
+    "step3": {
+      "allImagesRequired_one": "Prašom klasifikuoti visus paveikslėlius. Liko {{count}} paveikslėlis.",
+      "allImagesRequired_few": "Prašom klasifikuoti visus paveikslėlius. Liko {{count}} paveikslėliai.",
+      "allImagesRequired_other": "Prašom klasifikuoti visus paveikslėlius. Liko {{count}} paveikslėlių.",
+      "selectImagesPrompt": "Pasirinkti visus paveikslėlius su: {{className}}",
+      "selectImagesDescription": "Spauskite ant paveikslėlių, kad juos pasirinkti. Spauskite Tęsti kai su šia klase baigsite.",
+      "generating": {
+        "title": "Generuojami Pavyzdiniai Paveikslėliai",
+        "description": "Frigate traukia iš jūsų įrašų reprezentatyvius paveikslėlius. Tai gali užtrukti..."
+      },
+      "training": {
+        "title": "Modelio Apmokymas",
+        "description": "Jūsų modelis yra apmokomas fone. Uždarykite šį pranešimą, jūsų modelis pradės veikti iš karto kai bus užbaigtas."
+      },
+      "retryGenerate": "Pakartoti Generavimą",
+      "noImages": "Pavyzdinių paveikslėlių nesugeneruota",
+      "classifying": "Klasifikuojama ir Apmokoma...",
+      "trainingStarted": "Apmokymai pradėti sėkmingai",
+      "modelCreated": "Modelis sėkmingai sukurtas. Naudoti paskutinius Klasifikavimus, žiūrėti paveiksliukus trūkstamų būklių pridėjimui ir tada apmokyti modelį.",
+      "errors": {
+        "noCameras": "Nėra sukonfiguruotų kamerų",
+        "noObjectLabel": "Nepasirinkta objekto etiketė",
+        "generateFailed": "Nepavyko sugeneruoti pavyzdžių: {{error}}",
+        "generationFailed": "Generavimas nepavyko. Prašau bandykite dar kartą.",
+        "classifyFailed": "Nepavyko suklasifikuoti paveikslėlių: {{error}}"
+      },
+      "generateSuccess": "Sėkmingai sugeneruoti pavyzdiniai paveikslėliai",
+      "missingStatesWarning": {
+        "title": "Trūksta Klasių Pavyzdžių",
+        "description": "Ne visos būklės turės pavyzdinius paveikslėlius. Bandykite sugeneruoti naujų pavyzdžių kad surastumėte trukstamas klases, arba tęskite naudodami pastarūjų klasifikavimų meniu kad pridėtumėte paveikslėlius vėliau."
+      },
+      "refreshExamples": "Generuoti naujus pavyzdžius",
+      "refreshConfirm": {
+        "title": "Generuoti Naujus Pavyzdžius?",
+        "description": "Tai sugeneruos naują atvaizdų imtį ir panaikins pažymetus, įskaitant ir buvusias klases. Jums reikės iš naujo pažymėti pavyzdžius visoms klasėms."
+      }
+    },
+    "title": "Sukurti Naują Klasifikavimą",
+    "steps": {
+      "nameAndDefine": "Pavadinimas ir Apibūdinimas",
+      "stateArea": "Būsenos Plotas",
+      "chooseExamples": "Pasirinkti Pavyzdžius"
+    },
+    "step1": {
+      "description": "Būklės modeliai vertina pasikeitimus fiksuotuose kamerų plotuose (pvz., door open/closed). Objektų modeliai pridedą klasifikavimą aptiktiems objektams (pvz., žinomi gyvūnai, pristatymų kurjeriai, kt.).",
+      "name": "Pavadinimas",
+      "namePlaceholder": "Įveskite modelio pavadinimą...",
+      "type": "Tipas",
+      "typeState": "Būklė",
+      "typeObject": "Objektas",
+      "objectLabel": "Ojektų Etiketė",
+      "objectLabelPlaceholder": "Pasirinkite objekto tipą...",
+      "classificationType": "Klasifikavimo Tipas",
+      "classificationTypeTip": "Sužinoti daugiau apie klasifikavimo tipus",
+      "classificationTypeDesc": "Sub Etiketės prideda papildomą teksta prie objekto etikečių (pvz., 'Asmuo: UPS'). Atributai yra paieškai naudojami metaduomenys saugomi atskirai su objektų metaduomenimis.",
+      "classificationSubLabel": "Sub Etiketė",
+      "classificationAttribute": "Atributas",
+      "classes": "Klasės",
+      "states": "Būklės",
+      "classesTip": "Sužinoti apie klases",
+      "classesStateDesc": "Įvardinkite skirtingas būkles kokiose jūsų kameros plotas gali skaitytis. Pavyzdžiui: 'Atidaryti' ir 'Uždaryti' garažo vartai.",
+      "classesObjectDesc": "Įvardinkite skirtingas klasifikavimo kategorijas aptiktų objektų klasifikavimui. Pavyzdžiui: Asmenų klasifikavimui 'Pristatymų_kurjeris','Gyventojas','Nepažystamasis'.",
+      "classPlaceholder": "Įveskite klasės pavadinimą...",
+      "errors": {
+        "nameRequired": "Modelio pavadinimas privalomas",
+        "nameLength": "Modelio pavadinimas privalo būti trumpesnis nei 64 simboliai",
+        "nameOnlyNumbers": "Modelio pavadinime negali būti tik skaičiai",
+        "classRequired": "Bent viena klasė yra privaloma",
+        "classesUnique": "Klasių pavadinimai privalo būti unikalūs",
+        "noneNotAllowed": "Klasė 'nėra' yra neleidžiama",
+        "stateRequiresTwoClasses": "Būklių modeliui privalomos bent 2 klasės",
+        "objectLabelRequired": "Prašome pasirinkti objekto etiketę",
+        "objectTypeRequired": "Prašome pasirinkti klasifikavimo tipą"
+      }
+    },
+    "step2": {
+      "description": "Pasirinkite kameras ir nustatykite plotą stebėjimui kiekvienai kamerai. Modelis klasifikuos būkles šiems plotams.",
+      "cameras": "Kameros",
+      "selectCamera": "Pasirinkite Kamerą",
+      "noCameras": "Spauskite + kad pridėti kameras",
+      "selectCameraPrompt": "Pasirinkite iš kamerą iš sarašo kad nurodytumėte plotą"
+    }
+  },
+  "menu": {
+    "objects": "Objektai",
+    "states": "Būsenos"
+  },
+  "disabled": "Išjungta",
+  "reclassifyImageAs": "Perklasifikuoti Atvaizdą Kaip:",
+  "reclassifyImage": "Perklasifikuoti Atvaizdą"
+}

@@ -1,0 +1,200 @@
+{
+  "documentTitle": {
+    "default": "Transmisja - Frigate"
+  },
+  "documentTitle.withCamera": "{{camera}}- Na żywo - Frigate",
+  "lowBandwidthMode": "Tryb niskiej przepustowości",
+  "twoWayTalk": {
+    "enable": "Włącz komunikację dwukierunkową",
+    "disable": "Wyłącz komunikację dwukierunkową"
+  },
+  "cameraAudio": {
+    "enable": "Włącz dźwięk kamery",
+    "disable": "Wyłącz dźwięk kamery"
+  },
+  "ptz": {
+    "move": {
+      "clickMove": {
+        "label": "Kliknij w ramce, aby wyśrodkować kamerę",
+        "enable": "Włącz kliknięcie do przesuwania",
+        "disable": "Wyłącz kliknięcie do przesuwania",
+        "enableWithZoom": "Włącz kliknij, aby przesunąć / przeciągnij, aby przybliżyć"
+      },
+      "left": {
+        "label": "Przesuń kamerę PTZ w lewo"
+      },
+      "right": {
+        "label": "Przesuń kamerę PTZ w prawo"
+      },
+      "down": {
+        "label": "Przesuń kamerę PTZ w dół"
+      },
+      "up": {
+        "label": "Przesuń kamerę PTZ w górę"
+      }
+    },
+    "zoom": {
+      "in": {
+        "label": "Przybliż kamerę PTZ"
+      },
+      "out": {
+        "label": "Oddal kamerę PTZ"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "Kliknij w ramce, aby wyśrodkować kamerę PTZ"
+      }
+    },
+    "presets": "Presety kamery PTZ",
+    "focus": {
+      "in": {
+        "label": "Zmniejsz ostrość kamery PTZ"
+      },
+      "out": {
+        "label": "Wyostrz kamerę PTZ"
+      }
+    }
+  },
+  "recording": {
+    "enable": "Włącz nagrywanie",
+    "disable": "Wyłącz nagrywanie",
+    "disabledInConfig": "Nagrywanie musi być najpierw włączone w Ustawieniach dla tej kamery."
+  },
+  "snapshots": {
+    "enable": "Włącz zrzuty ekranu",
+    "disable": "Wyłącz zrzuty ekranu"
+  },
+  "streamStats": {
+    "disable": "Ukryj statystyki strumienia",
+    "enable": "Pokaż statystyki strumienia"
+  },
+  "manualRecording": {
+    "title": "Nagrywanie na żądanie",
+    "tips": "Ręcznie rozpocznij zdarzenie w oparciu o ustawienia przechowywania nagrań tej kamery.",
+    "playInBackground": {
+      "label": "Odtwarzaj w tle",
+      "desc": "Włącz tę opcję, aby kontynuować transmisję, gdy odtwarzacz jest ukryty."
+    },
+    "showStats": {
+      "label": "Pokaż statystyki",
+      "desc": "Włącz tę opcję, aby pokazać statystyki strumienia jako nakładkę na podgląd kamery."
+    },
+    "debugView": "Widok debugowania",
+    "start": "Rozpocznij nagrywanie na żądanie",
+    "started": "Rozpoczęto ręczne nagrywanie na żądanie.",
+    "failedToStart": "Nie udało się rozpocząć ręcznego nagrywania na żądanie.",
+    "recordDisabledTips": "Ponieważ nagrywanie jest wyłączone lub ograniczone w konfiguracji tej kamery, zostanie zapisany tylko zrzut ekranu.",
+    "end": "Zakończ nagrywanie na żądanie",
+    "ended": "Zakończono ręczne nagrywanie na żądanie.",
+    "failedToEnd": "Nie udało się zakończyć ręcznego nagrywania na żądanie."
+  },
+  "notifications": "Powiadomienia",
+  "audio": "Dźwięk",
+  "suspend": {
+    "forTime": "Zawieś na: "
+  },
+  "stream": {
+    "title": "Strumień",
+    "audio": {
+      "tips": {
+        "title": "Dźwięk musi być wysyłany z kamery i skonfigurowany w go2rtc dla tego strumienia."
+      },
+      "available": "Dźwięk jest dostępny dla tego strumienia",
+      "unavailable": "Dźwięk nie jest dostępny dla tego strumienia"
+    },
+    "twoWayTalk": {
+      "tips": "Twoje urządzenie musi obsługiwać tę funkcję, a WebRTC musi być skonfigurowany dla komunikacji dwukierunkowej.",
+      "unavailable": "Komunikacja dwukierunkowa jest niedostępna dla tego strumienia",
+      "available": "Komunikacja dwukierunkowa jest dostępna dla tego strumienia"
+    },
+    "lowBandwidth": {
+      "resetStream": "Zresetuj strumień",
+      "tips": "Podgląd na żywo jest w trybie niskiej przepustowości z powodu buforowania lub błędów strumienia."
+    },
+    "playInBackground": {
+      "tips": "Włącz tę opcję, aby kontynuować transmisję, gdy odtwarzacz jest ukryty.",
+      "label": "Odtwarzaj w tle"
+    },
+    "debug": {
+      "picker": "Wybór strumienia jest niedostępny w trybie debug. Widok w trybie debug zawsze pokazuje strumień przypisany do detektora."
+    }
+  },
+  "cameraSettings": {
+    "title": "Ustawienia {{camera}}",
+    "objectDetection": "Wykrywanie obiektów",
+    "recording": "Nagrywanie",
+    "snapshots": "Zrzuty ekranu",
+    "audioDetection": "Wykrywanie dźwięku",
+    "autotracking": "Automatyczne śledzenie",
+    "transcription": "Stenogram",
+    "camera": "Kamera"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "all": "Wszystkie",
+      "active_objects": "Aktywne obiekty",
+      "motion": "Ruch"
+    }
+  },
+  "editLayout": {
+    "label": "Edytuj układ",
+    "group": {
+      "label": "Edytuj grupę kamer"
+    },
+    "exitEdit": "Zakończ edycję"
+  },
+  "muteCameras": {
+    "enable": "Wycisz wszystkie kamery",
+    "disable": "Wyłącz wyciszenie wszystkich kamer"
+  },
+  "camera": {
+    "turnOn": "Włącz kamerę",
+    "turnOff": "Wyłącz kamerę"
+  },
+  "autotracking": {
+    "enable": "Włącz automatyczne śledzenie",
+    "disable": "Wyłącz automatyczne śledzenie"
+  },
+  "detect": {
+    "disable": "Wyłącz wykrywanie",
+    "enable": "Włącz wykrywanie"
+  },
+  "audioDetect": {
+    "enable": "Włącz wykrywanie dźwięku",
+    "disable": "Wyłącz wykrywanie dźwięku"
+  },
+  "streamingSettings": "Ustawienia transmisji",
+  "history": {
+    "label": "Pokaż nagrania archiwalne"
+  },
+  "transcription": {
+    "enable": "Włącz audio transkrypcję na żywo",
+    "disable": "Wyłącz audio transkrypcję na żywo"
+  },
+  "noCameras": {
+    "buttonText": "Dodaj kamerę",
+    "description": "Zacznij od podłączenia kamery do Frigate.",
+    "title": "Nie skonfigurowano żadnej kamery",
+    "restricted": {
+      "title": "Brak dostępnych kamer",
+      "description": "Nie masz uprawnień aby przeglądać kamery w tej grupie."
+    },
+    "default": {
+      "title": "Nie skonfigurowano żadnej kamery",
+      "buttonText": "Dodaj kamerę",
+      "description": "Zacznij od podłączenia kamery do Frigate."
+    },
+    "group": {
+      "title": "Brak kamer w grupie",
+      "description": "Grupa kamer nie ma przypisanych ani włączonych kamer.",
+      "buttonText": "Zarządzaj grupami"
+    }
+  },
+  "snapshot": {
+    "takeSnapshot": "Pobierz miniaturę",
+    "captureFailed": "Nie udało się wykonać migawki.",
+    "downloadStarted": "Pobieranie migawki rozpoczęte.",
+    "noVideoSource": "Brak źródeł video dostępnych do wykonania migawki."
+  }
+}

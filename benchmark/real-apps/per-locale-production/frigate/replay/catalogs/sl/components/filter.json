@@ -1,0 +1,140 @@
+{
+  "filter": "Filter",
+  "labels": {
+    "label": "Oznake",
+    "all": {
+      "title": "Vse oznake",
+      "short": "Oznake"
+    },
+    "count_one": "{{count}} oznaka",
+    "count_other": "{{count}} oznak"
+  },
+  "dates": {
+    "selectPreset": "Izberi prednastavitev…",
+    "all": {
+      "title": "Vsi datumi",
+      "short": "Datumi"
+    }
+  },
+  "more": "Več filtrov",
+  "explore": {
+    "settings": {
+      "defaultView": {
+        "summary": "Povzetek",
+        "title": "Privzeti pogled",
+        "desc": "Ko ni izbran noben filter, prikaži povzetek najnovejših sledenih objektov po oznaki ali pa prikaži nefiltrirano mrežo.",
+        "unfilteredGrid": "Nefiltrirana mreža"
+      },
+      "title": "Nastavitve",
+      "gridColumns": {
+        "title": "Stolpci mreže",
+        "desc": "Izberi število stolpcev v mrežnem pogledu."
+      },
+      "searchSource": {
+        "label": "Vir iskanja",
+        "desc": "Izberi, ali želiš iskati po sličicah ali opisih sledenih objektov.",
+        "options": {
+          "thumbnailImage": "Sličica",
+          "description": "Opis"
+        }
+      }
+    },
+    "date": {
+      "selectDateBy": {
+        "label": "Izberi datum za filtriranje"
+      }
+    }
+  },
+  "subLabels": {
+    "all": "Vse podoznake",
+    "label": "Podoznake"
+  },
+  "sort": {
+    "relevance": "Ustreznost",
+    "dateAsc": "Datum (naraščajoče)",
+    "label": "Razvrsti",
+    "dateDesc": "Datum (padajoče)",
+    "scoreAsc": "Ocena objekta (naraščajoče)",
+    "scoreDesc": "Ocena objekta (padajoče)",
+    "speedAsc": "Ocenjena hitrost (naraščajoče)",
+    "speedDesc": "Ocenjena hitrost (padajoče)"
+  },
+  "zones": {
+    "label": "Cone",
+    "all": {
+      "title": "Vse cone",
+      "short": "Cone"
+    }
+  },
+  "timeRange": "Časovno obdobje",
+  "reset": {
+    "label": "Ponastavi filtre na privzete vrednosti"
+  },
+  "logSettings": {
+    "disableLogStreaming": "Onemogoči sprotno osveževanje dnevnikov",
+    "allLogs": "Vsi dnevniki",
+    "label": "Filter ravni dnevnika",
+    "filterBySeverity": "Filtriraj dnevnike po resnosti",
+    "loading": {
+      "title": "Nalaganje",
+      "desc": "Ko je področje z dnevniki pomaknjeno do dna, se novi vnosi samodejno sproti dodajajo."
+    }
+  },
+  "trackedObjectDelete": {
+    "title": "Potrdi brisanje",
+    "desc": "Z brisanjem teh {{objectLength}} sledenih objektov odstraniš posnetek, vse shranjene vložitve (embeddings) in vse povezane vnose v življenjskem ciklu objekta. Posnetki teh objektov v pogledu zgodovine <em>NE</em> bodo izbrisani.<br /><br />Ali si prepričan, da želiš nadaljevati?<br /><br />Drži tipko <em>Shift</em>, da v prihodnje preskočiš to okno.",
+    "toast": {
+      "success": "Sledeni objekti so bili uspešno izbrisani.",
+      "error": "Napaka pri brisanju sledenih objektov: {{errorMessage}}"
+    }
+  },
+  "zoneMask": {
+    "filterBy": "Filtriraj po maski cone"
+  },
+  "classes": {
+    "label": "Razredi",
+    "all": {
+      "title": "Vsi razredi"
+    },
+    "count_one": "{{count}} razred",
+    "count_other": "{{count}} razredi"
+  },
+  "score": "Ocena",
+  "estimatedSpeed": "Ocenjena hitrost ({{unit}})",
+  "features": {
+    "label": "Funkcije",
+    "hasSnapshot": "Ima posnetek (snapshot)",
+    "hasVideoClip": "Ima video posnetek",
+    "submittedToFrigatePlus": {
+      "label": "Poslano v Frigate+",
+      "tips": "Najprej moraš filtrirati sledene objekte, ki imajo posnetek.<br /><br />Sledenih objektov brez posnetka ni mogoče poslati v Frigate+."
+    }
+  },
+  "cameras": {
+    "label": "Filter kamer",
+    "all": {
+      "title": "Vse kamere",
+      "short": "Kamere"
+    }
+  },
+  "review": {
+    "showReviewed": "Pokaži pregledano"
+  },
+  "motion": {
+    "showMotionOnly": "Pokaži samo gibanje"
+  },
+  "recognizedLicensePlates": {
+    "title": "Prepoznane registrske tablice",
+    "loadFailed": "Nalaganje prepoznanih registrskih tablic ni uspelo.",
+    "loading": "Nalagam prepoznane registrske tablice…",
+    "placeholder": "Tipkaj za iskanje tablic…",
+    "noLicensePlatesFound": "Ni najdenih registrskih tablic.",
+    "selectPlatesFromList": "Izberi eno ali več tablic s seznama.",
+    "selectAll": "Izberi vse",
+    "clearAll": "Počisti vse"
+  },
+  "attributes": {
+    "label": "Atributi klasifikacije",
+    "all": "Vsi atributi"
+  }
+}

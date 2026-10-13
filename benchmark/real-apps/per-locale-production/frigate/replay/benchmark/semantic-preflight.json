@@ -1,0 +1,2314 @@
+{
+  "purpose": "Preflight of existing compiled-resource adapter fallback semantics. Candidate resources represent compiler fallback merged into selected locale. This is not a compiled artifact parity test.",
+  "checks": 40829,
+  "mismatchCount": 129,
+  "mismatches": [
+    {
+      "ns": "common",
+      "key": "button",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "apply": "Appliquer",
+        "reset": "Réinitialiser",
+        "disabled": "Désactivé",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "close": "Fermer",
+        "copy": "Copier",
+        "back": "Retour",
+        "history": "Historique",
+        "pictureInPicture": "Image dans l'image",
+        "twoWayTalk": "Conversation bidirectionnelle",
+        "off": "OFF",
+        "edit": "Modifier",
+        "copyCoordinates": "Copier les coordonnées",
+        "delete": "Supprimer",
+        "yes": "Oui",
+        "no": "Non",
+        "unsuspended": "Réactiver",
+        "play": "Lire",
+        "unselect": "Désélectionner",
+        "suspended": "Suspendu",
+        "enable": "Activer",
+        "enabled": "Activé",
+        "info": "Info",
+        "disable": "Désactiver",
+        "cancel": "Annuler",
+        "fullscreen": "Plein écran",
+        "next": "Suivant",
+        "exitFullscreen": "Sortir du mode plein écran",
+        "cameraAudio": "Son de la caméra",
+        "on": "ON",
+        "export": "Exporter",
+        "deleteNow": "Supprimer maintenant",
+        "download": "Télécharger",
+        "done": "Terminé",
+        "continue": "Continuer",
+        "add": "Ajouter",
+        "undo": "Annuler",
+        "copiedToClipboard": "Copié dans le presse-papiers",
+        "modified": "Modifié",
+        "overridden": "Surpassé",
+        "resetToGlobal": "Réinitialiser aux réglages globaux",
+        "resetToDefault": "Réinitialiser aux réglages par défaut",
+        "saveAll": "Tout enregistrer",
+        "savingAll": "Enregistrement de tout en cours…",
+        "undoAll": "Tout annuler",
+        "applying": "Enregistrement …",
+        "retry": "Réessayer"
+      },
+      "candidate": {
+        "add": "Ajouter",
+        "apply": "Appliquer",
+        "applying": "Enregistrement …",
+        "reset": "Réinitialiser",
+        "undo": "Annuler",
+        "done": "Terminé",
+        "enabled": "Activé",
+        "enable": "Activer",
+        "disabled": "Désactivé",
+        "disable": "Désactiver",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "cancel": "Annuler",
+        "close": "Fermer",
+        "expand": "Expand",
+        "collapse": "Collapse",
+        "clear": "Clear",
+        "copy": "Copier",
+        "copiedToClipboard": "Copié dans le presse-papiers",
+        "back": "Retour",
+        "history": "Historique",
+        "fullscreen": "Plein écran",
+        "exitFullscreen": "Sortir du mode plein écran",
+        "pictureInPicture": "Image dans l'image",
+        "twoWayTalk": "Conversation bidirectionnelle",
+        "cameraAudio": "Son de la caméra",
+        "on": "ON",
+        "off": "OFF",
+        "edit": "Modifier",
+        "copyCoordinates": "Copier les coordonnées",
+        "delete": "Supprimer",
+        "yes": "Oui",
+        "no": "Non",
+        "download": "Télécharger",
+        "info": "Info",
+        "suspended": "Suspendu",
+        "unsuspended": "Réactiver",
+        "play": "Lire",
+        "unselect": "Désélectionner",
+        "export": "Exporter",
+        "deleteNow": "Supprimer maintenant",
+        "next": "Suivant",
+        "continue": "Continuer",
+        "modified": "Modifié",
+        "overridden": "Surpassé",
+        "resetToGlobal": "Réinitialiser aux réglages globaux",
+        "resetToDefault": "Réinitialiser aux réglages par défaut",
+        "saveAll": "Tout enregistrer",
+        "savingAll": "Enregistrement de tout en cours…",
+        "undoAll": "Tout annuler",
+        "retry": "Réessayer",
+        "reload": "Reload"
+      }
+    },
+    {
+      "ns": "common",
+      "key": "menu",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "configuration": "Configuration",
+        "language": {
+          "en": "English (Anglais)",
+          "withSystem": {
+            "label": "Utiliser les paramètres système pour la langue"
+          },
+          "zhCN": "简体中文 (Chinois simplifié)",
+          "hi": "हिन्दी (Hindi)",
+          "fr": "Français (Français)",
+          "ja": "日本語 (Japonais)",
+          "tr": "Türkçe (Turc)",
+          "it": "Italiano (Italien)",
+          "nl": "Nederlands (Néerlandais)",
+          "sv": "Svenska (Suédois)",
+          "cs": "Čeština (Tchèque)",
+          "nb": "Norsk Bokmål (Norvégien Bokmål)",
+          "ko": "한국어 (Coréen)",
+          "fa": "فارسی (Persan)",
+          "pl": "Polski (Polonais)",
+          "el": "Ελληνικά (Grec)",
+          "ro": "Română (Roumain)",
+          "hu": "Magyar (Hongrois)",
+          "he": "עברית (Hébreu)",
+          "ru": "Русский (Russe)",
+          "de": "Deutsch (Allemand)",
+          "es": "Español (Espagnol)",
+          "ar": "العربية (Arabe)",
+          "da": "Dansk (Danois)",
+          "fi": "Suomi (Finlandais)",
+          "pt": "Português (Portugais)",
+          "sk": "Slovenčina (Slovaque)",
+          "uk": "Українська (Ukrainien)",
+          "vi": "Tiếng Việt (Vietnamien)",
+          "yue": "粵語 (Cantonais)",
+          "th": "ไทย (Thai)",
+          "ca": "Català (Catalan)",
+          "ptBR": "Português brasileiro (Portugais brésilien)",
+          "sr": "Српски (Serbe)",
+          "sl": "Slovenščina (Slovène)",
+          "lt": "Lietuvių (Lithuanien)",
+          "bg": "Български (Bulgare)",
+          "gl": "Galego (Galicien)",
+          "id": "Bahasa Indonesia (Indonésien)",
+          "ur": "اردو (Ourdou)",
+          "hr": "Hrvatski (Croate)",
+          "bs": "Bosanski (Bosnien)",
+          "zhHant": "繁體中文 (chinois traditionnel)"
+        },
+        "appearance": "Apparence",
+        "darkMode": {
+          "light": "Clair",
+          "dark": "Sombre",
+          "withSystem": {
+            "label": "Utiliser les paramètres système pour le mode clair ou sombre"
+          },
+          "label": "Mode sombre"
+        },
+        "review": "Activités",
+        "explore": "Explorer",
+        "export": "Exporter",
+        "user": {
+          "account": "Compte",
+          "logout": "Se déconnecter",
+          "setPassword": "Configurer un mot de passe",
+          "current": "Utilisateur actuel : {{user}}",
+          "title": "Utilisateur",
+          "anonymous": "anonyme"
+        },
+        "systemLogs": "Journaux système",
+        "documentation": {
+          "title": "Documentation",
+          "label": "Documentation de Frigate"
+        },
+        "system": "Système",
+        "help": "Aide",
+        "configurationEditor": "Éditeur de configuration",
+        "theme": {
+          "blue": "Bleu",
+          "green": "Vert",
+          "nord": "Nord",
+          "red": "Rouge",
+          "default": "Par défaut",
+          "label": "Thème",
+          "highcontrast": "Contraste élevé"
+        },
+        "systemMetrics": "Métriques du système",
+        "settings": "Paramètres",
+        "withSystem": "Système",
+        "restart": "Redémarrer Frigate",
+        "live": {
+          "cameras": {
+            "count_one": "{{count}} caméra",
+            "count_many": "{{count}} caméras",
+            "count_other": "{{count}} caméras",
+            "title": "Caméras"
+          },
+          "allCameras": "Toutes les caméras",
+          "title": "Direct"
+        },
+        "uiPlayground": "Bac à sable de l'interface",
+        "faceLibrary": "Bibliothèque de visages",
+        "languages": "Langues",
+        "classification": "Classification",
+        "profiles": "Profils",
+        "actions": "Actions",
+        "features": "Fonctionnalités",
+        "chat": "Discuter"
+      },
+      "candidate": {
+        "system": "Système",
+        "systemMetrics": "Métriques du système",
+        "configuration": "Configuration",
+        "systemLogs": "Journaux système",
+        "profiles": "Profils",
+        "settings": "Paramètres",
+        "configurationEditor": "Éditeur de configuration",
+        "languages": "Langues",
+        "language": {
+          "en": "English (Anglais)",
+          "es": "Español (Espagnol)",
+          "zhCN": "简体中文 (Chinois simplifié)",
+          "zhHant": "繁體中文 (chinois traditionnel)",
+          "hi": "हिन्दी (Hindi)",
+          "fr": "Français (Français)",
+          "ar": "العربية (Arabe)",
+          "pt": "Português (Portugais)",
+          "ptBR": "Português brasileiro (Portugais brésilien)",
+          "ru": "Русский (Russe)",
+          "de": "Deutsch (Allemand)",
+          "ja": "日本語 (Japonais)",
+          "tr": "Türkçe (Turc)",
+          "it": "Italiano (Italien)",
+          "nl": "Nederlands (Néerlandais)",
+          "sv": "Svenska (Suédois)",
+          "cs": "Čeština (Tchèque)",
+          "nb": "Norsk Bokmål (Norvégien Bokmål)",
+          "ko": "한국어 (Coréen)",
+          "vi": "Tiếng Việt (Vietnamien)",
+          "fa": "فارسی (Persan)",
+          "pl": "Polski (Polonais)",
+          "uk": "Українська (Ukrainien)",
+          "be": "Беларуская (Belarusian)",
+          "he": "עברית (Hébreu)",
+          "el": "Ελληνικά (Grec)",
+          "ro": "Română (Roumain)",
+          "hu": "Magyar (Hongrois)",
+          "fi": "Suomi (Finlandais)",
+          "da": "Dansk (Danois)",
+          "sk": "Slovenčina (Slovaque)",
+          "yue": "粵語 (Cantonais)",
+          "th": "ไทย (Thai)",
+          "ca": "Català (Catalan)",
+          "hr": "Hrvatski (Croate)",
+          "bs": "Bosanski (Bosnien)",
+          "sr": "Српски (Serbe)",
+          "sl": "Slovenščina (Slovène)",
+          "lt": "Lietuvių (Lithuanien)",
+          "bg": "Български (Bulgare)",
+          "gl": "Galego (Galicien)",
+          "id": "Bahasa Indonesia (Indonésien)",
+          "ur": "اردو (Ourdou)",
+          "withSystem": {
+            "label": "Utiliser les paramètres système pour la langue"
+          }
+        },
+        "appearance": "Apparence",
+        "darkMode": {
+          "label": "Mode sombre",
+          "light": "Clair",
+          "dark": "Sombre",
+          "withSystem": {
+            "label": "Utiliser les paramètres système pour le mode clair ou sombre"
+          }
+        },
+        "withSystem": "Système",
+        "theme": {
+          "label": "Thème",
+          "blue": "Bleu",
+          "green": "Vert",
+          "nord": "Nord",
+          "red": "Rouge",
+          "highcontrast": "Contraste élevé",
+          "default": "Par défaut"
+        },
+        "help": "Aide",
+        "documentation": {
+          "title": "Documentation",
+          "label": "Documentation de Frigate"
+        },
+        "restart": "Redémarrer Frigate",
+        "live": {
+          "title": "Direct",
+          "allCameras": "Toutes les caméras",
+          "cameras": {
+            "title": "Caméras",
+            "count_one": "{{count}} caméra",
+            "count_other": "{{count}} caméras",
+            "count_many": "{{count}} caméras"
+          }
+        },
+        "review": "Activités",
+        "explore": "Explorer",
+        "export": "Exporter",
+        "actions": "Actions",
+        "uiPlayground": "Bac à sable de l'interface",
+        "features": "Fonctionnalités",
+        "faceLibrary": "Bibliothèque de visages",
+        "classification": "Classification",
+        "chat": "Discuter",
+        "user": {
+          "title": "Utilisateur",
+          "account": "Compte",
+          "current": "Utilisateur actuel : {{user}}",
+          "anonymous": "anonyme",
+          "logout": "Se déconnecter",
+          "setPassword": "Configurer un mot de passe"
+        }
+      }
+    },
+    {
+      "ns": "common",
+      "key": "menu.language",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "en": "English (Anglais)",
+        "withSystem": {
+          "label": "Utiliser les paramètres système pour la langue"
+        },
+        "zhCN": "简体中文 (Chinois simplifié)",
+        "hi": "हिन्दी (Hindi)",
+        "fr": "Français (Français)",
+        "ja": "日本語 (Japonais)",
+        "tr": "Türkçe (Turc)",
+        "it": "Italiano (Italien)",
+        "nl": "Nederlands (Néerlandais)",
+        "sv": "Svenska (Suédois)",
+        "cs": "Čeština (Tchèque)",
+        "nb": "Norsk Bokmål (Norvégien Bokmål)",
+        "ko": "한국어 (Coréen)",
+        "fa": "فارسی (Persan)",
+        "pl": "Polski (Polonais)",
+        "el": "Ελληνικά (Grec)",
+        "ro": "Română (Roumain)",
+        "hu": "Magyar (Hongrois)",
+        "he": "עברית (Hébreu)",
+        "ru": "Русский (Russe)",
+        "de": "Deutsch (Allemand)",
+        "es": "Español (Espagnol)",
+        "ar": "العربية (Arabe)",
+        "da": "Dansk (Danois)",
+        "fi": "Suomi (Finlandais)",
+        "pt": "Português (Portugais)",
+        "sk": "Slovenčina (Slovaque)",
+        "uk": "Українська (Ukrainien)",
+        "vi": "Tiếng Việt (Vietnamien)",
+        "yue": "粵語 (Cantonais)",
+        "th": "ไทย (Thai)",
+        "ca": "Català (Catalan)",
+        "ptBR": "Português brasileiro (Portugais brésilien)",
+        "sr": "Српски (Serbe)",
+        "sl": "Slovenščina (Slovène)",
+        "lt": "Lietuvių (Lithuanien)",
+        "bg": "Български (Bulgare)",
+        "gl": "Galego (Galicien)",
+        "id": "Bahasa Indonesia (Indonésien)",
+        "ur": "اردو (Ourdou)",
+        "hr": "Hrvatski (Croate)",
+        "bs": "Bosanski (Bosnien)",
+        "zhHant": "繁體中文 (chinois traditionnel)"
+      },
+      "candidate": {
+        "en": "English (Anglais)",
+        "es": "Español (Espagnol)",
+        "zhCN": "简体中文 (Chinois simplifié)",
+        "zhHant": "繁體中文 (chinois traditionnel)",
+        "hi": "हिन्दी (Hindi)",
+        "fr": "Français (Français)",
+        "ar": "العربية (Arabe)",
+        "pt": "Português (Portugais)",
+        "ptBR": "Português brasileiro (Portugais brésilien)",
+        "ru": "Русский (Russe)",
+        "de": "Deutsch (Allemand)",
+        "ja": "日本語 (Japonais)",
+        "tr": "Türkçe (Turc)",
+        "it": "Italiano (Italien)",
+        "nl": "Nederlands (Néerlandais)",
+        "sv": "Svenska (Suédois)",
+        "cs": "Čeština (Tchèque)",
+        "nb": "Norsk Bokmål (Norvégien Bokmål)",
+        "ko": "한국어 (Coréen)",
+        "vi": "Tiếng Việt (Vietnamien)",
+        "fa": "فارسی (Persan)",
+        "pl": "Polski (Polonais)",
+        "uk": "Українська (Ukrainien)",
+        "be": "Беларуская (Belarusian)",
+        "he": "עברית (Hébreu)",
+        "el": "Ελληνικά (Grec)",
+        "ro": "Română (Roumain)",
+        "hu": "Magyar (Hongrois)",
+        "fi": "Suomi (Finlandais)",
+        "da": "Dansk (Danois)",
+        "sk": "Slovenčina (Slovaque)",
+        "yue": "粵語 (Cantonais)",
+        "th": "ไทย (Thai)",
+        "ca": "Català (Catalan)",
+        "hr": "Hrvatski (Croate)",
+        "bs": "Bosanski (Bosnien)",
+        "sr": "Српски (Serbe)",
+        "sl": "Slovenščina (Slovène)",
+        "lt": "Lietuvių (Lithuanien)",
+        "bg": "Български (Bulgare)",
+        "gl": "Galego (Galicien)",
+        "id": "Bahasa Indonesia (Indonésien)",
+        "ur": "اردو (Ourdou)",
+        "withSystem": {
+          "label": "Utiliser les paramètres système pour la langue"
+        }
+      }
+    },
+    {
+      "ns": "components/dialog",
+      "key": "export",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "time": {
+          "custom": "Personnalisé",
+          "fromTimeline": "Sélectionner depuis la chronologie",
+          "lastHour_one": "Dernière heure",
+          "lastHour_many": "{{count}} dernières heures",
+          "lastHour_other": "{{count}} dernières heures",
+          "end": {
+            "label": "Sélectionner une heure de fin",
+            "title": "Heure de fin"
+          },
+          "start": {
+            "label": "Sélectionner une heure de début",
+            "title": "Heure de début"
+          }
+        },
+        "selectOrExport": "Sélectionner ou exporter",
+        "toast": {
+          "error": {
+            "failed": "Échec de la mis en attente de l'exportation : {{error}}",
+            "endTimeMustAfterStartTime": "L'heure de fin doit être postérieure à l'heure de début.",
+            "noValidTimeSelected": "Interval de temps invalide"
+          },
+          "success": "Exportation démarrée avec succès. Consultez le fichier sur la page des exportations.",
+          "view": "Vue",
+          "queued": "Exportation en attente. Consultez la progression sur la page des exportations.",
+          "batchSuccess_one": "Un export démarré. Ouverture du dossier en cours.",
+          "batchSuccess_many": "{{count}} exports démarrés. Ouverture du dossier en cours.",
+          "batchSuccess_other": "{{count}} exports démarrés. Ouverture du dossier en cours.",
+          "batchPartial": "{{successful}} exports ont démarré sur un total de : {{total}}. Échecs : {{failedCameras}}",
+          "batchFailed": "Échec du démarrage de {{total}} exports. Échecs : {{failedCameras}}",
+          "batchQueuedSuccess_one": "Un export ajouté au traitement. Ouverture du dossier en cours.",
+          "batchQueuedSuccess_many": "{{count}} exports ajoutés au traitement. Ouverture du dossier en cours.",
+          "batchQueuedSuccess_other": "{{count}} exports rajoutés au traitement. Ouverture du dossier en cours.",
+          "batchQueuedPartial": "{{successful}} export(s) sur {{total}} mis en file d'attente. Caméra(s) en échec : {{failedCameras}}",
+          "batchQueueFailed": "Échec de mis en file d'attente de {{total}} export(s). Caméras en échec : {{failedCameras}}"
+        },
+        "select": "Sélectionner",
+        "name": {
+          "placeholder": "Nommer l'exportation"
+        },
+        "export": "Exporter",
+        "fromTimeline": {
+          "saveExport": "Enregistrer l'exportation",
+          "previewExport": "Aperçu de l'exportation",
+          "queueingExport": "Traitement de l'export...",
+          "useThisRange": "Utiliser cet interval"
+        },
+        "case": {
+          "label": "Dossier",
+          "placeholder": "Sélectionner un dossier",
+          "newCaseOption": "Créer un nouveau cas",
+          "newCaseNamePlaceholder": "Nouveau nom de cas",
+          "newCaseDescriptionPlaceholder": "Description de cas",
+          "nonAdminHelp": "Un nouveau cas sera créé pour ces exports."
+        },
+        "queueing": "Mise en file d'attente de l'export...",
+        "tabs": {
+          "export": "Caméra unique",
+          "multiCamera": "Multi-caméra"
+        },
+        "multiCamera": {
+          "timeRange": "Intervalle de temps",
+          "selectFromTimeline": "Sélectionner depuis la chronologie",
+          "cameraSelection": "Caméras",
+          "cameraSelectionHelp": "Les caméras avec des objets suivis dans cette intervalle sont pré-sélectionnées",
+          "checkingActivity": "Vérification de l'activité de la caméra...",
+          "noCameras": "Aucune caméra disponible",
+          "detectionCount_one": "{{count}} objet suivi",
+          "detectionCount_many": "{{count}} objets suivis",
+          "detectionCount_other": "{{count}} objets suivis",
+          "nameLabel": "Nom d'export",
+          "namePlaceholder": "Nom de base optionnel pour ces exports",
+          "queueingButton": "Mise en file d'attente des exports...",
+          "exportButton_one": "Exporter {{count}} caméra",
+          "exportButton_many": "Exporter {{count}} caméras",
+          "exportButton_other": "Exporter {{count}} caméras",
+          "searchOrSelectGroup": "Chercher ou sélectionner un groupe de caméras...",
+          "selectAll": "Sélectionner toutes les cameras",
+          "clearSelection": "Effacer la sélection",
+          "selectWithActivity": "Caméras avec des objets suivis",
+          "selectGroup": "Sélectionner un groupe",
+          "noMatchingCameras": "Aucune caméra ne correspond à votre recherche",
+          "selectedCount": "{{selected}} / {{total}} sélectionnées"
+        },
+        "multi": {
+          "title_one": "Export {{count}} revue",
+          "title_many": "Export {{count}} revues",
+          "title_other": "Export {{count}} revues",
+          "description": "Exporter chaque revue sélectionnée. Tous les exports sont regroupés sous un cas unique.",
+          "descriptionNoCase": "Exporter chaque revue sélectionnée.",
+          "caseNamePlaceholder": "Vérification de l'export – {{date}}",
+          "exportButton_one": "Exporter {{count}} revue",
+          "exportButton_many": "Exporter {{count}} revues",
+          "exportButton_other": "Exporter {{count}} revues",
+          "exportingButton": "Exportation...",
+          "toast": {
+            "started_one": "Un export a démarré. Ouverture du dossier en cours.",
+            "started_many": "{{count}} exports ont démarré. Ouverture du dossier en cours.",
+            "started_other": "{{count}} exports ont démarré. Ouverture du dossier en cours.",
+            "partial": "{{successful}} exportations sur {{total}} lancées. Échecs : {{failedItems}}",
+            "failed": "Échec du démarrage des exports {{total}}. Échec : {{failedItems}}"
+          }
+        }
+      },
+      "candidate": {
+        "time": {
+          "fromTimeline": "Sélectionner depuis la chronologie",
+          "lastHour_one": "Dernière heure",
+          "lastHour_other": "{{count}} dernières heures",
+          "custom": "Personnalisé",
+          "start": {
+            "title": "Heure de début",
+            "label": "Sélectionner une heure de début"
+          },
+          "end": {
+            "title": "Heure de fin",
+            "label": "Sélectionner une heure de fin"
+          },
+          "lastHour_many": "{{count}} dernières heures"
+        },
+        "name": {
+          "placeholder": "Nommer l'exportation"
+        },
+        "stream": {
+          "label": "Quality",
+          "auto": "Auto",
+          "main": "Original",
+          "sub": "Low",
+          "autoDesc": "Uses the main stream and falls back to the lower quality sub stream where main is not available.",
+          "mainDesc": "Exports only the original quality main stream. Time ranges where the main stream is not available will be missing.",
+          "subDesc": "Exports only the lower quality sub stream. Time ranges where the sub stream is not available will be missing."
+        },
+        "case": {
+          "newCaseOption": "Créer un nouveau cas",
+          "newCaseNamePlaceholder": "Nouveau nom de cas",
+          "newCaseDescriptionPlaceholder": "Description de cas",
+          "label": "Dossier",
+          "nonAdminHelp": "Un nouveau cas sera créé pour ces exports.",
+          "placeholder": "Sélectionner un dossier"
+        },
+        "select": "Sélectionner",
+        "export": "Exporter",
+        "queueing": "Mise en file d'attente de l'export...",
+        "selectOrExport": "Sélectionner ou exporter",
+        "tabs": {
+          "export": "Caméra unique",
+          "multiCamera": "Multi-caméra"
+        },
+        "multiCamera": {
+          "timeRange": "Intervalle de temps",
+          "selectFromTimeline": "Sélectionner depuis la chronologie",
+          "cameraSelection": "Caméras",
+          "cameraSelectionHelp": "Les caméras avec des objets suivis dans cette intervalle sont pré-sélectionnées",
+          "searchOrSelectGroup": "Chercher ou sélectionner un groupe de caméras...",
+          "selectAll": "Sélectionner toutes les cameras",
+          "clearSelection": "Effacer la sélection",
+          "selectWithActivity": "Caméras avec des objets suivis",
+          "selectGroup": "Sélectionner un groupe",
+          "noMatchingCameras": "Aucune caméra ne correspond à votre recherche",
+          "selectedCount": "{{selected}} / {{total}} sélectionnées",
+          "checkingActivity": "Vérification de l'activité de la caméra...",
+          "noCameras": "Aucune caméra disponible",
+          "detectionCount_one": "{{count}} objet suivi",
+          "detectionCount_other": "{{count}} objets suivis",
+          "nameLabel": "Nom d'export",
+          "namePlaceholder": "Nom de base optionnel pour ces exports",
+          "queueingButton": "Mise en file d'attente des exports...",
+          "exportButton_one": "Exporter {{count}} caméra",
+          "exportButton_other": "Exporter {{count}} caméras",
+          "detectionCount_many": "{{count}} objets suivis",
+          "exportButton_many": "Exporter {{count}} caméras"
+        },
+        "multi": {
+          "title_one": "Export {{count}} revue",
+          "title_other": "Export {{count}} revues",
+          "description": "Exporter chaque revue sélectionnée. Tous les exports sont regroupés sous un cas unique.",
+          "descriptionNoCase": "Exporter chaque revue sélectionnée.",
+          "caseNamePlaceholder": "Vérification de l'export – {{date}}",
+          "exportButton_one": "Exporter {{count}} revue",
+          "exportButton_other": "Exporter {{count}} revues",
+          "exportingButton": "Exportation...",
+          "toast": {
+            "started_one": "Un export a démarré. Ouverture du dossier en cours.",
+            "started_other": "{{count}} exports ont démarré. Ouverture du dossier en cours.",
+            "partial": "{{successful}} exportations sur {{total}} lancées. Échecs : {{failedItems}}",
+            "failed": "Échec du démarrage des exports {{total}}. Échec : {{failedItems}}",
+            "started_many": "{{count}} exports ont démarré. Ouverture du dossier en cours."
+          },
+          "title_many": "Export {{count}} revues",
+          "exportButton_many": "Exporter {{count}} revues"
+        },
+        "toast": {
+          "success": "Exportation démarrée avec succès. Consultez le fichier sur la page des exportations.",
+          "queued": "Exportation en attente. Consultez la progression sur la page des exportations.",
+          "view": "Vue",
+          "batchSuccess_one": "Un export démarré. Ouverture du dossier en cours.",
+          "batchSuccess_other": "{{count}} exports démarrés. Ouverture du dossier en cours.",
+          "batchPartial": "{{successful}} exports ont démarré sur un total de : {{total}}. Échecs : {{failedCameras}}",
+          "batchFailed": "Échec du démarrage de {{total}} exports. Échecs : {{failedCameras}}",
+          "batchQueuedSuccess_one": "Un export ajouté au traitement. Ouverture du dossier en cours.",
+          "batchQueuedSuccess_other": "{{count}} exports rajoutés au traitement. Ouverture du dossier en cours.",
+          "batchQueuedPartial": "{{successful}} export(s) sur {{total}} mis en file d'attente. Caméra(s) en échec : {{failedCameras}}",
+          "batchQueueFailed": "Échec de mis en file d'attente de {{total}} export(s). Caméras en échec : {{failedCameras}}",
+          "error": {
+            "failed": "Échec de la mis en attente de l'exportation : {{error}}",
+            "endTimeMustAfterStartTime": "L'heure de fin doit être postérieure à l'heure de début.",
+            "noValidTimeSelected": "Interval de temps invalide"
+          },
+          "batchSuccess_many": "{{count}} exports démarrés. Ouverture du dossier en cours.",
+          "batchQueuedSuccess_many": "{{count}} exports ajoutés au traitement. Ouverture du dossier en cours."
+        },
+        "fromTimeline": {
+          "saveExport": "Enregistrer l'exportation",
+          "queueingExport": "Traitement de l'export...",
+          "previewExport": "Aperçu de l'exportation",
+          "useThisRange": "Utiliser cet interval"
+        }
+      }
+    },
+    {
+      "ns": "components/dialog",
+      "key": "recording",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "confirmDelete": {
+          "desc": {
+            "selected": "Êtes-vous sûr(e) de vouloir supprimer toutes les vidéos enregistrées associées à cette activité ? <br /><br />Maintenez la touche <em>Maj</em> enfoncée pour éviter cette boîte de dialogue à l'avenir."
+          },
+          "title": "Confirmer la suppression",
+          "toast": {
+            "success": "Les vidéos associées aux activités sélectionnées ont été supprimées.",
+            "error": "Échec de la suppression : {{error}}"
+          }
+        },
+        "button": {
+          "export": "Exporter",
+          "markAsReviewed": "Marquer comme traité",
+          "deleteNow": "Supprimer maintenant",
+          "markAsUnreviewed": "Marquer comme non traité"
+        },
+        "shareTimestamp": {
+          "label": "Partager cette date",
+          "title": "Partager cette date",
+          "description": "Partager une URL horodatée correspondant à la position actuelle du lecteur, ou choisir un horodatage personnalisé. Notez qu’il ne s’agit pas d’un lien de partage public et qu’il est uniquement accessible aux utilisateurs ayant accès à Frigate et à cette caméra.",
+          "custom": "Horodatage personnalisé",
+          "button": "Partager le lien de l'horodatage",
+          "shareTitle": "Horodatage de la revue Frigate : {{camera}}"
+        }
+      },
+      "candidate": {
+        "shareTimestamp": {
+          "label": "Partager cette date",
+          "title": "Partager cette date",
+          "description": "Partager une URL horodatée correspondant à la position actuelle du lecteur, ou choisir un horodatage personnalisé. Notez qu’il ne s’agit pas d’un lien de partage public et qu’il est uniquement accessible aux utilisateurs ayant accès à Frigate et à cette caméra.",
+          "custom": "Horodatage personnalisé",
+          "button": "Partager le lien de l'horodatage",
+          "shareTitle": "Horodatage de la revue Frigate : {{camera}}"
+        },
+        "confirmDelete": {
+          "title": "Confirmer la suppression",
+          "desc": {
+            "selected": "Êtes-vous sûr(e) de vouloir supprimer toutes les vidéos enregistrées associées à cette activité ? <br /><br />Maintenez la touche <em>Maj</em> enfoncée pour éviter cette boîte de dialogue à l'avenir."
+          },
+          "toast": {
+            "success": "Les vidéos associées aux activités sélectionnées ont été supprimées.",
+            "error": "Échec de la suppression : {{error}}"
+          }
+        },
+        "button": {
+          "export": "Exporter",
+          "markAsReviewed": "Marquer comme traité",
+          "markAsUnreviewed": "Marquer comme non traité",
+          "deleteNow": "Supprimer maintenant",
+          "generateDescription": "Generate description"
+        },
+        "genaiDescription": {
+          "toast": {
+            "success": "A GenAI description has been requested for this review item.",
+            "error": "Failed to request description: {{error}}"
+          }
+        }
+      }
+    },
+    {
+      "ns": "components/dialog",
+      "key": "recording.button",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "export": "Exporter",
+        "markAsReviewed": "Marquer comme traité",
+        "deleteNow": "Supprimer maintenant",
+        "markAsUnreviewed": "Marquer comme non traité"
+      },
+      "candidate": {
+        "export": "Exporter",
+        "markAsReviewed": "Marquer comme traité",
+        "markAsUnreviewed": "Marquer comme non traité",
+        "deleteNow": "Supprimer maintenant",
+        "generateDescription": "Generate description"
+      }
+    },
+    {
+      "ns": "components/player",
+      "key": "stats",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "streamType": {
+          "title": "Type de flux :",
+          "short": "Type"
+        },
+        "bandwidth": {
+          "title": "Bande passante :",
+          "short": "Bande passante"
+        },
+        "droppedFrames": {
+          "short": {
+            "value": "{{droppedFrames}} images",
+            "title": "Perdues"
+          },
+          "title": "Images perdues :"
+        },
+        "decodedFrames": "Images décodées :",
+        "droppedFrameRate": "Taux d'images perdues :",
+        "totalFrames": "Total images :"
+      },
+      "candidate": {
+        "streamType": {
+          "title": "Type de flux :",
+          "short": "Type"
+        },
+        "bandwidth": {
+          "title": "Bande passante :",
+          "short": "Bande passante"
+        },
+        "totalFrames": "Total images :",
+        "droppedFrames": {
+          "title": "Images perdues :",
+          "short": {
+            "title": "Perdues",
+            "value": "{{droppedFrames}} images"
+          }
+        },
+        "decodedFrames": "Images décodées :",
+        "droppedFrameRate": "Taux d'images perdues :",
+        "stream": "Stream:",
+        "streamAuto": "{{stream}} (auto)"
+      }
+    },
+    {
+      "ns": "components/player",
+      "key": "toast",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "error": {
+          "submitFrigatePlusFailed": "Échec de la soumission de l'image à Frigate+"
+        },
+        "success": {
+          "submittedFrigatePlus": "Image soumise avec succès à Frigate+"
+        }
+      },
+      "candidate": {
+        "success": {
+          "submittedFrigatePlus": "Image soumise avec succès à Frigate+"
+        },
+        "error": {
+          "submitFrigatePlusFailed": "Échec de la soumission de l'image à Frigate+",
+          "playRecordingsFailed": "Failed to play recordings (error {{code}}): {{message}}"
+        }
+      }
+    },
+    {
+      "ns": "components/player",
+      "key": "toast.error",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "submitFrigatePlusFailed": "Échec de la soumission de l'image à Frigate+"
+      },
+      "candidate": {
+        "submitFrigatePlusFailed": "Échec de la soumission de l'image à Frigate+",
+        "playRecordingsFailed": "Failed to play recordings (error {{code}}): {{message}}"
+      }
+    },
+    {
+      "ns": "config/cameras",
+      "key": "audio",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Détection audio",
+        "description": "Réglages pour la détection des événements audio de cette caméra.",
+        "enabled": {
+          "label": "Activer la détection audio",
+          "description": "Activer ou désactiver la détection des événements audio pour cette caméra."
+        },
+        "max_not_heard": {
+          "description": "Nombre de secondes sans le type audio configuré avant que l'événement audio se termine.",
+          "label": "Délai d'inactivité"
+        },
+        "min_volume": {
+          "label": "Volume minimal",
+          "description": "Seuil minimal d'activation du volume en moyenne quadratique requis pour exécuter la détection audio. Des valeurs plus faibles augmentent la sensibilité (p. ex. 200 est élevé, 500 est moyen et 1000 est faible)."
+        },
+        "listen": {
+          "label": "Types d'écoute",
+          "description": "Liste des types d'événements audio à détecter (exemples : aboiements, alertes incendies, voix, cris)."
+        },
+        "filters": {
+          "label": "Filtres audio",
+          "description": "Réglages des filtres par type audio, tels que seuils de confiance utilisé afin de réduire les faux positifs.",
+          "threshold": {
+            "label": "Minimum de confiance audio",
+            "description": "Seuil de confiance minimum pour que l'événement audio soit pris en compte."
+          }
+        },
+        "enabled_in_config": {
+          "label": "État audio original",
+          "description": "Indique si la détection audio était initialement activée dans le fichier de configuration statique."
+        },
+        "num_threads": {
+          "label": "Fils d'exécution pour la détection",
+          "description": "Nombre de fils d'éxécution à utiliser pour le traitement de la détection audio."
+        }
+      },
+      "candidate": {
+        "label": "Détection audio",
+        "description": "Réglages pour la détection des événements audio de cette caméra.",
+        "enabled": {
+          "label": "Activer la détection audio",
+          "description": "Activer ou désactiver la détection des événements audio pour cette caméra."
+        },
+        "max_not_heard": {
+          "label": "Délai d'inactivité",
+          "description": "Nombre de secondes sans le type audio configuré avant que l'événement audio se termine."
+        },
+        "min_volume": {
+          "label": "Volume minimal",
+          "description": "Seuil minimal d'activation du volume en moyenne quadratique requis pour exécuter la détection audio. Des valeurs plus faibles augmentent la sensibilité (p. ex. 200 est élevé, 500 est moyen et 1000 est faible)."
+        },
+        "listen": {
+          "label": "Types d'écoute",
+          "description": "Liste des types d'événements audio à détecter (exemples : aboiements, alertes incendies, voix, cris)."
+        },
+        "labelmap": {
+          "label": "Audio labelmap customization",
+          "description": "Overrides or remapping entries to merge into the standard audio labelmap."
+        },
+        "filters": {
+          "label": "Filtres audio",
+          "description": "Réglages des filtres par type audio, tels que seuils de confiance utilisé afin de réduire les faux positifs.",
+          "threshold": {
+            "label": "Minimum de confiance audio",
+            "description": "Seuil de confiance minimum pour que l'événement audio soit pris en compte."
+          }
+        },
+        "enabled_in_config": {
+          "label": "État audio original",
+          "description": "Indique si la détection audio était initialement activée dans le fichier de configuration statique."
+        },
+        "num_threads": {
+          "label": "Fils d'exécution pour la détection",
+          "description": "Nombre de fils d'éxécution à utiliser pour le traitement de la détection audio."
+        }
+      }
+    },
+    {
+      "ns": "config/cameras",
+      "key": "birdseye",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "À vol d'oiseau",
+        "description": "Réglages pour la vue composée à vol d'oiseau qui combine plusieurs flux de caméras dans une simple disposition.",
+        "enabled": {
+          "label": "Activer la vue à vol d'oiseau",
+          "description": "Activer ou désactiver la fonctionalité de vue à vol d'oiseau."
+        },
+        "order": {
+          "label": "Emplacement",
+          "description": "Emplacement numérique contrôlant l'ordre de la caméra dans la disposition en vue à vol d'oiseau."
+        }
+      },
+      "candidate": {
+        "label": "À vol d'oiseau",
+        "description": "Réglages pour la vue composée à vol d'oiseau qui combine plusieurs flux de caméras dans une simple disposition.",
+        "enabled": {
+          "label": "Activer la vue à vol d'oiseau",
+          "description": "Activer ou désactiver la fonctionalité de vue à vol d'oiseau."
+        },
+        "modes": {
+          "label": "Activity types",
+          "description": "Activity types that include cameras in Birdseye."
+        },
+        "order": {
+          "label": "Emplacement",
+          "description": "Emplacement numérique contrôlant l'ordre de la caméra dans la disposition en vue à vol d'oiseau."
+        }
+      }
+    },
+    {
+      "ns": "config/cameras",
+      "key": "detect",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Détection d'objets",
+        "description": "Réglages pour la détection ou le rôle de détection utilisé pour exécuter la détection des objets et initialiser les traceurs.",
+        "enabled": {
+          "label": "Activer la détection d'objet",
+          "description": "Activer ou désactiver la détection des objets pour cette caméra."
+        },
+        "height": {
+          "label": "Hauteur de détection",
+          "description": "Hauteur (en pixels) des images utilisées pour le flux de détection ; garder vide pour utiliser la résolution native du flux."
+        },
+        "width": {
+          "label": "Largeur de détection",
+          "description": "Largeur (en pixels) des images utilisées pour le flux de détection ; garder vide pour utiliser la résolution native du flux."
+        },
+        "fps": {
+          "label": "IPS de la détection",
+          "description": "Nombre cible d'images par seconde à utiliser pour la détection ; des valeurs plus faibles réduisent l'utilisation de l'UCT (la valeur recommandée est 5, ne la définir à une valeur supérieure - au maximum 10, uniquement lors du suivi d'objets se déplaçant extrêmement rapidement)."
+        },
+        "min_initialized": {
+          "label": "Minimum d'images d'initialisation",
+          "description": "Nombre de détections consécutives requises avant de créer un objet suivi. Augmenter pour réduire les initialisations erronées. La valeur par défaut est fps divisé par 2."
+        },
+        "max_disappeared": {
+          "label": "Nombre maximal d'images disparues",
+          "description": "Nombre d'images sans détection avant qu'un objet suivi est considéré comme étant disparu."
+        },
+        "stationary": {
+          "label": "Configuration des objets stationnaires",
+          "description": "Réglages pour la détection et la gestion des objets qui restent stationnaires pendant un certain temps.",
+          "interval": {
+            "label": "Intervalle stationnaire",
+            "description": "À quelle fréquence (en images) effectuer une détection pour la confirmation d'un objet stationnaire."
+          },
+          "threshold": {
+            "label": "Seuil d'activation stationnaire",
+            "description": "Nombre d'images sans changement d'emplacement requis pour marquer un objet en tant que stationnaire."
+          },
+          "max_frames": {
+            "label": "Nombre max. d'images",
+            "description": "Limite le temps pour lequel les objets stationnaires sont suivis avant d'être supprimés.",
+            "default": {
+              "label": "Nombre max. d'images par défaut",
+              "description": "Nombre maximal d'images pour suivre un objet stationnaire avant d'arrêter."
+            },
+            "objects": {
+              "label": "Nombre max. d'images pour l'objet",
+              "description": "Remplacement des réglages par défaut par objet pour le nombre maximal d'images requis pour suivre les objets stationnaires."
+            }
+          },
+          "classifier": {
+            "label": "Activer le classificateur visuel",
+            "description": "Utiliser un classificateur visuel pour détecter les objets véritablement stationnaires même lorsque les boîtes englobantes tremblent."
+          }
+        },
+        "annotation_offset": {
+          "label": "Décalage de l'annotation",
+          "description": "Millisecondes pour le décalage des annotations afin de mieux aligner les boîtes englobantes de la ligne du temps avec les enregistrements ; peut être positif ou négatif."
+        }
+      },
+      "candidate": {
+        "label": "Détection d'objets",
+        "description": "Réglages pour la détection ou le rôle de détection utilisé pour exécuter la détection des objets et initialiser les traceurs.",
+        "enabled": {
+          "label": "Activer la détection d'objet",
+          "description": "Activer ou désactiver la détection des objets pour cette caméra."
+        },
+        "height": {
+          "label": "Hauteur de détection",
+          "description": "Hauteur (en pixels) des images utilisées pour le flux de détection ; garder vide pour utiliser la résolution native du flux."
+        },
+        "width": {
+          "label": "Largeur de détection",
+          "description": "Largeur (en pixels) des images utilisées pour le flux de détection ; garder vide pour utiliser la résolution native du flux."
+        },
+        "scene": {
+          "label": "Detect scene",
+          "description": "The environment this camera looks at, used to pick which of the configured models runs on it. Cameras left on 'default' run the model configured with a scene of 'default'."
+        },
+        "fps": {
+          "label": "IPS de la détection",
+          "description": "Nombre cible d'images par seconde à utiliser pour la détection ; des valeurs plus faibles réduisent l'utilisation de l'UCT (la valeur recommandée est 5, ne la définir à une valeur supérieure - au maximum 10, uniquement lors du suivi d'objets se déplaçant extrêmement rapidement)."
+        },
+        "min_initialized": {
+          "label": "Minimum d'images d'initialisation",
+          "description": "Nombre de détections consécutives requises avant de créer un objet suivi. Augmenter pour réduire les initialisations erronées. La valeur par défaut est fps divisé par 2."
+        },
+        "max_disappeared": {
+          "label": "Nombre maximal d'images disparues",
+          "description": "Nombre d'images sans détection avant qu'un objet suivi est considéré comme étant disparu."
+        },
+        "stationary": {
+          "label": "Configuration des objets stationnaires",
+          "description": "Réglages pour la détection et la gestion des objets qui restent stationnaires pendant un certain temps.",
+          "interval": {
+            "label": "Intervalle stationnaire",
+            "description": "À quelle fréquence (en images) effectuer une détection pour la confirmation d'un objet stationnaire."
+          },
+          "threshold": {
+            "label": "Seuil d'activation stationnaire",
+            "description": "Nombre d'images sans changement d'emplacement requis pour marquer un objet en tant que stationnaire."
+          },
+          "max_frames": {
+            "label": "Nombre max. d'images",
+            "description": "Limite le temps pour lequel les objets stationnaires sont suivis avant d'être supprimés.",
+            "default": {
+              "label": "Nombre max. d'images par défaut",
+              "description": "Nombre maximal d'images pour suivre un objet stationnaire avant d'arrêter."
+            },
+            "objects": {
+              "label": "Nombre max. d'images pour l'objet",
+              "description": "Remplacement des réglages par défaut par objet pour le nombre maximal d'images requis pour suivre les objets stationnaires."
+            }
+          },
+          "classifier": {
+            "label": "Activer le classificateur visuel",
+            "description": "Utiliser un classificateur visuel pour détecter les objets véritablement stationnaires même lorsque les boîtes englobantes tremblent."
+          }
+        },
+        "annotation_offset": {
+          "label": "Décalage de l'annotation",
+          "description": "Millisecondes pour le décalage des annotations afin de mieux aligner les boîtes englobantes de la ligne du temps avec les enregistrements ; peut être positif ou négatif."
+        }
+      }
+    },
+    {
+      "ns": "config/cameras",
+      "key": "ffmpeg",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Flots (FFmpeg)",
+        "description": "Arguments d'entrée du flux de la caméra et réglages de FFmpeg incluant l'emplacement du fichier binaire, les arguments, hwaccel et les arguments de sortie par rôle.",
+        "path": {
+          "label": "Emplacement de FFmpeg",
+          "description": "Emplacement du fichier binaire de FFmpeg à utiliser ou un alias de version (peut être «7.0» ou «8.0»)."
+        },
+        "global_args": {
+          "label": "Arguments globaux de FFmpeg",
+          "description": "Arguments globaux transmis aux processus de FFmpeg."
+        },
+        "hwaccel_args": {
+          "label": "Arguments pour l'accélération matérielle",
+          "description": "Arguments de l'accélération matérielle pour FFmpeg. Les préréglages spécifiques au fournisseur sont recommandés."
+        },
+        "input_args": {
+          "label": "Arguments d'entrée",
+          "description": "Arguments d'entrée appliqués aux flux d'entrée FFmpeg."
+        },
+        "output_args": {
+          "label": "Arguments de sortie",
+          "description": "Arguments de sortie par défaut utilisés pour les différents rôles FFmpeg, tels que detect et record.",
+          "detect": {
+            "label": "Détecter les arguments de sortie",
+            "description": "Arguments de sortie par défaut pour les flux du rôle detect."
+          },
+          "record": {
+            "label": "Arguments de sortie pour l'enregistrement",
+            "description": "Arguments de sortie par défaut pour les flux du rôle record."
+          }
+        },
+        "retry_interval": {
+          "label": "Temps de réessai FFmpeg",
+          "description": "Nombre de secondes à attendre avant de tenter de reconnecter un flux de caméra après un échec. La valeur par défaut est 10."
+        },
+        "apple_compatibility": {
+          "label": "Compatibilité avec Apple",
+          "description": "Activer l'étiquetage HEVC pour une meilleure compatibilité avec les lecteurs Apple lors de l'enregistrement H.265."
+        },
+        "gpu": {
+          "label": "Index de l'UTG",
+          "description": "Index par défaut de l'UTG utilisé pour l'accélération matérielle si disponible."
+        },
+        "inputs": {
+          "label": "Entrées des caméras",
+          "description": "Liste des définitions des flux entrants (emplacements et rôles) pour cette caméra.",
+          "path": {
+            "label": "Emplacement d'entrée",
+            "description": "URL ou emplacement du flux d'entrée de la caméra."
+          },
+          "roles": {
+            "label": "Rôles d'entrée",
+            "description": "Rôles pour ce flux entrant."
+          },
+          "global_args": {
+            "label": "Arguments globaux de FFmpeg",
+            "description": "Arguments globaux de FFmpeg pour ce flux entrant."
+          },
+          "hwaccel_args": {
+            "label": "Arguments pour l'accélération matérielle",
+            "description": "Arguments de l'accélération matérielle pour ce flux entrant."
+          },
+          "input_args": {
+            "label": "Arguments d'entrée",
+            "description": "Arguments d'entrée spéficiques à ce flux."
+          }
+        }
+      },
+      "candidate": {
+        "label": "Flots (FFmpeg)",
+        "description": "Arguments d'entrée du flux de la caméra et réglages de FFmpeg incluant l'emplacement du fichier binaire, les arguments, hwaccel et les arguments de sortie par rôle.",
+        "path": {
+          "label": "Emplacement de FFmpeg",
+          "description": "Emplacement du fichier binaire de FFmpeg à utiliser ou un alias de version (peut être «7.0» ou «8.0»)."
+        },
+        "global_args": {
+          "label": "Arguments globaux de FFmpeg",
+          "description": "Arguments globaux transmis aux processus de FFmpeg."
+        },
+        "hwaccel_args": {
+          "label": "Arguments pour l'accélération matérielle",
+          "description": "Arguments de l'accélération matérielle pour FFmpeg. Les préréglages spécifiques au fournisseur sont recommandés."
+        },
+        "input_args": {
+          "label": "Arguments d'entrée",
+          "description": "Arguments d'entrée appliqués aux flux d'entrée FFmpeg."
+        },
+        "output_args": {
+          "label": "Arguments de sortie",
+          "description": "Arguments de sortie par défaut utilisés pour les différents rôles FFmpeg, tels que detect et record.",
+          "detect": {
+            "label": "Détecter les arguments de sortie",
+            "description": "Arguments de sortie par défaut pour les flux du rôle detect."
+          },
+          "record": {
+            "label": "Arguments de sortie pour l'enregistrement",
+            "description": "Arguments de sortie par défaut pour les flux du rôle record."
+          },
+          "record_sub": {
+            "label": "Sub stream record output arguments",
+            "description": "Output arguments for record_sub role streams. The record output arguments are used when this is not set."
+          }
+        },
+        "retry_interval": {
+          "label": "Temps de réessai FFmpeg",
+          "description": "Nombre de secondes à attendre avant de tenter de reconnecter un flux de caméra après un échec. La valeur par défaut est 10."
+        },
+        "apple_compatibility": {
+          "label": "Compatibilité avec Apple",
+          "description": "Activer l'étiquetage HEVC pour une meilleure compatibilité avec les lecteurs Apple lors de l'enregistrement H.265."
+        },
+        "gpu": {
+          "label": "Index de l'UTG",
+          "description": "Index par défaut de l'UTG utilisé pour l'accélération matérielle si disponible."
+        },
+        "inputs": {
+          "label": "Entrées des caméras",
+          "description": "Liste des définitions des flux entrants (emplacements et rôles) pour cette caméra.",
+          "path": {
+            "label": "Emplacement d'entrée",
+            "description": "URL ou emplacement du flux d'entrée de la caméra."
+          },
+          "roles": {
+            "label": "Rôles d'entrée",
+            "description": "Rôles pour ce flux entrant."
+          },
+          "global_args": {
+            "label": "Arguments globaux de FFmpeg",
+            "description": "Arguments globaux de FFmpeg pour ce flux entrant."
+          },
+          "hwaccel_args": {
+            "label": "Arguments pour l'accélération matérielle",
+            "description": "Arguments de l'accélération matérielle pour ce flux entrant."
+          },
+          "input_args": {
+            "label": "Arguments d'entrée",
+            "description": "Arguments d'entrée spéficiques à ce flux."
+          }
+        }
+      }
+    },
+    {
+      "ns": "config/cameras",
+      "key": "ffmpeg.output_args",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Arguments de sortie",
+        "description": "Arguments de sortie par défaut utilisés pour les différents rôles FFmpeg, tels que detect et record.",
+        "detect": {
+          "label": "Détecter les arguments de sortie",
+          "description": "Arguments de sortie par défaut pour les flux du rôle detect."
+        },
+        "record": {
+          "label": "Arguments de sortie pour l'enregistrement",
+          "description": "Arguments de sortie par défaut pour les flux du rôle record."
+        }
+      },
+      "candidate": {
+        "label": "Arguments de sortie",
+        "description": "Arguments de sortie par défaut utilisés pour les différents rôles FFmpeg, tels que detect et record.",
+        "detect": {
+          "label": "Détecter les arguments de sortie",
+          "description": "Arguments de sortie par défaut pour les flux du rôle detect."
+        },
+        "record": {
+          "label": "Arguments de sortie pour l'enregistrement",
+          "description": "Arguments de sortie par défaut pour les flux du rôle record."
+        },
+        "record_sub": {
+          "label": "Sub stream record output arguments",
+          "description": "Output arguments for record_sub role streams. The record output arguments are used when this is not set."
+        }
+      }
+    },
+    {
+      "ns": "config/cameras",
+      "key": "live",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Lecture en direct",
+        "description": "Réglages utilisés par l'IU Web afin de contrôler la sélection, la résolution et la qualité des flux en direct.",
+        "streams": {
+          "label": "Nom des flux en direct",
+          "description": "Mappage des noms des flux configurés vers les noms de restream et go2rtc utilisés pour la lecture en direct."
+        },
+        "height": {
+          "label": "Hauteur de la diffusion en direct",
+          "description": "Hauteur (en pixels) à laquelle afficher le flux en direct jsmpeg dans l'IU Web ; doit être inférieure ou égale à la hauteur détectée du flux."
+        },
+        "quality": {
+          "label": "Qualité de la diffusion en direct",
+          "description": "Qualité de l'encodage pour le flux jsmpeg (1 étant la plus élevée, 31 la plus faible)."
+        }
+      },
+      "candidate": {
+        "label": "Lecture en direct",
+        "description": "Réglages utilisés par l'IU Web afin de contrôler la sélection, la résolution et la qualité des flux en direct.",
+        "streams": {
+          "label": "Nom des flux en direct",
+          "description": "Mappage des noms des flux configurés vers les noms de restream et go2rtc utilisés pour la lecture en direct."
+        },
+        "transcode": {
+          "label": "Transcoded streams",
+          "description": "Lower-quality live streams transcoded on demand by go2rtc.",
+          "enabled": {
+            "label": "Enable transcoded streams",
+            "description": "Add lower-quality live streams that go2rtc transcodes in real time while someone is watching."
+          },
+          "source": {
+            "label": "Source stream",
+            "description": "go2rtc stream to transcode. Defaults to the first live stream."
+          },
+          "qualities": {
+            "label": "Qualities",
+            "description": "One transcoded stream is added per quality.",
+            "height": {
+              "label": "Height",
+              "description": "Output height in pixels; width follows the source aspect ratio."
+            },
+            "bitrate": {
+              "label": "Bitrate",
+              "description": "Target and maximum video bitrate in kbps."
+            }
+          }
+        },
+        "height": {
+          "label": "Hauteur de la diffusion en direct",
+          "description": "Hauteur (en pixels) à laquelle afficher le flux en direct jsmpeg dans l'IU Web ; doit être inférieure ou égale à la hauteur détectée du flux."
+        },
+        "quality": {
+          "label": "Qualité de la diffusion en direct",
+          "description": "Qualité de l'encodage pour le flux jsmpeg (1 étant la plus élevée, 31 la plus faible)."
+        }
+      }
+    },
+    {
+      "ns": "config/cameras",
+      "key": "record",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Enregistrement",
+        "description": "Réglages des enregistrement et des options de rétentions pour cette caméra.",
+        "enabled": {
+          "label": "Activer enregistrement",
+          "description": "Activer ou désactiver l'enregistrement pour cette caméra."
+        },
+        "expire_interval": {
+          "label": "Intervalle de nettoyage des enregistrements",
+          "description": "Nombre de minutes entre les opérations de nettoyage supprimant les segments d’enregistrement expirés."
+        },
+        "continuous": {
+          "label": "Rétention continue",
+          "description": "Nombre de jours de rétention des enregistrements sans prendre en compte les objets suivis ou les mouvements. Mettre à 0 si vous voulez seulement garder les enregistrements des alertes et des détections.",
+          "days": {
+            "label": "Nombre de jours de rétention",
+            "description": "Nombre de jours de rétention des enregistrements."
+          }
+        },
+        "motion": {
+          "label": "Rétention des mouvements",
+          "description": "Nombre de jours de rétention des enregistrements déclenchés par des mouvements sans prendre en compte les objets suivis. Mettre à 0 si vous voulez seulement garder les enregistrements des alertes et des détections.",
+          "days": {
+            "label": "Nombre de jours de rétention",
+            "description": "Nombre de jours de rétention des enregistrements."
+          }
+        },
+        "detections": {
+          "label": "Rétention des détections",
+          "description": "Réglages de la rétention des enregistrements pour les événements des détection incluant les durées de captures antérieur et postérieur.",
+          "pre_capture": {
+            "label": "Nombre de secondes antérieur à la capture",
+            "description": "Nombre de secondes antérieur à l'événement de détection à inclure dans l'enregistrement."
+          },
+          "post_capture": {
+            "label": "Nombre de secondes posterieur à l'événement",
+            "description": "Nombre de secondes posterieur à l'événement de détection à inclure dans l'enregistrement."
+          },
+          "retain": {
+            "label": "Rétention d'événement",
+            "description": "Réglages de la rétention pour les enregistrements d'événements de détection.",
+            "days": {
+              "label": "Nombre de jours de rétention",
+              "description": "Nombre de jours de rétention des enregistrements d'événements de détection."
+            },
+            "mode": {
+              "label": "Mode de rétention",
+              "description": "Mode de rétention : tout (sauvegarder tout les segments), mouvement (sauvegarder les segments avec mouvement), active_objects (sauvegarder les segments avec des objets actifs)."
+            }
+          }
+        },
+        "alerts": {
+          "label": "Rétention d'alerte",
+          "description": "Réglages de la rétention des enregistrements des événements d'alertes incluant les durées des captures antérieur et postérieur.",
+          "pre_capture": {
+            "label": "Nombre de secondes antérieur à la capture",
+            "description": "Nombre de secondes antérieur à l'événement de détection à inclure dans l'enregistrement."
+          },
+          "post_capture": {
+            "label": "Nombre de secondes postérieur à la capture",
+            "description": "Nombre de secondes postérieur à l'événement de capture à inclure dans l'enregistrement."
+          },
+          "retain": {
+            "label": "Rétention d'événement",
+            "description": "Réglages de la rétention pour les enregistrement d'événements de détection.",
+            "days": {
+              "label": "Nombre de jours de rétention",
+              "description": "Nombre de jours de rétention pour les enregistrements d'événements de détection."
+            },
+            "mode": {
+              "label": "Mode de rétention",
+              "description": "Mode de rétention : tout (sauvegarder tout les segments), mouvement (sauvegarder les segments avec mouvement), active_objects (sauvegarder les segments avec des objets actifs)."
+            }
+          }
+        },
+        "export": {
+          "label": "Exporter la configuration",
+          "description": "Réglages à utiliser lors de l'exportation des enregistrements tels que le timelapse et l'accélération matérielle.",
+          "hwaccel_args": {
+            "label": "Exporter les arguments hwaccel",
+            "description": "Arguments d’accélération matérielle à utiliser pour les opérations d’exportation et de transcodage."
+          },
+          "max_concurrent": {
+            "label": "Nombre maximum d'exports simultanés",
+            "description": "Nombre maximum de tâches d'exportation à effectuer en même temps."
+          },
+          "chapters": {
+            "label": "Métadonnées des chapitres à incorporer dans les enregistrements exportés"
+          }
+        },
+        "preview": {
+          "label": "Prévisualiser la configuration",
+          "quality": {
+            "label": "Prévisualisation qualité",
+            "description": "Niveau de qualité des prévisualisations (très_bas, bas, moyen, haut, très_haut)."
+          },
+          "description": "Réglages de la qualité des aperçus d'enregistrement montrés dans l'interface utilisateur."
+        },
+        "enabled_in_config": {
+          "label": "État original de l'enregistrement",
+          "description": "Indique si l'enregistrement était activé dans la configuration statique originale."
+        }
+      },
+      "candidate": {
+        "label": "Enregistrement",
+        "description": "Réglages des enregistrement et des options de rétentions pour cette caméra.",
+        "enabled": {
+          "label": "Activer enregistrement",
+          "description": "Activer ou désactiver l'enregistrement pour cette caméra."
+        },
+        "expire_interval": {
+          "label": "Intervalle de nettoyage des enregistrements",
+          "description": "Nombre de minutes entre les opérations de nettoyage supprimant les segments d’enregistrement expirés."
+        },
+        "continuous": {
+          "label": "Rétention continue",
+          "description": "Nombre de jours de rétention des enregistrements sans prendre en compte les objets suivis ou les mouvements. Mettre à 0 si vous voulez seulement garder les enregistrements des alertes et des détections.",
+          "days": {
+            "label": "Nombre de jours de rétention",
+            "description": "Nombre de jours de rétention des enregistrements."
+          }
+        },
+        "motion": {
+          "label": "Rétention des mouvements",
+          "description": "Nombre de jours de rétention des enregistrements déclenchés par des mouvements sans prendre en compte les objets suivis. Mettre à 0 si vous voulez seulement garder les enregistrements des alertes et des détections.",
+          "days": {
+            "label": "Nombre de jours de rétention",
+            "description": "Nombre de jours de rétention des enregistrements."
+          }
+        },
+        "detections": {
+          "label": "Rétention des détections",
+          "description": "Réglages de la rétention des enregistrements pour les événements des détection incluant les durées de captures antérieur et postérieur.",
+          "pre_capture": {
+            "label": "Nombre de secondes antérieur à la capture",
+            "description": "Nombre de secondes antérieur à l'événement de détection à inclure dans l'enregistrement."
+          },
+          "post_capture": {
+            "label": "Nombre de secondes posterieur à l'événement",
+            "description": "Nombre de secondes posterieur à l'événement de détection à inclure dans l'enregistrement."
+          },
+          "retain": {
+            "label": "Rétention d'événement",
+            "description": "Réglages de la rétention pour les enregistrements d'événements de détection.",
+            "days": {
+              "label": "Nombre de jours de rétention",
+              "description": "Nombre de jours de rétention des enregistrements d'événements de détection."
+            },
+            "mode": {
+              "label": "Mode de rétention",
+              "description": "Mode de rétention : tout (sauvegarder tout les segments), mouvement (sauvegarder les segments avec mouvement), active_objects (sauvegarder les segments avec des objets actifs)."
+            }
+          }
+        },
+        "alerts": {
+          "label": "Rétention d'alerte",
+          "description": "Réglages de la rétention des enregistrements des événements d'alertes incluant les durées des captures antérieur et postérieur.",
+          "pre_capture": {
+            "label": "Nombre de secondes antérieur à la capture",
+            "description": "Nombre de secondes antérieur à l'événement de détection à inclure dans l'enregistrement."
+          },
+          "post_capture": {
+            "label": "Nombre de secondes postérieur à la capture",
+            "description": "Nombre de secondes postérieur à l'événement de capture à inclure dans l'enregistrement."
+          },
+          "retain": {
+            "label": "Rétention d'événement",
+            "description": "Réglages de la rétention pour les enregistrement d'événements de détection.",
+            "days": {
+              "label": "Nombre de jours de rétention",
+              "description": "Nombre de jours de rétention pour les enregistrements d'événements de détection."
+            },
+            "mode": {
+              "label": "Mode de rétention",
+              "description": "Mode de rétention : tout (sauvegarder tout les segments), mouvement (sauvegarder les segments avec mouvement), active_objects (sauvegarder les segments avec des objets actifs)."
+            }
+          }
+        },
+        "export": {
+          "label": "Exporter la configuration",
+          "description": "Réglages à utiliser lors de l'exportation des enregistrements tels que le timelapse et l'accélération matérielle.",
+          "hwaccel_args": {
+            "label": "Exporter les arguments hwaccel",
+            "description": "Arguments d’accélération matérielle à utiliser pour les opérations d’exportation et de transcodage."
+          },
+          "max_concurrent": {
+            "label": "Nombre maximum d'exports simultanés",
+            "description": "Nombre maximum de tâches d'exportation à effectuer en même temps."
+          },
+          "chapters": {
+            "label": "Métadonnées des chapitres à incorporer dans les enregistrements exportés"
+          }
+        },
+        "preview": {
+          "label": "Prévisualiser la configuration",
+          "description": "Réglages de la qualité des aperçus d'enregistrement montrés dans l'interface utilisateur.",
+          "quality": {
+            "label": "Prévisualisation qualité",
+            "description": "Niveau de qualité des prévisualisations (très_bas, bas, moyen, haut, très_haut)."
+          }
+        },
+        "sub": {
+          "label": "Sub stream recording",
+          "description": "Settings for recording a second, lower quality stream.",
+          "enabled": {
+            "label": "Enable sub stream recording",
+            "description": "Enable recording of a second, lower quality stream for adaptive quality playback and extended retention."
+          },
+          "continuous": {
+            "label": "Sub stream continuous retention",
+            "description": "Number of days to retain sub stream recordings regardless of tracked objects or motion.",
+            "days": {
+              "label": "Retention days",
+              "description": "Days to retain recordings."
+            }
+          },
+          "motion": {
+            "label": "Sub stream motion retention",
+            "description": "Number of days to retain sub stream recordings triggered by motion.",
+            "days": {
+              "label": "Retention days",
+              "description": "Days to retain recordings."
+            }
+          },
+          "alerts": {
+            "label": "Sub stream alert retention",
+            "description": "Retention settings for sub stream recordings of alerts.",
+            "days": {
+              "label": "Retention days",
+              "description": "Number of days to retain recordings of detection events."
+            },
+            "mode": {
+              "label": "Retention mode",
+              "description": "Mode for retention: all (save all segments), motion (save segments with motion), or active_objects (save segments with active objects)."
+            }
+          },
+          "detections": {
+            "label": "Sub stream detection retention",
+            "description": "Retention settings for sub stream recordings of detections.",
+            "days": {
+              "label": "Retention days",
+              "description": "Number of days to retain recordings of detection events."
+            },
+            "mode": {
+              "label": "Retention mode",
+              "description": "Mode for retention: all (save all segments), motion (save segments with motion), or active_objects (save segments with active objects)."
+            }
+          }
+        },
+        "enabled_in_config": {
+          "label": "État original de l'enregistrement",
+          "description": "Indique si l'enregistrement était activé dans la configuration statique originale."
+        }
+      }
+    },
+    {
+      "ns": "config/cameras",
+      "key": "review",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Révision",
+        "description": "Paramètres contrôlant les alertes, les détections, et les résumés de revue générés par IA utilisés dans l'interface utilisateur et le stockage pour cette caméra.",
+        "alerts": {
+          "label": "Configuration des alertes",
+          "enabled": {
+            "label": "Active les alertes",
+            "description": "Active ou désactive la génération d'alertes pour cette caméra."
+          },
+          "labels": {
+            "label": "Étiquettes d'alertes",
+            "description": "Liste d'étiquettes d'objets considérés comme des alertes (par exemple : voiture, personne)."
+          },
+          "required_zones": {
+            "label": "Zones requises",
+            "description": "Zones qu'un objet doit entrer pour être considéré comme une alerte. (Laisser vide afin d'autoriser n'importe quelle zone.)"
+          },
+          "enabled_in_config": {
+            "label": "État des alertes originales",
+            "description": "Vérifie si les alertes étaient initialement activées dans la configuration statique."
+          },
+          "cutoff_time": {
+            "label": "Temps de coupure des alertes",
+            "description": "Délai en secondes après l'absence d'activité déclenchant une alerte avant de la couper."
+          },
+          "description": "Paramètres pour lesquels les objets suivis génèrent des alertes et comment ces alertes sont conservées."
+        },
+        "detections": {
+          "label": "Configuration des détections",
+          "description": "Paramètres pour lesquels les objets suivis génèrent des détections (hors alerte) et comment les détections sont conservées.",
+          "enabled": {
+            "label": "Activer les détections",
+            "description": "Activer ou désactiver les événements de détection pour cette caméra."
+          },
+          "labels": {
+            "label": "Étiquettes de détection",
+            "description": "Liste des étiquettes d'objets qui correspondent à des événements de détection."
+          },
+          "required_zones": {
+            "label": "Zones obligatoires",
+            "description": "Zones dans lesquelles un objet doit pénétrer pour être considéré comme une détection ; laisser vide pour autoriser n’importe quelle zone."
+          },
+          "cutoff_time": {
+            "label": "Délai limite de détection",
+            "description": "Nombre de secondes à attendre après l'absence d'activité susceptible de déclencher une détection avant d'interrompre celle-ci."
+          },
+          "enabled_in_config": {
+            "label": "État initial des détections",
+            "description": "Vérifie si les détections étaient activées initialement dans la configuration statique."
+          }
+        },
+        "genai": {
+          "label": "Configuration de l'IA générative",
+          "description": "Contrôle l'utilisation de l'IA générative pour la production de descriptions et de résumés des éléments d'évaluation.",
+          "enabled": {
+            "label": "Activer les descriptions de l'IA générative",
+            "description": "Activer ou désactiver les descriptions et les résumés générés par l'IA générative pour les éléments à examiner."
+          },
+          "alerts": {
+            "label": "Activer l'IA générative pour les alertes",
+            "description": "Utilisez l'IA générative pour générer des descriptions pour les éléments d'alerte."
+          },
+          "detections": {
+            "label": "Activer l'IA générative pour les détections",
+            "description": "Utilisez l'IA générative pour générer des descriptions pour les éléments de détection."
+          },
+          "image_source": {
+            "label": "Source de l'image de la revue",
+            "description": "Source des images envoyées à l'IA générative (« aperçu » ou « enregistrements ») ; « enregistrements » utilise des images de meilleure qualité mais plus de jetons d'IA."
+          },
+          "additional_concerns": {
+            "label": "Autres préoccupations",
+            "description": "Une liste de préoccupations ou de notes supplémentaires que la GenAI devrait prendre en compte lors de l'évaluation de l'activité sur cette caméra."
+          }
+        }
+      },
+      "candidate": {
+        "label": "Révision",
+        "description": "Paramètres contrôlant les alertes, les détections, et les résumés de revue générés par IA utilisés dans l'interface utilisateur et le stockage pour cette caméra.",
+        "alerts": {
+          "label": "Configuration des alertes",
+          "description": "Paramètres pour lesquels les objets suivis génèrent des alertes et comment ces alertes sont conservées.",
+          "enabled": {
+            "label": "Active les alertes",
+            "description": "Active ou désactive la génération d'alertes pour cette caméra."
+          },
+          "labels": {
+            "label": "Étiquettes d'alertes",
+            "description": "Liste d'étiquettes d'objets considérés comme des alertes (par exemple : voiture, personne)."
+          },
+          "required_zones": {
+            "label": "Zones requises",
+            "description": "Zones qu'un objet doit entrer pour être considéré comme une alerte. (Laisser vide afin d'autoriser n'importe quelle zone.)"
+          },
+          "enabled_in_config": {
+            "label": "État des alertes originales",
+            "description": "Vérifie si les alertes étaient initialement activées dans la configuration statique."
+          },
+          "cutoff_time": {
+            "label": "Temps de coupure des alertes",
+            "description": "Délai en secondes après l'absence d'activité déclenchant une alerte avant de la couper."
+          }
+        },
+        "detections": {
+          "label": "Configuration des détections",
+          "description": "Paramètres pour lesquels les objets suivis génèrent des détections (hors alerte) et comment les détections sont conservées.",
+          "enabled": {
+            "label": "Activer les détections",
+            "description": "Activer ou désactiver les événements de détection pour cette caméra."
+          },
+          "labels": {
+            "label": "Étiquettes de détection",
+            "description": "Liste des étiquettes d'objets qui correspondent à des événements de détection."
+          },
+          "required_zones": {
+            "label": "Zones obligatoires",
+            "description": "Zones dans lesquelles un objet doit pénétrer pour être considéré comme une détection ; laisser vide pour autoriser n’importe quelle zone."
+          },
+          "cutoff_time": {
+            "label": "Délai limite de détection",
+            "description": "Nombre de secondes à attendre après l'absence d'activité susceptible de déclencher une détection avant d'interrompre celle-ci."
+          },
+          "enabled_in_config": {
+            "label": "État initial des détections",
+            "description": "Vérifie si les détections étaient activées initialement dans la configuration statique."
+          }
+        },
+        "genai": {
+          "label": "Configuration de l'IA générative",
+          "description": "Contrôle l'utilisation de l'IA générative pour la production de descriptions et de résumés des éléments d'évaluation.",
+          "enabled": {
+            "label": "Activer les descriptions de l'IA générative",
+            "description": "Activer ou désactiver les descriptions et les résumés générés par l'IA générative pour les éléments à examiner."
+          },
+          "alerts": {
+            "label": "Activer l'IA générative pour les alertes",
+            "description": "Utilisez l'IA générative pour générer des descriptions pour les éléments d'alerte."
+          },
+          "detections": {
+            "label": "Activer l'IA générative pour les détections",
+            "description": "Utilisez l'IA générative pour générer des descriptions pour les éléments de détection."
+          },
+          "image_source": {
+            "label": "Source de l'image de la revue",
+            "description": "Source des images envoyées à l'IA générative (« aperçu » ou « enregistrements ») ; « enregistrements » utilise des images de meilleure qualité mais plus de jetons d'IA."
+          },
+          "additional_concerns": {
+            "label": "Autres préoccupations",
+            "description": "Une liste de préoccupations ou de notes supplémentaires que la GenAI devrait prendre en compte lors de l'évaluation de l'activité sur cette caméra."
+          },
+          "debug_save_thumbnails": {
+            "label": "Save thumbnails",
+            "description": "Save thumbnails that are sent to the GenAI provider for debugging and review."
+          },
+          "enabled_in_config": {
+            "label": "Original GenAI state",
+            "description": "Tracks whether GenAI review was originally enabled in the static configuration."
+          },
+          "preferred_language": {
+            "label": "Preferred language",
+            "description": "Preferred language to request from the GenAI provider for generated responses."
+          },
+          "frame_mode": {
+            "label": "Frame mode",
+            "description": "How frames are presented to the model. 'frames' sends the prompt followed by the frames, which suits models that track a sequence well on their own. 'annotated_frames' labels each frame and interleaves notes derived from object tracking, which helps models that lose track of activity that repeats or reverses."
+          },
+          "response_style": {
+            "label": "Response style",
+            "description": "Writing style preset for generated review descriptions. Presets adjust the tone and level of detail of the user-facing title, summary, and scene description; 'default' leaves the built-in prompt unchanged."
+          },
+          "activity_context_prompt": {
+            "label": "Activity context prompt",
+            "description": "Custom prompt describing what is and is not suspicious activity to provide context for GenAI summaries."
+          }
+        }
+      }
+    },
+    {
+      "ns": "config/cameras",
+      "key": "review.genai",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Configuration de l'IA générative",
+        "description": "Contrôle l'utilisation de l'IA générative pour la production de descriptions et de résumés des éléments d'évaluation.",
+        "enabled": {
+          "label": "Activer les descriptions de l'IA générative",
+          "description": "Activer ou désactiver les descriptions et les résumés générés par l'IA générative pour les éléments à examiner."
+        },
+        "alerts": {
+          "label": "Activer l'IA générative pour les alertes",
+          "description": "Utilisez l'IA générative pour générer des descriptions pour les éléments d'alerte."
+        },
+        "detections": {
+          "label": "Activer l'IA générative pour les détections",
+          "description": "Utilisez l'IA générative pour générer des descriptions pour les éléments de détection."
+        },
+        "image_source": {
+          "label": "Source de l'image de la revue",
+          "description": "Source des images envoyées à l'IA générative (« aperçu » ou « enregistrements ») ; « enregistrements » utilise des images de meilleure qualité mais plus de jetons d'IA."
+        },
+        "additional_concerns": {
+          "label": "Autres préoccupations",
+          "description": "Une liste de préoccupations ou de notes supplémentaires que la GenAI devrait prendre en compte lors de l'évaluation de l'activité sur cette caméra."
+        }
+      },
+      "candidate": {
+        "label": "Configuration de l'IA générative",
+        "description": "Contrôle l'utilisation de l'IA générative pour la production de descriptions et de résumés des éléments d'évaluation.",
+        "enabled": {
+          "label": "Activer les descriptions de l'IA générative",
+          "description": "Activer ou désactiver les descriptions et les résumés générés par l'IA générative pour les éléments à examiner."
+        },
+        "alerts": {
+          "label": "Activer l'IA générative pour les alertes",
+          "description": "Utilisez l'IA générative pour générer des descriptions pour les éléments d'alerte."
+        },
+        "detections": {
+          "label": "Activer l'IA générative pour les détections",
+          "description": "Utilisez l'IA générative pour générer des descriptions pour les éléments de détection."
+        },
+        "image_source": {
+          "label": "Source de l'image de la revue",
+          "description": "Source des images envoyées à l'IA générative (« aperçu » ou « enregistrements ») ; « enregistrements » utilise des images de meilleure qualité mais plus de jetons d'IA."
+        },
+        "additional_concerns": {
+          "label": "Autres préoccupations",
+          "description": "Une liste de préoccupations ou de notes supplémentaires que la GenAI devrait prendre en compte lors de l'évaluation de l'activité sur cette caméra."
+        },
+        "debug_save_thumbnails": {
+          "label": "Save thumbnails",
+          "description": "Save thumbnails that are sent to the GenAI provider for debugging and review."
+        },
+        "enabled_in_config": {
+          "label": "Original GenAI state",
+          "description": "Tracks whether GenAI review was originally enabled in the static configuration."
+        },
+        "preferred_language": {
+          "label": "Preferred language",
+          "description": "Preferred language to request from the GenAI provider for generated responses."
+        },
+        "frame_mode": {
+          "label": "Frame mode",
+          "description": "How frames are presented to the model. 'frames' sends the prompt followed by the frames, which suits models that track a sequence well on their own. 'annotated_frames' labels each frame and interleaves notes derived from object tracking, which helps models that lose track of activity that repeats or reverses."
+        },
+        "response_style": {
+          "label": "Response style",
+          "description": "Writing style preset for generated review descriptions. Presets adjust the tone and level of detail of the user-facing title, summary, and scene description; 'default' leaves the built-in prompt unchanged."
+        },
+        "activity_context_prompt": {
+          "label": "Activity context prompt",
+          "description": "Custom prompt describing what is and is not suspicious activity to provide context for GenAI summaries."
+        }
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "database",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Base de donnée",
+        "description": "Réglages concernant la base de donnée SQLite utilisé par Frigate pour stocker les objets suivis et enregistrer les métadonnées.",
+        "path": {
+          "label": "Chemin vers la base de donnée"
+        }
+      },
+      "candidate": {
+        "label": "Base de donnée",
+        "description": "Réglages concernant la base de donnée SQLite utilisé par Frigate pour stocker les objets suivis et enregistrer les métadonnées.",
+        "path": {
+          "label": "Chemin vers la base de donnée",
+          "description": "Filesystem path where the Frigate SQLite database file will be stored."
+        }
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "database.path",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Chemin vers la base de donnée"
+      },
+      "candidate": {
+        "label": "Chemin vers la base de donnée",
+        "description": "Filesystem path where the Frigate SQLite database file will be stored."
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "genai",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "provider": {
+          "label": "Fournisseur"
+        }
+      },
+      "candidate": {
+        "label": "Generative AI configuration",
+        "description": "Settings for integrated generative AI providers used to generate object descriptions and review summaries.",
+        "api_key": {
+          "label": "API key",
+          "description": "API key required by some providers (can also be set via environment variables)."
+        },
+        "base_url": {
+          "label": "Base URL",
+          "description": "Base URL for self-hosted or compatible providers (for example an Ollama instance)."
+        },
+        "model": {
+          "label": "Model",
+          "description": "The model to use from the provider for generating descriptions or summaries."
+        },
+        "provider": {
+          "label": "Fournisseur",
+          "description": "The GenAI provider to use (for example: ollama, gemini, openai)."
+        },
+        "roles": {
+          "label": "Roles",
+          "description": "GenAI roles (chat, descriptions, embeddings, transcribe); one provider per role. Only chat, descriptions, and embeddings are granted by default; transcribe must be listed explicitly."
+        },
+        "provider_options": {
+          "label": "Provider options",
+          "description": "Additional provider-specific options to pass to the GenAI client."
+        },
+        "runtime_options": {
+          "label": "Runtime options",
+          "description": "Runtime options passed to the provider for each inference call."
+        }
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "genai.provider",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Fournisseur"
+      },
+      "candidate": {
+        "label": "Fournisseur",
+        "description": "The GenAI provider to use (for example: ollama, gemini, openai)."
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "audio",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Détection audio",
+        "listen": {
+          "description": "Liste des types d'événements audio à détecter (exemples : aboiements, alertes incendies, voix, cris)."
+        },
+        "filters": {
+          "threshold": {
+            "label": "Minimum de confiance audio",
+            "description": "Seuil de confiance minimum pour que l'événement audio soit pris en compte."
+          }
+        }
+      },
+      "candidate": {
+        "label": "Détection audio",
+        "description": "Settings for audio-based event detection for all cameras; can be overridden per-camera.",
+        "enabled": {
+          "label": "Enable audio detection",
+          "description": "Enable or disable audio event detection for all cameras; can be overridden per-camera."
+        },
+        "max_not_heard": {
+          "label": "End timeout",
+          "description": "Amount of seconds without the configured audio type before the audio event is ended."
+        },
+        "min_volume": {
+          "label": "Minimum volume",
+          "description": "Minimum RMS volume threshold required to run audio detection; lower values increase sensitivity (e.g., 200 high, 500 medium, 1000 low)."
+        },
+        "listen": {
+          "label": "Listen types",
+          "description": "Liste des types d'événements audio à détecter (exemples : aboiements, alertes incendies, voix, cris)."
+        },
+        "labelmap": {
+          "label": "Audio labelmap customization",
+          "description": "Overrides or remapping entries to merge into the standard audio labelmap."
+        },
+        "filters": {
+          "label": "Audio filters",
+          "description": "Per-audio-type filter settings such as confidence thresholds used to reduce false positives.",
+          "threshold": {
+            "label": "Minimum de confiance audio",
+            "description": "Seuil de confiance minimum pour que l'événement audio soit pris en compte."
+          }
+        },
+        "enabled_in_config": {
+          "label": "Original audio state",
+          "description": "Indicates whether audio detection was originally enabled in the static config file."
+        },
+        "num_threads": {
+          "label": "Detection threads",
+          "description": "Number of threads to use for audio detection processing."
+        }
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "audio.listen",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "description": "Liste des types d'événements audio à détecter (exemples : aboiements, alertes incendies, voix, cris)."
+      },
+      "candidate": {
+        "label": "Listen types",
+        "description": "Liste des types d'événements audio à détecter (exemples : aboiements, alertes incendies, voix, cris)."
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "audio.filters",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "threshold": {
+          "label": "Minimum de confiance audio",
+          "description": "Seuil de confiance minimum pour que l'événement audio soit pris en compte."
+        }
+      },
+      "candidate": {
+        "label": "Audio filters",
+        "description": "Per-audio-type filter settings such as confidence thresholds used to reduce false positives.",
+        "threshold": {
+          "label": "Minimum de confiance audio",
+          "description": "Seuil de confiance minimum pour que l'événement audio soit pris en compte."
+        }
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "birdseye",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "quality": {
+          "label": "Qualité d'encodage"
+        }
+      },
+      "candidate": {
+        "label": "Birdseye",
+        "description": "Settings for the Birdseye composite view that composes multiple camera feeds into a single layout.",
+        "enabled": {
+          "label": "Enable Birdseye",
+          "description": "Enable or disable the Birdseye view feature."
+        },
+        "modes": {
+          "label": "Activity types",
+          "description": "Activity types that include cameras in Birdseye."
+        },
+        "restream": {
+          "label": "Restream RTSP",
+          "description": "Re-stream the Birdseye output as an RTSP feed; enabling this will keep Birdseye running continuously."
+        },
+        "width": {
+          "label": "Width",
+          "description": "Output width (pixels) of the composed Birdseye frame."
+        },
+        "height": {
+          "label": "Height",
+          "description": "Output height (pixels) of the composed Birdseye frame."
+        },
+        "quality": {
+          "label": "Qualité d'encodage",
+          "description": "Encoding quality for the Birdseye mpeg1 feed (1 highest quality, 31 lowest)."
+        },
+        "inactivity_threshold": {
+          "label": "Inactivity threshold",
+          "description": "Seconds of inactivity after which a camera will stop being shown in Birdseye."
+        },
+        "layout": {
+          "label": "Layout",
+          "description": "Layout options for the Birdseye composition.",
+          "scaling_factor": {
+            "label": "Scaling factor",
+            "description": "Scaling factor used by the layout calculator (range 1.0 to 5.0)."
+          },
+          "max_cameras": {
+            "label": "Max cameras",
+            "description": "Maximum number of cameras to display at once in Birdseye; shows the most recent cameras."
+          }
+        },
+        "idle_heartbeat_fps": {
+          "label": "Idle heartbeat FPS",
+          "description": "Frames-per-second to resend the last composed Birdseye frame when idle; set to 0 to disable."
+        },
+        "order": {
+          "label": "Position",
+          "description": "Numeric position controlling the camera's ordering in the Birdseye layout."
+        }
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "birdseye.quality",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Qualité d'encodage"
+      },
+      "candidate": {
+        "label": "Qualité d'encodage",
+        "description": "Encoding quality for the Birdseye mpeg1 feed (1 highest quality, 31 lowest)."
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "detect",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "enabled": {
+          "label": "Activer la détection d'objet"
+        }
+      },
+      "candidate": {
+        "label": "Object Detection",
+        "description": "Settings for the detection/detect role used to run object detection and initialize trackers.",
+        "enabled": {
+          "label": "Activer la détection d'objet",
+          "description": "Enable or disable object detection for all cameras; can be overridden per-camera."
+        },
+        "height": {
+          "label": "Detect height",
+          "description": "Height (pixels) of frames used for the detect stream; leave empty to use the native stream resolution."
+        },
+        "width": {
+          "label": "Detect width",
+          "description": "Width (pixels) of frames used for the detect stream; leave empty to use the native stream resolution."
+        },
+        "scene": {
+          "label": "Detect scene",
+          "description": "The environment this camera looks at, used to pick which of the configured models runs on it. Cameras left on 'default' run the model configured with a scene of 'default'."
+        },
+        "fps": {
+          "label": "Detect FPS",
+          "description": "Desired frames per second to run detection on; lower values reduce CPU usage (recommended value is 5, only set higher - at most 10 - if tracking extremely fast moving objects)."
+        },
+        "min_initialized": {
+          "label": "Minimum initialization frames",
+          "description": "Number of consecutive detection hits required before creating a tracked object. Increase to reduce false initializations. Default value is fps divided by 2."
+        },
+        "max_disappeared": {
+          "label": "Maximum disappeared frames",
+          "description": "Number of frames without a detection before a tracked object is considered gone."
+        },
+        "stationary": {
+          "label": "Stationary objects config",
+          "description": "Settings to detect and manage objects that remain stationary for a period of time.",
+          "interval": {
+            "label": "Stationary interval",
+            "description": "How often (in frames) to run a detection check to confirm a stationary object."
+          },
+          "threshold": {
+            "label": "Stationary threshold",
+            "description": "Number of frames with no position change required to mark an object as stationary."
+          },
+          "max_frames": {
+            "label": "Max frames",
+            "description": "Limits how long stationary objects are tracked before being discarded.",
+            "default": {
+              "label": "Default max frames",
+              "description": "Default maximum frames to track a stationary object before stopping."
+            },
+            "objects": {
+              "label": "Object max frames",
+              "description": "Per-object overrides for maximum frames to track stationary objects."
+            }
+          },
+          "classifier": {
+            "label": "Enable visual classifier",
+            "description": "Use a visual classifier to detect truly stationary objects even when bounding boxes jitter."
+          }
+        },
+        "annotation_offset": {
+          "label": "Annotation offset",
+          "description": "Milliseconds to shift detect annotations to better align timeline bounding boxes with recordings; can be positive or negative."
+        }
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "detect.enabled",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "label": "Activer la détection d'objet"
+      },
+      "candidate": {
+        "label": "Activer la détection d'objet",
+        "description": "Enable or disable object detection for all cameras; can be overridden per-camera."
+      }
+    },
+    {
+      "ns": "config/global",
+      "key": "ffmpeg",
+      "options": {
+        "returnObjects": true
+      },
+      "native": {
+        "path": {
+          "description": "Emplacement du fichier binaire de FFmpeg à utiliser ou un alias de version (peut être «7.0» ou «8.0»)."
+        },
+        "output_args": {
+          "description": "Arguments de sortie par défaut utilisés pour les différents rôles FFmpeg, tels que detect et record.",
+          "detect": {
+            "description": "Arguments de sortie par défaut pour les flux du rôle detect."
+          },
+          "record": {
+            "description": "Arguments de sortie par défaut pour les flux du rôle record."
+          }
+        },
+        "apple_compatibility": {
+          "description": "Activer l'étiquetage HEVC pour une meilleure compatibilité avec les lecteurs Apple lors de l'enregistrement H.265."
+        }
+      },
+      "candidate": {
+        "label": "FFmpeg",
+        "description": "FFmpeg settings including binary path, args, hwaccel options, and per-role output args.",
+        "path": {
+          "label": "FFmpeg path",
+          "description": "Emplacement du fichier binaire de FFmpeg à utiliser ou un alias de version (peut être «7.0» ou «8.0»)."
+        },
+        "global_args": {
+          "label": "FFmpeg global arguments",
+          "description": "Global arguments passed to FFmpeg processes."
+        },
+        "hwaccel_args": {
+          "label": "Hardware acceleration arguments",
+          "description": "Hardware acceleration arguments for FFmpeg. Provider-specific presets are recommended."
+        },
+        "input_args": {
+          "label": "Input arguments",
+          "description": "Input arguments applied to FFmpeg input streams."
+        },
+        "output_args": {
+          "label": "Output arguments",
+          "description": "Arguments de sortie par défaut utilisés pour les différents rôles FFmpeg, tels que detect et record.",
+          "detect": {
+            "label": "Detect output arguments",
+            "description": "Arguments de sortie par défaut pour les flux du rôle detect."
+          },
+          "record": {
+            "label": "Record output arguments",
+            "description": "Arguments de sortie par défaut pour les flux du rôle record."
+          },
+          "record_sub": {
+            "label": "Sub stream record output arguments",
+            "description": "Output arguments for record_sub role streams. The record output arguments are used when this is not set."
+          }
+        },
+        "retry_interval": {
+          "label": "FFmpeg retry time",
+          "description": "Seconds to wait before attempting to reconnect a camera stream after failure. Default is 10."
+        },
+        "apple_compatibility": {
+          "label": "Apple compatibility",
+          "description": "Activer l'étiquetage HEVC pour une meilleure compatibilité avec les lecteurs Apple lors de l'enregistrement H.265."
+        },
+        "gpu": {
+          "label": "GPU index",
+          "description": "Default GPU index used for hardware acceleration if available."
+        },
+        "inputs": {
+          "label": "Camera inputs",
+          "description": "List of input stream definitions (paths and roles) for this camera.",
+          "path": {
+            "label": "Input path",
+            "description": "Camera input stream URL or path."
+          },
+          "roles": {
+            "label": "Input roles",
+            "description": "Roles for this input stream."
+          },
+          "global_args": {
+            "label": "FFmpeg global arguments",
+            "description": "FFmpeg global arguments for this input stream."
+          },
+          "hwaccel_args": {
+            "label": "Hardware acceleration arguments",
+            "description": "Hardware acceleration arguments for this input stream."
+          },
+          "input_args": {
+            "label": "Input arguments",
+            "description": "Input arguments specific to this stream."
+          }
+        }
+      }
+    }
+  ]
+}

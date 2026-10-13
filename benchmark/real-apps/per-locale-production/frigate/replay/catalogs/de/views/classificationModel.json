@@ -1,0 +1,212 @@
+{
+  "documentTitle": "Klassifikationsmodelle - Frigate",
+  "details": {
+    "scoreInfo": "Die Punktzahl gibt die durchschnittliche Konfidenz aller Erkennungen dieses Objekts wieder.",
+    "none": "Keiner",
+    "unknown": "Unbekannt"
+  },
+  "button": {
+    "deleteClassificationAttempts": "Lösche klassifizierte Bilder",
+    "renameCategory": "Klasse umbenennen",
+    "deleteCategory": "Klasse löschen",
+    "deleteImages": "Bilder löschen",
+    "trainModel": "Modell trainieren",
+    "addClassification": "Klassifikationsmodell hinzufügen",
+    "deleteModels": "Modell löschen",
+    "editModel": "Modell bearbeiten"
+  },
+  "tooltip": {
+    "trainingInProgress": "Modell wird gerade trainiert",
+    "noNewImages": "Keine weiteren Bilder zum trainieren. Bitte klassifiziere weitere Bilder im Datensatz.",
+    "noChanges": "Keine Veränderungen des Datensatzes seit dem letzten Training.",
+    "modelNotReady": "Modell ist nicht bereit für das Training"
+  },
+  "toast": {
+    "success": {
+      "deletedCategory_one": "Klasse gelöscht",
+      "deletedCategory_other": "Klassen {{count}} gelöscht",
+      "deletedImage_one": "{{count}} Bild gelöscht",
+      "deletedImage_other": "{{count}} Bilder gelöscht",
+      "deletedModel_one": "{{count}} Modell erfolgreich gelöscht",
+      "deletedModel_other": "{{count}} Modelle erfolgreich gelöscht",
+      "categorizedImage": "Erfolgreich klassifizierte Bilder",
+      "trainedModel": "Modell erfolgreich trainiert.",
+      "trainingModel": "Modelltraining erfolgreich gestartet.",
+      "updatedModel": "Modellkonfiguration erfolgreich aktualisiert",
+      "renamedCategory": "Klasse erfolgreich in {{name}} umbenannt",
+      "reclassifiedImage": "Erfolgreich neu klassifiziertes Bild"
+    },
+    "error": {
+      "deleteImageFailed": "Löschen fehlgeschlagen: {{errorMessage}}",
+      "deleteCategoryFailed": "Löschen der Klasse fehlgeschlagen: {{errorMessage}}",
+      "deleteModelFailed": "Model konnte nicht gelöscht werden: {{errorMessage}}",
+      "trainingFailedToStart": "Modelltraining konnte nicht gestartet werden: {{errorMessage}}",
+      "updateModelFailed": "Aktualisierung des Modells fehlgeschlagen: {{errorMessage}}",
+      "renameCategoryFailed": "Umbenennung der Klasse fehlgeschlagen: {{errorMessage}}",
+      "categorizeFailed": "Bildkategorisierung fehlgeschlagen: {{errorMessage}}",
+      "trainingFailed": "Modelltraining fehlgeschlagen. Details sind in den Frigate-Protokollen zu finden.",
+      "reclassifyFailed": "Die Neuklassifizierung des Bildes ist fehlgeschlagen: {{errorMessage}}"
+    }
+  },
+  "deleteCategory": {
+    "title": "Klasse löschen",
+    "desc": "Möchten Sie die Klasse {{name}} wirklich löschen? Dadurch werden alle zugehörigen Bilder dauerhaft gelöscht und das Modell muss neu trainiert werden.",
+    "minClassesTitle": "Klasse kann nicht gelöscht werden",
+    "minClassesDesc": "Ein Klassifizierungsmodell benötigt mindestens zwei Klassen. Fügen Sie eine weitere Klasse hinzu, bevor Sie diese löschen."
+  },
+  "deleteModel": {
+    "title": "Klassifizierungsmodell löschen",
+    "single": "{{name}} wirklich löschen? Dadurch werden alle zugehörigen Daten, einschließlich Bilder und Trainingsdaten, dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "desc_one": "{{count}} Modell wirklich löschen? Dadurch werden alle zugehörigen Daten, einschließlich Bilder und Trainingsdaten, dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "desc_other": "{{count}} Modelle wirklich löschen? Dadurch werden alle zugehörigen Daten, einschließlich Bilder und Trainingsdaten, dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
+  },
+  "edit": {
+    "title": "Klassifikationsmodell bearbeiten",
+    "descriptionState": "Bearbeite die Klassen für dieses Zustandsklassifikationsmodell. Änderungen erfordern ein erneutes Trainieren des Modells.",
+    "descriptionObject": "Bearbeite den Objekttyp und Klassifizierungstyp für dieses Objektklassifikationsmodell.",
+    "stateClassesInfo": "Modell aktualisiert. Trainieren Sie das Modell neu, damit die Klassenänderungen wirksam werden.",
+    "enabled": "Aktiviert",
+    "enabledDesc": "Dieses Modell ausführen. Bei Deaktivierung wird es nicht mehr ausgeführt und führt keine Klassifizierung mehr durch.",
+    "saveAttempts": "Versuche speichern",
+    "saveAttemptsDesc": "Anzahl der für die Übersicht der letzten Klassifizierungen zu speichernden Bilder.",
+    "motion": "Bei Bewegung ausführen",
+    "motionDesc": "Klassifizierung bei Bewegung im konfigurierten Bildausschnitt ausführen.",
+    "interval": "Intervall",
+    "intervalDesc": "Sekundenabstand zwischen regelmäßigen Klassifizierungsläufen. Leer lassen, um die Klassifizierung nur bei Bewegung auszuführen.",
+    "intervalPlaceholder": "Kein Intervall",
+    "errors": {
+      "saveAttemptsInvalid": "Die Anzahl der Speicherversuche muss eine ganze Zahl sein, die größer oder gleich 0 ist",
+      "intervalInvalid": "Intervall muss eine ganze Zahl sein, die größer als 0 ist"
+    }
+  },
+  "deleteDatasetImages": {
+    "title": "Datensatz Bilder löschen",
+    "desc_one": "Wirklich {{count}} Bild von {{dataset}} löschen? Diese Aktion kann nicht rückgängig gemacht werden und erfordert ein erneutes Trainieren des Modells.",
+    "desc_other": "Wirklich {{count}} Bilder von {{dataset}} löschen? Diese Aktion kann nicht rückgängig gemacht werden und erfordert ein erneutes Trainieren des Modells."
+  },
+  "deleteTrainImages": {
+    "title": "Trainingsbilder löschen",
+    "desc_one": "Wirklich {{count}} Bild löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "desc_other": "Wirklich {{count}} Bilder löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+  },
+  "renameCategory": {
+    "title": "Klasse umbenennen",
+    "desc": "Neuen Namen für {{name}} eingeben. Das Modell muss neu trainiert werden, damit die Änderungen wirksam werden."
+  },
+  "description": {
+    "invalidName": "Ungültiger Name. Namen dürfen nur Buchstaben, Zahlen, Leerzeichen, Apostrophe, Unterstriche und Bindestriche enthalten."
+  },
+  "train": {
+    "title": "Neue Klassifizierungen",
+    "titleShort": "Neu",
+    "aria": "Neue Klassifizierungen auswählen"
+  },
+  "categories": "Klassen",
+  "createCategory": {
+    "new": "Neue Klasse erstellen"
+  },
+  "categorizeImageAs": "Bild klassifizieren als:",
+  "categorizeImage": "Bild klassifizieren",
+  "menu": {
+    "objects": "Objekte",
+    "states": "Zustände"
+  },
+  "noModels": {
+    "object": {
+      "title": "Keine Objektklassifikationsmodelle",
+      "description": "Erstelle ein benutzerdefiniertes Objektklassifikationsmodell, um erkannte Objekte zu klassifizieren.",
+      "buttonText": "Objektklassifikationsmodell erstellen"
+    },
+    "state": {
+      "title": "Keine Zustandsklassifikationsmodelle",
+      "description": "Erstellen Sie ein benutzerdefiniertes Zustandsklassifikationsmodell, um Zustandsänderungen in bestimmten Kamerabereichen zu überwachen und zu klassifizieren.",
+      "buttonText": "Zustandsklassifikationsmodell erstellen"
+    }
+  },
+  "wizard": {
+    "title": "Neues Klassifikationsmodell erstellen",
+    "steps": {
+      "nameAndDefine": "Benennen und definieren",
+      "stateArea": "Überwachungsbereich",
+      "chooseExamples": "Beispiel auswählen"
+    },
+    "step1": {
+      "description": "Zustandsmodelle überwachen fest definierte Kamerabereiche auf Veränderungen (z. B. Tür offen/geschlossen). Objektmodelle klassifizieren erkannte Objekte genauer (z. B. in bekannte Tiere, Lieferanten usw.).",
+      "name": "Name",
+      "namePlaceholder": "Modellname eingeben ...",
+      "type": "Typ",
+      "typeState": "Zustand",
+      "typeObject": "Objekt",
+      "objectLabel": "Objektbezeichnung",
+      "objectLabelPlaceholder": "Auswahl Objekt Typ...",
+      "classificationType": "Klassifizierungstyp",
+      "classificationTypeTip": "Etwas über Klassifizierungstyp lernen",
+      "classificationTypeDesc": "Unterbezeichnungen fügen dem Objektnamen zusätzlichen Text hinzu (z. B. „Person: UPS“). Attribute sind durchsuchbare Metadaten, die separat in den Objektmetadaten gespeichert sind.",
+      "classificationSubLabel": "Unterlabel",
+      "classificationAttribute": "Attribut",
+      "classes": "Klassen",
+      "states": "Zustände",
+      "classesTip": "Mehr über Klassen erfahren",
+      "classesStateDesc": "Definieren Sie die verschiedenen Zustände, in denen sich Ihr Kamerabereich befinden kann. Beispiel: „offen” und „geschlossen” für ein Garagentor.",
+      "classesObjectDesc": "Definieren Sie die verschiedenen Kategorien, in die erkannte Objekte klassifiziert werden sollen. Beispiel: „Lieferant“, „Bewohner“, „Fremder“ für die Klassifizierung von Personen.",
+      "classPlaceholder": "Klassenbezeichnung eingeben...",
+      "errors": {
+        "nameRequired": "Der Modellname ist erforderlich",
+        "nameLength": "Der Modellname darf maximal 64 Zeichen lang sein",
+        "nameOnlyNumbers": "Der Modellname darf nicht nur aus Zahlen bestehen",
+        "classRequired": "Mindestens eine Klasse ist erforderlich",
+        "classesUnique": "Der Klassenname muss eindeutig sein",
+        "stateRequiresTwoClasses": "Zustandsmodelle erfordern mindestens zwei Klassen",
+        "objectLabelRequired": "Bitte wähle eine Objektbeschriftung",
+        "objectTypeRequired": "Bitte wählen Sie einen Klassifizierungstyp aus",
+        "noneNotAllowed": "Die Klasse „none“ ist nicht zulässig"
+      }
+    },
+    "step2": {
+      "description": "Wählen Sie Kameras aus und legen Sie für jede Kamera den zu überwachenden Bereich fest. Das Modell klassifiziert den Zustand dieser Bereiche.",
+      "cameras": "Kameras",
+      "selectCamera": "Kamera auswählen",
+      "noCameras": "Klicke + zum Hinzufügen von Kameras",
+      "selectCameraPrompt": "Wählen Sie eine Kamera aus der Liste aus, um ihren Überwachungsbereich festzulegen"
+    },
+    "step3": {
+      "selectImagesPrompt": "Wählen Sie alle Bilder mit: {{className}}",
+      "selectImagesDescription": "Klicken Sie auf die Bilder, um sie auszuwählen. Klicken Sie auf „Weiter“, wenn Sie mit dieser Klasse fertig sind.",
+      "allImagesRequired_one": "Bitte klassifizieren Sie alle Bilder. {{count}} Bild verbleibend.",
+      "allImagesRequired_other": "Bitte klassifizieren Sie alle Bilder. {{count}} Bilder verbleiben.",
+      "generating": {
+        "title": "Beispielbilder generieren",
+        "description": "Frigate extrahiert repräsentative Bilder aus Ihren Aufnahmen. Dies kann einen Moment dauern..."
+      },
+      "training": {
+        "title": "Trainiere Modell",
+        "description": "Ihr Modell wird im Hintergrund trainiert. Schließen Sie diesen Dialog, und Ihr Modell wird ausgeführt, sobald das Training abgeschlossen ist."
+      },
+      "retryGenerate": "Generierung wiederholen",
+      "noImages": "Keine Bilder generiert",
+      "classifying": "Klassifizieren und Trainieren...",
+      "trainingStarted": "Training wurde erfolgreich gestartet",
+      "errors": {
+        "noCameras": "Keine Kameras konfiguriert",
+        "noObjectLabel": "Kein Objektlabel ausgewählt",
+        "generateFailed": "Beispiele konnten nicht generiert werden: {{error}}",
+        "generationFailed": "Generierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+        "classifyFailed": "Bilder konnten nicht klassifiziert werden: {{error}}"
+      },
+      "generateSuccess": "Erfolgreich generierte Beispielbilder",
+      "modelCreated": "Modell erfolgreich erstellt. Verwenden Sie die Ansicht „Aktuelle Klassifizierungen“, um Bilder für fehlende Zustände hinzuzufügen und trainieren Sie dann das Modell erneut.",
+      "missingStatesWarning": {
+        "title": "Beispiele für fehlende Klassen",
+        "description": "Nicht alle Klassen enthalten Beispiele. Versuchen Sie, neue Beispiele zu generieren, um die fehlende Klasse zu finden, oder fahren Sie fort und fügen Sie Bilder später über die Ansicht „Letzte Klassifizierungen“ hinzu."
+      },
+      "refreshExamples": "Neue Beispiele erstellen",
+      "refreshConfirm": {
+        "title": "Neue Beispiele erstellen?",
+        "description": "Dadurch wird eine neue Reihe von Bildern generiert und alle Auswahlen, einschließlich aller bisherigen Klassen, werden gelöscht. Sie müssen für alle Klassen erneut Beispiele auswählen."
+      }
+    }
+  },
+  "reclassifyImageAs": "Bild neu klassifizieren als:",
+  "reclassifyImage": "Bild neu klassifizieren",
+  "disabled": "Deaktiviert"
+}

@@ -1,0 +1,366 @@
+{
+  "time": {
+    "yesterday": "Ayer",
+    "thisMonth": "Este mes",
+    "yr": "{{time}}año",
+    "second_one": "{{time}} segundo",
+    "second_many": "{{time}} segundos",
+    "second_other": "{{time}} segundos",
+    "formattedTimestamp": {
+      "24hour": "MMM d, HH:mm:ss",
+      "12hour": "MMM d, h:mm:ss aaa"
+    },
+    "day_one": "{{time}} día",
+    "day_many": "{{time}} días",
+    "day_other": "{{time}} días",
+    "untilForTime": "Hasta {{time}}",
+    "untilForRestart": "Hasta que Frigate se reinicie.",
+    "untilRestart": "Hasta que se reinicie",
+    "ago": "Hace {{timeAgo}}",
+    "justNow": "Ahora mismo",
+    "today": "Hoy",
+    "last7": "Últimos 7 días",
+    "last14": "Últimos 14 días",
+    "last30": "Últimos 30 días",
+    "thisWeek": "Esta semana",
+    "lastWeek": "Semana pasada",
+    "lastMonth": "Mes pasado",
+    "10minutes": "10 minutos",
+    "30minutes": "30 minutos",
+    "1hour": "1 hora",
+    "12hours": "12 horas",
+    "24hours": "24 horas",
+    "pm": "pm",
+    "year_one": "{{time}} año",
+    "year_many": "{{time}} años",
+    "year_other": "{{time}} años",
+    "mo": "{{time}}mes",
+    "month_one": "{{time}} mes",
+    "month_many": "{{time}} meses",
+    "month_other": "{{time}} meses",
+    "h": "{{time}}h",
+    "m": "{{time}}m",
+    "minute_one": "{{time}} minuto",
+    "minute_many": "{{time}} minutos",
+    "minute_other": "{{time}} minutos",
+    "s": "{{time}}s",
+    "formattedTimestamp2": {
+      "12hour": "MM/dd h:mm:ssa",
+      "24hour": "d MMM HH:mm:ss"
+    },
+    "5minutes": "5 minutos",
+    "am": "am",
+    "d": "{{time}}d",
+    "hour_one": "{{time}} hora",
+    "hour_many": "{{time}} horas",
+    "hour_other": "{{time}} horas",
+    "formattedTimestampHourMinute": {
+      "12hour": "h:mm aaa",
+      "24hour": "HH:mm"
+    },
+    "formattedTimestampMonthDayHourMinute": {
+      "12hour": "MMM d, h:mm aaa",
+      "24hour": "MMM d, HH:mm"
+    },
+    "formattedTimestampMonthDay": "MMM d",
+    "formattedTimestampFilename": {
+      "12hour": "MM-dd-yy-h-mm-ss-a",
+      "24hour": "MM-dd-yy-HH-mm-ss"
+    },
+    "formattedTimestampHourMinuteSecond": {
+      "12hour": "h:mm:ss aaa",
+      "24hour": "HH:mm:ss"
+    },
+    "formattedTimestampMonthDayYearHourMinute": {
+      "12hour": "MMM d yyyy, h:mm aaa",
+      "24hour": "MMM d yyyy, HH:mm"
+    },
+    "formattedTimestampMonthDayYear": {
+      "12hour": "MMM d, yyyy",
+      "24hour": "MMM d, yyyy"
+    },
+    "inProgress": "En progreso",
+    "invalidStartTime": "Hora de inicio no válida",
+    "invalidEndTime": "Hora de finalización no válida",
+    "never": "Nunca"
+  },
+  "menu": {
+    "settings": "Ajustes",
+    "export": "Exportar",
+    "user": {
+      "title": "Usuario",
+      "account": "Cuenta",
+      "anonymous": "Anónimo",
+      "logout": "Cerrar sesión",
+      "setPassword": "Establecer contraseña",
+      "current": "Usuario actual: {{user}}"
+    },
+    "systemMetrics": "Salud y Métricas del sistema",
+    "help": "Ayuda",
+    "system": "Sistema",
+    "configuration": "Configuración",
+    "systemLogs": "Registros del sistema",
+    "configurationEditor": "Editor de configuración",
+    "languages": "Idiomas",
+    "language": {
+      "en": "English (Inglés)",
+      "zhCN": "简体中文 (Chino simplificado)",
+      "withSystem": {
+        "label": "Usar los ajustes del sistema para el idioma"
+      },
+      "ru": "Русский (Ruso)",
+      "de": "Deutsch (Alemán)",
+      "ja": "日本語 (Japonés)",
+      "tr": "Türkçe (Turco)",
+      "sv": "Svenska (Sueco)",
+      "nb": "Norsk Bokmål (Noruego Bokmål)",
+      "ko": "한국어 (Coreano)",
+      "vi": "Tiếng Việt (Vietnamita)",
+      "fa": "فارسی (Persa)",
+      "pl": "Polski (Polaco)",
+      "uk": "Українська (Ucraniano)",
+      "he": "עברית (Hebreo)",
+      "el": "Ελληνικά (Griego)",
+      "ro": "Română (Rumano)",
+      "hu": "Magyar (Húngaro)",
+      "fi": "Suomi (Finlandés)",
+      "it": "Italian (Italiano)",
+      "da": "Dansk (Danés)",
+      "sk": "Slovenčina (Eslovaco)",
+      "hi": "हिन्दी (Hindi)",
+      "es": "Español",
+      "ar": "العربية (Árabe)",
+      "pt": "Português (Portugues)",
+      "cs": "Čeština (Checo)",
+      "nl": "Nederlands (Neerlandés)",
+      "fr": "Français (Frances)",
+      "yue": "粵語 (Cantonés)",
+      "th": "ไทย (Tailandés)",
+      "ca": "Català (Catalan)",
+      "ptBR": "Português brasileiro (Portugués brasileño)",
+      "sr": "Српски (Serbio)",
+      "sl": "Slovenščina (Esloveno)",
+      "lt": "Lietuvių (Lituano)",
+      "bg": "Български (Búlgaro)",
+      "gl": "Galego (Gallego)",
+      "id": "Bahasa Indonesia (Indonesio)",
+      "ur": "اردو (Urdu)",
+      "hr": "Hrvatski (Croata)",
+      "bs": "Bosanski (Bosnio)",
+      "zhHant": "繁體中文 (Chino Tradicional)",
+      "be": "Bielorruso"
+    },
+    "appearance": "Apariencia",
+    "darkMode": {
+      "label": "Modo oscuro",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "withSystem": {
+        "label": "Usar los ajustes del sistema para el modo claro u oscuro"
+      }
+    },
+    "withSystem": "Sistema",
+    "theme": {
+      "label": "Tema",
+      "blue": "Azul",
+      "green": "Verde",
+      "nord": "Nord",
+      "red": "Rojo",
+      "default": "Predeterminado",
+      "highcontrast": "Alto Contraste"
+    },
+    "documentation": {
+      "title": "Documentación",
+      "label": "Documentación de Frigate"
+    },
+    "restart": "Reiniciar Frigate",
+    "live": {
+      "title": "Directo",
+      "cameras": {
+        "title": "Cámaras",
+        "count_one": "{{count}} Cámara",
+        "count_many": "{{count}} Cámaras",
+        "count_other": "{{count}} Cámaras"
+      },
+      "allCameras": "Todas las cámaras"
+    },
+    "review": "Revisar",
+    "explore": "Explorar",
+    "uiPlayground": "Zona de pruebas de la interfaz de usuario",
+    "faceLibrary": "Biblioteca de rostros",
+    "classification": "Clasificación",
+    "profiles": "Perfiles",
+    "actions": "Acciones",
+    "features": "Funciones",
+    "chat": "Chat"
+  },
+  "unit": {
+    "speed": {
+      "mph": "mph",
+      "kph": "kph"
+    },
+    "length": {
+      "meters": "Metros",
+      "feet": "Pies"
+    },
+    "data": {
+      "kbps": "kB/s",
+      "mbps": "MB/s",
+      "gbps": "GB/s",
+      "kbph": "kB/hora",
+      "mbph": "MB/hora",
+      "gbph": "GB/hora"
+    }
+  },
+  "button": {
+    "off": "APAGADO",
+    "copyCoordinates": "Copiar coordenadas",
+    "fullscreen": "Pantalla completa",
+    "apply": "Aplicar",
+    "reset": "Restablecer",
+    "done": "Hecho",
+    "enable": "Habilitar",
+    "disabled": "Deshabilitado",
+    "disable": "Deshabilitar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "copy": "Copiar",
+    "back": "Atrás",
+    "history": "Historial",
+    "pictureInPicture": "Imagen en imagen",
+    "twoWayTalk": "Conversación bidireccional",
+    "cameraAudio": "Audio de la cámara",
+    "delete": "Eliminar",
+    "yes": "Sí",
+    "no": "No",
+    "download": "Descargar",
+    "info": "Información",
+    "suspended": "Suspendido",
+    "unsuspended": "Reactivar",
+    "play": "Reproducir",
+    "unselect": "Deseleccionar",
+    "export": "Exportar",
+    "deleteNow": "Eliminar ahora",
+    "next": "Siguiente",
+    "edit": "Editar",
+    "enabled": "Habilitado",
+    "saving": "Guardando…",
+    "exitFullscreen": "Salir de pantalla completa",
+    "on": "ENCENDIDO",
+    "continue": "Continuar",
+    "add": "Añadir",
+    "applying": "Aplicando…",
+    "undo": "Deshacer",
+    "copiedToClipboard": "Copiado al portapapeles",
+    "modified": "Modificado",
+    "overridden": "Sobrescrito",
+    "resetToGlobal": "Restablecer a global",
+    "resetToDefault": "Restablecer valores predeterminados",
+    "saveAll": "Guardar todo",
+    "savingAll": "Guardando todo…",
+    "undoAll": "Deshacer todo",
+    "retry": "Reintentar",
+    "expand": "Expandir",
+    "collapse": "Colapsar",
+    "reload": "Recargar"
+  },
+  "toast": {
+    "save": {
+      "error": {
+        "noMessage": "No se pudieron guardar los cambios de configuración",
+        "title": "No se pudieron guardar los cambios de configuración: {{errorMessage}}"
+      },
+      "title": "Guardar",
+      "success": "Cambios de configuración guardados correctamente."
+    },
+    "copyUrlToClipboard": "URL copiada al portapapeles."
+  },
+  "label": {
+    "back": "Volver atrás",
+    "hide": "Ocultar {{item}}",
+    "show": "Mostrar {{item}}",
+    "ID": "ID",
+    "none": "Ninguno",
+    "all": "Todas",
+    "other": "Otro"
+  },
+  "role": {
+    "title": "Rol",
+    "admin": "Administrador",
+    "viewer": "Espectador",
+    "desc": "Los administradores tienen acceso completo a todas las funciones en la interfaz de usuario de Frigate. Los espectadores están limitados a ver cámaras, elementos de revisión y grabaciones históricas en la interfaz de usuario."
+  },
+  "pagination": {
+    "label": "paginación",
+    "previous": {
+      "title": "Anterior",
+      "label": "Ir a la página anterior"
+    },
+    "next": {
+      "title": "Siguiente",
+      "label": "Ir a la página siguiente"
+    },
+    "more": "Más páginas"
+  },
+  "accessDenied": {
+    "documentTitle": "Acceso denegado - Frigate",
+    "desc": "No tienes permiso para ver esta página.",
+    "title": "Acceso denegado"
+  },
+  "notFound": {
+    "documentTitle": "No se ha encontrado - Frigate",
+    "title": "404",
+    "desc": "Página no encontrada"
+  },
+  "selectItem": "Seleccionar {{item}}",
+  "readTheDocumentation": "Leer la documentación",
+  "information": {
+    "pixels": "{{area}}px"
+  },
+  "list": {
+    "two": "{{0}} y {{1}}",
+    "many": "{{items}}, y {{last}}",
+    "separatorWithSpace": ", "
+  },
+  "field": {
+    "optional": "Opcional",
+    "internalID": "La ID interna que usa Frigate en la configuración y en la base de datos"
+  },
+  "no_items": "No hay elementos",
+  "validation_errors": "Errores de validación",
+  "credentialField": {
+    "savedPlaceholder": "Guardado — déjalo en blanco para mantener el actual"
+  },
+  "commandMenu": {
+    "action": {
+      "toggleTheme": "Cambiar de modo claro a modo oscuro"
+    },
+    "title": "Menú de Comandos",
+    "description": "Buscar páginas, cámaras, configuraciones y acciones",
+    "placeholder": "Buscar páginas, cámaras, configuraciones y acciones",
+    "empty": "No se han encontrado coincidencias",
+    "hint": "{{key}} o / para abrir, Enter para ejecutar",
+    "section": {
+      "recent": "Recientes",
+      "pages": "Páginas",
+      "cameras": "Cámaras",
+      "cameraGroups": "Grupos de cámaras",
+      "settings": "Configuración",
+      "actions": "Acciones"
+    },
+    "camera": {
+      "live": "En vivo",
+      "review": "Revisión"
+    }
+  },
+  "error": {
+    "title": "Esta página ha dejado de funcionar",
+    "desc": "Ha ocurrido un error inesperado en esta página. Recargarla generalmente resuelve el problema. Si sigue sucediendo, copia los detalles y adjuntalos en una nueva discusión en GitHub.",
+    "staleTitle": "Recarga requerida",
+    "staleDesc": "Una parte de esta interfaz no pudo ser cargada, lo que usualmente significa que Frigate fue actualizado mientras esta pestaña estaba abierta. Recarga la página para ver la nueva versión.",
+    "partial": "Una parte de la interfaz ha dejado de funcionar.",
+    "copyDetails": "Copiar detalles",
+    "copyFailed": "Los detalles no pudieron ser copiados al portapapeles"
+  }
+}

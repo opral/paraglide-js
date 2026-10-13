@@ -1,0 +1,265 @@
+{
+  "generativeAI": "Generatieve AI",
+  "exploreIsUnavailable": {
+    "embeddingsReindexing": {
+      "finishingShortly": "Bijna klaar",
+      "step": {
+        "trackedObjectsProcessed": "Gevolgde objecten verwerkt: ",
+        "descriptionsEmbedded": "Beschrijving ingesloten: ",
+        "thumbnailsEmbedded": "Thumbnails ingesloten: "
+      },
+      "context": "Verkennen kan worden gebruikt nadat de embeddings van gevolgde objecten opnieuw zijn geïndexeerd.",
+      "estimatedTime": "Geschatte resterende tijd:",
+      "startingUp": "Opstarten…"
+    },
+    "downloadingModels": {
+      "setup": {
+        "textTokenizer": "Teksttokenizer",
+        "visionModel": "Visiemodel",
+        "visionModelFeatureExtractor": "kenmerkextractie van een visiemodel",
+        "textModel": "Tekstmodel"
+      },
+      "error": "Er is iets misgegaan. Raadpleeg de Frigate-logs.",
+      "context": "Frigate downloadt de vereiste inbedmodellen om de functie Semantisch zoeken te ondersteunen. Dit kan enkele minuten duren, afhankelijk van de snelheid van je netwerkverbinding.",
+      "tips": {
+        "context": "Je wilt misschien de embeddings van je gevolgde objecten opnieuw indexeren zodra de modellen zijn gedownload."
+      }
+    },
+    "title": "Verkennen is niet beschikbaar"
+  },
+  "trackedObjectDetails": "Details getraceerd object",
+  "type": {
+    "details": "Details",
+    "video": "video",
+    "snapshot": "snapshot",
+    "thumbnail": "thumbnail",
+    "tracking_details": "trackinggegevens"
+  },
+  "objectLifecycle": {
+    "noImageFound": "Er is geen afbeelding beschikbaar voor dit tijdstip."
+  },
+  "documentTitle": "Verken - Frigate",
+  "details": {
+    "item": {
+      "button": {
+        "viewInExplore": "Bekijk in Verkennen",
+        "share": "Deel dit beoordelingsitem"
+      },
+      "title": "Details van item bekijken",
+      "desc": "Details van item bekijken",
+      "tips": {
+        "hasMissingObjects": "Pas je configuratie aan als je wilt dat Frigate gevolgde objecten opslaat voor de volgende labels: <em>{{objects}}</em>",
+        "mismatch_one": "{{count}} Niet-beschikbaar object werd gedetecteerd en opgenomen in dit beoordelingsitem. Het voldeed mogelijk niet aan de criteria voor een waarschuwing of detectie, of is inmiddels opgeschoond of verwijderd.",
+        "mismatch_other": "{{count}} Niet-beschikbare objecten zijn gedetecteerd en opgenomen in dit beoordelingsitem. Deze objecten voldeden mogelijk niet aan de voorwaarden voor een waarschuwing of detectie, of zijn inmiddels verwijderd of opgeruimd."
+      },
+      "toast": {
+        "success": {
+          "regenerate": "Er is een nieuwe beschrijving aangevraagd bij {{provider}}. Afhankelijk van de snelheid van je provider kan het regenereren van de nieuwe beschrijving enige tijd duren.",
+          "updatedSublabel": "Sublabel succesvol bijgewerkt.",
+          "updatedLPR": "Kenteken succesvol bijgewerkt.",
+          "audioTranscription": "Audio-transcriptie succesvol aangevraagd. Afhankelijk van de snelheid van uw Frigate-server kan het even duren voordat de transcriptie voltooid is.",
+          "updatedAttributes": "Attributen succesvol bijgewerkt."
+        },
+        "error": {
+          "updatedSublabelFailed": "Het is niet gelukt om het sublabel bij te werken: {{errorMessage}}",
+          "regenerate": "Het is niet gelukt om {{provider}} aan te roepen voor een nieuwe beschrijving: {{errorMessage}}",
+          "updatedLPRFailed": "Kentekenplaat bijwerken mislukt: {{errorMessage}}",
+          "audioTranscription": "Audiotranscriptie aanvragen mislukt: {{errorMessage}}",
+          "updatedAttributesFailed": "Attributen konden niet worden bijgewerkt: {{errorMessage}}"
+        }
+      }
+    },
+    "label": "Label",
+    "editSubLabel": {
+      "title": "Sublabel bewerken",
+      "descNoLabel": "Voer een nieuw sublabel in voor dit gevolgde object",
+      "desc": "Voer een nieuw sublabel in voor deze {{label}}"
+    },
+    "topScore": {
+      "label": "Hoogste score",
+      "info": "De topscore is de hoogste mediaanscore voor het gevolgde object, waardoor deze kan afwijken van de score die wordt weergegeven op de thumbnail van het zoekresultaat."
+    },
+    "objects": "Objecten",
+    "zones": "Zones",
+    "button": {
+      "findSimilar": "Vind vergelijkbare",
+      "regenerate": {
+        "label": "Regenereer de beschrijving van het gevolgde object",
+        "title": "Regenereren"
+      }
+    },
+    "description": {
+      "placeholder": "Beschrijving van het gevolgde object",
+      "label": "Beschrijving",
+      "aiTips": "Frigate vraagt pas om een beschrijving van uw Generative AI-provider als de levenscyclus van het gevolgde object is afgelopen."
+    },
+    "expandRegenerationMenu": "Regeneratiemenu uitbreiden",
+    "regenerateFromSnapshot": "Regenereren vanuit Snapshot",
+    "tips": {
+      "descriptionSaved": "Beschrijving succesvol opgeslagen",
+      "saveDescriptionFailed": "Het is niet gelukt om de beschrijving bij te werken: {{errorMessage}}"
+    },
+    "timestamp": "Tijdstempel",
+    "regenerateFromThumbnails": "Regeneratie van Thumbnails",
+    "camera": "Camera",
+    "estimatedSpeed": "Geschatte snelheid",
+    "editLPR": {
+      "title": "Kenteken bewerken",
+      "desc": "Voer een nieuwe kentekenwaarde in voor deze {{label}}",
+      "descNoLabel": "Voer een nieuwe kentekenwaarde in voor dit gevolgde object"
+    },
+    "recognizedLicensePlate": "Erkende kentekenplaat",
+    "snapshotScore": {
+      "label": "Snapshot score"
+    },
+    "score": {
+      "label": "Score"
+    },
+    "editAttributes": {
+      "title": "Bewerk attributen",
+      "desc": "Selecteer classificatiekenmerken voor dit {{label}}"
+    },
+    "attributes": "Classificatie-kenmerken",
+    "title": {
+      "label": "Titel"
+    },
+    "scoreInfo": "Informatie over de score"
+  },
+  "itemMenu": {
+    "downloadVideo": {
+      "label": "Download video",
+      "aria": "Download video"
+    },
+    "submitToPlus": {
+      "label": "Verzenden naar Frigate+",
+      "aria": "Verzenden naar Frigate Plus"
+    },
+    "viewInHistory": {
+      "aria": "Bekijk in Geschiedenis",
+      "label": "Bekijk in Geschiedenis"
+    },
+    "deleteTrackedObject": {
+      "label": "Verwijder dit gevolgde object"
+    },
+    "findSimilar": {
+      "label": "Vind vergelijkbare",
+      "aria": "Vind vergelijkbare gevolgde objecten"
+    },
+    "downloadSnapshot": {
+      "label": "Download snapshot",
+      "aria": "Download snapshot"
+    },
+    "addTrigger": {
+      "label": "Trigger toevoegen",
+      "aria": "Voeg een trigger toe voor dit gevolgde object"
+    },
+    "audioTranscription": {
+      "label": "Transcriberen",
+      "aria": "Audiotranscriptie aanvragen"
+    },
+    "showObjectDetails": {
+      "label": "Objectpad weergeven"
+    },
+    "hideObjectDetails": {
+      "label": "Verberg objectpad"
+    },
+    "viewTrackingDetails": {
+      "label": "Bekijk trackinggegevens",
+      "aria": "Toon de trackinggegevens"
+    },
+    "downloadCleanSnapshot": {
+      "label": "Download schone snapshot",
+      "aria": "Download schone snapshot"
+    },
+    "debugReplay": {
+      "label": "Debug-herhaling",
+      "aria": "Bekijk dit gevolgde object in de weergave voor het afspelen van foutopsporing"
+    },
+    "more": {
+      "aria": "Meer"
+    }
+  },
+  "noTrackedObjects": "Geen gevolgde objecten gevonden",
+  "trackedObjectsCount_one": "{{count}} gevolgd object ",
+  "trackedObjectsCount_other": "{{count}} gevolgde objecten ",
+  "searchResult": {
+    "deleteTrackedObject": {
+      "toast": {
+        "success": "Het gevolgde object is succesvol verwijderd.",
+        "error": "Verwijderen van gevolgd object mislukt: {{errorMessage}}"
+      }
+    },
+    "tooltip": "{{type}} komt voor {{confidence}}% overeen met de zoekopdracht",
+    "previousTrackedObject": "Vorig gevolgd object",
+    "nextTrackedObject": "Volgende gevolgde object"
+  },
+  "dialog": {
+    "confirmDelete": {
+      "title": "Bevestig Verwijderen",
+      "desc": "Het verwijderen van dit gevolgde object verwijdert de snapshot, alle opgeslagen embeddings en eventuele bijbehorende trackinggegevens van het object. Opgenomen videobeelden van dit object in de Geschiedenisweergave worden <em>NIET</em> verwijderd.<br /><br />Weet je zeker dat je wilt doorgaan?"
+    },
+    "toast": {
+      "error": "Fout bij het verwijderen van dit bijgehouden object: {{errorMessage}}"
+    }
+  },
+  "fetchingTrackedObjectsFailed": "Fout bij het ophalen van gevolgde objecten: {{errorMessage}}",
+  "exploreMore": "Verken meer {{label}} objecten",
+  "aiAnalysis": {
+    "title": "AI-analyse"
+  },
+  "concerns": {
+    "label": "Zorgen"
+  },
+  "trackingDetails": {
+    "title": "Trackinggegevens",
+    "noImageFound": "Er is geen afbeelding beschikbaar voor dit tijdstip.",
+    "createObjectMask": "Objectmasker maken",
+    "adjustAnnotationSettings": "Annotatie-instellingen aanpassen",
+    "scrollViewTips": "Klik om de belangrijke momenten uit de levenscyclus van dit object te bekijken.",
+    "autoTrackingTips": "Als u een automatische objectvolgende camera gebruikt, zal het objectkader onnauwkeurig zijn.",
+    "count": "{{first}} van {{second}}",
+    "trackedPoint": "Volgpunt",
+    "lifecycleItemDesc": {
+      "visible": "{{label}} gedetecteerd",
+      "entered_zone": "{{label}} in zone {{zones}}",
+      "active": "{{label}} Werd actief",
+      "stationary": "{{label}} werd stationair",
+      "attribute": {
+        "faceOrLicense_plate": "{{attribute}} Gedetecteerd voor {{label}}",
+        "other": "{{label}} Herkend als {{attribute}}"
+      },
+      "gone": "{{label}} vertrok",
+      "heard": "{{label}} gehoord",
+      "external": "{{label}} gedetecteerd",
+      "header": {
+        "zones": "Zones",
+        "ratio": "Verhouding",
+        "area": "Gebied",
+        "score": "Score",
+        "computedScore": "Berekende score",
+        "topScore": "Hoogste score",
+        "toggleAdvancedScores": "Geavanceerde scores weergeven"
+      }
+    },
+    "annotationSettings": {
+      "title": "Annotatie-instellingen",
+      "showAllZones": {
+        "title": "Toon alle zones",
+        "desc": "Toon altijd zones op frames waar objecten een zone zijn binnengegaan."
+      },
+      "offset": {
+        "label": "Annotatie-afwijking",
+        "desc": "Deze gegevens zijn afkomstig van de detectiestream van je camera, maar worden weergegeven op beelden uit de opnamestream. Het is onwaarschijnlijk dat deze twee streams perfect gesynchroniseerd zijn. Hierdoor zullen het objectkader en het beeld niet exact op elkaar aansluiten. Met deze instelling kun je de annotaties vooruit of achteruit in de tijd verschuiven om ze beter uit te lijnen met het opgenomen beeldmateriaal.",
+        "millisecondsToOffset": "Aantal milliseconden om objectkader mee te verschuiven. <em>Standaard: 0</em>",
+        "tips": "Verlaag de waarde als de videoweergave sneller is dan de objectkaders en hun trajectpunten, en verhoog de waarde als de videoweergave achterloopt. Deze waarde kan negatief zijn.",
+        "toast": {
+          "success": "Annotatieverschuiving voor {{camera}} is opgeslagen in het configuratiebestand."
+        }
+      }
+    },
+    "carousel": {
+      "previous": "Vorige dia",
+      "next": "Volgende dia"
+    }
+  }
+}

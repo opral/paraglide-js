@@ -1,0 +1,90 @@
+{
+  "group": {
+    "name": {
+      "placeholder": "Bir isim girin…",
+      "label": "İsim",
+      "errorMessage": {
+        "nameMustNotPeriod": "Kamera grubu ismi nokta içeremez.",
+        "invalid": "Geçersiz kamera grubu ismi.",
+        "mustLeastCharacters": "Kamera grubu ismi en az iki karakterden oluşmalıdır.",
+        "exists": "Bu isimle bir kamera grubu zaten var."
+      }
+    },
+    "success": "{{name}} kamera grubu kaydedildi.",
+    "camera": {
+      "setting": {
+        "title": "{{cameraName}} Yayın Ayarları",
+        "audio": {
+          "tips": {
+            "title": "Bu yayın için kameranızın yayın çıkışında ses olması ve go2rtc'de ayarlanmış olması gerekmektedir."
+          }
+        },
+        "label": "Kamera Yayın Ayarları",
+        "desc": "Bu kamera grubunun görüntü paneli için canlı yayın seçeneklerini değiştirin. <em>Bu ayarlar cihaz/tarayıcı özelindedir.</em>",
+        "audioIsUnavailable": "Bu yayında ses yok",
+        "audioIsAvailable": "Bu yayında ses kullanılabilir",
+        "streamMethod": {
+          "label": "Yayın Yöntemi",
+          "method": {
+            "noStreaming": {
+              "label": "Yayın Yok",
+              "desc": "Kamera görüntüsü yalnızca dakikada bir güncellenecek ve canlı yayın yapılmayacak."
+            },
+            "continuousStreaming": {
+              "desc": {
+                "title": "Kamerada faaliyet algılanmasa bile kamera görüntüsü panelde görüldüğü sürece canlı yayın şeklinde olacaktır.",
+                "warning": "Sürekli yayın yüksek internet kullanımına ve performans sorunlarına yol açabilir. Dikkatli kullanın."
+              },
+              "label": "Sürekli Yayın"
+            },
+            "smartStreaming": {
+              "label": "Akıllı Yayın (önerilir)",
+              "desc": "Akıllı yayın özelliği, bant genişliği ve kaynaklardan tasarruf etmek için faaliyet yokken yayının yerine dakikada bir güncellenen görsel gösterir. Kamerada faaliyet algılandığında görüntü canlı yayına geçer."
+            }
+          },
+          "placeholder": "Bir yayın yöntemi seçin"
+        },
+        "compatibilityMode": {
+          "label": "Uyumluluk modu",
+          "desc": "Bu özelliği yalnızca kamera canlı yayınında renk pürüzleri ve görüntünün sağ tarafında çapraz bir çizgi görüyorsanız etkinleştirin."
+        },
+        "placeholder": "Bir yayın seçin",
+        "stream": "Yayın"
+      },
+      "birdseye": "Kuşbakışı"
+    },
+    "icon": "Simge",
+    "add": "Kamera Grubu Ekle",
+    "label": "Kamera Grupları",
+    "delete": {
+      "confirm": {
+        "desc": "<em>{{name}}</em> kamera grubunu silmek istediğinize emin misiniz?",
+        "title": "Silmeyi Onayla"
+      },
+      "label": "Kamera Grubunu Sil"
+    },
+    "edit": "Kamera Grubunu Düzenle",
+    "cameras": {
+      "desc": "Bu grupta olacak kameraları seçin.",
+      "label": "Kameralar"
+    },
+    "showAll": "Tüm kamera gruplarını göster",
+    "showLess": "Daha az göster",
+    "editGroups": "Kamera Gruplarını Düzenle"
+  },
+  "debug": {
+    "options": {
+      "label": "Ayarlar",
+      "title": "Seçenekler",
+      "hideOptions": "Seçenekleri Gizle",
+      "showOptions": "Seçenekleri Göster"
+    },
+    "boundingBox": "Çerçeve",
+    "timestamp": "Zaman Damgası",
+    "zones": "Bölgeler",
+    "mask": "Maske",
+    "motion": "Hareket",
+    "regions": "Algılama Bölgeleri",
+    "paths": "İzler"
+  }
+}

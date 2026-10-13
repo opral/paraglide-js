@@ -1,0 +1,264 @@
+{
+  "documentTitle": {
+    "cameras": "Статистика камер - Frigate",
+    "storage": "Статистика хранилища - Frigate",
+    "general": "Общая статистика - Frigate",
+    "enrichments": "Статистика обогащений - Frigate",
+    "logs": {
+      "frigate": "Логи Frigate - Frigate",
+      "go2rtc": "Логи Go2RTC - Frigate",
+      "nginx": "Логи Nginx - Frigate",
+      "websocket": "Логи сообщений - Frigate"
+    }
+  },
+  "title": "Система",
+  "metrics": "Показатели системы",
+  "logs": {
+    "download": {
+      "label": "Загрузить логи"
+    },
+    "copy": {
+      "label": "Копировать в буфер",
+      "success": "Логи скопированы в буфер",
+      "error": "Не удалось скопировать логи в буфер обмена"
+    },
+    "type": {
+      "label": "Тип",
+      "timestamp": "Метка времени",
+      "tag": "Тег",
+      "message": "Сообщение"
+    },
+    "tips": "Логи передаются с сервера в потоковом режиме",
+    "toast": {
+      "error": {
+        "fetchingLogsFailed": "Ошибка получения логов: {{errorMessage}}",
+        "whileStreamingLogs": "Ошибка при потоковой передаче логов: {{errorMessage}}"
+      }
+    },
+    "websocket": {
+      "label": "Сообщения",
+      "pause": "Пауза",
+      "resume": "Продолжить",
+      "clear": "Очистить",
+      "filter": {
+        "all": "Все топики",
+        "topics": "Топики",
+        "events": "События",
+        "classification": "Классификация",
+        "face_recognition": "Распознавание лиц",
+        "lpr": "Распознавание номерных знаков",
+        "camera_activity": "Активность камеры",
+        "system": "Система",
+        "camera": "Камера",
+        "all_cameras": "Все камеры",
+        "cameras_count_one": "{{count}} камера",
+        "cameras_count_other": "{{count}} камеры",
+        "reviews": "Проверки"
+      },
+      "empty": "Сообщения ещё не были получены",
+      "count_one": "{{count}} сообщение",
+      "count_other": "{{count}} сообщения",
+      "expanded": {
+        "payload": "Содержимое"
+      }
+    }
+  },
+  "general": {
+    "title": "Общие",
+    "detector": {
+      "title": "Детекторы",
+      "inferenceSpeed": "Скорость вывода детектора",
+      "cpuUsage": "Использование CPU детектором",
+      "memoryUsage": "Использование памяти детектором",
+      "temperature": "Температура детектора",
+      "cpuUsageInformation": "CPU используется при подготовке входных и выходных данных к/от моделей обнаружения. Это значение не измеряет использование вывода, даже если использовать GPU или ускоритель."
+    },
+    "hardwareInfo": {
+      "title": "Информация об оборудовании",
+      "gpuUsage": "Использование GPU",
+      "gpuMemory": "Память GPU",
+      "gpuEncoder": "GPU-кодировщик",
+      "gpuDecoder": "GPU-декодер",
+      "gpuInfo": {
+        "vainfoOutput": {
+          "title": "Вывод Vainfo",
+          "returnCode": "Код возврата: {{code}}",
+          "processOutput": "Вывод процесса:",
+          "processError": "Ошибка процесса:"
+        },
+        "nvidiaSMIOutput": {
+          "title": "Вывод Nvidia SMI",
+          "name": "Название: {{name}}",
+          "driver": "Драйвер: {{driver}}",
+          "cudaComputerCapability": "Вычислительная способность CUDA: {{cuda_compute}}",
+          "vbios": "Информация VBios: {{vbios}}"
+        },
+        "closeInfo": {
+          "label": "Закрыть информацию GPU"
+        },
+        "copyInfo": {
+          "label": "Скопировать информацию о GPU"
+        },
+        "toast": {
+          "success": "Информация о GPU скопирована в буфер обмена"
+        }
+      },
+      "npuMemory": "Память NPU",
+      "npuUsage": "Использование NPU",
+      "gpuCompute": "Вычисления / кодирование GPU",
+      "gpuTemperature": "Температура GPU",
+      "npuTemperature": "Температура NPU"
+    },
+    "otherProcesses": {
+      "title": "Другие процессы",
+      "processCpuUsage": "Использование CPU процессом",
+      "processMemoryUsage": "Использование памяти процессом",
+      "series": {
+        "go2rtc": "go2rtc",
+        "recording": "запись",
+        "review_segment": "сегмент обзора",
+        "embeddings": "эмбеддинги",
+        "audio_detector": "аудиодетектор"
+      }
+    }
+  },
+  "storage": {
+    "title": "Хранилище",
+    "overview": "Обзор",
+    "recordings": {
+      "title": "Записи",
+      "tips": "Это значение показывает, сколько места в хранилище занимают записи из базы данных Frigate. Frigate не учитывает другие файлы на диске.",
+      "earliestRecording": "Первая запись:"
+    },
+    "cameraStorage": {
+      "title": "Хранилище камеры",
+      "camera": "Камера",
+      "unusedStorageInformation": "Информация о неиспользованном хранилище",
+      "storageUsed": "Хранилище",
+      "percentageOfTotalUsed": "Доля (%)",
+      "bandwidth": "Пропускная способность",
+      "unused": {
+        "title": "Не используется",
+        "tips": "Это значение может неточно отражать свободное место, доступное Frigate, если на вашем диске есть другие файлы помимо записей Frigate. Frigate не отслеживает использование хранилища за пределами своих записей."
+      }
+    },
+    "shm": {
+      "title": "Выделение разделяемой памяти",
+      "warning": "Текущее значение разделяемой памяти в {{total}}MB слишком мало. Увеличьте его хотя бы до {{min_shm}}MB.",
+      "frameLifetime": {
+        "title": "Время жизни кадра",
+        "description": "У каждой камеры в разделяемой памяти {{frames}} слотов кадров. При частоте кадров самой быстрой камеры каждый кадр доступен примерно {{lifetime}} с, пока его не перезапишут."
+      }
+    }
+  },
+  "cameras": {
+    "title": "Камеры",
+    "overview": "Обзор",
+    "info": {
+      "cameraProbeInfo": "Информация о проверке камеры {{camera}}",
+      "streamDataFromFFPROBE": "Данные о потоке получены от <code>ffprobe</code>.",
+      "fetching": "Получение данных камеры",
+      "stream": "Поток {{idx}}",
+      "video": "Видео:",
+      "codec": "Кодек:",
+      "resolution": "Разрешение:",
+      "fps": "FPS:",
+      "unknown": "Неизвестно",
+      "audio": "Аудио:",
+      "error": "Ошибка: {{error}}",
+      "tips": {
+        "title": "Информация о тестировании камеры"
+      },
+      "aspectRatio": "соотношение сторон",
+      "keyframes": {
+        "title": "Анализ ключевых кадров",
+        "analyzing": "Анализ ключевых кадров… осталось {{seconds}} с",
+        "stillAnalyzing": "Анализ ключевых кадров ещё идёт…",
+        "recordStream": "Поток записи:",
+        "keyframeCount": "Наблюдалось ключевых кадров:",
+        "observedDuration": "Наблюдаемая длительность:",
+        "gap": "Интервал ключевых кадров (мин / сред / макс):",
+        "segmentLength": "Длина сегмента записи:",
+        "ok": "Ключевые кадры примерно каждые {{seconds}} с, этого достаточно для записи и воспроизведения.",
+        "unknown": "Не удалось определить интервал ключевых кадров.",
+        "recordDisabled": "Запись для этой камеры отключена."
+      }
+    },
+    "framesAndDetections": "Кадры/детекции",
+    "label": {
+      "ffmpeg": "FFmpeg",
+      "camera": "камера",
+      "capture": "захват",
+      "skipped": "пропущено",
+      "detect": "детекция",
+      "cameraDetectionsPerSecond": "{{camName}} обнаружений в секунду",
+      "cameraSkippedDetectionsPerSecond": "{{camName}} пропущенных обнаружений в секунду",
+      "cameraFramesPerSecond": "{{camName}} кадров в секунду",
+      "overallFramesPerSecond": "общее количество кадров в секунду",
+      "overallDetectionsPerSecond": "общее количество обнаружений в секунду",
+      "overallSkippedDetectionsPerSecond": "общее количество пропущенных обнаружений в секунду",
+      "cameraFfmpeg": "{{camName}} FFmpeg",
+      "cameraCapture": "{{camName}} захват",
+      "cameraDetect": "{{camName}} обнаружения",
+      "cameraGpu": "{{camName}} GPU"
+    },
+    "toast": {
+      "success": {
+        "copyToClipboard": "Данные тестирования скопированы в буфер обмена."
+      },
+      "error": {
+        "unableToProbeCamera": "Не удалось протестировать камеру: {{errorMessage}}"
+      }
+    },
+    "noCameras": {
+      "title": "Камеры не найдены"
+    },
+    "connectionQuality": {
+      "title": "Качество соединения",
+      "excellent": "Отлично",
+      "fair": "Нормально",
+      "poor": "Плохо",
+      "unusable": "Непригодно",
+      "fps": "FPS",
+      "expectedFps": "Ожидаемый FPS",
+      "reconnectsLastHour": "Переподключения (за последний час)",
+      "stallsLastHour": "Зависания (за последний час)"
+    }
+  },
+  "lastRefreshed": "Обновлено: ",
+  "stats": {
+    "healthy": "Система в порядке",
+    "reindexingEmbeddings": "Переиндексация эмбеддингов (выполнено {{processed}} %)",
+    "cameraIsOffline": "{{camera}} не в сети",
+    "detectIsVerySlow": "{{detect}} идёт очень медленно ({{speed}} мс)",
+    "detectIsSlow": "{{detect}} идёт медленно ({{speed}} мс)",
+    "debugReplayActive": "Активна сессия отладочного повтора"
+  },
+  "enrichments": {
+    "title": "Обогащение данных",
+    "infPerSecond": "Выводов в секунду",
+    "embeddings": {
+      "image_embedding_speed": "Скорость векторизации изображений",
+      "plate_recognition_speed": "Скорость распознавания номеров",
+      "text_embedding_speed": "Скорость векторизации текста",
+      "face_embedding_speed": "Скорость векторизации лиц",
+      "face_recognition_speed": "Скорость распознавания лиц",
+      "text_embedding": "Векторизация текста",
+      "yolov9_plate_detection_speed": "Скорость обнаружения номеров YOLOv9",
+      "yolov9_plate_detection": "Обнаружение номеров YOLOv9",
+      "face_recognition": "Распознавание лиц",
+      "plate_recognition": "Распознавание номеров",
+      "image_embedding": "Векторизация изображений",
+      "review_description": "Описание проверки",
+      "review_description_speed": "Скорость просмотра описания",
+      "review_description_events_per_second": "Описание проверки",
+      "object_description": "Описание объекта",
+      "object_description_speed": "Скорость описания объекта",
+      "object_description_events_per_second": "Описание объекта",
+      "classification": "{{name}} Классификация",
+      "classification_speed": "{{name}}Классификация скорости",
+      "classification_events_per_second": "{{name}} событий классификации в секунду"
+    },
+    "averageInf": "Среднее время обработки"
+  }
+}

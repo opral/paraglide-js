@@ -1,0 +1,2016 @@
+{
+  "project": "mobile",
+  "path": "/#front_door",
+  "documentLanguage": "fr",
+  "title": "Front Door - Direct - Frigate",
+  "requests": [
+    {
+      "locale": "en",
+      "namespace": "audio",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "common",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "components/dialog",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "components/player",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "objects",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "views/live",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "views/settings",
+      "status": 200
+    },
+    {
+      "locale": "en",
+      "namespace": "views/system",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "audio",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "common",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "components/dialog",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "components/player",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "objects",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "views/live",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "views/settings",
+      "status": 200
+    },
+    {
+      "locale": "fr",
+      "namespace": "views/system",
+      "status": 200
+    }
+  ],
+  "initialResponseBodies": [
+    {
+      "url": "/",
+      "status": 200,
+      "decodedBodyBytes": 8120,
+      "brotliQ4Bytes": 2982,
+      "responseContentEncoding": "br",
+      "contentLength": "2982",
+      "beginEpoch": 1791900326734.92
+    },
+    {
+      "url": "/assets/main-D4-eM3CH.js",
+      "status": 200,
+      "decodedBodyBytes": 625825,
+      "brotliQ4Bytes": 186711,
+      "responseContentEncoding": "br",
+      "contentLength": "186711",
+      "beginEpoch": 1791900326911.706
+    },
+    {
+      "url": "/assets/rolldown-runtime-B_MQnBba.js",
+      "status": 200,
+      "decodedBodyBytes": 1087,
+      "brotliQ4Bytes": 573,
+      "responseContentEncoding": "br",
+      "contentLength": "573",
+      "beginEpoch": 1791900326911.932
+    },
+    {
+      "url": "/assets/useTranslation-wMbxFB1i.js",
+      "status": 200,
+      "decodedBodyBytes": 43152,
+      "brotliQ4Bytes": 14274,
+      "responseContentEncoding": "br",
+      "contentLength": "14274",
+      "beginEpoch": 1791900326912.1458
+    },
+    {
+      "url": "/assets/activity-indicator-D_x4wV58.js",
+      "status": 200,
+      "decodedBodyBytes": 827809,
+      "brotliQ4Bytes": 120690,
+      "responseContentEncoding": "br",
+      "contentLength": "120690",
+      "beginEpoch": 1791900326912.361
+    },
+    {
+      "url": "/assets/label-DukRF4a6.js",
+      "status": 200,
+      "decodedBodyBytes": 46041,
+      "brotliQ4Bytes": 14801,
+      "responseContentEncoding": "br",
+      "contentLength": "14801",
+      "beginEpoch": 1791900326912.4941
+    },
+    {
+      "url": "/assets/src-BCEtIU6s.js",
+      "status": 200,
+      "decodedBodyBytes": 495919,
+      "brotliQ4Bytes": 139157,
+      "responseContentEncoding": "br",
+      "contentLength": "139157",
+      "beginEpoch": 1791900326912.619
+    },
+    {
+      "url": "/assets/use-history-back-JKPm9jgZ.js",
+      "status": 200,
+      "decodedBodyBytes": 45111,
+      "brotliQ4Bytes": 14674,
+      "responseContentEncoding": "br",
+      "contentLength": "14674",
+      "beginEpoch": 1791900326912.7148
+    },
+    {
+      "url": "/assets/drawer-Dp9UU7kd.js",
+      "status": 200,
+      "decodedBodyBytes": 101961,
+      "brotliQ4Bytes": 34821,
+      "responseContentEncoding": "br",
+      "contentLength": "34821",
+      "beginEpoch": 1791900326913.878
+    },
+    {
+      "url": "/assets/dist-X38yvQ2h.js",
+      "status": 200,
+      "decodedBodyBytes": 876,
+      "brotliQ4Bytes": 413,
+      "responseContentEncoding": "br",
+      "contentLength": "413",
+      "beginEpoch": 1791900326914.144
+    },
+    {
+      "url": "/assets/preload-helper-BtBvY-ns.js",
+      "status": 200,
+      "decodedBodyBytes": 1567,
+      "brotliQ4Bytes": 798,
+      "responseContentEncoding": "br",
+      "contentLength": "798",
+      "beginEpoch": 1791900326914.242
+    },
+    {
+      "url": "/assets/cameraUtil-CKlJ1Vsi.js",
+      "status": 200,
+      "decodedBodyBytes": 3679,
+      "brotliQ4Bytes": 1636,
+      "responseContentEncoding": "br",
+      "contentLength": "1636",
+      "beginEpoch": 1791900326914.298
+    },
+    {
+      "url": "/assets/use-is-admin-B6UU-4w8.js",
+      "status": 200,
+      "decodedBodyBytes": 303,
+      "brotliQ4Bytes": 202,
+      "responseContentEncoding": "br",
+      "contentLength": "202",
+      "beginEpoch": 1791900326914.362
+    },
+    {
+      "url": "/assets/normalizeDates-B8fk6WG0.js",
+      "status": 200,
+      "decodedBodyBytes": 886,
+      "brotliQ4Bytes": 496,
+      "responseContentEncoding": "br",
+      "contentLength": "496",
+      "beginEpoch": 1791900326914.556
+    },
+    {
+      "url": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+      "status": 200,
+      "decodedBodyBytes": 1563,
+      "brotliQ4Bytes": 617,
+      "responseContentEncoding": "br",
+      "contentLength": "617",
+      "beginEpoch": 1791900326914.683
+    },
+    {
+      "url": "/assets/use-date-locale-BpBt0QYp.js",
+      "status": 200,
+      "decodedBodyBytes": 43675,
+      "brotliQ4Bytes": 12768,
+      "responseContentEncoding": "br",
+      "contentLength": "12768",
+      "beginEpoch": 1791900326914.766
+    },
+    {
+      "url": "/assets/detectionHardware-BlXbhogZ.js",
+      "status": 200,
+      "decodedBodyBytes": 1084,
+      "brotliQ4Bytes": 554,
+      "responseContentEncoding": "br",
+      "contentLength": "554",
+      "beginEpoch": 1791900326914.836
+    },
+    {
+      "url": "/assets/src-DHngj9Lm.css",
+      "status": 200,
+      "decodedBodyBytes": 173144,
+      "brotliQ4Bytes": 26070,
+      "responseContentEncoding": "br",
+      "contentLength": "26070",
+      "beginEpoch": 1791900326914.905
+    },
+    {
+      "url": "/locales/fr/objects.json",
+      "status": 200,
+      "decodedBodyBytes": 3203,
+      "brotliQ4Bytes": 1477,
+      "responseContentEncoding": "br",
+      "contentLength": "1477",
+      "beginEpoch": 1791900330166.5571
+    },
+    {
+      "url": "/locales/fr/audio.json",
+      "status": 200,
+      "decodedBodyBytes": 14983,
+      "brotliQ4Bytes": 5712,
+      "responseContentEncoding": "br",
+      "contentLength": "5712",
+      "beginEpoch": 1791900330166.7532
+    },
+    {
+      "url": "/locales/en/objects.json",
+      "status": 200,
+      "decodedBodyBytes": 3051,
+      "brotliQ4Bytes": 1290,
+      "responseContentEncoding": "br",
+      "contentLength": "1290",
+      "beginEpoch": 1791900330169.2058
+    },
+    {
+      "url": "/locales/en/audio.json",
+      "status": 200,
+      "decodedBodyBytes": 13637,
+      "brotliQ4Bytes": 4853,
+      "responseContentEncoding": "br",
+      "contentLength": "4853",
+      "beginEpoch": 1791900330169.348
+    },
+    {
+      "url": "/locales/fr/common.json",
+      "status": 200,
+      "decodedBodyBytes": 10066,
+      "brotliQ4Bytes": 3796,
+      "responseContentEncoding": "br",
+      "contentLength": "3796",
+      "beginEpoch": 1791900330187.324
+    },
+    {
+      "url": "/locales/en/common.json",
+      "status": 200,
+      "decodedBodyBytes": 10334,
+      "brotliQ4Bytes": 3496,
+      "responseContentEncoding": "br",
+      "contentLength": "3496",
+      "beginEpoch": 1791900330186.907
+    },
+    {
+      "url": "/locales/fr/views/settings.json",
+      "status": 200,
+      "decodedBodyBytes": 69496,
+      "brotliQ4Bytes": 18165,
+      "responseContentEncoding": "br",
+      "contentLength": "18165",
+      "beginEpoch": 1791900330211.9
+    },
+    {
+      "url": "/locales/en/views/settings.json",
+      "status": 200,
+      "decodedBodyBytes": 98843,
+      "brotliQ4Bytes": 25820,
+      "responseContentEncoding": "br",
+      "contentLength": "25820",
+      "beginEpoch": 1791900330213.272
+    },
+    {
+      "url": "/locales/fr/views/system.json",
+      "status": 200,
+      "decodedBodyBytes": 10937,
+      "brotliQ4Bytes": 3480,
+      "responseContentEncoding": "br",
+      "contentLength": "3480",
+      "beginEpoch": 1791900330213.383
+    },
+    {
+      "url": "/locales/en/views/system.json",
+      "status": 200,
+      "decodedBodyBytes": 16461,
+      "brotliQ4Bytes": 5102,
+      "responseContentEncoding": "br",
+      "contentLength": "5102",
+      "beginEpoch": 1791900330213.4768
+    },
+    {
+      "url": "/locales/fr/components/dialog.json",
+      "status": 200,
+      "decodedBodyBytes": 9392,
+      "brotliQ4Bytes": 2904,
+      "responseContentEncoding": "br",
+      "contentLength": "2904",
+      "beginEpoch": 1791900330812.958
+    },
+    {
+      "url": "/locales/en/components/dialog.json",
+      "status": 200,
+      "decodedBodyBytes": 8240,
+      "brotliQ4Bytes": 2525,
+      "responseContentEncoding": "br",
+      "contentLength": "2525",
+      "beginEpoch": 1791900330813.648
+    },
+    {
+      "url": "/api/config",
+      "status": 200,
+      "decodedBodyBytes": 32181,
+      "brotliQ4Bytes": 4266,
+      "responseContentEncoding": null,
+      "contentLength": "32181",
+      "beginEpoch": 1791900331024.917
+    },
+    {
+      "url": "/api/profile",
+      "status": 200,
+      "decodedBodyBytes": 58,
+      "brotliQ4Bytes": 50,
+      "responseContentEncoding": null,
+      "contentLength": "58",
+      "beginEpoch": 1791900331026.0288
+    },
+    {
+      "url": "/api/profiles",
+      "status": 200,
+      "decodedBodyBytes": 57,
+      "brotliQ4Bytes": 53,
+      "responseContentEncoding": null,
+      "contentLength": "57",
+      "beginEpoch": 1791900331027.1511
+    },
+    {
+      "url": "/api/stats",
+      "status": 200,
+      "decodedBodyBytes": 1705,
+      "brotliQ4Bytes": 541,
+      "responseContentEncoding": null,
+      "contentLength": "1705",
+      "beginEpoch": 1791900331027.6868
+    },
+    {
+      "url": "/api/profile",
+      "status": 200,
+      "decodedBodyBytes": 58,
+      "brotliQ4Bytes": 50,
+      "responseContentEncoding": null,
+      "contentLength": "58",
+      "beginEpoch": 1791900331032.778
+    },
+    {
+      "url": "/assets/fr-DE_g_3N7.js",
+      "status": 200,
+      "decodedBodyBytes": 5521,
+      "brotliQ4Bytes": 2098,
+      "responseContentEncoding": "br",
+      "contentLength": "2098",
+      "beginEpoch": 1791900331045.25
+    },
+    {
+      "url": "/assets/Live-B2HxIU4q.js",
+      "status": 200,
+      "decodedBodyBytes": 184877,
+      "brotliQ4Bytes": 46547,
+      "responseContentEncoding": "br",
+      "contentLength": "46547",
+      "beginEpoch": 1791900331107.41
+    },
+    {
+      "url": "/assets/card-BvEx76ZV.js",
+      "status": 200,
+      "decodedBodyBytes": 1060,
+      "brotliQ4Bytes": 387,
+      "responseContentEncoding": "br",
+      "contentLength": "387",
+      "beginEpoch": 1791900331107.613
+    },
+    {
+      "url": "/assets/fa6-LY2KIa2E.js",
+      "status": 200,
+      "decodedBodyBytes": 3022,
+      "brotliQ4Bytes": 903,
+      "responseContentEncoding": "br",
+      "contentLength": "903",
+      "beginEpoch": 1791900331107.6409
+    },
+    {
+      "url": "/assets/ReactKonva-BsRqteko.js",
+      "status": 200,
+      "decodedBodyBytes": 377618,
+      "brotliQ4Bytes": 105650,
+      "responseContentEncoding": "br",
+      "contentLength": "105650",
+      "beginEpoch": 1791900331107.667
+    },
+    {
+      "url": "/assets/resize-observer-BM6UK5WB.js",
+      "status": 200,
+      "decodedBodyBytes": 702,
+      "brotliQ4Bytes": 403,
+      "responseContentEncoding": "br",
+      "contentLength": "403",
+      "beginEpoch": 1791900331107.694
+    },
+    {
+      "url": "/assets/ImageShadowOverlay-zudTxtKC.js",
+      "status": 200,
+      "decodedBodyBytes": 541,
+      "brotliQ4Bytes": 283,
+      "responseContentEncoding": "br",
+      "contentLength": "283",
+      "beginEpoch": 1791900331107.773
+    },
+    {
+      "url": "/assets/skeleton-Doktw_Xe.js",
+      "status": 200,
+      "decodedBodyBytes": 246,
+      "brotliQ4Bytes": 181,
+      "responseContentEncoding": "br",
+      "contentLength": "181",
+      "beginEpoch": 1791900331108.495
+    },
+    {
+      "url": "/assets/use-keyboard-listener-CcHihlXj.js",
+      "status": 200,
+      "decodedBodyBytes": 1411,
+      "brotliQ4Bytes": 615,
+      "responseContentEncoding": "br",
+      "contentLength": "615",
+      "beginEpoch": 1791900331108.581
+    },
+    {
+      "url": "/assets/FilterSwitch-BumxfPyV.js",
+      "status": 200,
+      "decodedBodyBytes": 1098,
+      "brotliQ4Bytes": 458,
+      "responseContentEncoding": "br",
+      "contentLength": "458",
+      "beginEpoch": 1791900331108.645
+    },
+    {
+      "url": "/assets/slider-BsRzJqrB.js",
+      "status": 200,
+      "decodedBodyBytes": 13654,
+      "brotliQ4Bytes": 4520,
+      "responseContentEncoding": "br",
+      "contentLength": "4520",
+      "beginEpoch": 1791900331108.706
+    },
+    {
+      "url": "/assets/TimeAgo-h5R57NLp.js",
+      "status": 200,
+      "decodedBodyBytes": 1451,
+      "brotliQ4Bytes": 718,
+      "responseContentEncoding": "br",
+      "contentLength": "718",
+      "beginEpoch": 1791900331108.7651
+    },
+    {
+      "url": "/assets/scroll-area-xcHQ56wu.js",
+      "status": 200,
+      "decodedBodyBytes": 15657,
+      "brotliQ4Bytes": 4675,
+      "responseContentEncoding": "br",
+      "contentLength": "4675",
+      "beginEpoch": 1791900331108.851
+    },
+    {
+      "url": "/assets/record-Bf1xYu2U.js",
+      "status": 200,
+      "decodedBodyBytes": 49087,
+      "brotliQ4Bytes": 16516,
+      "responseContentEncoding": "br",
+      "contentLength": "16516",
+      "beginEpoch": 1791900331108.9102
+    },
+    {
+      "url": "/assets/review-D3-Z-h19.js",
+      "status": 200,
+      "decodedBodyBytes": 242,
+      "brotliQ4Bytes": 184,
+      "responseContentEncoding": "br",
+      "contentLength": "184",
+      "beginEpoch": 1791900331108.9668
+    },
+    {
+      "url": "/assets/snapshotUtil-DZ4PxfyT.js",
+      "status": 200,
+      "decodedBodyBytes": 7579,
+      "brotliQ4Bytes": 3120,
+      "responseContentEncoding": "br",
+      "contentLength": "3120",
+      "beginEpoch": 1791900331109.028
+    },
+    {
+      "url": "/assets/tabs-Dv_B-FHX.js",
+      "status": 200,
+      "decodedBodyBytes": 3778,
+      "brotliQ4Bytes": 1534,
+      "responseContentEncoding": "br",
+      "contentLength": "1534",
+      "beginEpoch": 1791900331109.084
+    },
+    {
+      "url": "/assets/Chip-DV_hU2e5.js",
+      "status": 200,
+      "decodedBodyBytes": 1232,
+      "brotliQ4Bytes": 653,
+      "responseContentEncoding": "br",
+      "contentLength": "653",
+      "beginEpoch": 1791900331109.145
+    },
+    {
+      "url": "/assets/context-menu-CvTIS5vu.js",
+      "status": 200,
+      "decodedBodyBytes": 8545,
+      "brotliQ4Bytes": 2334,
+      "responseContentEncoding": "br",
+      "contentLength": "2334",
+      "beginEpoch": 1791900331109.195
+    },
+    {
+      "url": "/assets/use-camera-activity-BoxPiCy2.js",
+      "status": 200,
+      "decodedBodyBytes": 3622,
+      "brotliQ4Bytes": 1646,
+      "responseContentEncoding": "br",
+      "contentLength": "1646",
+      "beginEpoch": 1791900331109.253
+    },
+    {
+      "url": "/assets/use-timeline-utils-RZeNJOLk.js",
+      "status": 200,
+      "decodedBodyBytes": 648,
+      "brotliQ4Bytes": 344,
+      "responseContentEncoding": "br",
+      "contentLength": "344",
+      "beginEpoch": 1791900331109.308
+    },
+    {
+      "url": "/assets/EmptyCard-Ci-uVJwr.js",
+      "status": 200,
+      "decodedBodyBytes": 771,
+      "brotliQ4Bytes": 427,
+      "responseContentEncoding": "br",
+      "contentLength": "427",
+      "beginEpoch": 1791900331109.3699
+    },
+    {
+      "url": "/assets/BirdseyeLivePlayer-D50Y4o9J.js",
+      "status": 200,
+      "decodedBodyBytes": 137136,
+      "brotliQ4Bytes": 45026,
+      "responseContentEncoding": "br",
+      "contentLength": "45026",
+      "beginEpoch": 1791900331109.456
+    },
+    {
+      "url": "/assets/MsePlayer-BcrvLnvg.js",
+      "status": 200,
+      "decodedBodyBytes": 9213,
+      "brotliQ4Bytes": 3634,
+      "responseContentEncoding": "br",
+      "contentLength": "3634",
+      "beginEpoch": 1791900331109.516
+    },
+    {
+      "url": "/assets/AutoUpdatingCameraImage-Dscb-wIU.js",
+      "status": 200,
+      "decodedBodyBytes": 2587,
+      "brotliQ4Bytes": 1304,
+      "responseContentEncoding": "br",
+      "contentLength": "1304",
+      "beginEpoch": 1791900331109.5789
+    },
+    {
+      "url": "/assets/DebugDrawingLayer-B2MYpMj0.js",
+      "status": 200,
+      "decodedBodyBytes": 2531,
+      "brotliQ4Bytes": 1025,
+      "responseContentEncoding": "br",
+      "contentLength": "1025",
+      "beginEpoch": 1791900331109.643
+    },
+    {
+      "url": "/assets/react-apexcharts.esm-DDSdTom0.js",
+      "status": 200,
+      "decodedBodyBytes": 981036,
+      "brotliQ4Bytes": 275201,
+      "responseContentEncoding": "br",
+      "contentLength": "275201",
+      "beginEpoch": 1791900331109.705
+    },
+    {
+      "url": "/assets/Live-Cb7KG80W.css",
+      "status": 200,
+      "decodedBodyBytes": 3664,
+      "brotliQ4Bytes": 947,
+      "responseContentEncoding": "br",
+      "contentLength": "947",
+      "beginEpoch": 1791900331109.78
+    },
+    {
+      "url": "/locales/fr/views/live.json",
+      "status": 200,
+      "decodedBodyBytes": 6875,
+      "brotliQ4Bytes": 1995,
+      "responseContentEncoding": "br",
+      "contentLength": "1995",
+      "beginEpoch": 1791900336322.743
+    },
+    {
+      "url": "/locales/en/views/live.json",
+      "status": 200,
+      "decodedBodyBytes": 8191,
+      "brotliQ4Bytes": 2465,
+      "responseContentEncoding": "br",
+      "contentLength": "2465",
+      "beginEpoch": 1791900336322.761
+    },
+    {
+      "url": "/locales/fr/components/player.json",
+      "status": 200,
+      "decodedBodyBytes": 1500,
+      "brotliQ4Bytes": 674,
+      "responseContentEncoding": "br",
+      "contentLength": "674",
+      "beginEpoch": 1791900336516.561
+    },
+    {
+      "url": "/locales/en/components/player.json",
+      "status": 200,
+      "decodedBodyBytes": 2034,
+      "brotliQ4Bytes": 782,
+      "responseContentEncoding": "br",
+      "contentLength": "782",
+      "beginEpoch": 1791900336517.055
+    }
+  ],
+  "initialBrotliQ4Bytes": 1183066,
+  "timing": {
+    "initialResources": [
+      {
+        "url": "/assets/rolldown-runtime-B_MQnBba.js",
+        "startTime": 174.89999997615814,
+        "responseEnd": 343.7999999523163,
+        "encodedBodySize": 573,
+        "transferSize": 873,
+        "decodedBodySize": 1087
+      },
+      {
+        "url": "/assets/useTranslation-wMbxFB1i.js",
+        "startTime": 174.89999997615814,
+        "responseEnd": 726.2000000476837,
+        "encodedBodySize": 14274,
+        "transferSize": 14574,
+        "decodedBodySize": 43152
+      },
+      {
+        "url": "/assets/main-D4-eM3CH.js",
+        "startTime": 174.89999997615814,
+        "responseEnd": 3254.100000023842,
+        "encodedBodySize": 186711,
+        "transferSize": 187011,
+        "decodedBodySize": 625825
+      },
+      {
+        "url": "/assets/activity-indicator-D_x4wV58.js",
+        "startTime": 175,
+        "responseEnd": 2826.7000000476837,
+        "encodedBodySize": 120690,
+        "transferSize": 120990,
+        "decodedBodySize": 827809
+      },
+      {
+        "url": "/assets/label-DukRF4a6.js",
+        "startTime": 175.5,
+        "responseEnd": 778.7999999523163,
+        "encodedBodySize": 14801,
+        "transferSize": 15101,
+        "decodedBodySize": 46041
+      },
+      {
+        "url": "/assets/use-history-back-JKPm9jgZ.js",
+        "startTime": 175.60000002384186,
+        "responseEnd": 1303.3999999761581,
+        "encodedBodySize": 14674,
+        "transferSize": 14974,
+        "decodedBodySize": 45111
+      },
+      {
+        "url": "/assets/dist-X38yvQ2h.js",
+        "startTime": 175.60000002384186,
+        "responseEnd": 1423.6000000238419,
+        "encodedBodySize": 413,
+        "transferSize": 713,
+        "decodedBodySize": 876
+      },
+      {
+        "url": "/assets/drawer-Dp9UU7kd.js",
+        "startTime": 175.60000002384186,
+        "responseEnd": 1806.2999999523163,
+        "encodedBodySize": 34821,
+        "transferSize": 35121,
+        "decodedBodySize": 101961
+      },
+      {
+        "url": "/assets/src-BCEtIU6s.js",
+        "startTime": 175.60000002384186,
+        "responseEnd": 3013.399999976158,
+        "encodedBodySize": 139157,
+        "transferSize": 139457,
+        "decodedBodySize": 495919
+      },
+      {
+        "url": "/assets/preload-helper-BtBvY-ns.js",
+        "startTime": 175.70000004768372,
+        "responseEnd": 1491,
+        "encodedBodySize": 798,
+        "transferSize": 1098,
+        "decodedBodySize": 1567
+      },
+      {
+        "url": "/assets/cameraUtil-CKlJ1Vsi.js",
+        "startTime": 175.70000004768372,
+        "responseEnd": 1649,
+        "encodedBodySize": 1636,
+        "transferSize": 1936,
+        "decodedBodySize": 3679
+      },
+      {
+        "url": "/assets/use-is-admin-B6UU-4w8.js",
+        "startTime": 175.70000004768372,
+        "responseEnd": 1686.1000000238419,
+        "encodedBodySize": 202,
+        "transferSize": 502,
+        "decodedBodySize": 303
+      },
+      {
+        "url": "/assets/normalizeDates-B8fk6WG0.js",
+        "startTime": 176.39999997615814,
+        "responseEnd": 1836.3999999761581,
+        "encodedBodySize": 496,
+        "transferSize": 796,
+        "decodedBodySize": 886
+      },
+      {
+        "url": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+        "startTime": 176.5,
+        "responseEnd": 1866.5,
+        "encodedBodySize": 617,
+        "transferSize": 917,
+        "decodedBodySize": 1563
+      },
+      {
+        "url": "/assets/detectionHardware-BlXbhogZ.js",
+        "startTime": 176.5,
+        "responseEnd": 2024.2000000476837,
+        "encodedBodySize": 554,
+        "transferSize": 854,
+        "decodedBodySize": 1084
+      },
+      {
+        "url": "/assets/use-date-locale-BpBt0QYp.js",
+        "startTime": 176.5,
+        "responseEnd": 2234.100000023842,
+        "encodedBodySize": 12768,
+        "transferSize": 13068,
+        "decodedBodySize": 43675
+      },
+      {
+        "url": "/assets/src-DHngj9Lm.css",
+        "startTime": 176.89999997615814,
+        "responseEnd": 1235.8999999761581,
+        "encodedBodySize": 26070,
+        "transferSize": 26370,
+        "decodedBodySize": 173144
+      },
+      {
+        "url": "/locales/fr/objects.json",
+        "startTime": 3429.399999976158,
+        "responseEnd": 3620.7999999523163,
+        "encodedBodySize": 1477,
+        "transferSize": 1777,
+        "decodedBodySize": 3203
+      },
+      {
+        "url": "/locales/fr/audio.json",
+        "startTime": 3429.5,
+        "responseEnd": 3695.899999976158,
+        "encodedBodySize": 5712,
+        "transferSize": 6012,
+        "decodedBodySize": 14983
+      },
+      {
+        "url": "/locales/en/objects.json",
+        "startTime": 3430.2000000476837,
+        "responseEnd": 3651.5,
+        "encodedBodySize": 1290,
+        "transferSize": 1590,
+        "decodedBodySize": 3051
+      },
+      {
+        "url": "/locales/en/audio.json",
+        "startTime": 3430.2000000476837,
+        "responseEnd": 3718.600000023842,
+        "encodedBodySize": 4853,
+        "transferSize": 5153,
+        "decodedBodySize": 13637
+      },
+      {
+        "url": "/locales/fr/common.json",
+        "startTime": 3452.2999999523163,
+        "responseEnd": 3704.2000000476837,
+        "encodedBodySize": 3796,
+        "transferSize": 4096,
+        "decodedBodySize": 10066
+      },
+      {
+        "url": "/locales/en/common.json",
+        "startTime": 3452.399999976158,
+        "responseEnd": 3711.399999976158,
+        "encodedBodySize": 3496,
+        "transferSize": 3796,
+        "decodedBodySize": 10334
+      },
+      {
+        "url": "/locales/fr/views/settings.json",
+        "startTime": 3477.2000000476837,
+        "responseEnd": 3988.600000023842,
+        "encodedBodySize": 18165,
+        "transferSize": 18465,
+        "decodedBodySize": 69496
+      },
+      {
+        "url": "/locales/fr/views/system.json",
+        "startTime": 3477.600000023842,
+        "responseEnd": 3921.600000023842,
+        "encodedBodySize": 3480,
+        "transferSize": 3780,
+        "decodedBodySize": 10937
+      },
+      {
+        "url": "/locales/en/views/system.json",
+        "startTime": 3477.600000023842,
+        "responseEnd": 3966,
+        "encodedBodySize": 5102,
+        "transferSize": 5402,
+        "decodedBodySize": 16461
+      },
+      {
+        "url": "/locales/en/views/settings.json",
+        "startTime": 3477.600000023842,
+        "responseEnd": 4055.7999999523163,
+        "encodedBodySize": 25820,
+        "transferSize": 26120,
+        "decodedBodySize": 98843
+      },
+      {
+        "url": "/locales/fr/components/dialog.json",
+        "startTime": 4077.899999976158,
+        "responseEnd": 4266.299999952316,
+        "encodedBodySize": 2904,
+        "transferSize": 3204,
+        "decodedBodySize": 9392
+      },
+      {
+        "url": "/locales/en/components/dialog.json",
+        "startTime": 4078.600000023842,
+        "responseEnd": 4259.200000047684,
+        "encodedBodySize": 2525,
+        "transferSize": 2825,
+        "decodedBodySize": 8240
+      },
+      {
+        "url": "/api/config",
+        "startTime": 4291.200000047684,
+        "responseEnd": 4311.399999976158,
+        "encodedBodySize": 32181,
+        "transferSize": 32481,
+        "decodedBodySize": 32181
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 4292.700000047684,
+        "responseEnd": 4313.100000023842,
+        "encodedBodySize": 58,
+        "transferSize": 358,
+        "decodedBodySize": 58
+      },
+      {
+        "url": "/api/profiles",
+        "startTime": 4294.200000047684,
+        "responseEnd": 4313.200000047684,
+        "encodedBodySize": 57,
+        "transferSize": 357,
+        "decodedBodySize": 57
+      },
+      {
+        "url": "/api/stats",
+        "startTime": 4294.799999952316,
+        "responseEnd": 4314.700000047684,
+        "encodedBodySize": 1705,
+        "transferSize": 2005,
+        "decodedBodySize": 1705
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 4299.799999952316,
+        "responseEnd": 4314.899999976158,
+        "encodedBodySize": 58,
+        "transferSize": 358,
+        "decodedBodySize": 58
+      },
+      {
+        "url": "/assets/fr-DE_g_3N7.js",
+        "startTime": 4303.299999952316,
+        "responseEnd": 4476.600000023842,
+        "encodedBodySize": 2098,
+        "transferSize": 2398,
+        "decodedBodySize": 5521
+      },
+      {
+        "url": "/assets/Live-B2HxIU4q.js",
+        "startTime": 4363.299999952316,
+        "responseEnd": 5218.700000047684,
+        "encodedBodySize": 46547,
+        "transferSize": 46847,
+        "decodedBodySize": 184877
+      },
+      {
+        "url": "/assets/card-BvEx76ZV.js",
+        "startTime": 4363.799999952316,
+        "responseEnd": 4536.5,
+        "encodedBodySize": 387,
+        "transferSize": 687,
+        "decodedBodySize": 1060
+      },
+      {
+        "url": "/assets/fa6-LY2KIa2E.js",
+        "startTime": 4364.200000047684,
+        "responseEnd": 4544,
+        "encodedBodySize": 903,
+        "transferSize": 1203,
+        "decodedBodySize": 3022
+      },
+      {
+        "url": "/assets/resize-observer-BM6UK5WB.js",
+        "startTime": 4364.200000047684,
+        "responseEnd": 4558.5,
+        "encodedBodySize": 403,
+        "transferSize": 703,
+        "decodedBodySize": 702
+      },
+      {
+        "url": "/assets/ReactKonva-BsRqteko.js",
+        "startTime": 4364.200000047684,
+        "responseEnd": 5924.100000023842,
+        "encodedBodySize": 105650,
+        "transferSize": 105950,
+        "decodedBodySize": 377618
+      },
+      {
+        "url": "/assets/ImageShadowOverlay-zudTxtKC.js",
+        "startTime": 4364.5,
+        "responseEnd": 4708.700000047684,
+        "encodedBodySize": 283,
+        "transferSize": 583,
+        "decodedBodySize": 541
+      },
+      {
+        "url": "/assets/skeleton-Doktw_Xe.js",
+        "startTime": 4364.5,
+        "responseEnd": 4724.299999952316,
+        "encodedBodySize": 181,
+        "transferSize": 481,
+        "decodedBodySize": 246
+      },
+      {
+        "url": "/assets/use-keyboard-listener-CcHihlXj.js",
+        "startTime": 4364.600000023842,
+        "responseEnd": 4738.700000047684,
+        "encodedBodySize": 615,
+        "transferSize": 915,
+        "decodedBodySize": 1411
+      },
+      {
+        "url": "/assets/FilterSwitch-BumxfPyV.js",
+        "startTime": 4364.600000023842,
+        "responseEnd": 4821.299999952316,
+        "encodedBodySize": 458,
+        "transferSize": 758,
+        "decodedBodySize": 1098
+      },
+      {
+        "url": "/assets/TimeAgo-h5R57NLp.js",
+        "startTime": 4364.600000023842,
+        "responseEnd": 4904.200000047684,
+        "encodedBodySize": 718,
+        "transferSize": 1018,
+        "decodedBodySize": 1451
+      },
+      {
+        "url": "/assets/slider-BsRzJqrB.js",
+        "startTime": 4364.600000023842,
+        "responseEnd": 4963.399999976158,
+        "encodedBodySize": 4520,
+        "transferSize": 4820,
+        "decodedBodySize": 13654
+      },
+      {
+        "url": "/assets/scroll-area-xcHQ56wu.js",
+        "startTime": 4364.700000047684,
+        "responseEnd": 5016.700000047684,
+        "encodedBodySize": 4675,
+        "transferSize": 4975,
+        "decodedBodySize": 15657
+      },
+      {
+        "url": "/assets/record-Bf1xYu2U.js",
+        "startTime": 4365.5,
+        "responseEnd": 5286.299999952316,
+        "encodedBodySize": 16516,
+        "transferSize": 16816,
+        "decodedBodySize": 49087
+      },
+      {
+        "url": "/assets/review-D3-Z-h19.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5084,
+        "encodedBodySize": 184,
+        "transferSize": 484,
+        "decodedBodySize": 242
+      },
+      {
+        "url": "/assets/snapshotUtil-DZ4PxfyT.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5196.200000047684,
+        "encodedBodySize": 3120,
+        "transferSize": 3420,
+        "decodedBodySize": 7579
+      },
+      {
+        "url": "/assets/tabs-Dv_B-FHX.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5234.100000023842,
+        "encodedBodySize": 1534,
+        "transferSize": 1834,
+        "decodedBodySize": 3778
+      },
+      {
+        "url": "/assets/Chip-DV_hU2e5.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5256.700000047684,
+        "encodedBodySize": 653,
+        "transferSize": 953,
+        "decodedBodySize": 1232
+      },
+      {
+        "url": "/assets/context-menu-CvTIS5vu.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5368.899999976158,
+        "encodedBodySize": 2334,
+        "transferSize": 2634,
+        "decodedBodySize": 8545
+      },
+      {
+        "url": "/assets/use-camera-activity-BoxPiCy2.js",
+        "startTime": 4366.200000047684,
+        "responseEnd": 5398.700000047684,
+        "encodedBodySize": 1646,
+        "transferSize": 1946,
+        "decodedBodySize": 3622
+      },
+      {
+        "url": "/assets/use-timeline-utils-RZeNJOLk.js",
+        "startTime": 4366.299999952316,
+        "responseEnd": 5405.899999976158,
+        "encodedBodySize": 344,
+        "transferSize": 644,
+        "decodedBodySize": 648
+      },
+      {
+        "url": "/assets/EmptyCard-Ci-uVJwr.js",
+        "startTime": 4366.299999952316,
+        "responseEnd": 5421.399999976158,
+        "encodedBodySize": 427,
+        "transferSize": 727,
+        "decodedBodySize": 771
+      },
+      {
+        "url": "/assets/MsePlayer-BcrvLnvg.js",
+        "startTime": 4366.5,
+        "responseEnd": 5586.700000047684,
+        "encodedBodySize": 3634,
+        "transferSize": 3934,
+        "decodedBodySize": 9213
+      },
+      {
+        "url": "/assets/BirdseyeLivePlayer-D50Y4o9J.js",
+        "startTime": 4366.5,
+        "responseEnd": 6059.100000023842,
+        "encodedBodySize": 45026,
+        "transferSize": 45326,
+        "decodedBodySize": 137136
+      },
+      {
+        "url": "/assets/AutoUpdatingCameraImage-Dscb-wIU.js",
+        "startTime": 4366.600000023842,
+        "responseEnd": 5609.100000023842,
+        "encodedBodySize": 1304,
+        "transferSize": 1604,
+        "decodedBodySize": 2587
+      },
+      {
+        "url": "/assets/Live-Cb7KG80W.css",
+        "startTime": 4366.700000047684,
+        "responseEnd": 4649.399999976158,
+        "encodedBodySize": 947,
+        "transferSize": 1247,
+        "decodedBodySize": 3664
+      },
+      {
+        "url": "/assets/DebugDrawingLayer-B2MYpMj0.js",
+        "startTime": 4366.700000047684,
+        "responseEnd": 5593.899999976158,
+        "encodedBodySize": 1025,
+        "transferSize": 1325,
+        "decodedBodySize": 2531
+      },
+      {
+        "url": "/assets/react-apexcharts.esm-DDSdTom0.js",
+        "startTime": 4366.700000047684,
+        "responseEnd": 9524.100000023842,
+        "encodedBodySize": 275201,
+        "transferSize": 275501,
+        "decodedBodySize": 981036
+      },
+      {
+        "url": "/locales/fr/views/live.json",
+        "startTime": 9586,
+        "responseEnd": 9756.299999952316,
+        "encodedBodySize": 1995,
+        "transferSize": 2295,
+        "decodedBodySize": 6875
+      },
+      {
+        "url": "/locales/en/views/live.json",
+        "startTime": 9586.399999976158,
+        "responseEnd": 9763.399999976158,
+        "encodedBodySize": 2465,
+        "transferSize": 2765,
+        "decodedBodySize": 8191
+      },
+      {
+        "url": "/locales/fr/components/player.json",
+        "startTime": 9781.899999976158,
+        "responseEnd": 9936.700000047684,
+        "encodedBodySize": 674,
+        "transferSize": 974,
+        "decodedBodySize": 1500
+      },
+      {
+        "url": "/locales/en/components/player.json",
+        "startTime": 9782.299999952316,
+        "responseEnd": 9944.100000023842,
+        "encodedBodySize": 782,
+        "transferSize": 1082,
+        "decodedBodySize": 2034
+      }
+    ],
+    "navigation": {
+      "encodedBodySize": 2982,
+      "transferSize": 3282,
+      "decodedBodySize": 8120,
+      "protocol": "http/1.1",
+      "requestStart": 2.5,
+      "responseStart": 2.799999952316284,
+      "domContentLoadedEventEnd": 3423.2000000476837,
+      "loadEventEnd": 3430.899999976158
+    },
+    "fontsReadyAt": 10284.700000047684,
+    "fontChecks": {
+      "regular": false,
+      "medium": false
+    },
+    "frenchControlReadyAt": 9965.399999976158,
+    "frenchControl": {
+      "backText": "",
+      "backLabel": "Retour",
+      "historyText": "",
+      "historyLabel": "Afficher les vidéos archivées"
+    },
+    "frenchControlTimeline": {
+      "domAt": 9965.399999976158,
+      "translatedTextAt": null,
+      "accessibleVisibleAt": 9965.399999976158,
+      "visibleTextAt": null
+    },
+    "actionsBeforeFrenchControlReady": [],
+    "fontResources": [],
+    "apiResources": [
+      {
+        "url": "/api/config",
+        "startTime": 4291.200000047684,
+        "responseEnd": 4311.399999976158,
+        "duration": 20.199999928474426,
+        "protocol": ""
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 4292.700000047684,
+        "responseEnd": 4313.100000023842,
+        "duration": 20.399999976158142,
+        "protocol": ""
+      },
+      {
+        "url": "/api/profiles",
+        "startTime": 4294.200000047684,
+        "responseEnd": 4313.200000047684,
+        "duration": 19,
+        "protocol": ""
+      },
+      {
+        "url": "/api/stats",
+        "startTime": 4294.799999952316,
+        "responseEnd": 4314.700000047684,
+        "duration": 19.90000009536743,
+        "protocol": ""
+      },
+      {
+        "url": "/api/profile",
+        "startTime": 4299.799999952316,
+        "responseEnd": 4314.899999976158,
+        "duration": 15.100000023841858,
+        "protocol": ""
+      },
+      {
+        "url": "/api/config",
+        "startTime": 9967,
+        "responseEnd": 9972.299999952316,
+        "duration": 5.299999952316284,
+        "protocol": ""
+      },
+      {
+        "url": "/api/stats",
+        "startTime": 9967.899999976158,
+        "responseEnd": 9973.399999976158,
+        "duration": 5.5,
+        "protocol": ""
+      },
+      {
+        "url": "/api/front_door/latest.webp",
+        "startTime": 9969.5,
+        "responseEnd": 9973.5,
+        "duration": 4,
+        "protocol": ""
+      },
+      {
+        "url": "/api/front_door/latest.webp",
+        "startTime": 9986.899999976158,
+        "responseEnd": 9988.5,
+        "duration": 1.600000023841858,
+        "protocol": ""
+      }
+    ],
+    "jsResources": [
+      {
+        "url": "/assets/rolldown-runtime-B_MQnBba.js",
+        "startTime": 174.89999997615814,
+        "responseEnd": 343.7999999523163,
+        "duration": 168.89999997615814
+      },
+      {
+        "url": "/assets/useTranslation-wMbxFB1i.js",
+        "startTime": 174.89999997615814,
+        "responseEnd": 726.2000000476837,
+        "duration": 551.3000000715256
+      },
+      {
+        "url": "/assets/label-DukRF4a6.js",
+        "startTime": 175.5,
+        "responseEnd": 778.7999999523163,
+        "duration": 603.2999999523163
+      },
+      {
+        "url": "/assets/use-history-back-JKPm9jgZ.js",
+        "startTime": 175.60000002384186,
+        "responseEnd": 1303.3999999761581,
+        "duration": 1127.7999999523163
+      },
+      {
+        "url": "/assets/dist-X38yvQ2h.js",
+        "startTime": 175.60000002384186,
+        "responseEnd": 1423.6000000238419,
+        "duration": 1248
+      },
+      {
+        "url": "/assets/preload-helper-BtBvY-ns.js",
+        "startTime": 175.70000004768372,
+        "responseEnd": 1491,
+        "duration": 1315.2999999523163
+      },
+      {
+        "url": "/assets/cameraUtil-CKlJ1Vsi.js",
+        "startTime": 175.70000004768372,
+        "responseEnd": 1649,
+        "duration": 1473.2999999523163
+      },
+      {
+        "url": "/assets/use-is-admin-B6UU-4w8.js",
+        "startTime": 175.70000004768372,
+        "responseEnd": 1686.1000000238419,
+        "duration": 1510.3999999761581
+      },
+      {
+        "url": "/assets/drawer-Dp9UU7kd.js",
+        "startTime": 175.60000002384186,
+        "responseEnd": 1806.2999999523163,
+        "duration": 1630.6999999284744
+      },
+      {
+        "url": "/assets/normalizeDates-B8fk6WG0.js",
+        "startTime": 176.39999997615814,
+        "responseEnd": 1836.3999999761581,
+        "duration": 1660
+      },
+      {
+        "url": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+        "startTime": 176.5,
+        "responseEnd": 1866.5,
+        "duration": 1690
+      },
+      {
+        "url": "/assets/detectionHardware-BlXbhogZ.js",
+        "startTime": 176.5,
+        "responseEnd": 2024.2000000476837,
+        "duration": 1847.7000000476837
+      },
+      {
+        "url": "/assets/use-date-locale-BpBt0QYp.js",
+        "startTime": 176.5,
+        "responseEnd": 2234.100000023842,
+        "duration": 2057.600000023842
+      },
+      {
+        "url": "/assets/activity-indicator-D_x4wV58.js",
+        "startTime": 175,
+        "responseEnd": 2826.7000000476837,
+        "duration": 2651.7000000476837
+      },
+      {
+        "url": "/assets/src-BCEtIU6s.js",
+        "startTime": 175.60000002384186,
+        "responseEnd": 3013.399999976158,
+        "duration": 2837.7999999523163
+      },
+      {
+        "url": "/assets/main-D4-eM3CH.js",
+        "startTime": 174.89999997615814,
+        "responseEnd": 3254.100000023842,
+        "duration": 3079.2000000476837
+      },
+      {
+        "url": "/assets/fr-DE_g_3N7.js",
+        "startTime": 4303.299999952316,
+        "responseEnd": 4476.600000023842,
+        "duration": 173.30000007152557
+      },
+      {
+        "url": "/assets/card-BvEx76ZV.js",
+        "startTime": 4363.799999952316,
+        "responseEnd": 4536.5,
+        "duration": 172.70000004768372
+      },
+      {
+        "url": "/assets/fa6-LY2KIa2E.js",
+        "startTime": 4364.200000047684,
+        "responseEnd": 4544,
+        "duration": 179.79999995231628
+      },
+      {
+        "url": "/assets/resize-observer-BM6UK5WB.js",
+        "startTime": 4364.200000047684,
+        "responseEnd": 4558.5,
+        "duration": 194.29999995231628
+      },
+      {
+        "url": "/assets/ImageShadowOverlay-zudTxtKC.js",
+        "startTime": 4364.5,
+        "responseEnd": 4708.700000047684,
+        "duration": 344.2000000476837
+      },
+      {
+        "url": "/assets/skeleton-Doktw_Xe.js",
+        "startTime": 4364.5,
+        "responseEnd": 4724.299999952316,
+        "duration": 359.7999999523163
+      },
+      {
+        "url": "/assets/use-keyboard-listener-CcHihlXj.js",
+        "startTime": 4364.600000023842,
+        "responseEnd": 4738.700000047684,
+        "duration": 374.10000002384186
+      },
+      {
+        "url": "/assets/FilterSwitch-BumxfPyV.js",
+        "startTime": 4364.600000023842,
+        "responseEnd": 4821.299999952316,
+        "duration": 456.6999999284744
+      },
+      {
+        "url": "/assets/TimeAgo-h5R57NLp.js",
+        "startTime": 4364.600000023842,
+        "responseEnd": 4904.200000047684,
+        "duration": 539.6000000238419
+      },
+      {
+        "url": "/assets/slider-BsRzJqrB.js",
+        "startTime": 4364.600000023842,
+        "responseEnd": 4963.399999976158,
+        "duration": 598.7999999523163
+      },
+      {
+        "url": "/assets/scroll-area-xcHQ56wu.js",
+        "startTime": 4364.700000047684,
+        "responseEnd": 5016.700000047684,
+        "duration": 652
+      },
+      {
+        "url": "/assets/review-D3-Z-h19.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5084,
+        "duration": 718.2999999523163
+      },
+      {
+        "url": "/assets/snapshotUtil-DZ4PxfyT.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5196.200000047684,
+        "duration": 830.5
+      },
+      {
+        "url": "/assets/Live-B2HxIU4q.js",
+        "startTime": 4363.299999952316,
+        "responseEnd": 5218.700000047684,
+        "duration": 855.4000000953674
+      },
+      {
+        "url": "/assets/tabs-Dv_B-FHX.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5234.100000023842,
+        "duration": 868.3999999761581
+      },
+      {
+        "url": "/assets/Chip-DV_hU2e5.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5256.700000047684,
+        "duration": 891
+      },
+      {
+        "url": "/assets/record-Bf1xYu2U.js",
+        "startTime": 4365.5,
+        "responseEnd": 5286.299999952316,
+        "duration": 920.7999999523163
+      },
+      {
+        "url": "/assets/context-menu-CvTIS5vu.js",
+        "startTime": 4365.700000047684,
+        "responseEnd": 5368.899999976158,
+        "duration": 1003.1999999284744
+      },
+      {
+        "url": "/assets/use-camera-activity-BoxPiCy2.js",
+        "startTime": 4366.200000047684,
+        "responseEnd": 5398.700000047684,
+        "duration": 1032.5
+      },
+      {
+        "url": "/assets/use-timeline-utils-RZeNJOLk.js",
+        "startTime": 4366.299999952316,
+        "responseEnd": 5405.899999976158,
+        "duration": 1039.6000000238419
+      },
+      {
+        "url": "/assets/EmptyCard-Ci-uVJwr.js",
+        "startTime": 4366.299999952316,
+        "responseEnd": 5421.399999976158,
+        "duration": 1055.1000000238419
+      },
+      {
+        "url": "/assets/MsePlayer-BcrvLnvg.js",
+        "startTime": 4366.5,
+        "responseEnd": 5586.700000047684,
+        "duration": 1220.2000000476837
+      },
+      {
+        "url": "/assets/DebugDrawingLayer-B2MYpMj0.js",
+        "startTime": 4366.700000047684,
+        "responseEnd": 5593.899999976158,
+        "duration": 1227.1999999284744
+      },
+      {
+        "url": "/assets/AutoUpdatingCameraImage-Dscb-wIU.js",
+        "startTime": 4366.600000023842,
+        "responseEnd": 5609.100000023842,
+        "duration": 1242.5
+      },
+      {
+        "url": "/assets/ReactKonva-BsRqteko.js",
+        "startTime": 4364.200000047684,
+        "responseEnd": 5924.100000023842,
+        "duration": 1559.8999999761581
+      },
+      {
+        "url": "/assets/BirdseyeLivePlayer-D50Y4o9J.js",
+        "startTime": 4366.5,
+        "responseEnd": 6059.100000023842,
+        "duration": 1692.6000000238419
+      },
+      {
+        "url": "/assets/react-apexcharts.esm-DDSdTom0.js",
+        "startTime": 4366.700000047684,
+        "responseEnd": 9524.100000023842,
+        "duration": 5157.399999976158
+      }
+    ],
+    "locale": [
+      {
+        "url": "/locales/fr/objects.json",
+        "startTime": 3429.399999976158,
+        "responseEnd": 3620.7999999523163,
+        "duration": 191.39999997615814,
+        "transferSize": 1777,
+        "encodedBodySize": 1477,
+        "decodedBodySize": 3203,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/audio.json",
+        "startTime": 3429.5,
+        "responseEnd": 3695.899999976158,
+        "duration": 266.39999997615814,
+        "transferSize": 6012,
+        "encodedBodySize": 5712,
+        "decodedBodySize": 14983,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/objects.json",
+        "startTime": 3430.2000000476837,
+        "responseEnd": 3651.5,
+        "duration": 221.29999995231628,
+        "transferSize": 1590,
+        "encodedBodySize": 1290,
+        "decodedBodySize": 3051,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/audio.json",
+        "startTime": 3430.2000000476837,
+        "responseEnd": 3718.600000023842,
+        "duration": 288.39999997615814,
+        "transferSize": 5153,
+        "encodedBodySize": 4853,
+        "decodedBodySize": 13637,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/common.json",
+        "startTime": 3452.2999999523163,
+        "responseEnd": 3704.2000000476837,
+        "duration": 251.90000009536743,
+        "transferSize": 4096,
+        "encodedBodySize": 3796,
+        "decodedBodySize": 10066,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/common.json",
+        "startTime": 3452.399999976158,
+        "responseEnd": 3711.399999976158,
+        "duration": 259,
+        "transferSize": 3796,
+        "encodedBodySize": 3496,
+        "decodedBodySize": 10334,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/views/settings.json",
+        "startTime": 3477.2000000476837,
+        "responseEnd": 3988.600000023842,
+        "duration": 511.39999997615814,
+        "transferSize": 18465,
+        "encodedBodySize": 18165,
+        "decodedBodySize": 69496,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/views/system.json",
+        "startTime": 3477.600000023842,
+        "responseEnd": 3921.600000023842,
+        "duration": 444,
+        "transferSize": 3780,
+        "encodedBodySize": 3480,
+        "decodedBodySize": 10937,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/views/system.json",
+        "startTime": 3477.600000023842,
+        "responseEnd": 3966,
+        "duration": 488.39999997615814,
+        "transferSize": 5402,
+        "encodedBodySize": 5102,
+        "decodedBodySize": 16461,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/views/settings.json",
+        "startTime": 3477.600000023842,
+        "responseEnd": 4055.7999999523163,
+        "duration": 578.1999999284744,
+        "transferSize": 26120,
+        "encodedBodySize": 25820,
+        "decodedBodySize": 98843,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/components/dialog.json",
+        "startTime": 4077.899999976158,
+        "responseEnd": 4266.299999952316,
+        "duration": 188.39999997615814,
+        "transferSize": 3204,
+        "encodedBodySize": 2904,
+        "decodedBodySize": 9392,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/components/dialog.json",
+        "startTime": 4078.600000023842,
+        "responseEnd": 4259.200000047684,
+        "duration": 180.60000002384186,
+        "transferSize": 2825,
+        "encodedBodySize": 2525,
+        "decodedBodySize": 8240,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/views/live.json",
+        "startTime": 9586,
+        "responseEnd": 9756.299999952316,
+        "duration": 170.29999995231628,
+        "transferSize": 2295,
+        "encodedBodySize": 1995,
+        "decodedBodySize": 6875,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/views/live.json",
+        "startTime": 9586.399999976158,
+        "responseEnd": 9763.399999976158,
+        "duration": 177,
+        "transferSize": 2765,
+        "encodedBodySize": 2465,
+        "decodedBodySize": 8191,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/fr/components/player.json",
+        "startTime": 9781.899999976158,
+        "responseEnd": 9936.700000047684,
+        "duration": 154.80000007152557,
+        "transferSize": 974,
+        "encodedBodySize": 674,
+        "decodedBodySize": 1500,
+        "protocol": "http/1.1"
+      },
+      {
+        "url": "/locales/en/components/player.json",
+        "startTime": 9782.299999952316,
+        "responseEnd": 9944.100000023842,
+        "duration": 161.80000007152557,
+        "transferSize": 1082,
+        "encodedBodySize": 782,
+        "decodedBodySize": 2034,
+        "protocol": "http/1.1"
+      }
+    ],
+    "bodyText": ""
+  },
+  "assets": [
+    {
+      "path": "/assets/activity-indicator-D_x4wV58.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "120690"
+    },
+    {
+      "path": "/assets/AutoUpdatingCameraImage-Dscb-wIU.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1304"
+    },
+    {
+      "path": "/assets/BirdseyeLivePlayer-D50Y4o9J.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "45026"
+    },
+    {
+      "path": "/assets/buildMatchPatternFn-ClBAzsDg.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "617"
+    },
+    {
+      "path": "/assets/cameraUtil-CKlJ1Vsi.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1636"
+    },
+    {
+      "path": "/assets/card-BvEx76ZV.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "387"
+    },
+    {
+      "path": "/assets/Chip-DV_hU2e5.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "653"
+    },
+    {
+      "path": "/assets/context-menu-CvTIS5vu.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2334"
+    },
+    {
+      "path": "/assets/DebugDrawingLayer-B2MYpMj0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1025"
+    },
+    {
+      "path": "/assets/detectionHardware-BlXbhogZ.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "554"
+    },
+    {
+      "path": "/assets/dist-X38yvQ2h.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "413"
+    },
+    {
+      "path": "/assets/drawer-Dp9UU7kd.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "34821"
+    },
+    {
+      "path": "/assets/EmptyCard-Ci-uVJwr.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "427"
+    },
+    {
+      "path": "/assets/fa6-LY2KIa2E.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "903"
+    },
+    {
+      "path": "/assets/FilterSwitch-BumxfPyV.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "458"
+    },
+    {
+      "path": "/assets/fr-DE_g_3N7.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "2098"
+    },
+    {
+      "path": "/assets/ImageShadowOverlay-zudTxtKC.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "283"
+    },
+    {
+      "path": "/assets/label-DukRF4a6.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "14801"
+    },
+    {
+      "path": "/assets/Live-B2HxIU4q.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "46547"
+    },
+    {
+      "path": "/assets/Live-Cb7KG80W.css",
+      "status": 200,
+      "type": "text/css",
+      "length": "947"
+    },
+    {
+      "path": "/assets/main-D4-eM3CH.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "186711"
+    },
+    {
+      "path": "/assets/MsePlayer-BcrvLnvg.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "3634"
+    },
+    {
+      "path": "/assets/normalizeDates-B8fk6WG0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "496"
+    },
+    {
+      "path": "/assets/preload-helper-BtBvY-ns.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "798"
+    },
+    {
+      "path": "/assets/react-apexcharts.esm-DDSdTom0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "275201"
+    },
+    {
+      "path": "/assets/ReactKonva-BsRqteko.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "105650"
+    },
+    {
+      "path": "/assets/record-Bf1xYu2U.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "16516"
+    },
+    {
+      "path": "/assets/resize-observer-BM6UK5WB.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "403"
+    },
+    {
+      "path": "/assets/review-D3-Z-h19.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "184"
+    },
+    {
+      "path": "/assets/rolldown-runtime-B_MQnBba.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "573"
+    },
+    {
+      "path": "/assets/scroll-area-xcHQ56wu.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "4675"
+    },
+    {
+      "path": "/assets/skeleton-Doktw_Xe.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "181"
+    },
+    {
+      "path": "/assets/slider-BsRzJqrB.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "4520"
+    },
+    {
+      "path": "/assets/snapshotUtil-DZ4PxfyT.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "3120"
+    },
+    {
+      "path": "/assets/src-BCEtIU6s.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "139157"
+    },
+    {
+      "path": "/assets/src-DHngj9Lm.css",
+      "status": 200,
+      "type": "text/css",
+      "length": "26070"
+    },
+    {
+      "path": "/assets/tabs-Dv_B-FHX.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1534"
+    },
+    {
+      "path": "/assets/TimeAgo-h5R57NLp.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "718"
+    },
+    {
+      "path": "/assets/use-camera-activity-BoxPiCy2.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "1646"
+    },
+    {
+      "path": "/assets/use-date-locale-BpBt0QYp.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "12768"
+    },
+    {
+      "path": "/assets/use-history-back-JKPm9jgZ.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "14674"
+    },
+    {
+      "path": "/assets/use-is-admin-B6UU-4w8.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "202"
+    },
+    {
+      "path": "/assets/use-keyboard-listener-CcHihlXj.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "615"
+    },
+    {
+      "path": "/assets/use-timeline-utils-RZeNJOLk.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "344"
+    },
+    {
+      "path": "/assets/useTranslation-wMbxFB1i.js",
+      "status": 200,
+      "type": "text/javascript",
+      "length": "14274"
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "restart": {
+    "button": "Reiniciar",
+    "restarting": {
+      "title": "Frigate está a reiniciar",
+      "content": "Esta página será recarregada em {{countdown}} segundos.",
+      "button": "Forçar Recarregar Agora"
+    },
+    "title": "Tem a certeza que deseja reiniciar o Frigate?",
+    "description": "Isto irá parar brevemente o Frigate enquanto reinicia."
+  },
+  "explore": {
+    "plus": {
+      "submitToPlus": {
+        "label": "Submeter para Frigate+",
+        "desc": "Os objetos nas localizações que quer evitar não são falsos positivos. Submete-los como falsos positivos confundirá o modelo."
+      },
+      "review": {
+        "state": {
+          "submitted": "Submetido"
+        },
+        "question": {
+          "label": "Confirme esta etiqueta para Frigate Plus",
+          "ask_a": "Este objeto é um <code>{{label}}</code>?",
+          "ask_an": "Este objeto é um <code>{{label}}</code>?",
+          "ask_full": "Este objeto é um <code>{{untranslatedLabel}}</code> ({{translatedLabel}})?"
+        },
+        "toast": {
+          "error": "Não foi possível submeter para Frigate+. Por favor verifique a sua connecção e tente novamente."
+        }
+      }
+    },
+    "video": {
+      "viewInHistory": "Ver no Histórico"
+    }
+  },
+  "export": {
+    "time": {
+      "fromTimeline": "Selecione na linha do tempo",
+      "start": {
+        "title": "Hora de início",
+        "label": "Selecione a hora de início"
+      },
+      "end": {
+        "title": "Hora de término",
+        "label": "Selecione a hora de término"
+      },
+      "custom": "Personalizado",
+      "lastHour_one": "Última hora",
+      "lastHour_many": "Últimas {{count}} horas",
+      "lastHour_other": "Últimas {{count}} horas"
+    },
+    "export": "Exportar",
+    "toast": {
+      "success": "Exportação iniciada com sucesso. Veja o ficheiro na pasta de exportações.",
+      "error": {
+        "failed": "Não foi possível iniciar a exportação: {{error}}",
+        "endTimeMustAfterStartTime": "O horário de término deve ser posterior ao horário de início"
+      }
+    },
+    "selectOrExport": "Selecionar ou Exportar",
+    "fromTimeline": {
+      "saveExport": "Guardar Exportação",
+      "previewExport": "Pré-visualizar Exportação"
+    },
+    "select": "Selecionar",
+    "name": {
+      "placeholder": "Nome da Exportação"
+    },
+    "case": {
+      "newCaseOption": "Criar um novo caso",
+      "newCaseNamePlaceholder": "Nome do novo caso",
+      "newCaseDescriptionPlaceholder": "Descrição do caso",
+      "label": "Caso",
+      "nonAdminHelp": "Será criado um novo caso para estas exportações.",
+      "placeholder": "Selecionar um caso"
+    },
+    "multiCamera": {
+      "selectFromTimeline": "Selecionar da Timeline",
+      "timeRange": "Intervalo de tempo"
+    },
+    "queueing": "A colocar na fila de exportação...",
+    "tabs": {
+      "export": "Câmara única",
+      "multiCamera": "Múltiplas câmaras"
+    }
+  },
+  "streaming": {
+    "showStats": {
+      "label": "Mostrar estatísticas de transmissão",
+      "desc": "Ative esta opção para mostrar as estatísticas de transmissão como uma sobreposição na feed da câmara."
+    },
+    "restreaming": {
+      "desc": {
+        "title": "Configure go2rtc para obter opções adicionais da visualização ao vivo e o áudio para esta câmara."
+      },
+      "disabled": "A retransmissão não está ativada para esta câmara."
+    },
+    "label": "Transmissão",
+    "debugView": "Ver Depuração"
+  },
+  "search": {
+    "saveSearch": {
+      "label": "Guardar Procura",
+      "overwrite": "{{searchName}} já existe. Ao guardar irá substituir o valor existente.",
+      "success": "A procura ({{searchName}}) foi guardada.",
+      "button": {
+        "save": {
+          "label": "Guardar esta procura"
+        }
+      },
+      "placeholder": "Insira um nome para a sua procura",
+      "desc": "Forneça um nome para esta procura guardada."
+    }
+  },
+  "recording": {
+    "confirmDelete": {
+      "title": "Confirmar Eliminar",
+      "desc": {
+        "selected": "Tem a certeza que deseja eliminar todos os vídeos guardados associados com este item de análise?<br /><br />Pressione a tecla <em>Shift</em> para ignorar esta janela no futuro."
+      },
+      "toast": {
+        "success": "As imagens de vídeo associadas com os itens de análise selecionados foram elimiandos com sucesso.",
+        "error": "Não foi possível eliminar: {{error}}"
+      }
+    },
+    "button": {
+      "export": "Exportar",
+      "markAsReviewed": "Marcar como analisado",
+      "deleteNow": "Eliminar Agora"
+    }
+  },
+  "imagePicker": {
+    "selectImage": "Selecione a miniatura de um objeto rastreado",
+    "search": {
+      "placeholder": "Pesquisar por etiqueta ou sub-etiqueta..."
+    },
+    "noImages": "Nenhuma miniatura encontrada para esta câmera"
+  }
+}

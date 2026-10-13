@@ -1,4 +1,8 @@
 {
+  "source/converter/convert-catalogs.mjs": {
+    "bytes": 6396,
+    "sha256": "9b1d47073ea4217cdb286dcc065824fe8b8635ffaa3e9e27b35301bfc2cd1d77"
+  },
   "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/.meta.json": {
     "bytes": 34,
     "sha256": "179dcb21fe32e16821a7ee8699d3d74fb9218cad7346dbd2b4898adf7fc0e824"
@@ -6,6 +10,10 @@
   "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/README.md": {
     "bytes": 4710,
     "sha256": "ec2cf047ceca2a46a5bcb3e4f8bd105e7947d65716a9b5a0fda8fbbd996df6c4"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/catalog-metadata.json": {
+    "bytes": 2392421,
+    "sha256": "bd770d115d115eddc4a5fc976205a38b7116a37bc64c29c71d382642cc37dd1a"
   },
   "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/messages/de.json": {
     "bytes": 76189,
@@ -50,6 +58,710 @@
   "source/per-locale/core/http/react-ui/src/i18n/fixed-locale-runtime.test.mjs": {
     "bytes": 2780,
     "sha256": "eeebb499e2d819e3b6cf914a68cd6797bfc357fc0561b906e97760f59372bb89"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/admin.json": {
+    "bytes": 31079,
+    "sha256": "b42e2c0155de1e1e815037779d44f8608c9b6a60b78e82a4a4b7a7f2c0de03f8"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/agents.json": {
+    "bytes": 62649,
+    "sha256": "c4f6a9b00d7a489f0a68d9f7cc768da5659008a7e1822a7d6f080bf00da3c993"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/auth.json": {
+    "bytes": 24669,
+    "sha256": "ebcb10f87c2dfb96bfcf0852452bde1b064dd8bf463f34a344828ac121811a82"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/biometrics.json": {
+    "bytes": 22686,
+    "sha256": "f7e37409f57a911a2b9f0054ff82e30eb32a99f6d96c0d42b889d12205faf89e"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/chat.json": {
+    "bytes": 26676,
+    "sha256": "bd058a75f511da2406369a99bb89babe0dfa47a47e70c62dbbe7da31ff4c32ee"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/collections.json": {
+    "bytes": 11947,
+    "sha256": "fa29fdfd5fa8c7faa139d6aaf89fcbe92ba706a52b824beda018eb53402c6ed0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/common.json": {
+    "bytes": 12856,
+    "sha256": "0c022c4b1ca10fc18b68e46cb52877feda4b247de9c9b7e010c9eff1f3d68749"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/errors.json": {
+    "bytes": 2068,
+    "sha256": "9798695e201ca3f629a3eaf593449172c1f038a4ffce3c4459844a4467eda26f"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/explorer.json": {
+    "bytes": 3677,
+    "sha256": "fd22fd9c4c7de94ef7bf98544bfccb2fb66f35e68064193963f2fbaa7fe16570"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/home.json": {
+    "bytes": 22727,
+    "sha256": "cf8cc29f0de8a9c56a460f86f953995545f7ec1f55576b7262acf9dd047ada8a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/importModel.json": {
+    "bytes": 20191,
+    "sha256": "add60873c4cc04dd192f569ee4f236ef62b13fb7b3829e5abd215688bf9876fc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/library.json": {
+    "bytes": 10335,
+    "sha256": "230838d68713b5145b80e2758934bc849bc217adde316fd4277d2ba86d754178"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/media.json": {
+    "bytes": 79424,
+    "sha256": "5a5d753dc6bd69c9856318465c44ce5302ec4b296c13367445f4b179464a1661"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/modelEditor.json": {
+    "bytes": 2205,
+    "sha256": "068f232b5f5e75b08f55e2f0a6fa3a6c65b7a72a3e997b4f2a66806cfd8cf2dc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/models.json": {
+    "bytes": 93387,
+    "sha256": "3ed259e01986ba9a6153cfd9435c9056dbc89ac1dcc4652e69bdb6ff9c4b36fd"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/nav.json": {
+    "bytes": 12003,
+    "sha256": "4753d4faaf46236752ef73c3b77b8cf69444705207fac5592dadc9733596d417"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/operate.json": {
+    "bytes": 45386,
+    "sha256": "c23217d6862001f8bff2ce7bb629fdbe9df0d6c2749347ed054f09056757cef5"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/skills.json": {
+    "bytes": 11273,
+    "sha256": "5f2fe3c2db8f121137afbd671dab4204980ccb2df6e83c658347e17141c275b6"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/swarm.json": {
+    "bytes": 49629,
+    "sha256": "2a96c12ae67883fcabd0b392f9fd54eecc0231c32dbdfe02848be5c41609105a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/talk.json": {
+    "bytes": 9976,
+    "sha256": "459eba59eb54630b2f1b7ca22f9dbd8ba3b09d96109a69ec498e9e10f1557794"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/tools.json": {
+    "bytes": 40920,
+    "sha256": "9e34aaf401a99e6fef9f946e369cec8f98f0acb4dd81278e3c05ac7dd46ea7a0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/de/traffic.json": {
+    "bytes": 48611,
+    "sha256": "b1e46441e465f92e28ef43bcbe0c2bb77600df9b49c9942a58a2a8624c2b08c1"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/admin.json": {
+    "bytes": 8665,
+    "sha256": "efa9a6d242d5df52374a44a1eadc126ce7806583ed7542d43a67a03b75f242c3"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/agents.json": {
+    "bytes": 60843,
+    "sha256": "ee265de08c8dddec0d3e9ae09e68817642665d41461c944ad109b303463b4abe"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/auth.json": {
+    "bytes": 18814,
+    "sha256": "b37d40f1ef13296e95faccd030cde5d71c290f9f139c8a50927089fc200a8ed6"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/biometrics.json": {
+    "bytes": 22678,
+    "sha256": "e2c94f26199d6253e792a48f0b5c6e712448f6491b54e54fb0a78ad6c4363e28"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/chat.json": {
+    "bytes": 22052,
+    "sha256": "870b48cc5ca7a145c0b91d6c2b824b0d58269ea0516af17457b69d79374a218d"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/collections.json": {
+    "bytes": 10560,
+    "sha256": "9ff04c6ae207a8b13612bc0eed8f84a35166c5739c0caa4945feb2c65c43fdd5"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/common.json": {
+    "bytes": 8855,
+    "sha256": "2975066253f889816bf679e5ca80fb427529b56f16ee0a4d1d1dedcc905d36eb"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/errors.json": {
+    "bytes": 1452,
+    "sha256": "8df016f0ffcd752dd332d1480cbe8030baf2af11cb93cca7d5548e2344232f3f"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/explorer.json": {
+    "bytes": 3669,
+    "sha256": "081374526209818e5b10a1743ca90128448ede81572236c99a91b578103cc6c0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/home.json": {
+    "bytes": 18558,
+    "sha256": "9a2786a62d6e892f211e479375659199dc018b92a720dd34f26c480467ffb6c1"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/importModel.json": {
+    "bytes": 15496,
+    "sha256": "9a1e7946b6dda275a85aa287d75bd7ce9118ab5a03db1e2f380e3b10b3905b93"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/library.json": {
+    "bytes": 10327,
+    "sha256": "c45f05e90640493a4ca045ed17d7b36844146bc9784ffcc6ab0ec887cee72695"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/media.json": {
+    "bytes": 71519,
+    "sha256": "56942522d9f04e89fd8399d7da60ba79f3e77ec48d15fe08370a5502ba14eb72"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/modelEditor.json": {
+    "bytes": 2197,
+    "sha256": "186958c06bc94f0f5dbad073ad5eb4b2e5e504105c8cabd2a0d3df7e8d8ed727"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/models.json": {
+    "bytes": 79517,
+    "sha256": "9233838b584cd1df2cb2de3b39a6740d2f2a8ccbcc3371fe318f2f4fc96e99ba"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/nav.json": {
+    "bytes": 8408,
+    "sha256": "31df0b4589a0249381e49778dc232a6b2492de982992965bbfef0ad7f99e115a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/operate.json": {
+    "bytes": 45378,
+    "sha256": "6e2595b2e5e01fc959c94a35ee211f82b06654c0724cedd3a9482d9457a6d89c"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/skills.json": {
+    "bytes": 8653,
+    "sha256": "2e346a150fbc81242dae34474211b7f8fc910e39a53cb2b4a8706af091b15844"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/swarm.json": {
+    "bytes": 49621,
+    "sha256": "07b4de115ed69c037ef5ba0de77b96ec53da1d2d53092decc208dd94e7f5ad9d"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/talk.json": {
+    "bytes": 9968,
+    "sha256": "6dba8e36bb887a58babe83eeb2233f0aa0b270923c099704d03c821047ee96ef"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/tools.json": {
+    "bytes": 40912,
+    "sha256": "933dbfccd72f7b1cd576de810b6fa51eccfe65ff8063748234bddc8ad2057933"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/en/traffic.json": {
+    "bytes": 48603,
+    "sha256": "c8bf72d0bfcb6a16dbe9b5bbc317b1c6e028582a5202963526a1a0dc41ec2b35"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/admin.json": {
+    "bytes": 31079,
+    "sha256": "b42e2c0155de1e1e815037779d44f8608c9b6a60b78e82a4a4b7a7f2c0de03f8"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/agents.json": {
+    "bytes": 62649,
+    "sha256": "c4f6a9b00d7a489f0a68d9f7cc768da5659008a7e1822a7d6f080bf00da3c993"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/auth.json": {
+    "bytes": 24669,
+    "sha256": "ebcb10f87c2dfb96bfcf0852452bde1b064dd8bf463f34a344828ac121811a82"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/biometrics.json": {
+    "bytes": 22686,
+    "sha256": "f7e37409f57a911a2b9f0054ff82e30eb32a99f6d96c0d42b889d12205faf89e"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/chat.json": {
+    "bytes": 26676,
+    "sha256": "bd058a75f511da2406369a99bb89babe0dfa47a47e70c62dbbe7da31ff4c32ee"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/collections.json": {
+    "bytes": 11947,
+    "sha256": "fa29fdfd5fa8c7faa139d6aaf89fcbe92ba706a52b824beda018eb53402c6ed0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/common.json": {
+    "bytes": 12856,
+    "sha256": "0c022c4b1ca10fc18b68e46cb52877feda4b247de9c9b7e010c9eff1f3d68749"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/errors.json": {
+    "bytes": 2068,
+    "sha256": "9798695e201ca3f629a3eaf593449172c1f038a4ffce3c4459844a4467eda26f"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/explorer.json": {
+    "bytes": 3677,
+    "sha256": "fd22fd9c4c7de94ef7bf98544bfccb2fb66f35e68064193963f2fbaa7fe16570"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/home.json": {
+    "bytes": 22727,
+    "sha256": "cf8cc29f0de8a9c56a460f86f953995545f7ec1f55576b7262acf9dd047ada8a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/importModel.json": {
+    "bytes": 20191,
+    "sha256": "add60873c4cc04dd192f569ee4f236ef62b13fb7b3829e5abd215688bf9876fc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/library.json": {
+    "bytes": 10335,
+    "sha256": "230838d68713b5145b80e2758934bc849bc217adde316fd4277d2ba86d754178"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/media.json": {
+    "bytes": 79424,
+    "sha256": "5a5d753dc6bd69c9856318465c44ce5302ec4b296c13367445f4b179464a1661"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/modelEditor.json": {
+    "bytes": 2205,
+    "sha256": "068f232b5f5e75b08f55e2f0a6fa3a6c65b7a72a3e997b4f2a66806cfd8cf2dc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/models.json": {
+    "bytes": 93387,
+    "sha256": "3ed259e01986ba9a6153cfd9435c9056dbc89ac1dcc4652e69bdb6ff9c4b36fd"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/nav.json": {
+    "bytes": 12003,
+    "sha256": "4753d4faaf46236752ef73c3b77b8cf69444705207fac5592dadc9733596d417"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/operate.json": {
+    "bytes": 45386,
+    "sha256": "c23217d6862001f8bff2ce7bb629fdbe9df0d6c2749347ed054f09056757cef5"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/skills.json": {
+    "bytes": 11273,
+    "sha256": "5f2fe3c2db8f121137afbd671dab4204980ccb2df6e83c658347e17141c275b6"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/swarm.json": {
+    "bytes": 49629,
+    "sha256": "2a96c12ae67883fcabd0b392f9fd54eecc0231c32dbdfe02848be5c41609105a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/talk.json": {
+    "bytes": 9976,
+    "sha256": "459eba59eb54630b2f1b7ca22f9dbd8ba3b09d96109a69ec498e9e10f1557794"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/tools.json": {
+    "bytes": 40920,
+    "sha256": "9e34aaf401a99e6fef9f946e369cec8f98f0acb4dd81278e3c05ac7dd46ea7a0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/es/traffic.json": {
+    "bytes": 48611,
+    "sha256": "b1e46441e465f92e28ef43bcbe0c2bb77600df9b49c9942a58a2a8624c2b08c1"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/admin.json": {
+    "bytes": 32176,
+    "sha256": "979962dfe0de1f817238097790ffcf51e4ab5b1699c1d099455591dec00c2068"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/agents.json": {
+    "bytes": 62649,
+    "sha256": "c4f6a9b00d7a489f0a68d9f7cc768da5659008a7e1822a7d6f080bf00da3c993"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/auth.json": {
+    "bytes": 24669,
+    "sha256": "ebcb10f87c2dfb96bfcf0852452bde1b064dd8bf463f34a344828ac121811a82"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/biometrics.json": {
+    "bytes": 22686,
+    "sha256": "f7e37409f57a911a2b9f0054ff82e30eb32a99f6d96c0d42b889d12205faf89e"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/chat.json": {
+    "bytes": 26676,
+    "sha256": "bd058a75f511da2406369a99bb89babe0dfa47a47e70c62dbbe7da31ff4c32ee"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/collections.json": {
+    "bytes": 11947,
+    "sha256": "fa29fdfd5fa8c7faa139d6aaf89fcbe92ba706a52b824beda018eb53402c6ed0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/common.json": {
+    "bytes": 12895,
+    "sha256": "8d74f8ef0675a0da6095642175a4f02b29743667878d81dbb290613c6bff77cf"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/errors.json": {
+    "bytes": 2068,
+    "sha256": "9798695e201ca3f629a3eaf593449172c1f038a4ffce3c4459844a4467eda26f"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/explorer.json": {
+    "bytes": 3677,
+    "sha256": "fd22fd9c4c7de94ef7bf98544bfccb2fb66f35e68064193963f2fbaa7fe16570"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/home.json": {
+    "bytes": 22727,
+    "sha256": "cf8cc29f0de8a9c56a460f86f953995545f7ec1f55576b7262acf9dd047ada8a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/importModel.json": {
+    "bytes": 20191,
+    "sha256": "add60873c4cc04dd192f569ee4f236ef62b13fb7b3829e5abd215688bf9876fc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/library.json": {
+    "bytes": 10335,
+    "sha256": "230838d68713b5145b80e2758934bc849bc217adde316fd4277d2ba86d754178"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/media.json": {
+    "bytes": 81708,
+    "sha256": "726a2d0a8dd8a8a3645791e17a7c857f4c6b14c0c91aa62f0ce7a3cb30c5ef42"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/modelEditor.json": {
+    "bytes": 3261,
+    "sha256": "9203baa59bc965d176d40788eb88177de27492387b50348551a053b0ab6d7225"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/models.json": {
+    "bytes": 93895,
+    "sha256": "65007fb698a2933a94f2c979f52b75467522fe08696e6ebcfb6b053b8ba9ffd8"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/nav.json": {
+    "bytes": 12052,
+    "sha256": "7e265ab3ec7d5d622c80bd1f05f42b277fbabcb642635459dbeab8d9ee56c57d"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/operate.json": {
+    "bytes": 45386,
+    "sha256": "c23217d6862001f8bff2ce7bb629fdbe9df0d6c2749347ed054f09056757cef5"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/skills.json": {
+    "bytes": 11273,
+    "sha256": "5f2fe3c2db8f121137afbd671dab4204980ccb2df6e83c658347e17141c275b6"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/swarm.json": {
+    "bytes": 49629,
+    "sha256": "2a96c12ae67883fcabd0b392f9fd54eecc0231c32dbdfe02848be5c41609105a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/talk.json": {
+    "bytes": 9976,
+    "sha256": "459eba59eb54630b2f1b7ca22f9dbd8ba3b09d96109a69ec498e9e10f1557794"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/tools.json": {
+    "bytes": 40920,
+    "sha256": "9e34aaf401a99e6fef9f946e369cec8f98f0acb4dd81278e3c05ac7dd46ea7a0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/id/traffic.json": {
+    "bytes": 48611,
+    "sha256": "b1e46441e465f92e28ef43bcbe0c2bb77600df9b49c9942a58a2a8624c2b08c1"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/admin.json": {
+    "bytes": 31079,
+    "sha256": "b42e2c0155de1e1e815037779d44f8608c9b6a60b78e82a4a4b7a7f2c0de03f8"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/agents.json": {
+    "bytes": 62649,
+    "sha256": "c4f6a9b00d7a489f0a68d9f7cc768da5659008a7e1822a7d6f080bf00da3c993"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/auth.json": {
+    "bytes": 24669,
+    "sha256": "ebcb10f87c2dfb96bfcf0852452bde1b064dd8bf463f34a344828ac121811a82"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/biometrics.json": {
+    "bytes": 22686,
+    "sha256": "f7e37409f57a911a2b9f0054ff82e30eb32a99f6d96c0d42b889d12205faf89e"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/chat.json": {
+    "bytes": 26676,
+    "sha256": "bd058a75f511da2406369a99bb89babe0dfa47a47e70c62dbbe7da31ff4c32ee"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/collections.json": {
+    "bytes": 11947,
+    "sha256": "fa29fdfd5fa8c7faa139d6aaf89fcbe92ba706a52b824beda018eb53402c6ed0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/common.json": {
+    "bytes": 12856,
+    "sha256": "0c022c4b1ca10fc18b68e46cb52877feda4b247de9c9b7e010c9eff1f3d68749"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/errors.json": {
+    "bytes": 2068,
+    "sha256": "9798695e201ca3f629a3eaf593449172c1f038a4ffce3c4459844a4467eda26f"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/explorer.json": {
+    "bytes": 3677,
+    "sha256": "fd22fd9c4c7de94ef7bf98544bfccb2fb66f35e68064193963f2fbaa7fe16570"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/home.json": {
+    "bytes": 22727,
+    "sha256": "cf8cc29f0de8a9c56a460f86f953995545f7ec1f55576b7262acf9dd047ada8a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/importModel.json": {
+    "bytes": 20191,
+    "sha256": "add60873c4cc04dd192f569ee4f236ef62b13fb7b3829e5abd215688bf9876fc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/library.json": {
+    "bytes": 10335,
+    "sha256": "230838d68713b5145b80e2758934bc849bc217adde316fd4277d2ba86d754178"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/media.json": {
+    "bytes": 79424,
+    "sha256": "5a5d753dc6bd69c9856318465c44ce5302ec4b296c13367445f4b179464a1661"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/modelEditor.json": {
+    "bytes": 2205,
+    "sha256": "068f232b5f5e75b08f55e2f0a6fa3a6c65b7a72a3e997b4f2a66806cfd8cf2dc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/models.json": {
+    "bytes": 93387,
+    "sha256": "3ed259e01986ba9a6153cfd9435c9056dbc89ac1dcc4652e69bdb6ff9c4b36fd"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/nav.json": {
+    "bytes": 12003,
+    "sha256": "4753d4faaf46236752ef73c3b77b8cf69444705207fac5592dadc9733596d417"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/operate.json": {
+    "bytes": 45386,
+    "sha256": "c23217d6862001f8bff2ce7bb629fdbe9df0d6c2749347ed054f09056757cef5"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/skills.json": {
+    "bytes": 11273,
+    "sha256": "5f2fe3c2db8f121137afbd671dab4204980ccb2df6e83c658347e17141c275b6"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/swarm.json": {
+    "bytes": 49629,
+    "sha256": "2a96c12ae67883fcabd0b392f9fd54eecc0231c32dbdfe02848be5c41609105a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/talk.json": {
+    "bytes": 9976,
+    "sha256": "459eba59eb54630b2f1b7ca22f9dbd8ba3b09d96109a69ec498e9e10f1557794"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/tools.json": {
+    "bytes": 40920,
+    "sha256": "9e34aaf401a99e6fef9f946e369cec8f98f0acb4dd81278e3c05ac7dd46ea7a0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/it/traffic.json": {
+    "bytes": 48611,
+    "sha256": "b1e46441e465f92e28ef43bcbe0c2bb77600df9b49c9942a58a2a8624c2b08c1"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/admin.json": {
+    "bytes": 32176,
+    "sha256": "979962dfe0de1f817238097790ffcf51e4ab5b1699c1d099455591dec00c2068"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/agents.json": {
+    "bytes": 62649,
+    "sha256": "c4f6a9b00d7a489f0a68d9f7cc768da5659008a7e1822a7d6f080bf00da3c993"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/auth.json": {
+    "bytes": 24669,
+    "sha256": "ebcb10f87c2dfb96bfcf0852452bde1b064dd8bf463f34a344828ac121811a82"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/biometrics.json": {
+    "bytes": 22686,
+    "sha256": "f7e37409f57a911a2b9f0054ff82e30eb32a99f6d96c0d42b889d12205faf89e"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/chat.json": {
+    "bytes": 26676,
+    "sha256": "bd058a75f511da2406369a99bb89babe0dfa47a47e70c62dbbe7da31ff4c32ee"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/collections.json": {
+    "bytes": 11947,
+    "sha256": "fa29fdfd5fa8c7faa139d6aaf89fcbe92ba706a52b824beda018eb53402c6ed0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/common.json": {
+    "bytes": 12856,
+    "sha256": "0c022c4b1ca10fc18b68e46cb52877feda4b247de9c9b7e010c9eff1f3d68749"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/errors.json": {
+    "bytes": 2068,
+    "sha256": "9798695e201ca3f629a3eaf593449172c1f038a4ffce3c4459844a4467eda26f"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/explorer.json": {
+    "bytes": 3677,
+    "sha256": "fd22fd9c4c7de94ef7bf98544bfccb2fb66f35e68064193963f2fbaa7fe16570"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/home.json": {
+    "bytes": 22727,
+    "sha256": "cf8cc29f0de8a9c56a460f86f953995545f7ec1f55576b7262acf9dd047ada8a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/importModel.json": {
+    "bytes": 20191,
+    "sha256": "add60873c4cc04dd192f569ee4f236ef62b13fb7b3829e5abd215688bf9876fc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/library.json": {
+    "bytes": 10335,
+    "sha256": "230838d68713b5145b80e2758934bc849bc217adde316fd4277d2ba86d754178"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/media.json": {
+    "bytes": 79424,
+    "sha256": "5a5d753dc6bd69c9856318465c44ce5302ec4b296c13367445f4b179464a1661"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/modelEditor.json": {
+    "bytes": 2205,
+    "sha256": "068f232b5f5e75b08f55e2f0a6fa3a6c65b7a72a3e997b4f2a66806cfd8cf2dc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/models.json": {
+    "bytes": 92693,
+    "sha256": "91d0c3e9caea6a0b7b405aae7b8144bbf445407a7f02fe03ec26211c23f3f055"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/nav.json": {
+    "bytes": 12003,
+    "sha256": "937b740f736bc166c7555dbc986d229eae943f12cb2fdc931be6176d444898b1"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/operate.json": {
+    "bytes": 45386,
+    "sha256": "c23217d6862001f8bff2ce7bb629fdbe9df0d6c2749347ed054f09056757cef5"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/skills.json": {
+    "bytes": 11273,
+    "sha256": "5f2fe3c2db8f121137afbd671dab4204980ccb2df6e83c658347e17141c275b6"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/swarm.json": {
+    "bytes": 49629,
+    "sha256": "2a96c12ae67883fcabd0b392f9fd54eecc0231c32dbdfe02848be5c41609105a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/talk.json": {
+    "bytes": 9976,
+    "sha256": "459eba59eb54630b2f1b7ca22f9dbd8ba3b09d96109a69ec498e9e10f1557794"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/tools.json": {
+    "bytes": 40920,
+    "sha256": "9e34aaf401a99e6fef9f946e369cec8f98f0acb4dd81278e3c05ac7dd46ea7a0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/ko/traffic.json": {
+    "bytes": 48611,
+    "sha256": "b1e46441e465f92e28ef43bcbe0c2bb77600df9b49c9942a58a2a8624c2b08c1"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/admin.json": {
+    "bytes": 32176,
+    "sha256": "979962dfe0de1f817238097790ffcf51e4ab5b1699c1d099455591dec00c2068"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/agents.json": {
+    "bytes": 62649,
+    "sha256": "c4f6a9b00d7a489f0a68d9f7cc768da5659008a7e1822a7d6f080bf00da3c993"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/auth.json": {
+    "bytes": 24669,
+    "sha256": "ebcb10f87c2dfb96bfcf0852452bde1b064dd8bf463f34a344828ac121811a82"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/biometrics.json": {
+    "bytes": 22686,
+    "sha256": "f7e37409f57a911a2b9f0054ff82e30eb32a99f6d96c0d42b889d12205faf89e"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/chat.json": {
+    "bytes": 26914,
+    "sha256": "9a86c5d734a7694a3c691d33dcae64f4e948e2e8e9bd152593928a3f7ce0e0c7"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/collections.json": {
+    "bytes": 11947,
+    "sha256": "fa29fdfd5fa8c7faa139d6aaf89fcbe92ba706a52b824beda018eb53402c6ed0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/common.json": {
+    "bytes": 12895,
+    "sha256": "8d74f8ef0675a0da6095642175a4f02b29743667878d81dbb290613c6bff77cf"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/errors.json": {
+    "bytes": 2068,
+    "sha256": "9798695e201ca3f629a3eaf593449172c1f038a4ffce3c4459844a4467eda26f"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/explorer.json": {
+    "bytes": 3677,
+    "sha256": "fd22fd9c4c7de94ef7bf98544bfccb2fb66f35e68064193963f2fbaa7fe16570"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/home.json": {
+    "bytes": 23259,
+    "sha256": "1a896f8f4e0db96945155416d2cfa801dc1f00df6f39ab7eff04492e86163b35"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/importModel.json": {
+    "bytes": 20191,
+    "sha256": "add60873c4cc04dd192f569ee4f236ef62b13fb7b3829e5abd215688bf9876fc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/library.json": {
+    "bytes": 10335,
+    "sha256": "230838d68713b5145b80e2758934bc849bc217adde316fd4277d2ba86d754178"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/media.json": {
+    "bytes": 90596,
+    "sha256": "08c0a112f99285146b3d5b0c35f101a76b336cf32a3c119d24955a8a3b1a88a2"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/modelEditor.json": {
+    "bytes": 3261,
+    "sha256": "9203baa59bc965d176d40788eb88177de27492387b50348551a053b0ab6d7225"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/models.json": {
+    "bytes": 94006,
+    "sha256": "00e1dde3608615a7ca897e9ea6922dfcac86302a408e694f491f55876e31fbb2"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/nav.json": {
+    "bytes": 12174,
+    "sha256": "ec3fa59b9e63b56bd9e66b510c3d20c5f338f7a4ca710da908ee00253268af01"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/operate.json": {
+    "bytes": 45386,
+    "sha256": "c23217d6862001f8bff2ce7bb629fdbe9df0d6c2749347ed054f09056757cef5"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/skills.json": {
+    "bytes": 11273,
+    "sha256": "5f2fe3c2db8f121137afbd671dab4204980ccb2df6e83c658347e17141c275b6"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/swarm.json": {
+    "bytes": 49629,
+    "sha256": "2a96c12ae67883fcabd0b392f9fd54eecc0231c32dbdfe02848be5c41609105a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/talk.json": {
+    "bytes": 9976,
+    "sha256": "459eba59eb54630b2f1b7ca22f9dbd8ba3b09d96109a69ec498e9e10f1557794"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/tools.json": {
+    "bytes": 40920,
+    "sha256": "9e34aaf401a99e6fef9f946e369cec8f98f0acb4dd81278e3c05ac7dd46ea7a0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/pt-BR/traffic.json": {
+    "bytes": 48611,
+    "sha256": "b1e46441e465f92e28ef43bcbe0c2bb77600df9b49c9942a58a2a8624c2b08c1"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/admin.json": {
+    "bytes": 31079,
+    "sha256": "b42e2c0155de1e1e815037779d44f8608c9b6a60b78e82a4a4b7a7f2c0de03f8"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/agents.json": {
+    "bytes": 62649,
+    "sha256": "c4f6a9b00d7a489f0a68d9f7cc768da5659008a7e1822a7d6f080bf00da3c993"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/auth.json": {
+    "bytes": 24669,
+    "sha256": "ebcb10f87c2dfb96bfcf0852452bde1b064dd8bf463f34a344828ac121811a82"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/biometrics.json": {
+    "bytes": 22686,
+    "sha256": "f7e37409f57a911a2b9f0054ff82e30eb32a99f6d96c0d42b889d12205faf89e"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/chat.json": {
+    "bytes": 26676,
+    "sha256": "bd058a75f511da2406369a99bb89babe0dfa47a47e70c62dbbe7da31ff4c32ee"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/collections.json": {
+    "bytes": 11947,
+    "sha256": "fa29fdfd5fa8c7faa139d6aaf89fcbe92ba706a52b824beda018eb53402c6ed0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/common.json": {
+    "bytes": 12856,
+    "sha256": "0c022c4b1ca10fc18b68e46cb52877feda4b247de9c9b7e010c9eff1f3d68749"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/errors.json": {
+    "bytes": 2068,
+    "sha256": "9798695e201ca3f629a3eaf593449172c1f038a4ffce3c4459844a4467eda26f"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/explorer.json": {
+    "bytes": 3677,
+    "sha256": "fd22fd9c4c7de94ef7bf98544bfccb2fb66f35e68064193963f2fbaa7fe16570"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/home.json": {
+    "bytes": 22727,
+    "sha256": "cf8cc29f0de8a9c56a460f86f953995545f7ec1f55576b7262acf9dd047ada8a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/importModel.json": {
+    "bytes": 20191,
+    "sha256": "add60873c4cc04dd192f569ee4f236ef62b13fb7b3829e5abd215688bf9876fc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/library.json": {
+    "bytes": 10335,
+    "sha256": "230838d68713b5145b80e2758934bc849bc217adde316fd4277d2ba86d754178"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/media.json": {
+    "bytes": 79424,
+    "sha256": "5a5d753dc6bd69c9856318465c44ce5302ec4b296c13367445f4b179464a1661"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/modelEditor.json": {
+    "bytes": 2205,
+    "sha256": "068f232b5f5e75b08f55e2f0a6fa3a6c65b7a72a3e997b4f2a66806cfd8cf2dc"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/models.json": {
+    "bytes": 93387,
+    "sha256": "3ed259e01986ba9a6153cfd9435c9056dbc89ac1dcc4652e69bdb6ff9c4b36fd"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/nav.json": {
+    "bytes": 12003,
+    "sha256": "4753d4faaf46236752ef73c3b77b8cf69444705207fac5592dadc9733596d417"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/operate.json": {
+    "bytes": 45386,
+    "sha256": "c23217d6862001f8bff2ce7bb629fdbe9df0d6c2749347ed054f09056757cef5"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/skills.json": {
+    "bytes": 11273,
+    "sha256": "5f2fe3c2db8f121137afbd671dab4204980ccb2df6e83c658347e17141c275b6"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/swarm.json": {
+    "bytes": 49629,
+    "sha256": "2a96c12ae67883fcabd0b392f9fd54eecc0231c32dbdfe02848be5c41609105a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/talk.json": {
+    "bytes": 9976,
+    "sha256": "459eba59eb54630b2f1b7ca22f9dbd8ba3b09d96109a69ec498e9e10f1557794"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/tools.json": {
+    "bytes": 40920,
+    "sha256": "9e34aaf401a99e6fef9f946e369cec8f98f0acb4dd81278e3c05ac7dd46ea7a0"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/generated-shapes/zh-CN/traffic.json": {
+    "bytes": 48611,
+    "sha256": "b1e46441e465f92e28ef43bcbe0c2bb77600df9b49c9942a58a2a8624c2b08c1"
   },
   "source/per-locale/core/http/react-ui/src/i18n/index.js": {
     "bytes": 2853,

@@ -1,0 +1,84 @@
+{
+  "status": "First paired diagnostic only, not repeated performance qualification",
+  "readiness": "Desktop: naturally visible French Retour and Historique texts/labels. Mobile: same naturally visible icon controls with French accessibility labels plus Front Door - Direct - Frigate title; mobile design hides text naturally. No interactions before ready.",
+  "backend": "Original identical Frigate E2E API/media/WebSocket fixtures; local precompressed BrotliQ4 artifact server.",
+  "bytes": "All HTTP requests begun before translated-ready, awaited through completion. Normalized Q4 compresses all text bodies (including mocked API responses), identity for binary. Observed encodedBodySize includes document and ResourceTiming entries.",
+  "rows": [
+    {
+      "profile": "desktop",
+      "native": {
+        "translatedReadyMs": 1833.3000000715256,
+        "normalizedInitialBrotliQ4Bytes": 1405544,
+        "observedInitialEncodedBodyBytes": 1434635,
+        "initialRequestCount": 73,
+        "bodyUnavailable": [],
+        "title": "Front Door - Direct - Frigate",
+        "controls": {
+          "backText": "Retour",
+          "backLabel": "Retour",
+          "historyText": "Historique",
+          "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+        },
+        "bodyText": "Cpu est lent (75.5 ms)\n\u2022\n3 system notices\nRetour\nHistorique",
+        "actionsBeforeReady": []
+      },
+      "compiled": {
+        "translatedReadyMs": 3422.5,
+        "normalizedInitialBrotliQ4Bytes": 1495685,
+        "observedInitialEncodedBodyBytes": 1524706,
+        "initialRequestCount": 200,
+        "bodyUnavailable": [],
+        "title": "Front Door - Direct - Frigate",
+        "controls": {
+          "backText": "Retour",
+          "backLabel": "Retour",
+          "historyText": "Historique",
+          "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+        },
+        "bodyText": "Cpu est lent (75.5 ms)\n\u2022\n3 system notices\nRetour\nHistorique",
+        "actionsBeforeReady": []
+      },
+      "readyDeltaPercent": 86.68521245112488,
+      "normalizedBytesDeltaPercent": 6.4132464013933355,
+      "observedBytesDeltaPercent": 6.2783216636984385
+    },
+    {
+      "profile": "mobile",
+      "native": {
+        "translatedReadyMs": 9965.399999976158,
+        "normalizedInitialBrotliQ4Bytes": 1183066,
+        "observedInitialEncodedBodyBytes": 1212165,
+        "initialRequestCount": 67,
+        "bodyUnavailable": [],
+        "title": "Front Door - Direct - Frigate",
+        "controls": {
+          "backText": "",
+          "backLabel": "Retour",
+          "historyText": "",
+          "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+        },
+        "bodyText": "",
+        "actionsBeforeReady": []
+      },
+      "compiled": {
+        "translatedReadyMs": 12957.5,
+        "normalizedInitialBrotliQ4Bytes": 1270744,
+        "observedInitialEncodedBodyBytes": 1299844,
+        "initialRequestCount": 188,
+        "bodyUnavailable": [],
+        "title": "Front Door - Direct - Frigate",
+        "controls": {
+          "backText": "",
+          "backLabel": "Retour",
+          "historyText": "",
+          "historyLabel": "Afficher les vid\u00e9os archiv\u00e9es"
+        },
+        "bodyText": "",
+        "actionsBeforeReady": []
+      },
+      "readyDeltaPercent": 30.02488610623759,
+      "normalizedBytesDeltaPercent": 7.411082729112328,
+      "observedBytesDeltaPercent": 7.233256198619831
+    }
+  ]
+}

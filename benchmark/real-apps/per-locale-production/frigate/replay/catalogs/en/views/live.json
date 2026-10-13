@@ -1,0 +1,244 @@
+{
+  "documentTitle": {
+    "default": "Live - Frigate",
+    "withCamera": "{{camera}} - Live - Frigate"
+  },
+  "lowBandwidthMode": "Low-bandwidth Mode",
+  "twoWayTalk": {
+    "enable": "Enable Two Way Talk",
+    "disable": "Disable Two Way Talk",
+    "requiresWebRTC": "Two-way talk requires WebRTC, which is unavailable",
+    "error": {
+      "microphone": "Two-way talk could not access your microphone",
+      "refused": "Two-way talk failed to start. See the browser console for details."
+    }
+  },
+  "cameraAudio": {
+    "enable": "Enable Camera Audio",
+    "disable": "Disable Camera Audio"
+  },
+  "ptz": {
+    "move": {
+      "clickMove": {
+        "label": "Click in the frame to center the camera",
+        "enable": "Enable click to move",
+        "enableWithZoom": "Enable click to move / drag to zoom",
+        "disable": "Disable click to move"
+      },
+      "left": {
+        "label": "Move PTZ camera to the left"
+      },
+      "up": {
+        "label": "Move PTZ camera up"
+      },
+      "down": {
+        "label": "Move PTZ camera down"
+      },
+      "right": {
+        "label": "Move PTZ camera to the right"
+      }
+    },
+    "zoom": {
+      "in": {
+        "label": "Zoom PTZ camera in"
+      },
+      "out": {
+        "label": "Zoom PTZ camera out"
+      }
+    },
+    "focus": {
+      "in": {
+        "label": "Focus PTZ camera in"
+      },
+      "out": {
+        "label": "Focus PTZ camera out"
+      }
+    },
+    "frame": {
+      "center": {
+        "label": "Click in the frame to center the PTZ camera"
+      }
+    },
+    "presets": "PTZ camera presets"
+  },
+  "camera": {
+    "turnOn": "Turn Camera On",
+    "turnOff": "Turn Camera Off"
+  },
+  "muteCameras": {
+    "enable": "Mute All Cameras",
+    "disable": "Unmute All Cameras"
+  },
+  "detect": {
+    "enable": "Enable Detect",
+    "disable": "Disable Detect"
+  },
+  "recording": {
+    "enable": "Enable Recording",
+    "disable": "Disable Recording",
+    "disabledInConfig": "Recording must first be enabled in Settings for this camera."
+  },
+  "snapshots": {
+    "enable": "Enable Snapshots",
+    "disable": "Disable Snapshots"
+  },
+  "snapshot": {
+    "takeSnapshot": "Download instant snapshot",
+    "noVideoSource": "No video source available for snapshot.",
+    "captureFailed": "Failed to capture snapshot.",
+    "downloadStarted": "Snapshot download started."
+  },
+  "audioDetect": {
+    "enable": "Enable Audio Detect",
+    "disable": "Disable Audio Detect"
+  },
+  "transcription": {
+    "enable": "Enable Live Audio Transcription",
+    "disable": "Disable Live Audio Transcription"
+  },
+  "autotracking": {
+    "enable": "Enable Autotracking",
+    "disable": "Disable Autotracking"
+  },
+  "streamStats": {
+    "enable": "Show Stream Stats",
+    "disable": "Hide Stream Stats"
+  },
+  "manualRecording": {
+    "title": "On-Demand",
+    "tips": "Download an instant snapshot or start a manual event based on this camera's recording retention settings.",
+    "playInBackground": {
+      "label": "Play in background",
+      "desc": "Enable this option to continue streaming when the player is hidden."
+    },
+    "showStats": {
+      "label": "Show Stats",
+      "desc": "Enable this option to show stream statistics as an overlay on the camera feed."
+    },
+    "debugView": "Debug View",
+    "start": "Start on-demand recording",
+    "started": "Started manual on-demand recording.",
+    "failedToStart": "Failed to start manual on-demand recording.",
+    "recordDisabledTips": "Since recording is disabled or restricted in the config for this camera, only a snapshot will be saved.",
+    "end": "End on-demand recording",
+    "ended": "Ended manual on-demand recording.",
+    "failedToEnd": "Failed to end manual on-demand recording."
+  },
+  "streamingSettings": "Streaming Settings",
+  "notifications": "Notifications",
+  "audio": "Audio",
+  "suspend": {
+    "forTime": "Suspend for: "
+  },
+  "stream": {
+    "title": "Stream",
+    "auto": {
+      "label": "Auto",
+      "tips": "Switches streams to match your connection",
+      "selected": "Auto · {{stream}}",
+      "floorLabel": "Low bandwidth",
+      "retry": "Try highest quality",
+      "reason": {
+        "bandwidth": "Playing {{stream}} because the connection couldn't keep up with a higher-quality stream",
+        "codec": "Playing {{stream}} because this browser can't play a higher-quality stream",
+        "saveData": "Playing {{stream}} because Data Saver is on",
+        "floor": "Playing the low-bandwidth feed because no stream could keep up"
+      }
+    },
+    "audio": {
+      "tips": {
+        "title": "Audio must be output from your camera and configured in go2rtc for this stream."
+      },
+      "available": "Audio is available for this stream",
+      "unavailable": "Audio is not available for this stream"
+    },
+    "debug": {
+      "picker": "Stream selection unavailable in debug mode. Debug view always uses the stream assigned the detect role.",
+      "technology": "Stream technology selection is unavailable in debug mode."
+    },
+    "twoWayTalk": {
+      "tips": "Your device must support the feature and WebRTC must be configured for two-way talk.",
+      "available": "Two-way talk is available for this stream",
+      "unavailable": "Two-way talk is unavailable for this stream"
+    },
+    "lowBandwidth": {
+      "tips": "Live view is in low-bandwidth mode due to buffering or stream errors.",
+      "resetStream": "Reset stream",
+      "force": {
+        "label": "Force low-bandwidth mode",
+        "desc": "Always play Frigate's built-in low-bandwidth feed instead of the selected stream. Works on any connection, but has lower quality and no audio."
+      }
+    },
+    "playInBackground": {
+      "label": "Play in background",
+      "tips": "Enable this option to continue streaming when the player is hidden."
+    },
+    "mode": "Streaming Technology",
+    "technology": {
+      "description": "Choose your preferred streaming technology. Frigate may still fall back to low bandwidth mode on playback or network errors.",
+      "name": {
+        "mse": "MSE",
+        "webrtc": "WebRTC",
+        "jsmpeg": "JSMpeg"
+      },
+      "tips": {
+        "mse": "Recommended default, broad compatibility and smooth playback",
+        "webrtc": "Needs extra setup and isn't supported on every device"
+      },
+      "unavailable": {
+        "browser": "Your browser does not support WebRTC.",
+        "not-configured": "WebRTC is not configured. Set go2rtc webrtc candidates or ice_servers.",
+        "unreachable": "WebRTC could not connect. Check that port 8555 is reachable and any STUN/TURN server is correct.",
+        "video-codec": "This stream's video codec is not supported by WebRTC in this browser.",
+        "audio-codec": "This stream's audio codec is not supported by WebRTC. Transcode to opus or G.711 with go2rtc.",
+        "checking": "Checking WebRTC availability…"
+      }
+    }
+  },
+  "cameraSettings": {
+    "title": "{{camera}} Settings",
+    "camera": "Camera",
+    "objectDetection": "Object Detection",
+    "recording": "Recording",
+    "snapshots": "Snapshots",
+    "audioDetection": "Audio Detection",
+    "transcription": "Audio Transcription",
+    "autotracking": "Autotracking"
+  },
+  "history": {
+    "label": "Show historical footage"
+  },
+  "effectiveRetainMode": {
+    "modes": {
+      "all": "All",
+      "motion": "Motion",
+      "active_objects": "Active Objects"
+    }
+  },
+  "editLayout": {
+    "label": "Edit Layout",
+    "group": {
+      "label": "Edit Camera Group"
+    },
+    "exitEdit": "Exit Editing"
+  },
+  "noCameras": {
+    "title": "No Cameras Configured",
+    "description": "Get started by connecting a camera to Frigate.",
+    "buttonText": "Add Camera",
+    "restricted": {
+      "title": "No Cameras Available",
+      "description": "You don't have permission to view any cameras in this group."
+    },
+    "default": {
+      "title": "No Cameras Configured",
+      "description": "Get started by connecting a camera to Frigate.",
+      "buttonText": "Add Camera"
+    },
+    "group": {
+      "title": "No Cameras in Group",
+      "description": "This camera group has no assigned or enabled cameras.",
+      "buttonText": "Manage Groups"
+    }
+  }
+}

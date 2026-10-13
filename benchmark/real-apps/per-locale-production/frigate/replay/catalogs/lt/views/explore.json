@@ -1,0 +1,267 @@
+{
+  "documentTitle": "Tyrinėti - Frigate",
+  "generativeAI": "Generatyvinis DI",
+  "exploreMore": "Apžvelgti daugiau {{label}} objektų",
+  "exploreIsUnavailable": {
+    "embeddingsReindexing": {
+      "startingUp": "Paleidžiama…",
+      "estimatedTime": "Apytikris likęs laikas:",
+      "context": "Tyrinėjimai gali būti naudojami po to kai sekamų objektų įterpiai bus užbaigti indeksuoti.",
+      "finishingShortly": "Paigiama netrukus",
+      "step": {
+        "thumbnailsEmbedded": "Įterptos Miniatiūros: ",
+        "descriptionsEmbedded": "Įterpti aprašymai: ",
+        "trackedObjectsProcessed": "Apdorota sekamų objektų: "
+      }
+    },
+    "title": "Tyrinėjimai Negalimi",
+    "downloadingModels": {
+      "context": "Frigate siunčiasi reikalingus įterpimo modelius, kad būtų palaikoma Semantic Paieškos funkcija. Tai gali užtrukti priklausomai nuo duomenų srauto greičio.",
+      "setup": {
+        "visionModel": "Vaizdo modelis",
+        "visionModelFeatureExtractor": "Vaizdo modelio funkcijų išgavimas",
+        "textModel": "Teksto modelis",
+        "textTokenizer": "Teksto tekenizatorius"
+      },
+      "tips": {
+        "context": "Galimai norėsite iš naujo indeksuoti savo sekamų objektų įterpius po to kai modeliai parsisiųs."
+      },
+      "error": "Įvyko klaida. Patikrinkite Frigate įrašus."
+    }
+  },
+  "details": {
+    "timestamp": "Laiko žyma",
+    "item": {
+      "tips": {
+        "mismatch_one": "{{count}} neesamas objektas aptiktas ir pridėtas į šį peržiuros įrašą. Tie objektai arba neatitinką įspėjimų ar aptikimų sąlygų arba jau buvo išvalyti/ištrinti.",
+        "mismatch_few": "{{count}} neesami objektai aptikti ir pridėti į šį peržiuros įrašą. Tie objektai arba neatitinką įspėjimų ar aptikimų sąlygų arba jau buvo išvalyti/ištrinti.",
+        "mismatch_other": "{{count}} neesamų objektų aptiktų ir pridėtų į šį peržiuros įrašą. Tie objektai arba neatitinką įspėjimų ar aptikimų sąlygų arba jau buvo išvalyti/ištrinti.",
+        "hasMissingObjects": "Koreguokite savo nustatymus jeigu norite, kad Frigate saugoti objektus su šiomis etiketėmis: <em>{{objects}}</em>"
+      },
+      "title": "Peržiūrėti Įrašo Detales",
+      "desc": "Peržiūrėti Įrašo detales",
+      "button": {
+        "share": "Dalintis šiuo peržiūros įrašu",
+        "viewInExplore": "Žiūrėti Tyrinėjime"
+      },
+      "toast": {
+        "success": {
+          "regenerate": "Gauta nauja užklausa iš {{provider}} naujam aprašymui. Priklausomai nuo jūsų tiekėjo greičio, naują aprašymą sukurti gali užtrukti.",
+          "updatedSublabel": "Sėkmingai atnaujinta sub etiketė.",
+          "updatedLPR": "Sėkmingai atnaujinti registracijos numeriai.",
+          "audioTranscription": "Sėkmingai užklausta garso aprašymo. Priklausomai nuo jūsų Frigate serverio pajėgumų, tai gali užtrukti.",
+          "updatedAttributes": "Atributai sekmingai atnaujinti."
+        },
+        "error": {
+          "regenerate": "Nepavyko pakviesti {{provider}} naujam aprašymui: {{errorMessage}}",
+          "updatedSublabelFailed": "Nepavyko atnaujinti sub etikečių: {{errorMessage}}",
+          "updatedLPRFailed": "Nepavyko atnaujinti registracijos numerių: {{errorMessage}}",
+          "audioTranscription": "Nepavyko užklausti garso aprašymo: {{errorMessage}}",
+          "updatedAttributesFailed": "Nepavyko atnaujinti atributų: {{errorMessage}}"
+        }
+      }
+    },
+    "label": "Etiketė",
+    "editSubLabel": {
+      "title": "Koreguoti sub etiketę",
+      "desc": "Įveskite naują sub etiketę šiai etiketei {{label}}",
+      "descNoLabel": "Įveskite naują sub etiketę šiam sekamam objektui"
+    },
+    "editLPR": {
+      "title": "Redaguoti registracijos numerį",
+      "desc": "Įvesti naują registracijos numerio reikšmę šiai etiketei {{label}}",
+      "descNoLabel": "Įvesti naują registracijos numerio reikšmę šiam objektui"
+    },
+    "snapshotScore": {
+      "label": "Momentinės nuotraukos balas"
+    },
+    "topScore": {
+      "label": "Top Balas",
+      "info": "Aukščiausias balas yra didžiausia medianos reikšmė sekamam objektui, taigi tai gali skirtis nuo balų pateiktų miniatiūrų paieškos rezultatuose."
+    },
+    "score": {
+      "label": "Balas"
+    },
+    "recognizedLicensePlate": "Atpažinti Registracijos Numeriai",
+    "estimatedSpeed": "Nustatytas Greitis",
+    "objects": "Objektai",
+    "camera": "Kamera",
+    "zones": "Zonos",
+    "button": {
+      "findSimilar": "Rasti Panašų",
+      "regenerate": {
+        "title": "Regeneruoti",
+        "label": "Regeneruoti sekamų objektų aprašymus"
+      }
+    },
+    "description": {
+      "label": "Aprašymas",
+      "placeholder": "Sekamo objekto aprašymas",
+      "aiTips": "Iki kol sekamo objekto gyvavimo ciklas užsibaigs Frigate neklaus aprašymo iš jūsų Generatyvinio DI tiekėjo."
+    },
+    "expandRegenerationMenu": "Išskleisti regeneravimo meniu",
+    "regenerateFromSnapshot": "Regeneruoti iš Momentinės Nuotraukos",
+    "regenerateFromThumbnails": "Regenruoti iš Miniatiūros",
+    "tips": {
+      "descriptionSaved": "Aprašymas sėkmingai išsaugotas",
+      "saveDescriptionFailed": "Nepavyko atnaujinti aprašymo: {{errorMessage}}"
+    },
+    "editAttributes": {
+      "title": "Koreguoti atributus",
+      "desc": "Pasirinkite klasifikavimo atributus šiai etiketei {{label}}"
+    },
+    "attributes": "Klasifikavimo Atributai",
+    "title": {
+      "label": "Antraštė"
+    },
+    "scoreInfo": "Balo Informacija"
+  },
+  "trackedObjectsCount_one": "{{count}} sekamas objektas ",
+  "trackedObjectsCount_few": "{{count}} sekami objektai ",
+  "trackedObjectsCount_other": "{{count}} sekamų objektų ",
+  "objectLifecycle": {
+    "noImageFound": "Šiam laikotarpiui vaizdų nerasta."
+  },
+  "dialog": {
+    "confirmDelete": {
+      "desc": "Trinant šį sekamą objektą taip pat bus pašalintos momentinės iškarpos, išsaugoti įterpiai ir kitos susios sekimo detalės. Šių sekamų objektų įrašyta filmuota medžiaga Istorijos vaizde ištrinta <em>NEBUS</em>.<br /><br />Ar esate įsitikinę, kad norite tęsti?",
+      "title": "Patvirtinti Ištrynimą"
+    },
+    "toast": {
+      "error": "Klaida trinant šį susektą objektą: {{errorMessage}}"
+    }
+  },
+  "trackedObjectDetails": "Sekamų Objektų Detalės",
+  "type": {
+    "details": "detalės",
+    "snapshot": "momentinės nuotraukos",
+    "video": "vaizdas",
+    "thumbnail": "miniatiūra",
+    "tracking_details": "sekimo detalės"
+  },
+  "itemMenu": {
+    "downloadVideo": {
+      "label": "Atsisiųsti video",
+      "aria": "Atsisiųsti video"
+    },
+    "downloadSnapshot": {
+      "label": "Atsisiųsti momentinę nuotrauką",
+      "aria": "Atsisiųsti momentinę nuotrauką"
+    },
+    "findSimilar": {
+      "label": "Rasti panašų",
+      "aria": "Rasti panašius sekamus objektus"
+    },
+    "addTrigger": {
+      "label": "Pridėti trigerį",
+      "aria": "Šiam sekamam objektui pridėti trigerį"
+    },
+    "audioTranscription": {
+      "label": "Aprašyti",
+      "aria": "Užklausti garso aprašymo"
+    },
+    "submitToPlus": {
+      "label": "Pateikti į Frigate+",
+      "aria": "Pateikti į Frigate Plius"
+    },
+    "viewInHistory": {
+      "label": "Žiūrėti Istorijoje",
+      "aria": "Žiūrėti Istorijoje"
+    },
+    "deleteTrackedObject": {
+      "label": "Ištrinti šį sekamą objektą"
+    },
+    "showObjectDetails": {
+      "label": "Rodyti objektų kelią"
+    },
+    "hideObjectDetails": {
+      "label": "Slėpti objektų kelią"
+    },
+    "downloadCleanSnapshot": {
+      "label": "Atsisiųsti nuotrauką",
+      "aria": "Atsisiųsti nuotrauką"
+    },
+    "viewTrackingDetails": {
+      "label": "Žiūrėti sekimo detales",
+      "aria": "Rodyti sekimo detales"
+    },
+    "debugReplay": {
+      "label": "Derinimo Peržiūra",
+      "aria": "Peržiūrėti šį susektą objektą derinimo peržiūros vaizde"
+    },
+    "more": {
+      "aria": "Daugiau"
+    }
+  },
+  "noTrackedObjects": "Sekamų Objektų Nerasta",
+  "fetchingTrackedObjectsFailed": "Sekamų objektų ištraukti nepavyko: {{errorMessage}}",
+  "searchResult": {
+    "tooltip": "Sutapo {{type}} su {{confidence}}% patikimumu",
+    "deleteTrackedObject": {
+      "toast": {
+        "success": "Sekami objektai sėkmingai ištrinti.",
+        "error": "Sekamų objektų nepavyko ištrinti: {{errorMessage}}"
+      }
+    },
+    "previousTrackedObject": "Anksčiau sekti objektai",
+    "nextTrackedObject": "Sekantis sekamas objektas"
+  },
+  "aiAnalysis": {
+    "title": "DI Analizė"
+  },
+  "concerns": {
+    "label": "Rūpesčiai"
+  },
+  "trackingDetails": {
+    "title": "Sekimo Detalės",
+    "noImageFound": "Šiai miniatiūrai paveikslėlis nerastas.",
+    "createObjectMask": "Sukurti Objekto Maskavimą",
+    "adjustAnnotationSettings": "Patikslinti pastabų nustatymus",
+    "scrollViewTips": "Spustelkite pamatyti svarbius objekto gyvavimo momentus.",
+    "autoTrackingTips": "Apribojančio stačiakampio pozicijos nebus tikslios kameroms su autosekimu.",
+    "count": "{{first}} iš {{second}}",
+    "trackedPoint": "Sekamas Taškas",
+    "lifecycleItemDesc": {
+      "visible": "{{label}} aptiktas",
+      "entered_zone": "{{label}} pateko į {{zones}}",
+      "active": "{{label}} tapo aktyvus",
+      "stationary": "{{label}} tapo statinis",
+      "attribute": {
+        "faceOrLicense_plate": "{{attribute}} aptiktas etiketei {{label}}",
+        "other": "{{label}} atpažintas kaip {{attribute}}"
+      },
+      "gone": "{{label}} kairė",
+      "heard": "{{label}} girdėta",
+      "external": "{{label}} aptikta",
+      "header": {
+        "zones": "Zonos",
+        "ratio": "Santykis",
+        "area": "Plotas",
+        "score": "Balas",
+        "computedScore": "Apskaičiuotas Balas",
+        "topScore": "Aukščiausias Balas",
+        "toggleAdvancedScores": "Perjungti išplėstinius įverčius"
+      }
+    },
+    "annotationSettings": {
+      "title": "Anotacijų Nustatymai",
+      "showAllZones": {
+        "title": "Rodyti Visas Zonas",
+        "desc": "Visada rodyti zonas kadruose kur objektas patenka į zoną."
+      },
+      "offset": {
+        "label": "Anotacijų offset",
+        "desc": "Šie duomenys gaunami iš kameros aptikimo srauto, tačiau yra užkeliami ant atvaizdo sluoksnio iš įrašymo srauto. Tobulai synchronizuoti du srautai yra mažai tikėtini. Kaip rezultatas, apribojančio stačiakampio ir vaizdo medžiaga tobulai nesusilygiuos. Norėdami geriau sulygiuoti su įrašų medžiaga, jūs galite naudoti šį nustatymą srauto perslinkimui pirmyn arba atgal.",
+        "millisecondsToOffset": "Aptikimo anotacijų perslinkimas milisekundėmis. <em>Default: 0</em>",
+        "tips": "Sumažinkite reikšmę jei video įrašas yra pirmesnis nei kvadratai ar kelio taškai, ir padidinkite reikšmė jei video įrašas atsilieka. Ši reikšmė gali būti neigiama.",
+        "toast": {
+          "success": "Anotacijų perslinkimas kamerai {{camera}} išsaugotas konfiguracijoje."
+        }
+      }
+    },
+    "carousel": {
+      "previous": "Ankstesnė skaidrė",
+      "next": "Kita skaidrė"
+    }
+  }
+}
