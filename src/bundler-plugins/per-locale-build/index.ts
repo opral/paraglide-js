@@ -47,10 +47,6 @@ export function createPerLocaleBuildPlugins(args: {
 						return;
 					}
 					validateExplicitCompilerOptions(args.compilerOptions, loaded?.config);
-					compilerOptions.outputStructure = resolvePerLocaleOutputStructure(
-						args.compilerOptions,
-						loaded?.config
-					);
 				}
 			},
 			configResolved(config) {
@@ -59,8 +55,7 @@ export function createPerLocaleBuildPlugins(args: {
 		},
 		args.createCompilerPlugin(compilerOptions),
 		createViteLocaleEnvironmentPlugin({
-			settings: () =>
-				loadSettings(args.compilerOptions, discoveryRoot, compilerOptions),
+			settings: () => loadSettings(args.compilerOptions, discoveryRoot),
 		}),
 	];
 }
@@ -70,7 +65,6 @@ function createPerLocaleCompilerOptions(
 ): ParaglidePluginOptions {
 	return {
 		...compilerOptions,
-		outputStructure: compilerOptions.outputStructure ?? "locale-modules",
 		experimentalStaticLocale: perLocaleBuildStaticLocaleExpression,
 		// Only forward additionalFiles when explicitly supplied — an empty
 		// object would override files provided by paraglide.config.*.
@@ -107,31 +101,15 @@ function validateExplicitCompilerOptions(
 	}
 }
 
-function resolvePerLocaleOutputStructure(
-	options: ParaglidePluginOptions,
-	config: ParaglideConfig | undefined
-) {
-	return options.outputStructure ?? config?.outputStructure ?? "locale-modules";
-}
-
 async function loadSettings(
 	options: ParaglidePluginOptions,
-	discoveryRoot?: string | undefined,
-	perLocaleCompilerOptions?: ParaglidePluginOptions
+	discoveryRoot?: string | undefined
 ): Promise<PerLocaleBuildSettings> {
 	const root = discoveryRoot ?? process.cwd();
 	const loaded = await loadParaglideConfig({
 		projectDir: resolve(root, options.project),
 	});
 	validateExplicitCompilerOptions(options, loaded?.config);
-	// Resolve the per-locale default only after config discovery, preserving
-	// an explicit plugin override over the project's configured layout.
-	if (perLocaleCompilerOptions) {
-		perLocaleCompilerOptions.outputStructure = resolvePerLocaleOutputStructure(
-			options,
-			loaded?.config
-		);
-	}
 	const { project } = resolveCompilerOptions({
 		config: loaded?.config,
 		overrides: options,

@@ -512,6 +512,123 @@ test.each(["plugin override", "project config"] as const)(
 	}
 );
 
+test.each([undefined, "message-modules", "locale-modules"] as const)(
+	"per-locale dev watches layout changes with plugin override %s",
+	async (override) => {
+		vi.resetModules();
+		const { paraglideVitePlugin } = await import("../vite.js");
+		const root = await nodeFs.mkdtemp(
+			nodePath.join(nodeOs.tmpdir(), "paraglide-vite-layout-watch-")
+		);
+		try {
+			const projectRoot = nodePath.join(root, "project.inlang");
+			const configPath = nodePath.join(projectRoot, "paraglide.config.js");
+			await nodeFs.mkdir(projectRoot);
+			await nodeFs.mkdir(nodePath.join(root, "messages"));
+			await nodeFs.copyFile(
+				createRequire(import.meta.url).resolve("@inlang/plugin-message-format"),
+				nodePath.join(root, "plugin.js")
+			);
+			await nodeFs.writeFile(
+				nodePath.join(projectRoot, "settings.json"),
+				JSON.stringify({
+					baseLocale: "en",
+					locales: ["en", "de"],
+					modules: ["./plugin.js"],
+					"plugin.inlang.messageFormat": {
+						pathPattern: "./messages/{locale}.json",
+					},
+				})
+			);
+			for (const locale of ["en", "de"]) {
+				await nodeFs.writeFile(
+					nodePath.join(root, "messages", `${locale}.json`),
+					JSON.stringify({ greeting: `${locale.toUpperCase()}_GREETING` })
+				);
+			}
+			await nodeFs.writeFile(
+				configPath,
+				'export default { outputStructure: "message-modules" };'
+			);
+			const server = await createServer({
+				configFile: false,
+				root,
+				logLevel: "silent",
+				server: { port: 0, host: "127.0.0.1", watch: null },
+				plugins: [
+					paraglideVitePlugin({
+						project: "./project.inlang",
+						outdir: "./src/paraglide",
+						fs: { ...nodeSyncFs },
+						experimentalPerLocaleBuild: true,
+						...(override === undefined ? {} : { outputStructure: override }),
+					}),
+				],
+			});
+			try {
+				await server.listen();
+				await server.environments.client!.pluginContainer.buildStart();
+				const assertLayout = async (
+					configured: "message-modules" | "locale-modules" | undefined
+				) => {
+					const expected = override ?? configured ?? "locale-modules";
+					const code = await nodeFs.readFile(
+						nodePath.join(
+							root,
+							expected === "message-modules"
+								? "src/paraglide/messages/greeting.js"
+								: "src/paraglide/messages/_index.js"
+						),
+						"utf8"
+					);
+					if (expected === "message-modules") {
+						expect(code).toContain("EN_GREETING");
+						expect(code).toContain("DE_GREETING");
+					} else {
+						expect(code).not.toContain("EN_GREETING");
+						expect(code).toContain("./en.js");
+					}
+				};
+				await assertLayout("message-modules");
+				for (const layout of [
+					"locale-modules",
+					undefined,
+					"message-modules",
+				] as const) {
+					await nodeFs.writeFile(
+						configPath,
+						`export default ${JSON.stringify(layout ? { outputStructure: layout } : {})};`
+					);
+					await server.environments.client!.pluginContainer.watchChange(
+						configPath,
+						{ event: "update" }
+					);
+					await assertLayout(layout);
+				}
+				await nodeFs.rm(configPath);
+				await server.environments.client!.pluginContainer.watchChange(
+					configPath,
+					{ event: "delete" }
+				);
+				await assertLayout(undefined);
+				await nodeFs.writeFile(
+					configPath,
+					'export default { outputStructure: "message-modules" };'
+				);
+				await server.environments.client!.pluginContainer.watchChange(
+					configPath,
+					{ event: "create" }
+				);
+				await assertLayout("message-modules");
+			} finally {
+				await server.close();
+			}
+		} finally {
+			await nodeFs.rm(root, { recursive: true, force: true });
+		}
+	}
+);
+
 test("invalid project config keeps the per-locale dev server available", async () => {
 	vi.resetModules();
 	const { paraglideVitePlugin } = await import("../vite.js");

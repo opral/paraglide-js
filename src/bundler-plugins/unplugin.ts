@@ -526,10 +526,16 @@ async function runCompilation(args: {
 // The return type preserves literal option types (`enforce: "pre"`, ...)
 // while `project` stays required on the input side.
 type UnpluginFactoryWithOptions = (
-	userArgs: ParaglidePluginOptions
+	userArgs: ParaglidePluginOptions,
+	meta?: Parameters<UnpluginFactory<ParaglidePluginOptions>>[1],
+	defaults?: Pick<CompilerOptions, "outputStructure">
 ) => ReturnType<UnpluginFactory<ParaglidePluginOptions>>;
 
-export const unpluginFactory: UnpluginFactoryWithOptions = (userArgs) => {
+export const unpluginFactory: UnpluginFactoryWithOptions = (
+	userArgs,
+	_meta,
+	defaults
+) => {
 	const state = getPluginState(userArgs);
 	const { readFiles, clearReadFiles } = state;
 	// Project root as reported by the bundler (vite `root`, webpack/rspack
@@ -620,12 +626,22 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (userArgs) => {
 
 	const resolveOptionsWith = (
 		loaded: LoadedParaglideConfig | undefined
-	): CompilerOptions =>
-		resolveCompilerOptions({
+	): CompilerOptions => {
+		const options = resolveCompilerOptions({
 			config: loaded?.config,
 			overrides: userArgs,
 			root: discoveryRoot ?? process.cwd(),
 		});
+		// Apply integration defaults after each config load, keeping watched
+		// config values separate from explicit plugin overrides.
+		if (
+			options.outputStructure === undefined &&
+			defaults?.outputStructure !== undefined
+		) {
+			options.outputStructure = defaults.outputStructure;
+		}
+		return options;
+	};
 
 	/**
 	 * Loads the active config, following candidate renames and keeping the

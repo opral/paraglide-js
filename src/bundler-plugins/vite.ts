@@ -20,6 +20,10 @@ export type ParaglideVitePluginOptions = ParaglidePluginOptions & {
 };
 
 const createCompilerVitePlugin = createVitePlugin(unpluginFactory);
+const createPerLocaleCompilerVitePlugin =
+	createVitePlugin<ParaglidePluginOptions>((options, meta) =>
+		unpluginFactory(options, meta, { outputStructure: "locale-modules" })
+	);
 
 export function paraglideVitePlugin(
 	options: ParaglideVitePluginOptions
@@ -32,6 +36,6 @@ export function paraglideVitePlugin(
 	return createPerLocaleBuildPlugins({
 		compilerOptions,
 		createCompilerPlugin: (options) =>
-			createCompilerVitePlugin(options) as Plugin,
+			createPerLocaleCompilerVitePlugin(options) as Plugin,
 	});
 }
