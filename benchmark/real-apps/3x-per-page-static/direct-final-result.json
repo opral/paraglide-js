@@ -1,0 +1,52 @@
+{
+  "outcome": "reject: candidate larger than matched layout baseline and below >10% native gate",
+  "compilerBase": "f0f4be8782af89ebb18fdbcd6f4dd140418ea6f0",
+  "sourceFilesMigrated": 175,
+  "literalCallCount": 3393,
+  "unknownLiteralCount": 9,
+  "dynamicMatchedCallsRetained": 61,
+  "localeMetadataScopesMigrated": 5,
+  "localeCount": 13,
+  "entryCountEach": 3,
+  "messageCountEach": 2589,
+  "staticGraph": {
+    "native": 756723,
+    "localeModules": 691573,
+    "messageModules": 696919,
+    "compilerOnlyReductionPercent": -0.7730203463697904,
+    "nativeReductionPercent": 7.903023959890209
+  },
+  "browser": [
+    {
+      "layout": "locale-modules",
+      "language": "es-ES",
+      "errors": [],
+      "validation": [
+        "Nombre de Usuario",
+        "Contraseña"
+      ]
+    },
+    {
+      "layout": "message-modules",
+      "language": "es-ES",
+      "errors": [],
+      "validation": [
+        "Nombre de Usuario",
+        "Contraseña"
+      ]
+    }
+  ],
+  "reason": "Login imports generic FormField, which calls t(fieldState.error.message, { defaultValue: fieldState.error.message }); complete dynamic catalog is required.",
+  "qualifications": [
+    "No browser timing claim",
+    "No catalog key trimming",
+    "All original manualChunks and HTML entry structure retained",
+    "Matched migration adapter source hashes unchanged across layouts",
+    "Locale baseline uses complete per-key additionalFiles re-export facades to support the same direct physical imports",
+    "No public source commit or PR"
+  ],
+  "versions": {
+    "node": "v22.23.2",
+    "vite": "8.3.4"
+  }
+}

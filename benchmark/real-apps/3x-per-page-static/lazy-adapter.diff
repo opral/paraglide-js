@@ -1,0 +1,101 @@
+--- direct/src/i18n/paraglide-compat.ts
++++ lazy/src/i18n/paraglide-compat.ts
+@@ -1,8 +1,23 @@
+-import { m } from '@/paraglide/messages.js';
+ import { translateMessage, translateUnknown, currentLocale, type Message, type TranslateOptions } from './paraglide-static';
+ export { setActiveLocale } from './paraglide-static';
+-const catalog = m as unknown as Record<string, Message>;
++let catalog: Record<string, Message> | undefined;
++let pending: Promise<void> | undefined;
++let loadError: unknown;
++export function preloadDynamicCatalog(): Promise<void> {
++  return pending ??= import('@/paraglide/messages.js').then(
++    ({ m }) => { catalog = m as unknown as Record<string, Message>; },
++    (error) => { loadError = error; throw error; },
++  );
++}
++// This entry point is restricted to React render inside a Suspense boundary.
++export function translateDynamicInRender(key: string, options: TranslateOptions = {}): string {
++  if (loadError) throw loadError;
++  if (!catalog) throw preloadDynamicCatalog();
++  return t(key, options);
++}
+ export function t(key: string, options: TranslateOptions = {}): string {
++  if (loadError) throw loadError;
++  if (!catalog) throw new Error('Dynamic translations require preloadDynamicCatalog before effects or events');
+   const message = catalog[key];
+   return typeof message === 'function' ? translateMessage(message, options) : translateUnknown(key, options);
+ }
+--- direct/src/components/form/rhf/FormField.tsx
++++ lazy/src/components/form/rhf/FormField.tsx
+@@ -1,9 +1,13 @@
+-import { cloneElement, useId } from 'react';
++import { cloneElement, useId, Suspense } from 'react';
+ import type { CSSProperties, ReactElement, ReactNode } from 'react';
+ import { Controller } from 'react-hook-form';
+ import type { Control, ControllerProps, FieldValues, Path } from 'react-hook-form';
+ import { Form } from 'antd';
+-import { useTranslation } from 'react-i18next';
++import { translateDynamicInRender } from '@/i18n/paraglide-compat';
++
++function DynamicFieldHelp({ message }: { message: string }) {
++  return translateDynamicInRender(message, { defaultValue: message });
++}
+ 
+ import { normalizeAntdOnChange, type ValueProp } from './normalizeAntdOnChange';
+ import { toDotted, type FieldName } from './toDotted';
+@@ -46,7 +50,6 @@
+   style,
+   children,
+ }: FormFieldProps<T>) {
+-  const { t } = useTranslation();
+   const dottedName = toDotted(name) as Path<T>;
+   const generatedId = useId();
+   const explicitId = (children as ReactElement<{ id?: string }>).props.id;
+@@ -60,7 +63,7 @@
+       render={({ field, fieldState }) => {
+         const displayValue = transform?.input ? transform.input(field.value) : field.value;
+         const help = fieldState.error?.message
+-          ? t(fieldState.error.message, { defaultValue: fieldState.error.message })
++          ? <Suspense fallback={null}><DynamicFieldHelp message={fieldState.error.message} /></Suspense>
+           : undefined;
+         const childProps: Record<string, unknown> = {
+           id: fieldId,
+--- direct/src/main.tsx
++++ lazy/src/main.tsx
+@@ -8,6 +8,7 @@
+ 
+ import { setupHttp } from '@/api/http-init';
+ import { readyI18n } from '@/i18n/react';
++import { preloadDynamicCatalog } from '@/i18n/paraglide-compat';
+ import { ThemeProvider } from '@/hooks/useTheme';
+ import { QueryProvider } from '@/api/QueryProvider';
+ import { router } from '@/routes';
+@@ -45,7 +46,7 @@
+   message.config({ getContainer: () => messageContainer });
+ }
+ 
+-readyI18n().then(() => {
++Promise.all([readyI18n(), preloadDynamicCatalog()]).then(() => {
+   const root = document.getElementById('app');
+   if (root) {
+     createRoot(root).render(
+--- direct/src/entries/subpage.tsx
++++ lazy/src/entries/subpage.tsx
+@@ -3,6 +3,7 @@
+ import 'antd/dist/reset.css';
+ 
+ import { readyI18n } from '@/i18n/react';
++import { preloadDynamicCatalog } from '@/i18n/paraglide-compat';
+ import { ThemeProvider } from '@/hooks/useTheme';
+ import { QueryProvider } from '@/api/QueryProvider';
+ import SubPage from '@/pages/sub/SubPage';
+@@ -12,7 +13,7 @@
+   message.config({ getContainer: () => messageContainer });
+ }
+ 
+-readyI18n('subscription').then(() => {
++Promise.all([readyI18n('subscription'), preloadDynamicCatalog()]).then(() => {
+   const root = document.getElementById('app');
+   if (root) {
+     createRoot(root).render(

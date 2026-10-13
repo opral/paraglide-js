@@ -1,0 +1,1245 @@
+{
+  "methodology": "Fresh contexts, cache and service workers disabled; alternating order; readiness before hashing; bytes include all resource requests begun before readiness once completed. Invalid-submit validation tested afterward. Loopback HTTP/1.1 Brotli Q4 precompressed server.",
+  "results": [
+    {
+      "variant": "native",
+      "profile": "desktop",
+      "pair": 0,
+      "sample": {
+        "readyMs": 1132.1000000238419,
+        "body": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+        "paint": {
+          "first-paint": 952,
+          "first-contentful-paint": 952
+        },
+        "lcpMs": 952,
+        "resources": [
+          {
+            "path": "/assets/login-BzVrSkwh.js",
+            "startMs": 88.79999995231628,
+            "endMs": 176.60000002384186,
+            "encodedBytes": 1949
+          },
+          {
+            "path": "/assets/_index-CKD4HmJT.js",
+            "startMs": 89,
+            "endMs": 289.5,
+            "encodedBytes": 79508
+          },
+          {
+            "path": "/assets/vendor-BOV3Ulxv.js",
+            "startMs": 89,
+            "endMs": 522.5,
+            "encodedBytes": 167261
+          },
+          {
+            "path": "/assets/vendor-antd-C6u9c018.js",
+            "startMs": 89.10000002384186,
+            "endMs": 614.6999999284744,
+            "encodedBytes": 390172
+          },
+          {
+            "path": "/assets/known-messages-CPvfeNTs.js",
+            "startMs": 89.39999997615814,
+            "endMs": 181.60000002384186,
+            "encodedBytes": 477
+          },
+          {
+            "path": "/assets/vendor-router-CSAaRNFk.js",
+            "startMs": 89.39999997615814,
+            "endMs": 230.69999992847443,
+            "encodedBytes": 30734
+          },
+          {
+            "path": "/assets/vendor-react-DUWa9QMj.js",
+            "startMs": 89.39999997615814,
+            "endMs": 341.1999999284744,
+            "encodedBytes": 290
+          },
+          {
+            "path": "/assets/vendor-tanstack-BaUcS1wd.js",
+            "startMs": 89.39999997615814,
+            "endMs": 351.1999999284744,
+            "encodedBytes": 10501
+          },
+          {
+            "path": "/assets/QueryProvider-Cd0GpPml.js",
+            "startMs": 89.39999997615814,
+            "endMs": 375.10000002384186,
+            "encodedBytes": 8848
+          },
+          {
+            "path": "/assets/vendor-icons-CjWXXH_R.js",
+            "startMs": 89.39999997615814,
+            "endMs": 404.60000002384186,
+            "encodedBytes": 26646
+          },
+          {
+            "path": "/assets/rhf-MGSFqDTm.js",
+            "startMs": 89.39999997615814,
+            "endMs": 423,
+            "encodedBytes": 688
+          },
+          {
+            "path": "/assets/vendor-antd-B5BXDqMa.css",
+            "startMs": 89.5,
+            "endMs": 259.5,
+            "encodedBytes": 1064
+          },
+          {
+            "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+            "startMs": 89.5,
+            "endMs": 433.5,
+            "encodedBytes": 131
+          },
+          {
+            "path": "/assets/queryKeys-B5rr3vbO.js",
+            "startMs": 89.5,
+            "endMs": 457.39999997615814,
+            "encodedBytes": 405
+          },
+          {
+            "path": "/assets/SponsorSlot-CS-VffYS.js",
+            "startMs": 89.5,
+            "endMs": 488.2999999523163,
+            "encodedBytes": 1634
+          },
+          {
+            "path": "/assets/login-BdkBI3xL.js",
+            "startMs": 89.5,
+            "endMs": 504.89999997615814,
+            "encodedBytes": 186
+          },
+          {
+            "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+            "startMs": 90.10000002384186,
+            "endMs": 264.39999997615814,
+            "encodedBytes": 949
+          },
+          {
+            "path": "/assets/login-B_chRsY8.css",
+            "startMs": 90.10000002384186,
+            "endMs": 312.5,
+            "encodedBytes": 2003
+          },
+          {
+            "path": "/csrf-token",
+            "startMs": 858.1000000238419,
+            "endMs": 947.1000000238419,
+            "encodedBytes": 45
+          },
+          {
+            "path": "/getTwoFactorEnable",
+            "startMs": 949.6000000238419,
+            "endMs": 1033.1999999284744,
+            "encodedBytes": 28
+          },
+          {
+            "path": "/sponsors",
+            "startMs": 1108.1000000238419,
+            "endMs": 1194.1999999284744,
+            "encodedBytes": 38
+          }
+        ],
+        "navigation": [
+          {
+            "encodedBytes": 496
+          }
+        ]
+      },
+      "initialEncodedBytes": 724053,
+      "validation": [
+        "Nombre de Usuario",
+        "Contraseña"
+      ],
+      "validationMs": 457.90000009536743,
+      "hashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "sha256": "49d03886398d8d3d9d7ee971789a537cb63a8b2fd31f38135e776265304cef34"
+        },
+        {
+          "path": "/assets/login-BzVrSkwh.js",
+          "status": 200,
+          "sha256": "6387bce88ac0c5290cc894687ec9ea7e96f0036f471c7c01730f3184e05bd4e1"
+        },
+        {
+          "path": "/assets/_index-CKD4HmJT.js",
+          "status": 200,
+          "sha256": "3745e38dda5ca0ddfa63250ec80a91f6083ab612d0b8af20c0f7706aeebc66ee"
+        },
+        {
+          "path": "/assets/vendor-BOV3Ulxv.js",
+          "status": 200,
+          "sha256": "7b5b02f49893e9abd730fe314b1ab62c63287dbfff53353e1da65735dc36629c"
+        },
+        {
+          "path": "/assets/vendor-antd-C6u9c018.js",
+          "status": 200,
+          "sha256": "b248ba21c2719d1a824b0b86bde9ee399d0a88e433593a35e473575a84ae2044"
+        },
+        {
+          "path": "/assets/vendor-router-CSAaRNFk.js",
+          "status": 200,
+          "sha256": "62c0b5aa08fb73944ed0f8fad353c0d6fb09e63957d6b1114441ee44690263d6"
+        },
+        {
+          "path": "/assets/known-messages-CPvfeNTs.js",
+          "status": 200,
+          "sha256": "01d0cdf58a83b41ef4d12370f121353a8e7edddd071c1690f0dd68578c8984a2"
+        },
+        {
+          "path": "/assets/vendor-react-DUWa9QMj.js",
+          "status": 200,
+          "sha256": "680e53ec51e344925167df39eb990c2240dca43b0432ae713771fb0386b8a6a4"
+        },
+        {
+          "path": "/assets/vendor-tanstack-BaUcS1wd.js",
+          "status": 200,
+          "sha256": "30a45f2c2486dc2a4e8c2e4d644feb919e69885e173ac34ed1fd51122daa944f"
+        },
+        {
+          "path": "/assets/QueryProvider-Cd0GpPml.js",
+          "status": 200,
+          "sha256": "c193b1eb0db70541dad49d5e5d0195b31c4a230fa3ecc72260518780b15764ea"
+        },
+        {
+          "path": "/assets/vendor-icons-CjWXXH_R.js",
+          "status": 200,
+          "sha256": "e47b48ff9eed608aa3a37bc39e249a486dcc3bd78a89cea700a6ac1d6741f0c5"
+        },
+        {
+          "path": "/assets/rhf-MGSFqDTm.js",
+          "status": 200,
+          "sha256": "0f863c08583eb69dccc684d0763f793f7a9406f0419a5e2b85c2019ff22beb73"
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "status": 200,
+          "sha256": "69836012b5ba65107913af8dd2e68ce91df9406d34bd0a873b6afc2109111b14"
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "status": 200,
+          "sha256": "8bcc6026381c0fa60f68e42ce27aee4a08a94f2a2ceeb7d71898640da5f3dffd"
+        },
+        {
+          "path": "/assets/SponsorSlot-CS-VffYS.js",
+          "status": 200,
+          "sha256": "e2f771c7d5396e8dc40d5ec4b2b3be76aba4ed6b361537c3bb8bed04dd4dcb15"
+        },
+        {
+          "path": "/assets/login-BdkBI3xL.js",
+          "status": 200,
+          "sha256": "4429320fbc92fd85fd81f58deb0b7a7b09682e40162e31e87be1d2d670c493c0"
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "status": 200,
+          "sha256": "6b734531b94fda9950119646124dccee1ee7e70e91b3e5be988c378ca9f9f98d"
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "status": 200,
+          "sha256": "7e857a965452b2e4f56d953c57cea2cab71fc8fb2a58dbf48ac660c2bedb8484"
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "status": 200,
+          "sha256": "bb7fe234e01ad0b37e43ea4945d1c67e738f83d67b9079d632cf9d165b5b39ce"
+        },
+        {
+          "path": "/csrf-token",
+          "status": 200,
+          "sha256": "02f4c57091d32c280abdd8c6f6abf440a53c3d1461d63c5dfa3fa9a66a19ebf3"
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "status": 200,
+          "sha256": "79cbe3b05f7b9c8a9b0e00c9d3927f3279365091f329739ec7481d6807639173"
+        },
+        {
+          "path": "/sponsors",
+          "status": 200,
+          "sha256": "5ed2d835a2619f1d1b635d291c7619ca224e942d24d03258dd0666f4ab3fafda"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "variant": "candidate",
+      "profile": "desktop",
+      "pair": 0,
+      "sample": {
+        "readyMs": 1114,
+        "body": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+        "paint": {
+          "first-paint": 920,
+          "first-contentful-paint": 920
+        },
+        "lcpMs": 920,
+        "resources": [
+          {
+            "path": "/assets/login-BCy2538H.js",
+            "startMs": 88.70000004768372,
+            "endMs": 178,
+            "encodedBytes": 2020
+          },
+          {
+            "path": "/assets/runtime-ChkwtmDx.js",
+            "startMs": 88.80000007152557,
+            "endMs": 179.39999997615814,
+            "encodedBytes": 624
+          },
+          {
+            "path": "/assets/vendor-router-C8GXZgJM.js",
+            "startMs": 89.10000002384186,
+            "endMs": 217.20000004768372,
+            "encodedBytes": 30733
+          },
+          {
+            "path": "/assets/vendor-DyRVyn8p.js",
+            "startMs": 89.10000002384186,
+            "endMs": 501.5,
+            "encodedBytes": 167377
+          },
+          {
+            "path": "/assets/vendor-antd-BryOOFO7.js",
+            "startMs": 89.10000002384186,
+            "endMs": 597.6000000238419,
+            "encodedBytes": 389995
+          },
+          {
+            "path": "/assets/known-messages-BTmSODUm.js",
+            "startMs": 89.20000004768372,
+            "endMs": 181,
+            "encodedBytes": 476
+          },
+          {
+            "path": "/assets/vendor-react-B5RH17mQ.js",
+            "startMs": 89.20000004768372,
+            "endMs": 299.39999997615814,
+            "encodedBytes": 282
+          },
+          {
+            "path": "/assets/vendor-tanstack-CV4fjf0O.js",
+            "startMs": 89.20000004768372,
+            "endMs": 351.3000000715256,
+            "encodedBytes": 10499
+          },
+          {
+            "path": "/assets/menu_theme-DzS54d2p.js",
+            "startMs": 89.70000004768372,
+            "endMs": 355,
+            "encodedBytes": 11633
+          },
+          {
+            "path": "/assets/vendor-icons-CxZ_o7z4.js",
+            "startMs": 89.70000004768372,
+            "endMs": 361,
+            "encodedBytes": 26654
+          },
+          {
+            "path": "/assets/pages_login_title-cgJXsM5X.js",
+            "startMs": 89.70000004768372,
+            "endMs": 381.5,
+            "encodedBytes": 242
+          },
+          {
+            "path": "/assets/pages_settings_language-CizozoH5.js",
+            "startMs": 89.80000007152557,
+            "endMs": 432.8000000715256,
+            "encodedBytes": 205
+          },
+          {
+            "path": "/assets/username-SG_EyNHW.js",
+            "startMs": 89.80000007152557,
+            "endMs": 436.60000002384186,
+            "encodedBytes": 214
+          },
+          {
+            "path": "/assets/password-DTPxsNTu.js",
+            "startMs": 89.80000007152557,
+            "endMs": 442.39999997615814,
+            "encodedBytes": 213
+          },
+          {
+            "path": "/assets/twofactorcode2-BgDxu6FA.js",
+            "startMs": 89.80000007152557,
+            "endMs": 463.89999997615814,
+            "encodedBytes": 213
+          },
+          {
+            "path": "/assets/login-LFqfAKZP.js",
+            "startMs": 90.20000004768372,
+            "endMs": 514.8999999761581,
+            "encodedBytes": 208
+          },
+          {
+            "path": "/assets/rhf-B3UFXU6e.js",
+            "startMs": 90.20000004768372,
+            "endMs": 518.6000000238419,
+            "encodedBytes": 677
+          },
+          {
+            "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+            "startMs": 90.20000004768372,
+            "endMs": 524.5,
+            "encodedBytes": 131
+          },
+          {
+            "path": "/assets/queryKeys-B5rr3vbO.js",
+            "startMs": 90.20000004768372,
+            "endMs": 545.3999999761581,
+            "encodedBytes": 405
+          },
+          {
+            "path": "/assets/close-D6RgNseO.js",
+            "startMs": 90.30000007152557,
+            "endMs": 582.3999999761581,
+            "encodedBytes": 204
+          },
+          {
+            "path": "/assets/pages_sponsors_visit-Cqi9l15G.js",
+            "startMs": 90.30000007152557,
+            "endMs": 596.3999999761581,
+            "encodedBytes": 244
+          },
+          {
+            "path": "/assets/SponsorSlot-B-S6AzlF.js",
+            "startMs": 90.30000007152557,
+            "endMs": 601.1000000238419,
+            "encodedBytes": 1650
+          },
+          {
+            "path": "/assets/login-DOVq6Dig.js",
+            "startMs": 90.30000007152557,
+            "endMs": 606.3999999761581,
+            "encodedBytes": 186
+          },
+          {
+            "path": "/assets/vendor-antd-B5BXDqMa.css",
+            "startMs": 90.80000007152557,
+            "endMs": 260.3000000715256,
+            "encodedBytes": 1064
+          },
+          {
+            "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+            "startMs": 90.80000007152557,
+            "endMs": 261.7000000476837,
+            "encodedBytes": 949
+          },
+          {
+            "path": "/assets/login-B_chRsY8.css",
+            "startMs": 90.80000007152557,
+            "endMs": 263,
+            "encodedBytes": 2003
+          },
+          {
+            "path": "/csrf-token",
+            "startMs": 828.5,
+            "endMs": 917.1000000238419,
+            "encodedBytes": 45
+          },
+          {
+            "path": "/getTwoFactorEnable",
+            "startMs": 922.1000000238419,
+            "endMs": 1005.2000000476837,
+            "encodedBytes": 28
+          },
+          {
+            "path": "/sponsors",
+            "startMs": 1090.1000000238419,
+            "endMs": 1176,
+            "encodedBytes": 38
+          }
+        ],
+        "navigation": [
+          {
+            "encodedBytes": 627
+          }
+        ]
+      },
+      "initialEncodedBytes": 649839,
+      "validation": [
+        "Nombre de Usuario",
+        "Contraseña"
+      ],
+      "validationMs": 433.60000002384186,
+      "hashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "sha256": "3199d9e6e9307c3437aafd420dff05d800043074052a7902a29c9398102f2b0b"
+        },
+        {
+          "path": "/assets/login-BCy2538H.js",
+          "status": 200,
+          "sha256": "285584fb4ae72f2028c16d9eabfd318e906ac52b1679864b4eb8d0cdf67078ac"
+        },
+        {
+          "path": "/assets/runtime-ChkwtmDx.js",
+          "status": 200,
+          "sha256": "32553f961e53a35fdeb5a6d63b1dffc448f34fb9eee0711be409ae0ffa364383"
+        },
+        {
+          "path": "/assets/vendor-DyRVyn8p.js",
+          "status": 200,
+          "sha256": "a0f17130e5fcb6dc9cd95c3979fa1e4360c32d4fe05a1fad6a610c27c03879e3"
+        },
+        {
+          "path": "/assets/vendor-antd-BryOOFO7.js",
+          "status": 200,
+          "sha256": "d90931fc80479cf590d2a6782d4b4ff4b8a34f3b34c2ed20a303db2a3f29eeed"
+        },
+        {
+          "path": "/assets/vendor-router-C8GXZgJM.js",
+          "status": 200,
+          "sha256": "49364232f08c04b4398728d0fcd3ce9c2270719b82da4e279e9cfcdc3c356987"
+        },
+        {
+          "path": "/assets/known-messages-BTmSODUm.js",
+          "status": 200,
+          "sha256": "f823af709c2be7f0fa5ef0a83d174ed636ef84f2c03abe81129c804a2acf329a"
+        },
+        {
+          "path": "/assets/vendor-react-B5RH17mQ.js",
+          "status": 200,
+          "sha256": "f3fa6e6faa9bcd2e38e3fcfacc638a5f8a627ee48783895be3923ab8b46de755"
+        },
+        {
+          "path": "/assets/vendor-tanstack-CV4fjf0O.js",
+          "status": 200,
+          "sha256": "a18e7f621b43710e5f19faf920c53ba20ec37c37c1174455c6aff184f5ed5291"
+        },
+        {
+          "path": "/assets/menu_theme-DzS54d2p.js",
+          "status": 200,
+          "sha256": "2bd81531fd6b82dc55b0f5ecefeae699c870fa51f18830c427d81c885947996a"
+        },
+        {
+          "path": "/assets/vendor-icons-CxZ_o7z4.js",
+          "status": 200,
+          "sha256": "c4cf3aabfdde396d7629c052dfc51bab1df59628dc052f6a60f61189e72352a7"
+        },
+        {
+          "path": "/assets/pages_login_title-cgJXsM5X.js",
+          "status": 200,
+          "sha256": "dadb01ccaf03a436f404c778028b40735d486e129d042e5d0fd841507d17d84b"
+        },
+        {
+          "path": "/assets/pages_settings_language-CizozoH5.js",
+          "status": 200,
+          "sha256": "9e74fa6c085fdd41697c7748321d568c867d197952e37f559c6e662a615c0465"
+        },
+        {
+          "path": "/assets/username-SG_EyNHW.js",
+          "status": 200,
+          "sha256": "e1edebeb4cd6194d23dc3c2eaf77e1a742fd1c2aca04c9b480327de3761719ea"
+        },
+        {
+          "path": "/assets/password-DTPxsNTu.js",
+          "status": 200,
+          "sha256": "06cdd8cafb0640ff60c5b0ab51b29f97e3383c7ac4afaba177cf0eeb30d6c249"
+        },
+        {
+          "path": "/assets/twofactorcode2-BgDxu6FA.js",
+          "status": 200,
+          "sha256": "f193f2848ead93e227e9908377ad7579872a165e935260e2a76c1a1335a8c09a"
+        },
+        {
+          "path": "/assets/login-LFqfAKZP.js",
+          "status": 200,
+          "sha256": "f6050f19ed04c2e650be496c80de4786a04687ca5f298575f918bb20fbc32678"
+        },
+        {
+          "path": "/assets/rhf-B3UFXU6e.js",
+          "status": 200,
+          "sha256": "0979982c5532594980abdca6c0b6000e43a625c1ada892cc91604d22bb7b5292"
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "status": 200,
+          "sha256": "69836012b5ba65107913af8dd2e68ce91df9406d34bd0a873b6afc2109111b14"
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "status": 200,
+          "sha256": "8bcc6026381c0fa60f68e42ce27aee4a08a94f2a2ceeb7d71898640da5f3dffd"
+        },
+        {
+          "path": "/assets/close-D6RgNseO.js",
+          "status": 200,
+          "sha256": "4269ae263551e0e71fb44b5e5354253ea802254b06604c14273f1c84224bf9eb"
+        },
+        {
+          "path": "/assets/pages_sponsors_visit-Cqi9l15G.js",
+          "status": 200,
+          "sha256": "5393e76629a63c0309440cd16e3b9ca729f658d1c785cb7f1600cf15ec9a0b60"
+        },
+        {
+          "path": "/assets/SponsorSlot-B-S6AzlF.js",
+          "status": 200,
+          "sha256": "2fec3b84c93870f13669673631823dae8c6b2ab1508e9908cbe6b8d3dddd55a2"
+        },
+        {
+          "path": "/assets/login-DOVq6Dig.js",
+          "status": 200,
+          "sha256": "378395ce6a8067fff54c04ed4fd1029589a499e767c08ede1a7b6a025571bc19"
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "status": 200,
+          "sha256": "6b734531b94fda9950119646124dccee1ee7e70e91b3e5be988c378ca9f9f98d"
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "status": 200,
+          "sha256": "7e857a965452b2e4f56d953c57cea2cab71fc8fb2a58dbf48ac660c2bedb8484"
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "status": 200,
+          "sha256": "bb7fe234e01ad0b37e43ea4945d1c67e738f83d67b9079d632cf9d165b5b39ce"
+        },
+        {
+          "path": "/csrf-token",
+          "status": 200,
+          "sha256": "02f4c57091d32c280abdd8c6f6abf440a53c3d1461d63c5dfa3fa9a66a19ebf3"
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "status": 200,
+          "sha256": "79cbe3b05f7b9c8a9b0e00c9d3927f3279365091f329739ec7481d6807639173"
+        },
+        {
+          "path": "/sponsors",
+          "status": 200,
+          "sha256": "5ed2d835a2619f1d1b635d291c7619ca224e942d24d03258dd0666f4ab3fafda"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "variant": "native",
+      "profile": "mobile",
+      "pair": 0,
+      "sample": {
+        "readyMs": 4934.300000071526,
+        "body": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+        "paint": {
+          "first-paint": 4572,
+          "first-contentful-paint": 4572
+        },
+        "lcpMs": 4572,
+        "resources": [
+          {
+            "path": "/assets/login-BzVrSkwh.js",
+            "startMs": 165.10000002384186,
+            "endMs": 374.90000009536743,
+            "encodedBytes": 1949
+          },
+          {
+            "path": "/assets/_index-CKD4HmJT.js",
+            "startMs": 165.80000007152557,
+            "endMs": 2032.5,
+            "encodedBytes": 79508
+          },
+          {
+            "path": "/assets/vendor-router-CSAaRNFk.js",
+            "startMs": 165.90000009536743,
+            "endMs": 1050.2000000476837,
+            "encodedBytes": 30734
+          },
+          {
+            "path": "/assets/vendor-BOV3Ulxv.js",
+            "startMs": 165.90000009536743,
+            "endMs": 2910.2000000476837,
+            "encodedBytes": 167261
+          },
+          {
+            "path": "/assets/vendor-antd-C6u9c018.js",
+            "startMs": 165.90000009536743,
+            "endMs": 4035.3000000715256,
+            "encodedBytes": 390172
+          },
+          {
+            "path": "/assets/known-messages-CPvfeNTs.js",
+            "startMs": 166.30000007152557,
+            "endMs": 367.7000000476837,
+            "encodedBytes": 477
+          },
+          {
+            "path": "/assets/vendor-react-DUWa9QMj.js",
+            "startMs": 166.30000007152557,
+            "endMs": 757.1000000238419,
+            "encodedBytes": 290
+          },
+          {
+            "path": "/assets/vendor-tanstack-BaUcS1wd.js",
+            "startMs": 166.40000009536743,
+            "endMs": 1214.5,
+            "encodedBytes": 10501
+          },
+          {
+            "path": "/assets/QueryProvider-Cd0GpPml.js",
+            "startMs": 166.40000009536743,
+            "endMs": 1222,
+            "encodedBytes": 8848
+          },
+          {
+            "path": "/assets/rhf-MGSFqDTm.js",
+            "startMs": 166.80000007152557,
+            "endMs": 1402.6000000238419,
+            "encodedBytes": 688
+          },
+          {
+            "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+            "startMs": 166.80000007152557,
+            "endMs": 1417.4000000953674,
+            "encodedBytes": 131
+          },
+          {
+            "path": "/assets/queryKeys-B5rr3vbO.js",
+            "startMs": 166.80000007152557,
+            "endMs": 1590.2000000476837,
+            "encodedBytes": 405
+          },
+          {
+            "path": "/assets/vendor-icons-CjWXXH_R.js",
+            "startMs": 166.80000007152557,
+            "endMs": 1800.1000000238419,
+            "encodedBytes": 26646
+          },
+          {
+            "path": "/assets/SponsorSlot-CS-VffYS.js",
+            "startMs": 166.90000009536743,
+            "endMs": 1649.5,
+            "encodedBytes": 1634
+          },
+          {
+            "path": "/assets/vendor-antd-B5BXDqMa.css",
+            "startMs": 167.20000004768372,
+            "endMs": 554.7000000476837,
+            "encodedBytes": 1064
+          },
+          {
+            "path": "/assets/login-BdkBI3xL.js",
+            "startMs": 167.20000004768372,
+            "endMs": 1777.6000000238419,
+            "encodedBytes": 186
+          },
+          {
+            "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+            "startMs": 167.30000007152557,
+            "endMs": 569.5,
+            "encodedBytes": 949
+          },
+          {
+            "path": "/assets/login-B_chRsY8.css",
+            "startMs": 167.30000007152557,
+            "endMs": 787,
+            "encodedBytes": 2003
+          },
+          {
+            "path": "/csrf-token",
+            "startMs": 4475.200000047684,
+            "endMs": 4642.5,
+            "encodedBytes": 45
+          },
+          {
+            "path": "/getTwoFactorEnable",
+            "startMs": 4645.900000095367,
+            "endMs": 4799.800000071526,
+            "encodedBytes": 28
+          },
+          {
+            "path": "/sponsors",
+            "startMs": 4902.200000047684,
+            "endMs": 5062.200000047684,
+            "encodedBytes": 38
+          }
+        ],
+        "navigation": [
+          {
+            "encodedBytes": 496
+          }
+        ]
+      },
+      "initialEncodedBytes": 724053,
+      "validation": [
+        "Nombre de Usuario",
+        "Contraseña"
+      ],
+      "validationMs": 482.39999997615814,
+      "hashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "sha256": "49d03886398d8d3d9d7ee971789a537cb63a8b2fd31f38135e776265304cef34"
+        },
+        {
+          "path": "/assets/login-BzVrSkwh.js",
+          "status": 200,
+          "sha256": "6387bce88ac0c5290cc894687ec9ea7e96f0036f471c7c01730f3184e05bd4e1"
+        },
+        {
+          "path": "/assets/_index-CKD4HmJT.js",
+          "status": 200,
+          "sha256": "3745e38dda5ca0ddfa63250ec80a91f6083ab612d0b8af20c0f7706aeebc66ee"
+        },
+        {
+          "path": "/assets/vendor-BOV3Ulxv.js",
+          "status": 200,
+          "sha256": "7b5b02f49893e9abd730fe314b1ab62c63287dbfff53353e1da65735dc36629c"
+        },
+        {
+          "path": "/assets/vendor-antd-C6u9c018.js",
+          "status": 200,
+          "sha256": "b248ba21c2719d1a824b0b86bde9ee399d0a88e433593a35e473575a84ae2044"
+        },
+        {
+          "path": "/assets/vendor-router-CSAaRNFk.js",
+          "status": 200,
+          "sha256": "62c0b5aa08fb73944ed0f8fad353c0d6fb09e63957d6b1114441ee44690263d6"
+        },
+        {
+          "path": "/assets/known-messages-CPvfeNTs.js",
+          "status": 200,
+          "sha256": "01d0cdf58a83b41ef4d12370f121353a8e7edddd071c1690f0dd68578c8984a2"
+        },
+        {
+          "path": "/assets/vendor-react-DUWa9QMj.js",
+          "status": 200,
+          "sha256": "680e53ec51e344925167df39eb990c2240dca43b0432ae713771fb0386b8a6a4"
+        },
+        {
+          "path": "/assets/vendor-tanstack-BaUcS1wd.js",
+          "status": 200,
+          "sha256": "30a45f2c2486dc2a4e8c2e4d644feb919e69885e173ac34ed1fd51122daa944f"
+        },
+        {
+          "path": "/assets/QueryProvider-Cd0GpPml.js",
+          "status": 200,
+          "sha256": "c193b1eb0db70541dad49d5e5d0195b31c4a230fa3ecc72260518780b15764ea"
+        },
+        {
+          "path": "/assets/vendor-icons-CjWXXH_R.js",
+          "status": 200,
+          "sha256": "e47b48ff9eed608aa3a37bc39e249a486dcc3bd78a89cea700a6ac1d6741f0c5"
+        },
+        {
+          "path": "/assets/rhf-MGSFqDTm.js",
+          "status": 200,
+          "sha256": "0f863c08583eb69dccc684d0763f793f7a9406f0419a5e2b85c2019ff22beb73"
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "status": 200,
+          "sha256": "69836012b5ba65107913af8dd2e68ce91df9406d34bd0a873b6afc2109111b14"
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "status": 200,
+          "sha256": "8bcc6026381c0fa60f68e42ce27aee4a08a94f2a2ceeb7d71898640da5f3dffd"
+        },
+        {
+          "path": "/assets/SponsorSlot-CS-VffYS.js",
+          "status": 200,
+          "sha256": "e2f771c7d5396e8dc40d5ec4b2b3be76aba4ed6b361537c3bb8bed04dd4dcb15"
+        },
+        {
+          "path": "/assets/login-BdkBI3xL.js",
+          "status": 200,
+          "sha256": "4429320fbc92fd85fd81f58deb0b7a7b09682e40162e31e87be1d2d670c493c0"
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "status": 200,
+          "sha256": "6b734531b94fda9950119646124dccee1ee7e70e91b3e5be988c378ca9f9f98d"
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "status": 200,
+          "sha256": "7e857a965452b2e4f56d953c57cea2cab71fc8fb2a58dbf48ac660c2bedb8484"
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "status": 200,
+          "sha256": "bb7fe234e01ad0b37e43ea4945d1c67e738f83d67b9079d632cf9d165b5b39ce"
+        },
+        {
+          "path": "/csrf-token",
+          "status": 200,
+          "sha256": "02f4c57091d32c280abdd8c6f6abf440a53c3d1461d63c5dfa3fa9a66a19ebf3"
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "status": 200,
+          "sha256": "79cbe3b05f7b9c8a9b0e00c9d3927f3279365091f329739ec7481d6807639173"
+        },
+        {
+          "path": "/sponsors",
+          "status": 200,
+          "sha256": "5ed2d835a2619f1d1b635d291c7619ca224e942d24d03258dd0666f4ab3fafda"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "variant": "candidate",
+      "profile": "mobile",
+      "pair": 0,
+      "sample": {
+        "readyMs": 4537.299999952316,
+        "body": "3X-UI\nHola\nNombre de Usuario\nContraseña\nAcceder",
+        "paint": {
+          "first-paint": 4168,
+          "first-contentful-paint": 4168
+        },
+        "lcpMs": 4168,
+        "resources": [
+          {
+            "path": "/assets/login-BCy2538H.js",
+            "startMs": 165.19999992847443,
+            "endMs": 374.6999999284744,
+            "encodedBytes": 2020
+          },
+          {
+            "path": "/assets/runtime-ChkwtmDx.js",
+            "startMs": 165.29999995231628,
+            "endMs": 337.6999999284744,
+            "encodedBytes": 624
+          },
+          {
+            "path": "/assets/vendor-DyRVyn8p.js",
+            "startMs": 165.89999997615814,
+            "endMs": 2639.899999976158,
+            "encodedBytes": 167377
+          },
+          {
+            "path": "/assets/vendor-antd-BryOOFO7.js",
+            "startMs": 165.89999997615814,
+            "endMs": 3772,
+            "encodedBytes": 389995
+          },
+          {
+            "path": "/assets/vendor-router-C8GXZgJM.js",
+            "startMs": 166,
+            "endMs": 967,
+            "encodedBytes": 30733
+          },
+          {
+            "path": "/assets/known-messages-BTmSODUm.js",
+            "startMs": 166.09999990463257,
+            "endMs": 367.5,
+            "encodedBytes": 476
+          },
+          {
+            "path": "/assets/vendor-react-B5RH17mQ.js",
+            "startMs": 166.09999990463257,
+            "endMs": 697,
+            "encodedBytes": 282
+          },
+          {
+            "path": "/assets/vendor-tanstack-CV4fjf0O.js",
+            "startMs": 166.09999990463257,
+            "endMs": 1005,
+            "encodedBytes": 10499
+          },
+          {
+            "path": "/assets/menu_theme-DzS54d2p.js",
+            "startMs": 166.09999990463257,
+            "endMs": 1050.2999999523163,
+            "encodedBytes": 11633
+          },
+          {
+            "path": "/assets/pages_login_title-cgJXsM5X.js",
+            "startMs": 166.09999990463257,
+            "endMs": 1140,
+            "encodedBytes": 242
+          },
+          {
+            "path": "/assets/vendor-icons-CxZ_o7z4.js",
+            "startMs": 166.09999990463257,
+            "endMs": 1379.6999999284744,
+            "encodedBytes": 26654
+          },
+          {
+            "path": "/assets/pages_settings_language-CizozoH5.js",
+            "startMs": 166.69999992847443,
+            "endMs": 1185.5,
+            "encodedBytes": 205
+          },
+          {
+            "path": "/assets/username-SG_EyNHW.js",
+            "startMs": 166.79999995231628,
+            "endMs": 1229.8999999761581,
+            "encodedBytes": 214
+          },
+          {
+            "path": "/assets/password-DTPxsNTu.js",
+            "startMs": 166.79999995231628,
+            "endMs": 1319.7999999523163,
+            "encodedBytes": 213
+          },
+          {
+            "path": "/assets/twofactorcode2-BgDxu6FA.js",
+            "startMs": 166.79999995231628,
+            "endMs": 1365.1999999284744,
+            "encodedBytes": 213
+          },
+          {
+            "path": "/assets/login-LFqfAKZP.js",
+            "startMs": 166.79999995231628,
+            "endMs": 1402.5,
+            "encodedBytes": 208
+          },
+          {
+            "path": "/assets/rhf-B3UFXU6e.js",
+            "startMs": 166.79999995231628,
+            "endMs": 1492,
+            "encodedBytes": 677
+          },
+          {
+            "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+            "startMs": 166.79999995231628,
+            "endMs": 1536.8999999761581,
+            "encodedBytes": 131
+          },
+          {
+            "path": "/assets/queryKeys-B5rr3vbO.js",
+            "startMs": 166.79999995231628,
+            "endMs": 1559.5999999046326,
+            "encodedBytes": 405
+          },
+          {
+            "path": "/assets/close-D6RgNseO.js",
+            "startMs": 166.79999995231628,
+            "endMs": 1581.8999999761581,
+            "encodedBytes": 204
+          },
+          {
+            "path": "/assets/pages_sponsors_visit-Cqi9l15G.js",
+            "startMs": 167.5,
+            "endMs": 1665.1999999284744,
+            "encodedBytes": 244
+          },
+          {
+            "path": "/assets/SponsorSlot-B-S6AzlF.js",
+            "startMs": 167.5,
+            "endMs": 1725.2999999523163,
+            "encodedBytes": 1650
+          },
+          {
+            "path": "/assets/login-DOVq6Dig.js",
+            "startMs": 167.5,
+            "endMs": 1732.5,
+            "encodedBytes": 186
+          },
+          {
+            "path": "/assets/vendor-antd-B5BXDqMa.css",
+            "startMs": 167.59999990463257,
+            "endMs": 517.6999999284744,
+            "encodedBytes": 1064
+          },
+          {
+            "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+            "startMs": 167.59999990463257,
+            "endMs": 547.5,
+            "encodedBytes": 949
+          },
+          {
+            "path": "/assets/login-B_chRsY8.css",
+            "startMs": 167.59999990463257,
+            "endMs": 585.2999999523163,
+            "encodedBytes": 2003
+          },
+          {
+            "path": "/csrf-token",
+            "startMs": 4085.5,
+            "endMs": 4252.899999976158,
+            "encodedBytes": 45
+          },
+          {
+            "path": "/getTwoFactorEnable",
+            "startMs": 4255.699999928474,
+            "endMs": 4409.599999904633,
+            "encodedBytes": 28
+          },
+          {
+            "path": "/sponsors",
+            "startMs": 4509,
+            "endMs": 4665.599999904633,
+            "encodedBytes": 38
+          }
+        ],
+        "navigation": [
+          {
+            "encodedBytes": 627
+          }
+        ]
+      },
+      "initialEncodedBytes": 649839,
+      "validation": [
+        "Nombre de Usuario",
+        "Contraseña"
+      ],
+      "validationMs": 502.7999999523163,
+      "hashes": [
+        {
+          "path": "/login",
+          "status": 200,
+          "sha256": "3199d9e6e9307c3437aafd420dff05d800043074052a7902a29c9398102f2b0b"
+        },
+        {
+          "path": "/assets/login-BCy2538H.js",
+          "status": 200,
+          "sha256": "285584fb4ae72f2028c16d9eabfd318e906ac52b1679864b4eb8d0cdf67078ac"
+        },
+        {
+          "path": "/assets/runtime-ChkwtmDx.js",
+          "status": 200,
+          "sha256": "32553f961e53a35fdeb5a6d63b1dffc448f34fb9eee0711be409ae0ffa364383"
+        },
+        {
+          "path": "/assets/vendor-DyRVyn8p.js",
+          "status": 200,
+          "sha256": "a0f17130e5fcb6dc9cd95c3979fa1e4360c32d4fe05a1fad6a610c27c03879e3"
+        },
+        {
+          "path": "/assets/vendor-antd-BryOOFO7.js",
+          "status": 200,
+          "sha256": "d90931fc80479cf590d2a6782d4b4ff4b8a34f3b34c2ed20a303db2a3f29eeed"
+        },
+        {
+          "path": "/assets/vendor-router-C8GXZgJM.js",
+          "status": 200,
+          "sha256": "49364232f08c04b4398728d0fcd3ce9c2270719b82da4e279e9cfcdc3c356987"
+        },
+        {
+          "path": "/assets/known-messages-BTmSODUm.js",
+          "status": 200,
+          "sha256": "f823af709c2be7f0fa5ef0a83d174ed636ef84f2c03abe81129c804a2acf329a"
+        },
+        {
+          "path": "/assets/vendor-react-B5RH17mQ.js",
+          "status": 200,
+          "sha256": "f3fa6e6faa9bcd2e38e3fcfacc638a5f8a627ee48783895be3923ab8b46de755"
+        },
+        {
+          "path": "/assets/vendor-tanstack-CV4fjf0O.js",
+          "status": 200,
+          "sha256": "a18e7f621b43710e5f19faf920c53ba20ec37c37c1174455c6aff184f5ed5291"
+        },
+        {
+          "path": "/assets/menu_theme-DzS54d2p.js",
+          "status": 200,
+          "sha256": "2bd81531fd6b82dc55b0f5ecefeae699c870fa51f18830c427d81c885947996a"
+        },
+        {
+          "path": "/assets/vendor-icons-CxZ_o7z4.js",
+          "status": 200,
+          "sha256": "c4cf3aabfdde396d7629c052dfc51bab1df59628dc052f6a60f61189e72352a7"
+        },
+        {
+          "path": "/assets/pages_login_title-cgJXsM5X.js",
+          "status": 200,
+          "sha256": "dadb01ccaf03a436f404c778028b40735d486e129d042e5d0fd841507d17d84b"
+        },
+        {
+          "path": "/assets/pages_settings_language-CizozoH5.js",
+          "status": 200,
+          "sha256": "9e74fa6c085fdd41697c7748321d568c867d197952e37f559c6e662a615c0465"
+        },
+        {
+          "path": "/assets/username-SG_EyNHW.js",
+          "status": 200,
+          "sha256": "e1edebeb4cd6194d23dc3c2eaf77e1a742fd1c2aca04c9b480327de3761719ea"
+        },
+        {
+          "path": "/assets/password-DTPxsNTu.js",
+          "status": 200,
+          "sha256": "06cdd8cafb0640ff60c5b0ab51b29f97e3383c7ac4afaba177cf0eeb30d6c249"
+        },
+        {
+          "path": "/assets/twofactorcode2-BgDxu6FA.js",
+          "status": 200,
+          "sha256": "f193f2848ead93e227e9908377ad7579872a165e935260e2a76c1a1335a8c09a"
+        },
+        {
+          "path": "/assets/login-LFqfAKZP.js",
+          "status": 200,
+          "sha256": "f6050f19ed04c2e650be496c80de4786a04687ca5f298575f918bb20fbc32678"
+        },
+        {
+          "path": "/assets/rhf-B3UFXU6e.js",
+          "status": 200,
+          "sha256": "0979982c5532594980abdca6c0b6000e43a625c1ada892cc91604d22bb7b5292"
+        },
+        {
+          "path": "/assets/rhfZodValidate-Bp3fy4ge.js",
+          "status": 200,
+          "sha256": "69836012b5ba65107913af8dd2e68ce91df9406d34bd0a873b6afc2109111b14"
+        },
+        {
+          "path": "/assets/queryKeys-B5rr3vbO.js",
+          "status": 200,
+          "sha256": "8bcc6026381c0fa60f68e42ce27aee4a08a94f2a2ceeb7d71898640da5f3dffd"
+        },
+        {
+          "path": "/assets/close-D6RgNseO.js",
+          "status": 200,
+          "sha256": "4269ae263551e0e71fb44b5e5354253ea802254b06604c14273f1c84224bf9eb"
+        },
+        {
+          "path": "/assets/pages_sponsors_visit-Cqi9l15G.js",
+          "status": 200,
+          "sha256": "5393e76629a63c0309440cd16e3b9ca729f658d1c785cb7f1600cf15ec9a0b60"
+        },
+        {
+          "path": "/assets/SponsorSlot-B-S6AzlF.js",
+          "status": 200,
+          "sha256": "2fec3b84c93870f13669673631823dae8c6b2ab1508e9908cbe6b8d3dddd55a2"
+        },
+        {
+          "path": "/assets/login-DOVq6Dig.js",
+          "status": 200,
+          "sha256": "378395ce6a8067fff54c04ed4fd1029589a499e767c08ede1a7b6a025571bc19"
+        },
+        {
+          "path": "/assets/vendor-antd-B5BXDqMa.css",
+          "status": 200,
+          "sha256": "6b734531b94fda9950119646124dccee1ee7e70e91b3e5be988c378ca9f9f98d"
+        },
+        {
+          "path": "/assets/SponsorSlot-CZ6_h2E1.css",
+          "status": 200,
+          "sha256": "7e857a965452b2e4f56d953c57cea2cab71fc8fb2a58dbf48ac660c2bedb8484"
+        },
+        {
+          "path": "/assets/login-B_chRsY8.css",
+          "status": 200,
+          "sha256": "bb7fe234e01ad0b37e43ea4945d1c67e738f83d67b9079d632cf9d165b5b39ce"
+        },
+        {
+          "path": "/csrf-token",
+          "status": 200,
+          "sha256": "02f4c57091d32c280abdd8c6f6abf440a53c3d1461d63c5dfa3fa9a66a19ebf3"
+        },
+        {
+          "path": "/getTwoFactorEnable",
+          "status": 200,
+          "sha256": "79cbe3b05f7b9c8a9b0e00c9d3927f3279365091f329739ec7481d6807639173"
+        },
+        {
+          "path": "/sponsors",
+          "status": 200,
+          "sha256": "5ed2d835a2619f1d1b635d291c7619ca224e942d24d03258dd0666f4ab3fafda"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+diff --git a/src/bundler-plugins/per-locale-build/index.ts b/src/bundler-plugins/per-locale-build/index.ts
+index ac1b927..99b738c 100644
+--- a/src/bundler-plugins/per-locale-build/index.ts
++++ b/src/bundler-plugins/per-locale-build/index.ts
+@@ -74,7 +74,6 @@ function validateExplicitCompilerOptions(
+ 		experimentalMiddlewareLocaleSplitting:
+ 			options.experimentalMiddlewareLocaleSplitting ??
+ 			config?.experimentalMiddlewareLocaleSplitting,
+-		outputStructure: options.outputStructure ?? config?.outputStructure,
+ 	};
+ 	if (explicit.experimentalStaticLocale !== undefined) {
+ 		throw new Error(
+@@ -86,14 +85,6 @@ function validateExplicitCompilerOptions(
+ 			"experimentalPerLocaleBuild cannot be combined with experimentalMiddlewareLocaleSplitting."
+ 		);
+ 	}
+-	if (
+-		explicit.outputStructure !== undefined &&
+-		explicit.outputStructure !== "locale-modules"
+-	) {
+-		throw new Error(
+-			'experimentalPerLocaleBuild requires outputStructure: "locale-modules".'
+-		);
+-	}
+ }
+ 
+ async function loadSettings(
+diff --git a/src/bundler-plugins/vite.test.ts b/src/bundler-plugins/vite.test.ts
+index f97feb0..c78bd00 100644
+--- a/src/bundler-plugins/vite.test.ts
++++ b/src/bundler-plugins/vite.test.ts
+@@ -83,7 +83,7 @@ test("experimentalPerLocaleBuild rejects conflicting compiler options", () => {
+ 			experimentalPerLocaleBuild: true,
+ 			outputStructure: "message-modules",
+ 		})
+-	).toThrow('requires outputStructure: "locale-modules"');
++	).not.toThrow();
+ 	expect(() =>
+ 		paraglideVitePlugin({
+ 			...common,

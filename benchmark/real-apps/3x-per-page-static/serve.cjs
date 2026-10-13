@@ -1,0 +1,14 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const http = require('node:http');
+const {brotliCompressSync,constants} = require('node:zlib');
+if (!process.env.DIST_ROOT) throw Error('DIST_ROOT required');
+const root=path.resolve(process.env.DIST_ROOT), pool=new Map();
+const manifestPath=path.join(root,'paraglide-vite-locales.json');
+const manifest=fs.existsSync(manifestPath)?JSON.parse(fs.readFileSync(manifestPath)):null;
+const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2'};
+function add(key,file){const raw=fs.readFileSync(file), old=pool.get(key);if(old&&!old.raw.equals(raw))throw Error('Asset collision '+key);const ext=path.extname(file);pool.set(key,{raw,body:raw.length>256&&['.html','.js','.css','.json','.svg'].includes(ext)?brotliCompressSync(raw,{params:{[constants.BROTLI_PARAM_QUALITY]:4}}):raw,type:types[ext]||'application/octet-stream'});}
+function walk(dir,prefix='',locale=''){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const key=prefix+e.name,file=path.join(dir,e.name);if(e.isDirectory()){if(e.name!=='.vite')walk(file,key+'/',locale);}else add(e.name.endsWith('.html')&&locale?locale+'/'+key:key,file);}}
+if(manifest){for(const[locale,entry]of Object.entries(manifest.locales))walk(path.join(root,entry.directory),'',locale);}else walk(root);
+const fixtures={'/csrf-token':{success:true,obj:'read-only-test-token'},'/getTwoFactorEnable':{success:true,obj:false},'/sponsors':{success:true,obj:{sponsors:[]}}};
+http.createServer((req,res)=>{const url=new URL(req.url,'http://localhost');if(!['GET','HEAD'].includes(req.method)&&!(req.method==='POST'&&url.pathname==='/getTwoFactorEnable'))return res.writeHead(405).end();if(fixtures[url.pathname])return res.writeHead(200,{'content-type':'application/json'}).end(JSON.stringify(fixtures[url.pathname]));let key=url.pathname==='/login'||url.pathname==='/login/'?'login.html':decodeURIComponent(url.pathname).replace(/^\//,'');let locale;if(manifest&&key.endsWith('.html')){const cookies=Object.fromEntries((req.headers.cookie||'').split(';').map(x=>x.trim().split('=')));locale=Object.hasOwn(manifest.locales,cookies.lang)?cookies.lang:manifest.baseLocale;key=locale+'/'+key;}const entry=pool.get(key);if(!entry)return res.writeHead(404).end('not found');const br=entry.body!==entry.raw&&(req.headers['accept-encoding']||'').includes('br'),body=br?entry.body:entry.raw;res.writeHead(200,{'content-type':entry.type,'content-length':body.length,'cache-control':'no-store',...(br?{'content-encoding':'br','vary':'accept-encoding'}:{}),...(locale?{'content-language':locale}:{})});res.end(req.method==='HEAD'?undefined:body);}).listen(Number(process.env.PORT),'127.0.0.1',()=>console.log(JSON.stringify({port:process.env.PORT,assets:pool.size,root,precompressed:true})));

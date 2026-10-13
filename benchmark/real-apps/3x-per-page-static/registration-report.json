@@ -1,0 +1,706 @@
+{
+  "sourceFiles": 175,
+  "registeredFiles": [
+    {
+      "file": "src/components/clients/ClientHwidList.tsx",
+      "imports": 14
+    },
+    {
+      "file": "src/components/clients/ClientTrafficCell.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/components/clients/ConfigBlock.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/components/command-palette/CommandPalette.tsx",
+      "imports": 46
+    },
+    {
+      "file": "src/components/feedback/PromptModal.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/components/feedback/TextModal.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/components/form/DateTimePicker.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/components/form/HeaderMapEditor.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/components/form/JsonEditor.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/components/form/RemarkTemplateField.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/components/form/RemarkVarPicker.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/components/form/SelectAllClearButtons.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/components/geodata/GeoBrowserModal.tsx",
+      "imports": 17
+    },
+    {
+      "file": "src/components/geodata/GeoTokenInput.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/components/sponsor/SponsorCard.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/components/ui/DefaultSettingTag.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/components/ui/notifications/NotificationHeader.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/layouts/AppSidebar.tsx",
+      "imports": 32
+    },
+    {
+      "file": "src/lib/xray/forms/SniffingFields.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/lib/xray/forms/transport/CustomSockoptList.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/lib/xray/forms/transport/FinalMaskForm.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/lib/xray/forms/transport/XDriveForm.tsx",
+      "imports": 9
+    },
+    {
+      "file": "src/pages/api-docs/ApiDocsPage.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/pages/clients/BulkAddToGroupModal.tsx",
+      "imports": 7
+    },
+    {
+      "file": "src/pages/clients/BulkAttachInboundsModal.tsx",
+      "imports": 8
+    },
+    {
+      "file": "src/pages/clients/BulkDetachInboundsModal.tsx",
+      "imports": 8
+    },
+    {
+      "file": "src/pages/clients/ClientBulkAddModal.tsx",
+      "imports": 31
+    },
+    {
+      "file": "src/pages/clients/ClientBulkAdjustModal.tsx",
+      "imports": 14
+    },
+    {
+      "file": "src/pages/clients/ClientFormModal.tsx",
+      "imports": 78
+    },
+    {
+      "file": "src/pages/clients/ClientInfoModal.tsx",
+      "imports": 46
+    },
+    {
+      "file": "src/pages/clients/ClientQrModal.tsx",
+      "imports": 22
+    },
+    {
+      "file": "src/pages/clients/ClientRenewalFields.tsx",
+      "imports": 28
+    },
+    {
+      "file": "src/pages/clients/ClientsPage.tsx",
+      "imports": 88
+    },
+    {
+      "file": "src/pages/clients/FilterDrawer.tsx",
+      "imports": 21
+    },
+    {
+      "file": "src/pages/clients/RowCells.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/clients/SubLinksModal.tsx",
+      "imports": 14
+    },
+    {
+      "file": "src/pages/groups/GroupAddClientsModal.tsx",
+      "imports": 13
+    },
+    {
+      "file": "src/pages/groups/GroupRemoveClientsModal.tsx",
+      "imports": 11
+    },
+    {
+      "file": "src/pages/groups/GroupsPage.tsx",
+      "imports": 46
+    },
+    {
+      "file": "src/pages/hosts/HostFormModal.tsx",
+      "imports": 47
+    },
+    {
+      "file": "src/pages/hosts/HostList.tsx",
+      "imports": 18
+    },
+    {
+      "file": "src/pages/hosts/HostsPage.tsx",
+      "imports": 10
+    },
+    {
+      "file": "src/pages/inbounds/CloneInboundModal.tsx",
+      "imports": 9
+    },
+    {
+      "file": "src/pages/inbounds/InboundsPage.tsx",
+      "imports": 35
+    },
+    {
+      "file": "src/pages/inbounds/clients/AttachClientsModal.tsx",
+      "imports": 17
+    },
+    {
+      "file": "src/pages/inbounds/clients/AttachExistingClientsModal.tsx",
+      "imports": 16
+    },
+    {
+      "file": "src/pages/inbounds/clients/DetachClientsModal.tsx",
+      "imports": 15
+    },
+    {
+      "file": "src/pages/inbounds/form/FallbacksCard.tsx",
+      "imports": 11
+    },
+    {
+      "file": "src/pages/inbounds/form/InboundFormModal.tsx",
+      "imports": 49
+    },
+    {
+      "file": "src/pages/inbounds/form/SniffingTab.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/accounts-list.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/amneziawg.tsx",
+      "imports": 50
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/http.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/hysteria.tsx",
+      "imports": 12
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/masque.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/mixed.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/mtproto.tsx",
+      "imports": 19
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/shadowsocks.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/tuic.tsx",
+      "imports": 23
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/tun.tsx",
+      "imports": 15
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/tunnel.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/vless.tsx",
+      "imports": 7
+    },
+    {
+      "file": "src/pages/inbounds/form/protocols/wireguard.tsx",
+      "imports": 7
+    },
+    {
+      "file": "src/pages/inbounds/form/security/RealityTargetScannerModal.tsx",
+      "imports": 17
+    },
+    {
+      "file": "src/pages/inbounds/form/security/reality.tsx",
+      "imports": 42
+    },
+    {
+      "file": "src/pages/inbounds/form/security/tls.tsx",
+      "imports": 39
+    },
+    {
+      "file": "src/pages/inbounds/form/transport/grpc.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/pages/inbounds/form/transport/httpupgrade.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/inbounds/form/transport/kcp.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/inbounds/form/transport/raw.tsx",
+      "imports": 10
+    },
+    {
+      "file": "src/pages/inbounds/form/transport/sockopt.tsx",
+      "imports": 22
+    },
+    {
+      "file": "src/pages/inbounds/form/transport/ws.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/inbounds/form/transport/xhttp.tsx",
+      "imports": 33
+    },
+    {
+      "file": "src/pages/inbounds/form/useSecurityActions.ts",
+      "imports": 12
+    },
+    {
+      "file": "src/pages/inbounds/info/InboundInfoModal.tsx",
+      "imports": 66
+    },
+    {
+      "file": "src/pages/inbounds/list/InboundList.tsx",
+      "imports": 15
+    },
+    {
+      "file": "src/pages/inbounds/list/InboundStatsModal.tsx",
+      "imports": 11
+    },
+    {
+      "file": "src/pages/inbounds/list/RowActions.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/pages/inbounds/list/useInboundColumns.tsx",
+      "imports": 18
+    },
+    {
+      "file": "src/pages/inbounds/qr/QrPanel.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/index/AmneziaWGLogModal.tsx",
+      "imports": 15
+    },
+    {
+      "file": "src/pages/index/BackupModal.tsx",
+      "imports": 13
+    },
+    {
+      "file": "src/pages/index/ConnectionsCard.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/pages/index/GeodataSection.tsx",
+      "imports": 17
+    },
+    {
+      "file": "src/pages/index/IndexPage.tsx",
+      "imports": 14
+    },
+    {
+      "file": "src/pages/index/LogModal.tsx",
+      "imports": 9
+    },
+    {
+      "file": "src/pages/index/OverviewActionBar.tsx",
+      "imports": 14
+    },
+    {
+      "file": "src/pages/index/PanelUpdateModal.tsx",
+      "imports": 15
+    },
+    {
+      "file": "src/pages/index/SystemHistoryModal.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/pages/index/SystemStrip.tsx",
+      "imports": 6
+    },
+    {
+      "file": "src/pages/index/ThroughputCard.tsx",
+      "imports": 8
+    },
+    {
+      "file": "src/pages/index/VersionModal.tsx",
+      "imports": 13
+    },
+    {
+      "file": "src/pages/index/XrayLogModal.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/index/XrayMetricsModal.tsx",
+      "imports": 10
+    },
+    {
+      "file": "src/pages/login/LoginPage.tsx",
+      "imports": 8
+    },
+    {
+      "file": "src/pages/nodes/NodeFormModal.tsx",
+      "imports": 51
+    },
+    {
+      "file": "src/pages/nodes/NodeHistoryPanel.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/nodes/NodeList.tsx",
+      "imports": 36
+    },
+    {
+      "file": "src/pages/nodes/NodesPage.tsx",
+      "imports": 33
+    },
+    {
+      "file": "src/pages/settings/DiscordTab.tsx",
+      "imports": 21
+    },
+    {
+      "file": "src/pages/settings/EmailTab.tsx",
+      "imports": 32
+    },
+    {
+      "file": "src/pages/settings/GeneralTab.tsx",
+      "imports": 80
+    },
+    {
+      "file": "src/pages/settings/HappRoutingEditorModal.tsx",
+      "imports": 8
+    },
+    {
+      "file": "src/pages/settings/HappSettingsContent.tsx",
+      "imports": 97
+    },
+    {
+      "file": "src/pages/settings/IncySettingsContent.tsx",
+      "imports": 71
+    },
+    {
+      "file": "src/pages/settings/NotifyTimeField.tsx",
+      "imports": 12
+    },
+    {
+      "file": "src/pages/settings/SecretInput.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/pages/settings/SecurityTab.tsx",
+      "imports": 31
+    },
+    {
+      "file": "src/pages/settings/SettingsPage.tsx",
+      "imports": 13
+    },
+    {
+      "file": "src/pages/settings/SubBalancerFormModal.tsx",
+      "imports": 15
+    },
+    {
+      "file": "src/pages/settings/SubscriptionBalancersTab.tsx",
+      "imports": 31
+    },
+    {
+      "file": "src/pages/settings/SubscriptionFormatsTab.tsx",
+      "imports": 35
+    },
+    {
+      "file": "src/pages/settings/SubscriptionGeneralTab.tsx",
+      "imports": 65
+    },
+    {
+      "file": "src/pages/settings/TelegramTab.tsx",
+      "imports": 21
+    },
+    {
+      "file": "src/pages/settings/TwoFactorModal.tsx",
+      "imports": 9
+    },
+    {
+      "file": "src/pages/sponsors/SponsorsPage.tsx",
+      "imports": 17
+    },
+    {
+      "file": "src/pages/sub/SubAppsTab.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/pages/sub/SubConfigsTab.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/sub/SubHeader.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/pages/sub/SubHero.tsx",
+      "imports": 12
+    },
+    {
+      "file": "src/pages/sub/SubLinksTab.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/sub/SubPage.tsx",
+      "imports": 6
+    },
+    {
+      "file": "src/pages/sub/SubQrButton.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/xray/DeletionImpactList.tsx",
+      "imports": 6
+    },
+    {
+      "file": "src/pages/xray/XrayPage.tsx",
+      "imports": 12
+    },
+    {
+      "file": "src/pages/xray/balancers/BalancerFormModal.tsx",
+      "imports": 28
+    },
+    {
+      "file": "src/pages/xray/balancers/BalancersTab.tsx",
+      "imports": 15
+    },
+    {
+      "file": "src/pages/xray/balancers/ObservatorySettingsTab.tsx",
+      "imports": 23
+    },
+    {
+      "file": "src/pages/xray/basics/BasicsTab.tsx",
+      "imports": 46
+    },
+    {
+      "file": "src/pages/xray/dns/DnsPresetsModal.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/pages/xray/dns/DnsServerModal.tsx",
+      "imports": 22
+    },
+    {
+      "file": "src/pages/xray/dns/DnsTab.tsx",
+      "imports": 29
+    },
+    {
+      "file": "src/pages/xray/dns/useDnsColumns.tsx",
+      "imports": 8
+    },
+    {
+      "file": "src/pages/xray/outbounds/OutboundCardList.tsx",
+      "imports": 9
+    },
+    {
+      "file": "src/pages/xray/outbounds/OutboundFormModal.tsx",
+      "imports": 23
+    },
+    {
+      "file": "src/pages/xray/outbounds/OutboundsTab.tsx",
+      "imports": 63
+    },
+    {
+      "file": "src/pages/xray/outbounds/SubscriptionOutbounds.tsx",
+      "imports": 7
+    },
+    {
+      "file": "src/pages/xray/outbounds/TestResultPopover.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/amneziawg.tsx",
+      "imports": 38
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/blackhole.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/dns.tsx",
+      "imports": 12
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/freedom.tsx",
+      "imports": 24
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/http.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/loopback.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/masque.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/server-target.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/shadowsocks.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/socks.tsx",
+      "imports": 2
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/trojan.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/vless.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/vmess.tsx",
+      "imports": 1
+    },
+    {
+      "file": "src/pages/xray/outbounds/protocols/wireguard.tsx",
+      "imports": 14
+    },
+    {
+      "file": "src/pages/xray/outbounds/security/reality.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/xray/outbounds/security/tls.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/grpc.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/httpupgrade.tsx",
+      "imports": 3
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/hysteria.tsx",
+      "imports": 13
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/kcp.tsx",
+      "imports": 5
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/masque.tsx",
+      "imports": 9
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/mux.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/raw.tsx",
+      "imports": 9
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/sockopt.tsx",
+      "imports": 22
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/ws.tsx",
+      "imports": 4
+    },
+    {
+      "file": "src/pages/xray/outbounds/transport/xhttp.tsx",
+      "imports": 31
+    },
+    {
+      "file": "src/pages/xray/outbounds/useOutboundColumns.tsx",
+      "imports": 16
+    },
+    {
+      "file": "src/pages/xray/overrides/NordModal.tsx",
+      "imports": 19
+    },
+    {
+      "file": "src/pages/xray/overrides/PiaModal.tsx",
+      "imports": 18
+    },
+    {
+      "file": "src/pages/xray/overrides/WarpModal.tsx",
+      "imports": 36
+    },
+    {
+      "file": "src/pages/xray/routing/RouteTester.tsx",
+      "imports": 10
+    },
+    {
+      "file": "src/pages/xray/routing/RoutingBasic.tsx",
+      "imports": 11
+    },
+    {
+      "file": "src/pages/xray/routing/RoutingTab.tsx",
+      "imports": 11
+    },
+    {
+      "file": "src/pages/xray/routing/RuleCardList.tsx",
+      "imports": 7
+    },
+    {
+      "file": "src/pages/xray/routing/RuleFormModal.tsx",
+      "imports": 29
+    },
+    {
+      "file": "src/pages/xray/routing/useRoutingColumns.tsx",
+      "imports": 15
+    },
+    {
+      "file": "src/utils/index.ts",
+      "imports": 1
+    }
+  ],
+  "registeredImports": 2847
+}
