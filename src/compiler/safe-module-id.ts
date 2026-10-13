@@ -28,7 +28,7 @@ export function isSafeModuleId(id: string): boolean {
 	return toSafeModuleId(id) === id;
 }
 
-const reservedJsKeywords = [
+export const reservedJsKeywords = [
 	"break",
 	"case",
 	"catch",

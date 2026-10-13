@@ -190,6 +190,17 @@ test("emitTsDeclarations works with TypeScript 7 (tsgo)", async () => {
 			`
 				import { "greeting.hello" as greetingHello, balance } from "./messages.js";
 
+				${
+					outputStructure === "message-modules"
+						? `import { getMessage } from "./dynamic.js";
+getMessage("greeting.hello") satisfies Promise<string>;
+getMessage("balance", { amount: 5 }) satisfies Promise<string>;
+// @ts-expect-error unknown literal key
+getMessage("missing");
+// @ts-expect-error required input
+getMessage("balance");`
+						: ""
+				}
 				greetingHello() satisfies string;
 				balance({ amount: 5 }) satisfies string;
 			`

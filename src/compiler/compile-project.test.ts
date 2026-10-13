@@ -213,7 +213,9 @@ test("inlines static text and retains only fallback helpers under strict checkJs
 			noImplicitThis: true,
 			noUncheckedIndexedAccess: true,
 			noPropertyAccessFromIndexSignature: true,
-			module: ts.ModuleKind.Node16,
+			target: ts.ScriptTarget.ES2022,
+			module: ts.ModuleKind.ESNext,
+			moduleResolution: ts.ModuleResolutionKind.Bundler,
 			strict: true,
 		},
 	});
@@ -406,8 +408,9 @@ test("emitTsDeclarations generates declaration files", async () => {
 	const tsProject = await typescriptProject({
 		useInMemoryFileSystem: true,
 		compilerOptions: {
-			module: ts.ModuleKind.Node16,
-			moduleResolution: ts.ModuleResolutionKind.Node16,
+			target: ts.ScriptTarget.ES2022,
+			module: ts.ModuleKind.ESNext,
+			moduleResolution: ts.ModuleResolutionKind.Bundler,
 			strict: true,
 		},
 	});
@@ -491,8 +494,9 @@ test("emitTsDeclarations quotes unsafe export aliases", async () => {
 		const tsProject = await typescriptProject({
 			useInMemoryFileSystem: true,
 			compilerOptions: {
-				module: ts.ModuleKind.Node16,
-				moduleResolution: ts.ModuleResolutionKind.Node16,
+				target: ts.ScriptTarget.ES2022,
+				module: ts.ModuleKind.ESNext,
+				moduleResolution: ts.ModuleResolutionKind.Bundler,
 				strict: true,
 			},
 		});
@@ -1267,7 +1271,9 @@ describe.each([
 				noImplicitThis: true,
 				noUncheckedIndexedAccess: true,
 				noPropertyAccessFromIndexSignature: true,
-				module: ts.ModuleKind.Node16,
+				target: ts.ScriptTarget.ES2022,
+				module: ts.ModuleKind.ESNext,
+				moduleResolution: ts.ModuleResolutionKind.Bundler,
 				strict: true,
 			};
 
@@ -2655,7 +2661,9 @@ describe.each([
 					noImplicitThis: true,
 					noUncheckedIndexedAccess: true,
 					noPropertyAccessFromIndexSignature: true,
-					module: ts.ModuleKind.Node16,
+					target: ts.ScriptTarget.ES2022,
+					module: ts.ModuleKind.ESNext,
+					moduleResolution: ts.ModuleResolutionKind.Bundler,
 					strict: true,
 				},
 			});

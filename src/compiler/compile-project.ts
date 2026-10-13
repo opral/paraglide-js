@@ -11,6 +11,7 @@ import { createRuntimeFile } from "./runtime/create-runtime.js";
 import { createServerFile } from "./server/create-server-file.js";
 import { createRegistry } from "./registry.js";
 import { emitTsDeclarations } from "./emit-ts-declarations.js";
+import { createDynamicFile } from "./create-dynamic.js";
 import { createReadme } from "./create-readme.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 
@@ -55,6 +56,8 @@ export const compileProject = async (args: {
 			bundle,
 			fallbackMap,
 			inlineMessages: optionsWithDefaults.outputStructure === "message-modules",
+			dynamicImportSafe:
+				optionsWithDefaults.outputStructure === "message-modules",
 			messageReferenceExpression: outputStructure.messageReferenceExpression,
 			settings,
 			experimentalMiddlewareLocaleSplitting:
@@ -92,6 +95,10 @@ export const compileProject = async (args: {
 		)
 	);
 
+	if (optionsWithDefaults.outputStructure === "message-modules") {
+		output["dynamic.js"] = createDynamicFile();
+	}
+
 	if (optionsWithDefaults.emitGitIgnore) {
 		output[".gitignore"] = ignoreDirectory;
 	}
@@ -104,6 +111,8 @@ export const compileProject = async (args: {
 		output["README.md"] = createReadme({
 			projectPath: args.projectPath,
 			gitignored: optionsWithDefaults.emitGitIgnore,
+			dynamicMessages:
+				optionsWithDefaults.outputStructure === "message-modules",
 		});
 	}
 

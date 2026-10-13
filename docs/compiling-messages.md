@@ -208,11 +208,11 @@ The compiler generates the following file structure in your `outdir`:
 ```
 paraglide/
   messages/
-    hello_world/        # One folder per message (default structure)
-      index.js
-      en.js
-      de.js
+    hello_world.js      # One module per message, containing its locale variants
+    _index.js           # Message exports
   messages.js           # Re-exports all message functions
+  dynamic.js            # Native ESM getMessage() (message-modules only)
+  registry.js           # Shared formatting helpers
   runtime.js            # Locale management (getLocale, setLocale, etc.)
   server.js             # Server middleware (paraglideMiddleware)
   .gitignore            # Ignores generated files

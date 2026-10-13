@@ -17,7 +17,7 @@ export function generateOutput(
 ): Record<string, string> {
 	const output: Record<string, string> = {};
 
-	const moduleFilenames = new Set<string>();
+	const moduleExports = new Map<string, string>();
 
 	for (const compiledBundle of compiledBundles) {
 		const bundleId = compiledBundle.bundle.node.id;
@@ -35,7 +35,18 @@ export function generateOutput(
 		// bundle file
 		const filename = `messages/${safeModuleId}.js`;
 
-		moduleFilenames.add(`${safeModuleId}.js`);
+		if (safeModuleId === "_index") {
+			throw new Error(
+				`Message ID ${JSON.stringify(bundleId)} maps to the reserved module filename: _index.js`
+			);
+		}
+		const previous = moduleExports.get(`${safeModuleId}.js`);
+		if (previous !== undefined) {
+			throw new Error(
+				`Message IDs ${JSON.stringify(previous)} and ${JSON.stringify(bundleId)} map to the same module filename: ${safeModuleId}.js`
+			);
+		}
+		moduleExports.set(`${safeModuleId}.js`, bundleId);
 
 		// create fresh bundle file
 		output[filename] = compiledBundle.bundle.code;
@@ -138,8 +149,12 @@ export function generateOutput(
 	// all messages index file
 	output["messages/_index.js"] =
 		`/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */\n` +
-		Array.from(moduleFilenames)
-			.map((filename) => `export * from './${filename}'`)
+		Array.from(moduleExports)
+			.map(([filename, bundleId]) =>
+				bundleId === "then"
+					? `export { __paraglide_then as then } from './${filename}'`
+					: `export * from './${filename}'`
+			)
 			.join("\n");
 
 	return output;

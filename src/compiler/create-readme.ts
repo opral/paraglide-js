@@ -9,6 +9,7 @@ export function createReadme(args: {
 	projectPath?: string;
 	/** Whether the output also contains a `.gitignore` that ignores it. */
 	gitignored?: boolean;
+	dynamicMessages?: boolean;
 }): string {
 	const compiledFromLine = args.projectPath
 		? `\nCompiled from: \`${args.projectPath}\`\n`
@@ -71,7 +72,15 @@ locales;            // e.g. ["en", "de"]
 getTextDirection(); // "ltr" | "rtl"
 \`\`\`
 
-## Strategy and localized URLs
+${
+	args.dynamicMessages
+		? `## On-demand messages
+
+Import getMessage from dynamic.js to load a key asynchronously using the existing messages/ files. Deploy this folder as native ES modules with its relative layout preserved. Computed imports do not make bundlers emit these files automatically. See [dynamic messages](https://paraglidejs.com/basics#dynamic-messages).
+
+`
+		: ""
+}## Strategy and localized URLs
 
 The compiler option \`strategy\` is an ordered list of how the locale is detected and stored; the first strategy that resolves a locale wins (default \`["cookie", "globalVariable", "baseLocale"]\`). Options include \`"url"\` (localized URLs such as \`/de/about\`), \`"cookie"\`, \`"localStorage"\`, \`"preferredLanguage"\`, \`"globalVariable"\`, \`"baseLocale"\` and \`"custom-*"\`. See [strategy](https://paraglidejs.com/strategy) and [i18n routing](https://paraglidejs.com/i18n-routing).
 

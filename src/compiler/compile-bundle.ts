@@ -44,6 +44,8 @@ export const compileBundle = (args: {
 	settings?: ProjectSettings;
 	/** Internal layout control; locale modules keep text grouped by language. */
 	inlineMessages?: boolean;
+	/** Export then under a safe name for native dynamic imports. */
+	dynamicImportSafe?: boolean;
 	experimentalMiddlewareLocaleSplitting?: boolean;
 	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 }): CompiledBundleWithMessages => {
@@ -83,6 +85,7 @@ export const compileBundle = (args: {
 
 	return {
 		bundle: compileBundleFunction({
+			dynamicImportSafe: args.dynamicImportSafe,
 			bundle: args.bundle,
 			availableLocales: Object.keys(args.fallbackMap),
 			messageReferenceExpression: args.messageReferenceExpression,
@@ -160,6 +163,7 @@ function findUnreferencedMessageLocales(args: {
 }
 
 const compileBundleFunction = (args: {
+	dynamicImportSafe?: boolean;
 	/**
 	 * The bundle to compile
 	 */
@@ -377,7 +381,10 @@ ${localeResolutionStatement("\t\t\t\t")}
 	}
 
 	if (isSafeBundleId === false) {
-		code += `\nexport { ${safeBundleId} as "${escapeForDoubleQuoteString(args.bundle.id)}" }`;
+		code +=
+			args.dynamicImportSafe && args.bundle.id === "then"
+				? `\nexport { ${safeBundleId} as __paraglide_then }`
+				: `\nexport { ${safeBundleId} as "${escapeForDoubleQuoteString(args.bundle.id)}" }`;
 	}
 
 	return {
