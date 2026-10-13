@@ -1,5 +1,7 @@
 import { mkdtemp, rm, writeFile, mkdir } from "node:fs/promises";
 import * as nodeFs from "node:fs/promises";
+import fs from "node:fs";
+import { EventEmitter } from "node:events";
 import { tmpdir } from "node:os";
 import consola from "consola";
 import path, { resolve } from "node:path";
@@ -7,20 +9,78 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
 let testDirectories: string[] = [];
 let initialSigintListeners: NodeJS.SignalsListener[] = [];
+let watchers = new Map<string, Set<TestWatcher>>();
+
+// Test CLI event handling with real config files and controlled watch delivery.
+// fs.watch does not guarantee event timing, filenames, or one event per write.
+class TestWatcher extends EventEmitter implements fs.FSWatcher {
+	constructor(private readonly onClose: () => void) {
+		super();
+	}
+	close() {
+		this.onClose();
+		this.removeAllListeners();
+	}
+	ref() {
+		return this;
+	}
+	unref() {
+		return this;
+	}
+}
+
+function notifyChange(
+	directory: string,
+	filename: string | null,
+	event: "change" | "rename" = "change"
+) {
+	const current = watchers.get(path.resolve(directory));
+	expect(current?.size).toBeGreaterThan(0);
+	for (const watcher of current ?? []) watcher.emit("change", event, filename);
+}
 
 beforeEach(() => {
 	vi.resetModules();
 	testDirectories = [];
 	initialSigintListeners = process.listeners("SIGINT");
+	watchers = new Map();
+	vi.spyOn(fs, "watch").mockImplementation(
+		(
+			filename: fs.PathLike,
+			options?:
+				| fs.WatchOptions
+				| BufferEncoding
+				| fs.WatchListener<string>
+				| fs.WatchListener<Buffer>
+				| null,
+			listener?: fs.WatchListener<string> | fs.WatchListener<Buffer>
+		) => {
+			const target = path.resolve(String(filename));
+			const current = watchers.get(target) ?? new Set<TestWatcher>();
+			watchers.set(target, current);
+			const watcher = new TestWatcher(() => current.delete(watcher));
+			const callback = typeof options === "function" ? options : listener;
+			if (callback) watcher.on("change", callback);
+			current.add(watcher);
+			return watcher;
+		}
+	);
 });
 
 afterEach(async () => {
-	vi.restoreAllMocks();
+	// Stop each CLI instance before deleting fixtures or restoring its mocks.
+	vi.spyOn(process, "exit").mockImplementation(() => undefined as never);
 	for (const listener of process.listeners("SIGINT")) {
 		if (!initialSigintListeners.includes(listener)) {
+			listener("SIGINT");
 			process.removeListener("SIGINT", listener);
 		}
 	}
+	for (const current of watchers.values()) {
+		for (const watcher of current) watcher.close();
+	}
+	vi.useRealTimers();
+	vi.restoreAllMocks();
 	for (const directory of testDirectories) {
 		await rm(directory, { recursive: true, force: true });
 	}
@@ -161,9 +221,8 @@ test("compile --watch seeds existing outdir and disables cleaning on first compi
 	const testDirectory = await mkdtemp(path.join(tmpdir(), "paraglide-cli-"));
 	testDirectories.push(testDirectory);
 	const outdir = path.join(testDirectory, "output");
-	const { writeOutput } = await import(
-		"../../../services/file-handling/write-output.js"
-	);
+	const { writeOutput } =
+		await import("../../../services/file-handling/write-output.js");
 	await writeOutput({
 		directory: outdir,
 		output: {
@@ -380,6 +439,7 @@ describe("config file integration", () => {
 		expect(compileMock.mock.calls[0]![0].outdir).toBe(outdir);
 
 		await rm(configPath);
+		notifyChange(projectDir, "paraglide.config.ts", "rename");
 
 		const deadline = Date.now() + 10_000;
 		while (compileMock.mock.calls.length < 2 && Date.now() < deadline) {
@@ -397,6 +457,7 @@ describe("config file integration", () => {
 
 		// Recreating the config with a different outdir is picked up again.
 		await writeConfig(projectDir, path.join(workspace, "recreated"));
+		notifyChange(projectDir, "paraglide.config.ts", "rename");
 		const recreateDeadline = Date.now() + 10_000;
 		while (
 			Date.now() < recreateDeadline &&
@@ -435,6 +496,7 @@ describe("config file integration", () => {
 		expect(compileMock).toHaveBeenCalledTimes(1);
 
 		await writeFile(path.join(projectDir, "es.json"), "{}");
+		notifyChange(projectDir, "es.json", "rename");
 
 		const deadline = Date.now() + 10_000;
 		while (compileMock.mock.calls.length < 2 && Date.now() < deadline) {
@@ -472,6 +534,8 @@ describe("config file integration", () => {
 				"\n"
 			)
 		);
+		notifyChange(projectDir, "paraglide.config.ts", "rename");
+		notifyChange(projectDir, "paraglide.config.js", "rename");
 
 		const deadline = Date.now() + 10_000;
 		while (
@@ -525,16 +589,60 @@ describe("config file integration", () => {
 			expect(loadCount).toBe(1);
 
 			await writeFile(path.join(projectDir, "README.md"), "hello");
-			await new Promise((r) => setTimeout(r, 1_000));
+			notifyChange(projectDir, "README.md");
+			await vi.waitFor(() =>
+				expect(compileModule.compile).toHaveBeenCalledTimes(2)
+			);
 			await writeFile(path.join(projectDir, "notes.txt"), "world");
-			await new Promise((r) => setTimeout(r, 1_500));
+			notifyChange(projectDir, "notes.txt");
+			await vi.waitFor(() =>
+				expect(compileModule.compile).toHaveBeenCalledTimes(3)
+			);
 
 			expect(compileModule.compile.mock.calls.length).toBeGreaterThanOrEqual(3);
 			expect(loadCount).toBe(1);
+
+			// A missing filename is ambiguous and must conservatively refresh config.
+			notifyChange(projectDir, null);
+			await vi.waitFor(() =>
+				expect(compileModule.compile).toHaveBeenCalledTimes(4)
+			);
+			expect(loadCount).toBe(2);
 		} finally {
 			vi.doUnmock("../../../services/config/index.js");
 		}
 	});
+});
+
+test("watch shutdown cancels queued rebuilds and ignores late events", async () => {
+	const { workspace, projectDir } = await createWorkspace();
+	await writeConfig(projectDir, path.join(workspace, "output"));
+	const compileMock = vi.fn().mockResolvedValue({ outputHashes: {} });
+	vi.doMock("../../../compiler/compile.js", () => ({ compile: compileMock }));
+	const { compileCommand } = await import("./command.js");
+	await compileCommand.parseAsync(
+		["--project", projectDir, "--watch", "--silent", "--no-clean-outdir"],
+		{ from: "user" }
+	);
+	const watcher = [...watchers.get(path.resolve(projectDir))!][0]!;
+	const lateEvent = watcher.listeners("change")[0]!;
+	vi.useFakeTimers();
+	notifyChange(projectDir, "notes.txt");
+	const exit = vi
+		.spyOn(process, "exit")
+		.mockImplementation(() => undefined as never);
+	const stop = process
+		.listeners("SIGINT")
+		.find((listener) => !initialSigintListeners.includes(listener));
+	expect(stop).toBeDefined();
+	stop!("SIGINT");
+	lateEvent("change", "notes.txt");
+	await vi.advanceTimersByTimeAsync(500);
+	expect(exit).toHaveBeenCalledWith(0);
+	expect(compileMock).toHaveBeenCalledTimes(1);
+	expect([...watchers.values()].every((current) => current.size === 0)).toBe(
+		true
+	);
 });
 
 test("compile --watch forwards the newly exposed compiler options (#757)", async () => {

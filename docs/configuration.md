@@ -107,6 +107,12 @@ When things go wrong:
   as if there had never been a config. Recreating any config file is picked
   up again.
 
+In Vite development mode, compilation and config errors also appear in the
+Vite's error overlay, including in tabs opened while an error is pending.
+After both compilation and config loading recover, the plugin requests a page
+reload to clear the overlay. This reload discards client state and can occur
+alongside Vite's normal file updates.
+
 One limitation: esbuild does not support registering additional watch
 files, so config changes require an esbuild process restart.
 

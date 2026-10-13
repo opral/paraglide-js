@@ -60,29 +60,43 @@ export async function compile(
 				fs,
 			});
 
-			const output = await compileProject({
-				compilerOptions: withDefaultOptions,
-				project,
-				projectPath: withDefaultOptions.project,
-			});
+			let failed = false;
+			try {
+				const output = await compileProject({
+					compilerOptions: withDefaultOptions,
+					project,
+					projectPath: withDefaultOptions.project,
+				});
 
-			const outputHashes = await writeOutput({
-				directory: absoluteOutdir,
-				output,
-				cleanDirectory: withDefaultOptions.cleanOutdir,
-				fs: fs.promises,
-				previousOutputHashes: options.previousCompilation?.outputHashes,
-			});
+				const outputHashes = await writeOutput({
+					directory: absoluteOutdir,
+					output,
+					cleanDirectory: withDefaultOptions.cleanOutdir,
+					fs: fs.promises,
+					previousOutputHashes: options.previousCompilation?.outputHashes,
+				});
 
-			const warningsAndErrors = await project.errors.get();
+				const warningsAndErrors = await project.errors.get();
 
-			for (const warningOrError of warningsAndErrors) {
-				logger.warn(warningOrError);
+				for (const warningOrError of warningsAndErrors) {
+					logger.warn(warningOrError);
+				}
+
+				return { outputHashes };
+			} catch (error) {
+				failed = true;
+				throw error;
+			} finally {
+				try {
+					await project.close();
+				} catch (error) {
+					// Closing must fail an otherwise successful compilation.
+					// eslint-disable-next-line no-unsafe-finally
+					if (!failed) throw error;
+					// Keep the actionable compile/write error if cleanup also fails.
+					logger.warn("Failed to close project:", error);
+				}
 			}
-
-			await project.close();
-
-			return { outputHashes };
 		} catch (e) {
 			// release the lock in case of an error
 			compilationInProgress = null;

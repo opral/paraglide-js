@@ -212,3 +212,32 @@ test("returns undefined if the locale is not defined in the locales", async () =
 	const locale = runtime.extractLocaleFromCookie();
 	expect(locale).toBeUndefined();
 });
+
+// sandboxed iframes without allow-same-origin have an opaque origin and throw
+// a SecurityError when document.cookie is read
+test("returns undefined if reading document.cookie throws", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["cookie"],
+		cookieName: "PARAGLIDE_LOCALE",
+	});
+
+	let cookieReadCount = 0;
+	// @ts-expect-error - global variable definition
+	globalThis.document = {
+		get cookie(): string {
+			cookieReadCount += 1;
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+	};
+
+	expect(runtime.extractLocaleFromCookie()).toBeUndefined();
+	expect(runtime.extractLocaleFromCookie()).toBeUndefined();
+	// a failed read is not cached
+	expect(cookieReadCount).toBe(2);
+});

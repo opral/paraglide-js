@@ -2,7 +2,7 @@
 
 > **paraglideMiddleware**\<`T`\>(`request`, `resolve`, `options?`): `Promise`\<`Response`\>
 
-Defined in: [server/middleware.js:94](https://github.com/opral/paraglide-js/tree/main/src/compiler/server/middleware.js)
+Defined in: [server/middleware.js:99](https://github.com/opral/paraglide-js/tree/main/src/compiler/server/middleware.js)
 
 Server middleware that handles locale-based routing and request processing.
 
@@ -15,13 +15,13 @@ guarantee request isolation.
 This middleware performs several key functions:
 
 1. Determines the locale for the incoming request using configured strategies
-2. Handles URL localization and redirects (only for document requests)
+2. Handles URL localization and redirects (only for document requests by default)
 3. Maintains locale state using AsyncLocalStorage to prevent request interference
 
 When URL strategy is used:
 
 - The locale is extracted from the URL for all request types
-- If URL doesn't match the determined locale, redirects to localized URL (only for document requests)
+- If URL doesn't match the determined locale, redirects to localized URL (only for document requests by default)
 - De-localizes URLs before passing to server (e.g., `/fr/about` → `/about`)
 
 ### Type Parameters
@@ -53,6 +53,10 @@ Function to handle the request. The callback receives:
 #### options?
 
 Options to control middleware behavior. `effectiveRequestUrl` sets the effective request URL used for route matching, URL-based locale detection, redirects, and `getUrlOrigin()`.
+  `redirect` defaults to `"document"`, which requires `Sec-Fetch-Dest: document`.
+  Unrecognized values keep that default behavior.
+  `"navigation"` only redirects GET/HEAD requests, accepting either that destination
+  or an absent destination with an explicit `Accept` header that allows `text/html`.
 
 ##### effectiveRequestUrl?
 
@@ -61,6 +65,10 @@ Options to control middleware behavior. `effectiveRequestUrl` sets the effective
 ##### onRedirect?
 
 (`response`) => `void`
+
+##### redirect?
+
+`"document"` \| `"navigation"`
 
 ### Returns
 

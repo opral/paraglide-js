@@ -211,6 +211,47 @@ export type CompilerOptions = {
 	 */
 	cookieDomain?: string;
 	/**
+	 * The `SameSite` attribute of the cookie.
+	 *
+	 * If undefined, the attribute is omitted and the browser applies its own default.
+	 * Set it when the cookie must match a policy, for example the one a server uses
+	 * when it writes the same cookie with `Set-Cookie`.
+	 *
+	 * `"none"` requires `cookieSecure` to be `true` or `"auto"` because browsers
+	 * reject `SameSite=None` cookies without the `Secure` attribute. With `"auto"`,
+	 * the cookie is still dropped on plain `http://` pages.
+	 *
+	 * @example
+	 * ```ts
+	 * cookieSameSite: "lax" // Cookie: "PARAGLIDE_LOCALE=en; path=/; max-age=34560000; samesite=lax"
+	 * ```
+	 *
+	 * @default undefined (no samesite attribute)
+	 */
+	cookieSameSite?: "lax" | "strict" | "none";
+	/**
+	 * Whether the cookie gets the `Secure` attribute.
+	 *
+	 * - `true` always adds it. Pages served over plain `http://` cannot set a
+	 *   `Secure` cookie, except on `localhost`.
+	 * - `"auto"` adds it only when the page is served over `https:`, so the cookie
+	 *   keeps working on plain `http://` hosts other than localhost, like a LAN IP
+	 *   or an internal staging server. With `cookieSameSite: "none"`, the cookie
+	 *   still needs `https:`.
+	 * - `false` never adds it.
+	 *
+	 * Server code that reads `cookieSecure` from the runtime has to resolve `"auto"`
+	 * itself, for example from the request protocol or `X-Forwarded-Proto`.
+	 *
+	 * @example
+	 * ```ts
+	 * cookieSecure: "auto" // on https: "PARAGLIDE_LOCALE=en; path=/; max-age=34560000; secure"
+	 * ```
+	 *
+	 * @default false
+	 */
+	cookieSecure?: boolean | "auto";
+	/**
 	 * The `additionalFiles` option is an array of paths to additional files that should be copied to the output directory.
 	 *
 	 * @example

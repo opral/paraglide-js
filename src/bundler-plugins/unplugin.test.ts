@@ -3,6 +3,7 @@ import consola from "consola";
 import { memfs } from "memfs";
 import path from "node:path";
 import realFs from "node:fs";
+import type { HotPayload, ViteDevServer } from "vite";
 import {
 	loadProjectInMemory,
 	newProject,
@@ -60,7 +61,9 @@ async function createProjectFixture(
 }> {
 	const { mkdtemp, mkdir, writeFile } = await import("node:fs/promises");
 	const { tmpdir } = await import("node:os");
-	const workspace = await mkdtemp(path.join(tmpdir(), "paraglide-plugin-"));
+	const workspace = realFs.realpathSync(
+		await mkdtemp(path.join(tmpdir(), "paraglide-plugin-"))
+	);
 	testDirectories.push(workspace);
 	const projectDir = path.join(workspace, "project.inlang");
 	await mkdir(projectDir, { recursive: true });
@@ -107,6 +110,437 @@ function setViteRoot(plugin: any, root: string): void {
 }
 
 const mockContext = { addWatchFile: () => {} };
+
+function configureViteServer(plugin: any) {
+	const ws = {
+		send: vi.fn(),
+		clients: new Set([{}]),
+		on: vi.fn(),
+	};
+	plugin.configureServer?.({ ws });
+	return ws;
+}
+
+async function connectViteClient(server: ViteDevServer) {
+	const url = new URL(server.resolvedUrls!.local[0]!);
+	url.protocol = "ws:";
+	url.searchParams.set("token", server.config.webSocketToken);
+	const socket = new WebSocket(url, "vite-hmr");
+	const messages: HotPayload[] = [];
+	socket.addEventListener("message", (event) => {
+		messages.push(JSON.parse(String(event.data)));
+	});
+	await vi.waitFor(() => {
+		expect(messages).toContainEqual({ type: "connected" });
+	});
+	// A message sent after connection callbacks provides a transport barrier.
+	server.ws.send({ type: "custom", event: "paraglide:test-barrier" });
+	await vi.waitFor(() => {
+		expect(messages).toContainEqual({
+			type: "custom",
+			event: "paraglide:test-barrier",
+		});
+	});
+	return { socket, messages };
+}
+
+async function startOverlayServer(invalidSettings = false) {
+	process.env.NODE_ENV = "development";
+	const { createServer } = await import("vite");
+	const { paraglideVitePlugin } = await import("./vite.js");
+	const fixture = await createProjectFixture();
+	const { workspace, projectDir, outdir } = fixture;
+	const file = path.join(projectDir, "settings.json");
+	const original = await realFs.promises.readFile(file, "utf8");
+	if (invalidSettings) await realFs.promises.writeFile(file, "{");
+	await realFs.promises.writeFile(
+		path.join(workspace, "index.html"),
+		"<html><body>Translation preview</body></html>"
+	);
+	const server = await createServer({
+		root: workspace,
+		configFile: false,
+		logLevel: "silent",
+		plugins: [paraglideVitePlugin({ project: projectDir, outdir })],
+		server: { host: "127.0.0.1", port: 0, watch: null },
+		optimizeDeps: { noDiscovery: true, include: [] },
+	});
+	try {
+		await server.listen();
+	} catch (error) {
+		await server.close();
+		throw error;
+	}
+	return { ...fixture, server, file, original };
+}
+
+test.each(["settings", "config"])(
+	"vite error overlay reports invalid %s at startup and clears after recovery",
+	async (source) => {
+		process.env.NODE_ENV = "development";
+		const { projectDir, outdir } = await createProjectFixture();
+		const file = path.join(
+			projectDir,
+			source === "settings" ? "settings.json" : "paraglide.config.js"
+		);
+		const original = await realFs.promises.readFile(file, "utf8");
+		await realFs.promises.writeFile(
+			file,
+			source === "settings" ? "{" : "export default { outdir: 42 }"
+		);
+		const { paraglideVitePlugin } = await import("./vite.js");
+		const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		const { send } = configureViteServer(plugin);
+
+		await expect(plugin.buildStart.call(mockContext)).resolves.toBeUndefined();
+		expect(send).toHaveBeenCalledWith({
+			type: "error",
+			err: {
+				message: expect.any(String),
+				stack: expect.any(String),
+				plugin: "unplugin-paraglide-js",
+			},
+		});
+		expect(send.mock.calls[0]![0].err.message.length).toBeGreaterThan(0);
+
+		await realFs.promises.writeFile(file, original);
+		await plugin.watchChange.call(mockContext, file);
+		expect(send).toHaveBeenLastCalledWith({ type: "full-reload" });
+		expect(await realFs.promises.readdir(outdir)).toContain("runtime.js");
+	}
+);
+
+test.each(["settings", "config"])(
+	"vite error overlay recovers from invalid %s and preserves the last output until recovery",
+	async (source) => {
+		process.env.NODE_ENV = "development";
+		const { projectDir, outdir } = await createProjectFixture();
+		const { paraglideVitePlugin } = await import("./vite.js");
+		const writeFile = vi.spyOn(realFs.promises, "writeFile");
+		const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		const { send } = configureViteServer(plugin);
+		await plugin.buildStart.call(mockContext);
+		expect(send).not.toHaveBeenCalled();
+		const runtime = await realFs.promises.readFile(
+			path.join(outdir, "runtime.js"),
+			"utf8"
+		);
+		const file = path.join(
+			projectDir,
+			source === "settings" ? "settings.json" : "paraglide.config.js"
+		);
+		const original = await realFs.promises.readFile(file, "utf8");
+		await realFs.promises.writeFile(
+			file,
+			source === "settings" ? "{" : "export default { outdir: 42 }"
+		);
+		await expect(
+			plugin.watchChange.call(mockContext, file)
+		).resolves.toBeUndefined();
+		expect(send).toHaveBeenLastCalledWith({
+			type: "error",
+			err: expect.objectContaining({ message: expect.any(String) }),
+		});
+		expect(
+			await realFs.promises.readFile(path.join(outdir, "runtime.js"), "utf8")
+		).toBe(runtime);
+
+		await plugin.watchChange.call(mockContext, path.join(outdir, "runtime.js"));
+		expect(send).toHaveBeenCalledTimes(1);
+		await realFs.promises.writeFile(file, original);
+		writeFile.mockClear();
+		await plugin.watchChange.call(mockContext, file);
+		expect(send).toHaveBeenLastCalledWith({ type: "full-reload" });
+		const outputWrites = writeFile.mock.calls.filter(([file]) =>
+			String(file).startsWith(outdir)
+		);
+		if (source === "config") {
+			expect(outputWrites).toHaveLength(0);
+		} else {
+			expect(outputWrites.length).toBeGreaterThan(0);
+		}
+		await plugin.watchChange.call(mockContext, file);
+		expect(send).toHaveBeenCalledTimes(2);
+	}
+);
+
+test("vite error overlay prevents generated HMR while the config remains invalid", async () => {
+	const { server, workspace, projectDir, outdir, file, original } =
+		await startOverlayServer();
+	try {
+		const main = path.join(workspace, "main.js");
+		await realFs.promises.writeFile(
+			main,
+			"import './test-output/runtime.js'; import.meta.hot.accept(); import.meta.hot.accept('./test-output/runtime.js', () => {});"
+		);
+		await server.transformRequest("/main.js");
+		await server.transformRequest("/test-output/runtime.js");
+		const client = await connectViteClient(server);
+		server.watcher.emit("change", main);
+		await vi.waitFor(() =>
+			expect(client.messages.some((message) => message.type === "update")).toBe(
+				true
+			)
+		);
+		await server.transformRequest("/main.js");
+
+		const configFile = path.join(projectDir, "paraglide.config.js");
+		const config = await realFs.promises.readFile(configFile, "utf8");
+		await realFs.promises.writeFile(
+			configFile,
+			"export default { outdir: 42 }"
+		);
+		await server.pluginContainer.watchChange(configFile, { event: "update" });
+		await vi.waitFor(() =>
+			expect(client.messages.some((message) => message.type === "error")).toBe(
+				true
+			)
+		);
+		const runtimeFile = path.join(outdir, "runtime.js");
+		const outputBefore = await realFs.promises.readFile(runtimeFile, "utf8");
+		const settings = JSON.parse(original);
+		settings.locales.push("fr");
+		await realFs.promises.writeFile(file, JSON.stringify(settings));
+		await server.pluginContainer.watchChange(file, { event: "update" });
+		const outputAfter = await realFs.promises.readFile(runtimeFile, "utf8");
+		// The fixture disables file watching; deliver the event a changed output produces.
+		if (outputAfter !== outputBefore) {
+			server.watcher.emit("change", runtimeFile);
+			await vi.waitFor(() =>
+				expect(
+					client.messages.filter((message) => message.type === "update")
+				).toHaveLength(2)
+			);
+		}
+		server.ws.send({ type: "custom", event: "paraglide:input-processed" });
+		await vi.waitFor(() =>
+			expect(client.messages).toContainEqual({
+				type: "custom",
+				event: "paraglide:input-processed",
+			})
+		);
+		expect(
+			client.messages
+				.filter((message) =>
+					["update", "error", "full-reload"].includes(message.type)
+				)
+				.at(-1)?.type
+		).toBe("error");
+		expect(outputAfter).toBe(outputBefore);
+		expect((await fetch(server.resolvedUrls!.local[0]!)).status).toBe(200);
+
+		await realFs.promises.writeFile(configFile, config);
+		await server.pluginContainer.watchChange(configFile, { event: "update" });
+		await vi.waitFor(() =>
+			expect(client.messages).toContainEqual({ type: "full-reload" })
+		);
+		expect(await realFs.promises.readFile(runtimeFile, "utf8")).not.toBe(
+			outputBefore
+		);
+	} finally {
+		await server.close();
+	}
+});
+
+test("vite error overlay still reports failures after restarting an inline plugin", async () => {
+	const { server, file } = await startOverlayServer();
+	try {
+		await server.restart();
+		const client = await connectViteClient(server);
+		await realFs.promises.writeFile(file, "{");
+		await server.pluginContainer.watchChange(file, { event: "update" });
+		await vi.waitFor(() =>
+			expect(client.messages.some((message) => message.type === "error")).toBe(
+				true
+			)
+		);
+	} finally {
+		await server.close();
+	}
+});
+
+test("vite error overlay retains errors without buffering them in Vite", async () => {
+	process.env.NODE_ENV = "development";
+	const { projectDir, outdir } = await createProjectFixture();
+	const file = path.join(projectDir, "settings.json");
+	const original = await realFs.promises.readFile(file, "utf8");
+	await realFs.promises.writeFile(file, "{");
+	const { paraglideVitePlugin } = await import("./vite.js");
+	const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+	const ws = configureViteServer(plugin);
+	ws.clients.clear();
+	await plugin.buildStart.call(mockContext);
+	expect(ws.send).not.toHaveBeenCalled();
+	expect(ws.on).toHaveBeenCalledWith("connection", expect.any(Function));
+	const onConnection = ws.on.mock.calls[0]![1];
+	const socket = { send: vi.fn() };
+	onConnection(socket);
+	expect(JSON.parse(socket.send.mock.calls[0]![0])).toMatchObject({
+		type: "error",
+		err: { message: expect.any(String), plugin: "unplugin-paraglide-js" },
+	});
+	await realFs.promises.writeFile(file, original);
+	await plugin.watchChange.call(mockContext, file);
+	expect(ws.send).not.toHaveBeenCalled();
+	socket.send.mockClear();
+	onConnection(socket);
+	expect(socket.send).not.toHaveBeenCalled();
+});
+
+test("vite error overlay preserves compiler diagnostics and clears after a successful buildStart", async () => {
+	process.env.NODE_ENV = "development";
+	const actual = await vi.importActual<typeof import("../compiler/compile.js")>(
+		"../compiler/compile.js"
+	);
+	const error = new SyntaxError("Invalid message pattern in messages/en.json");
+	const compile = vi.fn(actual.compile).mockRejectedValueOnce(error);
+	vi.doMock("../compiler/compile.js", () => ({ ...actual, compile }));
+	try {
+		const { projectDir, outdir } = await createProjectFixture();
+		const { paraglideVitePlugin } = await import("./vite.js");
+		const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		const { send } = configureViteServer(plugin);
+		await plugin.buildStart.call(mockContext);
+		expect(send).toHaveBeenCalledWith({
+			type: "error",
+			err: {
+				message: error.message,
+				stack: error.stack,
+				plugin: "unplugin-paraglide-js",
+			},
+		});
+		await plugin.buildStart.call(mockContext);
+		expect(send).toHaveBeenLastCalledWith({ type: "full-reload" });
+		await plugin.buildStart.call(mockContext);
+		expect(send).toHaveBeenCalledTimes(2);
+	} finally {
+		vi.doUnmock("../compiler/compile.js");
+	}
+});
+
+test("vite error overlay reports non-Error compiler failures during watchChange", async () => {
+	process.env.NODE_ENV = "development";
+	const actual = await vi.importActual<typeof import("../compiler/compile.js")>(
+		"../compiler/compile.js"
+	);
+	const compile = vi.fn(actual.compile);
+	vi.doMock("../compiler/compile.js", () => ({ ...actual, compile }));
+	try {
+		const { projectDir, outdir } = await createProjectFixture();
+		const { paraglideVitePlugin } = await import("./vite.js");
+		const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		const { send } = configureViteServer(plugin);
+		await plugin.buildStart.call(mockContext);
+		compile.mockRejectedValueOnce("Invalid translation");
+		const file = path.join(projectDir, "settings.json");
+		await plugin.watchChange.call(mockContext, file);
+		expect(send).toHaveBeenLastCalledWith({
+			type: "error",
+			err: {
+				message: "Invalid translation",
+				stack: expect.any(String),
+				plugin: "unplugin-paraglide-js",
+			},
+		});
+		await plugin.watchChange.call(mockContext, file);
+		expect(send).toHaveBeenLastCalledWith({ type: "full-reload" });
+	} finally {
+		vi.doUnmock("../compiler/compile.js");
+	}
+});
+
+test("vite error overlay keeps serving requests while the dev watcher recovers", async () => {
+	const { server, file, original } = await startOverlayServer();
+	try {
+		const send = vi.spyOn(server.ws, "send");
+		const client = await connectViteClient(server);
+		const url = server.resolvedUrls!.local[0]!;
+		await realFs.promises.writeFile(file, "{");
+		server.watcher.emit("change", file);
+		await vi.waitFor(
+			() => {
+				expect(send).toHaveBeenCalledWith({
+					type: "error",
+					err: expect.objectContaining({ message: expect.any(String) }),
+				});
+			},
+			{ timeout: 10000 }
+		);
+		await vi.waitFor(() =>
+			expect(client.messages.some((message) => message.type === "error")).toBe(
+				true
+			)
+		);
+		const response = await fetch(url);
+		expect(response.status).toBe(200);
+		expect(await response.text()).toContain("Translation preview");
+		send.mockClear();
+		await realFs.promises.writeFile(file, original);
+		server.watcher.emit("change", file);
+		await vi.waitFor(
+			() => expect(send).toHaveBeenCalledWith({ type: "full-reload" }),
+			{ timeout: 10000 }
+		);
+	} finally {
+		await server.close();
+	}
+});
+
+// Vite 7 and earlier can retain a buffered error after a full reload.
+test("vite error overlay does not replay an error recovered before the first connection", async () => {
+	const { server, file, original, outdir } = await startOverlayServer(true);
+	try {
+		await realFs.promises.writeFile(file, original);
+		await server.pluginContainer.watchChange(file, { event: "update" });
+		expect(await realFs.promises.readdir(outdir)).toContain("runtime.js");
+		const client = await connectViteClient(server);
+		expect(client.messages.some((message) => message.type === "error")).toBe(
+			false
+		);
+	} finally {
+		await server.close();
+	}
+});
+
+test("vite error overlay reaches new tabs and reconnecting clients after a startup failure", async () => {
+	const { server, file, original } = await startOverlayServer(true);
+	try {
+		const first = await connectViteClient(server);
+		await vi.waitFor(() => {
+			expect(first.messages.some((message) => message.type === "error")).toBe(
+				true
+			);
+		});
+		const second = await connectViteClient(server);
+		expect(second.messages.some((message) => message.type === "error")).toBe(
+			true
+		);
+		await Promise.all(
+			[first, second].map(
+				({ socket }) =>
+					new Promise<void>((resolve) => {
+						socket.addEventListener("close", () => resolve(), { once: true });
+						socket.close();
+					})
+			)
+		);
+		const reconnected = await connectViteClient(server);
+		expect(
+			reconnected.messages.some((message) => message.type === "error")
+		).toBe(true);
+		await realFs.promises.writeFile(file, original);
+		await server.pluginContainer.watchChange(file, { event: "update" });
+		await vi.waitFor(() => {
+			expect(reconnected.messages).toContainEqual({ type: "full-reload" });
+		});
+		const recovered = await connectViteClient(server);
+		expect(recovered.messages.some((message) => message.type === "error")).toBe(
+			false
+		);
+	} finally {
+		await server.close();
+	}
+});
 
 test("watch mode follows config precedence flips", async () => {
 	process.env.NODE_ENV = "development";
@@ -178,7 +612,9 @@ test("vite plugin throws on compilation errors at build time", async () => {
 	}) as any;
 
 	// In production mode - should throw the error
+	const { send } = configureViteServer(plugin);
 	await expect(plugin.buildStart?.call(mockContext)).rejects.toThrow();
+	expect(send).not.toHaveBeenCalled();
 });
 
 // Regression test for https://github.com/opral/inlang-paraglide-js/issues/659:

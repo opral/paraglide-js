@@ -2,6 +2,50 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import type nodeFs from "node:fs/promises";
 
+// Bound open/write/close lifetimes, not just the filesystem thread pool.
+// A worker holds its slot until the whole operation has settled.
+// Real-disk profiles favor 4–16 workers over wider queues; eight keeps
+// filesystem throughput without thousands of pending promises/descriptors.
+const FILE_SYSTEM_CONCURRENCY = 8;
+
+async function forEachConcurrent<T>(
+	items: Iterable<T>,
+	operation: (item: T) => Promise<unknown>
+): Promise<void> {
+	const iterator = items[Symbol.iterator]();
+	let failed = false;
+	let firstError: unknown;
+
+	async function worker(item: T) {
+		while (!failed) {
+			try {
+				await operation(item);
+			} catch (error) {
+				if (!failed) {
+					failed = true;
+					firstError = error;
+				}
+				return;
+			}
+			if (failed) return;
+			const next = iterator.next();
+			if (next.done) return;
+			item = next.value;
+		}
+	}
+
+	const workers: Promise<void>[] = [];
+	for (let index = 0; index < FILE_SYSTEM_CONCURRENCY; index++) {
+		const next = iterator.next();
+		if (next.done) break;
+		workers.push(worker(next.value));
+	}
+	// Drain in-flight operations before rejecting, so a retry cannot race
+	// writes left over from the failed compilation.
+	await Promise.all(workers);
+	if (failed) throw firstError;
+}
+
 export async function writeOutput(args: {
 	directory: string;
 	output: Record<string, string>;
@@ -47,34 +91,34 @@ export async function writeOutput(args: {
 		await deleteRemovedFiles(args.fs, args.directory, filesToDelete);
 	}
 
+	// Cleaning removed unchanged files too, so a changed clean compile must
+	// rewrite the entire output. An entirely unchanged compile stays a no-op.
+	const filesToWrite = args.cleanDirectory
+		? Object.keys(args.output)
+		: changedFiles;
+
 	// Create only the directories needed by files that are about to be written.
 	// On incremental compiles, `output` can contain thousands of unchanged
 	// message modules; creating every parent directory again adds avoidable
 	// filesystem work even though only a handful of files changed.
 	const directoriesToCreate = new Set<string>();
-	for (const filePath of changedFiles) {
+	for (const filePath of filesToWrite) {
 		directoriesToCreate.add(
 			path.dirname(path.resolve(args.directory, filePath))
 		);
 	}
-	await Promise.allSettled(
-		Array.from(directoriesToCreate, (directory) =>
-			args.fs.mkdir(directory, { recursive: true })
+	await forEachConcurrent(directoriesToCreate, (directory) =>
+		args.fs.mkdir(directory, { recursive: true })
+	);
+
+	await forEachConcurrent(filesToWrite, (filePath) =>
+		args.fs.writeFile(
+			path.resolve(args.directory, filePath),
+			args.output[filePath]!
 		)
 	);
 
-	//Write files
-	await Promise.allSettled(
-		Object.entries(args.output).map(async ([filePath, fileContent]) => {
-			if (!changedFiles.has(filePath)) {
-				return;
-			}
-			const fullPath = path.resolve(args.directory, filePath);
-			await args.fs.writeFile(fullPath, fileContent);
-		})
-	);
-
-	//Only update the previousOutputHashes if the write was successful
+	// Publish hashes only after every required filesystem operation succeeds.
 	return currentOutputHashes;
 }
 
@@ -90,22 +134,17 @@ async function deleteRemovedFiles(
 	const potentialEmptyDirs = new Set<string>();
 
 	// First pass: delete all files and collect parent directories
-	await Promise.allSettled(
-		Array.from(filesToDelete).map(async (filePath) => {
-			const fullPath = path.resolve(baseDirectory, filePath);
-			try {
-				await fs.unlink(fullPath);
-
-				// Add parent directory for potential cleanup
-				const dirPath = path.dirname(fullPath);
-				if (dirPath !== baseDirectory) {
-					potentialEmptyDirs.add(dirPath);
-				}
-			} catch {
-				// Ignore errors if the file doesn't exist
-			}
-		})
-	);
+	await forEachConcurrent(filesToDelete, async (filePath) => {
+		const fullPath = path.resolve(baseDirectory, filePath);
+		try {
+			await fs.unlink(fullPath);
+		} catch (error) {
+			// A previously removed file is already in the desired state.
+			if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+		}
+		const dirPath = path.dirname(fullPath);
+		if (dirPath !== baseDirectory) potentialEmptyDirs.add(dirPath);
+	});
 
 	// Second pass: clean up empty directories, starting from deepest paths
 	const sortedDirs = Array.from(potentialEmptyDirs).sort(

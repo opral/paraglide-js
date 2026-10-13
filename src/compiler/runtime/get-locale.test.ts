@@ -427,3 +427,109 @@ test("custom strategy integrates with locale initialization", async () => {
 	// The locale should be set internally after first resolution
 	expect(setLocaleCalled).toBe(true);
 });
+
+// sandboxed iframes without allow-same-origin have an opaque origin and throw
+// a SecurityError on document.cookie and localStorage access
+test("resolves the url locale when document.cookie throws", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url", "cookie"],
+		isServer: "false",
+		cookieName: "PARAGLIDE_LOCALE",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path*",
+				localized: [
+					["en", "https://example.com/en/:path*"],
+					["de", "https://example.com/de/:path*"],
+				],
+			},
+		],
+	});
+
+	globalThis.window = {
+		// @ts-expect-error - global variable definition
+		location: {
+			hostname: "example.com",
+			href: "https://example.com/de/page",
+		},
+	};
+	// @ts-expect-error - global variable definition
+	globalThis.document = {
+		get cookie(): string {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+		set cookie(_value) {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+	};
+
+	// the first resolution also writes the cookie
+	expect(runtime.getLocale()).toBe("de");
+});
+
+test("falls back to the next strategy when document.cookie throws", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["cookie", "baseLocale"],
+		isServer: "false",
+		cookieName: "PARAGLIDE_LOCALE",
+	});
+
+	// @ts-expect-error - global variable definition
+	globalThis.window = {};
+	// @ts-expect-error - global variable definition
+	globalThis.document = {
+		get cookie(): string {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+		set cookie(_value) {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+	};
+
+	expect(runtime.getLocale()).toBe("en");
+});
+
+test("falls back to the next strategy when localStorage throws", async () => {
+	const originalLocalStorage = globalThis.localStorage;
+
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["localStorage", "baseLocale"],
+		isServer: "false",
+	});
+
+	// @ts-expect-error - global variable definition
+	globalThis.window = {};
+	// browsers throw when the localStorage property itself is read
+	Object.defineProperty(globalThis, "localStorage", {
+		get() {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+		configurable: true,
+	});
+
+	expect(runtime.getLocale()).toBe("en");
+
+	Object.defineProperty(globalThis, "localStorage", {
+		value: originalLocalStorage,
+		configurable: true,
+		writable: true,
+	});
+});

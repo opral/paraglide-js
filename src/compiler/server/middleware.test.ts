@@ -1,6 +1,9 @@
-import { test, expect } from "vitest";
+import { test, expect, describe, beforeAll, vi } from "vitest";
+import { once } from "node:events";
+import { createServer } from "node:http";
 import { createParaglide } from "../create-paraglide.js";
 import { newProject } from "@inlang/sdk";
+import type { CompilerOptions } from "../compiler-options.js";
 
 test("sets the locale and origin", async () => {
 	const runtime = await createParaglide({
@@ -118,6 +121,7 @@ test("skips i18n middleware behavior for excluded routeStrategies", async () => 
 	);
 
 	expect(response.status).toBe(200);
+	expect(response.headers.get("Vary")).toBe(null);
 	expect(await response.text()).toBe("en|https://example.com/api/data");
 });
 
@@ -537,7 +541,7 @@ test("sets Vary: Accept-Language header when preferredLanguage strategy is used 
 	expect(response.headers.get("Vary")).toBe("Accept-Language");
 });
 
-test("does not set Vary header when preferredLanguage strategy is not used", async () => {
+test("sets Vary: Cookie without Accept-Language for a cookie redirect", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
 			settings: {
@@ -576,8 +580,432 @@ test("does not set Vary header when preferredLanguage strategy is not used", asy
 	expect(response.headers.get("Location")).toBe(
 		"https://example.com/fr/some-path"
 	);
-	// Should NOT have Vary header when preferredLanguage strategy is not used
+	expect(response.headers.get("Vary")).toBe("Cookie");
+});
+
+test.each(
+	(
+		[
+			{
+				strategy: ["cookie", "url", "baseLocale"],
+				vary: "Cookie",
+				locale: "fr",
+			},
+			{
+				strategy: ["preferredLanguage", "url", "baseLocale"],
+				vary: "Accept-Language",
+				locale: "fr",
+			},
+			{
+				strategy: ["url", "cookie", "preferredLanguage", "baseLocale"],
+				vary: "Cookie, Accept-Language",
+				locale: "fr",
+			},
+			{ strategy: ["url", "baseLocale"], vary: null, locale: "en" },
+		] satisfies {
+			strategy: NonNullable<CompilerOptions["strategy"]>;
+			vary: string | null;
+			locale: string;
+		}[]
+	).flatMap((scenario) => [
+		{
+			...scenario,
+			method: "GET",
+			destination: "document",
+			status: 307,
+			body: "",
+			location: `https://example.com/${scenario.locale}/page?campaign=example`,
+		},
+		{
+			...scenario,
+			method: "GET",
+			destination: "",
+			status: 200,
+			body: scenario.locale,
+			location: null,
+		},
+		{
+			...scenario,
+			method: "HEAD",
+			destination: "",
+			status: 200,
+			body: "",
+			location: null,
+		},
+	])
+)(
+	"sets Vary from $strategy for $method with destination '$destination'",
+	async ({ strategy, vary, method, destination, status, body, location }) => {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "fr"] },
+			}),
+			strategy: ["url", "cookie", "preferredLanguage", "baseLocale"],
+			routeStrategies: [{ match: "/page", strategy }],
+			urlPatterns: [
+				{
+					pattern: "https://example.com/:path(.*)?",
+					localized: [
+						["en", "https://example.com/en/:path(.*)?"],
+						["fr", "https://example.com/fr/:path(.*)?"],
+					],
+				},
+			],
+		});
+
+		const response = await runtime.paraglideMiddleware(
+			new Request("https://example.com/page?campaign=example", {
+				method,
+				headers: {
+					cookie: "PARAGLIDE_LOCALE=fr",
+					"Accept-Language": "fr",
+					"Sec-Fetch-Dest": destination,
+				},
+			}),
+			({ locale }) => new Response(method === "HEAD" ? null : locale),
+			{
+				onRedirect: (response) => {
+					expect(response.headers.get("Vary")).toBe(vary);
+				},
+			}
+		);
+
+		expect(response.headers.get("Vary")).toBe(vary);
+		expect(response.status).toBe(status);
+		expect(response.headers.get("Location")).toBe(location);
+		expect(await response.text()).toBe(body);
+	}
+);
+
+test.each([
+	["Accept-Encoding", "Accept-Encoding, Cookie, Accept-Language"],
+	["accept-encoding, cookie", "accept-encoding, cookie, Accept-Language"],
+	[
+		"Accept-Encoding, ACCEPT-LANGUAGE",
+		"Accept-Encoding, ACCEPT-LANGUAGE, Cookie",
+	],
+	["cookie, ACCEPT-LANGUAGE", "cookie, ACCEPT-LANGUAGE"],
+	["*", "*"],
+	["Origin, *", "Origin, *"],
+])("merges negotiated response Vary with %s", async (vary, expected) => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+		strategy: ["cookie", "preferredLanguage", "baseLocale"],
+	});
+	const headers = new Headers({ Vary: vary, "Content-Type": "text/plain" });
+	headers.append("Set-Cookie", "theme=dark; Path=/");
+	headers.append("Set-Cookie", "session=example; Path=/");
+	const original = new Response("fr", {
+		status: 202,
+		statusText: "Accepted",
+		headers,
+	});
+	const response = await runtime.paraglideMiddleware(
+		new Request("https://example.com/page", {
+			headers: { cookie: "PARAGLIDE_LOCALE=fr" },
+		}),
+		() => original
+	);
+
+	expect(response.headers.get("Vary")).toBe(expected);
+	expect(response).toBe(original);
+	expect(response.headers.get("Content-Type")).toBe("text/plain");
+	expect(response.headers.getSetCookie()).toEqual(headers.getSetCookie());
+	expect(response.status).toBe(202);
+	expect(response.statusText).toBe("Accepted");
+	expect(response.body).toBe(original.body);
+	expect(await response.text()).toBe("fr");
+});
+
+test("varies negotiated responses even when preference headers are absent", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+		strategy: ["cookie", "preferredLanguage", "baseLocale"],
+	});
+	const response = await runtime.paraglideMiddleware(
+		new Request("https://example.com/page"),
+		({ locale }) => new Response(locale)
+	);
+
+	expect(response.headers.get("Vary")).toBe("Cookie, Accept-Language");
+	expect(await response.text()).toBe("en");
+});
+
+test.each([
+	["https://example.com/fr/page", "fr"],
+	["https://example.com/page", "en"],
+])(
+	"preserves Vary when the effective URL determines the locale: %s",
+	async (url, locale) => {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "fr"] },
+			}),
+			strategy: ["url", "cookie", "preferredLanguage", "baseLocale"],
+		});
+		const original = new Response(locale, {
+			headers: { Vary: "Accept-Encoding" },
+		});
+		const response = await runtime.paraglideMiddleware(
+			new Request("http://internal/page", {
+				headers: { cookie: "PARAGLIDE_LOCALE=fr" },
+			}),
+			({ locale: resolved }) => {
+				expect(resolved).toBe(locale);
+				return original;
+			},
+			{ effectiveRequestUrl: url }
+		);
+
+		expect(response).toBe(original);
+		expect(response.headers.get("Vary")).toBe("Accept-Encoding");
+	}
+);
+
+test.each(
+	(
+		[
+			{
+				strategy: ["cookie", "url", "preferredLanguage", "baseLocale"],
+				vary: "Cookie",
+			},
+			{
+				strategy: ["preferredLanguage", "url", "cookie", "baseLocale"],
+				vary: "Accept-Language",
+			},
+			{
+				strategy: ["cookie", "preferredLanguage", "url", "baseLocale"],
+				vary: "Cookie, Accept-Language",
+			},
+		] satisfies {
+			strategy: NonNullable<CompilerOptions["strategy"]>;
+			vary: string;
+		}[]
+	).flatMap((scenario) =>
+		["/page", "/en/page"].flatMap((path) =>
+			["GET", "HEAD"].flatMap((method) =>
+				["", "en", "fr"].map((preference) => ({
+					...scenario,
+					path,
+					method,
+					preference,
+				}))
+			)
+		)
+	)
+)(
+	"varies $method $path for $strategy with preference '$preference'",
+	async ({ strategy, vary, path, method, preference }) => {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "fr"] },
+			}),
+			strategy,
+		});
+		const response = await runtime.paraglideMiddleware(
+			new Request(`https://example.com${path}`, {
+				method,
+				headers: preference
+					? {
+							Cookie: `PARAGLIDE_LOCALE=${preference}`,
+							"Accept-Language": preference,
+						}
+					: {},
+			}),
+			({ locale }) => {
+				expect(locale).toBe(preference || "en");
+				return new Response(method === "HEAD" ? null : locale);
+			}
+		);
+		expect(response.status).toBe(200);
+		expect(response.headers.get("Vary")).toBe(vary);
+		expect(await response.text()).toBe(
+			method === "HEAD" ? "" : preference || "en"
+		);
+	}
+);
+
+test("preserves mutable response subclasses with the default strategy", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+	});
+	class CustomResponse extends Response {
+		marker = "custom";
+	}
+	const original = new CustomResponse("page");
+	const response = await runtime.paraglideMiddleware(
+		new Request("https://example.com/page"),
+		() => original
+	);
+	expect(response).toBe(original);
+	expect(response).toBeInstanceOf(CustomResponse);
+	expect((response as CustomResponse).marker).toBe("custom");
+	expect(response.headers.get("Vary")).toBe("Cookie");
+});
+
+test("preserves Response.error() without adding Vary", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+	});
+	const original = Response.error();
+	const response = await runtime.paraglideMiddleware(
+		new Request("https://example.com/page"),
+		() => original
+	);
+	expect(response).toBe(original);
+	expect(response.status).toBe(0);
 	expect(response.headers.get("Vary")).toBe(null);
+});
+
+test("propagates unexpected header update errors", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+	});
+	const original = new Response("page");
+	const failure = new Error("Cannot update headers");
+	original.headers.set = () => {
+		throw failure;
+	};
+	await expect(
+		runtime.paraglideMiddleware(
+			new Request("https://example.com/page"),
+			() => original
+		)
+	).rejects.toBe(failure);
+});
+
+test("adds Vary to a resolved response with immutable headers", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+		strategy: ["cookie", "baseLocale"],
+	});
+	const response = await runtime.paraglideMiddleware(
+		new Request("https://example.com/page"),
+		() => Response.redirect("https://example.com/login", 302)
+	);
+
+	expect(response.status).toBe(302);
+	expect(response.headers.get("Location")).toBe("https://example.com/login");
+	expect(response.headers.get("Vary")).toBe("Cookie");
+});
+
+test.each(["/page", "/redirect"])(
+	"preserves fetch response metadata when adding Vary for %s",
+	async (path) => {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "fr"] },
+			}),
+		});
+		const server = createServer((request, response) => {
+			if (request.url === "/redirect") {
+				response.writeHead(302, { Location: "/page" });
+				response.end();
+			} else {
+				response.writeHead(202, "Accepted", { Vary: "Accept-Encoding" });
+				response.end("page");
+			}
+		});
+		server.listen(0, "127.0.0.1");
+		await once(server, "listening");
+		try {
+			const address = server.address();
+			if (!address || typeof address === "string") {
+				throw new Error("Expected a TCP server address");
+			}
+			const origin = `http://127.0.0.1:${address.port}`;
+			const original = await fetch(`${origin}${path}`);
+			const metadata = {
+				url: `${origin}/page`,
+				redirected: path === "/redirect",
+				type: "basic",
+			};
+			expect(original).toMatchObject(metadata);
+			expect(() => original.headers.set("Vary", "Cookie")).toThrow(TypeError);
+			const response = await runtime.paraglideMiddleware(
+				new Request("https://example.com/page"),
+				() => original
+			);
+			const clone = response.clone();
+			const secondClone = clone.clone();
+
+			for (const result of [response, clone, secondClone]) {
+				expect
+					.soft({
+						url: result.url,
+						redirected: result.redirected,
+						type: result.type,
+					})
+					.toEqual(metadata);
+				expect(result.status).toBe(202);
+				expect(result.statusText).toBe("Accepted");
+				expect(result.headers.get("Vary")).toBe("Accept-Encoding, Cookie");
+				expect(await result.text()).toBe("page");
+			}
+			expect(original.headers.get("Vary")).toBe("Accept-Encoding");
+			expect(() => response.clone()).toThrow(TypeError);
+		} finally {
+			server.closeAllConnections();
+			await new Promise<void>((resolve, reject) => {
+				server.close((error) => (error ? reject(error) : resolve()));
+			});
+		}
+	}
+);
+
+test("allows overriding copied response properties", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+	});
+	const response = await runtime.paraglideMiddleware(
+		new Request("https://example.com/page"),
+		() => Response.redirect("https://example.com/login", 302)
+	);
+
+	for (const result of [new Response(), response, response.clone()]) {
+		result.clone = () => new Response("instrumented");
+		expect(await result.clone().text()).toBe("instrumented");
+		expect(Reflect.deleteProperty(result, "clone")).toBe(true);
+
+		Object.defineProperties(result, {
+			url: { value: "https://example.com/upstream" },
+			redirected: { value: true },
+			type: { value: "basic" },
+		});
+		expect(result.url).toBe("https://example.com/upstream");
+		expect(result.redirected).toBe(true);
+		expect(result.type).toBe("basic");
+	}
+});
+
+test("preserves non-Response results from resolve with cookie negotiation", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "fr"] },
+		}),
+		strategy: ["cookie", "baseLocale"],
+	});
+	const result = { handled: true };
+	expect(
+		await runtime.paraglideMiddleware(
+			new Request("https://example.com/page"),
+			() => result
+		)
+	).toBe(result);
 });
 
 test("does not call onRedirect callback when there is no redirecting", async () => {
@@ -1040,6 +1468,529 @@ test("only redirects if the request.headers.get('Sec-Fetch-Dest') === 'document'
 
 	// Middleware should be called since no redirect for API requests
 	expect(apiMiddlewareResolveWasCalled).toBe(true);
+});
+
+describe("navigation redirects", () => {
+	test.each([
+		["/fr/page", "fr", null],
+		["/page", "en", "Cookie, Accept-Language, Accept, Sec-Fetch-Dest"],
+	])(
+		"varies navigation responses according to URL resolution for %s",
+		async (path, locale, expectedVary) => {
+			const instance = await createParaglide({
+				blob: await newProject({
+					settings: { baseLocale: "en", locales: ["en", "fr"] },
+				}),
+				strategy: ["url", "cookie", "preferredLanguage", "baseLocale"],
+				urlPatterns: [
+					{
+						pattern: "https://example.com/:path(.*)?",
+						localized: [
+							["en", "https://example.com/en/:path(.*)?"],
+							["fr", "https://example.com/fr/:path(.*)?"],
+						],
+					},
+				],
+			});
+			const response = await instance.paraglideMiddleware(
+				new Request(`https://example.com${path}`, {
+					headers: {
+						Cookie: "PARAGLIDE_LOCALE=en",
+						"Accept-Language": "en",
+						Accept: "text/html",
+						"Sec-Fetch-Dest": "empty",
+					},
+				}),
+				({ locale }) => new Response(locale),
+				{ redirect: "navigation" }
+			);
+			expect(response.headers.get("Vary")).toBe(expectedVary);
+			expect(await response.text()).toBe(locale);
+		}
+	);
+
+	let runtime: Awaited<ReturnType<typeof createParaglide>>;
+	const vary = "Cookie, Accept-Language, Accept, Sec-Fetch-Dest";
+	beforeAll(async () => {
+		runtime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "fr"] },
+			}),
+			strategy: ["preferredLanguage", "cookie", "url"],
+			routeStrategies: [
+				{ match: "/api/:path(.*)?", exclude: true },
+				{ match: "/no-url", strategy: ["preferredLanguage"] },
+			],
+		});
+	});
+
+	test.each([
+		["GET", undefined, "text/html", 307],
+		["HEAD", undefined, "text/html", 307],
+		["GET", undefined, "*/*", 307],
+		["GET", undefined, "text/*", 307],
+		[
+			"GET",
+			undefined,
+			"application/json, TEXT/HTML; charset=utf-8; Q=0.5",
+			307,
+		],
+		["GET", undefined, "text/html;q=0.001", 307],
+		["GET", undefined, "text/html;q=0, */*", 200],
+		["GET", undefined, "*/*, text/html;q=0", 200],
+		["GET", undefined, "text/*;q=0, */*", 200],
+		["GET", undefined, "text/html;q=0.5, text/*;q=0", 307],
+		["GET", undefined, "text/html;q=invalid", 200],
+		["GET", undefined, "text/html;q=2", 200],
+		["GET", undefined, "text/html;q=-1", 200],
+		["GET", undefined, "text/html;q=0.1234", 200],
+		["GET", undefined, 'text/html;profile="a,b";q=0, */*;q=0', 200],
+		["GET", undefined, 'text/html;profile="x;q=0";q=1', 307],
+		["GET", undefined, 'text/html;profile="x;q=1";q=0', 200],
+		["GET", undefined, 'text/html;profile="a\\\",b";q=0, */*;q=0', 200],
+		["GET", undefined, 'text/html;profile="a\\\";q=0";q=1', 307],
+		["GET", undefined, 'text/html;profile="a\\\\";q=0, */*;q=0', 200],
+		["GET", undefined, 'text/html;profile="unterminated', 200],
+		["GET", undefined, "application/json", 200],
+		["GET", undefined, "application/xhtml+xml", 200],
+		["GET", undefined, "text/html-invalid", 200],
+		["GET", undefined, "", 200],
+		["GET", undefined, undefined, 200],
+		["GET", "empty", "text/html", 200],
+		["GET", "", "text/html", 200],
+		["GET", "script", "text/html", 200],
+		["GET", "document", "application/json", 307],
+		["HEAD", "document", undefined, 307],
+		["POST", undefined, "text/html", 200],
+		["POST", "document", "text/html", 200],
+		["PUT", "document", "text/html", 200],
+		["OPTIONS", undefined, "text/html", 200],
+	] as const)(
+		"%s with destination %s and Accept %s returns %i",
+		async (method, destination, accept, status) => {
+			const headers = new Headers({
+				"Accept-Language": "fr",
+				"Content-Type": "application/x-www-form-urlencoded",
+			});
+			if (destination !== undefined) headers.set("Sec-Fetch-Dest", destination);
+			if (accept !== undefined) headers.set("Accept", accept);
+			const body = method === "POST" ? "name=Alice" : undefined;
+			const request = new Request("https://example.com/about?from=test", {
+				method,
+				headers,
+				body,
+			});
+			const resolve = vi.fn(
+				async ({ request: localized }: { request: Request }) => {
+					expect(localized.method).toBe(method);
+					expect(await localized.text()).toBe(body ?? "");
+					return new Response(null);
+				}
+			);
+			const onRedirect = vi.fn();
+			const response = await runtime.paraglideMiddleware(request, resolve, {
+				redirect: "navigation",
+				onRedirect,
+			});
+			expect(response.status).toBe(status);
+			expect(resolve).toHaveBeenCalledTimes(status === 307 ? 0 : 1);
+			expect(onRedirect).toHaveBeenCalledTimes(status === 307 ? 1 : 0);
+			expect(response.headers.get("Location")).toBe(
+				status === 307 ? "https://example.com/fr/about?from=test" : null
+			);
+			expect(response.headers.get("Vary")).toBe(
+				method === "GET" || method === "HEAD" ? vary : "Cookie, Accept-Language"
+			);
+			expect(response.body).toBeNull();
+			expect(request.bodyUsed).toBe(false);
+			expect(await request.text()).toBe(body ?? "");
+		}
+	);
+
+	test.each([undefined, "document", null, "nav"])(
+		"keeps default behavior for redirect=%s",
+		async (redirect) => {
+			for (const method of ["GET", "HEAD", "POST"]) {
+				for (const destination of [undefined, "document", "empty"]) {
+					const headers = new Headers({
+						Accept: "text/html",
+						"Accept-Language": "fr",
+					});
+					if (destination) headers.set("Sec-Fetch-Dest", destination);
+					const response = await runtime.paraglideMiddleware(
+						new Request("https://example.com/about", { method, headers }),
+						() => new Response(null),
+						redirect === undefined
+							? undefined
+							: { redirect: redirect as "document" }
+					);
+					expect(response.status).toBe(destination === "document" ? 307 : 200);
+					expect(response.headers.get("Vary")).toBe("Cookie, Accept-Language");
+				}
+			}
+		}
+	);
+
+	test.each(["GET", "HEAD"])(
+		"separates cached 200 and 307 responses for %s",
+		async (method) => {
+			for (const field of ["Accept-Language", "Cookie"]) {
+				for (const locale of ["en", "fr"]) {
+					for (const previous of [
+						"",
+						"Accept-Encoding",
+						vary.toLowerCase(),
+						"*",
+					]) {
+						const downstream = new Response(method === "HEAD" ? null : "ok", {
+							headers: {
+								Vary: previous,
+								"Cache-Control": "public, max-age=600",
+							},
+						});
+						const response = await runtime.paraglideMiddleware(
+							new Request("http://internal.example.com/about", {
+								method,
+								headers: {
+									Accept: "text/html",
+									[field]:
+										field === "Cookie" ? `PARAGLIDE_LOCALE=${locale}` : locale,
+								},
+							}),
+							() => downstream,
+							{
+								redirect: "navigation",
+								effectiveRequestUrl: "https://example.com/about?from=test",
+							}
+						);
+						expect(response.status).toBe(locale === "fr" ? 307 : 200);
+						expect(response.headers.get("Location")).toBe(
+							locale === "fr" ? "https://example.com/fr/about?from=test" : null
+						);
+						const expected =
+							previous === "Accept-Encoding"
+								? `${previous}, ${vary}`
+								: previous || vary;
+						expect(response.headers.get("Vary")).toBe(
+							locale === "fr" ? vary : expected
+						);
+						if (locale === "en") {
+							expect(response.headers.get("Cache-Control")).toBe(
+								"public, max-age=600"
+							);
+							expect(await response.text()).toBe(method === "HEAD" ? "" : "ok");
+							expect(response).toBe(downstream);
+							expect(downstream.headers.get("Vary")).toBe(expected);
+						}
+					}
+				}
+			}
+		}
+	);
+
+	test("preserves response identity and custom state when adding Vary", async () => {
+		class FrameworkResponse extends Response {
+			readonly context = { compression: "manual", framework: "example" };
+		}
+		const downstream = new FrameworkResponse("ok", {
+			status: 201,
+			statusText: "Created",
+			headers: { Vary: "Accept-Encoding", "X-Framework": "example" },
+		});
+		const response = await runtime.paraglideMiddleware(
+			new Request("https://example.com/about", {
+				headers: { Accept: "application/json" },
+			}),
+			() => downstream,
+			{ redirect: "navigation" }
+		);
+		expect(response).toBe(downstream);
+		expect(response).toBeInstanceOf(FrameworkResponse);
+		expect(downstream.context).toEqual({
+			compression: "manual",
+			framework: "example",
+		});
+		expect(response.status).toBe(201);
+		expect(response.statusText).toBe("Created");
+		expect(response.headers.get("X-Framework")).toBe("example");
+		expect(response.headers.get("Vary")).toBe(`Accept-Encoding, ${vary}`);
+		expect(await response.text()).toBe("ok");
+	});
+
+	test("preserves callback returns with unusable bodies", async () => {
+		const consumed = new Response("ok");
+		await consumed.text();
+		const locked = new Response("ok");
+		const reader = locked.body!.getReader();
+		try {
+			for (const value of [undefined, {}, Response.error(), consumed, locked]) {
+				const response = await runtime.paraglideMiddleware(
+					new Request("https://example.com/about", {
+						headers: { Accept: "application/json" },
+					}),
+					async () => value,
+					{ redirect: "navigation" }
+				);
+				expect(response).toBe(value);
+			}
+		} finally {
+			reader.releaseLock();
+		}
+	});
+
+	test("preserves a fetched body when immutable headers require a replacement", async () => {
+		const downstream = await fetch("data:text/plain,ok");
+		expect(() => downstream.headers.set("Vary", "Accept")).toThrow();
+		const response = await runtime.paraglideMiddleware(
+			new Request("https://example.com/about", {
+				headers: { Accept: "application/json" },
+			}),
+			() => downstream,
+			{ redirect: "navigation" }
+		);
+		expect(response).not.toBe(downstream);
+		expect(response.status).toBe(downstream.status);
+		expect(response.statusText).toBe(downstream.statusText);
+		expect(response.headers.get("Content-Type")).toBe("text/plain");
+		expect(response.headers.get("Vary")).toBe(vary);
+		expect(downstream.headers.get("Vary")).toBeNull();
+		expect(await response.text()).toBe("ok");
+	});
+
+	test("varies immutable headers only on routes using URL strategy", async () => {
+		for (const path of ["/about", "/api/data", "/no-url"]) {
+			const downstream = Response.redirect("https://example.com/login", 303);
+			const response = await runtime.paraglideMiddleware(
+				new Request(`https://example.com${path}`, {
+					headers: {
+						Accept: path === "/about" ? "application/json" : "text/html",
+						Cookie: "PARAGLIDE_LOCALE=fr",
+						"Accept-Language": "fr",
+					},
+				}),
+				() => downstream,
+				{ redirect: "navigation" }
+			);
+			expect(response.status).toBe(303);
+			expect(response.statusText).toBe(downstream.statusText);
+			expect(response.headers.get("Location")).toBe(
+				"https://example.com/login"
+			);
+			expect(response.headers.get("Vary")).toBe(
+				path === "/about" ? vary : path === "/no-url" ? "Accept-Language" : null
+			);
+			expect(downstream.headers.get("Vary")).toBeNull();
+		}
+	});
+});
+
+test.each([
+	["/fr/about", "application/json", false, "en", 200],
+	["/fr/about", "text/html", false, "en", 200],
+	["/fr/about/", "application/json", false, "en", 200],
+	["/fr/about/", "text/html", false, "en", 307],
+	["/fr/about", "text/html", true, "fr", 200],
+	["/fr/about", "text/html", true, "en", 307],
+] as const)(
+	"navigation cache for %s with Accept %s, custom strategy=%s and preference=%s",
+	async (path, accept, custom, preference, status) => {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "fr"] },
+			}),
+			strategy: [
+				"url",
+				"cookie",
+				"preferredLanguage",
+				"baseLocale",
+				...(custom ? ["custom-header" as const] : []),
+			],
+			trailingSlash: "never",
+		});
+		if (custom)
+			runtime.defineCustomServerStrategy("custom-header", {
+				getLocale: (request) =>
+					request?.headers.get("Accept-Language") ?? undefined,
+			});
+		for (const method of ["GET", "HEAD"]) {
+			const downstream = new Response(method === "HEAD" ? null : "ok", {
+				headers: {
+					Vary: "Accept-Encoding",
+					"Cache-Control": "public, max-age=600",
+				},
+			});
+			const response = await runtime.paraglideMiddleware(
+				new Request("http://internal.example.com/about", {
+					method,
+					headers: {
+						Accept: accept,
+						Cookie: "PARAGLIDE_LOCALE=en",
+						"Accept-Language": preference,
+					},
+				}),
+				() => downstream,
+				{
+					redirect: "navigation",
+					effectiveRequestUrl: `https://example.com${path}`,
+				}
+			);
+			expect(response.status).toBe(status);
+			expect(response.headers.get("Location")).toBe(
+				status === 307
+					? `https://example.com${custom ? "/about" : "/fr/about"}`
+					: null
+			);
+			const fields = custom
+				? "Cookie, Accept-Language, Accept, Sec-Fetch-Dest"
+				: "Accept, Sec-Fetch-Dest";
+			const needsVary = custom || path.endsWith("/");
+			expect(response.headers.get("Vary")).toBe(
+				status === 307
+					? fields
+					: needsVary
+						? `Accept-Encoding, ${fields}`
+						: "Accept-Encoding"
+			);
+			if (!needsVary) expect(response).toBe(downstream);
+			if (status === 200) {
+				expect(response.headers.get("Cache-Control")).toBe(
+					"public, max-age=600"
+				);
+				expect(await response.text()).toBe(method === "HEAD" ? "" : "ok");
+			}
+		}
+	}
+);
+
+test.each(["document", "navigation"] as const)(
+	"custom server strategies retain preference Vary in %s mode",
+	async (redirect) => {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "fr"] },
+			}),
+			strategy: ["url", "cookie", "preferredLanguage", "custom-header"],
+		});
+		runtime.defineCustomServerStrategy("custom-header", {
+			getLocale: (request) =>
+				request?.headers.get("Accept-Language") ?? undefined,
+		});
+		const response = await runtime.paraglideMiddleware(
+			new Request("https://example.com/fr/page", {
+				headers: { Accept: "application/json", "Accept-Language": "en" },
+			}),
+			({ locale }) => new Response(locale),
+			{ redirect }
+		);
+		expect(await response.text()).toBe("en");
+		expect(response.headers.get("Vary")).toBe(
+			redirect === "navigation"
+				? "Cookie, Accept-Language, Accept, Sec-Fetch-Dest"
+				: "Cookie, Accept-Language"
+		);
+	}
+);
+
+test.each(
+	[
+		"sync undefined",
+		"async undefined",
+		"object",
+		"object with headers",
+		"error",
+		"consumed body",
+		"locked body",
+		"html",
+	].flatMap((kind) =>
+		[false, true].flatMap((experimentalMiddlewareLocaleSplitting) =>
+			(["document", "navigation"] as const).map((redirect) => ({
+				kind,
+				experimentalMiddlewareLocaleSplitting,
+				redirect,
+			}))
+		)
+	)
+)(
+	"$redirect redirects handle callback returns: $kind with locale splitting=$experimentalMiddlewareLocaleSplitting",
+	async ({ kind, experimentalMiddlewareLocaleSplitting, redirect }) => {
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "fr"] },
+			}),
+			strategy: ["preferredLanguage", "url"],
+			experimentalMiddlewareLocaleSplitting,
+		});
+		let downstream: unknown;
+		let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
+		if (kind === "object") downstream = { handled: true };
+		if (kind === "object with headers") {
+			downstream = { headers: new Headers({ "Content-Type": "text/html" }) };
+		}
+		if (kind === "error") downstream = Response.error();
+		if (["consumed body", "locked body", "html"].includes(kind)) {
+			const response = new Response(
+				"<html><head></head><body>ok</body></html>",
+				{
+					headers: { "Content-Type": "text/html" },
+				}
+			);
+			if (kind === "consumed body") await response.text();
+			if (kind === "locked body") reader = response.body!.getReader();
+			downstream = response;
+		}
+		try {
+			const response = await runtime.paraglideMiddleware(
+				new Request("https://example.com/about", {
+					headers: { Accept: "application/json", "Accept-Language": "fr" },
+				}),
+				kind === "async undefined" ? async () => downstream : () => downstream,
+				{ redirect }
+			);
+			if (kind === "html") {
+				const htmlResponse = response as Response;
+				expect(htmlResponse.headers.get("Vary")).toBe(
+					redirect === "navigation"
+						? "Accept-Language, Accept, Sec-Fetch-Dest"
+						: "Accept-Language"
+				);
+				const html = await htmlResponse.text();
+				expect(html).toContain("<body>ok</body>");
+				expect(html.includes("globalThis.__paraglide.ssr")).toBe(
+					experimentalMiddlewareLocaleSplitting
+				);
+			} else expect(response).toBe(downstream);
+		} finally {
+			reader?.releaseLock();
+		}
+	}
+);
+
+test("locale splitting accepts responses created before the global Response is replaced", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "de"] },
+		}),
+		strategy: ["globalVariable", "baseLocale"],
+		experimentalMiddlewareLocaleSplitting: true,
+	});
+	const NativeResponse = Response;
+	const downstream = new NativeResponse(
+		"<html><head></head><body>ok</body></html>",
+		{ headers: { "Content-Type": "text/html" } }
+	);
+	vi.stubGlobal("Response", class extends NativeResponse {});
+	try {
+		expect(downstream).not.toBeInstanceOf(Response);
+		const response = await runtime.paraglideMiddleware(
+			new Request("https://example.com/page"),
+			() => downstream
+		);
+		const html = await response.text();
+		expect(html).toContain("globalThis.__paraglide.ssr");
+		expect(html).toContain("<body>ok</body>");
+	} finally {
+		vi.unstubAllGlobals();
+	}
 });
 
 // https://github.com/opral/inlang-paraglide-js/issues/477

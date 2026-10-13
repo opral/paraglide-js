@@ -50,6 +50,52 @@ test("createRuntimeFile throws if urlPatterns contains an unknown locale", () =>
 	);
 });
 
+test("createRuntimeFile throws if cookieSameSite is 'none' without cookieSecure", () => {
+	const create = (cookieSecure?: boolean | "auto") =>
+		createRuntimeFile({
+			baseLocale: "en",
+			locales: ["en", "de"],
+			compilerOptions: {
+				...defaultCompilerOptions,
+				cookieSameSite: "none",
+				cookieSecure,
+			},
+		});
+
+	expect(() => create()).toThrow(
+		'cookieSameSite "none" requires cookieSecure to be true or "auto". Browsers reject SameSite=None cookies without the Secure attribute.'
+	);
+	expect(() => create(false)).toThrow();
+	expect(() => create(true)).not.toThrow();
+	expect(() => create("auto")).not.toThrow();
+});
+
+test("runtime with cookie attributes passes checkJs", async () => {
+	const project = await typescriptProject({
+		useInMemoryFileSystem: true,
+		compilerOptions: superStrictRuleOutAnyErrorTsSettings,
+	});
+
+	project.createSourceFile(
+		"./runtime.js",
+		createRuntimeFile({
+			baseLocale: "en",
+			locales: ["en", "de"],
+			compilerOptions: {
+				...defaultCompilerOptions,
+				cookieSameSite: "lax",
+				cookieSecure: "auto",
+			},
+		})
+	);
+
+	const diagnostics = ts
+		.getPreEmitDiagnostics(project.createProgram())
+		.map((d) => ts.flattenDiagnosticMessageText(d.messageText, "\n"));
+
+	expect(diagnostics).toEqual([]);
+});
+
 test("cookie cache clearer remains internal in the generated runtime", () => {
 	const jsdocRuntime = createRuntimeFile({
 		baseLocale: "en",

@@ -40,7 +40,13 @@ export function extractLocaleFromCookie() {
 	if (cachedLocaleFromCookie !== noCachedLocale) {
 		return cachedLocaleFromCookie;
 	}
-	const match = document.cookie.match(localeCookiePattern);
+	let match;
+	try {
+		match = document.cookie.match(localeCookiePattern);
+	} catch {
+		// document.cookie throws in sandboxed iframes and other opaque origins
+		return;
+	}
 	const locale = match?.[1];
 	cachedLocaleFromCookie = toLocale(locale);
 	scheduleLocaleCookieCacheClear();

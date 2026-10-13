@@ -27,6 +27,15 @@ export const cookieMaxAge = 60 * 60 * 24 * 400;
 /** @type {string} */
 export const cookieDomain = "<cookie-domain>";
 
+// Casts instead of `@type` tags: with a tag, TS narrows `cookieSecure` to its
+// initializer in the bundled runtime.js and the `=== true` / `=== "auto"`
+// checks in set-locale.js fail checkJs. `cookieSameSite` uses the same form
+// for consistency.
+export const cookieSameSite =
+	/** @type {"lax" | "strict" | "none" | undefined} */ (undefined);
+
+export const cookieSecure = /** @type {boolean | "auto"} */ (false);
+
 /** @type {string} */
 export const localStorageKey = "PARAGLIDE_LOCALE";
 

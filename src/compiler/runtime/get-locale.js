@@ -151,7 +151,12 @@ function resolveLocaleWithStrategies(strategyToUse, urlForUrlStrategy) {
 			strat === "localStorage" &&
 			!isServer
 		) {
-			locale = localStorage.getItem(localStorageKey) ?? undefined;
+			try {
+				locale = localStorage.getItem(localStorageKey) ?? undefined;
+			} catch {
+				// localStorage throws when storage access is denied
+				locale = undefined;
+			}
 		} else if (isCustomStrategy(strat) && customClientStrategies.has(strat)) {
 			const handler = customClientStrategies.get(strat);
 			if (handler) {

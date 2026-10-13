@@ -277,7 +277,11 @@ For SEO, add `<link rel="alternate" hreflang>` tags to help search engines under
 ```tsx
 import { localizeHref, locales, baseLocale } from "@/paraglide/runtime.js";
 
+const siteUrl = "https://example.com"; // your production origin
+
 function HreflangTags({ currentPath }: { currentPath: string }) {
+  const currentUrl = new URL(currentPath, siteUrl).href;
+
   return (
     <>
       {locales.map((locale) => (
@@ -285,20 +289,20 @@ function HreflangTags({ currentPath }: { currentPath: string }) {
           key={locale}
           rel="alternate"
           hrefLang={locale}
-          href={localizeHref(currentPath, { locale })}
+          href={localizeHref(currentUrl, { locale })}
         />
       ))}
       <link
         rel="alternate"
         hrefLang="x-default"
-        href={localizeHref(currentPath, { locale: baseLocale })}
+        href={localizeHref(currentUrl, { locale: baseLocale })}
       />
     </>
   );
 }
 ```
 
-Using `localizeHref` ensures each locale is explicitly mapped to its correct URL, regardless of your URL pattern configuration.
+Google requires [alternate URLs to be fully qualified](https://developers.google.com/search/docs/specialty/international/localized-versions#all-method-guidelines), including the protocol: `https://example.com/de/about`, not `/de/about`. With the path-prefix patterns above, `localizeHref()` returns a path when it is given a path, and a static build has no request to take the origin from, so the example resolves `currentPath` against `siteUrl` before localizing it. With [domain-based localization](./i18n-routing#domain-based-localization), set `siteUrl` to an origin your `urlPatterns` match and the other locales get their own domains.
 
 ## Incremental Static Regeneration (ISR)
 

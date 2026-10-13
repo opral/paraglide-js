@@ -164,7 +164,6 @@ export const compileCommand = new Command()
 				);
 			}
 
-
 			const buildCompileOptions = () => {
 				let validatedStrategy: ParaglideConfig["strategy"] | undefined;
 				if (options.strategy !== undefined) {
@@ -254,6 +253,7 @@ export const compileCommand = new Command()
 			let compileTimer: NodeJS.Timeout | undefined;
 			let compileInProgress = false;
 			let compileRequested = false;
+			let watching = true;
 			// Set by the project-directory watcher when a config-named file
 			// changes — survives debounced coalescing with unrelated events.
 			let configChangedSinceLastBuild = false;
@@ -293,6 +293,7 @@ export const compileCommand = new Command()
 			};
 
 			const updateWatchers = (files: Set<string>) => {
+				if (!watching) return;
 				const {
 					files: nextFiles,
 					directories: nextDirectories,
@@ -386,6 +387,7 @@ export const compileCommand = new Command()
 			};
 
 			const runCompile = async (changedPath?: string) => {
+				if (!watching) return;
 				if (compileInProgress) {
 					compileRequested = true;
 					return;
@@ -461,6 +463,7 @@ export const compileCommand = new Command()
 			};
 
 			const scheduleCompile = (changedPath?: string) => {
+				if (!watching) return;
 				if (compileTimer) {
 					clearTimeout(compileTimer);
 				}
@@ -470,6 +473,12 @@ export const compileCommand = new Command()
 			};
 
 			const closeWatchers = () => {
+				watching = false;
+				compileRequested = false;
+				if (compileTimer) {
+					clearTimeout(compileTimer);
+					compileTimer = undefined;
+				}
 				for (const watcher of fileWatchers.values()) {
 					watcher.close();
 				}

@@ -143,6 +143,30 @@ describe("loadParaglideConfig", () => {
 		);
 	});
 
+	test("accepts the cookie samesite and secure options", async () => {
+		const projectDir = await createProjectDirectory();
+		await writeFile(
+			path.join(projectDir, "paraglide.config.ts"),
+			"export default { cookieSameSite: 'none', cookieSecure: 'auto' }"
+		);
+
+		const loaded = await loadParaglideConfig({ projectDir });
+		expect(loaded?.config.cookieSameSite).toBe("none");
+		expect(loaded?.config.cookieSecure).toBe("auto");
+	});
+
+	test("throws when cookieSameSite has an invalid value", async () => {
+		const projectDir = await createProjectDirectory();
+		await writeFile(
+			path.join(projectDir, "paraglide.config.ts"),
+			"export default { cookieSameSite: 'relaxed' }"
+		);
+
+		await expect(loadParaglideConfig({ projectDir })).rejects.toThrow(
+			/"cookieSameSite"/
+		);
+	});
+
 	test("throws when a strategy name is unknown", async () => {
 		const projectDir = await createProjectDirectory();
 		await writeFile(

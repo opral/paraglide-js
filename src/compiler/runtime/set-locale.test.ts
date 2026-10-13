@@ -100,6 +100,120 @@ test("sets the cookie with explicit domain to a different locale navigating doma
 	expect(globalThis.window.location.reload).toBeCalled();
 });
 
+test("sets the cookie with samesite and secure attributes", async () => {
+	// @ts-expect-error - global variable definition
+	globalThis.document = {};
+	// @ts-expect-error - global variable definition
+	globalThis.window = {};
+	// @ts-expect-error - global variable definition
+	globalThis.window.location = { hostname: "example.com" };
+	globalThis.window.location.reload = vi.fn();
+
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["cookie"],
+		cookieName: "PARAGLIDE_LOCALE",
+		cookieDomain: "example.com",
+		cookieSameSite: "strict",
+		cookieSecure: true,
+	});
+
+	globalThis.document.cookie = "PARAGLIDE_LOCALE=en";
+
+	runtime.setLocale("de");
+
+	expect(globalThis.document.cookie).toBe(
+		"PARAGLIDE_LOCALE=de; path=/; max-age=34560000; domain=example.com; samesite=strict; secure"
+	);
+	// exported so server code can write the cookie with the same attributes
+	expect(runtime.cookieSameSite).toBe("strict");
+	expect(runtime.cookieSecure).toBe(true);
+});
+
+test.each([true, "auto"] as const)(
+	"sets samesite=none with secure on https pages (cookieSecure: %s)",
+	async (cookieSecure) => {
+		// @ts-expect-error - global variable definition
+		globalThis.document = {};
+		// @ts-expect-error - global variable definition
+		globalThis.window = {};
+		// @ts-expect-error - global variable definition
+		globalThis.window.location = {
+			hostname: "example.com",
+			protocol: "https:",
+		};
+		globalThis.window.location.reload = vi.fn();
+
+		const runtime = await createParaglide({
+			blob: await newProject({
+				settings: {
+					baseLocale: "en",
+					locales: ["en", "de"],
+				},
+			}),
+			strategy: ["cookie"],
+			cookieName: "PARAGLIDE_LOCALE",
+			cookieSameSite: "none",
+			cookieSecure,
+		});
+
+		globalThis.document.cookie = "PARAGLIDE_LOCALE=en";
+
+		runtime.setLocale("de");
+
+		expect(globalThis.document.cookie).toBe(
+			"PARAGLIDE_LOCALE=de; path=/; max-age=34560000; samesite=none; secure"
+		);
+	}
+);
+
+test("cookieSecure 'auto' only sets the secure attribute on https pages", async () => {
+	// @ts-expect-error - global variable definition
+	globalThis.document = {};
+	// @ts-expect-error - global variable definition
+	globalThis.window = {};
+	// @ts-expect-error - global variable definition
+	globalThis.window.location = {
+		hostname: "example.com",
+		protocol: "https:",
+	};
+	globalThis.window.location.reload = vi.fn();
+
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["cookie"],
+		cookieName: "PARAGLIDE_LOCALE",
+		cookieSameSite: "lax",
+		cookieSecure: "auto",
+	});
+
+	globalThis.document.cookie = "PARAGLIDE_LOCALE=en";
+
+	runtime.setLocale("de");
+
+	expect(globalThis.document.cookie).toBe(
+		"PARAGLIDE_LOCALE=de; path=/; max-age=34560000; samesite=lax; secure"
+	);
+
+	globalThis.window.location.protocol = "http:";
+
+	runtime.setLocale("en");
+
+	expect(globalThis.document.cookie).toBe(
+		"PARAGLIDE_LOCALE=en; path=/; max-age=34560000; samesite=lax"
+	);
+});
+
 test("url pattern strategy sets the window location", async () => {
 	// @ts-expect-error - global variable definition
 	globalThis.window = {};
@@ -770,4 +884,115 @@ test("custom strategy setLocale integrates with URL strategy", async () => {
 
 	expect(globalThis.window.location.href).toBe("https://example.com/de/page");
 	expect(customStoredLocale).toBe("de");
+});
+
+// sandboxed iframes without allow-same-origin have an opaque origin and throw
+// a SecurityError on document.cookie and localStorage access
+test("navigates to the localized url when document.cookie throws", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["url", "cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		isServer: "false",
+		urlPatterns: [
+			{
+				pattern: "https://example.com/:path*",
+				localized: [
+					["en", "https://example.com/en/:path*"],
+					["de", "https://example.com/de/:path*"],
+				],
+			},
+		],
+	});
+
+	/** @ts-expect-error - client side api */
+	globalThis.document = {
+		get cookie(): string {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+		set cookie(_value) {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+	};
+	globalThis.window = {
+		location: new URL("https://example.com/en/some-path"),
+	} as any;
+
+	runtime.setLocale("de");
+
+	expect(globalThis.window.location.href).toBe(
+		"https://example.com/de/some-path"
+	);
+});
+
+test("reloads when document.cookie throws", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["cookie", "baseLocale"],
+		cookieName: "PARAGLIDE_LOCALE",
+		isServer: "false",
+	});
+
+	/** @ts-expect-error - client side api */
+	globalThis.document = {
+		get cookie(): string {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+		set cookie(_value) {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+	};
+	globalThis.window = {
+		location: {
+			href: "https://example.com/page",
+			reload: vi.fn(),
+		},
+	} as any;
+
+	runtime.setLocale("de");
+
+	expect(globalThis.window.location.reload).toBeCalled();
+});
+
+test("reloads when localStorage throws", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+		strategy: ["localStorage", "baseLocale"],
+		isServer: "false",
+	});
+
+	// @ts-expect-error - global variable definition
+	globalThis.localStorage = {
+		getItem: () => {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+		setItem: () => {
+			throw new DOMException("The operation is insecure.", "SecurityError");
+		},
+	};
+	globalThis.window = {
+		location: {
+			href: "https://example.com/page",
+			reload: vi.fn(),
+		},
+	} as any;
+
+	runtime.setLocale("de");
+
+	expect(globalThis.window.location.reload).toBeCalled();
 });

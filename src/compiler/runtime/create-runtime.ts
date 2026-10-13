@@ -14,6 +14,8 @@ export function createRuntimeFile(args: {
 		cookieName: NonNullable<CompilerOptions["cookieName"]>;
 		cookieMaxAge: NonNullable<CompilerOptions["cookieMaxAge"]>;
 		cookieDomain: CompilerOptions["cookieDomain"];
+		cookieSameSite?: CompilerOptions["cookieSameSite"];
+		cookieSecure?: CompilerOptions["cookieSecure"];
 		urlPatterns?: CompilerOptions["urlPatterns"];
 		trailingSlash?: CompilerOptions["trailingSlash"];
 		experimentalMiddlewareLocaleSplitting: CompilerOptions["experimentalMiddlewareLocaleSplitting"];
@@ -72,6 +74,17 @@ export function createRuntimeFile(args: {
 		}
 	}
 
+	const cookieSecure = args.compilerOptions.cookieSecure ?? false;
+
+	if (
+		args.compilerOptions.cookieSameSite === "none" &&
+		cookieSecure === false
+	) {
+		throw new Error(
+			`cookieSameSite "none" requires cookieSecure to be true or "auto". Browsers reject SameSite=None cookies without the Secure attribute.`
+		);
+	}
+
 	const code = `
 ${needsUrlPatternPolyfill ? `import "@inlang/paraglide-js/urlpattern-polyfill";` : "/** @type {any} */\nconst URLPattern = {}"}
 
@@ -91,6 +104,18 @@ ${injectCode("./variables.js")
 	.replace(`<cookie-name>`, `${args.compilerOptions.cookieName}`)
 	.replace(`60 * 60 * 24 * 400`, `${args.compilerOptions.cookieMaxAge}`)
 	.replace(`<cookie-domain>`, `${args.compilerOptions.cookieDomain}`)
+	.replace(
+		`/** @type {"lax" | "strict" | "none" | undefined} */ (undefined)`,
+		`/** @type {"lax" | "strict" | "none" | undefined} */ (${
+			args.compilerOptions.cookieSameSite === undefined
+				? "undefined"
+				: JSON.stringify(args.compilerOptions.cookieSameSite)
+		})`
+	)
+	.replace(
+		`/** @type {boolean | "auto"} */ (false)`,
+		`/** @type {boolean | "auto"} */ (${JSON.stringify(cookieSecure)})`
+	)
 	.replace(
 		`export const routeStrategies = [];`,
 		`export const routeStrategies = ${JSON.stringify(routeStrategies, null, 2)};`
