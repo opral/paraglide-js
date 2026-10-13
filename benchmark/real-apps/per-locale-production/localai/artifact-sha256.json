@@ -1,0 +1,258 @@
+{
+  "README.md": {
+    "bytes": 8003,
+    "sha256": "b09fd12efade7b061d3674d62d695642dbe9822db685bdc0ee9a759e95f8f888"
+  },
+  "diagnostics/README.md": {
+    "bytes": 685,
+    "sha256": "544da7b0e92616e7dbc8ab78a174e3fb3c58eacea9150921a60b4337905afdc5"
+  },
+  "diagnostics/prior-candidate-mobile-3-failed.json": {
+    "bytes": 19188,
+    "sha256": "85da9ce2c20cfed8ba0d1f374538d244f1b777008469deb914d6fae186b7f5bc"
+  },
+  "harness/probe.mjs": {
+    "bytes": 6897,
+    "sha256": "dbe820763298e4d7b37a2c43bf94a5731ee6988e9a1580a6aea6ca552c4ad201"
+  },
+  "harness/run-five-pair.mjs": {
+    "bytes": 1492,
+    "sha256": "508038f97e3d18680c71f8f392439f0b6f36585d568eac89c27d9c4e1392d958"
+  },
+  "harness/serve.cjs": {
+    "bytes": 5206,
+    "sha256": "87ce90da732f96577652f62a74304490094f790a20307ad611b2f3c371796769"
+  },
+  "harness/source-run-bundled-first.mjs": {
+    "bytes": 1317,
+    "sha256": "0dfcb875e15474375bd264732a4f5865f1b3377eebd876bdf4f73e04e5f34ac1"
+  },
+  "harness/source-run-bundled-five.mjs": {
+    "bytes": 1323,
+    "sha256": "e39fe3437163dc0b2e1300fd2df29b58ee3d48c141e240efb26ad1a67396c7f4"
+  },
+  "measurements.json": {
+    "bytes": 3257,
+    "sha256": "ed0edb75eb36ac60fba80dd14940c59f4c35ac3793317da263c75b857dd0d83e"
+  },
+  "patches/native-bundled-auth-fallback.patch": {
+    "bytes": 2469,
+    "sha256": "461d516ab705a66f9dc08ade8c51f4f9f3a78cafe743d2a73b2a9a8f0ddd45c4"
+  },
+  "patches/per-locale-app.patch": {
+    "bytes": 6077,
+    "sha256": "0ac8f907ddf83ccdb08035ef1447e7e7ca659701ccb9f8985e87b0494ae116f1"
+  },
+  "provenance.json": {
+    "bytes": 3174,
+    "sha256": "f609aaff6a337d63af45692338607c0634b08e783c9492a454119db2a0ee03a5"
+  },
+  "raw/bundled-first-pair-summary.json": {
+    "bytes": 827,
+    "sha256": "f7645b087f5a47500c2f6a3dbafdddb54ad2e44f2fc082f1f83dd7dfbf191397"
+  },
+  "raw/bundled-five-pair-summary.json": {
+    "bytes": 4139,
+    "sha256": "39f2cbfc7ee43d2651910187e8975a07ddf0c67400792d0924937c14bbeca934"
+  },
+  "raw/first-pair/bundled-candidate-desktop-0.json": {
+    "bytes": 14158,
+    "sha256": "387142e2b3ca03f3c9b6acc9edb67e0889eb03ba5bef5dc4f345e2687b7c3862"
+  },
+  "raw/first-pair/bundled-candidate-mobile-0.json": {
+    "bytes": 14189,
+    "sha256": "5ea317a05e1109e4944826404e7f959a5b0e4c31cfa071acc8688c2bd07b16c8"
+  },
+  "raw/first-pair/bundled-native-desktop-0.json": {
+    "bytes": 14890,
+    "sha256": "27b935fc6f0be06dace9f892c20d47118b7405c8b2506e64f87b8a92f14958af"
+  },
+  "raw/first-pair/bundled-native-mobile-0.json": {
+    "bytes": 14971,
+    "sha256": "6cbf75566ef3709c888b4f986f039438c6d4af52f89c788f2e4f3544a3431243"
+  },
+  "raw/repeats/bundled-repeat-candidate-desktop-0.json": {
+    "bytes": 14162,
+    "sha256": "958fcf4e9d1e97a8fac1b4e7eccce9d512d11285ca90f522076bd35c16d44d8a"
+  },
+  "raw/repeats/bundled-repeat-candidate-desktop-1.json": {
+    "bytes": 14159,
+    "sha256": "969225a3862384464dfe93846c77843bbfd94deddab9f2e0240807c24669eba6"
+  },
+  "raw/repeats/bundled-repeat-candidate-desktop-2.json": {
+    "bytes": 14132,
+    "sha256": "92ad585aa12e6f04723119437ab1ba381230fb5d35a479015a4cffaf99e77928"
+  },
+  "raw/repeats/bundled-repeat-candidate-desktop-3.json": {
+    "bytes": 14186,
+    "sha256": "f6e14a863539bd3945d008e6d96aaf59664d3e036288ab37081d01103b804b01"
+  },
+  "raw/repeats/bundled-repeat-candidate-desktop-4.json": {
+    "bytes": 14081,
+    "sha256": "268505e9f8fb8823794223700bf19abd9a6f5a3259ca1574ba9260529f304c74"
+  },
+  "raw/repeats/bundled-repeat-candidate-mobile-0.json": {
+    "bytes": 14213,
+    "sha256": "a0502c02f11a1de3fde785a08cedaafd76e948105bb00bb60be35f0ada654cfe"
+  },
+  "raw/repeats/bundled-repeat-candidate-mobile-1.json": {
+    "bytes": 14251,
+    "sha256": "4485cc525ce3021cea582702c785636605d38e758a224d9977ce3b1aacc05d0c"
+  },
+  "raw/repeats/bundled-repeat-candidate-mobile-2.json": {
+    "bytes": 14229,
+    "sha256": "ba8c7b0bd063e57dbb46476562c27f33dccd1564c53c0273d56b143dd2186bd1"
+  },
+  "raw/repeats/bundled-repeat-candidate-mobile-3.json": {
+    "bytes": 14207,
+    "sha256": "0e8f01712ce6658b91cc407151e1e3e374b5faf73ace4ff2a5297153c6aca6bf"
+  },
+  "raw/repeats/bundled-repeat-candidate-mobile-4.json": {
+    "bytes": 14161,
+    "sha256": "5f538b303a527747a5adefa5461bad21143bece53bd8ff59f865df5e3d05cf33"
+  },
+  "raw/repeats/bundled-repeat-native-desktop-0.json": {
+    "bytes": 14936,
+    "sha256": "df9012f355b2f11c99bb7089a07c3538c2365eced3ecf2376143aa5ac2f76bdc"
+  },
+  "raw/repeats/bundled-repeat-native-desktop-1.json": {
+    "bytes": 14968,
+    "sha256": "0d94f79d73c3cbe244ada789af663f5f0926c288ac7ecd88b395c4784ade349e"
+  },
+  "raw/repeats/bundled-repeat-native-desktop-2.json": {
+    "bytes": 15004,
+    "sha256": "b4f0ffdf089c312a9c380db82802aee3ed762b9adc961d3ac6ee79b1b8f71ae2"
+  },
+  "raw/repeats/bundled-repeat-native-desktop-3.json": {
+    "bytes": 14969,
+    "sha256": "12dd64affb2b63607cb523e33d84a95152e7ec83301088fafde1738ce45ba495"
+  },
+  "raw/repeats/bundled-repeat-native-desktop-4.json": {
+    "bytes": 14958,
+    "sha256": "804cba3000e161c985d503dc994e8488a0d021fe4b9b5fd8faabf65eb9325ac2"
+  },
+  "raw/repeats/bundled-repeat-native-mobile-0.json": {
+    "bytes": 15028,
+    "sha256": "b8a05bae3e21a320699a107c6fd8e19c6081922f6876681cc5b9c59d0adfb464"
+  },
+  "raw/repeats/bundled-repeat-native-mobile-1.json": {
+    "bytes": 15047,
+    "sha256": "1733bf0df9cc58b095429a49f8e213430f7aae62768cedd509b65f7140d6a7d0"
+  },
+  "raw/repeats/bundled-repeat-native-mobile-2.json": {
+    "bytes": 15031,
+    "sha256": "56eda4a9e0e9691a98664ba86b738bf6f92c5b94e168f51117de67a93c583308"
+  },
+  "raw/repeats/bundled-repeat-native-mobile-3.json": {
+    "bytes": 15041,
+    "sha256": "8ee70e67d521f134641b14c6411b615d9619db14891a0301b0374dc7dac06215"
+  },
+  "raw/repeats/bundled-repeat-native-mobile-4.json": {
+    "bytes": 15047,
+    "sha256": "dec817871105e174e1f35e945b7296a121787a4892445106148042bf17adb182"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/.meta.json": {
+    "bytes": 34,
+    "sha256": "179dcb21fe32e16821a7ee8699d3d74fb9218cad7346dbd2b4898adf7fc0e824"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/README.md": {
+    "bytes": 4710,
+    "sha256": "ec2cf047ceca2a46a5bcb3e4f8bd105e7947d65716a9b5a0fda8fbbd996df6c4"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/messages/de.json": {
+    "bytes": 76189,
+    "sha256": "5695fa2b02dc12d87ebf93d14a6ad6f56387ac35d1569342972d7581bc435596"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/messages/en.json": {
+    "bytes": 327122,
+    "sha256": "e30dea5554ecd9aa74c45292f73bddecfb51ac0bcdbe60d1de1a29d931083bcb"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/messages/es.json": {
+    "bytes": 75168,
+    "sha256": "4b218d6d35e6f9cd9121aa6748316ceaec7c852b17ed3d6b4a18aff6387afa05"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/messages/id.json": {
+    "bytes": 79496,
+    "sha256": "d3ffbd228331693598133dc56bf367345f3bcf2958eb325155420947cdd1b4e2"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/messages/it.json": {
+    "bytes": 74732,
+    "sha256": "0ea871536922d72ca2b09fd81cfce4a2cbeb3d46789fc5e2027337d1f481d193"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/messages/ko.json": {
+    "bytes": 77996,
+    "sha256": "94e9f137bdbe072b6da4a907b9565392c52fd408a858d4df299c190289d3dc89"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/messages/pt-BR.json": {
+    "bytes": 95414,
+    "sha256": "0903f6dc01b502fa46c97735d946f5ca800521908e1045ef42247285d68f3cbe"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/messages/zh-CN.json": {
+    "bytes": 71017,
+    "sha256": "dc37e06d7d61875b28211df91455f589f218749710bec91076271293489c04f3"
+  },
+  "source/per-locale/core/http/react-ui/.real-apps/localai.inlang/settings.json": {
+    "bytes": 288,
+    "sha256": "949971db906e60421a5dfb95487c24967f8d70e036ead4642d396cb5b34b0ffa"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/fixed-locale-runtime.js": {
+    "bytes": 2790,
+    "sha256": "01fa9ba62d669f69d0be2bbb134d9a28ffb0054857e03db84ecd64d26604351f"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/fixed-locale-runtime.test.mjs": {
+    "bytes": 2780,
+    "sha256": "eeebb499e2d819e3b6cf914a68cd6797bfc357fc0561b906e97760f59372bb89"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/index.js": {
+    "bytes": 2853,
+    "sha256": "3c43cd9a4e3f8bd1e2d9ccbe7e3e57d6e11fceb56712d4d5d71248b37e7237d5"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/paraglide-adapter.js": {
+    "bytes": 9581,
+    "sha256": "2238e09cd362f63bda906ec68782e9971526498eabf3a6b0ccd70441d5bf200c"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/paraglide-adapter.test.mjs": {
+    "bytes": 9134,
+    "sha256": "e04b521ab0cbffe6a0b7bf115427ea939897ff514edb3d79eed21b94e2d26d02"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/paraglide-trans.jsx": {
+    "bytes": 7548,
+    "sha256": "535f93a1f90885a14f406c43ee17fd41753574d4a31db2346e5b84e33913d007"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/paraglide-trans.test.mjs": {
+    "bytes": 4703,
+    "sha256": "6f5dab0b67a36236849b768ff3117b227f89336a7ca5a51c90186cd5fa18501a"
+  },
+  "source/per-locale/core/http/react-ui/src/i18n/react-adapter.js": {
+    "bytes": 1521,
+    "sha256": "e54f9d18315b395507650052cad16885178d2fbe0a3c1bd149eafc508342f9fc"
+  },
+  "source/per-locale-build-summary.json": {
+    "bytes": 22328,
+    "sha256": "b7d13b7f65c8afc18b3266fd1da5f5bbacc9299031bb9efa9755edb968907336"
+  },
+  "source/private-compiler/compiler-source-and-dist-sha256.json": {
+    "bytes": 112279,
+    "sha256": "b0120ff0e87177574e2868f59f81d24687851ec623523f3dd72091398508e579"
+  },
+  "source/private-compiler/full-catalog-eight-environments.json": {
+    "bytes": 3991,
+    "sha256": "67afaf68326a2965d50978dc934c2d43574c03eaf82ec7e6ed7bc71db341c09d"
+  },
+  "source/private-compiler/namespace-facades-private.patch": {
+    "bytes": 5652,
+    "sha256": "b112fde1f6753463e842cd7a124db3929de6e0c2a1f0dbc7064d4697394adeb6"
+  },
+  "source/private-compiler/per-locale-host8-marker-private.patch": {
+    "bytes": 5428,
+    "sha256": "79e76b6e008513497ac20456ba773a617adf022c59d79d5393bde60b41e6b1eb"
+  },
+  "source/private-compiler/private-patch-provenance.json": {
+    "bytes": 2381,
+    "sha256": "8270e4dc1f07c951ec3a237e9d1b8fc9c098c09d2a840cf5adebb7c9d1825764"
+  },
+  "source/source-sha256.json": {
+    "bytes": 3548,
+    "sha256": "b38c56f938de8bfa606878fd349ab628946550f016473392c88773414061733f"
+  }
+}

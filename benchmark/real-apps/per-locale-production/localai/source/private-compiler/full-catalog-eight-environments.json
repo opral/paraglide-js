@@ -1,0 +1,127 @@
+{
+  "scope": "Private full LocalAI catalogs / fixed-Spanish namespace functional fixture; no whole-app performance claim",
+  "sourceCommit": "a551c83465ee538367358f239de5a364ebea9329",
+  "compilerBase": "6997d020813d76f087d585110e62cd54891726e0",
+  "compilerSourceHashes": {
+    "src/compiler/compile-project.ts": "6c79593a371b02113f11b9ce8891f89624f3dcd20f3cec44ed6b42f71c11e57b",
+    "src/compiler/namespace-facades.ts": "05c5dcd2c1515944ed0fed98a7865c3c0896663cd4f9d192f1ca753453f40243",
+    "src/bundler-plugins/per-locale-build/index.ts": "304a3023599fa728682cdd288faed74917ac6320da94e9d4953de888e0aa15b0",
+    "src/bundler-plugins/per-locale-build/normalize-compiler-marker.ts": "4dcaae7a950b5795bfbb7028331785a7974b61e9de19f6c127ec97cc0dde367a"
+  },
+  "compilerImplementationLeafSha256": "1dfaa196f1a7e92d34a186ccd97e63591f0269242f63ba738120a80199c6a1c7",
+  "hostFixImplementationLeafSha256": "1f0f3dfaefe260ab579f3f9114e758ae5a5ca8f0c7c7d710badf08f69ea5b6f7",
+  "catalogProjectRoot": "/root/repos-iii/paraglide-namespace-facades-private/.real-apps/localai-namespace-static-f",
+  "generatedSourceRoot": "/root/repos-iii/paraglide-namespace-facades-private/.real-apps/localai-namespace-static-g",
+  "buildMs": 26550.697758000002,
+  "hostVite": "8.0.16",
+  "hostContexts": [
+    {
+      "environment": "paraglide_client_de_6465",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_en_656e",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_es_6573",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_id_6964",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_it_6974",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_ko_6b6f",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_pt_BR_70742d4252",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_zh_CN_7a682d434e",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    }
+  ],
+  "perLocaleBuild": true,
+  "localeLabels": {
+    "de": "E-Mail",
+    "en": "Email",
+    "es": "Correo electrónico",
+    "id": "Email",
+    "it": "Email",
+    "ko": "이메일",
+    "pt-BR": "E-mail",
+    "zh-CN": "邮箱"
+  },
+  "localeDirectories": {
+    "de": "__paraglide/de-6465",
+    "en": "__paraglide/en-656e",
+    "es": "__paraglide/es-6573",
+    "id": "__paraglide/id-6964",
+    "it": "__paraglide/it-6974",
+    "ko": "__paraglide/ko-6b6f",
+    "pt-BR": "__paraglide/pt-BR-70742d4252",
+    "zh-CN": "__paraglide/zh-CN-7a682d434e"
+  },
+  "locales": [
+    "de",
+    "en",
+    "es",
+    "id",
+    "it",
+    "ko",
+    "pt-BR",
+    "zh-CN"
+  ],
+  "sourceCatalogFiles": 115,
+  "englishRecursiveLeaves": 5368,
+  "namespaces": 22,
+  "initialNamespaceKeys": 167,
+  "lazyNamespaceKeys": 188,
+  "startupAbsentOtherText": [
+    "home:assistant.description",
+    "Instala modelos, cambia backends, edita configuraciones y consulta el estado hablando con LocalAI."
+  ],
+  "startupFiles": [
+    "main.mjs"
+  ],
+  "outputFiles": [
+    {
+      "file": "index.html",
+      "bytes": 88,
+      "sha256": "74fbed6b53f305e92c9d3d163b1f68b065219676528d46ab899faae4ef5948e5"
+    },
+    {
+      "file": "main.mjs",
+      "bytes": 46981,
+      "sha256": "27fc1ebab88dd57affdb6eb490d8460289b016b1b55ac719e6f0feeaf06624be"
+    },
+    {
+      "file": "other-PXCqhHxu.mjs",
+      "bytes": 49571,
+      "sha256": "fc1c72d36d2fcee5e50d1866a1e38983400d7234421a39a8124822f7220f1758"
+    }
+  ],
+  "functionalChecks": [
+    "all initial namespace keys available dynamically",
+    "whole lazy namespace dynamically importable",
+    "null prototype and frozen dictionaries",
+    "default-only lazy module",
+    "full source locale input retained",
+    "every auth key matches native i18next interpolation/fallback"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "base": "6997d020813d76f087d585110e62cd54891726e0",
+  "patches": {
+    "namespace-facades-private.patch": "b112fde1f6753463e842cd7a124db3929de6e0c2a1f0dbc7064d4697394adeb6",
+    "per-locale-host8-marker-private.patch": "79e76b6e008513497ac20456ba773a617adf022c59d79d5393bde60b41e6b1eb"
+  },
+  "source": {
+    "src/compiler/compile-project.ts": "6c79593a371b02113f11b9ce8891f89624f3dcd20f3cec44ed6b42f71c11e57b",
+    "src/compiler/namespace-facades.ts": "05c5dcd2c1515944ed0fed98a7865c3c0896663cd4f9d192f1ca753453f40243",
+    "src/bundler-plugins/per-locale-build/index.ts": "304a3023599fa728682cdd288faed74917ac6320da94e9d4953de888e0aa15b0",
+    "src/bundler-plugins/per-locale-build/normalize-compiler-marker.ts": "4dcaae7a950b5795bfbb7028331785a7974b61e9de19f6c127ec97cc0dde367a"
+  },
+  "namespaceLeaf": "1dfaa196f1a7e92d34a186ccd97e63591f0269242f63ba738120a80199c6a1c7",
+  "hostFixLeaf": "1f0f3dfaefe260ab579f3f9114e758ae5a5ca8f0c7c7d710badf08f69ea5b6f7",
+  "node": "v22.23.2",
+  "hostContexts": [
+    {
+      "environment": "paraglide_client_de_6465",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_en_656e",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_es_6573",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_id_6964",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_it_6974",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_ko_6b6f",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_pt_BR_70742d4252",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    },
+    {
+      "environment": "paraglide_client_zh_CN_7a682d434e",
+      "vite": "8.0.16",
+      "rolldown": "1.0.3"
+    }
+  ],
+  "checks": [
+    "tsc --build passed",
+    "focused existing per-locale compiler/plugin unit passed",
+    "both patches apply cleanly to exact base",
+    "native host marker before/after and strict checkJs passed",
+    "full8environment fixture passed",
+    "dictionary and converter shape safety passed"
+  ],
+  "timingScope": "Report buildMs includes createBuilder setup/buildApp and locale-label verification; not browser timing or agent orchestration."
+}

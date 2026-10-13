@@ -1,0 +1,104 @@
+{
+  "desktop": {
+    "nPerVariant": 5,
+    "median": {
+      "native": {
+        "readyMs": 1230.1999999284744,
+        "fcpMs": 824,
+        "finalLcpMs": 824,
+        "encodedBodyAndHtmlBytes": 1157613,
+        "transferAndHtmlBytes": 1166013,
+        "finalLcpElement": "H1",
+        "startupEntryBytesMedian": 96817,
+        "startupEntryEndMsMedian": 324.6999999284744,
+        "authResourcesMedianEndMs": 474,
+        "authResourcePaths": [
+          "/locales/es/auth.json"
+        ]
+      },
+      "candidate": {
+        "readyMs": 1204.1000000238419,
+        "fcpMs": 800,
+        "finalLcpMs": 800,
+        "encodedBodyAndHtmlBytes": 1149335,
+        "transferAndHtmlBytes": 1158035,
+        "finalLcpElement": "H1",
+        "startupEntryBytesMedian": 74493,
+        "startupEntryEndMsMedian": 246.5,
+        "authResourcesMedianEndMs": 623.8999999761581,
+        "authResourcePaths": [
+          "/assets/auth-CpQJnbfR.js",
+          "/assets/auth-B3Fz9TsF.js"
+        ]
+      }
+    },
+    "candidateMinusNative": {
+      "readyMs": -26.09999990463257,
+      "fcpMs": -24,
+      "finalLcpMs": -24,
+      "encodedBodyAndHtmlBytes": -8278,
+      "transferAndHtmlBytes": -7978,
+      "startupEntryBytesMedian": -22324,
+      "startupEntryEndMsMedian": -78.19999992847443,
+      "authResourcesMedianEndMs": 149.89999997615814,
+      "encodedBodyAndHtmlPercent": -0.7150921767464602,
+      "transferAndHtmlPercent": -0.6842119255960268
+    },
+    "medianPairedReadyDeltaMs": -27.49999988079071,
+    "medianPairedLcpDeltaMs": -28,
+    "medianPairedFcpDeltaMs": -28,
+    "allRenderedBodiesIdentical": true,
+    "allPass": true
+  },
+  "mobile": {
+    "nPerVariant": 5,
+    "median": {
+      "native": {
+        "readyMs": 2821.5,
+        "fcpMs": 2564,
+        "finalLcpMs": 2564,
+        "encodedBodyAndHtmlBytes": 1157613,
+        "transferAndHtmlBytes": 1166013,
+        "finalLcpElement": "H1",
+        "startupEntryBytesMedian": 96817,
+        "startupEntryEndMsMedian": 1881.1999999284744,
+        "authResourcesMedianEndMs": 2158.7999999523163,
+        "authResourcePaths": [
+          "/locales/es/auth.json"
+        ]
+      },
+      "candidate": {
+        "readyMs": 2220,
+        "fcpMs": 2168,
+        "finalLcpMs": 2168,
+        "encodedBodyAndHtmlBytes": 1149335,
+        "transferAndHtmlBytes": 1158035,
+        "finalLcpElement": "H1",
+        "startupEntryBytesMedian": 74493,
+        "startupEntryEndMsMedian": 1311.7999999523163,
+        "authResourcesMedianEndMs": 1964,
+        "authResourcePaths": [
+          "/assets/auth-CpQJnbfR.js",
+          "/assets/auth-B3Fz9TsF.js"
+        ]
+      }
+    },
+    "candidateMinusNative": {
+      "readyMs": -601.5,
+      "fcpMs": -396,
+      "finalLcpMs": -396,
+      "encodedBodyAndHtmlBytes": -8278,
+      "transferAndHtmlBytes": -7978,
+      "startupEntryBytesMedian": -22324,
+      "startupEntryEndMsMedian": -569.3999999761581,
+      "authResourcesMedianEndMs": -194.79999995231628,
+      "encodedBodyAndHtmlPercent": -0.7150921767464602,
+      "transferAndHtmlPercent": -0.6842119255960268
+    },
+    "medianPairedReadyDeltaMs": -582.3000000715256,
+    "medianPairedLcpDeltaMs": -396,
+    "medianPairedFcpDeltaMs": -396,
+    "allRenderedBodiesIdentical": true,
+    "allPass": true
+  }
+}

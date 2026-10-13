@@ -1,0 +1,85 @@
+diff --git a/src/compiler/compile-project.ts b/src/compiler/compile-project.ts
+index 924d0e7..04930a1 100644
+--- a/src/compiler/compile-project.ts
++++ b/src/compiler/compile-project.ts
+@@ -12,6 +12,7 @@ import { createServerFile } from "./server/create-server-file.js";
+ import { createRegistry } from "./registry.js";
+ import { emitTsDeclarations } from "./emit-ts-declarations.js";
+ import { createReadme } from "./create-readme.js";
++import { generateNamespaceFacades } from "./namespace-facades.js";
+ import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
+ import { toSafeModuleId } from "./safe-module-id.js";
+ 
+@@ -212,6 +213,24 @@ export async function loadLocale(locale) {
+ 				optionsWithDefaults.experimentalMiddlewareLocaleSplitting
+ 			);
+ 	Object.assign(output, generatedMessages);
++	// Private experiment: discoverable physical facades, including SSR/static output.
++	Object.assign(output, generateNamespaceFacades(bundles));
++	// Give namespace reachability physical compiler-owned per-message modules.
++	// A locale-modules barrel would otherwise be shared across lazy namespaces.
++	const namespaceBundles = bundles.filter(bundle => bundle.id.includes(":"));
++	if (namespaceBundles.length) {
++		const namespaceCompiled = namespaceBundles.map(bundle => compileBundle({
++			bundle, fallbackMap, inlineMessages: true,
++			messageReferenceExpression: messageModules.messageReferenceExpression,
++			settings,
++			experimentalMiddlewareLocaleSplitting: optionsWithDefaults.experimentalMiddlewareLocaleSplitting,
++			experimentalStaticLocale: optionsWithDefaults.experimentalStaticLocale,
++		}));
++		for (const [file, code] of Object.entries(messageModules.generateOutput(namespaceCompiled, settings, fallbackMap, optionsWithDefaults.experimentalMiddlewareLocaleSplitting))) {
++			output[file.replace(/^messages\//, "namespace-messages/")] = code;
++		}
++		output["namespace-messages/package.json"] = JSON.stringify({ type: "module", sideEffects: false });
++	}
+ 
+ 	if (optionsWithDefaults.emitGitIgnore) {
+ 		output[".gitignore"] = ignoreDirectory;
+diff --git a/src/compiler/namespace-facades.ts b/src/compiler/namespace-facades.ts
+new file mode 100644
+index 0000000..45606ef
+--- /dev/null
++++ b/src/compiler/namespace-facades.ts
+@@ -0,0 +1,42 @@
++import { toSafeModuleId } from "./safe-module-id.js";
++/** Private namespace experiment. IDs use the first ':' as namespace separator. */
++export function generateNamespaceFacades(bundles: readonly { id: string }[]): Record<string, string> {
++ const groups = new Map<string, { id: string; key: string }[]>();
++ const foldedNames = new Map<string, string>();
++ const safeFiles = new Map<string, string>();
++ for (const { id } of bundles) {
++  const separator = id.indexOf(":");
++  if (separator < 0) continue;
++  const safeFile = toSafeModuleId(id);
++  const previousFile = safeFiles.get(safeFile);
++  if (previousFile && previousFile !== id) throw new Error(`Namespace message filename collision: ${previousFile}, ${id}`);
++  safeFiles.set(safeFile, id);
++  const name = id.slice(0, separator);
++  const key = id.slice(separator + 1);
++  // Portable, single-file paths; reject rather than sanitize into colliding names.
++  if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(name) || !key || /^(con|prn|aux|nul|com[0-9]|lpt[0-9])$/i.test(name)) {
++   throw new Error(`Unsafe namespace facade ID: ${JSON.stringify(id)}`);
++  }
++  const previous = foldedNames.get(name.toLowerCase());
++  if (previous && previous !== name) throw new Error(`Case-colliding namespaces: ${previous}, ${name}`);
++  foldedNames.set(name.toLowerCase(), name);
++  const entries = groups.get(name) ?? [];
++  if (entries.some(entry => entry.key === key)) throw new Error(`Duplicate namespace key: ${id}`);
++  entries.push({ id, key });
++  groups.set(name, entries);
++ }
++ const output: Record<string, string> = {};
++ for (const [name, entries] of groups) {
++  entries.sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0);
++  const imports = entries.map(({ id }, i) => `import { ${JSON.stringify(id)} as message${i} } from ${JSON.stringify(`../namespace-messages/${toSafeModuleId(id)}.js`)};`).join("\n");
++  const type = entries.map(({ id, key }) => `${JSON.stringify(key).replaceAll("*/", "*\\u002f")}: typeof import('../namespace-messages/${toSafeModuleId(id)}.js')[${JSON.stringify(id).replaceAll("*/", "*\\u002f")}]`).join("; ");
++  const assignments = entries.map(({ key }, i) => `messages[${JSON.stringify(key)}] = message${i};`).join("\n");
++  output[`namespaces/${name}.js`] = `${imports}\n/** @type {{${type}}} */\nconst messages = Object.create(null);\n${assignments}\nObject.freeze(messages);\nexport default messages;\n`;
++ }
++ if (groups.size) {
++  output["namespaces/package.json"] = JSON.stringify({ type: "module", sideEffects: false });
++  output["namespaces/manifest.json"] = JSON.stringify({ schemaVersion: 1, separator: ":", namespaces: Object.fromEntries([...groups].map(([name, entries]) => [name, { module: `./${name}.js`, keys: entries.map(entry => entry.key) }])) }, null, 2);
++  output["namespaces/README.md"] = "Private generated namespace facades. Import the default dictionary from ./<namespace>.js. Runtime keys retain every message in that namespace; other namespaces follow ordinary import reachability. Dictionaries are frozen with null prototypes. Modules export default only, including a callable key named then. Do not return the raw dictionary from an async function: use the module wrapper or resolve void to avoid Promise thenable assimilation. Explicit locale options and .parts use the original compiler wrapper. No catalogs were extracted.\n";
++ }
++ return output;
++}

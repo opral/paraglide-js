@@ -1,0 +1,2158 @@
+{
+  "browserVersion": "156.0.8078.4",
+  "persistentMediaTransport": [
+    {
+      "url": "http://127.0.0.1:4188/assets/silence.mp3",
+      "encodedDataBytes": 0,
+      "decodedDataBytes": 0,
+      "chunks": [],
+      "epochOffsetMs": 1790840716558.43,
+      "encodedBytesReceivedByReady": 0
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/silence.mp3",
+      "encodedDataBytes": 36494,
+      "decodedDataBytes": 36494,
+      "chunks": [
+        {
+          "epochMs": 1791900096968.569,
+          "encodedBytes": 0,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900096979.115,
+          "encodedBytes": 1500,
+          "decodedBytes": 3848
+        },
+        {
+          "epochMs": 1791900096985.599,
+          "encodedBytes": 3848,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900096992.7842,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097000.383,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097007.458,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097014.542,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097022.6301,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097029.803,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097038.1262,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097045.414,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097052.7532,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097059.926,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097067.1821,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097074.728,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097082.821,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097090.2522,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097097.3372,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097104.633,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097120.11,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097135.4182,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097164.8242,
+          "encodedBytes": 1500,
+          "decodedBytes": 1500
+        },
+        {
+          "epochMs": 1791900097195.413,
+          "encodedBytes": 1500,
+          "decodedBytes": 1146
+        },
+        {
+          "epochMs": 1791900097195.52,
+          "encodedBytes": 1146,
+          "decodedBytes": 0
+        }
+      ],
+      "epochOffsetMs": 1790840716558.402,
+      "encodedBytesReceivedByReady": 0
+    }
+  ],
+  "measurementValidity": {
+    "uiParity": true,
+    "readinessTimingQualified": true,
+    "completedOrdinaryRequestAccounting": true,
+    "allRequestsClosed": false,
+    "note": "Chrome native audio document iframe may retain open request despite HTTP response. It is retained explicitly with content length and received byte counters; incomplete closed-set samples make no aggregate byte/performance claim."
+  },
+  "playwrightVersion": "1.64.0",
+  "browserExecutable": "/root/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+  "profile": "mobile",
+  "resourcesStartedBeforeReadyCompleted": [
+    {
+      "url": "http://127.0.0.1:4188/login?redirect=false",
+      "resourceType": "document",
+      "requestRange": null,
+      "startEpochMs": 1791900084660.5881,
+      "timing": {
+        "startTime": 1791900084660.5881,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.152,
+        "responseStart": 151.97,
+        "responseEnd": 182.564
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 6729,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 701,
+        "responseBodySize": 6729,
+        "responseHeadersSize": 235
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/locale-fr.D7dm3wbf.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084835.784,
+      "timing": {
+        "startTime": 1791900084835.784,
+        "domainLookupStart": 0.103,
+        "domainLookupEnd": 0.113,
+        "connectStart": 0.113,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.215,
+        "requestStart": 0.269,
+        "responseStart": 156.932,
+        "responseEnd": 1110.141
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 39958,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 617,
+        "responseBodySize": 39958,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/index.BYwL8V3o.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084845.474,
+      "timing": {
+        "startTime": 1791900084845.474,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.34,
+        "responseStart": 161.773,
+        "responseEnd": 8218.154
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 319528,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 613,
+        "responseBodySize": 319528,
+        "responseHeadersSize": 243
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/rolldown-runtime.C0FnF6B9.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084845.582,
+      "timing": {
+        "startTime": 1791900084845.582,
+        "domainLookupStart": 0.029,
+        "domainLookupEnd": 0.036,
+        "connectStart": 0.036,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.731,
+        "requestStart": 0.877,
+        "responseStart": 169.822,
+        "responseEnd": 170.897
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 696,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 624,
+        "responseBodySize": 696,
+        "responseHeadersSize": 240
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/polyfills.DVBsJvPx.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084845.725,
+      "timing": {
+        "startTime": 1791900084845.725,
+        "domainLookupStart": 0.024,
+        "domainLookupEnd": 0.025,
+        "connectStart": 0.025,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.592,
+        "requestStart": 0.772,
+        "responseStart": 176.269,
+        "responseEnd": 252.198
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 2920,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 617,
+        "responseBodySize": 2920,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/advanced-inputs.BJDnsHUg.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084846.163,
+      "timing": {
+        "startTime": 1791900084846.163,
+        "domainLookupStart": 0.079,
+        "domainLookupEnd": 0.082,
+        "connectStart": 0.082,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.43,
+        "requestStart": 0.53,
+        "responseStart": 191.248,
+        "responseEnd": 2059.374
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 74942,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 623,
+        "responseBodySize": 74942,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/runtime-shims.CfYCxqfF.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084846.1912,
+      "timing": {
+        "startTime": 1791900084846.1912,
+        "domainLookupStart": 0.029,
+        "domainLookupEnd": 0.03,
+        "connectStart": 0.03,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.224,
+        "requestStart": 0.339,
+        "responseStart": 183.935,
+        "responseEnd": 424.434
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 10898,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 621,
+        "responseBodySize": 10898,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/query-devtools.C2qG3_c-.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084846.2788,
+      "timing": {
+        "startTime": 1791900084846.2788,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 445.974,
+        "responseStart": 626.593,
+        "responseEnd": 1226.722
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 20763,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 622,
+        "responseBodySize": 20763,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/validation.OCGaXQWG.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084846.3462,
+      "timing": {
+        "startTime": 1791900084846.3462,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 498.661,
+        "responseStart": 685.637,
+        "responseEnd": 1391.632
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 25803,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 618,
+        "responseBodySize": 25803,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/animations.BtPDPo2e.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084846.4,
+      "timing": {
+        "startTime": 1791900084846.4,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 1098.787,
+        "responseStart": 1285.957,
+        "responseEnd": 1826.88
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 21906,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 618,
+        "responseBodySize": 21906,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/react-vtree.nToqO-mh.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084846.919,
+      "timing": {
+        "startTime": 1791900084846.919,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 1225.56,
+        "responseStart": 1413.162,
+        "responseEnd": 1525.867
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 4786,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 619,
+        "responseBodySize": 4786,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/vendor.Ck27UeHG.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084847.055,
+      "timing": {
+        "startTime": 1791900084847.055,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 1390.381,
+        "responseStart": 1570.254,
+        "responseEnd": 9497.898
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 409097,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 614,
+        "responseBodySize": 409097,
+        "responseHeadersSize": 243
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/i18n.C6_IvY32.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084847.248,
+      "timing": {
+        "startTime": 1791900084847.248,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 1524.825,
+        "responseStart": 1712.984,
+        "responseEnd": 2162.9
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 17872,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 612,
+        "responseBodySize": 17872,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/react-interactions.DscxJRRh.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084847.343,
+      "timing": {
+        "startTime": 1791900084847.343,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 1780.494,
+        "responseStart": 1967.911,
+        "responseEnd": 2477.348
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 20307,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 626,
+        "responseBodySize": 20307,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/routing.DYGR6PKW.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084847.398,
+      "timing": {
+        "startTime": 1791900084847.398,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 1825.597,
+        "responseStart": 2019.648,
+        "responseEnd": 2829.807
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 30319,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 615,
+        "responseBodySize": 30319,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/radix-ui.tIiBXdQR.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084847.441,
+      "timing": {
+        "startTime": 1791900084847.441,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 2057.506,
+        "responseStart": 2237.075,
+        "responseEnd": 2814.965
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 22056,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 616,
+        "responseBodySize": 22056,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/tanstack-vendor.DDeX4vva.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084847.892,
+      "timing": {
+        "startTime": 1791900084847.892,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 2162.251,
+        "responseStart": 2356.691,
+        "responseEnd": 3152.907
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 29840,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 623,
+        "responseBodySize": 29840,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/http-client.D6G8y4MX.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084847.94,
+      "timing": {
+        "startTime": 1791900084847.94,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 2476.858,
+        "responseStart": 2664.948,
+        "responseEnd": 3174.267
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 19262,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 619,
+        "responseBodySize": 19262,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/shared-libs.CKPm2yyl.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084847.98,
+      "timing": {
+        "startTime": 1791900084847.98,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 2814.461,
+        "responseStart": 2994.416,
+        "responseEnd": 3444.279
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 19795,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 619,
+        "responseBodySize": 19795,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/avatars.XYysrFin.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.2449,
+      "timing": {
+        "startTime": 1791900084848.2449,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 2828.951,
+        "responseStart": 3023.764,
+        "responseEnd": 3114.965
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 3430,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 615,
+        "responseBodySize": 3430,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/framer-motion.sQ5ndFcX.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.32,
+      "timing": {
+        "startTime": 1791900084848.32,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 3114.748,
+        "responseStart": 3294.134,
+        "responseEnd": 4441.902
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 42055,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 621,
+        "responseBodySize": 42055,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/virtualization.Bm9RS8j4.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.5369,
+      "timing": {
+        "startTime": 1791900084848.5369,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 3152.071,
+        "responseStart": 3338.995,
+        "responseEnd": 4074.213
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 26260,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 622,
+        "responseBodySize": 26260,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/headlessui.CdCWEm1u.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.473,
+      "timing": {
+        "startTime": 1791900084848.473,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 3173.775,
+        "responseStart": 3368.433,
+        "responseEnd": 4179.18
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 29149,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 618,
+        "responseBodySize": 29149,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/markdown-processing.TMtFeQR7.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.5369,
+      "timing": {
+        "startTime": 1791900084848.5369,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 3443.771,
+        "responseStart": 3639.256,
+        "responseEnd": 8176.648
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 177271,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 627,
+        "responseBodySize": 177271,
+        "responseHeadersSize": 243
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/date-utils.C_DbPEjY.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.722,
+      "timing": {
+        "startTime": 1791900084848.722,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 4073.798,
+        "responseStart": 4253.402,
+        "responseEnd": 4456.329
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 7416,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 618,
+        "responseBodySize": 7416,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/utilities.Ce8HPfek.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.8518,
+      "timing": {
+        "startTime": 1791900084848.8518,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 4178.884,
+        "responseStart": 4373.23,
+        "responseEnd": 5169.09
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 32134,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 617,
+        "responseBodySize": 32134,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/lazy.ok8MO2Tx.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.821,
+      "timing": {
+        "startTime": 1791900084848.821,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 4441.346,
+        "responseStart": 4628.579,
+        "responseEnd": 4628.805
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 620,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 612,
+        "responseBodySize": 620,
+        "responseHeadersSize": 240
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/forms.UHk3QTvM.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.86,
+      "timing": {
+        "startTime": 1791900084848.86,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 4455.945,
+        "responseStart": 4643.295,
+        "responseEnd": 4883.914
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 9932,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 613,
+        "responseBodySize": 9932,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/math-katex.RfU0klHh.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.899,
+      "timing": {
+        "startTime": 1791900084848.899,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 4628.767,
+        "responseStart": 4823.874,
+        "responseEnd": 5063.812
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 9257,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 618,
+        "responseBodySize": 9257,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/hooks.DWUDl99B.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.9539,
+      "timing": {
+        "startTime": 1791900084848.9539,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 4883.843,
+        "responseStart": 5078.281,
+        "responseEnd": 11116.048
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 507571,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 613,
+        "responseBodySize": 507571,
+        "responseHeadersSize": 243
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/markdown.Dt7IaPUf.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084848.993,
+      "timing": {
+        "startTime": 1791900084848.993,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 5063.729,
+        "responseStart": 5243.235,
+        "responseEnd": 5318.776
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 3276,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 616,
+        "responseBodySize": 3276,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/useBalanceSummary.B3yMZSaW.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084849.0342,
+      "timing": {
+        "startTime": 1791900084849.0342,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 5168.844,
+        "responseStart": 5355.777,
+        "responseEnd": 5468.659
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 5297,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 625,
+        "responseBodySize": 5297,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/MessageContent.Delmh6yR.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084849.07,
+      "timing": {
+        "startTime": 1791900084849.07,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 5318.75,
+        "responseStart": 5505.508,
+        "responseEnd": 5880.566
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 14008,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 622,
+        "responseBodySize": 14008,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/Footer.Dksy9lra.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084849.517,
+      "timing": {
+        "startTime": 1791900084849.517,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 5468.119,
+        "responseStart": 5662.766,
+        "responseEnd": 7208.098
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 54134,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 614,
+        "responseBodySize": 54134,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/security-ui.5zGvIlor.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084849.56,
+      "timing": {
+        "startTime": 1791900084849.56,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 5880.053,
+        "responseStart": 6067.968,
+        "responseEnd": 6292.496
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 8128,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 619,
+        "responseBodySize": 8128,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/ProjectEditDialog.B74BbUIO.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084849.596,
+      "timing": {
+        "startTime": 1791900084849.596,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 6292.525,
+        "responseStart": 6480.689,
+        "responseEnd": 7110.905
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 21530,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 625,
+        "responseBodySize": 21530,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/forms.hAxhXfpi.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084849.6357,
+      "timing": {
+        "startTime": 1791900084849.6357,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 7110.958,
+        "responseStart": 7297.729,
+        "responseEnd": 7643.276
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 12119,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 613,
+        "responseBodySize": 12119,
+        "responseHeadersSize": 242
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/duringRun.BNGcMjN4.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084849.673,
+      "timing": {
+        "startTime": 1791900084849.673,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 7208.044,
+        "responseStart": 7402.32,
+        "responseEnd": 7672.512
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 9917,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 617,
+        "responseBodySize": 9917,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/queries.B1ieGh9V.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084849.7122,
+      "timing": {
+        "startTime": 1791900084849.7122,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 7643.247,
+        "responseStart": 7830.358,
+        "responseEnd": 7830.691
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 225,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 615,
+        "responseBodySize": 225,
+        "responseHeadersSize": 240
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/undockedWindow.DNBv-4ny.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084849.751,
+      "timing": {
+        "startTime": 1791900084849.751,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 7672.499,
+        "responseStart": 7860.376,
+        "responseEnd": 7889.989
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 2359,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 622,
+        "responseBodySize": 2359,
+        "responseHeadersSize": 241
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/Settings.DebI2NgD.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084850.2568,
+      "timing": {
+        "startTime": 1791900084850.2568,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 7830.139,
+        "responseStart": 8009.138,
+        "responseEnd": 8009.911
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 874,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 616,
+        "responseBodySize": 874,
+        "responseHeadersSize": 240
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/math-katex.uZ8_QngQ.css",
+      "resourceType": "stylesheet",
+      "requestRange": null,
+      "startEpochMs": 1791900084850.879,
+      "timing": {
+        "startTime": 1791900084850.879,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 165.316,
+        "responseStart": 351.731,
+        "responseEnd": 495.206
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 7110,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 633,
+        "responseBodySize": 7110,
+        "responseHeadersSize": 234
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/Footer.CRq4c_Xn.css",
+      "resourceType": "stylesheet",
+      "requestRange": null,
+      "startEpochMs": 1791900084850.3389,
+      "timing": {
+        "startTime": 1791900084850.3389,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 247.347,
+        "responseStart": 441.687,
+        "responseEnd": 441.888
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 184,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 629,
+        "responseBodySize": 184,
+        "responseHeadersSize": 233
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/index.DrNoDWmg.css",
+      "resourceType": "stylesheet",
+      "requestRange": null,
+      "startEpochMs": 1791900084850.3752,
+      "timing": {
+        "startTime": 1791900084850.3752,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 419.803,
+        "responseStart": 599.057,
+        "responseEnd": 1777.419
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 43266,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 628,
+        "responseBodySize": 43266,
+        "responseHeadersSize": 235
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/registerSW.js",
+      "resourceType": "script",
+      "requestRange": null,
+      "startEpochMs": 1791900084850.431,
+      "timing": {
+        "startTime": 1791900084850.431,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 7889.251,
+        "responseStart": 8061.85,
+        "responseEnd": 8062.026
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 90,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 574,
+        "responseBodySize": 90,
+        "responseHeadersSize": 239
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/favicon-32x32.png",
+      "resourceType": "other",
+      "requestRange": null,
+      "startEpochMs": 1791900096533.793,
+      "timing": {
+        "startTime": 1791900096533.793,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.202,
+        "responseStart": 158.622,
+        "responseEnd": 166.115
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 1716,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 655,
+        "responseBodySize": 1716,
+        "responseHeadersSize": 220
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/silence.mp3",
+      "resourceType": "document",
+      "requestRange": null,
+      "startEpochMs": 1791900096602.5671,
+      "timing": {
+        "startTime": 1791900096602.5671,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.086,
+        "responseStart": 157.809,
+        "responseEnd": -1
+      },
+      "status": 200,
+      "done": false,
+      "contentLength": 36494,
+      "sizes": null
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/logo.svg",
+      "resourceType": "image",
+      "requestRange": null,
+      "startEpochMs": 1791900096627.569,
+      "timing": {
+        "startTime": 1791900096627.569,
+        "domainLookupStart": 0.057,
+        "domainLookupEnd": 0.065,
+        "connectStart": 0.065,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.168,
+        "requestStart": 0.197,
+        "responseStart": 154.894,
+        "responseEnd": 162.888
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 1361,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 631,
+        "responseBodySize": 1361,
+        "responseHeadersSize": 224
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/api/banner",
+      "resourceType": "xhr",
+      "requestRange": null,
+      "startEpochMs": 1791900096632.496,
+      "timing": {
+        "startTime": 1791900096632.496,
+        "domainLookupStart": 0.051,
+        "domainLookupEnd": 0.057,
+        "connectStart": 0.057,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.115,
+        "requestStart": 0.133,
+        "responseStart": 165.009,
+        "responseEnd": 165.295
+      },
+      "status": 200,
+      "done": true,
+      "contentLength": 2,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 582,
+        "responseBodySize": 2,
+        "responseHeadersSize": 194
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/api/config",
+      "resourceType": "xhr",
+      "requestRange": null,
+      "startEpochMs": 1791900096633.4631,
+      "timing": {
+        "startTime": 1791900096633.4631,
+        "domainLookupStart": 0.045,
+        "domainLookupEnd": 0.049,
+        "connectStart": 0.049,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.104,
+        "requestStart": 0.122,
+        "responseStart": 171.507,
+        "responseEnd": 171.732
+      },
+      "status": 200,
+      "done": true,
+      "contentLength": 623,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 582,
+        "responseBodySize": 623,
+        "responseHeadersSize": 196
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/api/auth/refresh",
+      "resourceType": "xhr",
+      "requestRange": null,
+      "startEpochMs": 1791900096634.555,
+      "timing": {
+        "startTime": 1791900096634.555,
+        "domainLookupStart": 0.035,
+        "domainLookupEnd": 0.039,
+        "connectStart": 0.039,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.095,
+        "requestStart": 0.115,
+        "responseStart": 177.858,
+        "responseEnd": 178.386
+      },
+      "status": 200,
+      "done": true,
+      "contentLength": 2,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 639,
+        "responseBodySize": 2,
+        "responseHeadersSize": 194
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/favicon-32x32.png",
+      "resourceType": "other",
+      "requestRange": null,
+      "startEpochMs": 1791900096638.3948,
+      "timing": {
+        "startTime": 1791900096638.3948,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 61.434,
+        "responseStart": 218.914,
+        "responseEnd": 227.21
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 1716,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 640,
+        "responseBodySize": 1716,
+        "responseHeadersSize": 220
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/api/banner",
+      "resourceType": "xhr",
+      "requestRange": null,
+      "startEpochMs": 1791900096656.126,
+      "timing": {
+        "startTime": 1791900096656.126,
+        "domainLookupStart": 115.048,
+        "domainLookupEnd": 115.056,
+        "connectStart": 115.056,
+        "secureConnectionStart": -1,
+        "connectEnd": 115.199,
+        "requestStart": 115.249,
+        "responseStart": 268.559,
+        "responseEnd": 268.818
+      },
+      "status": 200,
+      "done": true,
+      "contentLength": 2,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 582,
+        "responseBodySize": 2,
+        "responseHeadersSize": 194
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/api/config",
+      "resourceType": "xhr",
+      "requestRange": null,
+      "startEpochMs": 1791900096656.2278,
+      "timing": {
+        "startTime": 1791900096656.2278,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 133.619,
+        "responseStart": 290.713,
+        "responseEnd": 290.961
+      },
+      "status": 200,
+      "done": true,
+      "contentLength": 623,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 582,
+        "responseBodySize": 623,
+        "responseHeadersSize": 196
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/silence.mp3",
+      "resourceType": "media",
+      "requestRange": "bytes=0-",
+      "startEpochMs": 1791900096774.2651,
+      "timing": {
+        "startTime": 1791900096774.2651,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 23.432,
+        "responseStart": 180.243,
+        "responseEnd": 421.166
+      },
+      "status": 206,
+      "done": true,
+      "contentLength": 36494,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 575,
+        "responseBodySize": 36494,
+        "responseHeadersSize": 248
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4188/assets/fonts/Inter-Bold.woff2",
+      "resourceType": "font",
+      "requestRange": null,
+      "startEpochMs": 1791900096952.948,
+      "timing": {
+        "startTime": 1791900096952.948,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": 0.098,
+        "responseStart": 159.746,
+        "responseEnd": 1870.379
+      },
+      "status": 200,
+      "done": true,
+      "contentEncoding": "br",
+      "contentLength": 111045,
+      "sizes": {
+        "requestBodySize": 0,
+        "requestHeadersSize": 621,
+        "responseBodySize": 111045,
+        "responseHeadersSize": 223
+      }
+    }
+  ],
+  "completedHttpEncodedBodyBytesIncludingNavigation": 2278673,
+  "wholeRequestEncodedBodyByteBoundsIncludingNavigation": {
+    "lower": 2278673,
+    "upper": 2315167
+  },
+  "failures": [],
+  "network": {
+    "latencyMs": 150,
+    "downloadMbps": 1.6,
+    "uploadMbps": 2,
+    "cpuRate": 4
+  },
+  "appCommit": "e1dfc10449ff713faffacd60273fddcfe2c0a698",
+  "route": "/login?redirect=false",
+  "selectedLocale": "fr-FR normalized to fr",
+  "method": "UI parity only with persistent MP3 iframe reported separately; cache and service workers disabled,explicit desktop/mobile network+CPU profile,Brotli-Q4 precomputed,read-only fixtures; Playwright request-object closed set includes subframe/audio/navigation and every request started before translated readiness once completed",
+  "wallMs": 14199,
+  "api": [
+    {
+      "path": "/api/banner",
+      "status": 200
+    },
+    {
+      "path": "/api/config",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/refresh",
+      "status": 200
+    },
+    {
+      "path": "/api/banner",
+      "status": 200
+    },
+    {
+      "path": "/api/config",
+      "status": 200
+    }
+  ],
+  "visibleText": "Content de te revoir\nAdresse courriel\nMot de passe\nMot de passe oublié?\nContinuer",
+  "locale": "fr",
+  "placeholders": [
+    {
+      "type": "text",
+      "placeholder": " ",
+      "ariaLabel": "Courriel"
+    },
+    {
+      "type": "password",
+      "placeholder": " ",
+      "ariaLabel": "Mot de passe"
+    }
+  ],
+  "translatedReadyMs": 12297,
+  "fcpMs": 11980,
+  "lcpMs": 12324,
+  "fontStatusAfterReady": "loaded",
+  "interFontLoaded": true,
+  "navigation": {
+    "transferBytesIncludingHeaders": 7029,
+    "encodedBodyBytes": 6729,
+    "decodedBodyBytes": 21343,
+    "domInteractiveMs": 8264,
+    "responseEndMs": 183,
+    "nextHopProtocol": "http/1.1"
+  },
+  "resources": [
+    {
+      "path": "/assets/locale-fr.D7dm3wbf.js",
+      "startMs": 175,
+      "endMs": 1285,
+      "transferBytesIncludingHeaders": 40258,
+      "encodedBodyBytes": 39958,
+      "decodedBodyBytes": 158679
+    },
+    {
+      "path": "/assets/rolldown-runtime.C0FnF6B9.js",
+      "startMs": 185,
+      "endMs": 356,
+      "transferBytesIncludingHeaders": 996,
+      "encodedBodyBytes": 696,
+      "decodedBodyBytes": 1291
+    },
+    {
+      "path": "/assets/index.BYwL8V3o.js",
+      "startMs": 185,
+      "endMs": 8403,
+      "transferBytesIncludingHeaders": 319828,
+      "encodedBodyBytes": 319528,
+      "decodedBodyBytes": 1223500
+    },
+    {
+      "path": "/assets/polyfills.DVBsJvPx.js",
+      "startMs": 186,
+      "endMs": 438,
+      "transferBytesIncludingHeaders": 3220,
+      "encodedBodyBytes": 2920,
+      "decodedBodyBytes": 7715
+    },
+    {
+      "path": "/assets/runtime-shims.CfYCxqfF.js",
+      "startMs": 186,
+      "endMs": 610,
+      "transferBytesIncludingHeaders": 11198,
+      "encodedBodyBytes": 10898,
+      "decodedBodyBytes": 57101
+    },
+    {
+      "path": "/assets/query-devtools.C2qG3_c-.js",
+      "startMs": 186,
+      "endMs": 1413,
+      "transferBytesIncludingHeaders": 21063,
+      "encodedBodyBytes": 20763,
+      "decodedBodyBytes": 59392
+    },
+    {
+      "path": "/assets/advanced-inputs.BJDnsHUg.js",
+      "startMs": 186,
+      "endMs": 2245,
+      "transferBytesIncludingHeaders": 75242,
+      "encodedBodyBytes": 74942,
+      "decodedBodyBytes": 232395
+    },
+    {
+      "path": "/assets/validation.OCGaXQWG.js",
+      "startMs": 186,
+      "endMs": 1577,
+      "transferBytesIncludingHeaders": 26103,
+      "encodedBodyBytes": 25803,
+      "decodedBodyBytes": 107633
+    },
+    {
+      "path": "/assets/animations.BtPDPo2e.js",
+      "startMs": 186,
+      "endMs": 2013,
+      "transferBytesIncludingHeaders": 22206,
+      "encodedBodyBytes": 21906,
+      "decodedBodyBytes": 72290
+    },
+    {
+      "path": "/assets/react-vtree.nToqO-mh.js",
+      "startMs": 186,
+      "endMs": 1712,
+      "transferBytesIncludingHeaders": 5086,
+      "encodedBodyBytes": 4786,
+      "decodedBodyBytes": 13164
+    },
+    {
+      "path": "/assets/vendor.Ck27UeHG.js",
+      "startMs": 187,
+      "endMs": 9685,
+      "transferBytesIncludingHeaders": 409397,
+      "encodedBodyBytes": 409097,
+      "decodedBodyBytes": 1699314
+    },
+    {
+      "path": "/assets/i18n.C6_IvY32.js",
+      "startMs": 187,
+      "endMs": 2350,
+      "transferBytesIncludingHeaders": 18172,
+      "encodedBodyBytes": 17872,
+      "decodedBodyBytes": 54353
+    },
+    {
+      "path": "/assets/react-interactions.DscxJRRh.js",
+      "startMs": 188,
+      "endMs": 2665,
+      "transferBytesIncludingHeaders": 20607,
+      "encodedBodyBytes": 20307,
+      "decodedBodyBytes": 70081
+    },
+    {
+      "path": "/assets/radix-ui.tIiBXdQR.js",
+      "startMs": 188,
+      "endMs": 3003,
+      "transferBytesIncludingHeaders": 22356,
+      "encodedBodyBytes": 22056,
+      "decodedBodyBytes": 88660
+    },
+    {
+      "path": "/assets/routing.DYGR6PKW.js",
+      "startMs": 188,
+      "endMs": 3017,
+      "transferBytesIncludingHeaders": 30619,
+      "encodedBodyBytes": 30319,
+      "decodedBodyBytes": 90997
+    },
+    {
+      "path": "/assets/tanstack-vendor.DDeX4vva.js",
+      "startMs": 188,
+      "endMs": 3341,
+      "transferBytesIncludingHeaders": 30140,
+      "encodedBodyBytes": 29840,
+      "decodedBodyBytes": 147510
+    },
+    {
+      "path": "/assets/http-client.D6G8y4MX.js",
+      "startMs": 188,
+      "endMs": 3362,
+      "transferBytesIncludingHeaders": 19562,
+      "encodedBodyBytes": 19262,
+      "decodedBodyBytes": 50017
+    },
+    {
+      "path": "/assets/shared-libs.CKPm2yyl.js",
+      "startMs": 188,
+      "endMs": 3632,
+      "transferBytesIncludingHeaders": 20095,
+      "encodedBodyBytes": 19795,
+      "decodedBodyBytes": 51565
+    },
+    {
+      "path": "/assets/avatars.XYysrFin.js",
+      "startMs": 188,
+      "endMs": 3303,
+      "transferBytesIncludingHeaders": 3730,
+      "encodedBodyBytes": 3430,
+      "decodedBodyBytes": 8160
+    },
+    {
+      "path": "/assets/framer-motion.sQ5ndFcX.js",
+      "startMs": 188,
+      "endMs": 4630,
+      "transferBytesIncludingHeaders": 42355,
+      "encodedBodyBytes": 42055,
+      "decodedBodyBytes": 125177
+    },
+    {
+      "path": "/assets/virtualization.Bm9RS8j4.js",
+      "startMs": 189,
+      "endMs": 4263,
+      "transferBytesIncludingHeaders": 26560,
+      "encodedBodyBytes": 26260,
+      "decodedBodyBytes": 113508
+    },
+    {
+      "path": "/assets/headlessui.CdCWEm1u.js",
+      "startMs": 189,
+      "endMs": 4368,
+      "transferBytesIncludingHeaders": 29449,
+      "encodedBodyBytes": 29149,
+      "decodedBodyBytes": 88109
+    },
+    {
+      "path": "/assets/markdown-processing.TMtFeQR7.js",
+      "startMs": 189,
+      "endMs": 8365,
+      "transferBytesIncludingHeaders": 177571,
+      "encodedBodyBytes": 177271,
+      "decodedBodyBytes": 614636
+    },
+    {
+      "path": "/assets/date-utils.C_DbPEjY.js",
+      "startMs": 189,
+      "endMs": 4645,
+      "transferBytesIncludingHeaders": 7716,
+      "encodedBodyBytes": 7416,
+      "decodedBodyBytes": 24508
+    },
+    {
+      "path": "/assets/lazy.ok8MO2Tx.js",
+      "startMs": 189,
+      "endMs": 4818,
+      "transferBytesIncludingHeaders": 920,
+      "encodedBodyBytes": 620,
+      "decodedBodyBytes": 1190
+    },
+    {
+      "path": "/assets/forms.UHk3QTvM.js",
+      "startMs": 189,
+      "endMs": 5073,
+      "transferBytesIncludingHeaders": 10232,
+      "encodedBodyBytes": 9932,
+      "decodedBodyBytes": 26511
+    },
+    {
+      "path": "/assets/math-katex.RfU0klHh.js",
+      "startMs": 189,
+      "endMs": 5253,
+      "transferBytesIncludingHeaders": 9557,
+      "encodedBodyBytes": 9257,
+      "decodedBodyBytes": 34932
+    },
+    {
+      "path": "/assets/utilities.Ce8HPfek.js",
+      "startMs": 189,
+      "endMs": 5358,
+      "transferBytesIncludingHeaders": 32434,
+      "encodedBodyBytes": 32134,
+      "decodedBodyBytes": 92813
+    },
+    {
+      "path": "/assets/markdown.Dt7IaPUf.js",
+      "startMs": 189,
+      "endMs": 5508,
+      "transferBytesIncludingHeaders": 3576,
+      "encodedBodyBytes": 3276,
+      "decodedBodyBytes": 9164
+    },
+    {
+      "path": "/assets/useBalanceSummary.B3yMZSaW.js",
+      "startMs": 189,
+      "endMs": 5658,
+      "transferBytesIncludingHeaders": 5597,
+      "encodedBodyBytes": 5297,
+      "decodedBodyBytes": 16320
+    },
+    {
+      "path": "/assets/hooks.DWUDl99B.js",
+      "startMs": 189,
+      "endMs": 11305,
+      "transferBytesIncludingHeaders": 507871,
+      "encodedBodyBytes": 507571,
+      "decodedBodyBytes": 1768487
+    },
+    {
+      "path": "/assets/MessageContent.Delmh6yR.js",
+      "startMs": 189,
+      "endMs": 6070,
+      "transferBytesIncludingHeaders": 14308,
+      "encodedBodyBytes": 14008,
+      "decodedBodyBytes": 39001
+    },
+    {
+      "path": "/assets/Footer.Dksy9lra.js",
+      "startMs": 190,
+      "endMs": 7398,
+      "transferBytesIncludingHeaders": 54434,
+      "encodedBodyBytes": 54134,
+      "decodedBodyBytes": 190607
+    },
+    {
+      "path": "/assets/security-ui.5zGvIlor.js",
+      "startMs": 190,
+      "endMs": 6482,
+      "transferBytesIncludingHeaders": 8428,
+      "encodedBodyBytes": 8128,
+      "decodedBodyBytes": 21622
+    },
+    {
+      "path": "/assets/ProjectEditDialog.B74BbUIO.js",
+      "startMs": 190,
+      "endMs": 7301,
+      "transferBytesIncludingHeaders": 21830,
+      "encodedBodyBytes": 21530,
+      "decodedBodyBytes": 69484
+    },
+    {
+      "path": "/assets/forms.hAxhXfpi.js",
+      "startMs": 190,
+      "endMs": 7833,
+      "transferBytesIncludingHeaders": 12419,
+      "encodedBodyBytes": 12119,
+      "decodedBodyBytes": 46003
+    },
+    {
+      "path": "/assets/duringRun.BNGcMjN4.js",
+      "startMs": 190,
+      "endMs": 7862,
+      "transferBytesIncludingHeaders": 10217,
+      "encodedBodyBytes": 9917,
+      "decodedBodyBytes": 31694
+    },
+    {
+      "path": "/assets/queries.B1ieGh9V.js",
+      "startMs": 190,
+      "endMs": 8020,
+      "transferBytesIncludingHeaders": 525,
+      "encodedBodyBytes": 225,
+      "decodedBodyBytes": 350
+    },
+    {
+      "path": "/assets/undockedWindow.DNBv-4ny.js",
+      "startMs": 190,
+      "endMs": 8080,
+      "transferBytesIncludingHeaders": 2659,
+      "encodedBodyBytes": 2359,
+      "decodedBodyBytes": 5435
+    },
+    {
+      "path": "/assets/Settings.DebI2NgD.js",
+      "startMs": 190,
+      "endMs": 8200,
+      "transferBytesIncludingHeaders": 1174,
+      "encodedBodyBytes": 874,
+      "decodedBodyBytes": 1526
+    },
+    {
+      "path": "/assets/math-katex.uZ8_QngQ.css",
+      "startMs": 190,
+      "endMs": 685,
+      "transferBytesIncludingHeaders": 7410,
+      "encodedBodyBytes": 7110,
+      "decodedBodyBytes": 28239
+    },
+    {
+      "path": "/assets/Footer.CRq4c_Xn.css",
+      "startMs": 191,
+      "endMs": 632,
+      "transferBytesIncludingHeaders": 484,
+      "encodedBodyBytes": 184,
+      "decodedBodyBytes": 384
+    },
+    {
+      "path": "/assets/index.DrNoDWmg.css",
+      "startMs": 191,
+      "endMs": 1968,
+      "transferBytesIncludingHeaders": 43566,
+      "encodedBodyBytes": 43266,
+      "decodedBodyBytes": 279998
+    },
+    {
+      "path": "/registerSW.js",
+      "startMs": 191,
+      "endMs": 8253,
+      "transferBytesIncludingHeaders": 390,
+      "encodedBodyBytes": 90,
+      "decodedBodyBytes": 136
+    },
+    {
+      "path": "/assets/favicon-32x32.png",
+      "startMs": 11874,
+      "endMs": 12040,
+      "transferBytesIncludingHeaders": 2016,
+      "encodedBodyBytes": 1716,
+      "decodedBodyBytes": 1712
+    },
+    {
+      "path": "/assets/silence.mp3",
+      "startMs": 11938,
+      "endMs": 12554,
+      "transferBytesIncludingHeaders": 0,
+      "encodedBodyBytes": 0,
+      "decodedBodyBytes": 0
+    },
+    {
+      "path": "/assets/logo.svg",
+      "startMs": 11968,
+      "endMs": 12130,
+      "transferBytesIncludingHeaders": 1661,
+      "encodedBodyBytes": 1361,
+      "decodedBodyBytes": 5773
+    },
+    {
+      "path": "/api/banner",
+      "startMs": 11973,
+      "endMs": 12138,
+      "transferBytesIncludingHeaders": 302,
+      "encodedBodyBytes": 2,
+      "decodedBodyBytes": 2
+    },
+    {
+      "path": "/api/config",
+      "startMs": 11974,
+      "endMs": 12145,
+      "transferBytesIncludingHeaders": 923,
+      "encodedBodyBytes": 623,
+      "decodedBodyBytes": 623
+    },
+    {
+      "path": "/api/auth/refresh",
+      "startMs": 11974,
+      "endMs": 12153,
+      "transferBytesIncludingHeaders": 302,
+      "encodedBodyBytes": 2,
+      "decodedBodyBytes": 2
+    },
+    {
+      "path": "/assets/favicon-32x32.png",
+      "startMs": 11979,
+      "endMs": 12206,
+      "transferBytesIncludingHeaders": 2016,
+      "encodedBodyBytes": 1716,
+      "decodedBodyBytes": 1712
+    },
+    {
+      "path": "/api/banner",
+      "startMs": 11996,
+      "endMs": 12265,
+      "transferBytesIncludingHeaders": 302,
+      "encodedBodyBytes": 2,
+      "decodedBodyBytes": 2
+    },
+    {
+      "path": "/api/config",
+      "startMs": 11996,
+      "endMs": 12287,
+      "transferBytesIncludingHeaders": 923,
+      "encodedBodyBytes": 623,
+      "decodedBodyBytes": 623
+    },
+    {
+      "path": "/assets/fonts/Inter-Bold.woff2",
+      "startMs": 12292,
+      "endMs": 14163,
+      "transferBytesIncludingHeaders": 111345,
+      "encodedBodyBytes": 111045,
+      "decodedBodyBytes": 111040
+    }
+  ],
+  "resourceTransferBytesIncludingHeaders": 2251350,
+  "resourceEncodedBodyBytes": 2235450,
+  "fontReadyMs": 14173,
+  "errors": []
+}

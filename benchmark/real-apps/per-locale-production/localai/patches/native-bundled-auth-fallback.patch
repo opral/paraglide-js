@@ -1,0 +1,64 @@
+--- a/core/http/react-ui/src/i18n/index.js
++++ b/core/http/react-ui/src/i18n/index.js
+@@ -1,8 +1,9 @@
+ import i18n from 'i18next'
++import englishAuth from '../../public/locales/en/auth.json'
+ import HttpBackend from 'i18next-http-backend'
+ import LanguageDetector from 'i18next-browser-languagedetector'
+ import { initReactI18next } from 'react-i18next'
+-import { apiUrl } from '../utils/basePath'
++import { apiUrl, routerBasename } from '../utils/basePath'
+ 
+ export const SUPPORTED_LANGUAGES = [
+   { code: 'en', name: 'English', flag: 'EN' },
+@@ -40,14 +41,39 @@
+   'explorer',
+ ]
+ 
++// Login and invite screens are direct, lazy routes outside the authenticated
++// app shell. Start their one extra namespace alongside the app's usual
++// startup namespaces so the Login component's normal useTranslation('auth')
++// hook sees the same i18next resources without waiting for its route chunk.
++// The router basename comes from the production <base href>, so root and
++// reverse-proxy subpath deployments use the same route check.
++function initialNamespacesForRoute() {
++  const basename = routerBasename === '/' ? '' : routerBasename.replace(/\/+$/, '')
++  const pathname = window.location.pathname
++  const routePath = basename && (pathname === basename || pathname.startsWith(`${basename}/`))
++    ? (pathname.slice(basename.length) || '/')
++    : pathname
++  const isLoginRoute = /^\/login\/?$/.test(routePath)
++  const isInviteRoute = /^\/invite\/[^/]+\/?$/.test(routePath)
++  return isLoginRoute || isInviteRoute
++    ? ['common', 'nav', 'errors', 'auth']
++    : ['common', 'nav', 'errors']
++}
++
++const routeNamespaces = initialNamespacesForRoute()
++const authRoute = routeNamespaces.includes('auth')
++
+ i18n
+   .use(HttpBackend)
+   .use(LanguageDetector)
+   .use(initReactI18next)
+   .init({
+     fallbackLng: 'en',
++    partialBundledLanguages: true,
++    resources: { en: { auth: englishAuth } },
+     supportedLngs: SUPPORTED_LANGUAGES.map((l) => l.code),
+-    ns: ['common', 'nav', 'errors'],
++    ns: authRoute ? ['auth'] : routeNamespaces,
++    initAsync: !authRoute,
+     defaultNS: 'common',
+     debug: import.meta.env.DEV,
+     interpolation: { escapeValue: false },
+@@ -64,6 +90,9 @@
+     },
+   })
+ 
++// Match Paraglide's background global namespace loads without blocking auth.
++if (authRoute) void i18n.loadNamespaces(['common', 'nav', 'errors'])
++
+ i18n.on('languageChanged', (lng) => {
+   document.documentElement.setAttribute('lang', lng)
+ })

@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const root=path.dirname(new URL(import.meta.url).pathname);
+const counts=JSON.parse(fs.readFileSync(path.join(root,'catalog-counts.json')));
+const generated=fs.readFileSync(path.join(root,'client/src/paraglide/messages/_index.js'),'utf8');
+const exports=(generated.match(/^export /gm)||[]).length;
+if(exports!==counts.unionKeys)throw new Error(`Expected ${counts.unionKeys} exports; received ${exports}`);
+const manifest=JSON.parse(fs.readFileSync(path.join(root,'client/dist-per-locale-facades/paraglide-vite-locales.json')));
+if(Object.keys(manifest.locales).length!==41)throw new Error('Missing locale output');
+fs.writeFileSync(path.join(root,'output-verification.json'),JSON.stringify({compiledExports:exports,expected:counts.unionKeys,emittedLocales:Object.keys(manifest.locales),vite:manifest.viteVersion},null,2));

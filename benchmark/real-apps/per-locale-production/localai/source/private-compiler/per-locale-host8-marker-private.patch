@@ -1,0 +1,121 @@
+diff --git a/src/bundler-plugins/per-locale-build/index.ts b/src/bundler-plugins/per-locale-build/index.ts
+index ac1b927..77e12d8 100644
+--- a/src/bundler-plugins/per-locale-build/index.ts
++++ b/src/bundler-plugins/per-locale-build/index.ts
+@@ -4,6 +4,7 @@ import { loadProjectFromDirectory } from "@inlang/sdk";
+ import type { Plugin } from "vite";
+ import { perLocaleBuildStaticLocaleExpression } from "../../compiler/per-locale-build.js";
+ import type { PerLocaleBuildSettings } from "./types.js";
++import { createCompilerMarkerNormalizationPlugin } from "./normalize-compiler-marker.js";
+ import { createViteLocaleEnvironmentPlugin } from "./vite-environments.js";
+ import {
+ 	loadParaglideConfig,
+@@ -22,6 +23,7 @@ export function createPerLocaleBuildPlugins(args: {
+ 	const compilerOptions = createPerLocaleCompilerOptions(args.compilerOptions);
+ 	// Project root as reported by vite. Config file discovery starts here.
+ 	let discoveryRoot: string | undefined;
++	let generatedOutdir: string | undefined;
+ 	return [
+ 		{
+ 			name: "paraglide-config-discovery-root",
+@@ -39,8 +41,9 @@ export function createPerLocaleBuildPlugins(args: {
+ 			},
+ 		},
+ 		args.createCompilerPlugin(compilerOptions),
++		createCompilerMarkerNormalizationPlugin({ outdir: () => generatedOutdir }),
+ 		createViteLocaleEnvironmentPlugin({
+-			settings: () => loadSettings(args.compilerOptions, discoveryRoot),
++			settings: () => loadSettings(args.compilerOptions, discoveryRoot, outdir => { generatedOutdir = outdir; }),
+ 		}),
+ 	];
+ }
+@@ -98,18 +101,20 @@ function validateExplicitCompilerOptions(
+ 
+ async function loadSettings(
+ 	options: ParaglidePluginOptions,
+-	discoveryRoot?: string | undefined
++	discoveryRoot?: string | undefined,
++	onOutdir?: (outdir: string) => void
+ ): Promise<PerLocaleBuildSettings> {
+ 	const root = discoveryRoot ?? process.cwd();
+ 	const loaded = await loadParaglideConfig({
+ 		projectDir: resolve(root, options.project),
+ 	});
+ 	validateExplicitCompilerOptions(options, loaded?.config);
+-	const { project } = resolveCompilerOptions({
++	const { project, outdir } = resolveCompilerOptions({
+ 		config: loaded?.config,
+ 		overrides: options,
+ 		root,
+ 	});
++	onOutdir?.(outdir);
+ 	const loadedProject = await loadProjectFromDirectory({
+ 		path: project,
+ 		fs: options.fs ?? nodeFs,
+diff --git a/src/bundler-plugins/per-locale-build/normalize-compiler-marker.ts b/src/bundler-plugins/per-locale-build/normalize-compiler-marker.ts
+new file mode 100644
+index 0000000..dbecc32
+--- /dev/null
++++ b/src/bundler-plugins/per-locale-build/normalize-compiler-marker.ts
+@@ -0,0 +1,50 @@
++import nodePath from "node:path";
++import { parse } from "acorn";
++import MagicString from "magic-string";
++import type { Plugin } from "vite";
++import { PER_LOCALE_BUILD_MARKER } from "./constants.js";
++import { perLocaleBuildStaticLocaleExpression } from "../../compiler/per-locale-build.js";
++
++/** Private host compatibility experiment: Vite 8.0/Oxc skips a parenthesized object define. */
++export function createCompilerMarkerNormalizationPlugin(args: {
++ outdir: () => string | undefined;
++}): Plugin {
++ return {
++  name: "paraglide-private-compiler-marker-normalization",
++  enforce: "pre",
++  transform: {
++   order: "pre",
++   handler(code, id) {
++    const outdir = args.outdir();
++    if (!outdir) return null;
++    const file = id.split(/[?#]/)[0]!;
++    const relative = nodePath.relative(nodePath.resolve(outdir), file);
++    if (relative === ".." || relative.startsWith(".." + nodePath.sep) || nodePath.isAbsolute(relative) || !file.endsWith(".js")) return null;
++    return normalizeCompilerMarker(code);
++   },
++  },
++ };
++}
++
++export function normalizeCompilerMarker(code: string): { code: string; map: ReturnType<MagicString["generateMap"]> } | null {
++ if (!code.includes(perLocaleBuildStaticLocaleExpression)) return null;
++ const tree = parse(code, { ecmaVersion: "latest", sourceType: "module" });
++ const output = new MagicString(code);
++ let changed = false;
++ const visit = (value: unknown): void => {
++  if (!value || typeof value !== "object") return;
++  const node = value as Record<string, unknown>;
++  const object = node.object as Record<string, unknown> | undefined;
++  const property = node.property as Record<string, unknown> | undefined;
++  if (node.type === "MemberExpression" && node.computed === false && object?.type === "Identifier" && object.name === "globalThis" && property?.type === "Identifier" && property.name === PER_LOCALE_BUILD_MARKER && typeof node.start === "number" && typeof node.end === "number" && code.slice(node.start, node.end) === `(globalThis).${PER_LOCALE_BUILD_MARKER}`) {
++   output.overwrite(node.start, node.end, `globalThis.${PER_LOCALE_BUILD_MARKER}`);
++   changed = true;
++  }
++  for (const child of Object.values(node)) {
++   if (Array.isArray(child)) child.forEach(visit);
++   else if (child && typeof child === "object") visit(child);
++  }
++ };
++ visit(tree);
++ return changed ? { code: output.toString(), map: output.generateMap({ hires: true }) } : null;
++}
+diff --git a/src/bundler-plugins/vite.test.ts b/src/bundler-plugins/vite.test.ts
+--- a/src/bundler-plugins/vite.test.ts
++++ b/src/bundler-plugins/vite.test.ts
+@@ -54,6 +54,7 @@
+ 	expect(plugins.map((plugin) => plugin.name)).toEqual([
+ 		"paraglide-config-discovery-root",
+ 		"unplugin-paraglide-js",
++		"paraglide-private-compiler-marker-normalization",
+ 		"paraglide-vite-locale-environments",
+ 	]);
+ 

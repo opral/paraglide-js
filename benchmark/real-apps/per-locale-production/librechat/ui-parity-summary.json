@@ -1,0 +1,109 @@
+{
+  "kind": "one-pair UI parity and qualified readiness smoke; no repeated performance claim",
+  "profiles": {
+    "desktop": {
+      "exactFrenchBodyParity": true,
+      "inputPlaceholderParity": true,
+      "native": {
+        "translatedReadyMs": 1799,
+        "completedHttpEncodedBodyBytesIncludingNavigation": 2278673,
+        "wholeRequestEncodedBodyByteBounds": {
+          "lower": 2278673,
+          "upper": 2315167
+        },
+        "persistentDocuments": [
+          {
+            "path": "/assets/silence.mp3",
+            "status": 200,
+            "contentLength": 36494,
+            "done": false
+          }
+        ],
+        "browserVersion": "156.0.8078.4",
+        "playwrightVersion": "1.64.0",
+        "errors": [],
+        "failures": []
+      },
+      "facade": {
+        "translatedReadyMs": 1791,
+        "completedHttpEncodedBodyBytesIncludingNavigation": 2282052,
+        "wholeRequestEncodedBodyByteBounds": {
+          "lower": 2282052,
+          "upper": 2318546
+        },
+        "persistentDocuments": [
+          {
+            "path": "/assets/silence.mp3",
+            "status": 200,
+            "contentLength": 36494,
+            "done": false
+          }
+        ],
+        "browserVersion": "156.0.8078.4",
+        "playwrightVersion": "1.64.0",
+        "errors": [],
+        "failures": []
+      },
+      "singlePairReadinessImprovementPercent": 0.4446914952751513,
+      "network": {
+        "latencyMs": 80,
+        "downloadMbps": 20,
+        "uploadMbps": 2,
+        "cpuRate": 3
+      }
+    },
+    "mobile": {
+      "exactFrenchBodyParity": true,
+      "inputPlaceholderParity": true,
+      "native": {
+        "translatedReadyMs": 12297,
+        "completedHttpEncodedBodyBytesIncludingNavigation": 2278673,
+        "wholeRequestEncodedBodyByteBounds": {
+          "lower": 2278673,
+          "upper": 2315167
+        },
+        "persistentDocuments": [
+          {
+            "path": "/assets/silence.mp3",
+            "status": 200,
+            "contentLength": 36494,
+            "done": false
+          }
+        ],
+        "browserVersion": "156.0.8078.4",
+        "playwrightVersion": "1.64.0",
+        "errors": [],
+        "failures": []
+      },
+      "facade": {
+        "translatedReadyMs": 12178,
+        "completedHttpEncodedBodyBytesIncludingNavigation": 2282052,
+        "wholeRequestEncodedBodyByteBounds": {
+          "lower": 2282052,
+          "upper": 2318546
+        },
+        "persistentDocuments": [
+          {
+            "path": "/assets/silence.mp3",
+            "status": 200,
+            "contentLength": 36494,
+            "done": false
+          }
+        ],
+        "browserVersion": "156.0.8078.4",
+        "playwrightVersion": "1.64.0",
+        "errors": [],
+        "failures": []
+      },
+      "singlePairReadinessImprovementPercent": 0.9677157030169914,
+      "network": {
+        "latencyMs": 150,
+        "downloadMbps": 1.6,
+        "uploadMbps": 2,
+        "cpuRate": 4
+      }
+    }
+  },
+  "mediaLimitation": "Chrome retains bootstrap /assets/silence.mp3 audio-iframe Document request open (HTTP200); actual media request completes separately. Completed HTTP body bytes include that actual media fetch. Whole-request body bounds add at most 36494 bytes for the one pending Document. No completion was invented; no request failures were excluded.",
+  "gatePassed": false
+}

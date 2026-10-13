@@ -1,0 +1,64 @@
+{
+  "app": "mudler/LocalAI",
+  "appCommit": "a551c83465ee538367358f239de5a364ebea9329",
+  "nativeVariant": "optimized i18next control with route-aware auth initialization and bundled English auth fallback",
+  "candidateVariant": "private per-locale Paraglide React prototype; not a public compiler release or PR claim",
+  "nativeSourceRoot": "/root/repos-iii/localai-native-baseline/core/http/react-ui",
+  "nativeOptimizedSourceRoot": "/root/repos-iii/localai-bundled-auth-fallback-control/core/http/react-ui",
+  "candidateSourceRoot": "/root/repos-iii/localai-paraglide-static-prototype/core/http/react-ui",
+  "compiler": {
+    "baseCommit": "6997d020813d76f087d585110e62cd54891726e0",
+    "testedCheckoutCommit": "45c574080556521833b05a231867948e600e81e3",
+    "frozenDist": "/root/repos-iii/paraglide-namespace-facades-private/.real-apps/compiler-frozen-namespace-host8/dist",
+    "distIndexSha256": "72884458211415a046050e655997ed49caaf56b7697012790dab084d32a62bc1",
+    "patches": [
+      "namespace-facades-private.patch",
+      "per-locale-host8-marker-private.patch"
+    ]
+  },
+  "build": {
+    "hostVite": "8.0.16",
+    "hostRolldown": "1.0.3",
+    "node": "v22.23.2",
+    "npm": "10.9.8",
+    "playwright": "1.64.0",
+    "browser": "Chrome for Testing 156.0.8078.4",
+    "candidateLocaleManifestSha256": "191184e8594a8596244664afbb85e5ec5d85d726f71ffbb1cc62514e6412c91a",
+    "candidateOutputFileCount": 3961,
+    "candidateOutputRawBytesAcrossAllEightLocales": 103523056,
+    "nativeOutputFileCount": 298,
+    "nativeOutputRawBytes": 6308509,
+    "nativeStartupEntry": "assets/index-C01e9iyA.js",
+    "nativeStartupEntrySha256": "9fecf0f7a282358d326791655911fc58eb16b068424c6253efe398c884ef48ae"
+  },
+  "catalogs": {
+    "locales": [
+      "de",
+      "en",
+      "es",
+      "id",
+      "it",
+      "ko",
+      "pt-BR",
+      "zh-CN"
+    ],
+    "sourceCatalogFiles": 115,
+    "namespaces": 22,
+    "englishKeys": 5368,
+    "allLocaleUnionMessageIds": 5550
+  },
+  "sourceHashes": {
+    "nativeIndexOriginal": "e9959bd5fc712a2205323e2ac5d2cb8bfd6371f879d3eea04da459fca006fb64",
+    "nativeIndexOptimized": "703e7903bf13365ac9d01a785cbbd294d612d6557604f449e9c6a13883826c73",
+    "candidateIndex": "3c43cd9a4e3f8bd1e2d9ccbe7e3e57d6e11fceb56712d4d5d71248b37e7237d5",
+    "candidateViteConfig": "b3646dff21c3c8ea7359b377d07c75c02b7e1f4b3b5941cdba26130463a2b543"
+  },
+  "scope": "Read-only localhost login route, Spanish locale, canned auth/branding/operations API fixtures; no model backend. The candidate server selects locale-specialized HTML from localai-language cookie; the native app detects locale through localStorage/i18next. No locale-switch UI flow was measured.",
+  "captureDateUTC": "2026-10-13",
+  "measurementHarnessSha256": {
+    "../harness/probe.mjs": "dbe820763298e4d7b37a2c43bf94a5731ee6988e9a1580a6aea6ca552c4ad201",
+    "../harness/serve.cjs": "87ce90da732f96577652f62a74304490094f790a20307ad611b2f3c371796769",
+    "../harness/source-run-bundled-five.mjs": "e39fe3437163dc0b2e1300fd2df29b58ee3d48c141e240efb26ad1a67396c7f4",
+    "../harness/source-run-bundled-first.mjs": "0dfcb875e15474375bd264732a4f5865f1b3377eebd876bdf4f73e04e5f34ac1"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "comparison": "engine-retaining per-locale compiled-resource control",
+  "nativeBrotliQ4StaticGraphBytes": 2067800,
+  "facadeBrotliQ4StaticGraphBytes": 2069223,
+  "reflectionBrotliQ4StaticGraphBytes": 2114240,
+  "i18nextBundle": [
+    {
+      "path": "assets/i18n.C6_IvY32.js",
+      "decodedBytes": 54353,
+      "brotliQ4Bytes": 17872
+    }
+  ],
+  "theoreticalSavingIfI18nextChunkDeletedWithoutReplacementPercent": 0.7954831221588132,
+  "note": "Static JS entry/import+native selected-locale preload graph only. Engine-free migration would add an adapter. Actual browser readiness/started-resource accounting pending.",
+  "browserEvidence": "ui-parity-summary.json",
+  "completedHTTPEncodedBodyBytesIncludingNavigation": {
+    "native": 2278673,
+    "facade": 2282052,
+    "facadeIncreasePercent": 0.1482880606388015
+  },
+  "wholeRequestByteBounds": {
+    "native": [
+      2278673,
+      2315167
+    ],
+    "facade": [
+      2282052,
+      2318546
+    ]
+  },
+  "persistentMedia": "Hidden silence.mp3 bootstrap Document remains open; finished actual media fetch included once. Upper bound permits at most one additional36494-byte bootstrap body. No fake completion."
+}

@@ -1,0 +1,484 @@
+{
+  "kind": "LocalAI locale-specialized namespace app comparison",
+  "variant": "private-per-locale-paraglide",
+  "routePath": "/login",
+  "profileName": "desktop",
+  "profile": {
+    "latencyMs": 80,
+    "downloadMbps": 20,
+    "uploadMbps": 2,
+    "cpuRate": 3
+  },
+  "readinessDefinition": "First moment Spanish email label and Continue submit control are visible. Readiness sampled before hashing; bytes count all requests started by readiness once completed, including in-flight assets.",
+  "sample": {
+    "body": "LocalAI\nSign in\n\nto LocalAI\n\nCorreo electrónico\nContinue\n\n¿No tienes cuenta? Registrarse\n\nIniciar sesión con token API",
+    "lang": "es",
+    "route": "/login",
+    "firstLoginControlsReadyMs": 1204.2000000476837,
+    "paint": {
+      "first-paint": 260,
+      "first-contentful-paint": 800
+    },
+    "largestContentfulPaint": {
+      "startTime": 800,
+      "size": 4223,
+      "tagName": "H1"
+    },
+    "fontsStatusAtReady": "loaded",
+    "resources": [
+      {
+        "path": "/assets/index-722qzAyD.js",
+        "startMs": 90.10000002384186,
+        "endMs": 248.10000002384186,
+        "encodedBodyBytes": 74493,
+        "transferBytes": 74793,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/preload-helper-kNaey6uv.js",
+        "startMs": 90.5,
+        "endMs": 180,
+        "encodedBodyBytes": 644,
+        "transferBytes": 944,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/AuthContext-BJYbe_oc.js",
+        "startMs": 90.60000002384186,
+        "endMs": 181.60000002384186,
+        "encodedBodyBytes": 627,
+        "transferBytes": 927,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/Icon-DSOmxoor.js",
+        "startMs": 90.60000002384186,
+        "endMs": 196.40000009536743,
+        "encodedBodyBytes": 9705,
+        "transferBytes": 10005,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/jsx-runtime-DTgi_TDW.js",
+        "startMs": 90.60000002384186,
+        "endMs": 226.20000004768372,
+        "encodedBodyBytes": 34487,
+        "transferBytes": 34787,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/ThemeContext-BCtdedy2.js",
+        "startMs": 90.60000002384186,
+        "endMs": 261.7000000476837,
+        "encodedBodyBytes": 360,
+        "transferBytes": 660,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/runtime-EMj5AeJ6.js",
+        "startMs": 90.60000002384186,
+        "endMs": 264,
+        "encodedBodyBytes": 213,
+        "transferBytes": 513,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/react-adapter-9tyPEUIA.js",
+        "startMs": 91,
+        "endMs": 280.7000000476837,
+        "encodedBodyBytes": 7618,
+        "transferBytes": 7918,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/api-D-DiDjTV.js",
+        "startMs": 91.10000002384186,
+        "endMs": 310.5,
+        "encodedBodyBytes": 6488,
+        "transferBytes": 6788,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/modelLedger-CEv05MB3.js",
+        "startMs": 91.10000002384186,
+        "endMs": 320.7000000476837,
+        "encodedBodyBytes": 581,
+        "transferBytes": 881,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/transferRate-Bpz6niql.js",
+        "startMs": 91.10000002384186,
+        "endMs": 330,
+        "encodedBodyBytes": 368,
+        "transferBytes": 668,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/index-CPZy-cJL.css",
+        "startMs": 91.5,
+        "endMs": 238.80000007152557,
+        "encodedBodyBytes": 49362,
+        "transferBytes": 49662,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/common-Dcp7C_qL.js",
+        "startMs": 364.60000002384186,
+        "endMs": 453.7000000476837,
+        "encodedBodyBytes": 2306,
+        "transferBytes": 2606,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/nav-BZGqoYqo.js",
+        "startMs": 365.10000002384186,
+        "endMs": 454.2000000476837,
+        "encodedBodyBytes": 2588,
+        "transferBytes": 2888,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/errors-D6YLhK7S.js",
+        "startMs": 365.8000000715256,
+        "endMs": 452.3000000715256,
+        "encodedBodyBytes": 767,
+        "transferBytes": 1067,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/errors-C8S9bpqD.js",
+        "startMs": 366.90000009536743,
+        "endMs": 454,
+        "encodedBodyBytes": 357,
+        "transferBytes": 657,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/common-D2k9cfBR.js",
+        "startMs": 366.90000009536743,
+        "endMs": 455.40000009536743,
+        "encodedBodyBytes": 1440,
+        "transferBytes": 1740,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/nav-DJ-8Fawv.js",
+        "startMs": 366.90000009536743,
+        "endMs": 455.40000009536743,
+        "encodedBodyBytes": 1488,
+        "transferBytes": 1788,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/geist-latin-wght-normal-Dm3htQBi.woff2",
+        "startMs": 374.8000000715256,
+        "endMs": 547.4000000953674,
+        "encodedBodyBytes": 28400,
+        "transferBytes": 28700,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/Login-DQQSP8JS.js",
+        "startMs": 388.40000009536743,
+        "endMs": 537.6000000238419,
+        "encodedBodyBytes": 2953,
+        "transferBytes": 3253,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/Login-CY4c00Cy.css",
+        "startMs": 388.7000000476837,
+        "endMs": 535.2000000476837,
+        "encodedBodyBytes": 991,
+        "transferBytes": 1291,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/auth-CpQJnbfR.js",
+        "startMs": 540.7000000476837,
+        "endMs": 626.2000000476837,
+        "encodedBodyBytes": 4765,
+        "transferBytes": 5065,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/assets/auth-B3Fz9TsF.js",
+        "startMs": 540.8000000715256,
+        "endMs": 625,
+        "encodedBodyBytes": 2602,
+        "transferBytes": 2902,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/api/auth/status",
+        "startMs": 694.9000000953674,
+        "endMs": 779.1000000238419,
+        "encodedBodyBytes": 109,
+        "transferBytes": 409,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/api/operations",
+        "startMs": 695.5,
+        "endMs": 779.2000000476837,
+        "encodedBodyBytes": 21,
+        "transferBytes": 321,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/api/auth/status",
+        "startMs": 695.9000000953674,
+        "endMs": 780.5,
+        "encodedBodyBytes": 109,
+        "transferBytes": 409,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/api/branding",
+        "startMs": 696.1000000238419,
+        "endMs": 780.6000000238419,
+        "encodedBodyBytes": 99,
+        "transferBytes": 399,
+        "protocol": "http/1.1"
+      },
+      {
+        "path": "/static/logo.png",
+        "startMs": 794.1000000238419,
+        "endMs": 1342.6000000238419,
+        "encodedBodyBytes": 914776,
+        "transferBytes": 915076,
+        "protocol": "http/1.1"
+      }
+    ],
+    "navigation": [
+      {
+        "encodedBodyBytes": 618,
+        "transferBytes": 918,
+        "protocol": "http/1.1"
+      }
+    ],
+    "afterStartupAssets": {
+      "observedAtMs": 1392.4000000953674,
+      "largestContentfulPaint": {
+        "startTime": 800,
+        "size": 4223,
+        "tagName": "H1"
+      },
+      "images": [
+        {
+          "src": "/static/logo.png",
+          "complete": true,
+          "width": 32,
+          "height": 32
+        }
+      ]
+    }
+  },
+  "localeResponses": [],
+  "apiResponses": [
+    {
+      "path": "/api/auth/status",
+      "status": 200,
+      "sha256": "137ecc2cb537e22c8a9c8e7f4b4361156636e5105a42c06afacb123db1b3ba1a",
+      "decodedBytes": 125
+    },
+    {
+      "path": "/api/operations",
+      "status": 200,
+      "sha256": "ba008b3ff2e64fd0f721e62a4159d1068da4c3f8ca432bf40a0414c167013059",
+      "decodedBytes": 17
+    },
+    {
+      "path": "/api/auth/status",
+      "status": 200,
+      "sha256": "137ecc2cb537e22c8a9c8e7f4b4361156636e5105a42c06afacb123db1b3ba1a",
+      "decodedBytes": 125
+    },
+    {
+      "path": "/api/branding",
+      "status": 200,
+      "sha256": "e8863edf5d3dd1e192604201a22326938ade64eb4d0422fd957ea3fddd8f2594",
+      "decodedBytes": 160
+    }
+  ],
+  "responses": [
+    {
+      "path": "/login",
+      "status": 200,
+      "sha256": "ba698ada0f5979b9cbf8101fa9c710ff6c8df7ebf91d608ab9706c11bcfd16e1",
+      "decodedBytes": 1698
+    },
+    {
+      "path": "/assets/preload-helper-kNaey6uv.js",
+      "status": 200,
+      "sha256": "2f8a57aecfda9c30a9e1e5b32d55c33dc107941c5a3c87a003017d6eccc0847a",
+      "decodedBytes": 1208
+    },
+    {
+      "path": "/assets/AuthContext-BJYbe_oc.js",
+      "status": 200,
+      "sha256": "6bb38ee124b52dbeb998db22efb18bc8bd94bbfb94d2895bf6f99ce30482417f",
+      "decodedBytes": 1291
+    },
+    {
+      "path": "/assets/Icon-DSOmxoor.js",
+      "status": 200,
+      "sha256": "60ecc04263d876184b10899b930dfb01aa5dd1f75a8f0596d9dd8423a3bee457",
+      "decodedBytes": 50361
+    },
+    {
+      "path": "/assets/jsx-runtime-DTgi_TDW.js",
+      "status": 200,
+      "sha256": "c41ee85d68e468b7870681ec29ec4be6d497f072ce4ab9c4289a4410d1751da8",
+      "decodedBytes": 103461
+    },
+    {
+      "path": "/assets/index-CPZy-cJL.css",
+      "status": 200,
+      "sha256": "d16402e8219c2f5aae8f70039f064189b8281d52557dd9e8fa5c99976ea7778a",
+      "decodedBytes": 295353
+    },
+    {
+      "path": "/assets/index-722qzAyD.js",
+      "status": 200,
+      "sha256": "cf55d22c61ce89c967489366f971c67a2185b4b85a85a130e366a9526de1abcd",
+      "decodedBytes": 240972
+    },
+    {
+      "path": "/assets/ThemeContext-BCtdedy2.js",
+      "status": 200,
+      "sha256": "f213148330d8fd6e80a56035eea72f21027ec3e87c81b29d9a8b27ed60313680",
+      "decodedBytes": 582
+    },
+    {
+      "path": "/assets/runtime-EMj5AeJ6.js",
+      "status": 200,
+      "sha256": "38737af76d2a1d457bb090c720a73ed4163917938fce324229112d3e96485dbb",
+      "decodedBytes": 296
+    },
+    {
+      "path": "/assets/react-adapter-9tyPEUIA.js",
+      "status": 200,
+      "sha256": "124929111195d3da8db3596e5a6a68fe33bafa2e867729c82d076dc6a4875d48",
+      "decodedBytes": 31015
+    },
+    {
+      "path": "/assets/api-D-DiDjTV.js",
+      "status": 200,
+      "sha256": "f576e6b6642ba223b79962437a95212ba358cdaa8994dbaec3f530a548efcba8",
+      "decodedBytes": 24970
+    },
+    {
+      "path": "/assets/modelLedger-CEv05MB3.js",
+      "status": 200,
+      "sha256": "bce08b2a8e7feb2b7633714301e13b3fbb3abb5411c96cab8c9323114f27fbf3",
+      "decodedBytes": 1107
+    },
+    {
+      "path": "/assets/transferRate-Bpz6niql.js",
+      "status": 200,
+      "sha256": "2d8edc330bd3f984a375bc40aae285a1a8cbc122db40609ed9fa35a62ee9cf5b",
+      "decodedBytes": 568
+    },
+    {
+      "path": "/assets/errors-D6YLhK7S.js",
+      "status": 200,
+      "sha256": "3275937b7b9dbe034162a39dab1298d4636f2b06523d0a7fc921ea2167e03c0b",
+      "decodedBytes": 4032
+    },
+    {
+      "path": "/assets/errors-C8S9bpqD.js",
+      "status": 200,
+      "sha256": "1ce8a01d38cf5041187eed3a0815805b53f9b62b385a0472c08818f946d18e4b",
+      "decodedBytes": 1908
+    },
+    {
+      "path": "/assets/common-Dcp7C_qL.js",
+      "status": 200,
+      "sha256": "898ae0fc17e9ff31db4234419aa8a3b6705d617342666861c89c322c02fe5e5c",
+      "decodedBytes": 23844
+    },
+    {
+      "path": "/assets/nav-BZGqoYqo.js",
+      "status": 200,
+      "sha256": "81ab04dd6b2b8c5137c2e879c8aa6c10f51b32d86310c09272b68a0fd430306d",
+      "decodedBytes": 23100
+    },
+    {
+      "path": "/assets/common-D2k9cfBR.js",
+      "status": 200,
+      "sha256": "1f447453da2bafa23f54c07380da1327eadf7d737213eea0fe4d8afab9aaed8f",
+      "decodedBytes": 11726
+    },
+    {
+      "path": "/assets/nav-DJ-8Fawv.js",
+      "status": 200,
+      "sha256": "1e2e37bbe70cf702dd1a07090e95c97b5e6de102360d2599034a8de51f1ea226",
+      "decodedBytes": 10951
+    },
+    {
+      "path": "/assets/Login-CY4c00Cy.css",
+      "status": 200,
+      "sha256": "ca9a0f288d1131f82a95e672e8a2832b3066f4a4bca2eed5c730bf7c84249144",
+      "decodedBytes": 3490
+    },
+    {
+      "path": "/assets/Login-DQQSP8JS.js",
+      "status": 200,
+      "sha256": "f88cfc45d275b67b334ce5c8f1bbfa696418884c107aa46c52cf6a9206e49473",
+      "decodedBytes": 11766
+    },
+    {
+      "path": "/assets/geist-latin-wght-normal-Dm3htQBi.woff2",
+      "status": 200,
+      "sha256": "0cbbe6286a00f356e98980783cc950a9b693751e04aedfb97d9526ff6dc2b316",
+      "decodedBytes": 28400
+    },
+    {
+      "path": "/assets/auth-B3Fz9TsF.js",
+      "status": 200,
+      "sha256": "739f70e867c235f8daed172a52845ee1b6fd06b228b029c3cd478b9190cbb626",
+      "decodedBytes": 22871
+    },
+    {
+      "path": "/assets/auth-CpQJnbfR.js",
+      "status": 200,
+      "sha256": "160a21bfe6d7681a205652b2516a0f683bfdff054907db8538e1d44af11752b6",
+      "decodedBytes": 45345
+    },
+    {
+      "path": "/api/auth/status",
+      "status": 200,
+      "sha256": "137ecc2cb537e22c8a9c8e7f4b4361156636e5105a42c06afacb123db1b3ba1a",
+      "decodedBytes": 125
+    },
+    {
+      "path": "/api/operations",
+      "status": 200,
+      "sha256": "ba008b3ff2e64fd0f721e62a4159d1068da4c3f8ca432bf40a0414c167013059",
+      "decodedBytes": 17
+    },
+    {
+      "path": "/api/auth/status",
+      "status": 200,
+      "sha256": "137ecc2cb537e22c8a9c8e7f4b4361156636e5105a42c06afacb123db1b3ba1a",
+      "decodedBytes": 125
+    },
+    {
+      "path": "/api/branding",
+      "status": 200,
+      "sha256": "e8863edf5d3dd1e192604201a22326938ade64eb4d0422fd957ea3fddd8f2594",
+      "decodedBytes": 160
+    },
+    {
+      "path": "/static/logo.png",
+      "status": 200,
+      "sha256": "98f62f85e1bbcfa8032cb54123bdc4947d2764c4b2bad68f591c106323cf154d",
+      "decodedBytes": 914776
+    }
+  ],
+  "errors": [],
+  "failures": [],
+  "blockedActions": []
+}
