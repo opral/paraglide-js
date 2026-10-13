@@ -83,7 +83,7 @@ test("experimentalPerLocaleBuild rejects conflicting compiler options", () => {
 			experimentalPerLocaleBuild: true,
 			outputStructure: "message-modules",
 		})
-	).toThrow('requires outputStructure: "locale-modules"');
+	).not.toThrow();
 	expect(() =>
 		paraglideVitePlugin({
 			...common,

@@ -1,4 +1,5 @@
 import nodeFs from "node:fs/promises";
+import nodeSyncFs from "node:fs";
 import nodeOs from "node:os";
 import nodePath from "node:path";
 import {
@@ -7,8 +8,11 @@ import {
 	newProject,
 	type BundleNested,
 } from "@inlang/sdk";
-import { createBuilder } from "vite";
-import { expect, test } from "vitest";
+import { createBuilder, createServer } from "vite";
+import { execFileSync } from "node:child_process";
+import { pathToFileURL } from "node:url";
+import { createRequire } from "node:module";
+import { expect, test, vi } from "vitest";
 import { compileProject } from "../../compiler/compile-project.js";
 import { perLocaleBuildStaticLocaleExpression } from "../../compiler/per-locale-build.js";
 import {
@@ -326,6 +330,223 @@ test("keeps compiled Paraglide translations out of other locale source maps", as
 	} finally {
 		await project.close();
 		await nodeFs.rm(temporaryRoot, { recursive: true, force: true });
+	}
+});
+
+test.each(["plugin override", "project config"] as const)(
+	"message modules from %s specialize direct imports and keep lazy page messages out of initial chunks",
+	async (source) => {
+		vi.resetModules();
+		const { paraglideVitePlugin } = await import("../vite.js");
+		const temporaryRoot = await nodeFs.mkdtemp(
+			nodePath.join(nodeOs.tmpdir(), "paraglide-vite-message-modules-")
+		);
+		const root = await nodeFs.realpath(temporaryRoot);
+		try {
+			const projectRoot = nodePath.join(root, "project.inlang");
+			await nodeFs.mkdir(projectRoot, { recursive: true });
+			await nodeFs.mkdir(nodePath.join(root, "messages"));
+			await nodeFs.writeFile(
+				nodePath.join(projectRoot, "paraglide.config.js"),
+				`export default { outputStructure: "${source === "project config" ? "message-modules" : "locale-modules"}" };`
+			);
+			await nodeFs.copyFile(
+				createRequire(import.meta.url).resolve("@inlang/plugin-message-format"),
+				nodePath.join(root, "plugin.js")
+			);
+			await nodeFs.writeFile(
+				nodePath.join(projectRoot, "settings.json"),
+				JSON.stringify({
+					baseLocale: "en",
+					locales: ["en", "de"],
+					modules: ["./plugin.js"],
+					"plugin.inlang.messageFormat": {
+						pathPattern: "./messages/{locale}.json",
+					},
+				})
+			);
+			for (const locale of ["en", "de"]) {
+				await nodeFs.writeFile(
+					nodePath.join(root, "messages", `${locale}.json`),
+					JSON.stringify(
+						Object.fromEntries(
+							["greeting", "lazy_message", "unused_message"].map((id) => [
+								id,
+								`${locale.toUpperCase()}_${id.toUpperCase()}`,
+							])
+						)
+					)
+				);
+			}
+
+			await nodeFs.mkdir(nodePath.join(root, "src"), { recursive: true });
+			await Promise.all([
+				nodeFs.writeFile(
+					nodePath.join(root, "index.html"),
+					'<script type="module" src="./src/main.js"></script>'
+				),
+				nodeFs.writeFile(
+					nodePath.join(root, "src/main.js"),
+					'import { greeting } from "./paraglide/messages/greeting.js"; globalThis.translation = greeting(); globalThis.loadPage = () => import("./lazy-page.js");'
+				),
+				nodeFs.writeFile(
+					nodePath.join(root, "src/lazy-page.js"),
+					'import { lazy_message } from "./paraglide/messages/lazy_message.js"; globalThis.lazyTranslation = lazy_message();'
+				),
+			]);
+			const server = await createServer({
+				configFile: false,
+				root,
+				logLevel: "silent",
+				server: { port: 0, host: "127.0.0.1" },
+				plugins: [
+					paraglideVitePlugin({
+						project: "./project.inlang",
+						outdir: "./src/paraglide-dev",
+						fs: { ...nodeSyncFs },
+						experimentalPerLocaleBuild: true,
+						...(source === "plugin override"
+							? { outputStructure: "message-modules" as const }
+							: {}),
+					}),
+				],
+			});
+			try {
+				await server.listen();
+				await server.environments.client!.pluginContainer.buildStart();
+				const transformed = await server.transformRequest(
+					"/src/paraglide-dev/messages/greeting.js"
+				);
+				expect(transformed?.code).toContain("EN_GREETING");
+			} finally {
+				await server.close();
+			}
+
+			const builder = await createBuilder({
+				configFile: false,
+				root,
+				base: "./",
+				logLevel: "silent",
+				build: { minify: false, modulePreload: false, sourcemap: true },
+				plugins: [
+					paraglideVitePlugin({
+						project: "./project.inlang",
+						outdir: "./src/paraglide",
+						fs: { ...nodeSyncFs },
+						experimentalPerLocaleBuild: true,
+						...(source === "plugin override"
+							? { outputStructure: "message-modules" as const }
+							: {}),
+					}),
+				],
+			});
+			await builder.buildApp();
+			const outputRoot = nodePath.join(root, "dist");
+			const manifest = JSON.parse(
+				await nodeFs.readFile(
+					nodePath.join(outputRoot, VITE_LOCALE_BUILD_MANIFEST),
+					"utf8"
+				)
+			) as ViteLocaleBuildManifest;
+			for (const locale of ["en", "de"] as const) {
+				const variant = manifest.locales[locale]!;
+				const graph = await readJavaScriptGraph(outputRoot, variant);
+				const prefix = locale.toUpperCase();
+				expect(graph).toContain(`${prefix}_GREETING`);
+				expect(graph).toContain(`${prefix}_LAZY_MESSAGE`);
+				expect(graph).not.toContain(
+					`${locale === "en" ? "DE" : "EN"}_GREETING`
+				);
+				expect(graph).not.toContain(
+					`${locale === "en" ? "DE" : "EN"}_LAZY_MESSAGE`
+				);
+				const initialNames = new Set<string>();
+				const visit = (name: string) => {
+					if (initialNames.has(name)) return;
+					initialNames.add(name);
+					for (const imported of variant.files.find(
+						(file) => file.fileName === name
+					)?.imports ?? [])
+						visit(imported);
+				};
+				for (const entry of variant.files.filter((file) => file.entry))
+					visit(entry.fileName);
+				const initial = (
+					await Promise.all(
+						[...initialNames].map((name) =>
+							nodeFs.readFile(
+								nodePath.join(outputRoot, variant.directory, name),
+								"utf8"
+							)
+						)
+					)
+				).join("\n");
+				expect(initial).not.toContain(`${prefix}_LAZY_MESSAGE`);
+				expect(initial).not.toContain("UNUSED_MESSAGE");
+				expect(
+					variant.files.some((file) => (file.dynamicImports?.length ?? 0) > 0)
+				).toBe(true);
+				// Execute the actual emitted initial graph. The lazy loader remains uncalled.
+				await nodeFs.writeFile(
+					nodePath.join(root, "package.json"),
+					'{"type":"module"}'
+				);
+				const entry = variant.files.find((file) => file.entry)!;
+				const entryUrl = pathToFileURL(
+					nodePath.join(outputRoot, variant.directory, entry.fileName)
+				).href;
+				const translation = execFileSync(
+					process.execPath,
+					[
+						"--input-type=module",
+						"-e",
+						`await import(${JSON.stringify(entryUrl)}); process.stdout.write(globalThis.translation);`,
+					],
+					{ encoding: "utf8" }
+				);
+				expect(translation).toBe(`${prefix}_GREETING`);
+			}
+		} finally {
+			await nodeFs.rm(temporaryRoot, { recursive: true, force: true });
+		}
+	}
+);
+
+test("invalid project config keeps the per-locale dev server available", async () => {
+	vi.resetModules();
+	const { paraglideVitePlugin } = await import("../vite.js");
+	const root = await nodeFs.mkdtemp(
+		nodePath.join(nodeOs.tmpdir(), "paraglide-vite-invalid-config-")
+	);
+	try {
+		const projectRoot = nodePath.join(root, "project.inlang");
+		await nodeFs.mkdir(projectRoot);
+		await nodeFs.writeFile(
+			nodePath.join(projectRoot, "paraglide.config.js"),
+			"export default {"
+		);
+		const server = await createServer({
+			configFile: false,
+			root,
+			logLevel: "silent",
+			server: { port: 0, host: "127.0.0.1" },
+			plugins: [
+				paraglideVitePlugin({
+					project: "./project.inlang",
+					outdir: "./src/paraglide",
+					experimentalPerLocaleBuild: true,
+					fs: { ...nodeSyncFs },
+				}),
+			],
+		});
+		try {
+			await server.listen();
+			expect(server.httpServer?.listening).toBe(true);
+		} finally {
+			await server.close();
+		}
+	} finally {
+		await nodeFs.rm(root, { recursive: true, force: true });
 	}
 });
 

@@ -24,7 +24,8 @@ renderer internals.
 
 ## Build pipeline
 
-1. The compiler emits a `locale-modules` message layout.
+1. The compiler emits a `locale-modules` message layout by default, or the
+   explicitly selected `message-modules` layout.
 2. A serializable build plan maps each locale to a Vite-safe environment name,
    a stable output directory, and the static locale definition.
 3. Vite builds each locale as an independent client environment.
@@ -36,10 +37,56 @@ Separate environments are important. Multiple locale entries in one Rolldown
 graph could still share a chunk containing more than one locale. Independent
 environments cannot create cross-locale shared chunks.
 
-The common message dispatcher contains locale module references but no
-translated values. Inactive locale modules never enter the environment graph.
-Generated message-preview comments are also omitted from specialized builds so
-source maps cannot embed another locale's translation.
+With `locale-modules`, the common message dispatcher contains locale module
+references but no translated values. With `message-modules`, each message has
+its own module and inactive locale branches are tree-shaken.
+Generated message-preview comments are omitted from specialized builds. With
+`locale-modules`, source maps exclude other locale modules. With
+`message-modules`, source maps can contain the original inactive locale branches;
+disable source maps or keep them private when deploying these graphs.
+
+## Message modules and lazy pages
+
+To let Vite keep page-specific messages with their lazy page, opt in to
+`message-modules` and import the generated physical message modules directly:
+
+```js
+// vite.config.js
+paraglideVitePlugin({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	experimentalPerLocaleBuild: true,
+	outputStructure: "message-modules",
+});
+
+// src/lazy-page.js
+import { greeting } from "./paraglide/messages/greeting.js";
+```
+
+`outputStructure` can also be set in `project.inlang/paraglide.config.js`.
+An explicit plugin option takes precedence; when neither sets a layout,
+per-locale builds use `locale-modules`.
+
+Run the application build through Vite's builder so the locale orchestrator runs:
+
+```js
+// build-app.mjs (run with node build-app.mjs)
+import { createBuilder } from "vite";
+const builder = await createBuilder();
+await builder.buildApp();
+```
+
+Message-format paths resolve from the directory containing `project.inlang`.
+For `pathPattern: "./messages/{locale}.json"`, place `messages/` beside
+`project.inlang/`.
+
+Use static imports for known messages. Dynamic lookup through the complete
+message namespace can retain the full catalog; changing the output layout alone
+does not guarantee page-specific payloads.
+
+Each emitted graph has a fixed locale. Deployment must select the matching HTML
+and asset graph, and changing locale requires full-document navigation to the
+other graph. Calling `setLocale` cannot switch an already loaded graph.
 
 ## Manifest
 

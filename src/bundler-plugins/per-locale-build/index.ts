@@ -31,8 +31,27 @@ export function createPerLocaleBuildPlugins(args: {
 			// an explicitly configured root here so it is available in time;
 			// `configResolved` still overwrites it with Vite's final value
 			// (covering roots supplied via CLI flags).
-			config(config) {
+			async config(config, environment) {
 				if (config.root !== undefined) discoveryRoot = config.root;
+				if (environment.command === "serve") {
+					let loaded;
+					try {
+						loaded = await loadParaglideConfig({
+							projectDir: resolve(
+								discoveryRoot ?? process.cwd(),
+								args.compilerOptions.project
+							),
+						});
+					} catch {
+						// The compiler plugin owns diagnostics and recovery in dev.
+						return;
+					}
+					validateExplicitCompilerOptions(args.compilerOptions, loaded?.config);
+					compilerOptions.outputStructure = resolvePerLocaleOutputStructure(
+						args.compilerOptions,
+						loaded?.config
+					);
+				}
 			},
 			configResolved(config) {
 				discoveryRoot = config.root;
@@ -40,7 +59,8 @@ export function createPerLocaleBuildPlugins(args: {
 		},
 		args.createCompilerPlugin(compilerOptions),
 		createViteLocaleEnvironmentPlugin({
-			settings: () => loadSettings(args.compilerOptions, discoveryRoot),
+			settings: () =>
+				loadSettings(args.compilerOptions, discoveryRoot, compilerOptions),
 		}),
 	];
 }
@@ -74,7 +94,6 @@ function validateExplicitCompilerOptions(
 		experimentalMiddlewareLocaleSplitting:
 			options.experimentalMiddlewareLocaleSplitting ??
 			config?.experimentalMiddlewareLocaleSplitting,
-		outputStructure: options.outputStructure ?? config?.outputStructure,
 	};
 	if (explicit.experimentalStaticLocale !== undefined) {
 		throw new Error(
@@ -86,25 +105,33 @@ function validateExplicitCompilerOptions(
 			"experimentalPerLocaleBuild cannot be combined with experimentalMiddlewareLocaleSplitting."
 		);
 	}
-	if (
-		explicit.outputStructure !== undefined &&
-		explicit.outputStructure !== "locale-modules"
-	) {
-		throw new Error(
-			'experimentalPerLocaleBuild requires outputStructure: "locale-modules".'
-		);
-	}
+}
+
+function resolvePerLocaleOutputStructure(
+	options: ParaglidePluginOptions,
+	config: ParaglideConfig | undefined
+) {
+	return options.outputStructure ?? config?.outputStructure ?? "locale-modules";
 }
 
 async function loadSettings(
 	options: ParaglidePluginOptions,
-	discoveryRoot?: string | undefined
+	discoveryRoot?: string | undefined,
+	perLocaleCompilerOptions?: ParaglidePluginOptions
 ): Promise<PerLocaleBuildSettings> {
 	const root = discoveryRoot ?? process.cwd();
 	const loaded = await loadParaglideConfig({
 		projectDir: resolve(root, options.project),
 	});
 	validateExplicitCompilerOptions(options, loaded?.config);
+	// Resolve the per-locale default only after config discovery, preserving
+	// an explicit plugin override over the project's configured layout.
+	if (perLocaleCompilerOptions) {
+		perLocaleCompilerOptions.outputStructure = resolvePerLocaleOutputStructure(
+			options,
+			loaded?.config
+		);
+	}
 	const { project } = resolveCompilerOptions({
 		config: loaded?.config,
 		overrides: options,
