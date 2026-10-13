@@ -1,7 +1,7 @@
 # Per-locale + static message imports: real 3x-ui experiment
 
-Pinned application: MHSanaei/3x-ui `74c3…` (full revision in the earlier
-`../3x-ui-per-locale-build/build-provenance.json`). Compiler base:
+Pinned application: MHSanaei/3x-ui
+`74c3cc38821cabd66ad316ea562851422d0b0063`. Compiler base:
 `f0f4be8782af89ebb18fdbcd6f4dd140418ea6f0`, with the archived private patch
 allowing the existing message-modules output in per-locale builds. Actual host:
 Node 22.23.2, Vite 8.3.4, Rolldown 1.2.12. Compiler-produced locale manifests
