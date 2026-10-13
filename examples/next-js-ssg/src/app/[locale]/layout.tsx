@@ -1,44 +1,26 @@
-import {
-	assertIsLocale,
-	baseLocale,
-	getLocale,
-	getTextDirection,
-	overwriteGetLocale,
-} from "../../paraglide/runtime";
+import { notFound } from "next/navigation";
+import { isLocale, getTextDirection, locales } from "@/paraglide/runtime";
+import { m } from "@/paraglide/messages";
 import ClientSideLocaleSwitch from "./ClientSideLocaleSwitch";
-import { m } from "../../paraglide/messages.js";
-import React, { cache } from "react";
 
-// needed for SSG
 export function generateStaticParams() {
-	return [{ locale: "en" }, { locale: "de" }];
+	return locales.map((locale) => ({ locale }));
 }
-
-// scopes the locale per request
-const ssrLocale = cache(() => ({
-	locale: baseLocale,
-}));
-
-// overwrite the getLocale function to use the locale from the request
-overwriteGetLocale(() => assertIsLocale(ssrLocale().locale));
 
 export default async function RootLayout({
 	children,
 	params,
 }: {
-	children: any;
-	params: any;
+	children: React.ReactNode;
+	params: Promise<{ locale: string }>;
 }) {
-	// can't use async params because the execution order get's screwed up.
-	// this is something nextjs has to fix
-	ssrLocale().locale = params.locale;
+	const { locale } = await params;
+	if (!isLocale(locale)) notFound();
 	return (
-		<html lang={getLocale()} dir={getTextDirection()}>
+		<html lang={locale} dir={getTextDirection(locale)}>
 			<body>
-				<b>
-					<p>{m.programmatic_locale_switching_info()}</p>
-				</b>
-				<ClientSideLocaleSwitch />
+				<p>{m.programmatic_locale_switching_info({}, { locale })}</p>
+				<ClientSideLocaleSwitch locale={locale} />
 				<hr />
 				{children}
 			</body>

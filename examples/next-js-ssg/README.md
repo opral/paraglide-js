@@ -1,145 +1,150 @@
 ---
 title: Next.js i18n with SSG - Static Site Internationalization
-description: Build statically generated multi-language Next.js sites with Paraglide JS. Type-safe translations, SEO-friendly localized pages, and up to 70% smaller i18n bundle sizes.
+description: Generate localized static pages with Next.js 16 and Paraglide JS using async route parameters and explicit locale passing.
 ---
 
-# Next JS SSG example
+# Next.js SSG example
 
-Paraglide JS brings type-safe, tree-shakable translations to statically generated Next.js sites.
+This example uses Next.js 16.4 and Paraglide JS 2.27 to generate English and German pages at build time. Both locales have a URL prefix: `/en` and `/de`. No proxy is needed.
 
-It's a compiler-based i18n library that emits tree-shakable translations, leading to up to 70% smaller i18n bundle sizes compared to runtime based libraries.
+[Source code](https://github.com/opral/paraglide-js/tree/main/examples/next-js-ssg)
 
-- Fully type-safe with IDE autocomplete
-- SEO-friendly localized URLs with the [i18n routing strategy](https://paraglidejs.com/strategy#url)
-- Works with CSR, SSR, and SSG
+## Run the example
 
-[Source code](https://github.com/opral/monorepo/tree/main/inlang/packages/paraglide/paraglide-js/examples/next-js-ssg)
+```bash
+npm install
+npm run dev
+```
 
-> [!TIP]
-> If you start from scratch, we recommend using a Vite-based framework. [Read why](https://github.com/opral/inlang-paraglide-js/issues/245#issuecomment-2608727658).
+Visit `/en` or `/de`. For a production build, run `npm run build` followed by `npm run start`.
 
-> [!WARNING]
-> This SSG example requires the locale prefixed in the path like `/en/page`.
+## Set up an existing application
 
-## Getting started
-
-### Install paraglide js
+### Install and compile Paraglide
 
 ```bash
 npx @inlang/paraglide-js@latest init
 ```
 
-### Add the webpack plugin to the `next.config.js` file:
+Add the plugin to `next.config.mjs` with URL patterns that prefix **every** locale, including the base locale:
 
-> [!NOTE]
-> The URL Pattern ensures that `localizeHref()` includes the locale in the path.
-
-```diff
+```js
 import { paraglideWebpackPlugin } from "@inlang/paraglide-js";
 
-/**
- * @type {import('next').NextConfig}
- */
 export default {
-+	webpack: (config) => {
-+		config.plugins.push(
-+			paraglideWebpackPlugin({
-+				outdir: "./src/paraglide",
-+				project: "./project.inlang",
-+				emitTsDeclarations: true,
-+       strategy: ["url", "cookie", "baseLocale"],
-+				urlPatterns: [
-+					{
-+						pattern: 'https://:domain(.*)/:path*',
-+						localized: [
-+							['de', 'https://:domain(.*)/de/:path*'],
-+							['en', 'https://:domain(.*)/:path*'],
-+						],
-+					},
-+				],
-+			})
-+		);
-+		return config;
+	webpack(config) {
+		config.plugins.push(
+			paraglideWebpackPlugin({
+				project: "./project.inlang",
+				outdir: "./src/paraglide",
+				emitTsDeclarations: true,
+				strategy: ["url", "cookie", "baseLocale"],
+				urlPatterns: [
+					{
+						pattern: "/:path(.*)?",
+						localized: [
+							["en", "/en/:path(.*)?"],
+							["de", "/de/:path(.*)?"],
+						],
+					},
+				],
+			})
+		);
+		return config;
 	},
 };
 ```
 
-### Create a `[locale]` folder and move all of your pages in there
+Use `next dev --webpack` and `next build --webpack` in your package scripts so the plugin runs. Next.js 16 defaults to Turbopack. `next start` does not need this flag.
 
-```
-app/
-  - [locale]/
-    - index.tsx
-    - about.tsx
-    - ...
-```
+### Put the root layout and pages under `[locale]`
 
-### Add the locale handling to your root layout
-
-```diff
-app/
-  - [locale]/
-    - index.tsx
-+   - layout.tsx
-    - about.tsx
-    - ...
+```text
+src/app/
+  [locale]/
+    layout.tsx
+    page.tsx
+    ClientSideLocaleSwitch.tsx
 ```
 
-```diff
-+import { cache } from "react";
-+import {
-+	assertIsLocale,
-+	baseLocale,
-+	getLocale,
-+	getTextDirection,
-+	overwriteGetLocale,
-+} from "../paraglide/runtime.js";
+Move the root layout into `[locale]` and remove any layout above it. Generate the locale parameters and await them in the root layout:
 
-// needed for SSG
-+export function generateStaticParams() {
-+	return [{ locale: "en" }, { locale: "de" }];
-+}
+```tsx
+import { notFound } from "next/navigation";
+import { isLocale, getTextDirection, locales } from "@/paraglide/runtime";
+import ClientSideLocaleSwitch from "./ClientSideLocaleSwitch";
 
-// scopes the locale per request
-+let ssrLocale = cache(() => ({
-+	locale: baseLocale,
-+}));
-
-// overwrite the getLocale function to use the locale from the request
-+overwriteGetLocale(() => assertIsLocale(ssrLocale().locale));
+export function generateStaticParams() {
+	return locales.map((locale) => ({ locale }));
+}
 
 export default async function RootLayout({
 	children,
 	params,
 }: {
-	children: any;
-	params: any;
+	children: React.ReactNode;
+	params: Promise<{ locale: string }>;
 }) {
-	// can't use async params because the execution order get's screwed up.
-	// this is something nextjs has to fix
-+	ssrLocale().locale = params.locale;
-		return (
-			<html lang={getLocale()} dir={getTextDirection()}>
-				<body>
-					{children}
-				</body>
-			</html>
-		);
+	const { locale } = await params;
+	if (!isLocale(locale)) notFound();
+	return (
+		<html lang={locale} dir={getTextDirection(locale)}>
+			<body>
+				<ClientSideLocaleSwitch locale={locale} />
+				{children}
+			</body>
+		</html>
+	);
 }
 ```
 
-## Usage
+Next.js 16 requires async `params`. Resolve the locale in each page independently; do not rely on a locale cache mutated by the layout:
 
-```js
-import { m } from "../paraglide/messages.js";
-import { getLocale, setLocale } from "../paraglide/runtime.js";
+```tsx
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { m } from "@/paraglide/messages";
+import { isLocale, localizeHref } from "@/paraglide/runtime";
 
-// Use messages
-m.greeting({ name: "World" }); // "Hello World!"
-
-// Get and set locale
-getLocale();    // "en"
-setLocale("de"); // switches to German
+export default async function Page({
+	params,
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	if (!isLocale(locale)) notFound();
+	return (
+		<>
+			<p>{m.example_message({ username: "Samuel" }, { locale })}</p>
+			<Link href={localizeHref("/", { locale: "en" })}>English</Link>
+			<Link href={localizeHref("/", { locale: "de" })}>German</Link>
+		</>
+	);
+}
 ```
+
+### Pass locale into client components
+
+Pass the route locale through props and use it for translations during both server rendering and hydration:
+
+```tsx
+"use client";
+
+import { m } from "@/paraglide/messages";
+import { setLocale, type Locale } from "@/paraglide/runtime";
+
+export default function ClientSideLocaleSwitch({ locale }: { locale: Locale }) {
+	return (
+		<>
+			<p>{m.example_message({ username: "Client" }, { locale })}</p>
+			<button onClick={() => setLocale("de")}>Switch to German</button>
+		</>
+	);
+}
+```
+
+Use `<Link>` with `localizeHref()` for client navigation. `setLocale()` performs a full navigation by default.
+
+For request-time content, Cache Components, or an unprefixed base-locale URL, use the SSR example above. Keep request-time APIs such as `headers()` and `cookies()` out of pages intended to remain fully static.
 
 [Learn more about messages, parameters, and locale management →](/basics)

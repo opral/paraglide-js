@@ -4,6 +4,9 @@ import { paraglideWebpackPlugin } from "@inlang/paraglide-js";
  * @type {import('next').NextConfig}
  */
 export default {
+	cacheComponents: true,
+	skipProxyUrlNormalize: true,
+	partialPrefetching: true,
 	webpack: (config) => {
 		config.plugins.push(
 			paraglideWebpackPlugin({

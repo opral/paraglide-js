@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated Paraglide and test files
+/project.inlang/.lix/
+/project.inlang/.meta.json
+/src/paraglide/
+/playwright-report/
+/test-results/
+/AGENTS.md
