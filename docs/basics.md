@@ -167,7 +167,7 @@ messages["greeting"](); // "Hello World!"
 
 Referencing each message directly also lets [`inlang check`](./checking-translations#unused-messages) find unused messages. A key built at runtime, such as ``m[`${name}_label`]``, can't be resolved.
 
-For arbitrary keys in a native ES module deployment, the default `message-modules` compiler output includes `dynamic.js`:
+For arbitrary keys, the default `message-groups` compiler output includes `dynamic.js`:
 
 ```ts
 import { getMessage } from "./paraglide/dynamic.js";
@@ -177,13 +177,13 @@ await getMessage("goodbye");
 await getMessage("goodbye", {}, { locale: "de" });
 ```
 
-`getMessage()` imports the existing module for the requested key. That module contains its locale variants; it does not load unrelated messages. Modules are cached by the JavaScript module loader. Each call formats its own inputs and captures the current or explicit locale before loading. As with ordinary message calls, `experimentalStaticLocale` takes precedence when configured at compile time.
+`getMessage()` imports the sorted group containing the requested key. Each message lives in one group, containing its locale variants. A lookup also loads other messages in that group, while other groups remain unloaded. Group sizes adapt to the catalog: up to 64 messages and approximately 64 KiB of generated source per group, with oversized messages kept intact. Modules are cached by the JavaScript module loader. Each call formats its own inputs and captures the current or explicit locale before loading. As with ordinary message calls, `experimentalStaticLocale` takes precedence when configured at compile time.
 
 Literal keys and their inputs are type-checked. A widened `string` from JSON or another runtime source opts out of key-specific input checking. The loader checks that the key exists; callers must supply the inputs that message requires. Input shapes are not validated at runtime. Unknown keys and module loading failures reject with `MessageLoadError`, which exposes `key`, `locale` and `cause`. Invalid locales and formatting errors also reject the promise.
 
-**Deployment:** compile with the CLI and serve the generated folder as native ES modules, preserving `dynamic.js`, `runtime.js`, `registry.js` and `messages/` in their relative layout. In browsers, serve JavaScript with a JavaScript MIME type. Node can import the generated files directly when the output is in an ESM package scope (for example, an app with `"type": "module"` in `package.json`). The loader uses computed URLs: application bundlers do not automatically discover or copy these message modules. This MVP does not integrate with regular Vite/plugin dev or production builds, and `locale-modules` output does not include `dynamic.js`.
+**Deployment:** literal imports let ordinary bundler builds discover the groups and emit lazy chunks. Native ESM deployments serve the generated folder with its relative layout preserved and a JavaScript MIME type. Node uses an ESM package scope (for example, `"type": "module"` in `package.json`). Keep the complete set of groups available for dynamic keys.
 
-Dynamic keys cannot be resolved by unused-message analysis. Keep the generated catalog available when deploying this API. The message key `then` retains `m.then()` and the named `then` export from `messages.js`; its internal leaf module exports `__paraglide_then` so native `import()` can load it safely.
+`messages.js` continues to expose synchronous `m.*` functions from the same groups. Static imports remain tree-shakeable; async lookup retains each requested group's functions. `getMessage()` is available with `message-groups`; explicitly selecting the legacy `message-modules` or `locale-modules` layout does not emit `dynamic.js`. Dynamic keys cannot be resolved by unused-message analysis.
 
 ### Type-safe localized strings
 

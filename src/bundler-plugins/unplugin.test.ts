@@ -1209,14 +1209,31 @@ test("buildStart throws when the config is invalid in production", async () => {
 	);
 });
 
-// Regression (review): pinning outputStructure in the shared defaults
-// template killed the development default (#486). Without an explicit
-// structure, plugins must emit locale-modules outside production.
-test("development default output structure is locale-modules", async () => {
+// Dynamic lookup uses the same grouped output in development and production.
+test("development default output structure is message-groups", async () => {
 	const { writeFile } = await import("node:fs/promises");
 	const { projectDir, outdir } = await createProjectFixture();
 
-	// Ensure at least one message exists so the two structures differ.
+	// Load the real message-format plugin so JSON messages enter the catalog.
+	await writeFile(
+		path.join(projectDir, "plugin.js"),
+		await realFs.promises.readFile(
+			new URL(
+				"../../node_modules/@inlang/plugin-message-format/dist/index.js",
+				import.meta.url
+			),
+			"utf8"
+		)
+	);
+	const settingsPath = path.join(projectDir, "settings.json");
+	const settings = JSON.parse(
+		await realFs.promises.readFile(settingsPath, "utf8")
+	);
+	settings.modules = [path.join(projectDir, "plugin.js")];
+	settings["plugin.inlang.messageFormat"] = {
+		pathPattern: path.join(projectDir, "messages/{locale}.json"),
+	};
+	await writeFile(settingsPath, JSON.stringify(settings));
 	await realFs.promises.mkdir(path.join(projectDir, "messages"), {
 		recursive: true,
 	});
@@ -1238,8 +1255,10 @@ test("development default output structure is locale-modules", async () => {
 	await plugin.buildStart?.call(mockContext);
 
 	const messages = await realFs.promises.readdir(path.join(outdir, "messages"));
-	expect(messages).toContain("en.js");
-	expect(messages).toContain("de.js");
+	expect(messages).toContain("group-000.js");
+	expect(
+		await realFs.promises.readFile(path.join(outdir, "dynamic.js"), "utf8")
+	).toContain("getMessage");
 	expect(messages).not.toContain("hello.js");
 });
 

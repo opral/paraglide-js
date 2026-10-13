@@ -376,22 +376,17 @@ function rethrowUnlessEnoent(error: unknown): undefined {
 	throw error;
 }
 
-// default to locale-modules for development to speed up the dev server
-// https://github.com/opral/inlang-paraglide-js/issues/486
+// The same grouped layout exposes dynamic.js in development and production.
 function resolveOutputStructure(
 	options: CompilerOptions
-): "message-modules" | "locale-modules" {
-	const isProduction = process.env.NODE_ENV === "production";
-	return (
-		options.outputStructure ??
-		(isProduction ? "message-modules" : "locale-modules")
-	);
+): NonNullable<CompilerOptions["outputStructure"]> {
+	return options.outputStructure ?? "message-groups";
 }
 
 function hasUnchangedInputs(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
-	outputStructure: "message-modules" | "locale-modules";
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
 }): Promise<boolean> {
 	if (args.state.previousCompilation === undefined) {
 		return Promise.resolve(false);
@@ -428,7 +423,7 @@ function maybeInvalidateForOptionsChange(
 async function compileAndUpdateState(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
-	outputStructure: "message-modules" | "locale-modules";
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
 	previousCompilation: CompilationResult | undefined;
 	/**
 	 * The `isServer` expression to bake into the compiled runtime.

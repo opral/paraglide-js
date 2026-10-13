@@ -46,7 +46,7 @@ If a new message has no \`m.*\` function yet, the output is stale: recompile (fo
 \`\`\`
 paraglide/
 ├── messages.js      # Message exports (import this)
-├── messages/        # Individual message functions
+├── messages/        # Compiled message functions
 ├── runtime.js       # Locale detection & configuration
 ├── registry.js      # Formatters for plural, number, datetime, date, time, relativetime, icu:pound
 ├── server.js        # Server-side middleware
@@ -76,7 +76,7 @@ ${
 	args.dynamicMessages
 		? `## On-demand messages
 
-Import getMessage from dynamic.js to load a key asynchronously using the existing messages/ files. Deploy this folder as native ES modules with its relative layout preserved. Computed imports do not make bundlers emit these files automatically. See [dynamic messages](https://paraglidejs.com/basics#dynamic-messages).
+Import getMessage from dynamic.js to load the sorted group containing a key asynchronously. Group files contain compiled functions directly, with no duplicate individual message files. Literal imports support bundler code splitting. For native ESM, deploy the generated folder with its relative layout preserved. See [dynamic messages](https://paraglidejs.com/basics#dynamic-messages).
 
 `
 		: ""

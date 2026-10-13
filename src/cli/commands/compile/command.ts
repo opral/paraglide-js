@@ -33,11 +33,15 @@ const errorMessage = (error: unknown): string =>
 	error instanceof Error ? error.message : String(error);
 
 const parseOutputStructure = (value: string): OutputStructure => {
-	if (value === "message-modules" || value === "locale-modules") {
+	if (
+		value === "message-groups" ||
+		value === "message-modules" ||
+		value === "locale-modules"
+	) {
 		return value;
 	}
 	throw new InvalidArgumentError(
-		`Invalid output structure "${value}". Expected "message-modules" or "locale-modules".`
+		`Invalid output structure "${value}". Expected "message-groups", "message-modules", or "locale-modules".`
 	);
 };
 
@@ -123,8 +127,9 @@ export const compileCommand = new Command()
 	.option(
 		"--output-structure <structure>",
 		[
-			`The output structure for compiled messages. Either "message-modules" or "locale-modules" (default: "${defaultCompilerOptions.outputStructure}").`,
+			`The output structure for compiled messages. Either "message-groups", "message-modules", or "locale-modules" (default: "${defaultCompilerOptions.outputStructure}").`,
 			"",
+			'"message-groups" shares bounded groups between synchronous and dynamic access.',
 			'"message-modules" gives each message its own module (better tree-shaking).',
 			'"locale-modules" bundles messages per locale (fewer files, better for large projects in dev).',
 		].join("\n"),
@@ -200,7 +205,7 @@ export const compileCommand = new Command()
 						cleanOutdir: options.cleanOutdir,
 						experimentalStaticLocale: options.experimentalStaticLocale,
 						disableAsyncLocalStorage: options.disableAsyncLocalStorage,
-						// The CLI always uses message-modules unless told otherwise
+						// The CLI uses the default grouped layout unless told otherwise
 						// (plugins apply their own development default).
 						outputStructure:
 							options.outputStructure ?? defaultCompilerOptions.outputStructure,

@@ -11,13 +11,14 @@ import { createRuntimeFile } from "./runtime/create-runtime.js";
 import { createServerFile } from "./server/create-server-file.js";
 import { createRegistry } from "./registry.js";
 import { emitTsDeclarations } from "./emit-ts-declarations.js";
-import { createDynamicFile } from "./create-dynamic.js";
+import * as messageGroups from "./output-structure/message-groups.js";
 import { createReadme } from "./create-readme.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 
 const outputStructures = {
 	"locale-modules": localeModules,
 	"message-modules": messageModules,
+	"message-groups": messageGroups,
 };
 
 /**
@@ -51,11 +52,16 @@ export const compileProject = async (args: {
 
 	const outputStructure = outputStructures[optionsWithDefaults.outputStructure];
 
-	const compiledBundles = bundles.map((bundle) =>
+	const grouped = optionsWithDefaults.outputStructure === "message-groups";
+	if (grouped) bundles.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+	const compiledBundles = bundles.map((bundle, index) =>
 		compileBundle({
 			bundle,
 			fallbackMap,
-			inlineMessages: optionsWithDefaults.outputStructure === "message-modules",
+			inlineMessages: optionsWithDefaults.outputStructure !== "locale-modules",
+			exportBundle: !grouped,
+			bundleFunctionName: grouped ? `_message${index}` : undefined,
+			inputTypeAliasName: grouped ? `_Message${index}Inputs` : undefined,
 			dynamicImportSafe:
 				optionsWithDefaults.outputStructure === "message-modules",
 			messageReferenceExpression: outputStructure.messageReferenceExpression,
@@ -95,10 +101,6 @@ export const compileProject = async (args: {
 		)
 	);
 
-	if (optionsWithDefaults.outputStructure === "message-modules") {
-		output["dynamic.js"] = createDynamicFile();
-	}
-
 	if (optionsWithDefaults.emitGitIgnore) {
 		output[".gitignore"] = ignoreDirectory;
 	}
@@ -111,8 +113,7 @@ export const compileProject = async (args: {
 		output["README.md"] = createReadme({
 			projectPath: args.projectPath,
 			gitignored: optionsWithDefaults.emitGitIgnore,
-			dynamicMessages:
-				optionsWithDefaults.outputStructure === "message-modules",
+			dynamicMessages: grouped,
 		});
 	}
 
@@ -130,7 +131,7 @@ export const compileProject = async (args: {
 	// as CommonJS and fail to resolve.
 	// See https://github.com/opral/paraglide-js/issues/668
 	if (
-		optionsWithDefaults.outputStructure === "message-modules" ||
+		optionsWithDefaults.outputStructure !== "locale-modules" ||
 		optionsWithDefaults.experimentalStaticLocale ===
 			perLocaleBuildStaticLocaleExpression
 	) {

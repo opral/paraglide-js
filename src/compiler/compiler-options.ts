@@ -31,7 +31,7 @@ export type RouteStrategy =
 	  };
 
 export const defaultCompilerOptions = {
-	outputStructure: "message-modules",
+	outputStructure: "message-groups",
 	emitGitIgnore: true,
 	includeEslintDisableComment: true,
 	emitPrettierIgnore: true,
@@ -385,32 +385,36 @@ export type CompilerOptions = {
 	/**
 	 * The `outputStructure` defines how modules are structured in the output.
 	 *
-	 * - `message-modules` - Each module is a message. This is the default.
+	 * - `message-groups` - Sorted groups of messages with lazy `getMessage()` access. This is the default.
+	 * - `message-modules` - Each module is a message.
 	 * - `locale-modules` - Each module is a locale.
 	 *
-	 * It is recommended to use `locale-modules` for development and `message-modules` for production.
+	 * `message-groups` supports the same dynamic API in development and production.
+	 * The legacy individual-message and locale layouts remain available explicitly.
 	 * Bundlers speed up the dev mode by bypassing bundling which can lead to many http requests
 	 * during the dev mode with `message-modules`. See https://github.com/opral/inlang-paraglide-js/issues/486.
 	 *
+	 * **`message-groups`**
+	 *
+	 * Messages share sorted groups, each containing up to 64 keys and targeting
+	 * 64 KiB of generated source. A single oversized message stays intact.
+	 * Both synchronous exports and `getMessage()` reuse these functions.
+	 *
+	 * ```text
+	 * outdir/
+	 *   dynamic.js
+	 *   messages.js
+	 *   messages/
+	 *     _index.js
+	 *     group-000.js
+	 *     group-001.js
+	 *   runtime.js
+	 * ```
+	 *
 	 * **`message-modules`**
 	 *
-	 * Messages have their own module which eases tree-shaking for bundlers.
-	 *
-	 * ```diff
-	 *   - outdir/
-	 *     - messages/
-	 * +   - blue_elephant_tree/
-	 * +     - index.js
-	 * +     - en.js
-	 * +     - fr.js
-	 * +   - sky_phone_bottle/
-	 * +     - index.js
-	 * +     - en.js
-	 * +     - fr.js
-	 *     - ...
-	 *   - messages.js
-	 *   - runtime.js
-	 * ```
+	 * Messages have their own module, such as `messages/blue_elephant_tree.js`.
+	 * This legacy layout supports synchronous access only.
 	 *
 	 * **`locale-modules`**
 	 *
@@ -430,9 +434,9 @@ export type CompilerOptions = {
 	 *   - runtime.js
 	 * ```
 	 *
-	 * @default "message-modules"
+	 * @default "message-groups"
 	 */
-	outputStructure?: "locale-modules" | "message-modules";
+	outputStructure?: "locale-modules" | "message-modules" | "message-groups";
 	/**
 	 * Whether to clean the output directory before writing the new files.
 	 *

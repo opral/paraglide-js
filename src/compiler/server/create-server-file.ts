@@ -100,8 +100,9 @@ function createCompiledMessagesObject(
 
 	for (const compiledBundle of compiledBundles) {
 		const bundleId = compiledBundle.bundle.node.id;
-		const safeModuleId = toSafeModuleId(bundleId);
-		// Key by the safe module id, not the raw bundle id: trackMessageCall()
+		const safeModuleId =
+			compiledBundle.bundleFunctionName ?? toSafeModuleId(bundleId);
+		// Use the dispatcher identifier shared with client code: trackMessageCall()
 		// records calls under safeModuleId, the client reads
 		// globalThis.__paraglide.ssr[safeModuleId], and middleware.js looks up
 		// compiledBundles[id] with that same safe id. Keying by the raw
@@ -135,7 +136,9 @@ function createCompiledRegistryObject(
 	const used = new Set<string>();
 
 	for (const compiledBundle of compiledBundles) {
-		const safeModuleId = toSafeModuleId(compiledBundle.bundle.node.id);
+		const safeModuleId =
+			compiledBundle.bundleFunctionName ??
+			toSafeModuleId(compiledBundle.bundle.node.id);
 		for (const [locale, compiledMessage] of Object.entries(
 			compiledBundle.messages
 		)) {

@@ -1,7 +1,8 @@
-import { reservedJsKeywords } from "./safe-module-id.js";
-
 /** Generate a native ESM loader without importing the message catalog. */
-export function createDynamicFile(): string {
+export function createDynamicFile(
+	boundaries: string[],
+	filenames: string[]
+): string {
 	return `import { getLocale, assertIsLocale } from './runtime.js';
 
 /** @typedef {typeof import('./messages.js').m} MessageFunctions */
@@ -34,8 +35,8 @@ export class MessageLoadError extends Error {
 }
 
 /**
- * Load and call a message using its original key. Deploy the generated native
- * ES modules together: computed imports do not emit assets in bundler builds.
+ * Load a sorted group of messages and call the requested message.
+ * Literal imports work with native ESM and bundler code splitting.
  * Literal keys check inputs; widened strings accept arbitrary input records.
  * The locale is captured before loading. Formatting errors pass through.
  * @template {string} K
@@ -49,28 +50,33 @@ export async function getMessage(...args) {
   let message;
   try {
     if (typeof key !== 'string') throw new TypeError('Message key must be a string');
-    const url = new URL('./messages/' + toSafeModuleId(key) + '.js', import.meta.url);
-    const module = await import(/* @vite-ignore */ url.href);
-    const exportName = key === 'then' ? '__paraglide_then' : key;
-    if (!Object.hasOwn(module, exportName) || typeof module[exportName] !== 'function') {
+    const load = loaders[groupFor(key)];
+    if (!load) throw new Error('Unknown message: ' + key);
+    const { messages } = await load();
+    if (!Object.hasOwn(messages, key) || typeof messages[key] !== 'function') {
       throw new Error('Unknown message: ' + key);
     }
-    message = module[exportName];
+    message = messages[key];
   } catch (cause) {
     throw new MessageLoadError(key, locale, cause);
   }
   return message(inputs, { locale });
 }
 
-const reservedJsKeywords = ${JSON.stringify(reservedJsKeywords)};
+const boundaries = ${JSON.stringify(boundaries)};
+/** @type {Array<() => Promise<any>>} */
+const loaders = [${filenames.map((file) => `() => import(${JSON.stringify("./messages/" + file)})`).join(",\n")}];
 
-/** @param {string} id */
-function toSafeModuleId(id) {
-  const result = id.toLowerCase().replace(/[^a-z0-9_]/g, '_');
-  if (result[0]?.match(/[0-9]/) || reservedJsKeywords.includes(result)) return '_' + result;
-  let numUppercase = 0;
-  for (const char of id) if (char.match(/[A-Z]/)) numUppercase++;
-  return result + (numUppercase > 0 ? String(numUppercase) : '');
+/** @param {string} key */
+function groupFor(key) {
+ let low = 0, high = boundaries.length;
+ while (low < high) {
+  const middle = (low + high) >>> 1;
+  if (/** @type {string} */ (boundaries[middle]) <= key) low = middle + 1;
+  else high = middle;
+ }
+ return Math.max(0, low - 1);
 }
+
 `;
 }

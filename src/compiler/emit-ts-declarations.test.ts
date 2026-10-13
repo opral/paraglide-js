@@ -133,6 +133,7 @@ test("emitTsDeclarations works with TypeScript 7 (tsgo)", async () => {
 	for (const outputStructure of [
 		"message-modules",
 		"locale-modules",
+		"message-groups",
 	] as const) {
 		const output = await compileProject({
 			project,
@@ -165,7 +166,9 @@ test("emitTsDeclarations works with TypeScript 7 (tsgo)", async () => {
 				? "messages/greeting_hello.d.ts"
 				: "messages/_index.d.ts";
 
-		expect(output[declarationFile]).toContain(`as "greeting.hello"`);
+		if (outputStructure === "message-groups")
+			expect(output["messages/_index.d.ts"]).toContain(`as "greeting.hello"`);
+		else expect(output[declarationFile]).toContain(`as "greeting.hello"`);
 
 		// the emitted declarations must typecheck for a consumer
 		// (@ts-morph/bootstrap bundles its own compiler and is unaffected
@@ -191,7 +194,7 @@ test("emitTsDeclarations works with TypeScript 7 (tsgo)", async () => {
 				import { "greeting.hello" as greetingHello, balance } from "./messages.js";
 
 				${
-					outputStructure === "message-modules"
+					outputStructure === "message-groups"
 						? `import { getMessage } from "./dynamic.js";
 getMessage("greeting.hello") satisfies Promise<string>;
 getMessage("balance", { amount: 5 }) satisfies Promise<string>;

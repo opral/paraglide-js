@@ -15,10 +15,25 @@ import {
 	Pattern,
 	VariableReference,
 } from "@inlang/sdk";
-import { compileProject, getFallbackMap } from "./compile-project.js";
+import {
+	compileProject as compileProjectActual,
+	getFallbackMap,
+} from "./compile-project.js";
 import virtual from "@rollup/plugin-virtual";
 import { rolldown } from "rolldown";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
+
+// These existing layout fixtures exercise the retained individual-module mode.
+// Grouped defaults and their dynamic API are covered in create-dynamic.test.ts.
+function compileProject(args: Parameters<typeof compileProjectActual>[0]) {
+	return compileProjectActual({
+		...args,
+		compilerOptions: {
+			outputStructure: "message-modules",
+			...args.compilerOptions,
+		},
+	});
+}
 
 beforeEach(() => {
 	// reset the imports to make sure that the runtime is reloaded
@@ -686,6 +701,10 @@ test("can emit message bundles with more than 255 characters", async () => {
 });
 
 describe.each([
+	{
+		outputStructure: "message-groups",
+		strategy: ["globalVariable", "baseLocale"],
+	},
 	// useTsImports must be true to test emitTs. Otherwise, rolldown can't resolve the imports
 	{
 		outputStructure: "locale-modules",
@@ -1176,7 +1195,13 @@ describe.each([
 			const relativeTimeDynamicFile =
 				compilerOptions.outputStructure === "locale-modules"
 					? "messages/en.js"
-					: "messages/relative_time_dynamic.js";
+					: compilerOptions.outputStructure === "message-groups"
+						? Object.keys(output).find(
+								(file) =>
+									file.startsWith("messages/group-") &&
+									output[file]!.includes("relative_time_dynamic")
+							)!
+						: "messages/relative_time_dynamic.js";
 
 			expect(output).toHaveProperty(relativeTimeDynamicFile);
 			const relativeTimeDynamicModule = output[relativeTimeDynamicFile]!;
@@ -2597,6 +2622,7 @@ describe.each([
 );
 
 describe.each([
+	{ outputStructure: "message-groups" },
 	{ outputStructure: "locale-modules" },
 	{ outputStructure: "message-modules" },
 ] as const)(
@@ -2709,133 +2735,175 @@ describe.each([
 	}
 );
 
-test("messages injected by the middleware in experimentalMiddlewareLocaleSplitting mode can call the registry", async () => {
-	const splitProject = await loadProjectInMemory({
-		blob: await newProject({
-			settings: { baseLocale: "en", locales: ["en", "de"] },
-		}),
-	});
-	const ref = (name: string) => ({ type: "variable-reference", name }) as const;
-	// {count, plural, =0 {No items} other {# items}} as the ICU1 plugin imports it
-	await insertBundleNested(
-		splitProject.db,
-		createBundleNested({
-			id: "item_count",
-			declarations: [
-				{ type: "input-variable", name: "count" },
-				{
-					type: "local-variable",
-					name: "countPluralExact",
-					value: { type: "expression", arg: ref("count") },
-				},
-				{
-					type: "local-variable",
-					name: "countPlural",
-					value: {
-						type: "expression",
-						arg: ref("count"),
-						annotation: {
-							type: "function-reference",
-							name: "plural",
-							options: [],
+test.each(["message-groups", "message-modules"] as const)(
+	"middleware-injected messages can call the registry ($outputStructure)",
+	async (outputStructure) => {
+		const splitProject = await loadProjectInMemory({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "de"] },
+			}),
+		});
+		const ref = (name: string) =>
+			({ type: "variable-reference", name }) as const;
+		// {count, plural, =0 {No items} other {# items}} as the ICU1 plugin imports it
+		await insertBundleNested(
+			splitProject.db,
+			createBundleNested({
+				id: "item_count",
+				declarations: [
+					{ type: "input-variable", name: "count" },
+					{
+						type: "local-variable",
+						name: "countPluralExact",
+						value: { type: "expression", arg: ref("count") },
+					},
+					{
+						type: "local-variable",
+						name: "countPlural",
+						value: {
+							type: "expression",
+							arg: ref("count"),
+							annotation: {
+								type: "function-reference",
+								name: "plural",
+								options: [],
+							},
 						},
 					},
-				},
-			],
-			messages: [
-				{
-					locale: "en",
-					selectors: [ref("countPluralExact"), ref("countPlural")],
-					variants: [
-						{
-							matches: [
-								{ type: "literal-match", key: "countPluralExact", value: "0" },
-								{ type: "catchall-match", key: "countPlural" },
-							],
-							pattern: [{ type: "text", value: "No items" }],
-						},
-						{
-							matches: [
-								{ type: "catchall-match", key: "countPluralExact" },
-								{ type: "catchall-match", key: "countPlural" },
-							],
-							pattern: [
-								{
-									type: "expression",
-									arg: ref("count"),
-									annotation: {
-										type: "function-reference",
-										name: "icu:pound",
-										options: [],
+				],
+				messages: [
+					{
+						locale: "en",
+						selectors: [ref("countPluralExact"), ref("countPlural")],
+						variants: [
+							{
+								matches: [
+									{
+										type: "literal-match",
+										key: "countPluralExact",
+										value: "0",
 									},
-								},
-								{ type: "text", value: " items" },
-							],
-						},
-					],
-				},
-			],
-		})
-	);
-	await insertBundleNested(
-		splitProject.db,
-		createBundleNested({
-			id: "plain_text",
-			messages: [
-				{
-					locale: "en",
-					variants: [{ pattern: [{ type: "text", value: "Hello" }] }],
-				},
-			],
-		})
-	);
-
-	const output = await compileProject({
-		project: splitProject,
-		compilerOptions: {
-			strategy: ["baseLocale"],
-			experimentalMiddlewareLocaleSplitting: true,
-			disableAsyncLocalStorage: true,
-		},
-	});
-	const { m, paraglideMiddleware } = await importCode(
-		await bundleCode(
-			output,
-			`export * as m from "./paraglide/messages.js"
-			export { paraglideMiddleware } from "./paraglide/server.js"`
-		)
-	);
-
-	const render = async (messages: (m: any) => string) => {
-		const response: Response = await paraglideMiddleware(
-			new Request("https://example.com/", {
-				headers: { "Sec-Fetch-Dest": "document" },
-			}),
-			() =>
-				new Response(`<html><head></head><body>${messages(m)}</body></html>`, {
-					headers: { "Content-Type": "text/html" },
-				})
+									{ type: "catchall-match", key: "countPlural" },
+								],
+								pattern: [{ type: "text", value: "No items" }],
+							},
+							{
+								matches: [
+									{ type: "catchall-match", key: "countPluralExact" },
+									{ type: "catchall-match", key: "countPlural" },
+								],
+								pattern: [
+									{
+										type: "expression",
+										arg: ref("count"),
+										annotation: {
+											type: "function-reference",
+											name: "icu:pound",
+											options: [],
+										},
+									},
+									{ type: "text", value: " items" },
+								],
+							},
+						],
+					},
+				],
+			})
 		);
-		const html = await response.text();
-		const script = html.match(/<script[^>]*>([\s\S]*?)<\/script>/)?.[1];
-		expect(script).toBeDefined();
-		// the client evaluates the script without registry.js
-		const context: Record<string, any> = {};
-		vm.runInNewContext(script!, context);
-		return { html, ssr: context.__paraglide.ssr };
-	};
+		await insertBundleNested(
+			splitProject.db,
+			createBundleNested({
+				id: "plain_text",
+				messages: [
+					{
+						locale: "en",
+						variants: [{ pattern: [{ type: "text", value: "Hello" }] }],
+					},
+				],
+			})
+		);
 
-	const withRegistry = await render((m) => m.item_count({ count: 5 }));
-	expect(withRegistry.html).toContain("<body>5 items</body>");
-	expect(withRegistry.ssr.item_count({ count: 5 })).toBe("5 items");
-	expect(withRegistry.ssr.item_count({ count: 1234 })).toBe("1,234 items");
-	expect(withRegistry.ssr.item_count({ count: 0 })).toBe("No items");
+		if (outputStructure === "message-groups")
+			for (const id of ["foo_bar", "foo-bar"]) {
+				await insertBundleNested(
+					splitProject.db,
+					createBundleNested({
+						id,
+						messages: [
+							{
+								locale: "en",
+								variants: [{ pattern: [{ type: "text", value: id }] }],
+							},
+						],
+					})
+				);
+			}
+		const output = await compileProject({
+			project: splitProject,
+			compilerOptions: {
+				strategy: ["baseLocale"],
+				outputStructure,
+				experimentalMiddlewareLocaleSplitting: true,
+				disableAsyncLocalStorage: true,
+			},
+		});
+		const { m, paraglideMiddleware } = await importCode(
+			await bundleCode(
+				output,
+				`export * as m from "./paraglide/messages.js"
+			export { paraglideMiddleware } from "./paraglide/server.js"`
+			)
+		);
 
-	// messages that don't call the registry get no registry code
-	const withoutRegistry = await render((m) => m.plain_text());
-	expect(withoutRegistry.ssr.plain_text()).toBe("Hello");
-	expect(withoutRegistry.html).not.toContain("const registry");
-});
+		const render = async (messages: (m: any) => string) => {
+			const response: Response = await paraglideMiddleware(
+				new Request("https://example.com/", {
+					headers: { "Sec-Fetch-Dest": "document" },
+				}),
+				() =>
+					new Response(
+						`<html><head></head><body>${messages(m)}</body></html>`,
+						{
+							headers: { "Content-Type": "text/html" },
+						}
+					)
+			);
+			const html = await response.text();
+			const script = html.match(/<script[^>]*>([\s\S]*?)<\/script>/)?.[1];
+			expect(script).toBeDefined();
+			// the client evaluates the script without registry.js
+			const context: Record<string, any> = {};
+			vm.runInNewContext(script!, context);
+			return { html, ssr: context.__paraglide.ssr };
+		};
+
+		const withRegistry = await render((m) => m.item_count({ count: 5 }));
+		expect(withRegistry.html).toContain("<body>5 items</body>");
+		expect((Object.values(withRegistry.ssr)[0] as any)({ count: 5 })).toBe(
+			"5 items"
+		);
+		expect((Object.values(withRegistry.ssr)[0] as any)({ count: 1234 })).toBe(
+			"1,234 items"
+		);
+		expect((Object.values(withRegistry.ssr)[0] as any)({ count: 0 })).toBe(
+			"No items"
+		);
+
+		// messages that don't call the registry get no registry code
+		const withoutRegistry = await render((m) => m.plain_text());
+		expect((Object.values(withoutRegistry.ssr)[0] as any)()).toBe("Hello");
+		expect(withoutRegistry.html).not.toContain("const registry");
+		if (outputStructure === "message-groups") {
+			const collision = await render((m) => m.foo_bar() + ":" + m["foo-bar"]());
+			expect(collision.html).toContain("<body>foo_bar:foo-bar</body>");
+			expect(
+				Object.values(collision.ssr)
+					.map((fn: any) => fn())
+					.sort()
+			).toEqual(["foo-bar", "foo_bar"]);
+		}
+	}
+);
 
 async function bundleCode(output: Record<string, string>, file: string) {
 	output["runtime.js"] = output["runtime.js"]!.replace(

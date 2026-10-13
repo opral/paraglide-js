@@ -155,6 +155,7 @@ test("compile seeds existing outdir and disables cleaning (#743)", async () => {
 		expect.objectContaining({
 			outdir,
 			cleanOutdir: false,
+			outputStructure: "message-groups",
 			previousCompilation: {
 				outputHashes: {
 					"runtime.js": expect.any(String),
@@ -188,6 +189,7 @@ test("compile exposes and forwards compiler options missing from the CLI (#757)"
 	expect(help).toContain("--no-clean-outdir");
 	expect(help).toContain("--experimental-static-locale <expression>");
 	expect(help).toContain("--disable-async-local-storage");
+	expect(help).toContain("message-groups");
 
 	await expect(
 		compileCommand.parseAsync(
@@ -196,6 +198,8 @@ test("compile exposes and forwards compiler options missing from the CLI (#757)"
 				path.join(testDirectory, "project.inlang"),
 				"--outdir",
 				outdir,
+				"--output-structure",
+				"message-groups",
 				"--no-clean-outdir",
 				"--experimental-static-locale",
 				'import.meta.env.PARAGLIDE_LOCALE ?? "en"',

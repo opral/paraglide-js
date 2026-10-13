@@ -20,6 +20,8 @@ import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 import { resolveInputAlias } from "./input-alias.js";
 
 export type CompiledBundleWithMessages = {
+	/** Internal dispatcher identifier, independent of public message ID. */
+	bundleFunctionName?: string;
 	/** The compilation result for the bundle index */
 	bundle: Compiled<Bundle>;
 	/** The compilation results for the languages */
@@ -44,6 +46,9 @@ export const compileBundle = (args: {
 	settings?: ProjectSettings;
 	/** Internal layout control; locale modules keep text grouped by language. */
 	inlineMessages?: boolean;
+	exportBundle?: boolean;
+	bundleFunctionName?: string;
+	inputTypeAliasName?: string;
 	/** Export then under a safe name for native dynamic imports. */
 	dynamicImportSafe?: boolean;
 	experimentalMiddlewareLocaleSplitting?: boolean;
@@ -51,7 +56,8 @@ export const compileBundle = (args: {
 }): CompiledBundleWithMessages => {
 	const compiledMessages: Record<string, CompiledMessage> = {};
 	const safeBundleId = toSafeModuleId(args.bundle.id);
-	const inputTypeAliasName = toBundleInputTypeAliasName(safeBundleId);
+	const inputTypeAliasName =
+		args.inputTypeAliasName ?? toBundleInputTypeAliasName(safeBundleId);
 	const matchTypes = collectInputMatchTypes(args.bundle);
 	const hasMarkup = bundleHasMarkup(args.bundle);
 
@@ -84,7 +90,10 @@ export const compileBundle = (args: {
 	});
 
 	return {
+		bundleFunctionName: args.bundleFunctionName,
 		bundle: compileBundleFunction({
+			bundleFunctionName: args.bundleFunctionName,
+			exportBundle: args.exportBundle,
 			dynamicImportSafe: args.dynamicImportSafe,
 			bundle: args.bundle,
 			availableLocales: Object.keys(args.fallbackMap),
@@ -163,6 +172,8 @@ function findUnreferencedMessageLocales(args: {
 }
 
 const compileBundleFunction = (args: {
+	exportBundle?: boolean;
+	bundleFunctionName?: string;
 	dynamicImportSafe?: boolean;
 	/**
 	 * The bundle to compile
@@ -208,7 +219,8 @@ const compileBundleFunction = (args: {
 		(decl) => decl.type === "input-variable"
 	);
 	const hasInputs = inputs.length > 0;
-	const safeBundleId = toSafeModuleId(args.bundle.id);
+	const safeBundleId =
+		args.bundleFunctionName ?? toSafeModuleId(args.bundle.id);
 
 	const isSafeBundleId = safeBundleId === args.bundle.id;
 
@@ -340,7 +352,7 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 
 	if (!args.hasMarkup) {
 		code = `${commonJsDoc}
-${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & ${messageMetadataType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
+${isSafeBundleId && args.exportBundle !== false ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & ${messageMetadataType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
 			"\t"
 		)}${keepUnusedInputsParameter("\t")}
 ${localeResolutionStatement("\t")}
@@ -352,7 +364,7 @@ ${localeResolutionStatement("\t")}
 });`;
 	} else {
 		code = `${commonJsDoc}
-${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & { parts: ${partsFunctionType} } & ${messageMetadataType}} */ (
+${isSafeBundleId && args.exportBundle !== false ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & { parts: ${partsFunctionType} } & ${messageMetadataType}} */ (
 	/* @__PURE__ */ Object.assign(
 		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
 			"\t\t\t"
@@ -380,7 +392,7 @@ ${localeResolutionStatement("\t\t\t\t")}
 );`;
 	}
 
-	if (isSafeBundleId === false) {
+	if (isSafeBundleId === false && args.exportBundle !== false) {
 		code +=
 			args.dynamicImportSafe && args.bundle.id === "then"
 				? `\nexport { ${safeBundleId} as __paraglide_then }`

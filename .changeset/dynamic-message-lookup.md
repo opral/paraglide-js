@@ -2,8 +2,8 @@
 "@inlang/paraglide-js": minor
 ---
 
-Add `getMessage(key, inputs?, options?)` in generated `dynamic.js` for native ES module deployments using `message-modules`. The async API reuses existing per-message files, captures locale before loading, preserves literal-key input types, and reports loading failures through `MessageLoadError`. Deploy the generated folder intact; computed imports do not automatically emit assets in application bundlers.
+Add async `getMessage(key, inputs?, options?)` in generated `dynamic.js`. The new default `message-groups` layout replaces individual message files with sorted groups containing their compiled functions and locale variants. Groups adapt to catalog size, with up to 64 keys and approximately 64 KiB of generated source (a larger single message stays intact). Literal imports support native ESM and bundler code splitting, without loader configuration or a per-key import registry.
 
-The internal `messages/_then.js` module now exports `__paraglide_then` to prevent native dynamic import from treating its namespace as a thenable. Public `m.then()` and the named `then` export from `messages.js` remain available.
+Synchronous `m.*` calls use the same functions and remain tree-shakeable. Literal keys retain input types, locale is captured before loading, and loading failures expose `MessageLoadError` with key, locale and cause. Grouped output supports unsafe and reserved IDs without individual-filename collisions, including `then`.
 
-Reject message IDs that normalize to the same module filename instead of silently overwriting a message.
+The compiler and ordinary bundler plugins now default to `message-groups` in development and production. Generated internal filenames change to `messages/group-NNN.js`; the public message API is unchanged. Explicit `message-modules` and `locale-modules` layouts remain available, without `dynamic.js`.

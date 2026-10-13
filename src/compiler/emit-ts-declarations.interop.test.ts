@@ -62,6 +62,7 @@ test("emitTsDeclarations uses the compiler API for a default-only interop shape 
 		project,
 		compilerOptions: {
 			emitTsDeclarations: true,
+			outputStructure: "message-modules",
 		},
 	});
 

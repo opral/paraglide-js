@@ -117,7 +117,7 @@ a public API through which the framework asks for locale client variants and
 selects a returned graph during rendering.
 
 The generated Paraglide layout is `locale-modules`; explicitly selecting
-`message-modules` is rejected for this backend. Locale switching still
+`message-modules` or `message-groups` is rejected for this backend. Locale switching still
 requires full-document navigation. The server, deployment adapter, or static
 hosting layout is responsible for selecting the directory named by the
 manifest. For directly opening each emitted HTML tree, use a relative Vite
@@ -208,10 +208,11 @@ The compiler generates the following file structure in your `outdir`:
 ```
 paraglide/
   messages/
-    hello_world.js      # One module per message, containing its locale variants
+    group-000.js        # Sorted groups containing compiled message functions
+    group-001.js
     _index.js           # Message exports
   messages.js           # Re-exports all message functions
-  dynamic.js            # Native ESM getMessage() (message-modules only)
+  dynamic.js            # Async getMessage() (message-groups only)
   registry.js           # Shared formatting helpers
   runtime.js            # Locale management (getLocale, setLocale, etc.)
   server.js             # Server middleware (paraglideMiddleware)
