@@ -23,7 +23,8 @@
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": "./dist/index.js",
-		"./urlpattern-polyfill": "./dist/urlpattern-polyfill/index.js"
+		"./urlpattern-polyfill": "./dist/urlpattern-polyfill/index.js",
+		"./eslint": "./dist/eslint/index.js"
 	},
 	"scripts": {
 		"dev": "tsc --watch",
@@ -59,6 +60,7 @@
 		"valibot": "^1.4.2"
 	},
 	"peerDependencies": {
+		"eslint": "^9.0.0 || ^10.0.0",
 		"typescript": ">=5.6",
 		"vite": ">=5.0.0"
 	},
@@ -68,6 +70,9 @@
 		},
 		"vite": {
 			"optional": true
+		},
+		"eslint": {
+			"optional": true
 		}
 	},
 	"devDependencies": {
@@ -75,10 +80,14 @@
 		"@inlang/plugin-message-format": "^4.5.0",
 		"@rollup/plugin-virtual": "3.0.2",
 		"@ts-morph/bootstrap": "0.26.0",
+		"@types/estree": "^1.0.9",
 		"@types/node": "^22.10.6",
+		"@typescript-eslint/parser": "8.71.2",
 		"@vitest/coverage-v8": "3.1.4",
+		"eslint": "10.12.0",
+		"eslint9": "npm:eslint@^9.39.2",
 		"memfs": "4.17.0",
-		"oxlint": "^1.14.0",
+		"oxlint": "^1.88.0",
 		"prettier": "^3.4.2",
 		"rolldown": "1.0.0-beta.1",
 		"typedoc": "0.28.12",
