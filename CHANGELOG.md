@@ -1,5 +1,49 @@
 # @inlang/paraglide-js
 
+## 2.28.0
+
+### Minor Changes
+
+- 17d1aed: Add `cookieSameSite` and `cookieSecure` compiler options for the locale cookie that `setLocale()` writes. Both attributes are omitted by default, so the cookie only changes when you opt in. `cookieSecure: "auto"` adds `Secure` only on `https:` pages, and `cookieSameSite: "none"` without `cookieSecure` throws when Paraglide compiles the runtime, because browsers drop that cookie.
+
+  The runtime exports `cookieSameSite` and `cookieSecure`, so server code that writes the same cookie with `Set-Cookie` can reuse the policy. With `"auto"`, the server has to resolve the protocol itself.
+
+- b95a16b: Add `redirect: "navigation"` to `paraglideMiddleware` for GET and HEAD clients that omit `Sec-Fetch-Dest` but accept HTML. In this mode, form POST requests pass through to the resolve callback. The default `"document"` mode keeps its existing redirect behavior.
+
+  The new mode adds `Vary` fields when needed to keep cached redirects and resolved responses separate. Mutable callback responses are updated in place to preserve their identity and runtime-specific state, including precompressed bodies on Cloudflare Workers. Immutable responses are rebuilt using the original response as the constructor options.
+
+- b375894: Add an optional ESLint/Oxlint plugin at `@inlang/paraglide-js/eslint`. Enable `paraglide/no-dynamic-message-access` to report runtime indexing, computed destructuring, and whole-catalog spread/rest copies that can defeat tree-shaking. The rule recognizes generated message imports, aliases and local scope, while allowing static message references and application-owned maps. Custom generated module paths can be added with `messageModules`. No runtime, compiler output, or application behavior changes; the rule has no automatic fix because applications must choose their supported messages.
+
+  Add optional lint setup to `paraglide-js init` with `--lint eslint|oxlint|none`, preserving existing lint configs via a dedicated `lint:i18n` script. Add `--yes`/`--non-interactive`, explicit project/output paths, and optional setup flags for unattended use. Closed input without an unattended flag fails before writes; headless mode skips optional editor/machine-translation prompts, protects dirty git trees unless explicitly allowed, reuses existing projects, preserves TypeScript config comments, and returns nonzero on setup/compile failures. No dependencies are installed automatically.
+
+- 32b54a8: Show compilation and config errors in Vite's development overlay, including in newly opened tabs. Once compilation and config loading recover, the plugin requests a page reload to clear the overlay. The dev server keeps serving the last compiled output, as before.
+
+### Patch Changes
+
+- 08ef4de: Fix `extractLocaleFromHeader` picking languages the client rejected with `q=0` and ranking ranges by malformed weights. `fr; q=0.5` and `fr;Q=0.5` were read as unknown tags, and weights like `q=abc` or `q=2` were sorted as `NaN` or out-of-range numbers.
+
+  Ranges with `q=0` are now skipped, as RFC 9110 defines a weight of 0 as "not acceptable". Ranges whose weight is not a valid qvalue are skipped too. The `q` parameter is matched case-insensitively, whitespace around `;` and `=` is tolerated, and other parameters are ignored, including quoted values that contain `,` or `;`. `shouldRedirect()` and `paraglideMiddleware()` reach this function through the `preferredLanguage` strategy, so their redirects follow the same rules.
+
+- 4889802: Bound filesystem concurrency for generated output across message modules, locale modules, declarations, and additional files. Propagate write, directory creation, and required deletion errors instead of silently reporting successful compilation with incomplete output. Drain active operations before rejecting, close the loaded project on failure, and preserve unchanged generated files when cleaning during a partial update.
+- bfdaecf: Cache Intl formatters used by compiled messages instead of constructing them on every call. Bound each formatter cache to 256 locale/options configurations, preserve direct-call option semantics, and include caching in middleware-injected messages.
+
+  Date/time formatters are cached only with an explicit time zone, so messages using the host default follow device or process time zone changes.
+
+- 4dedc3f: Keep canonical callback responses unchanged in navigation redirect mode when built-in URL routing determines the locale. Canonicalization redirects only vary by `Accept` and `Sec-Fetch-Dest`.
+- bdb8f54: Reduce generated localization payloads by returning static text directly from locale dispatchers. Preserve locale switching, fallbacks, markup, middleware, and locale-specialized builds.
+- b43abc2: Skip locale splitting for callback values without response headers or a body reader, and for consumed or locked bodies. Keep HTML injection working when the global `Response` constructor is replaced.
+- ceaba90: Allow opt-in `outputStructure: "message-modules"` with experimental per-locale Vite builds. Direct physical message imports let Vite retain page-specific messages in lazy chunks while specializing each graph to its selected locale.
+- ae63a90: Keep protocol-relative hrefs in `localizeHref()` and `deLocalizeHref()` instead of dropping their host. For example, with locale `de`, `//cdn.example.com/docs` now becomes `//cdn.example.com/de/docs` instead of `/de/docs`. This also handles `/\` and separators containing tabs or newlines. Explicit ports are preserved, including default ports such as `:80`. Links keep their implicit protocol on the server outside the middleware, where `getUrlOrigin()` uses a fallback origin. Configured protocol or port changes still produce absolute URLs.
+- 2ca1028: Cancel queued rebuilds when CLI watch mode shuts down, and ignore late watcher events or compile completions after shutdown. This prevents stopped watch sessions from recompiling or reopening file watchers.
+- 2de79ed: `getLocale()`, `setLocale()` and `extractLocaleFromCookie()` no longer throw when `document.cookie` or `localStorage` throws, as both do with a `SecurityError` in sandboxed iframes without `allow-same-origin` and other documents with an opaque origin. A failed read falls through to the next strategy. A failed write is skipped, so `setLocale()` still navigates or reloads.
+
+  The first `getLocale()` call writes the cookie, so a page whose locale came from the URL used to throw on its first message.
+
+- 4c66c0d: Upgrade the minimum inlang SDK version to 4.0.4, bringing lower memory use and batched processing for large translation projects.
+- e14ee56: Include `Cookie` in redirect `Vary` headers when the route uses the cookie strategy. Responses from `resolve` also vary by `Cookie` or `Accept-Language` when the corresponding strategies come before `url`, or when the URL does not supply a locale. Existing fields are kept without duplicates, and `Vary: *` is unchanged.
+
+  With the default strategy, HTTP responses now include `Vary: Cookie`. Shared caches that honor `Vary` distinguish responses by the full Cookie header, which can reduce cache reuse. Mutable responses retain their identity; network error responses are passed through unchanged. Copied responses keep their `url`, `redirected` and `type`, including when cloned.
+
 ## 2.27.0
 
 ### Minor Changes
