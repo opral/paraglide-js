@@ -38,6 +38,64 @@ All checks run by default. Pass one or more check flags, such as `--missing-tran
 > [!NOTE]
 > `inlang validate` and `inlang lint` are deprecated. `inlang lint` does nothing and exits with `0`, so replace it with `inlang check` in your scripts and CI.
 
+## Check while compiling
+
+To reject incomplete translations every time Paraglide compiles, enable
+`checkTranslations` in `project.inlang/paraglide.config.ts`:
+
+```ts
+export default {
+	checkTranslations: true,
+};
+```
+
+The CLI and bundler plugins load this configuration. You can also pass
+`checkTranslations: true` directly to a plugin, `compile()`, or `compileProject()`.
+The compiler uses the inlang SDK's translation checks on the bundles it has
+already loaded, comparing all configured locales against `baseLocale`. It checks
+missing and empty translations and forms, variables, markup, selectors, and
+plural or select forms. It does not load a second project or start another process.
+
+Findings reject compilation before generated files are written. The CLI exits
+with an error, and production bundler builds fail. During development, bundler
+watchers report the error and keep the last successfully generated output; this
+option does not block the dev server from serving that output.
+
+With esbuild, set `watchMode: true` on the plugin when using
+`context().watch()` or `context().serve()`. esbuild does not expose these modes
+to plugins, so they cannot be detected automatically:
+
+```ts
+import * as esbuild from "esbuild";
+import { paraglideEsbuildPlugin } from "@inlang/paraglide-js";
+
+const context = await esbuild.context({
+	entryPoints: ["src/index.ts"],
+	bundle: true,
+	outdir: "dist",
+	plugins: [
+		paraglideEsbuildPlugin({
+			project: "./project.inlang",
+			outdir: "./src/paraglide",
+			checkTranslations: true,
+			watchMode: true,
+		}),
+	],
+});
+
+await context.watch(); // Or: await context.serve();
+```
+
+`watchMode` is a plugin option, not a compiler or `paraglide.config` option.
+Leave it unset for automatic detection in other bundlers and for strict esbuild
+builds. An explicit `false` makes the plugin's build-start hook strict even when
+the bundler reports watch mode. `NODE_ENV=production` keeps that hook strict
+regardless of `watchMode`.
+
+The default for `checkTranslations` is `false`, so projects that intentionally rely on locale fallback
+keep their existing behavior. Use `inlang check` for unused-message analysis,
+locale or check selection, or a machine-readable report.
+
 ## Unused messages
 
 ```sh
