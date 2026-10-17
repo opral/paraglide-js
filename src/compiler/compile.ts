@@ -62,6 +62,24 @@ export async function compile(
 
 			let failed = false;
 			try {
+				// Missing files are skipped by the SDK, but unreadable ones would
+				// compile into incomplete output that replaces the previous one.
+				// The SDK does not export ResourceFileImportError, so match by name.
+				const resourceFileErrors = (await project.errors.get()).filter(
+					(error) => error.name === "ResourceFileImportError"
+				);
+				if (resourceFileErrors.length > 0) {
+					const failures = resourceFileErrors.map((error) => {
+						const { path: file } = error as Error & { path?: string };
+						const cause = error.cause as { code?: string } | undefined;
+						return `${file} (${cause?.code ?? String(error.cause)})`;
+					});
+					throw new AggregateError(
+						resourceFileErrors,
+						`Failed to read translation resource files: ${failures.join(", ")}`
+					);
+				}
+
 				const output = await compileProject({
 					compilerOptions: withDefaultOptions,
 					project,
