@@ -2,6 +2,7 @@ import { afterEach, expect, test, vi } from "vitest";
 import fs from "node:fs/promises";
 import nodeFs from "node:fs";
 import { tmpdir } from "node:os";
+import { createRequire } from "node:module";
 import path from "node:path";
 import { createServer, type HotPayload, type ViteDevServer } from "vite";
 import {
@@ -14,7 +15,7 @@ import { paraglideVitePlugin } from "./vite.js";
 type FixtureOptions = {
 	devErrorResponse?: boolean;
 	experimentalPerLocaleBuild?: boolean;
-	source: "settings" | "config";
+	source: "settings" | "config" | "translations";
 	isInitiallyInvalid?: boolean;
 };
 
@@ -49,13 +50,48 @@ async function createFixture(options: FixtureOptions) {
 		path.join(root, "index.html"),
 		"<p>Translation preview</p>"
 	);
+	if (options.source === "translations") {
+		await fs.mkdir(path.join(root, "messages"));
+		await fs.writeFile(
+			path.join(root, "plugin.js"),
+			await fs.readFile(
+				createRequire(import.meta.url).resolve("@inlang/plugin-message-format"),
+				"utf8"
+			)
+		);
+		await fs.writeFile(
+			path.join(projectDir, "settings.json"),
+			JSON.stringify({
+				baseLocale: "en",
+				locales: ["en", "de"],
+				modules: [path.join(root, "plugin.js")],
+				"plugin.inlang.messageFormat": {
+					pathPattern: path.join(root, "messages/{locale}.json"),
+				},
+			})
+		);
+		await fs.writeFile(
+			path.join(root, "messages/en.json"),
+			JSON.stringify({ hello: "Hello" })
+		);
+		await fs.writeFile(
+			path.join(root, "messages/de.json"),
+			JSON.stringify({ hello: "Hallo" })
+		);
+	}
 	const file =
 		options.source === "settings"
 			? path.join(projectDir, "settings.json")
-			: configFile;
+			: options.source === "translations"
+				? path.join(root, "messages/de.json")
+				: configFile;
 	const original = await fs.readFile(file, "utf8");
 	const invalid =
-		options.source === "settings" ? "{" : "export default { outdir: 42 };";
+		options.source === "settings"
+			? "{"
+			: options.source === "translations"
+				? "{}"
+				: "export default { outdir: 42 };";
 	if (options.isInitiallyInvalid) await fs.writeFile(file, invalid);
 	const server = await createServer({
 		root,
@@ -66,6 +102,7 @@ async function createFixture(options: FixtureOptions) {
 				project: projectDir,
 				outdir: path.join(root, "paraglide"),
 				devErrorResponse: options.devErrorResponse,
+				checkTranslations: options.source === "translations",
 				experimentalPerLocaleBuild: options.experimentalPerLocaleBuild,
 			}),
 		],
@@ -82,7 +119,7 @@ async function notifyChange(server: ViteDevServer, file: string) {
 	await server.pluginContainer.watchChange(file, { event: "update" });
 }
 
-test.each(["settings", "config"] as const)(
+test.each(["settings", "config", "translations"] as const)(
 	"serves HTTP 500 for invalid %s on startup and recovers without restarting",
 	async (source) => {
 		const fixture = await createFixture({
@@ -103,7 +140,7 @@ test.each(["settings", "config"] as const)(
 	}
 );
 
-test.each(["settings", "config"] as const)(
+test.each(["settings", "config", "translations"] as const)(
 	"blocks stale responses after invalid %s and restores them after recovery",
 	async (source) => {
 		const fixture = await createFixture({ source, devErrorResponse: true });
@@ -123,7 +160,7 @@ test.each(["settings", "config"] as const)(
 	}
 );
 
-test.each(["settings", "config"] as const)(
+test.each(["settings", "config", "translations"] as const)(
 	"keeps the default HTTP behavior after invalid %s",
 	async (source) => {
 		const fixture = await createFixture({ source });

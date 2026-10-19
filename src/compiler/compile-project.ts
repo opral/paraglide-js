@@ -1,5 +1,9 @@
 import { compileBundle } from "./compile-bundle.js";
-import { selectBundleNested, type InlangProject } from "@inlang/sdk";
+import {
+	checkBundle,
+	selectBundleNested,
+	type InlangProject,
+} from "@inlang/sdk";
 import { lookup } from "../services/lookup.js";
 import * as localeModules from "./output-structure/locale-modules.js";
 import * as messageModules from "./output-structure/message-modules.js";
@@ -43,6 +47,22 @@ export const compileProject = async (args: {
 
 	const settings = await args.project.settings.get();
 	const bundles = await selectBundleNested(args.project.db).execute();
+	if (optionsWithDefaults.checkTranslations) {
+		const diagnostics = bundles.flatMap((bundle) =>
+			checkBundle({
+				bundle,
+				locales: settings.locales,
+				referenceLocale: settings.baseLocale,
+			})
+		);
+		if (diagnostics.length > 0) {
+			throw new Error(
+				`Translation checks failed:\n${diagnostics
+					.map((diagnostic) => `${diagnostic.checkId}: ${diagnostic.message}`)
+					.join("\n")}`
+			);
+		}
+	}
 
 	//Maps each language to it's fallback
 	//If there is no fallback, it will be undefined
