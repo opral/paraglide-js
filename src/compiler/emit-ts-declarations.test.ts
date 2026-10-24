@@ -46,6 +46,9 @@ vi.mock("typescript", async () => {
 const tscResolution = vi.hoisted(() => ({ tscJsPath: "" }));
 
 vi.mock("./resolve-tsc-js-path.js", () => ({
+	resolveNativeTscJsPath: () => {
+		throw new Error("@typescript/native must not replace TypeScript 7's tsc");
+	},
 	resolveTscJsPath: () => tscResolution.tscJsPath,
 }));
 

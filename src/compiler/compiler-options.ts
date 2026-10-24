@@ -322,8 +322,9 @@ export type CompilerOptions = {
 	 *
 	 * **Note:** With TypeScript 5/6 the declarations are generated in-process.
 	 * TypeScript 7+ no longer provides the compiler API, so its `tsc` CLI is
-	 * invoked in a child process instead; the emitted declarations are
-	 * semantically equivalent but differ cosmetically between the two.
+	 * invoked in a child process instead, also when TypeScript 7 is installed
+	 * beside TypeScript 5/6 as `@typescript/native`. The exported types are the
+	 * same, but formatting, ordering and some JSDoc differ between the two.
 	 *
 	 * @example
 	 * ```ts

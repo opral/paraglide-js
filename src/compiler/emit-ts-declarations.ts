@@ -3,7 +3,10 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { resolveTscJsPath } from "./resolve-tsc-js-path.js";
+import {
+	resolveNativeTscJsPath,
+	resolveTscJsPath,
+} from "./resolve-tsc-js-path.js";
 
 const execFileAsync = promisify(execFile);
 
@@ -45,7 +48,16 @@ export async function emitTsDeclarations(
 	// https://github.com/opral/paraglide-js/issues/711
 	const compilerApi = resolveCompilerApi(ts);
 	if (compilerApi === undefined) {
-		return emitWithTscCli(jsEntries);
+		// resolved before spawning so a missing tsc entry point surfaces its own
+		// pointed error instead of the generic "no declaration files" one
+		return emitWithTscCli(jsEntries, resolveTscJsPath());
+	}
+
+	// TypeScript 7 installed beside TypeScript 5/6, as svelte-check's `--tsgo`
+	// mode needs, emits declarations much faster than the compiler API.
+	const nativeTscJsPath = resolveNativeTscJsPath();
+	if (nativeTscJsPath !== undefined) {
+		return emitWithTscCli(jsEntries, nativeTscJsPath);
 	}
 
 	return emitWithCompilerApi(compilerApi, jsEntries);
@@ -204,19 +216,19 @@ async function emitWithCompilerApi(
 	return declarations;
 }
 
-const failedToEmitWithTscMessage = `Paraglide's "emitTsDeclarations" option failed to generate declaration files with the installed TypeScript version.
+const failedToEmitWithTscMessage = `Paraglide's "emitTsDeclarations" option failed to generate declaration files with TypeScript 7's "tsc" CLI, which did not produce a declaration file for every compiled file.
 
-TypeScript 7+ no longer provides the in-process compiler API, so Paraglide invokes its "tsc" CLI instead — which did not produce a declaration file for every compiled file. As a workaround, install TypeScript 5 or 6, or disable "emitTsDeclarations".`;
+Paraglide uses that CLI when the "typescript" package is version 7+, or when TypeScript 7 is installed as "@typescript/native". As a workaround, use TypeScript 5 or 6 without "@typescript/native", or disable "emitTsDeclarations".`;
 
 /**
- * Emits declarations by invoking the `tsc` CLI of the installed TypeScript
- * package (TypeScript 7+, where the in-process compiler API is unavailable).
+ * Emits declarations by invoking the given TypeScript 7+ `tsc` CLI.
  *
  * The compiled output is written to a temporary directory because the
  * Go-based compiler cannot read from a virtual filesystem.
  */
 async function emitWithTscCli(
-	jsEntries: [string, string][]
+	jsEntries: [string, string][],
+	tscJsPath: string
 ): Promise<Record<string, string>> {
 	// entries escaping the output root cannot be declared safely; the
 	// compiler-API path silently drops them too (see the writeFile hook).
@@ -231,10 +243,6 @@ async function emitWithTscCli(
 			);
 		})
 	);
-
-	// resolved before spawning so a missing tsc entry point surfaces its own
-	// pointed error instead of the generic "no declaration files" one
-	const tscJsPath = resolveTscJsPath();
 
 	const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "paraglide-dts-"));
 

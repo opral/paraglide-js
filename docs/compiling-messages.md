@@ -225,7 +225,7 @@ paraglideVitePlugin({
 > Emitting declarations requires TypeScript 5.6 or newer and is slower than JSDoc-based types. The framework setup examples enable it for reliable language-server updates. Set `emitTsDeclarations: false` (or use `--no-emit-ts-declarations`) and `allowJs: true` when faster compilation matters more in your project.
 
 > [!NOTE]
-> With TypeScript 5 and 6, declarations are generated with the in-process compiler API. TypeScript 7+ no longer provides that API, so Paraglide invokes its `tsc` CLI in a child process instead. The output is semantically equivalent, but differs cosmetically between the two (quote style, declaration ordering, `export declare const` vs `export const`) — expect `.d.ts` churn when switching TypeScript majors.
+> With TypeScript 5 and 6, declarations are generated with the in-process compiler API. TypeScript 7+ no longer provides that API, so Paraglide invokes its `tsc` CLI in a child process instead. When TypeScript 7 is installed beside TypeScript 5/6 under the `@typescript/native` alias, as documented for `svelte-check --tsgo`, Paraglide uses its `tsc` too, which is much faster with `locale-modules` on large projects. The exported types are the same, but the output differs between the two (quote style, declaration ordering, `export declare const` vs `export const`, and some JSDoc: TypeScript 7 currently leaves `@typedef` types without their descriptions) — expect `.d.ts` churn when switching.
 
 ## Generated Output
 
