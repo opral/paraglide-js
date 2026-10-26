@@ -125,6 +125,7 @@ export const paraglideConfigSchema = v.object({
 		v.picklist(["message-modules", "locale-modules"])
 	),
 	cleanOutdir: v.optional(v.boolean()),
+	checkTranslations: v.optional(v.boolean()),
 });
 
 // Fails to compile when the schema and the compiler options drift apart:

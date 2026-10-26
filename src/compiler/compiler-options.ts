@@ -38,6 +38,7 @@ export const defaultCompilerOptions = {
 	emitReadme: true,
 	emitTsDeclarations: false,
 	cleanOutdir: true,
+	checkTranslations: false,
 	disableAsyncLocalStorage: false,
 	experimentalMiddlewareLocaleSplitting: false,
 	localStorageKey: "PARAGLIDE_LOCALE",
@@ -49,6 +50,16 @@ export const defaultCompilerOptions = {
 } as const satisfies Partial<CompilerOptions>;
 
 export type CompilerOptions = {
+	/**
+	 * Validate translations with the Inlang SDK before compiling messages.
+	 * Reports missing or empty translations and forms, variables, markup,
+	 * selectors, and plural/select forms. Diagnostics fail compilation before
+	 * generated files are written. Unused messages require `inlang check`.
+	 *
+	 * Disabled by default to preserve intentional locale fallback.
+	 * @default false
+	 */
+	checkTranslations?: boolean;
 	/**
 	 * The path to the inlang project.
 	 *
