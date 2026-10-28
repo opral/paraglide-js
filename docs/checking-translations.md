@@ -147,3 +147,5 @@ jobs:
 - A check that couldn't run or couldn't complete, such as unused messages with dynamic keys, is reported but doesn't fail the command.
 
 See [exit codes](https://inlang.com/m/2qj2w8pu/app-inlang-cli#exit-codes) and [JSON output](https://inlang.com/m/2qj2w8pu/app-inlang-cli#json-output) in the CLI documentation.
+
+New to checks? Read [Find unused translations and fail CI on missing ones](/blog/find-unused-translations) for a short walkthrough.
