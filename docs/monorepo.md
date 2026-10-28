@@ -156,7 +156,7 @@ monorepo/
 ```
 
 > [!NOTE]
-> The `--emit-ts-declarations` flag generates `.d.ts` files so TypeScript consumers get proper type checking. This requires the `typescript` package to be installed.
+> The `--emit-ts-declarations` flag generates `.d.ts` files so TypeScript consumers get proper type checking. Declarations are generated directly without requiring the `typescript` package.
 
 ```ts
 // packages/web/src/app.ts

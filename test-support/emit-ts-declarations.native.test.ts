@@ -4,7 +4,8 @@ import { createRequire } from "node:module";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { compileProject } from "./compile-project.js";
+import { compileProject } from "../src/compiler/compile-project.js";
+import { emitTsDeclarations } from "./emit-ts-declarations.js";
 
 // TypeScript 7 can be installed beside TypeScript 5/6 under the
 // `@typescript/native` npm alias, the setup svelte-check documents for its
@@ -56,13 +57,15 @@ test.each(nonJavaScriptAdditionalFiles)(
 			}),
 		});
 
-		const output = await compileProject({
+		const javascript = await compileProject({
 			project,
 			compilerOptions: {
-				emitTsDeclarations: true,
+				emitTsDeclarations: false,
 				additionalFiles,
 			},
 		});
+
+		const output = await emitTsDeclarations(javascript);
 
 		expect(output["runtime.d.ts"]).toContain("getLocale");
 		expect(createProgram).not.toHaveBeenCalled();
@@ -101,15 +104,19 @@ test.each(["custom.js", "messages.js"])(
 					settings: { locales: ["en"], baseLocale: "en" },
 				}),
 			});
-			const output = await compileProject({
+			const javascript = await compileProject({
 				project,
 				compilerOptions: {
-					emitTsDeclarations: true,
+					emitTsDeclarations: false,
 					additionalFiles: {
 						[fileName]:
 							'import { value } from "fixture-dependency"; export const result = value();',
 					},
 				},
+			});
+
+			const output = await emitTsDeclarations(javascript, {
+				allowNativeAlias: false,
 			});
 
 			const declaration = output[fileName.replace(/\.js$/, ".d.ts")];

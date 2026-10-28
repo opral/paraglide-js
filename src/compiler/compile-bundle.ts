@@ -439,7 +439,7 @@ ${localeResolutionStatement("\t\t\t\t")}
 	};
 };
 
-function buildEnglishMatchTableDoc(bundle: BundleNested): string {
+export function buildEnglishMatchTableDoc(bundle: BundleNested): string {
 	const message = selectEnglishMessage(bundle);
 	if (!message) {
 		return "";
@@ -587,7 +587,7 @@ type MarkupTagAccumulator = {
 	attributes: Map<string, MarkupValueAccumulator>;
 };
 
-function buildMarkupSchemaType(
+export function buildMarkupSchemaType(
 	bundle: BundleNested,
 	matchTypes: InputMatchTypes
 ): string {
@@ -848,7 +848,7 @@ function collectInputMatchTypes(bundle: BundleNested): InputMatchTypes {
 	return matchTypes;
 }
 
-function bundleHasMarkup(bundle: BundleNested): boolean {
+export function bundleHasMarkup(bundle: BundleNested): boolean {
 	return bundle.messages.some((message) =>
 		message.variants.some((variant) =>
 			variant.pattern.some(

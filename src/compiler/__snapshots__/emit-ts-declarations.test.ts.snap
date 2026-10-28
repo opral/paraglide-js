@@ -1,0 +1,286 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`locale-modules: direct declarations preserve the TypeScript 5 contract 1`] = `
+{
+  "messages.d.ts": "export * as m from "./messages/_index.js";
+export * from "./messages/_index.js";",
+  "messages/_index.d.ts": "const _class: ((inputs?: _ClassInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<_ClassInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+const _default: ((inputs?: _DefaultInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<_DefaultInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+const greeting_hello: ((inputs?: Greeting_HelloInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<Greeting_HelloInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const count: ((inputs: CountInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<CountInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const numeric: ((inputs: NumericInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<NumericInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const plain: ((inputs?: PlainInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<PlainInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const plural: ((inputs: PluralInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<PluralInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const rich: ((inputs: RichInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & {
+    parts: (inputs: RichInputs, options?: {
+        locale?: "en" | "de" | "de-CH";
+    }) => import("../runtime.js").MessagePart[];
+} & import("../runtime.js").MessageMetadata<RichInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {
+    strong: {
+        options: {};
+        attributes: {};
+        children: true;
+    };
+}>;
+export const status: ((inputs: StatusInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<StatusInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const unusual: ((inputs: UnusualInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<UnusualInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const welcome: ((inputs: WelcomeInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<WelcomeInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type CountInputs = {
+    count: NonNullable<unknown>;
+};
+export type Greeting_HelloInputs = {};
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type NumericInputs = {
+    value: 1 | "1" | 2 | "2";
+};
+export type PlainInputs = {};
+export type PluralInputs = {
+    count: NonNullable<unknown>;
+};
+export type RichInputs = {
+    amount: NonNullable<unknown>;
+};
+export type StatusInputs = {
+    state: "busy" | "ready";
+};
+export type UnusualInputs = {
+    "user-name": NonNullable<unknown>;
+};
+export type WelcomeInputs = {
+    username: NonNullable<unknown>;
+};
+export type _ClassInputs = {};
+export type _DefaultInputs = {};
+export { _class as "class" };
+export { _default as "default" };
+export { greeting_hello as "greeting.hello" };",
+  "messages/de-CH.d.ts": "export { _class } from "./de.js";
+export { _default } from "./de.js";
+export { count } from "./de.js";
+export { greeting_hello } from "./de.js";
+export { numeric } from "./de.js";
+export { plain } from "./de.js";
+export { plural } from "./de.js";
+export { rich } from "./de.js";
+export { status } from "./de.js";
+export { unusual } from "./de.js";
+export { welcome } from "./de.js";",
+  "messages/de.d.ts": "export { _class } from "./en.js";
+export { _default } from "./en.js";
+export { count } from "./en.js";
+export { greeting_hello } from "./en.js";
+export { numeric } from "./en.js";
+export { plain } from "./en.js";
+export { plural } from "./en.js";
+export { rich } from "./en.js";
+export { status } from "./en.js";
+export { unusual } from "./en.js";
+export { welcome } from "./en.js";",
+  "messages/en.d.ts": "export const _class: (inputs: _ClassInputs) => LocalizedString;
+export const _default: (inputs: _DefaultInputs) => LocalizedString;
+export const count: (inputs: CountInputs) => LocalizedString;
+export const greeting_hello: (inputs: Greeting_HelloInputs) => LocalizedString;
+export const numeric: (inputs: NumericInputs) => LocalizedString;
+export const plain: (inputs: PlainInputs) => LocalizedString;
+export const plural: (inputs: PluralInputs) => LocalizedString;
+export const rich: ((inputs: RichInputs) => LocalizedString) & {
+    parts: (inputs: RichInputs) => import("../runtime.js").MessagePart[];
+};
+export const status: (inputs: StatusInputs) => LocalizedString;
+export const unusual: (inputs: UnusualInputs) => LocalizedString;
+export const welcome: (inputs: WelcomeInputs) => LocalizedString;
+export type CountInputs = {
+    count: NonNullable<unknown>;
+};
+export type Greeting_HelloInputs = {};
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type NumericInputs = {
+    value: 1 | "1" | 2 | "2";
+};
+export type PlainInputs = {};
+export type PluralInputs = {
+    count: NonNullable<unknown>;
+};
+export type RichInputs = {
+    amount: NonNullable<unknown>;
+};
+export type StatusInputs = {
+    state: "busy" | "ready";
+};
+export type UnusualInputs = {
+    "user-name": NonNullable<unknown>;
+};
+export type WelcomeInputs = {
+    username: NonNullable<unknown>;
+};
+export type _ClassInputs = {};
+export type _DefaultInputs = {};",
+}
+`;
+
+exports[`message-modules: direct declarations preserve the TypeScript 5 contract 1`] = `
+{
+  "messages.d.ts": "export * as m from "./messages/_index.js";
+export * from "./messages/_index.js";",
+  "messages/_class.d.ts": "const _class: ((inputs?: _ClassInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<_ClassInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type _ClassInputs = {};
+export { _class as "class" };",
+  "messages/_default.d.ts": "const _default: ((inputs?: _DefaultInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<_DefaultInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type _DefaultInputs = {};
+export { _default as "default" };",
+  "messages/_index.d.ts": "export * from "./_class.js";
+export * from "./_default.js";
+export * from "./count.js";
+export * from "./greeting_hello.js";
+export * from "./numeric.js";
+export * from "./plain.js";
+export * from "./plural.js";
+export * from "./rich.js";
+export * from "./status.js";
+export * from "./unusual.js";
+export * from "./welcome.js";
+export type LocalizedString = import("../runtime.js").LocalizedString;",
+  "messages/count.d.ts": "export const count: ((inputs: CountInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<CountInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type CountInputs = {
+    count: NonNullable<unknown>;
+};
+export type LocalizedString = import("../runtime.js").LocalizedString;",
+  "messages/greeting_hello.d.ts": "const greeting_hello: ((inputs?: Greeting_HelloInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<Greeting_HelloInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type Greeting_HelloInputs = {};
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export { greeting_hello as "greeting.hello" };",
+  "messages/numeric.d.ts": "export const numeric: ((inputs: NumericInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<NumericInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type NumericInputs = {
+    value: 1 | "1" | 2 | "2";
+};",
+  "messages/plain.d.ts": "export const plain: ((inputs?: PlainInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<PlainInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type PlainInputs = {};",
+  "messages/plural.d.ts": "export const plural: ((inputs: PluralInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<PluralInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type PluralInputs = {
+    count: NonNullable<unknown>;
+};",
+  "messages/rich.d.ts": "export const rich: ((inputs: RichInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & {
+    parts: (inputs: RichInputs, options?: {
+        locale?: "en" | "de" | "de-CH";
+    }) => import("../runtime.js").MessagePart[];
+} & import("../runtime.js").MessageMetadata<RichInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {
+    strong: {
+        options: {};
+        attributes: {};
+        children: true;
+    };
+}>;
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type RichInputs = {
+    amount: NonNullable<unknown>;
+};",
+  "messages/status.d.ts": "export const status: ((inputs: StatusInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<StatusInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type StatusInputs = {
+    state: "busy" | "ready";
+};",
+  "messages/unusual.d.ts": "export const unusual: ((inputs: UnusualInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<UnusualInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type UnusualInputs = {
+    "user-name": NonNullable<unknown>;
+};",
+  "messages/welcome.d.ts": "export const welcome: ((inputs: WelcomeInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & import("../runtime.js").MessageMetadata<WelcomeInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type WelcomeInputs = {
+    username: NonNullable<unknown>;
+};",
+}
+`;

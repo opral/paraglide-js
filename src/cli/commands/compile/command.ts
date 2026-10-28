@@ -64,7 +64,7 @@ export const compileCommand = new Command()
 	.requiredOption("--silent", "Only log errors to the console", false)
 	.option(
 		"--emit-ts-declarations",
-		`Emit .d.ts files for the generated output (requires the typescript package) (default: ${defaultCompilerOptions.emitTsDeclarations})`
+		`Emit .d.ts files directly for the generated output (default: ${defaultCompilerOptions.emitTsDeclarations})`
 	)
 	.option(
 		"--no-emit-ts-declarations",

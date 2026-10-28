@@ -252,7 +252,11 @@ export type CompilerOptions = {
 	 */
 	cookieSecure?: boolean | "auto";
 	/**
-	 * The `additionalFiles` option is an array of paths to additional files that should be copied to the output directory.
+	 * Additional files to copy to the output directory, keyed by output path.
+	 *
+	 * When `emitTsDeclarations` is enabled, each custom `.js` file must include
+	 * a companion `.d.ts` file, including overrides of generated modules.
+	 * Companion declarations are copied verbatim.
 	 *
 	 * @example
 	 *
@@ -260,9 +264,9 @@ export type CompilerOptions = {
 	 * await compile({
 	 *   project: "./project.inlang",
 	 *   outdir: "./src/paraglide",
-	 *   additionalFiles: [
+	 *   additionalFiles: {
 	 * +    "my-file.js": "console.log('hello')"
-	 *   ]
+	 *   }
 	 * })
 	 * ```
 	 *
@@ -309,24 +313,14 @@ export type CompilerOptions = {
 	 */
 	emitReadme?: boolean;
 	/**
-	 * Emit `.d.ts` files for the generated output using the TypeScript compiler.
+	 * Emit `.d.ts` files directly for the generated output.
 	 *
 	 * Useful when `allowJs: true` cannot be set in your `tsconfig.json`
 	 * (e.g., due to project constraints or conflicting compiler options), or when
 	 * an editor language server caches stale JSDoc types for generated messages.
 	 *
-	 * Requires `typescript` to be resolvable in your toolchain.
-	 *
-	 * **Note:** Enabling this option reduces compiler speed because TypeScript
-	 * needs to generate declaration files for all output modules.
-	 *
-	 * **Note:** With TypeScript 5/6 the declarations are generated in-process.
-	 * TypeScript 7+ no longer provides the compiler API, so its `tsc` CLI is
-	 * invoked in a child process instead, also when TypeScript 7 is installed
-	 * beside TypeScript 5/6 as `@typescript/native`. The exported types are the
-	 * same, but formatting, ordering and some JSDoc differ between the two.
-	 * When `additionalFiles` contains JavaScript, TypeScript 5/6 keeps using
-	 * the compiler API so imports resolve against the project's dependencies.
+	 * Declarations are generated from message metadata and runtime declaration
+	 * templates. No TypeScript installation is required.
 	 *
 	 * @example
 	 * ```ts

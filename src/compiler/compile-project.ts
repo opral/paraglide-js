@@ -11,6 +11,7 @@ import { createRuntimeFile } from "./runtime/create-runtime.js";
 import { createServerFile } from "./server/create-server-file.js";
 import { createRegistry } from "./registry.js";
 import { emitTsDeclarations } from "./emit-ts-declarations.js";
+import { emitSupportingDeclarations } from "./emit-supporting-declarations.js";
 import { createReadme } from "./create-readme.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 
@@ -40,6 +41,24 @@ export const compileProject = async (args: {
 	};
 	await ensureURLPatternAvailable();
 	validateRouteStrategyMatchers(optionsWithDefaults.routeStrategies);
+
+	if (optionsWithDefaults.emitTsDeclarations) {
+		for (const filename of Object.keys(
+			optionsWithDefaults.additionalFiles ?? {}
+		)) {
+			if (
+				filename.endsWith(".js") &&
+				!Object.hasOwn(
+					optionsWithDefaults.additionalFiles ?? {},
+					filename.slice(0, -3) + ".d.ts"
+				)
+			) {
+				throw new Error(
+					`Cannot emit declarations for additionalFiles[${JSON.stringify(filename)}]. Supply ${JSON.stringify(filename.slice(0, -3) + ".d.ts")} in additionalFiles, or disable emitTsDeclarations.`
+				);
+			}
+		}
+	}
 
 	const settings = await args.project.settings.get();
 	const bundles = await selectBundleNested(args.project.db).execute();
@@ -145,15 +164,27 @@ export const compileProject = async (args: {
 	}
 
 	if (optionsWithDefaults.emitTsDeclarations) {
-		// Additional JavaScript can import project dependencies. Keep the
-		// compiler API's project-relative resolution: the native CLI stages
-		// files in an OS temporary directory, outside the project's packages.
-		const declarations = await emitTsDeclarations(output, {
-			allowNativeAlias: !Object.keys(
-				optionsWithDefaults.additionalFiles ?? {}
-			).some((fileName) => fileName.endsWith(".js")),
-		});
-		Object.assign(output, declarations);
+		Object.assign(
+			output,
+			emitSupportingDeclarations({
+				baseLocale: settings.baseLocale,
+				locales: settings.locales,
+				compilerOptions: optionsWithDefaults,
+			}),
+			emitTsDeclarations({
+				compiledBundles,
+				bundles,
+				settings,
+				fallbackMap,
+				outputStructure: optionsWithDefaults.outputStructure,
+			})
+		);
+		// Explicit custom declarations also cover overrides of generated modules.
+		for (const [filename, content] of Object.entries(
+			optionsWithDefaults.additionalFiles ?? {}
+		)) {
+			if (filename.endsWith(".d.ts")) output[filename] = content;
+		}
 	}
 
 	return output;
