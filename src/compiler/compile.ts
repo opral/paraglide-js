@@ -1,6 +1,6 @@
-import { loadProjectFromDirectory } from "@inlang/sdk";
+import { getCatalogLoader } from "./load-sdk-catalog.js";
 import path from "node:path";
-import { compileProject } from "./compile-project.js";
+import { compileProject, compileCatalog } from "./compile-project.js";
 import { writeOutput } from "../services/file-handling/write-output.js";
 import {
 	defaultCompilerOptions,
@@ -55,17 +55,34 @@ export async function compile(
 				withDefaultOptions.outdir
 			);
 
-			const project = await loadProjectFromDirectory({
-				path: withDefaultOptions.project,
-				fs,
-			});
+			// Keep the published SDK range usable until the catalog API is released.
+			// A locally linked SDK (or a later compatible release) takes this path.
+			const loadProjectCatalog = await getCatalogLoader();
+			const catalog =
+				typeof loadProjectCatalog === "function"
+					? await loadProjectCatalog({
+							path: withDefaultOptions.project,
+							fs,
+							writePluginCache: true,
+						})
+					: undefined;
+			const project = catalog
+				? undefined
+				: await (
+						await import("@inlang/sdk")
+					).loadProjectFromDirectory({
+						path: withDefaultOptions.project,
+						fs,
+					});
+			const diagnostics = () =>
+				catalog ? Promise.resolve(catalog.diagnostics) : project!.errors.get();
 
 			let failed = false;
 			try {
 				// Missing files are skipped by the SDK, but unreadable ones would
 				// compile into incomplete output that replaces the previous one.
 				// The SDK does not export ResourceFileImportError, so match by name.
-				const resourceFileErrors = (await project.errors.get()).filter(
+				const resourceFileErrors = (await diagnostics()).filter(
 					(error) => error.name === "ResourceFileImportError"
 				);
 				if (resourceFileErrors.length > 0) {
@@ -80,11 +97,17 @@ export async function compile(
 					);
 				}
 
-				const output = await compileProject({
-					compilerOptions: withDefaultOptions,
-					project,
-					projectPath: withDefaultOptions.project,
-				});
+				const output = catalog
+					? await compileCatalog({
+							compilerOptions: withDefaultOptions,
+							catalog,
+							projectPath: withDefaultOptions.project,
+						})
+					: await compileProject({
+							compilerOptions: withDefaultOptions,
+							project: project!,
+							projectPath: withDefaultOptions.project,
+						});
 
 				const outputHashes = await writeOutput({
 					directory: absoluteOutdir,
@@ -94,7 +117,7 @@ export async function compile(
 					previousOutputHashes: options.previousCompilation?.outputHashes,
 				});
 
-				const warningsAndErrors = await project.errors.get();
+				const warningsAndErrors = await diagnostics();
 
 				for (const warningOrError of warningsAndErrors) {
 					logger.warn(warningOrError);
@@ -106,7 +129,7 @@ export async function compile(
 				throw error;
 			} finally {
 				try {
-					await project.close();
+					await project?.close();
 				} catch (error) {
 					// Closing must fail an otherwise successful compilation.
 					// eslint-disable-next-line no-unsafe-finally

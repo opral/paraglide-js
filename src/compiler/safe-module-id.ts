@@ -4,6 +4,15 @@
  * Mainly exists to support https://github.com/opral/inlang-paraglide-js/issues/285
  */
 export function toSafeModuleId(id: string): string {
+	// Most catalog keys already are module identifiers. Avoid a lowercase copy,
+	// replacement, and per-character uppercase scan for that common case.
+	if (
+		typeof id === "string" &&
+		/^[a-z_][a-z0-9_]*$/.test(id) &&
+		!reservedJsKeywords.includes(id)
+	) {
+		return id;
+	}
 	const result = id.toLowerCase().replace(/[^a-z0-9_]/g, "_");
 
 	const startsWithNumber = result[0]?.match(/[0-9]/);

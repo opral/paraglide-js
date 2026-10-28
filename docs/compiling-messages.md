@@ -262,6 +262,33 @@ paraglide/
 
 The `outputStructure` option controls how messages are organized. See [Compiler Options](./compiler-options) for details.
 
+Large projects can reduce file creation and repeated generated code by grouping messages:
+
+```ts
+await compile({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	outputStructure: "message-modules",
+	messageModuleSize: 512,
+	emitTsDeclarations: true,
+});
+```
+
+The CLI exposes the same option:
+
+```sh
+paraglide-js compile --message-module-size 512 --emit-ts-declarations
+```
+
+`messageModuleSize` defaults to `1`, preserving the existing per-message files.
+Higher values write groups to `messages/_shard_*.js` and matching declarations.
+Continue importing messages through `messages.js`; imports of individual generated
+message files must be updated when enabling grouping. Individual unused messages
+can still be removed by a bundler. Grouping requires `message-modules` and is
+currently unavailable for locale-specialized builds. Bundler integrations can set
+these same compiler options; specify `outputStructure` explicitly because development
+mode can otherwise select locale modules.
+
 ## Programmatically
 
 The Paraglide compiler can be invoked programmatically via the `compile` function.

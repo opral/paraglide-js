@@ -44,7 +44,7 @@ The output will look like this:
 
 > `optional` **cleanOutdir**: `boolean`
 
-Defined in: [compiler-options.ts:438](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:447](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Whether to clean the output directory before writing the new files.
 
@@ -359,7 +359,7 @@ https://github.com/opral/paraglide-js/issues/88#issuecomment-3634754638
 
 > `optional` **fs**: `any`
 
-Defined in: [compiler-options.ts:445](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:454](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The file system to use. Defaults to `await import('node:fs')`.
 
@@ -415,6 +415,23 @@ The name of the localStorage key to use for the localStorage strategy.
 
 ```ts
 'PARAGLIDE_LOCALE'
+```
+
+#### messageModuleSize?
+
+> `optional` **messageModuleSize**: `number`
+
+Defined in: [compiler-options.ts:441](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+
+Messages per generated module in the message-modules layout.
+Values above one group messages into shards and preserve messages.js exports,
+while replacing per-message module paths with shard files. Defaults to one.
+Locale-specialized builds currently require the default value.
+
+##### Default
+
+```ts
+1
 ```
 
 #### outdir

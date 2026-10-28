@@ -431,6 +431,15 @@ export type CompilerOptions = {
 	 */
 	outputStructure?: "locale-modules" | "message-modules";
 	/**
+	 * Messages per generated module in the message-modules layout.
+	 * Values above one group messages into shards and preserve messages.js exports,
+	 * while replacing per-message module paths with shard files. Defaults to one.
+	 * Locale-specialized builds currently require the default value.
+	 *
+	 * @default 1
+	 */
+	messageModuleSize?: number;
+	/**
 	 * Whether to clean the output directory before writing the new files.
 	 *
 	 * @default true

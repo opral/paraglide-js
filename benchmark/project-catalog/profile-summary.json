@@ -1,0 +1,623 @@
+[
+	{
+		"case": "profile-catalog-locale-13300",
+		"scope": "CPU sampling starts immediately before public compile() or diagnostic phases and stops before output hashing/validation by benchmark harness. Groups attribute each sample once to nearest recognized ancestor; inclusive phase timers remain required for wall-clock bottlenecks.",
+		"sampleCount": 755,
+		"profileMs": 912.042,
+		"groups": [
+			{
+				"name": "catalog row normalization / defensive copies",
+				"ms": 367.6669999999997,
+				"percent": 40.365972284741154
+			},
+			{
+				"name": "garbage collection",
+				"ms": 130.915,
+				"percent": 14.373091035248997
+			},
+			{
+				"name": "message JavaScript generation",
+				"ms": 102.375,
+				"percent": 11.23969900113521
+			},
+			{
+				"name": "plugin import / parser",
+				"ms": 90.917,
+				"percent": 9.981731028925127
+			},
+			{
+				"name": "output layout assembly",
+				"ms": 66,
+				"percent": 7.246106315750172
+			},
+			{
+				"name": "output hashing / file publication",
+				"ms": 58.916,
+				"percent": 6.468357571192986
+			},
+			{
+				"name": "direct declarations",
+				"ms": 34.5,
+				"percent": 3.7877373923239537
+			},
+			{
+				"name": "native / runtime / unattributed",
+				"ms": 21.126,
+				"percent": 2.3194127579778505
+			},
+			{
+				"name": "catalog loading / plugin IO",
+				"ms": 16.292,
+				"percent": 1.788690365093967
+			},
+			{
+				"name": "compiler orchestration",
+				"ms": 12.417,
+				"percent": 1.3632560927677255
+			},
+			{
+				"name": "idle / asynchronous IO wait",
+				"ms": 8.459,
+				"percent": 0.9287092928019803
+			},
+			{
+				"name": "supporting runtime generation",
+				"ms": 1.25,
+				"percent": 0.13723686204072297
+			}
+		],
+		"topSelf": [
+			{
+				"name": "(garbage collector)",
+				"url": "",
+				"line": 0,
+				"ms": 130.915,
+				"percent": 14.373091035248997
+			},
+			{
+				"name": "structuredClone",
+				"url": "node:internal/worker/js_transferable",
+				"line": 112,
+				"ms": 111.209,
+				"percent": 12.209579352549406
+			},
+			{
+				"name": "generateOutput",
+				"url": "paraglide/compiler/output-structure/locale-modules.js",
+				"line": 8,
+				"ms": 44.5,
+				"percent": 4.885632288649737
+			},
+			{
+				"name": "import",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 26,
+				"ms": 36.961,
+				"percent": 4.057929326309729
+			},
+			{
+				"name": "jsonCopy",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 241,
+				"ms": 33.834,
+				"percent": 3.714617592228657
+			},
+			{
+				"name": "jsonCopy",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 241,
+				"ms": 26.416,
+				"percent": 2.90019915813419
+			},
+			{
+				"name": "emitTsDeclarations",
+				"url": "paraglide/compiler/emit-ts-declarations.js",
+				"line": 6,
+				"ms": 23.667,
+				"percent": 2.598387851134232
+			},
+			{
+				"name": "run",
+				"url": "",
+				"line": 0,
+				"ms": 22.375,
+				"percent": 2.456539830528941
+			},
+			{
+				"name": "importFiles",
+				"url": "data:plugin",
+				"line": 2163,
+				"ms": 22.041,
+				"percent": 2.4198701409916596
+			},
+			{
+				"name": "update",
+				"url": "node:internal/crypto/hash",
+				"line": 132,
+				"ms": 20.000000000000004,
+				"percent": 2.195789792651568
+			},
+			{
+				"name": "firstMessage",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 54,
+				"ms": 18.125,
+				"percent": 1.9899344995904829
+			},
+			{
+				"name": "loadProjectCatalog",
+				"url": "sdk/project/loadProjectCatalog.js",
+				"line": 23,
+				"ms": 15.042,
+				"percent": 1.6514535030532438
+			}
+		]
+	},
+	{
+		"case": "profile-catalog-locale-6400",
+		"scope": "CPU sampling starts immediately before public compile() or diagnostic phases and stops before output hashing/validation by benchmark harness. Groups attribute each sample once to nearest recognized ancestor; inclusive phase timers remain required for wall-clock bottlenecks.",
+		"sampleCount": 390,
+		"profileMs": 466.041,
+		"groups": [
+			{
+				"name": "catalog row normalization / defensive copies",
+				"ms": 178.375,
+				"percent": 38.31563707600408
+			},
+			{
+				"name": "garbage collection",
+				"ms": 68.66699999999999,
+				"percent": 14.749936095854082
+			},
+			{
+				"name": "plugin import / parser",
+				"ms": 55.208000000000006,
+				"percent": 11.858891053634384
+			},
+			{
+				"name": "message JavaScript generation",
+				"ms": 53.041000000000004,
+				"percent": 11.393411106647974
+			},
+			{
+				"name": "output layout assembly",
+				"ms": 30.875999999999998,
+				"percent": 6.632283730111854
+			},
+			{
+				"name": "output hashing / file publication",
+				"ms": 27.584000000000003,
+				"percent": 5.92514944977994
+			},
+			{
+				"name": "native / runtime / unattributed",
+				"ms": 25.165,
+				"percent": 5.405538932124135
+			},
+			{
+				"name": "direct declarations",
+				"ms": 11.251,
+				"percent": 2.4167581373069202
+			},
+			{
+				"name": "compiler orchestration",
+				"ms": 7.3740000000000006,
+				"percent": 1.583963603635342
+			},
+			{
+				"name": "catalog loading / plugin IO",
+				"ms": 6.708,
+				"percent": 1.4409042382948025
+			},
+			{
+				"name": "supporting runtime generation",
+				"ms": 1.292,
+				"percent": 0.277526576606572
+			}
+		],
+		"topSelf": [
+			{
+				"name": "(garbage collector)",
+				"url": "",
+				"line": 0,
+				"ms": 68.66699999999999,
+				"percent": 14.749936095854082
+			},
+			{
+				"name": "structuredClone",
+				"url": "node:internal/worker/js_transferable",
+				"line": 112,
+				"ms": 53.875,
+				"percent": 11.572557519101442
+			},
+			{
+				"name": "generateOutput",
+				"url": "paraglide/compiler/output-structure/locale-modules.js",
+				"line": 8,
+				"ms": 18.666999999999994,
+				"percent": 4.009743502720493
+			},
+			{
+				"name": "importFiles",
+				"url": "data:plugin",
+				"line": 2163,
+				"ms": 17.71,
+				"percent": 3.8041762164879174
+			},
+			{
+				"name": "post",
+				"url": "node:inspector",
+				"line": 118,
+				"ms": 14.5,
+				"percent": 3.114655852008741
+			},
+			{
+				"name": "parsePattern2",
+				"url": "data:plugin",
+				"line": 2367,
+				"ms": 14.207,
+				"percent": 3.0517183234129783
+			},
+			{
+				"name": "import",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 26,
+				"ms": 14.168,
+				"percent": 3.043340973190334
+			},
+			{
+				"name": "jsonCopy",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 241,
+				"ms": 12.668,
+				"percent": 2.721135195396326
+			},
+			{
+				"name": "jsonCopy",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 241,
+				"ms": 11.456999999999999,
+				"percent": 2.46100773079063
+			},
+			{
+				"name": "jsonCopy",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 241,
+				"ms": 10,
+				"percent": 2.1480385186267177
+			},
+			{
+				"name": "run",
+				"url": "",
+				"line": 0,
+				"ms": 10,
+				"percent": 2.1480385186267177
+			},
+			{
+				"name": "update",
+				"url": "node:internal/crypto/hash",
+				"line": 132,
+				"ms": 7.5,
+				"percent": 1.6110288889700384
+			}
+		]
+	},
+	{
+		"case": "profile-catalog-message-13300",
+		"scope": "CPU sampling starts immediately before public compile() or diagnostic phases and stops before output hashing/validation by benchmark harness. Groups attribute each sample once to nearest recognized ancestor; inclusive phase timers remain required for wall-clock bottlenecks.",
+		"sampleCount": 1710,
+		"profileMs": 2058.042,
+		"groups": [
+			{
+				"name": "idle / asynchronous IO wait",
+				"ms": 712.078,
+				"percent": 34.61449653820044
+			},
+			{
+				"name": "catalog row normalization / defensive copies",
+				"ms": 394.2149999999995,
+				"percent": 19.163004267519387
+			},
+			{
+				"name": "output hashing / file publication",
+				"ms": 257.251,
+				"percent": 12.505110183081912
+			},
+			{
+				"name": "native / runtime / unattributed",
+				"ms": 195.04600000000002,
+				"percent": 9.481291504287233
+			},
+			{
+				"name": "garbage collection",
+				"ms": 184.32899999999998,
+				"percent": 8.960332340544081
+			},
+			{
+				"name": "message JavaScript generation",
+				"ms": 112.626,
+				"percent": 5.474810747012776
+			},
+			{
+				"name": "plugin import / parser",
+				"ms": 101.042,
+				"percent": 4.911706244558671
+			},
+			{
+				"name": "output layout assembly",
+				"ms": 28.041999999999998,
+				"percent": 1.3631367798530734
+			},
+			{
+				"name": "direct declarations",
+				"ms": 26.375000000000004,
+				"percent": 1.2821030086521938
+			},
+			{
+				"name": "catalog loading / plugin IO",
+				"ms": 19.831,
+				"percent": 0.9639956308846123
+			},
+			{
+				"name": "compiler orchestration",
+				"ms": 16.332,
+				"percent": 0.7939073492818057
+			},
+			{
+				"name": "compile orchestration",
+				"ms": 7.5,
+				"percent": 0.36457905459304085
+			},
+			{
+				"name": "supporting runtime generation",
+				"ms": 2.5,
+				"percent": 0.12152635153101361
+			}
+		],
+		"topSelf": [
+			{
+				"name": "(idle)",
+				"url": "",
+				"line": 0,
+				"ms": 712.078,
+				"percent": 34.61449653820044
+			},
+			{
+				"name": "(garbage collector)",
+				"url": "",
+				"line": 0,
+				"ms": 184.32899999999998,
+				"percent": 8.960332340544081
+			},
+			{
+				"name": "structuredClone",
+				"url": "node:internal/worker/js_transferable",
+				"line": 112,
+				"ms": 127.293,
+				"percent": 6.187781546174927
+			},
+			{
+				"name": "(program)",
+				"url": "",
+				"line": 0,
+				"ms": 74.96200000000002,
+				"percent": 3.6439433453871377
+			},
+			{
+				"name": "import",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 26,
+				"ms": 50.626,
+				"percent": 2.460957229043638
+			},
+			{
+				"name": "(anonymous)",
+				"url": "",
+				"line": 0,
+				"ms": 36.63,
+				"percent": 1.7806041026324115
+			},
+			{
+				"name": "jsonCopy",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 241,
+				"ms": 35.044,
+				"percent": 1.7035077852211362
+			},
+			{
+				"name": "importFiles",
+				"url": "data:plugin",
+				"line": 2163,
+				"ms": 33.790000000000006,
+				"percent": 1.6425501672931802
+			},
+			{
+				"name": "run",
+				"url": "",
+				"line": 0,
+				"ms": 32.626000000000005,
+				"percent": 1.5859674980203402
+			},
+			{
+				"name": "write",
+				"url": "node:internal/fs/promises",
+				"line": 721,
+				"ms": 30.792,
+				"percent": 1.4968157665371886
+			},
+			{
+				"name": "writeOutput",
+				"url": "paraglide/services/file-handling/write-output.js",
+				"line": 45,
+				"ms": 23.375,
+				"percent": 1.1362713868149772
+			},
+			{
+				"name": "update",
+				"url": "node:internal/crypto/hash",
+				"line": 132,
+				"ms": 22.5,
+				"percent": 1.0937371637791224
+			}
+		]
+	},
+	{
+		"case": "profile-catalog-message-6400",
+		"scope": "CPU sampling starts immediately before public compile() or diagnostic phases and stops before output hashing/validation by benchmark harness. Groups attribute each sample once to nearest recognized ancestor; inclusive phase timers remain required for wall-clock bottlenecks.",
+		"sampleCount": 835,
+		"profileMs": 988.791,
+		"groups": [
+			{
+				"name": "idle / asynchronous IO wait",
+				"ms": 353.4999999999997,
+				"percent": 35.76729705473753
+			},
+			{
+				"name": "catalog row normalization / defensive copies",
+				"ms": 187.793,
+				"percent": 19.000984485998107
+			},
+			{
+				"name": "output hashing / file publication",
+				"ms": 110.12700000000001,
+				"percent": 11.142701903103491
+			},
+			{
+				"name": "native / runtime / unattributed",
+				"ms": 100.206,
+				"percent": 10.138890434701647
+			},
+			{
+				"name": "garbage collection",
+				"ms": 70.16399999999999,
+				"percent": 7.099226677648107
+			},
+			{
+				"name": "plugin import / parser",
+				"ms": 62.16800000000001,
+				"percent": 6.290187618950283
+			},
+			{
+				"name": "message JavaScript generation",
+				"ms": 51.46,
+				"percent": 5.206747118633084
+			},
+			{
+				"name": "output layout assembly",
+				"ms": 16.415999999999997,
+				"percent": 1.6609786377668223
+			},
+			{
+				"name": "direct declarations",
+				"ms": 13.792,
+				"percent": 1.3954810777339193
+			},
+			{
+				"name": "catalog loading / plugin IO",
+				"ms": 10.374,
+				"percent": 1.049646222477645
+			},
+			{
+				"name": "compiler orchestration",
+				"ms": 6.083,
+				"percent": 0.615480814664692
+			},
+			{
+				"name": "compile orchestration",
+				"ms": 5,
+				"percent": 0.5059023628675752
+			},
+			{
+				"name": "supporting runtime generation",
+				"ms": 1.25,
+				"percent": 0.1264755907168938
+			}
+		],
+		"topSelf": [
+			{
+				"name": "(idle)",
+				"url": "",
+				"line": 0,
+				"ms": 353.4999999999997,
+				"percent": 35.76729705473753
+			},
+			{
+				"name": "(garbage collector)",
+				"url": "",
+				"line": 0,
+				"ms": 70.16399999999999,
+				"percent": 7.099226677648107
+			},
+			{
+				"name": "structuredClone",
+				"url": "node:internal/worker/js_transferable",
+				"line": 112,
+				"ms": 56.251,
+				"percent": 5.691502762732793
+			},
+			{
+				"name": "(program)",
+				"url": "",
+				"line": 0,
+				"ms": 31.501000000000005,
+				"percent": 3.1872860665382974
+			},
+			{
+				"name": "jsonCopy",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 241,
+				"ms": 25.001,
+				"percent": 2.5296129948104493
+			},
+			{
+				"name": "import",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 26,
+				"ms": 19.957,
+				"percent": 2.0192586911496395
+			},
+			{
+				"name": "update",
+				"url": "node:internal/crypto/hash",
+				"line": 132,
+				"ms": 17.5,
+				"percent": 1.770658270036513
+			},
+			{
+				"name": "importFiles",
+				"url": "data:plugin",
+				"line": 2163,
+				"ms": 16.085,
+				"percent": 1.6274879013449892
+			},
+			{
+				"name": "(anonymous)",
+				"url": "",
+				"line": 0,
+				"ms": 15.999,
+				"percent": 1.618786380703667
+			},
+			{
+				"name": "post",
+				"url": "node:inspector",
+				"line": 118,
+				"ms": 14.958,
+				"percent": 1.5134575087546378
+			},
+			{
+				"name": "open",
+				"url": "node:internal/fs/promises",
+				"line": 637,
+				"ms": 13.874,
+				"percent": 1.4037778764849476
+			},
+			{
+				"name": "jsonCopy",
+				"url": "sdk/import-export/catalogRows.js",
+				"line": 241,
+				"ms": 12.376999999999999,
+				"percent": 1.2523107090423953
+			}
+		]
+	}
+]

@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`default fused simple code matches the general compiler's frozen output > literal 1`] = `
+"/**
+* | output |
+* | --- |
+* | "literal $\` \\"" |
+*
+* @param {LiteralInputs} inputs
+* @param {{ locale?: "en" | "de" }} options
+* @returns {LocalizedString}
+*/
+export const literal = /** @type {((inputs?: LiteralInputs, options?: { locale?: "en" | "de" }) => LocalizedString) & import('../runtime.js').MessageMetadata<LiteralInputs, { locale?: "en" | "de" }, {}>} */ ((i = {}, options = {}) => {
+	void i;
+	const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
+	if (locale === "de") return /** @type {LocalizedString} */ ("Literal")
+	return /** @type {LocalizedString} */ (\`\${"literal $\` \\""}\`)
+});"
+`;
+
+exports[`default fused simple code matches the general compiler's frozen output > plain 1`] = `
+"/**
+* | output |
+* | --- |
+* | "Plain line" |
+*
+* @param {PlainInputs} inputs
+* @param {{ locale?: "en" | "de" }} options
+* @returns {LocalizedString}
+*/
+export const plain = /** @type {((inputs?: PlainInputs, options?: { locale?: "en" | "de" }) => LocalizedString) & import('../runtime.js').MessageMetadata<PlainInputs, { locale?: "en" | "de" }, {}>} */ ((inputs = {}, options = {}) => {
+	void inputs;
+	const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
+	if (locale === "de") return /** @type {LocalizedString} */ ("Einfach")
+	return /** @type {LocalizedString} */ ("Plain\\nline")
+});"
+`;
+
+exports[`default fused simple code matches the general compiler's frozen output > required 1`] = `
+"/**
+* | output |
+* | --- |
+* | "{name}" |
+*
+* @param {RequiredInputs} inputs
+* @param {{ locale?: "en" | "de" }} options
+* @returns {LocalizedString}
+*/
+export const required = /** @type {((inputs: RequiredInputs, options?: { locale?: "en" | "de" }) => LocalizedString) & import('../runtime.js').MessageMetadata<RequiredInputs, { locale?: "en" | "de" }, {}>} */ ((i, options = {}) => {
+	const locale = experimentalStaticLocale ?? options.locale ?? getLocale()
+	if (locale === "de") return /** @type {LocalizedString} */ (\`Hallo \${i?.name}\`)
+	return /** @type {LocalizedString} */ (\`\${i?.name}\`)
+});"
+`;
