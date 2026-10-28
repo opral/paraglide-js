@@ -63,9 +63,9 @@ Because messages are plain functions, your bundler **tree-shakes the ones you do
 
 ## Bundle size
 
-The [current benchmark](/benchmark) measures translated DOM readiness and actual Brotli transfer for a client-rendered Vite app. Paraglide reaches translated DOM readiness sooner in all 45 pairwise comparisons under that test profile, using medians of five runs. HTTP i18next transfers fewer bytes in some scenarios; the results do not establish a universal bundle-size winner.
+The [current benchmark](/benchmark) compares default and per-locale Paraglide, bundled i18next, and two HTTP configurations. It measures translated DOM readiness and actual Brotli transfer for the same client-rendered Vite app, using five-trial medians. Every implementation reloads the document once when changing language.
 
-With ten locales, 200 used messages per route, and a 1,000-message catalog, initial transfer is about **60 KiB for Paraglide** versus **26 KiB for route-based HTTP i18next**, while translated DOM readiness is about **217 ms** versus **267 ms**. These are application-level measurements with fixed network and CPU conditions, not standalone library sizes or React rendering timings.
+Per-locale message modules reduce active-language delivery and keep lazy routes' private messages out of the initial download. The benchmark retains default Paraglide's byte losses alongside the per-locale results. Read the complete tables and conditions; these are application-level measurements rather than standalone library sizes, React rendering timings, or universal performance claims.
 
 Paraglide's default retained messages include all configured locales. i18next can [load only selected languages and namespaces](https://www.i18next.com/how-to/add-or-load-translations). Removing unused messages and delivering only the active language are separate optimizations. The [build workflow](/build-workflow#does-tree-shaking-remove-unused-messages) includes an unused-message probe and explains default Git-ignore behavior.
 

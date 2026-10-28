@@ -83,7 +83,7 @@ The probe uses the benchmark's pinned Paraglide and Vite versions. It verifies u
 
 Unused-message removal and active-language delivery are different optimizations. In the default output, retained messages include translations for all configured locales. That can be useful for subsequent switches but costs more initial bytes than loading only the active language in some apps.
 
-The [benchmark](/benchmark) shows both the savings from eliminating unused messages and the scenarios where HTTP i18next transfers less data. Evaluate [experimental locale splitting](/compiling-messages) separately and check its framework constraints. There is no universal locale-count threshold at which one loading strategy wins.
+The [benchmark](/benchmark) shows both the savings from eliminating unused messages and the scenarios where HTTP i18next transfers less data. It also compares [experimental per-locale builds](/compiling-messages) with message modules; check their deployment and framework constraints before adopting that configuration. There is no universal locale-count threshold at which one loading strategy wins.
 
 ## Can translations change without a deployment?
 

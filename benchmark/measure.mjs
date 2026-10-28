@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import { chromium } from "playwright";
 import { fixture, expectedText, pluralText } from "./fixture.mjs";
-import { settings } from "./config.mjs";
+import { settings, urlFor } from "./config.mjs";
 import { startServer } from "./server.mjs";
 
 const manifest = JSON.parse(await fs.readFile("build-manifest.json", "utf8"));
@@ -126,7 +126,7 @@ async function trial(build, repeat) {
 	}
 	const steps = [];
 	try {
-		await page.goto(`${origin}/${build.name}/`, { waitUntil: "load" });
+		await page.goto(origin + urlFor(build), { waitUntil: "load" });
 		await page.waitForFunction(() => window.benchmark?.ready);
 		let resources = await validate(0, "en");
 		steps.push({
@@ -147,20 +147,19 @@ async function trial(build, repeat) {
 				argument: second,
 			},
 			{ step: "revisit", route: 0, locale: second, method: "go", argument: 0 },
-			{
-				step: "switch-back",
-				route: 0,
-				locale: "en",
-				method: "language",
-				argument: "en",
-			},
 		]) {
 			step = action.step;
-			const readyMs = await page.evaluate(async ({ method, argument }) => {
-				const start = performance.now();
-				await window.benchmark[method](argument);
-				return performance.now() - start;
-			}, action);
+			let readyMs;
+			if (action.method === "language") {
+				await page.goto(origin + urlFor(build, action.locale, action.route));
+				await page.waitForFunction(() => window.benchmark?.ready);
+				readyMs = await page.evaluate(() => window.benchmark.readyAt);
+			} else
+				readyMs = await page.evaluate(async ({ method, argument }) => {
+					const start = performance.now();
+					await window.benchmark[method](argument);
+					return performance.now() - start;
+				}, action);
 			resources = await validate(action.route, action.locale);
 			steps.push({ step, readyMs, resources });
 		}

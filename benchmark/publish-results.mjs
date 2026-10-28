@@ -1,96 +1,136 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { scenarios, variants, settings } from "./config.mjs";
+import { fixture } from "./fixture.mjs";
+import { inspectLocaleGraphs } from "./check-locale-graphs.mjs";
 
-process.chdir(path.dirname(fileURLToPath(import.meta.url)));
-const saved = process.argv.includes("--saved");
+const root = path.dirname(fileURLToPath(import.meta.url));
+const output =
+	process.env.BENCHMARK_OUTPUT ?? path.join(root, ".work/benchmark");
+process.chdir(root);
+const read = async (file) => JSON.parse(await fs.readFile(file, "utf8"));
+const expected = scenarios.length * variants.length;
 let data;
-if (saved) {
-	data = JSON.parse(await fs.readFile("results/results.json", "utf8"));
+if (process.argv.includes("--saved")) {
+	data = await read("results/results.json");
 } else {
-	const summary = JSON.parse(await fs.readFile("summary.json", "utf8"));
-	const raw = JSON.parse(await fs.readFile("results.json", "utf8"));
-	const checks = JSON.parse(await fs.readFile("correctness.json", "utf8"));
+	const summary = await read(path.join(output, "summary.json"));
+	const raw = await read(path.join(output, "results.json"));
+	const checks = await read(path.join(output, "correctness.json"));
 	if (
-		raw.results.length !== 300 ||
-		raw.results.some((r) => !r.valid || r.steps.length !== 5) ||
-		summary.summary.length !== 60 ||
-		summary.summary.some((r) => r.repeats !== 5) ||
-		checks.length !== 60 ||
-		checks.some((r) => !r.valid)
-	) {
-		throw Error(
-			"Publish only the full validated matrix: 60 builds, five trials each"
-		);
-	}
+		raw.results.length !== expected * settings.repeats ||
+		raw.results.some((r) => !r.valid || r.steps.length !== 4) ||
+		summary.summary.length !== expected ||
+		summary.summary.some((r) => r.repeats !== settings.repeats) ||
+		checks.length !== expected ||
+		checks.some((r) => !r.valid) ||
+		raw.settings.languageSwitch !== "document" ||
+		raw.settings.pageLoading !== "parallel"
+	)
+		throw Error("Publish only the complete validated per-locale matrix");
 	data = {
 		measuredAt: raw.measuredAt,
 		versions: raw.versions,
 		settings: raw.settings,
 		environment: raw.environment,
+		workspaceCompiler: await read(path.join(output, "compiler-source.json")),
 		validation: {
 			builds: checks.length,
 			journeys: raw.results.length,
 			stringsChecked: checks.reduce((sum, r) => sum + r.messagesChecked, 0),
 			pluralAssertions: checks.reduce((sum, r) => sum + r.pluralAssertions, 0),
 		},
-		overview: {
-			comparisonCount: summary.comparisons.length,
-			initialReadyWins: summary.comparisons.filter(
-				(c) => c.initialParaglideReadyMs < c.initialCompetitorReadyMs
-			).length,
-			byteLosses: summary.losses.length,
-		},
+		graphValidation: await inspectLocaleGraphs(output, raw, fixture),
 		summary: summary.summary.map((r) => ({
 			variant: r.variant,
 			localeCount: r.localeCount,
 			used: r.used,
 			total: r.total,
-			initialWire: { median: r.initialWire.median },
-			journeyWire: { median: r.journeyWire.median },
+			initialWire: r.initialWire,
+			journeyWire: r.journeyWire,
 			steps: Object.fromEntries(
-				Object.entries(r.steps).map(([step, s]) => [
-					step,
-					{ readyMs: s.readyMs },
+				Object.entries(r.steps).map(([key, value]) => [
+					key,
+					{ readyMs: value.readyMs, wire: value.wire },
 				])
 			),
 		})),
 	};
-	await fs.mkdir("results", { recursive: true });
-	// One scenario per line keeps the published snapshot compact and reviewable.
-	const { summary: rows, ...metadata } = data;
-	await fs.writeFile(
-		"results/results.json",
-		JSON.stringify(metadata, null, 2).slice(0, -2) +
-			',\n  "summary": [\n' +
-			rows.map((r) => "    " + JSON.stringify(r)).join(",\n") +
-			"\n  ]\n}\n"
-	);
-	await fs.copyFile("summary.csv", "results/summary.csv");
+	await fs.copyFile(path.join(output, "summary.csv"), "results/summary.csv");
 }
-const variants = [
-	"paraglide",
-	"i18next-bundled",
-	"i18next-http-global",
-	"i18next-http-routes",
-];
-const groups = data.summary
-	.filter((r) => r.variant === "paraglide")
-	.map((p) =>
-		variants.map((v) =>
-			data.summary.find(
-				(r) =>
-					r.variant === v &&
-					r.localeCount === p.localeCount &&
-					r.used === p.used &&
-					r.total === p.total
-			)
+const names = {
+	paraglide: "Paraglide JS",
+	"paraglide-per-locale": "Paraglide · per locale",
+	"i18next-bundled": "i18next bundled",
+	"i18next-http-global": "i18next HTTP catalog",
+	"i18next-http-routes": "i18next HTTP routes",
+};
+const groups = scenarios.map((s) =>
+	variants.map((variant) =>
+		data.summary.find(
+			(r) =>
+				r.variant === variant &&
+				r.localeCount === s.localeCount &&
+				r.total === s.total &&
+				r.used === s.used
 		)
+	)
+);
+if (
+	data.summary.length !== expected ||
+	groups.some((rows) => rows.some((r) => !r))
+)
+	throw Error("Missing implementation or scenario");
+const localeCount = scenarios.length;
+if (
+	data.graphValidation.lazyRouteIsolation !== localeCount ||
+	data.graphValidation.inactiveLocaleIsolation !== localeCount
+)
+	throw Error("Incomplete route/locale isolation checks");
+const comparisons = (variant) => {
+	const pairs = groups.flatMap((rows) =>
+		rows
+			.filter((r) => r.variant.startsWith("i18next"))
+			.map((other) => ({
+				paraglide: rows.find((r) => r.variant === variant),
+				other,
+			}))
 	);
-if (groups.some((rows) => rows.some((r) => !r)))
-	throw Error("Missing implementation");
-const header =
-	"| Locales | Used messages | Catalog messages | Paraglide JS | i18next bundled | i18next HTTP catalog | i18next HTTP routes |\n| --- | --- | --- | --- | --- | --- | --- |\n";
+	return {
+		comparisonCount: pairs.length,
+		initialReadyWins: pairs.filter(
+			({ paraglide: p, other: o }) =>
+				p.steps.initial.readyMs.median < o.steps.initial.readyMs.median
+		).length,
+		initialByteWins: pairs.filter(
+			({ paraglide: p, other: o }) =>
+				p.initialWire.median < o.initialWire.median
+		).length,
+		journeyByteWins: pairs.filter(
+			({ paraglide: p, other: o }) =>
+				p.journeyWire.median < o.journeyWire.median
+		).length,
+		byteLosses: pairs.filter(
+			({ paraglide: p, other: o }) =>
+				p.initialWire.median > o.initialWire.median ||
+				p.journeyWire.median > o.journeyWire.median
+		).length,
+	};
+};
+data.overview = {
+	...comparisons("paraglide"),
+	perLocale: comparisons("paraglide-per-locale"),
+};
+const { summary: rows, ...metadata } = data;
+await fs.writeFile(
+	"results/results.json",
+	JSON.stringify(metadata, null, 2).slice(0, -2) +
+		',\n  "summary": [\n' +
+		rows.map((r) => "    " + JSON.stringify(r)).join(",\n") +
+		"\n  ]\n}\n"
+);
+const header = `| Locales | Used / route | Catalog | ${variants.map((v) => names[v]).join(" | ")} |\n| --- | --- | --- | ${variants.map(() => "---").join(" | ")} |\n`;
 const table = (metric) =>
 	header +
 	groups
@@ -99,9 +139,8 @@ const table = (metric) =>
 				`| ${rows[0].localeCount} | ${rows[0].used} | ${rows[0].total} | ${rows.map(metric).join(" | ")} |`
 		)
 		.join("\n");
-const ready = table((r) => `${r.steps.initial.readyMs.median.toFixed(0)} ms`);
-const bytes = table((r) => `${(r.initialWire.median / 1024).toFixed(1)} KiB`);
-const wins = data.overview.initialReadyWins;
+const kib = (bytes) => `${(bytes / 1024).toFixed(1)} KiB`;
+const ms = (value) => `${value.toFixed(0)} ms`;
 const example = (variant) =>
 	data.summary.find(
 		(r) =>
@@ -110,104 +149,115 @@ const example = (variant) =>
 			r.total === 1000 &&
 			r.variant === variant
 	);
-const exampleParaglide = example("paraglide"),
-	exampleHttp = example("i18next-http-routes");
+const perLocale = example("paraglide-per-locale"),
+	httpRoutes = example("i18next-http-routes");
 const measured = new Date(data.measuredAt).toLocaleDateString("en-US", {
 	year: "numeric",
 	month: "long",
 	day: "numeric",
 	timeZone: "America/Mexico_City",
 });
-const markdown = `---
-description: Compare Paraglide JS and i18next with real translations, Vite 8, Brotli transfer, and validated browser journeys. Explore translated DOM readiness and download size.
+const stats = data.overview.perLocale;
+await fs.writeFile(
+	"README.md",
+	`---
+description: "Compare Paraglide JS and i18next: translated DOM readiness, Brotli transfer, per-locale splitting, and reproducible Vite 8 results."
 ---
 
 # Paraglide JS vs i18next benchmark
 
-How quickly does a translated page become ready? This benchmark compares **translated DOM readiness** for the same client-rendered application using Paraglide JS, bundled i18next, and i18next with an HTTP backend. It also measures actual Brotli transfer size, navigation, and language switching.
+Compare **translated DOM readiness** and **Brotli transfer** for the same Vite 8 app: default and per-locale Paraglide JS, bundled i18next, and two HTTP-backend configurations.
 
 ## Main findings
 
-- **Paraglide reaches translated DOM readiness sooner in ${wins}/${data.overview.comparisonCount} comparisons** in this test profile, based on medians of five runs.
-- **Transfer size has tradeoffs.** Paraglide beats bundled i18next in every tested scenario, but transfers more bytes in ${data.overview.byteLosses}/${data.overview.comparisonCount} initial-load or full-journey comparisons against the other implementations. HTTP i18next can be smaller when many locales and messages are configured.
-- **Tree-shaking limits the cost of unused messages.** Paraglide's payload stays approximately constant as unused catalog entries grow. Its default setup still includes the used messages for every configured locale; HTTP backends can fetch only the active language.
+- **Per-locale Paraglide reaches translated DOM readiness sooner in ${stats.initialReadyWins}/${stats.comparisonCount} pairwise comparisons** against i18next. Initial and journey transfer are smaller in ${stats.initialByteWins}/${stats.comparisonCount} and ${stats.journeyByteWins}/${stats.comparisonCount} comparisons, respectively.
+- **Default Paraglide has transfer tradeoffs:** initial or journey bytes exceed an i18next configuration in ${data.overview.byteLosses}/${data.overview.comparisonCount} comparisons. All results remain visible below.
 
-These are results for one application, host, and network profile. They are not a guarantee for every website. The complete results, including Paraglide's size losses, appear below.
+With ten locales, 200 messages used per route, and a 1,000-message catalog, per-locale Paraglide reaches readiness in ${ms(perLocale.steps.initial.readyMs.median)} with ${kib(perLocale.initialWire.median)} initial transfer; route-based HTTP i18next takes ${ms(httpRoutes.steps.initial.readyMs.median)} and ${kib(httpRoutes.initialWire.median)}. These are five-run medians from one host and network profile, not universal rankings.
 
 ## Interactive examples
 
-Explore locale counts, message counts, readiness, and transfer size. Complete results for every scenario are listed below.
+Filter locale counts, message counts, and metrics. Complete scenario tables follow.
 
 <div data-benchmark-explorer=""></div>
 
 ## Translated DOM readiness
 
-The primary metric is the time from navigation start until translated text has been inserted into the DOM. It includes resource loading, library initialization, translation, and DOM updates. **It does not measure first paint, LCP, INP, or general interaction readiness.** Lower is better.
+Navigation start until translated text is inserted into the DOM, including loading, initialization, translation, and DOM updates. **This is not paint, LCP, INP, or general interaction readiness.** Lower is better; downloadable data retains minimum, median, and maximum values.
 
-${ready}
-
-Ranges across all five repetitions and per-step timings are available in the explorer and the downloadable data. The measurements do not establish statistical performance across other machines or network conditions.
+${table((r) => ms(r.steps.initial.readyMs.median))}
 
 ## Initial transfer size
 
-These are real Brotli responses, including response headers, measured by Chromium. KiB means 1,024 bytes. Lower is better. This is a companion metric, not a substitute for translated DOM readiness.
+Chromium-measured Brotli responses, including response headers. KiB means 1,024 bytes; lower is better.
 
-${bytes}
+${table((r) => kib(r.initialWire.median))}
 
-For example, with ten locales, 200 used messages, and a 1,000-message catalog, Paraglide transfers about ${(exampleParaglide.initialWire.median / 1024).toFixed(0)} KiB versus about ${(exampleHttp.initialWire.median / 1024).toFixed(0)} KiB for route-based HTTP i18next, while reaching translated DOM readiness in about ${exampleParaglide.steps.initial.readyMs.median.toFixed(0)} ms versus about ${exampleHttp.steps.initial.readyMs.median.toFixed(0)} ms in this run. The default Paraglide configuration ships used messages for all locales. Locale-specific delivery is the next optimization to evaluate.
+## Full journey transfer size
+
+Total bytes across the journey below, including one document reload when changing language. Caches remain active within each journey.
+
+${table((r) => kib(r.journeyWire.median))}
 
 ## Methodology
 
 ### Same working application
 
-All four implementations render the same text, interpolation values, five lazy-loaded routes, language controls, plural output, and locale-sensitive dates. The corpus contains distinct translations from Cal.diy's public translation files, with source hashes and the upstream MIT license retained in the benchmark source. Source-key mappings are generated locally. Naturally identical labels remain; the fixture does not replace translations with copies of English.
+All five configurations render identical text, interpolation, plurals, dates, and five lazy routes with 20 shared messages. Distinct [Cal.diy translations, source hashes, and MIT license](https://github.com/opral/paraglide-js/tree/main/benchmark/corpus) are retained. Fixed-hash selection is independent of results; naturally identical labels remain.
 
-The matrix covers 2, 5, and 10 locales; catalogs of 200, 1,000, and 4,000 messages; and 50 or 200 used messages per route. Combinations that cannot supply five routes' messages are excluded before measurement. Twenty messages are shared across routes. Route namespaces partition the remaining catalog evenly; this is a controlled fixture, not a reconstruction of Cal.diy's application routes.
+The matrix covers 2/5/10 locales, 200/1,000/4,000 catalog messages, and 50/200 used messages per route. Combinations unable to supply five routes are excluded. Common/route namespaces partition the catalog; these are controlled boundaries, not Cal.diy's routes.
 
-The selection uses a fixed hash seed independent of results. It aims for 20% interpolated messages until eligible source strings are exhausted. Rich markup, nested translation calls, contextual/plural source keys, and incompatible placeholder sets are excluded from this text-only corpus. Supplemental plural messages test counts 0, 1, 2, 3, 11, and 100. Every implementation uses the same native Intl date-formatting code.
+Selection targets 20% interpolation until eligible strings run out. Rich markup, nested translations, contextual/plural source keys, and incompatible placeholders are excluded. Supplemental plurals test counts 0, 1, 2, 3, 11, and 100. Dates use identical native Intl code.
 
 ### Implementations
 
 | Implementation | Translation loading |
 | --- | --- |
-| Paraglide JS | Standard message modules, static message references, automatic removal of unused messages; used messages include all configured locales |
-| i18next bundled | Compact resource objects containing all locales and namespaces, bundled with the app |
-| i18next HTTP catalog | Official HTTP backend; one complete catalog for the active language |
-| i18next HTTP routes | Official HTTP backend; the active language's common and route namespaces |
+| Paraglide JS | Message modules; unused messages removed, retained messages include every locale |
+| Paraglide · per locale | Fixed-locale builds with message modules and static references |
+| i18next bundled | All locales and namespaces bundled as compact objects |
+| i18next HTTP catalog | Official HTTP backend; complete active-locale catalog |
+| i18next HTTP routes | Official HTTP backend; active-locale common/route namespaces |
 
-HTTP variants disable missing fallback languages and retain normal i18next resource caching. Changing language loads namespaces already used by the application. Finer namespaces can reduce unused data further; the results do not represent every possible configuration.
+Per-locale settings: \`experimentalPerLocaleBuild: true\` and \`outputStructure: "message-modules"\`.
+
+Per-locale results use the compiler in this repository; downloadable metadata records source and compiled hashes. Vite groups message modules into page/shared chunks, without per-message requests. Dynamic namespace indexing can retain additional messages. See the [per-locale setup and framework constraints](/compiling-messages).
+
+Page code and translations load concurrently. Fixed-locale graphs avoid startup locale setters. HTTP variants disable fallback languages and retain resource caching; finer namespaces can reduce unused data further.
 
 ### Correctness before performance
 
-All 60 builds pass checks across every configured locale and all five routes: **${data.validation.stringsChecked.toLocaleString("en-US")} rendered strings and ${data.validation.pluralAssertions.toLocaleString("en-US")} plural outputs**. The tests independently compare rendered strings to the source catalog and verify interpolation, plural categories, dates, route state, and locale state. Page errors, console errors, failed requests, incorrect translations, and missing compression abort measurement.
+All **${data.validation.builds} configurations** pass **${data.validation.stringsChecked.toLocaleString("en-US")} string checks and ${data.validation.pluralAssertions.toLocaleString("en-US")} plural assertions** across every locale/route. Timed journeys recheck text, interpolation, dates, plurals, and route/locale state. Errors, failed requests, or missing compression abort measurement. Requested-JavaScript checks verify route and locale isolation in all **${data.graphValidation.lazyRouteIsolation} per-locale configurations**, using markers observable after navigation.
 
 ### Browser journey and conditions
 
-Each of 300 measured journeys starts with an empty browser-context cache: English route 0 → English route 1 → switch to the last configured locale → revisit route 0 → switch back to English. Caches remain active within the journey. Separate correctness checks do not warm the measured browser contexts.
+Each of **${data.validation.journeys} journeys** starts with a fresh browser context: English route 0 → English route 1 → document navigation to the last configured locale on route 1 → revisit route 0. Every implementation reloads once. Preflight checks never warm measured contexts.
 
-Trials run sequentially, with order rotated between rounds. Conditions are 40 ms emulated network latency, 10 Mbps download, 5 Mbps upload, and 4× CPU throttling. The server sends Brotli at quality 5. Vite's production module preloading and default minifier remain enabled for every implementation. Timing means translated DOM readiness, not a translation-function microbenchmark.
+Trials run sequentially with rotated order: **40 ms latency, 10 Mbps down, 5 Mbps up, 4× CPU slowdown, Brotli quality 5**. Vite's default minification/module preloading remain enabled; no custom initial-route hints are added.
 
-This cohort covers client rendering. It does not establish results for SSR, hydration, server-only translations, experimental locale splitting, rich text, missing translations, or runtime-defined message keys.
+Five-run medians do not establish statistical significance across devices. Per-locale builds are experimental. This plain-Vite client-rendered fixture does not establish SSR/hydration behavior or TanStack Start/SvelteKit compatibility. Source maps are disabled; keep message-module maps private because they can contain inactive-locale branches.
 
 ### Versions and data
 
-Measured ${measured}. Paraglide JS **${data.versions["@inlang/paraglide-js"]}**, i18next **${data.versions.i18next}**, HTTP backend **${data.versions["i18next-http-backend"]}**, Vite **${data.versions.vite}**, Playwright **${data.versions.playwright}**. Host: macOS arm64, Node ${data.environment.node}, Chromium ${data.environment.chromium}. Dependencies are pinned in the lockfile.
+Measured ${measured}. Pinned packages: Paraglide **${data.versions["@inlang/paraglide-js"]}**, i18next **${data.versions.i18next}**, HTTP backend **${data.versions["i18next-http-backend"]}**, Vite **${data.versions.vite}**, Playwright **${data.versions.playwright}**. Host: ${data.environment.platform} ${data.environment.arch}, ${data.environment.cpu}, Node ${data.environment.node}, Chromium ${data.environment.chromium}.
 
-- [Download the summary CSV](/benchmark-data/summary.csv)
-- [Download scenario results JSON](/benchmark-data/results.json)
-- [Benchmark source and reproduction instructions](https://github.com/opral/paraglide-js/tree/main/benchmark)
+- [Summary CSV](/benchmark-data/summary.csv)
+- [Scenario results JSON](/benchmark-data/results.json)
+- [Benchmark source](https://github.com/opral/paraglide-js/tree/main/benchmark)
 
 ## Reproduce and contribute
 
-From the repository root, install dependencies with \`pnpm install --frozen-lockfile\`. Then run:
+From the repository root:
 
 \`\`\`sh
+pnpm install --frozen-lockfile
 pnpm --filter @inlang/paraglide-js-benchmark exec playwright install --only-shell chromium
 pnpm --filter @inlang/paraglide-js-benchmark bench
 \`\`\`
 
-The benchmark builds the matrix, checks every locale and route, runs five browser repetitions, and generates the published result files and this page. Detailed request logs, correctness diagnostics, and fixture mappings stay in ignored local output files; only the compact scenario results and CSV are committed. Builds use the pinned published compiler so the published measurements can be reproduced. Test an optimization as a separately identified variant and retain the baseline and any losses.
-
-Use \`pnpm --filter @inlang/paraglide-js-benchmark publish-results --saved\` to regenerate the page and explorer from the committed scenario results without rerunning browser trials. Human and machine readers receive the same results; filtering does not remove the complete static tables.
-`;
-await fs.writeFile("README.md", markdown);
+Use \`SMOKE=1\` for one scenario/repetition without replacing published results. Run \`pnpm --filter @inlang/paraglide-js-benchmark publish-results --saved\` to regenerate this page from saved data. Results render as HTML; JavaScript adds filtering.
+`
+);
+console.log(
+	`Published ${expected} configurations and ${data.validation.journeys} journeys`
+);

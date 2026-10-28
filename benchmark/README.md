@@ -1,123 +1,144 @@
 ---
-description: Compare Paraglide JS and i18next with real translations, Vite 8, Brotli transfer, and validated browser journeys. Explore translated DOM readiness and download size.
+description: "Compare Paraglide JS and i18next: translated DOM readiness, Brotli transfer, per-locale splitting, and reproducible Vite 8 results."
 ---
 
 # Paraglide JS vs i18next benchmark
 
-How quickly does a translated page become ready? This benchmark compares **translated DOM readiness** for the same client-rendered application using Paraglide JS, bundled i18next, and i18next with an HTTP backend. It also measures actual Brotli transfer size, navigation, and language switching.
+Compare **translated DOM readiness** and **Brotli transfer** for the same Vite 8 app: default and per-locale Paraglide JS, bundled i18next, and two HTTP-backend configurations.
 
 ## Main findings
 
-- **Paraglide reaches translated DOM readiness sooner in 45/45 comparisons** in this test profile, based on medians of five runs.
-- **Transfer size has tradeoffs.** Paraglide beats bundled i18next in every tested scenario, but transfers more bytes in 6/45 initial-load or full-journey comparisons against the other implementations. HTTP i18next can be smaller when many locales and messages are configured.
-- **Tree-shaking limits the cost of unused messages.** Paraglide's payload stays approximately constant as unused catalog entries grow. Its default setup still includes the used messages for every configured locale; HTTP backends can fetch only the active language.
+- **Per-locale Paraglide reaches translated DOM readiness sooner in 45/45 pairwise comparisons** against i18next. Initial and journey transfer are smaller in 45/45 and 45/45 comparisons, respectively.
+- **Default Paraglide has transfer tradeoffs:** initial or journey bytes exceed an i18next configuration in 6/45 comparisons. All results remain visible below.
 
-These are results for one application, host, and network profile. They are not a guarantee for every website. The complete results, including Paraglide's size losses, appear below.
+With ten locales, 200 messages used per route, and a 1,000-message catalog, per-locale Paraglide reaches readiness in 177 ms with 11.0 KiB initial transfer; route-based HTTP i18next takes 220 ms and 25.8 KiB. These are five-run medians from one host and network profile, not universal rankings.
 
 ## Interactive examples
 
-Explore locale counts, message counts, readiness, and transfer size. Complete results for every scenario are listed below.
+Filter locale counts, message counts, and metrics. Complete scenario tables follow.
 
 <div data-benchmark-explorer=""></div>
 
 ## Translated DOM readiness
 
-The primary metric is the time from navigation start until translated text has been inserted into the DOM. It includes resource loading, library initialization, translation, and DOM updates. **It does not measure first paint, LCP, INP, or general interaction readiness.** Lower is better.
+Navigation start until translated text is inserted into the DOM, including loading, initialization, translation, and DOM updates. **This is not paint, LCP, INP, or general interaction readiness.** Lower is better; downloadable data retains minimum, median, and maximum values.
 
-| Locales | Used messages | Catalog messages | Paraglide JS | i18next bundled | i18next HTTP catalog | i18next HTTP routes |
-| --- | --- | --- | --- | --- | --- | --- |
-| 2 | 50 | 200 | 174 ms | 198 ms | 259 ms | 257 ms |
-| 5 | 50 | 200 | 179 ms | 207 ms | 264 ms | 258 ms |
-| 10 | 50 | 200 | 187 ms | 228 ms | 260 ms | 260 ms |
-| 2 | 50 | 1000 | 174 ms | 219 ms | 278 ms | 259 ms |
-| 5 | 50 | 1000 | 178 ms | 267 ms | 285 ms | 267 ms |
-| 10 | 50 | 1000 | 186 ms | 346 ms | 283 ms | 262 ms |
-| 2 | 200 | 1000 | 182 ms | 228 ms | 286 ms | 268 ms |
-| 5 | 200 | 1000 | 195 ms | 274 ms | 286 ms | 268 ms |
-| 10 | 200 | 1000 | 217 ms | 352 ms | 286 ms | 267 ms |
-| 2 | 50 | 4000 | 175 ms | 302 ms | 305 ms | 271 ms |
-| 5 | 50 | 4000 | 177 ms | 483 ms | 306 ms | 274 ms |
-| 10 | 50 | 4000 | 184 ms | 795 ms | 307 ms | 272 ms |
-| 2 | 200 | 4000 | 181 ms | 310 ms | 312 ms | 280 ms |
-| 5 | 200 | 4000 | 194 ms | 491 ms | 319 ms | 284 ms |
-| 10 | 200 | 4000 | 220 ms | 799 ms | 315 ms | 279 ms |
-
-Ranges across all five repetitions and per-step timings are available in the explorer and the downloadable data. The measurements do not establish statistical performance across other machines or network conditions.
+| Locales | Used / route | Catalog | Paraglide JS | Paraglide · per locale | i18next bundled | i18next HTTP catalog | i18next HTTP routes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 50 | 200 | 174 ms | 173 ms | 198 ms | 210 ms | 214 ms |
+| 5 | 50 | 200 | 178 ms | 173 ms | 209 ms | 212 ms | 211 ms |
+| 10 | 50 | 200 | 185 ms | 171 ms | 228 ms | 214 ms | 209 ms |
+| 2 | 50 | 1000 | 173 ms | 173 ms | 223 ms | 233 ms | 213 ms |
+| 5 | 50 | 1000 | 177 ms | 173 ms | 269 ms | 234 ms | 212 ms |
+| 10 | 50 | 1000 | 186 ms | 172 ms | 348 ms | 234 ms | 220 ms |
+| 2 | 200 | 1000 | 184 ms | 176 ms | 230 ms | 236 ms | 223 ms |
+| 5 | 200 | 1000 | 196 ms | 177 ms | 277 ms | 239 ms | 222 ms |
+| 10 | 200 | 1000 | 219 ms | 177 ms | 353 ms | 238 ms | 220 ms |
+| 2 | 50 | 4000 | 175 ms | 172 ms | 303 ms | 262 ms | 226 ms |
+| 5 | 50 | 4000 | 180 ms | 172 ms | 485 ms | 259 ms | 227 ms |
+| 10 | 50 | 4000 | 187 ms | 173 ms | 804 ms | 257 ms | 230 ms |
+| 2 | 200 | 4000 | 183 ms | 178 ms | 310 ms | 266 ms | 234 ms |
+| 5 | 200 | 4000 | 195 ms | 176 ms | 495 ms | 266 ms | 232 ms |
+| 10 | 200 | 4000 | 218 ms | 178 ms | 803 ms | 266 ms | 232 ms |
 
 ## Initial transfer size
 
-These are real Brotli responses, including response headers, measured by Chromium. KiB means 1,024 bytes. Lower is better. This is a companion metric, not a substitute for translated DOM readiness.
+Chromium-measured Brotli responses, including response headers. KiB means 1,024 bytes; lower is better.
 
-| Locales | Used messages | Catalog messages | Paraglide JS | i18next bundled | i18next HTTP catalog | i18next HTTP routes |
-| --- | --- | --- | --- | --- | --- | --- |
-| 2 | 50 | 200 | 8.5 KiB | 25.0 KiB | 23.1 KiB | 21.2 KiB |
-| 5 | 50 | 200 | 13.0 KiB | 37.1 KiB | 23.1 KiB | 21.2 KiB |
-| 10 | 50 | 200 | 22.1 KiB | 58.4 KiB | 23.2 KiB | 21.2 KiB |
-| 2 | 50 | 1000 | 8.5 KiB | 49.2 KiB | 34.9 KiB | 24.8 KiB |
-| 5 | 50 | 1000 | 13.0 KiB | 97.0 KiB | 34.9 KiB | 24.8 KiB |
-| 10 | 50 | 1000 | 22.1 KiB | 178.9 KiB | 35.0 KiB | 24.8 KiB |
-| 2 | 200 | 1000 | 16.5 KiB | 50.1 KiB | 35.9 KiB | 25.7 KiB |
-| 5 | 200 | 1000 | 31.4 KiB | 97.9 KiB | 35.9 KiB | 25.7 KiB |
-| 10 | 200 | 1000 | 60.0 KiB | 179.9 KiB | 35.9 KiB | 25.7 KiB |
-| 2 | 50 | 4000 | 8.5 KiB | 130.2 KiB | 74.3 KiB | 34.0 KiB |
-| 5 | 50 | 4000 | 13.0 KiB | 289.3 KiB | 74.3 KiB | 34.1 KiB |
-| 10 | 50 | 4000 | 22.1 KiB | 569.0 KiB | 74.3 KiB | 34.1 KiB |
-| 2 | 200 | 4000 | 16.5 KiB | 131.2 KiB | 75.2 KiB | 35.0 KiB |
-| 5 | 200 | 4000 | 31.4 KiB | 290.2 KiB | 75.2 KiB | 35.0 KiB |
-| 10 | 200 | 4000 | 60.0 KiB | 570.0 KiB | 75.3 KiB | 35.0 KiB |
+| Locales | Used / route | Catalog | Paraglide JS | Paraglide · per locale | i18next bundled | i18next HTTP catalog | i18next HTTP routes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 50 | 200 | 8.6 KiB | 6.3 KiB | 25.2 KiB | 23.2 KiB | 21.3 KiB |
+| 5 | 50 | 200 | 13.1 KiB | 6.3 KiB | 37.2 KiB | 23.3 KiB | 21.3 KiB |
+| 10 | 50 | 200 | 22.2 KiB | 6.4 KiB | 58.5 KiB | 23.3 KiB | 21.3 KiB |
+| 2 | 50 | 1000 | 8.6 KiB | 6.3 KiB | 49.3 KiB | 35.0 KiB | 24.9 KiB |
+| 5 | 50 | 1000 | 13.1 KiB | 6.3 KiB | 97.1 KiB | 35.0 KiB | 24.9 KiB |
+| 10 | 50 | 1000 | 22.2 KiB | 6.4 KiB | 179.1 KiB | 35.1 KiB | 24.9 KiB |
+| 2 | 200 | 1000 | 16.6 KiB | 10.9 KiB | 50.3 KiB | 36.0 KiB | 25.8 KiB |
+| 5 | 200 | 1000 | 31.5 KiB | 10.9 KiB | 98.0 KiB | 36.0 KiB | 25.8 KiB |
+| 10 | 200 | 1000 | 60.1 KiB | 11.0 KiB | 180.0 KiB | 36.0 KiB | 25.8 KiB |
+| 2 | 50 | 4000 | 8.6 KiB | 6.3 KiB | 130.3 KiB | 74.4 KiB | 34.2 KiB |
+| 5 | 50 | 4000 | 13.1 KiB | 6.3 KiB | 289.4 KiB | 74.4 KiB | 34.2 KiB |
+| 10 | 50 | 4000 | 22.2 KiB | 6.4 KiB | 569.1 KiB | 74.4 KiB | 34.2 KiB |
+| 2 | 200 | 4000 | 16.6 KiB | 10.9 KiB | 131.3 KiB | 75.3 KiB | 35.1 KiB |
+| 5 | 200 | 4000 | 31.5 KiB | 10.9 KiB | 290.3 KiB | 75.4 KiB | 35.1 KiB |
+| 10 | 200 | 4000 | 60.1 KiB | 11.0 KiB | 570.1 KiB | 75.4 KiB | 35.1 KiB |
 
-For example, with ten locales, 200 used messages, and a 1,000-message catalog, Paraglide transfers about 60 KiB versus about 26 KiB for route-based HTTP i18next, while reaching translated DOM readiness in about 217 ms versus about 267 ms in this run. The default Paraglide configuration ships used messages for all locales. Locale-specific delivery is the next optimization to evaluate.
+## Full journey transfer size
+
+Total bytes across the journey below, including one document reload when changing language. Caches remain active within each journey.
+
+| Locales | Used / route | Catalog | Paraglide JS | Paraglide · per locale | i18next bundled | i18next HTTP catalog | i18next HTTP routes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 50 | 200 | 10.8 KiB | 15.5 KiB | 26.1 KiB | 29.3 KiB | 26.9 KiB |
+| 5 | 50 | 200 | 16.9 KiB | 15.4 KiB | 38.2 KiB | 29.1 KiB | 26.8 KiB |
+| 10 | 50 | 200 | 29.5 KiB | 16.1 KiB | 59.4 KiB | 29.4 KiB | 27.1 KiB |
+| 2 | 50 | 1000 | 10.8 KiB | 15.5 KiB | 50.2 KiB | 54.6 KiB | 40.1 KiB |
+| 5 | 50 | 1000 | 16.9 KiB | 15.4 KiB | 98.0 KiB | 53.6 KiB | 39.4 KiB |
+| 10 | 50 | 1000 | 29.4 KiB | 16.1 KiB | 180.0 KiB | 55.1 KiB | 40.2 KiB |
+| 2 | 200 | 1000 | 23.8 KiB | 31.5 KiB | 51.3 KiB | 55.7 KiB | 41.2 KiB |
+| 5 | 200 | 1000 | 47.2 KiB | 30.9 KiB | 99.1 KiB | 54.7 KiB | 40.5 KiB |
+| 10 | 200 | 1000 | 92.5 KiB | 32.2 KiB | 181.1 KiB | 56.2 KiB | 41.3 KiB |
+| 2 | 50 | 4000 | 10.8 KiB | 15.5 KiB | 131.3 KiB | 138.2 KiB | 79.2 KiB |
+| 5 | 50 | 4000 | 16.9 KiB | 15.5 KiB | 290.3 KiB | 135.5 KiB | 77.5 KiB |
+| 10 | 50 | 4000 | 29.4 KiB | 16.1 KiB | 570.0 KiB | 141.3 KiB | 79.3 KiB |
+| 2 | 200 | 4000 | 23.8 KiB | 31.5 KiB | 132.4 KiB | 139.3 KiB | 80.3 KiB |
+| 5 | 200 | 4000 | 47.2 KiB | 30.9 KiB | 291.4 KiB | 136.6 KiB | 78.6 KiB |
+| 10 | 200 | 4000 | 92.5 KiB | 32.2 KiB | 571.1 KiB | 142.4 KiB | 80.4 KiB |
 
 ## Methodology
 
 ### Same working application
 
-All four implementations render the same text, interpolation values, five lazy-loaded routes, language controls, plural output, and locale-sensitive dates. The corpus contains distinct translations from Cal.diy's public translation files, with source hashes and the upstream MIT license retained in the benchmark source. Source-key mappings are generated locally. Naturally identical labels remain; the fixture does not replace translations with copies of English.
+All five configurations render identical text, interpolation, plurals, dates, and five lazy routes with 20 shared messages. Distinct [Cal.diy translations, source hashes, and MIT license](https://github.com/opral/paraglide-js/tree/main/benchmark/corpus) are retained. Fixed-hash selection is independent of results; naturally identical labels remain.
 
-The matrix covers 2, 5, and 10 locales; catalogs of 200, 1,000, and 4,000 messages; and 50 or 200 used messages per route. Combinations that cannot supply five routes' messages are excluded before measurement. Twenty messages are shared across routes. Route namespaces partition the remaining catalog evenly; this is a controlled fixture, not a reconstruction of Cal.diy's application routes.
+The matrix covers 2/5/10 locales, 200/1,000/4,000 catalog messages, and 50/200 used messages per route. Combinations unable to supply five routes are excluded. Common/route namespaces partition the catalog; these are controlled boundaries, not Cal.diy's routes.
 
-The selection uses a fixed hash seed independent of results. It aims for 20% interpolated messages until eligible source strings are exhausted. Rich markup, nested translation calls, contextual/plural source keys, and incompatible placeholder sets are excluded from this text-only corpus. Supplemental plural messages test counts 0, 1, 2, 3, 11, and 100. Every implementation uses the same native Intl date-formatting code.
+Selection targets 20% interpolation until eligible strings run out. Rich markup, nested translations, contextual/plural source keys, and incompatible placeholders are excluded. Supplemental plurals test counts 0, 1, 2, 3, 11, and 100. Dates use identical native Intl code.
 
 ### Implementations
 
 | Implementation | Translation loading |
 | --- | --- |
-| Paraglide JS | Standard message modules, static message references, automatic removal of unused messages; used messages include all configured locales |
-| i18next bundled | Compact resource objects containing all locales and namespaces, bundled with the app |
-| i18next HTTP catalog | Official HTTP backend; one complete catalog for the active language |
-| i18next HTTP routes | Official HTTP backend; the active language's common and route namespaces |
+| Paraglide JS | Message modules; unused messages removed, retained messages include every locale |
+| Paraglide · per locale | Fixed-locale builds with message modules and static references |
+| i18next bundled | All locales and namespaces bundled as compact objects |
+| i18next HTTP catalog | Official HTTP backend; complete active-locale catalog |
+| i18next HTTP routes | Official HTTP backend; active-locale common/route namespaces |
 
-HTTP variants disable missing fallback languages and retain normal i18next resource caching. Changing language loads namespaces already used by the application. Finer namespaces can reduce unused data further; the results do not represent every possible configuration.
+Per-locale settings: `experimentalPerLocaleBuild: true` and `outputStructure: "message-modules"`.
+
+Per-locale results use the compiler in this repository; downloadable metadata records source and compiled hashes. Vite groups message modules into page/shared chunks, without per-message requests. Dynamic namespace indexing can retain additional messages. See the [per-locale setup and framework constraints](/compiling-messages).
+
+Page code and translations load concurrently. Fixed-locale graphs avoid startup locale setters. HTTP variants disable fallback languages and retain resource caching; finer namespaces can reduce unused data further.
 
 ### Correctness before performance
 
-All 60 builds pass checks across every configured locale and all five routes: **187,000 rendered strings and 10,200 plural outputs**. The tests independently compare rendered strings to the source catalog and verify interpolation, plural categories, dates, route state, and locale state. Page errors, console errors, failed requests, incorrect translations, and missing compression abort measurement.
+All **75 configurations** pass **233,750 string checks and 12,750 plural assertions** across every locale/route. Timed journeys recheck text, interpolation, dates, plurals, and route/locale state. Errors, failed requests, or missing compression abort measurement. Requested-JavaScript checks verify route and locale isolation in all **15 per-locale configurations**, using markers observable after navigation.
 
 ### Browser journey and conditions
 
-Each of 300 measured journeys starts with an empty browser-context cache: English route 0 → English route 1 → switch to the last configured locale → revisit route 0 → switch back to English. Caches remain active within the journey. Separate correctness checks do not warm the measured browser contexts.
+Each of **375 journeys** starts with a fresh browser context: English route 0 → English route 1 → document navigation to the last configured locale on route 1 → revisit route 0. Every implementation reloads once. Preflight checks never warm measured contexts.
 
-Trials run sequentially, with order rotated between rounds. Conditions are 40 ms emulated network latency, 10 Mbps download, 5 Mbps upload, and 4× CPU throttling. The server sends Brotli at quality 5. Vite's production module preloading and default minifier remain enabled for every implementation. Timing means translated DOM readiness, not a translation-function microbenchmark.
+Trials run sequentially with rotated order: **40 ms latency, 10 Mbps down, 5 Mbps up, 4× CPU slowdown, Brotli quality 5**. Vite's default minification/module preloading remain enabled; no custom initial-route hints are added.
 
-This cohort covers client rendering. It does not establish results for SSR, hydration, server-only translations, experimental locale splitting, rich text, missing translations, or runtime-defined message keys.
+Five-run medians do not establish statistical significance across devices. Per-locale builds are experimental. This plain-Vite client-rendered fixture does not establish SSR/hydration behavior or TanStack Start/SvelteKit compatibility. Source maps are disabled; keep message-module maps private because they can contain inactive-locale branches.
 
 ### Versions and data
 
-Measured October 28, 2026. Paraglide JS **2.29.3**, i18next **26.5.11**, HTTP backend **4.0.6**, Vite **8.3.5**, Playwright **1.50.1**. Host: macOS arm64, Node v22.17.0, Chromium 133.0.6943.16. Dependencies are pinned in the lockfile.
+Measured October 28, 2026. Pinned packages: Paraglide **2.29.3**, i18next **26.5.11**, HTTP backend **4.0.6**, Vite **8.3.5**, Playwright **1.50.1**. Host: darwin arm64, Apple M5 Pro, Node v22.17.0, Chromium 133.0.6943.16.
 
-- [Download the summary CSV](/benchmark-data/summary.csv)
-- [Download scenario results JSON](/benchmark-data/results.json)
-- [Benchmark source and reproduction instructions](https://github.com/opral/paraglide-js/tree/main/benchmark)
+- [Summary CSV](/benchmark-data/summary.csv)
+- [Scenario results JSON](/benchmark-data/results.json)
+- [Benchmark source](https://github.com/opral/paraglide-js/tree/main/benchmark)
 
 ## Reproduce and contribute
 
-From the repository root, install dependencies with `pnpm install --frozen-lockfile`. Then run:
+From the repository root:
 
 ```sh
+pnpm install --frozen-lockfile
 pnpm --filter @inlang/paraglide-js-benchmark exec playwright install --only-shell chromium
 pnpm --filter @inlang/paraglide-js-benchmark bench
 ```
 
-The benchmark builds the matrix, checks every locale and route, runs five browser repetitions, and generates the published result files and this page. Detailed request logs, correctness diagnostics, and fixture mappings stay in ignored local output files; only the compact scenario results and CSV are committed. Builds use the pinned published compiler so the published measurements can be reproduced. Test an optimization as a separately identified variant and retain the baseline and any losses.
-
-Use `pnpm --filter @inlang/paraglide-js-benchmark publish-results --saved` to regenerate the page and explorer from the committed scenario results without rerunning browser trials. Human and machine readers receive the same results; filtering does not remove the complete static tables.
+Use `SMOKE=1` for one scenario/repetition without replacing published results. Run `pnpm --filter @inlang/paraglide-js-benchmark publish-results --saved` to regenerate this page from saved data. Results render as HTML; JavaScript adds filtering.

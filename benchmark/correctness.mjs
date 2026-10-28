@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import { chromium } from "playwright";
 import { fixture, expectedText, pluralText } from "./fixture.mjs";
 import { startServer } from "./server.mjs";
+import { urlFor } from "./config.mjs";
 
 const manifest = JSON.parse(await fs.readFile("build-manifest.json", "utf8"));
 const { server, origin } = await startServer();
@@ -26,13 +27,11 @@ try {
 		const f = fixture(build);
 		let messagesChecked = 0;
 		try {
-			await page.goto(`${origin}/${build.name}/`);
+			await page.goto(origin + urlFor(build));
 			await page.waitForFunction(() => window.benchmark?.ready);
 			for (const locale of f.locales) {
-				await page.evaluate(
-					(locale) => window.benchmark.language(locale),
-					locale
-				);
+				await page.goto(origin + urlFor(build, locale));
+				await page.waitForFunction(() => window.benchmark?.ready);
 				for (let route = 0; route < 5; route++) {
 					const actual = await page.evaluate(async (route) => {
 						await window.benchmark.go(route);

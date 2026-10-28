@@ -1,7 +1,8 @@
 import { init, setLanguage, plural } from "./adapter.js";
 
-let locale = "en";
-let route = 0;
+const params = new URLSearchParams(location.search);
+const locale = params.get("locale") ?? "en";
+let route = Number(params.get("route") ?? 0);
 const pages = [
 	() => import("./pages/route0.js"),
 	() => import("./pages/route1.js"),
@@ -25,10 +26,10 @@ document.querySelector("#languages").addEventListener("click", async (e) => {
 	if (e.target.dataset.locale)
 		await window.benchmark.language(e.target.dataset.locale);
 });
-async function render() {
+async function render(page) {
 	document.documentElement.lang = locale;
 	document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
-	const page = await pages[route]();
+	page ??= await pages[route]();
 	const values = page.messages();
 	root.replaceChildren(
 		...values.map((value) => {
@@ -49,18 +50,27 @@ window.benchmark = {
 	state: null,
 	async go(next) {
 		route = next;
-		await setLanguage(locale, route);
-		await render();
+		await prepare();
 	},
 	async language(next) {
-		locale = next;
-		await setLanguage(locale, route);
-		await render();
+		const url = new URL(
+			LOCALE_PATHS[next] ?? import.meta.env.BASE_URL,
+			location.origin
+		);
+		url.searchParams.set("locale", next);
+		url.searchParams.set("route", String(route));
+		location.assign(url);
 	},
 	plural,
 };
+async function prepare() {
+	const [page] = await Promise.all([
+		pages[route](),
+		setLanguage(locale, route),
+	]);
+	await render(page);
+}
 await init();
-await setLanguage(locale, route);
-await render();
+await prepare();
 window.benchmark.ready = true;
 window.benchmark.readyAt = performance.now();

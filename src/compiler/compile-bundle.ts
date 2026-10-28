@@ -87,9 +87,7 @@ export const compileBundle = (args: {
 		// set the pattern for the language tag
 		compiledMessages[message.locale] = compiledMessage;
 	}
-	const inlineMessages =
-		args.inlineMessages === true &&
-		args.experimentalStaticLocale !== perLocaleBuildStaticLocaleExpression;
+	const inlineMessages = args.inlineMessages === true;
 	const inlinePlainTextByLocale = inlineMessages
 		? findPlainTextMessages(args.bundle)
 		: undefined;
