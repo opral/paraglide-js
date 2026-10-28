@@ -18,7 +18,7 @@ if (fs.existsSync(path.join(config.results, "results.jsonl")))
 		"Use a fresh CATALOG_BENCH_RESULTS directory for each matrix"
 	);
 let cases = [
-	...(mode === "full" ? [["grai", "shards"]] : []),
+	...(mode === "full" && config.grai ? [["grai", "shards"]] : []),
 	["sdk", "default"],
 	["catalog", "default"],
 	["sdk", "locale"],

@@ -13,17 +13,15 @@ cold-disk or incremental benchmark.
 
 ## Public compile API
 
-| Keys ×3 locales | Released SDK stack, default | Candidate, default | Candidate, groups of512 | Grai |
-|---|---:|---:|---:|---:|
-| 6,400 | 4,189.83 ms | 726.06 ms | 140.18 ms | 108.06 ms |
-| 13,300 | 9,897.80 ms | 1,772.95 ms | 314.58 ms | 177.91 ms |
+| Keys ×3 locales | Released SDK stack, default | Candidate, default | Candidate, groups of512 |
+| --------------- | --------------------------: | -----------------: | ----------------------: |
+| 6,400           |                 4,189.83 ms |          726.06 ms |               140.18 ms |
+| 13,300          |                 9,897.80 ms |        1,772.95 ms |               314.58 ms |
 
 The default layout saves about 82–83% of elapsed compilation time (5.6–5.8×
-faster). Grouping saves about 97% versus the released-SDK default baseline,
-but is about 30%/77% slower than contemporary Grai in this fixture. The current
-ordinary-import path does not retain the removed scalar implementation's Grai
-parity claim. This session was slower across controls than the historical cohort;
-do not combine their medians or compare one tool's old result to another's new one.
+faster). Grouping saves about 97% versus the released-SDK default baseline.
+These are contemporaneous measurements; do not combine medians with historical
+cohorts.
 
 `totalMs` measures public `compile()` after compiler-module imports, including
 SDK imports deferred into compilation, catalog loading, JavaScript/declaration
@@ -32,19 +30,17 @@ Node startup and CLI startup are excluded. Module imports are recorded separatel
 as `importMs`/`coldWithImportMs`. The child `processWallMs` additionally includes
 fixture setup and verification; it is not an isolated CLI measurement.
 
-Round-zero trials executed every generated message/locale (236,400 calls across
-all primary cases). Default candidate JavaScript/declaration hashes match the
-released baseline after only README-path normalization. Grouping deliberately
-changes direct module paths and creates 40/66 files versus 12,814/26,614 default
-files. Grai creates its own 68/116 files, including declaration maps; no cross-tool
-byte equality or universal feature equivalence is claimed.
+Round-zero trials executed every generated message and locale after timing.
+Default candidate JavaScript/declaration hashes match the released baseline after
+only README-path normalization. Grouping deliberately changes direct module paths
+and creates 40/66 files versus 12,814/26,614 default files.
 
 ## Preloaded-SDK loader control
 
 | Keys ×3 locales | Frozen message-format4.5.5 | Updated ordinary importer | Less loader time |
-|---|---:|---:|---:|
-| 6,400 | 112.583 ms | 65.585 ms | 41.75% |
-| 13,300 | 258.012 ms | 144.882 ms | 43.85% |
+| --------------- | -------------------------: | ------------------------: | ---------------: |
+| 6,400           |                 112.583 ms |                 65.585 ms |           41.75% |
+| 13,300          |                 258.012 ms |                144.882 ms |           43.85% |
 
 The `load` phase directly calls `loadProjectCatalog({path, fs,
 writePluginCache: true})` with SDK modules preloaded. It includes settings,
@@ -67,7 +63,6 @@ state, built-JavaScript checksums, selected plugin checksums and no-V2 assertion
 The SDK changes were measured before their final commit; its base commit alone
 is not the measured no-V2 implementation. The baseline resolves actual published
 SDK4.0.4 without the catalog API, with compiler source matching main base239411bb.
-Grai is pinned to `8af924a6b513d178b8e6d67694bdfb490c7e697f`.
 
 Build and freeze both compiler checkouts, the candidate SDK and updated plugin.
 Use the existing round2 harness, absolute paths, the same pinned Node22 binary,
@@ -78,11 +73,10 @@ export CATALOG_BENCH_BASELINE=/absolute/released-sdk/paraglide-js
 export CATALOG_BENCH_CANDIDATE=/absolute/candidate/paraglide-js
 export CATALOG_BENCH_PLUGIN=/absolute/frozen/message-format/dist/index.js
 export CATALOG_BENCH_OPTIMIZED_PLUGIN=/absolute/no-v2/message-format/dist/index.js
-export CATALOG_BENCH_GRAI=/absolute/grai
 export CATALOG_BENCH_ROUNDS=5
 
 CATALOG_BENCH_RESULTS=/tmp/catalog-no-v2-full \
-CATALOG_BENCH_CASES=sdk/default,catalog-optimized/default,catalog-optimized/shards,grai/shards \
+CATALOG_BENCH_CASES=sdk/default,catalog-optimized/default,catalog-optimized/shards \
 node benchmark/project-catalog/round2/run-matrix.mjs full
 
 CATALOG_BENCH_RESULTS=/tmp/catalog-no-v2-phases \

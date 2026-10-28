@@ -16,7 +16,9 @@ export function configuration() {
 	const baseline = required("CATALOG_BENCH_BASELINE");
 	const candidate = required("CATALOG_BENCH_CANDIDATE");
 	const plugin = required("CATALOG_BENCH_PLUGIN");
-	const grai = required("CATALOG_BENCH_GRAI");
+	const grai = process.env.CATALOG_BENCH_GRAI
+		? required("CATALOG_BENCH_GRAI")
+		: undefined;
 	const optimizedPlugin = process.env.CATALOG_BENCH_OPTIMIZED_PLUGIN
 		? required("CATALOG_BENCH_OPTIMIZED_PLUGIN")
 		: undefined;
@@ -59,6 +61,8 @@ export async function runCase(args = process.argv.slice(2)) {
 		throw new Error(`Unknown layout: ${layout}`);
 	if (!["full", "phases"].includes(mode))
 		throw new Error(`Unknown mode: ${mode}`);
+	if (backend === "grai" && !config.grai)
+		throw new Error("This optional backend requires CATALOG_BENCH_GRAI");
 	if (backend === "grai" && (mode !== "full" || layout !== "shards"))
 		throw new Error("Grai supports full/shards only in this runner");
 	if (backend === "sdk" && layout === "shards")
