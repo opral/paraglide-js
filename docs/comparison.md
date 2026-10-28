@@ -43,6 +43,12 @@ The [benchmark](/benchmark) shows cases where HTTP i18next transfers fewer bytes
 
 To verify unused-message removal yourself, run the [tree-shaking probe](/build-workflow#does-tree-shaking-remove-unused-messages). Generated files are [Git-ignored by default](/build-workflow#should-i-commit-generated-files); compilation is part of dev/build rather than a required generated-file commit before each push.
 
+## Further Reading
+
+- [Why I Replaced i18next with Paraglide JS](https://dropanote.de/en/blog/20250726-why-i-replaced-i18next-with-paraglide-js/) — A developer's experience reducing bundle size from 40KB to 2KB
+- [react-i18next Was Fine. Then I Found Paraglide.](https://brodin.dev/blog/paraglide-vs-react-i18n) — A developer's experience moving from react-i18next to Paraglide
+- [Inlang / ParaglideJS blew my mind](https://dev.to/robertosnap/inlang-paraglidejs-blew-my-mind-3984) — A developer's first impressions using Paraglide JS with Remix
+
 ## Try a representative production build
 
 Use your actual catalogs, routes, locale count, rich text, and deployment target. Check translated content, language switching, generated types, initial transfer, and subsequent navigation before selecting a library.
