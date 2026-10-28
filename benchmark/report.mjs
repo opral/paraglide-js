@@ -65,7 +65,7 @@ const comparisons = [];
 for (const s of scenarios) {
 	const p = summary.find((r) => r.name === nameOf(s, "paraglide"));
 	if (!p) continue;
-	for (const v of variants.filter((v) => v !== "paraglide")) {
+	for (const v of variants.filter((v) => v.startsWith("i18next"))) {
 		const other = summary.find((r) => r.name === nameOf(s, v));
 		if (!other) continue;
 		const c = {

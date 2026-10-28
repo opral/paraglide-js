@@ -142,9 +142,26 @@ server output or patch framework manifests. A framework integration requires
 a public API through which the framework asks for locale client variants and
 selects a returned graph during rendering.
 
-The generated Paraglide layout is `locale-modules`; explicitly selecting
-`message-modules` is rejected for this backend. Locale switching still
-requires full-document navigation. The server, deployment adapter, or static
+The default layout is `locale-modules`. For applications with lazy pages,
+select `message-modules` so Vite can keep each page's messages with that page:
+
+```ts
+paraglideVitePlugin({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	experimentalPerLocaleBuild: true,
+	outputStructure: "message-modules",
+});
+```
+
+Keep message references static, such as `m.greeting()`. Dynamic indexing through
+the complete message namespace can retain the whole catalog. Individual source
+modules provide build-time granularity; Vite bundles them into page and shared
+chunks rather than making a browser request for each message. With message
+modules, source maps can contain inactive locale branches; disable public source
+maps or keep them private.
+
+Locale switching still requires full-document navigation. The server, deployment adapter, or static
 hosting layout is responsible for selecting the directory named by the
 manifest. For directly opening each emitted HTML tree, use a relative Vite
 `base` such as `"./"`.

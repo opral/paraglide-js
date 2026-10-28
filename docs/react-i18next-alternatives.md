@@ -58,9 +58,9 @@ The Vite plugin compiles messages during development and production builds. Plai
 
 ## What the benchmark establishes
 
-The [published benchmark](/benchmark) compares Paraglide with bundled i18next and two HTTP loading strategies. In its client-rendered Vite profile, Paraglide reaches translated DOM readiness sooner in all 45 pairwise comparisons, using medians of five runs. HTTP i18next still transfers fewer bytes in some scenarios. Results do not establish React rendering speed, SSR performance, or a guaranteed percentage saving for your app.
+The [published benchmark](/benchmark) compares default and per-locale Paraglide with bundled i18next and two HTTP loading strategies. Its client-rendered Vite profile measures translated DOM readiness and actual Brotli transfer, using medians of five runs. Every implementation reloads the document once when changing language.
 
-For example, with ten locales, 200 used messages per route, and a 1,000-message catalog, initial transfer is about **60 KiB for Paraglide** and **26 KiB for route-based HTTP i18next**; translated DOM readiness is about **217 ms** and **267 ms**, respectively. Read the conditions and complete results before applying these numbers to your project.
+Per-locale message modules combine active-language delivery with unused-message removal and lazy route splitting. The complete tables retain default Paraglide's transfer-size losses. Read the conditions and distributions before applying the results to your app; they do not establish React rendering speed, SSR performance, or guaranteed savings.
 
 ## When should I choose something else?
 

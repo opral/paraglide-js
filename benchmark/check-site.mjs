@@ -45,13 +45,15 @@ try {
 	const summary = await (
 		await fetch(`${origin}/benchmark-data/results.json`)
 	).json();
-	assert.equal(summary.summary.length, 60);
+	assert.equal(summary.summary.length, 90);
 	const selected = summary.summary.filter(
 		(r) => r.localeCount === 10 && r.used === 200 && r.total === 1000
 	);
 	const paraglide = selected.find((r) => r.variant === "paraglide");
 	const httpRoutes = selected.find((r) => r.variant === "i18next-http-routes");
-	assert.equal(summary.validation.journeys, 300);
+	assert.equal(summary.validation.journeys, 450);
+	assert.equal(summary.graphValidation.lazyRouteIsolation, 30);
+	assert.equal(summary.graphValidation.inactiveLocaleIsolation, 30);
 	const csv = await (
 		await fetch(`${origin}/benchmark-data/summary.csv`)
 	).text();
@@ -80,6 +82,12 @@ try {
 		(await bot.locator("body").innerText()).includes(
 			`${summary.overview.byteLosses}/${summary.overview.comparisonCount}`
 		)
+	);
+	assert(
+		(await bot.locator("body").innerText()).includes("Per locale · optimized")
+	);
+	assert(
+		(await bot.locator("body").innerText()).includes("document navigation")
 	);
 	await crawler.close();
 	const context = await browser.newContext({
@@ -116,6 +124,21 @@ try {
 	assert.equal(
 		await httpRow
 			.getByText((httpRoutes.initialWire.median / 1024).toFixed(1), {
+				exact: true,
+			})
+			.count(),
+		1
+	);
+	const optimized = selected.find((r) => r.variant === "paraglide-per-locale");
+	const optimizedRow = table.getByRole("row").filter({
+		has: page.getByRole("rowheader", {
+			name: "Paraglide · per locale (optimized)",
+			exact: true,
+		}),
+	});
+	assert.equal(
+		await optimizedRow
+			.getByText((optimized.initialWire.median / 1024).toFixed(1), {
 				exact: true,
 			})
 			.count(),

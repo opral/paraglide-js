@@ -4,6 +4,8 @@ import { MarkdownHtml } from "../docs/DocsPage";
 
 const names: Record<string, string> = {
 	paraglide: "Paraglide JS",
+	"paraglide-per-locale-baseline": "Paraglide · per locale (released)",
+	"paraglide-per-locale": "Paraglide · per locale (optimized)",
 	"i18next-bundled": "i18next · bundled",
 	"i18next-http-global": "i18next · HTTP catalog",
 	"i18next-http-routes": "i18next · HTTP routes",
@@ -41,9 +43,8 @@ const metrics: Record<
 const steps = [
 	["initial", "Cold visit"],
 	["navigate", "Navigate"],
-	["switch-locale", "Switch locale"],
+	["switch-locale", "Switch locale (reload)"],
 	["revisit", "Revisit"],
-	["switch-back", "Switch back"],
 ] as const;
 const number = (value: number) => value.toFixed(1);
 
@@ -67,7 +68,8 @@ export function BenchmarkExplorer() {
 		>
 			<p className="mb-4 text-sm text-slate-600">
 				Compare the same working application. Lower is better. Every result is
-				the median of five runs.
+				the median of five runs. Every implementation reloads the document once
+				when changing language.
 			</p>
 			<div className="mb-6 grid grid-cols-2 gap-4">
 				<label className="text-sm font-medium" htmlFor={`${id}-locales`}>
@@ -172,7 +174,7 @@ export function BenchmarkExplorer() {
 										className="mt-2 h-2 rounded bg-slate-200"
 									>
 										<div
-											className={`h-2 rounded ${r.variant === "paraglide" ? "bg-emerald-600" : "bg-blue-600"}`}
+											className={`h-2 rounded ${r.variant.startsWith("paraglide") ? "bg-emerald-600" : "bg-blue-600"}`}
 											style={{ width: `${(selected.value(r) / max) * 100}%` }}
 										/>
 									</div>

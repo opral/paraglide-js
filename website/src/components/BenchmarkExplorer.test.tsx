@@ -35,12 +35,16 @@ describe("benchmark explorer", () => {
 		expect(captions).toContain("Initial translated DOM readiness (ms)");
 		expect(document.querySelectorAll("table").length).toBeGreaterThanOrEqual(5);
 		expect(document.body.textContent).toContain(
-			`${(paraglide.initialWire.median / 1024).toFixed(0)} KiB`
+			`${(paraglide.initialWire.median / 1024).toFixed(1)} KiB`
 		);
 		expect(document.body.textContent).toContain(
 			`${results.overview.byteLosses}/${results.overview.comparisonCount}`
 		);
-		expect(document.body.textContent).toContain("187,000 rendered strings");
+		expect(document.body.textContent).toContain(
+			`${results.validation.stringsChecked.toLocaleString("en-US")} rendered strings`
+		);
+		expect(document.body.textContent).toContain("Per locale · optimized");
+		expect(document.body.textContent).toContain("document navigation");
 		expect(
 			document.querySelector('a[href="/benchmark-data/results.json"]')
 		).not.toBeNull();
@@ -89,7 +93,18 @@ describe("benchmark explorer", () => {
 				(httpRoutes.initialWire.median / 1024).toFixed(1)
 			)
 		).toBeTruthy();
-		expect(within(table).getAllByRole("row")).toHaveLength(5);
+		expect(within(table).getAllByRole("row")).toHaveLength(7);
+		const optimized = selected.find(
+			(r) => r.variant === "paraglide-per-locale"
+		)!;
+		const optimizedRow = within(table)
+			.getByRole("rowheader", { name: "Paraglide · per locale (optimized)" })
+			.closest("tr")!;
+		expect(
+			within(optimizedRow).getByText(
+				(optimized.initialWire.median / 1024).toFixed(1)
+			)
+		).toBeTruthy();
 		fireEvent.change(screen.getByLabelText("Metric"), {
 			target: { value: "journeyBytes" },
 		});

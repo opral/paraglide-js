@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node build.mjs",
     "measure": "node measure.mjs",
-    "bench": "node build.mjs && node correctness.mjs && node measure.mjs && node report.mjs && node publish-results.mjs",
+    "bench": "node run.mjs",
     "report": "node report.mjs",
     "validate": "node correctness.mjs",
     "publish-results": "node publish-results.mjs",
