@@ -84,7 +84,7 @@ function serveBlogAssetsPlugin(): Plugin {
 
 				response.setHeader(
 					"Content-Type",
-					blogAssetMimeTypes.get(extension) ?? "application/octet-stream",
+					blogAssetMimeTypes.get(extension) ?? "application/octet-stream"
 				);
 				createReadStream(assetPath).pipe(response);
 			});
@@ -106,7 +106,13 @@ export default defineConfig(({ mode, command }: ConfigEnv) => {
 			serveBlogAssetsPlugin(),
 			!isTest &&
 				viteStaticCopy({
-					targets: getBlogAssetCopyTargets(),
+					targets: [
+						...getBlogAssetCopyTargets(),
+						...["summary.csv", "results.json"].map((file) => ({
+							src: join(websiteDir, "../benchmark/results", file),
+							dest: "../client/benchmark-data",
+						})),
+					],
 					watch: command === "serve" ? { reloadPageOnChange: true } : undefined,
 				}),
 			tanstackStart({
