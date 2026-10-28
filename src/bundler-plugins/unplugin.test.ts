@@ -442,14 +442,12 @@ test.each(["settings", "config"])(
 		writeFile.mockClear();
 		await plugin.watchChange.call(mockContext, file);
 		expect(send).toHaveBeenLastCalledWith({ type: "full-reload" });
+		// The restored inputs reproduce the output still on disk, so the
+		// recovery compile has nothing to write.
 		const outputWrites = writeFile.mock.calls.filter(([file]) =>
 			String(file).startsWith(outdir)
 		);
-		if (source === "config") {
-			expect(outputWrites).toHaveLength(0);
-		} else {
-			expect(outputWrites.length).toBeGreaterThan(0);
-		}
+		expect(outputWrites).toHaveLength(0);
 		await plugin.watchChange.call(mockContext, file);
 		expect(send).toHaveBeenCalledTimes(2);
 	}
@@ -868,6 +866,53 @@ test("vite plugin warm-restart writes nothing when inputs unchanged (#659)", asy
 	await plugin2.buildStart?.call(mockCtx);
 
 	expect(writeFileSpy).not.toHaveBeenCalled();
+});
+
+// A watch event can reach a plugin instance before its buildStart: another
+// plugin writing its cache during startup, or the previous instance's writes
+// after a Vite server restart. Rewriting the unchanged output from there turns
+// every message module into a fresh watch event for the bundler.
+test("watchChange before buildStart writes nothing when inputs unchanged", async () => {
+	const { workspace, projectDir, outdir } = await createProjectFixture();
+
+	// First process: compile and persist files to outdir.
+	{
+		const { paraglideVitePlugin: vitePlugin } =
+			await import("../bundler-plugins/vite.js");
+		const plugin = vitePlugin({ project: projectDir, outdir }) as any;
+		await plugin.buildStart?.call(mockContext);
+	}
+
+	// Second process: a file changes before its buildStart has run.
+	vi.resetModules();
+	const { paraglideVitePlugin: vitePluginFresh } =
+		await import("../bundler-plugins/vite.js");
+	const plugin2 = vitePluginFresh({ project: projectDir, outdir }) as any;
+
+	// Modification times rather than a writeFile spy: the plugin's tracked fs
+	// copies the fs methods when its state is created.
+	const outputMtimes = async () => {
+		const files = (await realFs.promises.readdir(outdir, {
+			recursive: true,
+		})) as string[];
+		const mtimes: Record<string, bigint> = {};
+		for (const file of files.sort()) {
+			const stat = await realFs.promises.stat(path.join(outdir, file), {
+				bigint: true,
+			});
+			if (stat.isFile()) mtimes[file] = stat.mtimeNs;
+		}
+		return mtimes;
+	};
+	const before = await outputMtimes();
+
+	await plugin2.watchChange?.call(
+		mockContext,
+		path.join(workspace, "other-plugin-cache.json")
+	);
+
+	expect(Object.keys(before).length).toBeGreaterThan(0);
+	expect(await outputMtimes()).toEqual(before);
 });
 
 // Regression test for https://github.com/opral/paraglide-js/issues/741:

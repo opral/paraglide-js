@@ -736,6 +736,15 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 				);
 			}
 
+			// Seed from on-disk hashes when this process has no compilation yet
+			// (an event before buildStart, or after a failed compile), so that
+			// unchanged output isn't rewritten into a burst of watch events.
+			const seededPrevious =
+				state.previousCompilation ??
+				(await seedPreviousCompilationFromOutdir({
+					outdir: args.outdir,
+					fs: args.fs?.promises,
+				}));
 			clearReadFiles();
 			pendingCompilationCachePaths.add(
 				getPersistentCachePath(args, outputStructure)
@@ -744,7 +753,7 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 				state,
 				compilerOptions: args,
 				outputStructure,
-				previousCompilation: state.previousCompilation,
+				previousCompilation: seededPrevious,
 				isServer,
 			});
 			await writePersistentCache(state, args, outputStructure);
