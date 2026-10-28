@@ -168,6 +168,10 @@ npm run preview
 
 Use your app's TypeScript check as well, such as `npx tsc --noEmit` for a single-config project or `npx tsc -b` for Vite's project-reference template.
 
+## Generated files and CI
+
+The plugin regenerates output during development and builds. Its generated `.gitignore` ignores the output directory by default, so commit your source translations and configuration rather than regenerated JavaScript. On a fresh checkout, compile before a TypeScript check that needs the generated imports. See [build workflow, Git, and CI](https://paraglidejs.com/build-workflow) for the exact sequence and a reproducible tree-shaking probe.
+
 ## Rich text, plurals, and existing catalogs
 
 - **Rich text:** use the [React markup adapter](https://paraglidejs.com/markup) when translators need to position links or emphasis. It maps named markup to React elements; avoid inserting translated HTML through `dangerouslySetInnerHTML`.

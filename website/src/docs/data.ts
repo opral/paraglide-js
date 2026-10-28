@@ -225,6 +225,8 @@ export function formatNavTitle(slug: string) {
 		"tanstack-start": "TanStack Start",
 		"vanilla-js-ts": "Vanilla JS/TS",
 		"i18n-routing": "i18n Routing",
+		"react-i18next-alternatives": "Choosing a React i18n Library",
+		"paraglide-vs-react-i18next": "Paraglide vs react-i18next",
 	};
 
 	if (directMap[normalized]) {
