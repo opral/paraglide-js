@@ -36,3 +36,43 @@ jobs:
 
       - name: Run CI
         run: pnpm run ci
+
+  catalog-sdk-compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Paraglide
+        uses: actions/checkout@v4
+
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.23.0
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install Paraglide dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Test the unreleased SDK without changing registry dependency ranges.
+      # SDK PR: https://github.com/opral/inlang/pull/4501
+      - name: Checkout catalog SDK
+        uses: actions/checkout@v4
+        with:
+          repository: opral/inlang
+          ref: 1102ccee29024d0598f46007cbaddbf7797efce5
+          path: .catalog-sdk
+
+      - name: Build and link the unreleased SDK
+        run: |
+          pnpm --dir .catalog-sdk install --frozen-lockfile --filter @inlang/sdk...
+          pnpm --dir .catalog-sdk --filter @inlang/sdk build
+          ln -sfn "$PWD/.catalog-sdk/packages/sdk" node_modules/@inlang/sdk
+
+      - name: Verify catalog integration
+        run: |
+          pnpm build
+          pnpm exec vitest run src/compiler/compile-catalog.test.ts src/compiler/compile.catalog-loader.test.ts src/compiler/compile.catalog-cache.test.ts src/compiler/compile-lifecycle.test.ts

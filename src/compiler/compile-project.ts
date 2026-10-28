@@ -1,5 +1,10 @@
 import { compileBundle } from "./compile-bundle.js";
-import { selectBundleNested, type InlangProject } from "@inlang/sdk";
+import {
+	selectBundleNested,
+	type InlangProject,
+	type BundleNested,
+	type ProjectSettings,
+} from "@inlang/sdk";
 import { lookup } from "../services/lookup.js";
 import * as localeModules from "./output-structure/locale-modules.js";
 import * as messageModules from "./output-structure/message-modules.js";
@@ -35,6 +40,30 @@ export const compileProject = async (args: {
 	projectPath?: string;
 	compilerOptions?: Omit<CompilerOptions, "fs" | "project" | "outdir">;
 }): Promise<Record<string, string>> => {
+	return compileCatalog({
+		...args,
+		catalog: {
+			settings: await args.project.settings.get(),
+			bundles: await selectBundleNested(args.project.db).execute(),
+		},
+	});
+};
+
+/** The detached settings and nested messages needed by the compiler. */
+export type CatalogInput = {
+	settings: ProjectSettings;
+	bundles: BundleNested[];
+};
+
+/**
+ * Compiles a read-only project catalog without querying or opening a database.
+ * Both this entry point and compileProject use the same code generator.
+ */
+export const compileCatalog = async (args: {
+	catalog: CatalogInput;
+	projectPath?: string;
+	compilerOptions?: Omit<CompilerOptions, "fs" | "project" | "outdir">;
+}): Promise<Record<string, string>> => {
 	const optionsWithDefaults = {
 		...defaultCompilerOptions,
 		...args.compilerOptions,
@@ -60,8 +89,7 @@ export const compileProject = async (args: {
 		}
 	}
 
-	const settings = await args.project.settings.get();
-	const bundles = await selectBundleNested(args.project.db).execute();
+	const { settings, bundles } = args.catalog;
 
 	//Maps each language to it's fallback
 	//If there is no fallback, it will be undefined

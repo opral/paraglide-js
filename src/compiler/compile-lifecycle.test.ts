@@ -11,6 +11,8 @@ vi.mock("@inlang/sdk", async (importOriginal) => {
 	const sdk = await importOriginal<typeof import("@inlang/sdk")>();
 	return {
 		...sdk,
+		// Explicitly exercise compatibility with published SDKs lacking this API.
+		loadProjectCatalog: undefined,
 		loadProjectFromDirectory: vi.fn(sdk.loadProjectFromDirectory),
 	};
 });
