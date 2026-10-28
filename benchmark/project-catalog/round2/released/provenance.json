@@ -15,5 +15,6 @@
   "baselineSdkVersion": "4.0.4",
   "baselineSdkCatalogApi": false,
   "baselineDescription": "Published SDK 4.0.4; compiler source matches main base239411bb; separate cohort from frozen earlier catalog implementation.",
-  "sdkImplementationCommit": "b5121df98c2e953aba2ff670c50e706d6b120bea"
+  "sdkImplementationCommit": "b5121df98c2e953aba2ff670c50e706d6b120bea",
+  "postMeasurementChanges": "Final formatting changed emitted whitespace in the lazy init module. A subsequent strict-checkJs review fix emits parameter-free factory callbacks only when a message reads no inputs; the timed fixtures all read username and are unaffected. Recorded fingerprints describe the measured snapshot, not the final rebuild."
 }

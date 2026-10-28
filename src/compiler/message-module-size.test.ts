@@ -358,6 +358,7 @@ for (const [fixtureName, inputCatalog] of [
 					strict: true,
 					allowJs: true,
 					checkJs: true,
+					noUnusedParameters: true,
 					noEmit: true,
 					module: ts.ModuleKind.Node16,
 					moduleResolution: ts.ModuleResolutionKind.Node16,

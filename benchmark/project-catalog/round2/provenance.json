@@ -12,5 +12,6 @@
   "frozenPluginSha256": "d06d2899349517f0a7010ea1e47350c3f0f7f45dd4579cb7fd2c64ccd25a926c",
   "optimizedPluginSha256": "9274091ca2d0570270294bafc201286132232e1b52263b02c76ac714a721ba57",
   "primaryScope": "released/ and complete CLI results use this built artifact snapshot.",
-  "intermediateApiCohortNote": "The additional 90-trial API cohort predates the final lazy jiti import in the CLI config loader. That module is outside the measured compile API graph; emitted output and measured API code are unchanged."
+  "intermediateApiCohortNote": "The additional 90-trial API cohort predates the final lazy jiti import in the CLI config loader. That module is outside the measured compile API graph; emitted output and measured API code are unchanged.",
+  "postMeasurementChanges": "Final formatting changed emitted whitespace in the lazy init module. A subsequent strict-checkJs review fix emits parameter-free factory callbacks only when a message reads no inputs; the timed fixtures all read username and are unaffected. Recorded fingerprints describe the measured snapshot, not the final rebuild."
 }

@@ -210,14 +210,14 @@ function tryCompileInlineBundle(
 			declarations: args.bundle.declarations,
 			locale: message.locale,
 		});
-		if (args.sharedMessageFactory) {
-			expressions[message.locale] =
-				`i => /** @type {LocalizedString} */ (${compiled.code})`;
-			continue;
-		}
 		const readsInput = pattern.some(
 			(p) => p.type === "expression" && p.arg.type === "variable-reference"
 		);
+		if (args.sharedMessageFactory) {
+			expressions[message.locale] =
+				`${readsInput ? "i" : "()"} => /** @type {LocalizedString} */ (${compiled.code})`;
+			continue;
+		}
 		const plainText = pattern.every((p) => p.type === "text")
 			? pattern
 					.map((p) => (p.type === "text" ? p.value : ""))
