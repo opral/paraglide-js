@@ -4,8 +4,7 @@ import { MarkdownHtml } from "../docs/DocsPage";
 
 const names: Record<string, string> = {
 	paraglide: "Paraglide JS",
-	"paraglide-per-locale-baseline": "Paraglide · per locale (released)",
-	"paraglide-per-locale": "Paraglide · per locale (optimized)",
+	"paraglide-per-locale": "Paraglide · per locale",
 	"i18next-bundled": "i18next · bundled",
 	"i18next-http-global": "i18next · HTTP catalog",
 	"i18next-http-routes": "i18next · HTTP routes",
@@ -67,9 +66,7 @@ export function BenchmarkExplorer() {
 			className="my-6 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:p-6"
 		>
 			<p className="mb-4 text-sm text-slate-600">
-				Compare the same working application. Lower is better. Every result is
-				the median of five runs. Every implementation reloads the document once
-				when changing language.
+				Five-run medians; lower is better. Language changes reload the page.
 			</p>
 			<div className="mb-6 grid grid-cols-2 gap-4">
 				<label className="text-sm font-medium" htmlFor={`${id}-locales`}>
@@ -141,8 +138,7 @@ export function BenchmarkExplorer() {
 			</div>
 			<noscript>
 				<p className="mb-3 text-sm text-slate-600">
-					All results are listed below. Enable JavaScript to filter this
-					comparison.
+					All results are below. Enable JavaScript to filter.
 				</p>
 			</noscript>
 			<p role="status" className="mb-3 text-sm text-slate-600">
@@ -194,13 +190,12 @@ export function BenchmarkExplorer() {
 				</table>
 			</div>
 			<p className="mt-4 text-xs text-slate-600">
-				DOM readiness means translated text has reached the DOM. It is not a
-				paint, Core Web Vitals, or interaction-readiness measurement. Transfer
-				includes Brotli responses and response headers.
+				Translated text in the DOM, not paint or interaction readiness. Brotli
+				transfer includes response headers.
 			</p>
 			<details className="mt-5">
 				<summary className="cursor-pointer text-sm font-medium">
-					Explore navigation and locale-switch timing
+					Navigation and locale-switch timing
 				</summary>
 				<div className="mt-3 overflow-x-auto">
 					<table className="w-full text-left text-xs">
@@ -237,11 +232,9 @@ export function BenchmarkExplorer() {
 				</div>
 			</details>
 			<p className="mt-5 text-xs text-slate-600">
-				Paraglide {data.versions["@inlang/paraglide-js"]} · i18next{" "}
-				{data.versions.i18next} · Vite {data.versions.vite}. Fixed 40 ms network
-				latency, 10 Mbps download, 4× CPU throttling on one host. All scenarios
-				remain in the tables below, including cases where Paraglide transfers
-				more bytes.
+				<a href="#methodology" className="underline">
+					Conditions, versions, and methodology
+				</a>
 			</p>
 		</section>
 	);

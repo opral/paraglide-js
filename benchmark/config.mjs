@@ -12,7 +12,6 @@ export const locales = [
 ];
 export const variants = [
 	"paraglide",
-	"paraglide-per-locale-baseline",
 	"paraglide-per-locale",
 	"i18next-bundled",
 	"i18next-http-global",

@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { build, createBuilder } from "vite";
-import { compile, paraglideVitePlugin } from "@inlang/paraglide-js";
+import { compile } from "@inlang/paraglide-js";
 import { fixture, pluralForms } from "./fixture.mjs";
 import { scenarios, variants, nameOf } from "./config.mjs";
 const localCompiler = await import("../dist/index.js");
@@ -162,9 +162,7 @@ export const plural=count=>translate('common','benchItems',{count});`;
 			const builder = await createBuilder({
 				...buildOptions,
 				plugins: [
-					(variant === "paraglide-per-locale"
-						? localCompiler.paraglideVitePlugin
-						: paraglideVitePlugin)({
+					localCompiler.paraglideVitePlugin({
 						project: path.join(workspace, "project.inlang"),
 						outdir: generated,
 						isServer: "false",

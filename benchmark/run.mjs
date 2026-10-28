@@ -71,7 +71,7 @@ if (process.env.SMOKE) {
 		await fs.readFile(path.join(output, "results.json"), "utf8")
 	);
 	const checks = await inspectLocaleGraphs(output, raw, fixture);
-	if (checks.lazyRouteIsolation !== 2 || checks.inactiveLocaleIsolation !== 2)
+	if (checks.lazyRouteIsolation !== 1 || checks.inactiveLocaleIsolation !== 1)
 		throw Error("Incomplete smoke isolation checks");
 	console.log(`Benchmark smoke passed; diagnostics: ${output}`);
 } else {

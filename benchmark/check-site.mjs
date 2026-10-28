@@ -45,15 +45,19 @@ try {
 	const summary = await (
 		await fetch(`${origin}/benchmark-data/results.json`)
 	).json();
-	assert.equal(summary.summary.length, 90);
+	assert.equal(summary.summary.length, 75);
+	assert.equal(new Set(summary.summary.map((r) => r.variant)).size, 5);
+	assert(
+		!summary.summary.some((r) => r.variant === "paraglide-per-locale-baseline")
+	);
 	const selected = summary.summary.filter(
 		(r) => r.localeCount === 10 && r.used === 200 && r.total === 1000
 	);
 	const paraglide = selected.find((r) => r.variant === "paraglide");
 	const httpRoutes = selected.find((r) => r.variant === "i18next-http-routes");
-	assert.equal(summary.validation.journeys, 450);
-	assert.equal(summary.graphValidation.lazyRouteIsolation, 30);
-	assert.equal(summary.graphValidation.inactiveLocaleIsolation, 30);
+	assert.equal(summary.validation.journeys, 375);
+	assert.equal(summary.graphValidation.lazyRouteIsolation, 15);
+	assert.equal(summary.graphValidation.inactiveLocaleIsolation, 15);
 	const csv = await (
 		await fetch(`${origin}/benchmark-data/summary.csv`)
 	).text();
@@ -84,10 +88,15 @@ try {
 		)
 	);
 	assert(
-		(await bot.locator("body").innerText()).includes("Per locale · optimized")
+		(await bot.locator("body").innerText()).includes("Paraglide · per locale")
 	);
 	assert(
 		(await bot.locator("body").innerText()).includes("document navigation")
+	);
+	assert(
+		!/per locale \((released|optimized)\)/i.test(
+			await bot.locator("body").innerText()
+		)
 	);
 	await crawler.close();
 	const context = await browser.newContext({
@@ -129,16 +138,16 @@ try {
 			.count(),
 		1
 	);
-	const optimized = selected.find((r) => r.variant === "paraglide-per-locale");
-	const optimizedRow = table.getByRole("row").filter({
+	const perLocale = selected.find((r) => r.variant === "paraglide-per-locale");
+	const perLocaleRow = table.getByRole("row").filter({
 		has: page.getByRole("rowheader", {
-			name: "Paraglide · per locale (optimized)",
+			name: "Paraglide · per locale",
 			exact: true,
 		}),
 	});
 	assert.equal(
-		await optimizedRow
-			.getByText((optimized.initialWire.median / 1024).toFixed(1), {
+		await perLocaleRow
+			.getByText((perLocale.initialWire.median / 1024).toFixed(1), {
 				exact: true,
 			})
 			.count(),

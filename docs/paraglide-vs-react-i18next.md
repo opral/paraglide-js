@@ -63,7 +63,7 @@ Because messages are plain functions, your bundler **tree-shakes the ones you do
 
 ## Bundle size
 
-The [current benchmark](/benchmark) compares default Paraglide, per-locale message modules before and after compiler inlining, bundled i18next, and two HTTP configurations. It measures translated DOM readiness and actual Brotli transfer for the same client-rendered Vite app, using five-trial medians. Every implementation reloads the document once when changing language.
+The [current benchmark](/benchmark) compares default and per-locale Paraglide, bundled i18next, and two HTTP configurations. It measures translated DOM readiness and actual Brotli transfer for the same client-rendered Vite app, using five-trial medians. Every implementation reloads the document once when changing language.
 
 Per-locale message modules reduce active-language delivery and keep lazy routes' private messages out of the initial download. The benchmark retains default Paraglide's byte losses alongside the per-locale results. Read the complete tables and conditions; these are application-level measurements rather than standalone library sizes, React rendering timings, or universal performance claims.
 
