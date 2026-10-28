@@ -43,7 +43,7 @@ try {
 	const raw = await (await fetch(`${origin}/benchmark`)).text();
 	assert(raw.includes('aria-label="Interactive benchmark explorer"'));
 	const summary = await (
-		await fetch(`${origin}/benchmark-data/summary.json`)
+		await fetch(`${origin}/benchmark-data/results.json`)
 	).json();
 	assert.equal(summary.summary.length, 60);
 	const selected = summary.summary.filter(
@@ -51,10 +51,7 @@ try {
 	);
 	const paraglide = selected.find((r) => r.variant === "paraglide");
 	const httpRoutes = selected.find((r) => r.variant === "i18next-http-routes");
-	const measurements = await (
-		await fetch(`${origin}/benchmark-data/results.json`)
-	).json();
-	assert.equal(measurements.results.length, 300);
+	assert.equal(summary.validation.journeys, 300);
 	const csv = await (
 		await fetch(`${origin}/benchmark-data/summary.csv`)
 	).text();
@@ -81,7 +78,7 @@ try {
 	);
 	assert(
 		(await bot.locator("body").innerText()).includes(
-			`${summary.losses.length}/${summary.comparisons.length}`
+			`${summary.overview.byteLosses}/${summary.overview.comparisonCount}`
 		)
 	);
 	await crawler.close();

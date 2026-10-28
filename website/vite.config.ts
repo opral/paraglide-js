@@ -108,7 +108,7 @@ export default defineConfig(({ mode, command }: ConfigEnv) => {
 				viteStaticCopy({
 					targets: [
 						...getBlogAssetCopyTargets(),
-						...["summary.csv", "summary.json", "results.json"].map((file) => ({
+						...["summary.csv", "results.json"].map((file) => ({
 							src: join(websiteDir, "../benchmark/results", file),
 							dest: "../client/benchmark-data",
 						})),

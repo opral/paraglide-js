@@ -72,7 +72,7 @@ For example, with ten locales, 200 used messages, and a 1,000-message catalog, P
 
 ### Same working application
 
-All four implementations render the same text, interpolation values, five lazy-loaded routes, language controls, plural output, and locale-sensitive dates. The corpus contains distinct translations from Cal.diy's public translation files, with source hashes, source-key mappings, and the upstream MIT license retained in the benchmark source. Naturally identical labels remain; the fixture does not replace translations with copies of English.
+All four implementations render the same text, interpolation values, five lazy-loaded routes, language controls, plural output, and locale-sensitive dates. The corpus contains distinct translations from Cal.diy's public translation files, with source hashes and the upstream MIT license retained in the benchmark source. Source-key mappings are generated locally. Naturally identical labels remain; the fixture does not replace translations with copies of English.
 
 The matrix covers 2, 5, and 10 locales; catalogs of 200, 1,000, and 4,000 messages; and 50 or 200 used messages per route. Combinations that cannot supply five routes' messages are excluded before measurement. Twenty messages are shared across routes. Route namespaces partition the remaining catalog evenly; this is a controlled fixture, not a reconstruction of Cal.diy's application routes.
 
@@ -106,8 +106,7 @@ This cohort covers client rendering. It does not establish results for SSR, hydr
 Measured October 28, 2026. Paraglide JS **2.29.3**, i18next **26.5.11**, HTTP backend **4.0.6**, Vite **8.3.5**, Playwright **1.50.1**. Host: macOS arm64, Node v22.17.0, Chromium 133.0.6943.16. Dependencies are pinned in the lockfile.
 
 - [Download the summary CSV](/benchmark-data/summary.csv)
-- [Download all browser measurements](/benchmark-data/results.json)
-- [Download summary distributions and comparisons](/benchmark-data/summary.json)
+- [Download scenario results JSON](/benchmark-data/results.json)
 - [Benchmark source and reproduction instructions](https://github.com/opral/paraglide-js/tree/main/benchmark)
 
 ## Reproduce and contribute
@@ -119,6 +118,6 @@ pnpm --filter @inlang/paraglide-js-benchmark exec playwright install --only-shel
 pnpm --filter @inlang/paraglide-js-benchmark bench
 ```
 
-The benchmark builds the matrix, checks every locale and route, runs five browser repetitions, and generates the published result files and this page. Builds use the pinned published compiler so the published measurements can be reproduced. Test an optimization as a separately identified variant and retain the baseline and any losses.
+The benchmark builds the matrix, checks every locale and route, runs five browser repetitions, and generates the published result files and this page. Detailed request logs, correctness diagnostics, and fixture mappings stay in ignored local output files; only the compact scenario results and CSV are committed. Builds use the pinned published compiler so the published measurements can be reproduced. Test an optimization as a separately identified variant and retain the baseline and any losses.
 
-Use `pnpm --filter @inlang/paraglide-js-benchmark publish-results --saved` to regenerate the page and explorer from the committed measurements without rerunning browser trials. Human and machine readers receive the same results; filtering does not remove the complete static tables.
+Use `pnpm --filter @inlang/paraglide-js-benchmark publish-results --saved` to regenerate the page and explorer from the committed scenario results without rerunning browser trials. Human and machine readers receive the same results; filtering does not remove the complete static tables.

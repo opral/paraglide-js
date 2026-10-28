@@ -12,7 +12,7 @@ import { BenchmarkContent, BenchmarkExplorer } from "./BenchmarkExplorer";
 import { loadDocsPage } from "../docs/data";
 import { buildPageHead } from "../docs/seo";
 import { paraglideStaticPages } from "../ssg/static-pages";
-import results from "../../../benchmark/results/summary.json";
+import results from "../../../benchmark/results/results.json";
 
 const selected = results.summary.filter(
 	(r) => r.localeCount === 10 && r.used === 200 && r.total === 1000
@@ -38,7 +38,7 @@ describe("benchmark explorer", () => {
 			`${(paraglide.initialWire.median / 1024).toFixed(0)} KiB`
 		);
 		expect(document.body.textContent).toContain(
-			`${results.losses.length}/${results.comparisons.length}`
+			`${results.overview.byteLosses}/${results.overview.comparisonCount}`
 		);
 		expect(document.body.textContent).toContain("187,000 rendered strings");
 		expect(

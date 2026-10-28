@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from "react";
-import data from "../../../benchmark/results/explorer.json";
+import data from "../../../benchmark/results/results.json";
 import { MarkdownHtml } from "../docs/DocsPage";
 
 const names: Record<string, string> = {
