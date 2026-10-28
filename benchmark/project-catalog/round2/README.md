@@ -1,5 +1,11 @@
 # Cold compile follow-up benchmark
 
+> Historical pre-removal results: the fastest updated-plugin cases below used the
+> experimental string-only V2 importer, which has been removed. Current results
+> using the existing `importFiles()` API are in [round3/no-v2](../round3/no-v2/README.md).
+> Keep the recorded timings and provenance below as historical evidence only.
+
+
 This harness measures the frozen and candidate Paraglide stacks, an explicitly
 selected candidate message-format plugin, and Grai. It generates fresh synthetic
 projects and output directories for every trial. Incremental compilation and

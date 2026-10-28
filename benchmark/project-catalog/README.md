@@ -1,6 +1,7 @@
 # Read-only SDK catalog compilation
 
-Latest measurements and implementation details are in [round2](./round2/README.md).
+Current measurements using the existing importer are in [round3/no-v2](./round3/no-v2/README.md).
+[Round2](./round2/README.md) records the superseded experimental importer.
 The measurements below record the initial catalog implementation.
 
 Directory compilation uses `@inlang/sdk.loadProjectCatalog()` when that API is
