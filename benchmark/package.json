@@ -10,7 +10,8 @@
     "report": "node report.mjs",
     "validate": "node correctness.mjs",
     "publish-results": "node publish-results.mjs",
-    "test:site": "node check-site.mjs"
+    "test:site": "node check-site.mjs",
+    "check:tree-shaking": "node check-tree-shaking.mjs"
   },
   "devDependencies": {
     "@inlang/paraglide-js": "2.29.3",

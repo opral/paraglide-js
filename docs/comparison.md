@@ -1,66 +1,50 @@
 ---
 title: Comparison
-og:title: vs i18next, React-Intl & Others
-description: How Paraglide JS compares to i18next, React-Intl, and other i18n libraries - bundle size, type safety, and tree-shaking.
+og:title: Paraglide JS, i18next, and React Intl — architecture and loading trade-offs
+description: Compare generated message functions, typed parameters, catalog loading, locale switching, and SSR integration in Paraglide JS, i18next, and React Intl.
 ---
 
-# Comparison
+# Compare Paraglide JS, i18next, and React Intl
 
-Paraglide's compiler approach enables optimizations that are not possible with runtime libraries. Below is a comparison of Paraglide JS with other popular i18n libraries.
+Paraglide compiles source translations into typed JavaScript functions. i18next and React Intl resolve messages through runtime APIs, with catalog delivery configured by your app. Choose based on your translation workflow, loading strategy, and framework integration.
 
-If you are looking for a benchmark, check out the [interactive benchmark](/benchmark).
+For a new React app, start with [choosing a React + Vite i18n library](/react-i18next-alternatives). For a focused migration comparison, read [Paraglide vs react-i18next](/paraglide-vs-react-i18next). The [benchmark](/benchmark) measures configured applications, including both bundled and HTTP-loaded i18next.
 
-> [!TIP]
-> Coming from a specific library? See the focused guides: [Paraglide JS vs react-i18next](/paraglide-vs-react-i18next) and [react-i18next alternatives](/react-i18next-alternatives).
+## Messages, types, and production loading
 
-> [!NOTE]
-> Please open a pull request if the comparison is outdated, incorrect, or can be improved.
+| Capability | Paraglide JS | i18next | React Intl / FormatJS |
+| --- | --- | --- | --- |
+| Message access | Generated function calls | Runtime dictionary lookup | Runtime formatting APIs and React components |
+| Unused-message removal | Static references let the bundler remove unused message functions | Catalog size depends on resource and namespace loading | Catalog size depends on supplied messages and application splitting |
+| Default locale delivery | Retained messages include configured locales | [Bundle or load languages/namespaces](https://www.i18next.com/how-to/add-or-load-translations) | Application supplies messages for the active locale |
+| Typed message IDs | Generated from source messages | [Typed resources and selector API](https://www.i18next.com/overview/typescript) | [Configurable typed IDs](https://formatjs.github.io/docs/react-intl/#typing-message-ids-and-locale) |
+| Typed interpolation parameters | Generated message signatures | Inference depends on resource declarations and configuration | Check the [typed-message APIs](https://formatjs.github.io/docs/react-intl/) for your version and resource setup |
+| Plurals and selection | [Variants](/variants), including plural categories | [Plurals](https://www.i18next.com/translation-function/plurals) and context | [ICU MessageFormat](https://formatjs.github.io/docs/core-concepts/icu-syntax) |
+| Rich text in React | [Typed markup adapter](/markup) | [Trans component](https://react.i18next.com/latest/trans-component) | [Rich-text formatting](https://formatjs.github.io/docs/react-intl/components/#rich-text-formatting) |
+| Translation changes after deployment | Compiled message changes require build/deployment | Runtime resources can be updated independently | App can supply updated messages at runtime |
 
-## Basic Features
+Typed IDs, generated parameter contracts, and runtime validation are different guarantees. All depend on your application's checking and delivery setup. Runtime lookup does not require bundling all languages or every catalog entry.
 
-| Feature                                                    | Paraglide JS                                                                              | i18next                                                           | React-Intl/FormatJS                                                                                               |
-| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Architecture**                                           | 🏗️ Compiler                                                                               | 🏃 Runtime                                                        | 🏃 Runtime                                                                                                        |
-| **Tree-shaking**                                           | ✅ Yes                                                                                    | ❌ No                                                             | ❌ No                                                                                                             |
-| **i18n Bundle Size**                                       | ✅ [Up to 70% smaller](/benchmark) via tree-shaking | ⚠️ Ships all messages                                             | ⚠️ Ships all messages                                                                                             |
-| **Type Safety**                                            | ✅ Yes                                                                                    | [🟠 Via workarounds](https://www.i18next.com/overview/typescript) | ❌ No                                                                                                             |
-| **IDE Autocomplete**                                       | ✅ Full (keys + parameters)                                                               | 🟠 Keys only, requires setup                                      | ❌ No                                                                                                             |
-| **Pluralization**                                          | [✅ Yes](https://paraglidejs.com/variants#pluralization) | [✅ Yes](https://www.i18next.com/translation-function/plurals)    | [✅ Yes](https://formatjs.github.io/docs/core-concepts/icu-syntax#plural-format)                                  |
-| **Framework agnostic (React, Svelte, Vue, ...)**           | ✅ Yes                                                                                    | [🟠 Wrappers needed](https://github.com/i18next/react-i18next)    | [🟠 Wrappers needed](https://formatjs.github.io/docs/react-intl/#the-react-intl-package)                          |
-| **Metaframework agnostic (NextJS, SvelteKit, Astro, ...)** | ✅ Yes                                                                                    | [🟠 Wrappers needed](https://github.com/i18next/next-i18next)     | ❌ Only supports plain JS or React ([source](https://formatjs.github.io/docs/react-intl/#the-react-intl-package)) |
+## Routing and framework integration
 
-## Advanced Features
+Paraglide provides [locale detection strategies](/strategy), [localized URL helpers](/i18n-routing), and [middleware](/middleware) for request-scoped SSR. Follow the maintained [TanStack Start](/tanstack-start), [SvelteKit](/sveltekit), or [React Router](/react-router) integration for your framework. Plain message functions also work outside React.
 
-| Feature                                                                                                       | Paraglide JS                                                                                                                               | i18next                                                                                                          | React-Intl/FormatJS                                                                              |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| **Configurable strategies** [ℹ️](https://paraglidejs.com/strategy)</sup>     | [✅ Yes](https://paraglidejs.com/strategy)                                                                | [🟠 Via plugins](https://github.com/i18next/i18next-browser-languageDetector)                                    | ❌ No                                                                                            |
-| **Localized (i18n) routing**                                                                                  | [✅ Yes](https://paraglidejs.com/i18n-routing)                                                            | ❌ No                                                                                                            | ❌ No                                                                                            |
-| **SSR/SSG support**                                                                                           | [✅ Built-in](https://paraglidejs.com/server-side-rendering) with request isolation via AsyncLocalStorage | [🟠 Via middleware](https://github.com/i18next/i18next-http-middleware), risk of locale bleeding                 | 🟠 Limited, React only                                                                           |
-| **Variants** [ℹ️](https://paraglidejs.com/variants)</sup>                    | [✅ Yes](https://paraglidejs.com/variants)                                                                | ❌ No                                                                                                            | ❌ No                                                                                            |
-| **Multi-tenancy** [ℹ️](https://paraglidejs.com/multi-tenancy)</sup>          | [✅ Yes](https://paraglidejs.com/multi-tenancy)                                                           | ❌ No                                                                                                            | ❌ No                                                                                            |
-| **Message syntax agnostic** [ℹ️](https://paraglidejs.com/file-formats)</sup> | [✅ Via inlang plugins](https://inlang.com/c/plugins)                                                                                      | [✅ Via different backends](https://www.i18next.com/how-to/add-or-load-translations#load-using-a-backend-plugin) | ❌ Only ICU                                                                                      |
-| **Lazy locale loading** [ℹ️](#lazy-locale-loading)                                                            | [🟠 Experimental](https://paraglidejs.com/benchmark)                                                      | [✅ HTTP backend](https://github.com/i18next/i18next-http-backend)                                               | ❌ No                                                                                            |
-| **Component interpolation**                                                                                   | [✅ Yes](https://paraglidejs.com/markup)                                                                     | [🟠 Only for React](https://react.i18next.com/legacy-v9/trans-component)                                         | [🟠 Only for React](https://formatjs.github.io/docs/react-intl/components/#rich-text-formatting) |
+i18next has framework bindings and [server middleware](https://github.com/i18next/i18next-http-middleware); React Intl supplies React formatting APIs. Compose locale routing and request isolation with your framework rather than sharing mutable locale state across concurrent SSR requests. See each integration's SSR instructions.
 
-Paraglide supports ICU MessageFormat 1 syntax through the [inlang-icu-messageformat-1 plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1).
+Paraglide's standard locale switch performs document navigation. react-i18next can update a running React tree through `changeLanguage()`, while React Intl receives locale and messages through its provider. If preserving in-memory UI state across language changes is essential, include that requirement in your evaluation.
 
-### Lazy locale loading
+## Tree-shaking and active-locale loading
 
-Paraglide compiles messages into functions that contain all locales. Lazy locale loading instead fetches only the current locale's messages on-demand.
+Unused-message tree-shaking removes message functions your application does not reference. Active-locale loading avoids delivering translations for other languages. One does not prove the other.
 
-**When does this matter?**
+Default Paraglide output includes configured locales for each retained message. [Experimental locale splitting](/compiling-messages) has additional deployment and framework constraints. There is no universal threshold such as “20 locales” at which a loading strategy becomes better: message usage, compression, caching, and route splitting all matter.
 
-Under ~20 locales, tree-shaking unused messages outweighs the cost of bundling all locales per message—Paraglide remains more efficient. Beyond ~20 locales, lazy loading may become beneficial depending on your app's message usage patterns.
+The [benchmark](/benchmark) shows cases where HTTP i18next transfers fewer bytes while Paraglide reaches translated DOM readiness sooner. Read the conditions and measured losses as well as the wins. These client-rendered Vite measurements do not establish SSR, React rendering, or cross-device performance.
 
-Paraglide has an [experimental locale splitting option](https://paraglidejs.com/benchmark) for apps that need lazy locale loading.
+To verify unused-message removal yourself, run the [tree-shaking probe](/build-workflow#does-tree-shaking-remove-unused-messages). Generated files are [Git-ignored by default](/build-workflow#should-i-commit-generated-files); compilation is part of dev/build rather than a required generated-file commit before each push.
 
-> [!NOTE]
-> **There is no locale limit in Paraglide.** The library works fine with any number of locales. Lazy loading is an optimization, not a requirement.
+## Try a representative production build
 
-## Further Reading
+Use your actual catalogs, routes, locale count, rich text, and deployment target. Check translated content, language switching, generated types, initial transfer, and subsequent navigation before selecting a library.
 
-- [Why I Replaced i18next with Paraglide JS](https://dropanote.de/en/blog/20250726-why-i-replaced-i18next-with-paraglide-js/) — A developer's experience reducing bundle size from 40KB to 2KB
-- [react-i18next Was Fine. Then I Found Paraglide.](https://brodin.dev/blog/paraglide-vs-react-i18n) — A developer's experience moving from react-i18next to Paraglide
-- [Inlang / ParaglideJS blew my mind](https://dev.to/robertosnap/inlang-paraglidejs-blew-my-mind-3984) — A developer's first impressions using Paraglide JS with Remix
-
-Ready to try Paraglide? [Get started](/vite) in under 5 minutes.
+[React + Vite guide](/react) · [Build workflow and CI](/build-workflow) · [Benchmark and reproduction](/benchmark)

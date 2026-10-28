@@ -6,7 +6,7 @@ description: A side-by-side comparison of Paraglide JS and react-i18next for Rea
 
 # Paraglide JS vs react-i18next
 
-**Paraglide JS is a compiler-first alternative to react-i18next: up to [70% smaller i18n bundles](/benchmark), type safety with zero setup, and a native fit for React + Vite — and you can migrate without rewriting your translation files.**
+**Paraglide JS is a compiler-first alternative to react-i18next for React + Vite: generated message functions with typed keys and parameters, and unused-message tree-shaking. Existing i18next JSON can be compiled through a format plugin while you migrate call sites.**
 
 ```bash
 npx @inlang/paraglide-js init
@@ -18,7 +18,7 @@ npx @inlang/paraglide-js init
 
 ## TL;DR
 
-- **Choose Paraglide** if you want the smallest possible i18n bundle, end-to-end type safety with zero setup, and a first-class fit for Vite/ESM build tools. Ideal for greenfield React + Vite apps.
+- **Choose Paraglide** when your translations ship with app builds and you want generated parameter types and unused-message removal in a Vite/ESM app.
 - **Choose react-i18next** if you depend on a large existing i18next codebase, need translations that are only known at runtime (e.g. CMS-driven keys), or rely on specific i18next plugins and its mature ecosystem.
 - **You don't have to rewrite to try Paraglide.** It can compile your existing i18next JSON files via the [i18next plugin](https://inlang.com/m/3i8bor92/plugin-inlang-i18next) — an integration **officially supported by the i18next team** — so you can migrate incrementally.
 
@@ -27,10 +27,10 @@ npx @inlang/paraglide-js init
 | | Paraglide JS | react-i18next |
 | --- | --- | --- |
 | **Architecture** | 🏗️ Compiler (build-time) | 🏃 Runtime dictionary |
-| **i18n bundle size** | [Up to 70% smaller](/benchmark) via per-message tree-shaking | Ships the i18next runtime + your catalogs |
-| **Bundle growth** | Flat — only *used* messages ship | Grows with catalog size |
+| **Production loading** | Unused message functions removed; retained messages include configured locales by default | Runtime plus configured resources; languages/namespaces can be loaded on demand |
+| **Unused catalog entries** | Static references let the bundler remove unused functions | Cost depends on catalog bundling, namespace boundaries, and loading |
 | **Type safety** | ✅ Generated typed functions (keys **and** params) | ✅ [Typed resources and selector API](https://www.i18next.com/overview/typescript), requires configuration |
-| **Setup** | One Vite plugin, no provider/context | `I18nextProvider` + init + hooks |
+| **Setup** | One Vite plugin, no provider/context | Initialize i18next + React integration; [provider for multiple instances/SSR](https://react.i18next.com/latest/i18nextprovider) |
 | **Calling a message** | `m.greeting({ name })` (plain function) | `t("greeting", { name })` via `useTranslation()` |
 | **Rich text / `<Trans>`** | ✅ Typed [markup adapter](https://paraglidejs.com/markup) | ✅ `<Trans>` component |
 | **Pluralization / ICU** | ✅ `Intl.PluralRules` + [variants](https://paraglidejs.com/variants); [ICU plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1) | ✅ Mature |
@@ -63,9 +63,11 @@ Because messages are plain functions, your bundler **tree-shakes the ones you do
 
 ## Bundle size
 
-In the [Paraglide benchmark](/benchmark) (5 locales, 100 used messages, 200 total), Paraglide shipped **47 KB** vs **205 KB** for i18next. Because only *used* messages ship, Paraglide's bundle stays flat as the catalog grows — 47 KB whether the project has 200, 500, or 1,000 total messages — while the runtime bundle grows from **205 KB to 414 KB**.
+The [current benchmark](/benchmark) measures translated DOM readiness and actual Brotli transfer for a client-rendered Vite app. Paraglide reaches translated DOM readiness sooner in all 45 pairwise comparisons under that test profile, using medians of five runs. HTTP i18next transfers fewer bytes in some scenarios; the results do not establish a universal bundle-size winner.
 
-If bundle size on a client-rendered React + Vite app is a priority, this is the single biggest difference.
+With ten locales, 200 used messages per route, and a 1,000-message catalog, initial transfer is about **60 KiB for Paraglide** versus **26 KiB for route-based HTTP i18next**, while translated DOM readiness is about **217 ms** versus **267 ms**. These are application-level measurements with fixed network and CPU conditions, not standalone library sizes or React rendering timings.
+
+Paraglide's default retained messages include all configured locales. i18next can [load only selected languages and namespaces](https://www.i18next.com/how-to/add-or-load-translations). Removing unused messages and delivering only the active language are separate optimizations. The [build workflow](/build-workflow#does-tree-shaking-remove-unused-messages) includes an unused-message probe and explains default Git-ignore behavior.
 
 ## Type safety
 
@@ -111,9 +113,9 @@ Paraglide supports plurals and ordinals via `Intl.PluralRules`, plus gender/sele
 > [!NOTE]
 > **The i18next team officially supports the inlang/Paraglide integration.** It was built together with the i18next maintainers — see the [joint announcement](https://inlang.com/blog/official-i18next-inlang-init).
 
-You don't have to rewrite your translations. Paraglide can compile your existing i18next JSON files through the official [i18next plugin](https://inlang.com/m/3i8bor92/plugin-inlang-i18next). That means you can:
+Paraglide can compile existing i18next JSON files through the official [i18next plugin](https://inlang.com/m/3i8bor92/plugin-inlang-i18next). That means you can:
 
-1. Keep your current `en.json` / `de.json` files and folder structure.
+1. Check that the format plugin supports your catalog features and configure its path patterns for your `en.json` / `de.json` files.
 2. Point Paraglide at them and start importing typed `m.*` functions.
 3. Replace `t("key")` call sites with `m.key()` incrementally — no big-bang rewrite.
 
@@ -121,7 +123,7 @@ You don't have to rewrite your translations. Paraglide can compile your existing
 
 To be fair: react-i18next remains an excellent, battle-tested choice. Prefer it when:
 
-- **Most keys are only known at runtime** (CMS-driven menus, user-generated content). Compiler tree-shaking and type safety rely on keys being known at build time.
+- **Translations or new keys must be published without rebuilding** (for example, CMS-managed catalogs). Compiled translation edits require a build and deployment; switching among already-built languages works at runtime.
 - **You have a large existing i18next codebase** and team familiarity, and the migration cost outweighs the gains.
 - **You depend on specific i18next plugins** or its broader ecosystem.
 
