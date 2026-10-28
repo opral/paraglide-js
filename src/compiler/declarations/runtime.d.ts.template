@@ -1,0 +1,836 @@
+/**
+ * Returns the current server-side async local storage instance.
+ *
+ * Accessing the mutable value through a function keeps it observable when
+ * module interceptors wrap exported bindings and snapshot their initial value.
+ *
+ * @returns {ParaglideAsyncLocalStorage | undefined}
+ */
+export function getServerAsyncLocalStorage(): ParaglideAsyncLocalStorage | undefined;
+/**
+ * Sets the server side async local storage.
+ *
+ * The function is needed because the `runtime.js` file
+ * must define the `serverAsyncLocalStorage` variable to
+ * avoid a circular import between `runtime.js` and
+ * `server.js` files.
+ *
+ * @param {ParaglideAsyncLocalStorage | undefined} value
+ */
+export function overwriteServerAsyncLocalStorage(value: ParaglideAsyncLocalStorage | undefined): void;
+/**
+ * Resolve locale for a given URL using route-aware strategies.
+ *
+ * @param {string | URL} url
+ * @returns {Locale}
+ */
+export function getLocaleForUrl(url: string | URL): Locale;
+/**
+ * Get writing direction for a locale.
+ *
+ * Uses `Intl.Locale` text info when available and falls back to a
+ * language-based RTL check for runtimes without `getTextInfo()`.
+ *
+ * @example
+ *   getTextDirection(); // "ltr" or "rtl" for current locale
+ *   getTextDirection("ar"); // "rtl"
+ *   getTextDirection("en"); // "ltr"
+ *
+ * @param {string} [locale] - Target locale. If not provided, uses `getLocale()`
+ * @returns {"ltr" | "rtl"}
+ */
+export function getTextDirection(locale?: string): "ltr" | "rtl";
+/**
+ * Coerces a locale-like string to the canonical locale value used by the runtime.
+ *
+ * @param {unknown} value
+ * @returns {Locale | undefined}
+ */
+export function toLocale(value: unknown): Locale | undefined;
+/**
+ * Check if something is an available locale with the canonical project casing.
+ *
+ * @example
+ *   if (isLocale(params.locale)) {
+ *     setLocale(params.locale);
+ *   } else {
+ *     setLocale('en');
+ *   }
+ *
+ * Use `toLocale()` when you want case-insensitive matching and canonicalization.
+ *
+ * @param {unknown} locale
+ * @returns {locale is Locale}
+ */
+export function isLocale(locale: unknown): locale is Locale;
+/**
+ * Asserts that the input can be normalized to a locale.
+ *
+ * @param {unknown} input - The input to check.
+ * @returns {Locale} The input normalized to a Locale.
+ * @throws {Error} If the input is not a locale.
+ */
+export function assertIsLocale(input: unknown): Locale;
+/**
+ * Extracts a cookie from the document.
+ *
+ * Will return undefined if the document is not available or if the cookie is not set.
+ * The `document` object is not available in server-side rendering, so this function should not be called in that context.
+ *
+ * @returns {Locale | undefined}
+ */
+export function extractLocaleFromCookie(): Locale | undefined;
+/**
+ * Extracts a locale from the accept-language header.
+ *
+ * Use the function on the server to extract the locale
+ * from the accept-language header that is sent by the client.
+ *
+ * @example
+ *   const locale = extractLocaleFromHeader(request);
+ *
+ * @param {Request} request - The request object to extract the locale from.
+ * @returns {Locale | undefined} The negotiated preferred language.
+ */
+export function extractLocaleFromHeader(request: Request): Locale | undefined;
+/**
+ * Negotiates a preferred language from navigator.languages.
+ *
+ * Use the function on the client to extract the locale
+ * from the navigator.languages array.
+ *
+ * @example
+ *   const locale = extractLocaleFromNavigator();
+ *
+ * @returns {Locale | undefined}
+ */
+export function extractLocaleFromNavigator(): Locale | undefined;
+/**
+ * Extracts the locale from a given URL using native URLPattern.
+ *
+ * The built-in default `/:locale/...` routing is case-insensitive because it
+ * canonicalizes the first path segment with `toLocale()`. Custom `urlPatterns`
+ * keep URLPattern's normal exact matching semantics for path segments.
+ *
+ * @param {URL|string} url - The full URL from which to extract the locale.
+ * @returns {Locale|undefined} The extracted locale, or undefined if no locale is found.
+ */
+export function extractLocaleFromUrl(url: URL | string): Locale | undefined;
+/**
+ * Lower-level URL localization function, primarily used in server contexts.
+ *
+ * This function is designed for server-side usage where you need precise control
+ * over URL localization, such as in middleware or request handlers. It works with
+ * URL objects and always returns absolute URLs.
+ *
+ * For client-side UI components, use `localizeHref()` instead, which provides
+ * a more convenient API with relative paths and automatic locale detection.
+ *
+ * @see https://paraglidejs.com/i18n-routing
+ *
+ * @example
+ * ```typescript
+ * // Server middleware example
+ * app.use((req, res, next) => {
+ *   const url = new URL(req.url, `${req.protocol}://${req.headers.host}`);
+ *   const localized = localizeUrl(url, { locale: "de" });
+ *
+ *   if (localized.href !== url.href) {
+ *     return res.redirect(localized.href);
+ *   }
+ *   next();
+ * });
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Using with URL patterns
+ * const url = new URL("https://example.com/about");
+ * localizeUrl(url, { locale: "de" });
+ * // => URL("https://example.com/de/about")
+ *
+ * // Using with domain-based localization
+ * const url = new URL("https://example.com/store");
+ * localizeUrl(url, { locale: "de" });
+ * // => URL("https://de.example.com/store")
+ * ```
+ *
+ * @param {string | { readonly href: string }} url - The URL to localize. Accepts readonly URL objects. If string, must be absolute.
+ * @param {object} [options] - Options for localization
+ * @param {Locale} [options.locale] - Target locale. If not provided, uses getLocale()
+ * @returns {URL} The localized URL, always absolute
+ */
+export function localizeUrl(url: string | {
+    readonly href: string;
+}, options?: {
+    locale?: Locale;
+}): URL;
+/**
+ * Low-level URL de-localization function, primarily used in server contexts.
+ *
+ * This function is designed for server-side usage where you need precise control
+ * over URL de-localization, such as in middleware or request handlers. It works with
+ * URL objects and always returns absolute URLs.
+ *
+ * For client-side UI components, use `deLocalizeHref()` instead, which provides
+ * a more convenient API with relative paths.
+ *
+ * @see https://paraglidejs.com/i18n-routing
+ *
+ * @example
+ * ```typescript
+ * // Server middleware example
+ * app.use((req, res, next) => {
+ *   const url = new URL(req.url, `${req.protocol}://${req.headers.host}`);
+ *   const baseUrl = deLocalizeUrl(url);
+ *
+ *   // Store the base URL for later use
+ *   req.baseUrl = baseUrl;
+ *   next();
+ * });
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Using with URL patterns
+ * const url = new URL("https://example.com/de/about");
+ * deLocalizeUrl(url); // => URL("https://example.com/about")
+ *
+ * // Using with domain-based localization
+ * const url = new URL("https://de.example.com/store");
+ * deLocalizeUrl(url); // => URL("https://example.com/store")
+ * ```
+ *
+ * @param {string | { readonly href: string }} url - The URL to de-localize. Accepts readonly URL objects. If string, must be absolute.
+ * @returns {URL} The de-localized URL, always absolute
+ */
+export function deLocalizeUrl(url: string | {
+    readonly href: string;
+}): URL;
+/**
+ * Aggregates named groups from various parts of the URLPattern match result.
+ *
+ *
+ * @param {any} match - The URLPattern match result object.
+ * @returns {Record<string, string | null | undefined>} An object containing all named groups from the match.
+ */
+export function aggregateGroups(match: any): Record<string, string | null | undefined>;
+/**
+ * Match route policy against both the public URL and its canonical URL.
+ *
+ * The function is deliberately separate from variables.js: configuration is
+ * inert data, while canonicalization and route selection form a routing layer.
+ *
+ * @param {string | URL} url
+ * @returns {{ match: string; strategy?: typeof strategy; exclude?: boolean } | undefined}
+ */
+export function findMatchingRouteStrategy(url: string | URL): {
+    match: string;
+    strategy?: typeof strategy;
+    exclude?: boolean;
+} | undefined;
+/**
+ * Returns the strategy to use for a specific URL.
+ *
+ * If no route strategy matches (or the matching rule is `exclude: true`),
+ * the global strategy is returned.
+ *
+ * @param {string | URL} url
+ * @returns {typeof strategy}
+ */
+export function getStrategyForUrl(url: string | URL): typeof strategy;
+/**
+ * Returns whether the given URL is excluded from middleware i18n processing.
+ *
+ * @param {string | URL} url
+ * @returns {boolean}
+ */
+export function isExcludedByRouteStrategy(url: string | URL): boolean;
+/**
+ * @typedef {object} ShouldRedirectServerInput
+ * @property {Request} request
+ * @property {string | URL} [effectiveRequestUrl] - Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
+ * @property {Locale} [locale]
+ *
+ * @typedef {object} ShouldRedirectClientInput
+ * @property {undefined} [request]
+ * @property {string | URL} [url]
+ * @property {Locale} [locale]
+ *
+ * @typedef {ShouldRedirectServerInput | ShouldRedirectClientInput} ShouldRedirectInput
+ *
+ * @typedef {object} ShouldRedirectResult
+ * @property {boolean} shouldRedirect - Indicates whether the consumer should perform a redirect.
+ * @property {Locale} locale - Locale resolved using the configured strategies.
+ * @property {URL | undefined} redirectUrl - Destination URL when a redirect is required.
+ */
+/**
+ * Determines whether a redirect is required to align the current URL with the active locale.
+ *
+ * This helper mirrors the logic that powers `paraglideMiddleware`, but works in both server
+ * and client environments. It evaluates the configured strategies in order, computes the
+ * canonical localized URL, and reports when the current URL does not match.
+ *
+ * When called in the browser without arguments, the current `window.location.href` is used.
+ *
+ * @see https://paraglidejs.com/i18n-routing#redirects
+ *
+ * @example
+ * // Client side usage (e.g. TanStack Router beforeLoad hook)
+ * async function beforeLoad({ location }) {
+ *   const decision = await shouldRedirect({ url: location.href });
+ *
+ *   if (decision.shouldRedirect) {
+ *     throw redirect({ to: decision.redirectUrl.href });
+ *   }
+ * }
+ *
+ * @example
+ * // Server side usage with a Request
+ * export async function handle(request) {
+ *   const decision = await shouldRedirect({ request });
+ *
+ *   if (decision.shouldRedirect) {
+ *     return Response.redirect(decision.redirectUrl, 307);
+ *   }
+ *
+ *   return render(request, decision.locale);
+ * }
+ *
+ * @example
+ * // Server side usage behind a proxy where request.url is not public-facing
+ * export async function handle(request) {
+ *   const effectiveRequestUrl = new URL(request.url);
+ *   effectiveRequestUrl.protocol = "https:";
+ *   effectiveRequestUrl.host = "example.com";
+ *
+ *   const decision = await shouldRedirect({
+ *     request,
+ *     effectiveRequestUrl,
+ *   });
+ *
+ *   if (decision.shouldRedirect) {
+ *     return Response.redirect(decision.redirectUrl, 307);
+ *   }
+ * }
+ *
+ * @param {ShouldRedirectInput} [input]
+ * @returns {Promise<ShouldRedirectResult>}
+ */
+export function shouldRedirect(input?: ShouldRedirectInput): Promise<ShouldRedirectResult>;
+/**
+ * High-level URL localization function optimized for client-side UI usage.
+ *
+ * This is a convenience wrapper around `localizeUrl()` that provides features
+ * needed in UI:
+ *
+ * - Accepts relative paths (e.g., "/about")
+ * - Returns relative paths when possible
+ * - Automatically detects current locale if not specified
+ * - Handles string input/output instead of URL objects
+ *
+ * @see https://paraglidejs.com/i18n-routing
+ *
+ * @example
+ * ```typescript
+ * // In a React/Vue/Svelte component
+ * const NavLink = ({ href }) => {
+ *   // Automatically uses current locale, keeps path relative
+ *   return <a href={localizeHref(href)}>...</a>;
+ * };
+ *
+ * // Examples:
+ * localizeHref("/about")
+ * // => "/de/about" (if current locale is "de")
+ * localizeHref("/store", { locale: "fr" })
+ * // => "/fr/store" (explicit locale)
+ *
+ * // Cross-origin links remain absolute
+ * localizeHref("https://other-site.com/about")
+ * // => "https://other-site.com/de/about"
+ *
+ * // Protocol-relative links stay protocol-relative
+ * localizeHref("//other-site.com/about")
+ * // => "//other-site.com/de/about"
+ * ```
+ *
+ * For server-side URL localization (e.g., in middleware), use `localizeUrl()`
+ * which provides more precise control over URL handling.
+ *
+ * @param {string} href - The href to localize (can be relative or absolute)
+ * @param {object} [options] - Options for localization
+ * @param {Locale} [options.locale] - Target locale. If not provided, uses `getLocale()`
+ * @returns {string} The localized href, relative if input was relative
+ */
+export function localizeHref(href: string, options?: {
+    locale?: Locale;
+}): string;
+/**
+ * High-level URL de-localization function optimized for client-side UI usage.
+ *
+ * This is a convenience wrapper around `deLocalizeUrl()` that provides features
+ * needed in the UI:
+ *
+ * - Accepts relative paths (e.g., "/de/about")
+ * - Returns relative paths when possible
+ * - Handles string input/output instead of URL objects
+ *
+ * @see https://paraglidejs.com/i18n-routing
+ *
+ * @example
+ * ```typescript
+ * // In a React/Vue/Svelte component
+ * const LocaleSwitcher = ({ href }) => {
+ *   // Remove locale prefix before switching
+ *   const baseHref = deLocalizeHref(href);
+ *   return locales.map(locale =>
+ *     <a href={localizeHref(baseHref, { locale })}>
+ *       Switch to {locale}
+ *     </a>
+ *   );
+ * };
+ *
+ * // Examples:
+ * deLocalizeHref("/de/about")  // => "/about"
+ * deLocalizeHref("/fr/store")  // => "/store"
+ *
+ * // Cross-origin links remain absolute
+ * deLocalizeHref("https://example.com/de/about")
+ * // => "https://example.com/about"
+ *
+ * // Protocol-relative links stay protocol-relative
+ * deLocalizeHref("//example.com/de/about")
+ * // => "//example.com/about"
+ * ```
+ *
+ * For server-side URL de-localization (e.g., in middleware), use `deLocalizeUrl()`
+ * which provides more precise control over URL handling.
+ *
+ * @param {string} href - The href to de-localize (can be relative or absolute)
+ * @returns {string} The de-localized href, relative if input was relative
+ */
+export function deLocalizeHref(href: string): string;
+/**
+ * @param {string} safeModuleId
+ * @param {Locale} locale
+ */
+export function trackMessageCall(safeModuleId: string, locale: Locale): void;
+/**
+ * Generates localized URL variants for all provided URLs based on your configured locales and URL patterns.
+ *
+ * This function is essential for Static Site Generation (SSG) where you need to tell your framework
+ * which pages to pre-render at build time. It's also useful for generating sitemaps and
+ * `<link rel="alternate" hreflang>` tags for SEO.
+ *
+ * The function respects your `urlPatterns` configuration - if you have translated pathnames
+ * (e.g., `/about` → `/ueber-uns` for German), it will generate the correct localized paths.
+ *
+ * @see https://paraglidejs.com/static-site-generation
+ *
+ * @example
+ * // Basic usage - generate all locale variants for a list of paths
+ * const localizedUrls = generateStaticLocalizedUrls([
+ *   "/",
+ *   "/about",
+ *   "/blog/post-1",
+ * ]);
+ * // Returns URL objects for each locale:
+ * // ["/en/", "/de/", "/en/about", "/de/about", "/en/blog/post-1", "/de/blog/post-1"]
+ *
+ * @example
+ * // Use with framework SSG APIs
+ * // SvelteKit
+ * export function entries() {
+ *   const paths = ["/", "/about", "/contact"];
+ *   return generateStaticLocalizedUrls(paths).map(url => ({
+ *     locale: extractLocaleFromUrl(url)
+ *   }));
+ * }
+ *
+ * @example
+ * // Sitemap generation
+ * const allPages = ["/", "/about", "/blog"];
+ * const sitemapUrls = generateStaticLocalizedUrls(allPages);
+ *
+ * @param {(string | URL)[]} urls - List of canonical URLs or paths to generate localized versions for.
+ *   Can be absolute URLs (`https://example.com/about`) or paths (`/about`).
+ *   Paths are resolved against `http://localhost` internally.
+ * @returns {URL[]} Array of URL objects representing all localized variants.
+ *   The order follows each input URL with all its locale variants before moving to the next URL.
+ */
+export function generateStaticLocalizedUrls(urls: (string | URL)[]): URL[];
+/**
+ * Checks if the given strategy is a custom strategy.
+ *
+ * @param {unknown} strategy The name of the custom strategy to validate.
+ * Must be a string that starts with "custom-" followed by alphanumeric characters, hyphens, or underscores.
+ * @returns {boolean} Returns true if it is a custom strategy, false otherwise.
+ */
+export function isCustomStrategy(strategy: unknown): boolean;
+/**
+ * Defines a custom strategy that is executed on the server.
+ *
+ * @see https://paraglidejs.com/strategy#write-your-own-strategy
+ *
+ * @param {string} strategy The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
+ * @param {CustomServerStrategyHandler} handler The handler for the custom strategy, which should implement
+ * the method getLocale.
+ * @returns {void}
+ */
+export function defineCustomServerStrategy(strategy: string, handler: CustomServerStrategyHandler): void;
+/**
+ * Defines a custom strategy that is executed on the client.
+ *
+ * @see https://paraglidejs.com/strategy#write-your-own-strategy
+ *
+ * @param {string} strategy The name of the custom strategy to define. Must follow the pattern custom-name with alphanumeric characters, hyphens, or underscores.
+ * @param {CustomClientStrategyHandler} handler The handler for the custom strategy, which should implement the
+ * methods getLocale and setLocale.
+ * @returns {void}
+ */
+export function defineCustomClientStrategy(strategy: string, handler: CustomClientStrategyHandler): void;
+/**
+ * The project's base locale.
+ *
+ * @example
+ *   if (locale === baseLocale) {
+ *     // do something
+ *   }
+ */
+export const baseLocale: {{BASE_LOCALE}};
+/**
+ * The project's locales that have been specified in the settings.
+ *
+ * @example
+ *   if (locales.includes(userSelectedLocale) === false) {
+ *     throw new Error('Locale is not available');
+ *   }
+ */
+export const locales: readonly {{LOCALES}};
+/** @type {string} */
+export const cookieName: string;
+/** @type {number} */
+export const cookieMaxAge: number;
+/** @type {string} */
+export const cookieDomain: string;
+export const cookieSameSite: "lax" | "strict" | "none" | undefined;
+export const cookieSecure: boolean | "auto";
+/** @type {string} */
+export const localStorageKey: string;
+/**
+ * @type {Array<"cookie" | "baseLocale" | "globalVariable" | "url" | "preferredLanguage" | "localStorage" | `custom-${string}`>}
+ */
+export const strategy: Array<"cookie" | "baseLocale" | "globalVariable" | "url" | "preferredLanguage" | "localStorage" | `custom-${string}`>;
+/**
+ * Route-level strategy overrides.
+ *
+ * `match` uses URLPattern syntax.
+ *
+ * @type {Array<{
+ *   match: string;
+ *   strategy?: Array<"cookie" | "baseLocale" | "globalVariable" | "url" | "preferredLanguage" | "localStorage" | `custom-${string}`>;
+ *   exclude?: boolean;
+ * }>}
+ */
+export const routeStrategies: Array<{
+    match: string;
+    strategy?: Array<"cookie" | "baseLocale" | "globalVariable" | "url" | "preferredLanguage" | "localStorage" | `custom-${string}`>;
+    exclude?: boolean;
+}>;
+/**
+ * The used URL patterns.
+ *
+ * @type {Array<{ pattern: string, localized: Array<[Locale, string]> }>}
+ */
+export const urlPatterns: Array<{
+    pattern: string;
+    localized: Array<[Locale, string]>;
+}>;
+/**
+ * Controls trailing slash canonicalization for localized URLs.
+ *
+ * @type {"always" | "never" | undefined}
+ */
+export const trailingSlash: "always" | "never" | undefined;
+/**
+ * @typedef {{
+ * 		getStore(): {
+ *   		locale?: Locale,
+ * 			origin?: string,
+ * 			messageCalls?: Set<string>
+ *   	} | undefined,
+ * 		run: (store: { locale?: Locale, origin?: string, messageCalls?: Set<string>},
+ *    cb: any) => any
+ * }} ParaglideAsyncLocalStorage
+ */
+/**
+ * Server side async local storage that is set by `serverMiddleware()`.
+ *
+ * The variable is used to retrieve the locale and origin in a server-side
+ * rendering context without effecting other requests.
+ *
+ * @type {ParaglideAsyncLocalStorage | undefined}
+ */
+export let serverAsyncLocalStorage: ParaglideAsyncLocalStorage | undefined;
+export const disableAsyncLocalStorage: {{DISABLE_ASYNC_LOCAL_STORAGE}};
+export const experimentalMiddlewareLocaleSplitting: {{MIDDLEWARE_LOCALE_SPLITTING}};
+export const isServer: {{IS_SERVER}};
+/** @type {Locale | undefined} */
+export const experimentalStaticLocale: Locale | undefined;
+export function getLocale(): Locale;
+export function overwriteGetLocale(fn: () => Locale): void;
+/**
+ * @typedef {(newLocale: Locale, options?: { reload?: boolean }) => void | Promise<void>} SetLocaleFn
+ */
+/**
+ * Set the locale.
+ *
+ * Updates the locale using your configured strategies (cookie, localStorage, URL, etc.).
+ * By default, this navigates the client to the localized URL or reloads the current
+ * document to reflect the new locale. `reload: false` is a narrow browser-only escape
+ * hatch for a fully client-rendered, non-URL-routed surface that owns its reactive
+ * updates and document state. It does not re-render the UI or update the document.
+ * Do not use it for normal locale pickers, URL-routed pages, or switching an SSR,
+ * SSG, or hydrated document. It is incompatible with per-locale builds.
+ *
+ * If any custom strategy's `setLocale` function is async, then this function
+ * will become async as well.
+ *
+ * @see https://paraglidejs.com/strategy
+ *
+ * @example
+ *   setLocale('en');
+ *
+ * @example
+ *   setLocale('en', { reload: false });
+ *
+ * @type {SetLocaleFn}
+ */
+export let setLocale: SetLocaleFn;
+export function overwriteSetLocale(fn: SetLocaleFn): void;
+/**
+ * The origin of the current URL.
+ *
+ * Defaults to "http://example.com" in non-browser environments. If this
+ * behavior is not desired, the implementation can be overwritten
+ * by `overwriteGetUrlOrigin()`.
+ *
+ * @type {() => string}
+ */
+export let getUrlOrigin: () => string;
+export function overwriteGetUrlOrigin(fn: () => string): void;
+export function extractLocaleFromRequest(request: Request, options?: ExtractLocaleFromRequestOptions): Locale;
+export function extractLocaleFromRequestWithStrategies(request: Request, strategies: typeof strategy, url?: string | URL): Locale;
+export function extractLocaleFromRequestAsync(request: Request, options?: {
+    effectiveRequestUrl?: string | URL;
+}): Promise<Locale>;
+/**
+ * @typedef {"cookie" | "baseLocale" | "globalVariable" | "url" | "preferredLanguage" | "localStorage"} BuiltInStrategy
+ */
+/**
+ * @typedef {`custom_${string}`} CustomStrategy
+ */
+/**
+ * @typedef {BuiltInStrategy | CustomStrategy} Strategy
+ */
+/**
+ * @typedef {Array<Strategy>} Strategies
+ */
+/**
+ * @typedef {{ getLocale: (request?: Request) => Promise<string | undefined> | (string | undefined) }} CustomServerStrategyHandler
+ */
+/**
+ * @typedef {{ getLocale: () => Promise<string|undefined> | (string | undefined), setLocale: (locale: string) => Promise<void> | void }} CustomClientStrategyHandler
+ */
+/** @type {Map<string, CustomServerStrategyHandler>} */
+export const customServerStrategies: Map<string, CustomServerStrategyHandler>;
+/** @type {Map<string, CustomClientStrategyHandler>} */
+export const customClientStrategies: Map<string, CustomClientStrategyHandler>;
+export type ShouldRedirectServerInput = {
+    request: Request;
+    /**
+     * - Effective request URL to use for route matching, locale detection with the URL strategy, and redirect targets.
+     */
+    effectiveRequestUrl?: string | URL;
+    locale?: Locale;
+};
+export type ShouldRedirectClientInput = {
+    request?: undefined;
+    url?: string | URL;
+    locale?: Locale;
+};
+export type ShouldRedirectInput = ShouldRedirectServerInput | ShouldRedirectClientInput;
+export type ShouldRedirectResult = {
+    /**
+     * - Indicates whether the consumer should perform a redirect.
+     */
+    shouldRedirect: boolean;
+    /**
+     * - Locale resolved using the configured strategies.
+     */
+    locale: Locale;
+    /**
+     * - Destination URL when a redirect is required.
+     */
+    redirectUrl: URL | undefined;
+};
+export type ParaglideAsyncLocalStorage = {
+    getStore(): {
+        locale?: Locale;
+        origin?: string;
+        messageCalls?: Set<string>;
+    } | undefined;
+    run: (store: {
+        locale?: Locale;
+        origin?: string;
+        messageCalls?: Set<string>;
+    }, cb: any) => any;
+};
+export type SetLocaleFn = (newLocale: Locale, options?: {
+    reload?: boolean;
+}) => void | Promise<void>;
+{{ROUTING_INDEX_TYPES}}export type ExtractLocaleFromRequestOptions = {
+    /**
+     * - Effective request URL to use for route matching and locale detection with the URL strategy.
+     */
+    effectiveRequestUrl?: string | URL;
+};
+/**
+ * A small, deliberately conservative subset of URLPattern routing.
+ *
+ * The compiler emits routes such as `/:path(.*)?`, `/de/:path*`, or
+ * `https://example.com/:path*`. For those routes matching is equivalent to a
+ * pathname prefix check and (optionally) an origin check. Everything that has
+ * a dynamic host, a custom path regexp, or another URLPattern modifier keeps
+ * using the generic implementation above.
+ */
+export type FastPathPattern = {
+    protocol: string | undefined;
+    hostname: string | undefined;
+    port: string | undefined;
+    pathnamePrefix: string;
+    pathMode: "segments" | "catch-all-optional" | "catch-all-required";
+};
+/**
+ * A small, deliberately conservative subset of URLPattern routing.
+ *
+ * The compiler emits routes such as `/:path(.*)?`, `/de/:path*`, or
+ * `https://example.com/:path*`. For those routes matching is equivalent to a
+ * pathname prefix check and (optionally) an origin check. Everything that has
+ * a dynamic host, a custom path regexp, or another URLPattern modifier keeps
+ * using the generic implementation above.
+ */
+export type FastPathRoute = {
+    base: FastPathPattern;
+    localized: Array<{
+        locale: string;
+        pattern: FastPathPattern;
+    }>;
+};
+export type BuiltInStrategy = "cookie" | "baseLocale" | "globalVariable" | "url" | "preferredLanguage" | "localStorage";
+export type CustomStrategy = `custom_${string}`;
+export type Strategy = BuiltInStrategy | CustomStrategy;
+export type Strategies = Array<Strategy>;
+export type CustomServerStrategyHandler = {
+    getLocale: (request?: Request) => Promise<string | undefined> | (string | undefined);
+};
+export type CustomClientStrategyHandler = {
+    getLocale: () => Promise<string | undefined> | (string | undefined);
+    setLocale: (locale: string) => Promise<void> | void;
+};
+/**
+ * A locale that is available in the project.
+ */
+export type Locale = (typeof locales)[number];
+/**
+ * A branded type representing a localized string.
+ *
+ * Message functions return this type instead of \`string\`, enabling TypeScript
+ * to distinguish translated strings from regular strings at compile time.
+ * This allows you to enforce that only properly localized content is used
+ * in your UI components.
+ *
+ * Since \`LocalizedString\` is a branded subtype of \`string\`, it remains fully
+ * backward compatible—you can pass it anywhere a \`string\` is expected.
+ */
+export type LocalizedString = string & {
+    readonly __brand: "LocalizedString";
+};
+/**
+ * A single markup option passed to a tag instance.
+ */
+export type MessageMarkupOption = {
+    name: string;
+    value: unknown;
+};
+/**
+ * A single static markup attribute attached to a tag instance.
+ */
+export type MessageMarkupAttribute = {
+    name: string;
+    value: string | true;
+};
+/**
+ * Record of markup options for a tag instance.
+ */
+export type MessageMarkupOptions = Record<string, unknown>;
+/**
+ * Record of markup attributes for a tag instance.
+ */
+export type MessageMarkupAttributes = Record<string, string | true>;
+/**
+ * Type-level schema for a single markup tag.
+ */
+export type MessageMarkupTag = {
+    options: MessageMarkupOptions;
+    attributes: MessageMarkupAttributes;
+    children: boolean;
+};
+/**
+ * Type-level schema for all markup tags in a message.
+ */
+export type MessageMarkupSchema = Record<string, MessageMarkupTag>;
+/**
+ * Type-only metadata attached to compiled message functions.
+ */
+export type MessageMetadata<Inputs, Options, Markup extends MessageMarkupSchema = MessageMarkupSchema> = {
+    readonly __paraglide?: {
+        inputs: Inputs;
+        options: Options;
+        markup: Markup;
+    };
+};
+/**
+ * A compiled, framework-neutral message part.
+ */
+export type MessagePart = {
+    type: "text";
+    value: string;
+} | {
+    type: "markup-start";
+    name: string;
+    options: MessageMarkupOptions;
+    attributes: MessageMarkupAttributes;
+} | {
+    type: "markup-end";
+    name: string;
+    options: MessageMarkupOptions;
+    attributes: MessageMarkupAttributes;
+} | {
+    type: "markup-standalone";
+    name: string;
+    options: MessageMarkupOptions;
+    attributes: MessageMarkupAttributes;
+};
+/**
+ * A message function is a message for a specific locale.
+ */
+export type MessageFunction = (inputs?: Record<string, never>) => LocalizedString;
+/**
+ * A message bundle function that selects the message to be returned.
+ *
+ * Uses `getLocale()` under the hood to determine the locale with an option.
+ */
+export type MessageBundleFunction<T extends string> = (params: Record<string, never>, options: {
+    locale: T;
+}) => LocalizedString;

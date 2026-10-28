@@ -27,13 +27,13 @@
 		"./eslint": "./dist/eslint/index.js"
 	},
 	"scripts": {
-		"dev": "tsc --watch",
+		"dev": "node ./scripts/copy-declaration-templates.js && tsc --watch",
 		"dev:website": "pnpm --filter @inlang/paraglide-js-website dev",
 		"bench": "vitest bench --run",
 		"build:framework": "pnpm -r --filter \"./framework/**\" --if-present --workspace-concurrency=1 build",
 		"build:examples": "pnpm -r --filter \"./examples/**\" --if-present --workspace-concurrency=1 build",
 		"build:website": "pnpm --filter @inlang/paraglide-js-website build",
-		"build": "npm run env-variables && tsc --build && npm run generate-api-docs",
+		"build": "npm run env-variables && tsc --build && node ./scripts/copy-declaration-templates.js && npm run generate-api-docs",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
 		"generate-api-docs": "typedoc",
@@ -62,13 +62,9 @@
 	},
 	"peerDependencies": {
 		"eslint": "^9.0.0 || ^10.0.0",
-		"typescript": ">=5.6",
 		"vite": ">=5.0.0"
 	},
 	"peerDependenciesMeta": {
-		"typescript": {
-			"optional": true
-		},
 		"vite": {
 			"optional": true
 		},

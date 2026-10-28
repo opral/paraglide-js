@@ -21,7 +21,7 @@ For all available options, see the [Compiler Options Reference](./compiler-optio
 > [!TIP]
 > For a complete setup guide using CLI compilation with Express, Hono, Fastify, or Elysia, see [Standalone Servers](./standalone-servers). For monorepo setups, see [Monorepo Setup](./monorepo).
 
-The recommended commands below emit `.d.ts` files for reliable editor updates and require TypeScript 5.6 or newer. Omit `--emit-ts-declarations` to use JavaScript/JSDoc inference instead.
+The recommended commands below emit `.d.ts` files for reliable editor updates without requiring TypeScript to be installed. Omit `--emit-ts-declarations` to use JavaScript/JSDoc inference instead.
 
 To compile your messages via the CLI, run the following command:
 
@@ -191,9 +191,9 @@ export default {
 
 ## TypeScript Configuration
 
-Paraglide compiles to JavaScript with JSDoc type annotations. The recommended configurations above also emit `.d.ts` files so editors reliably refresh message keys when generated files change. Declaration emission requires TypeScript 5.6 or newer.
+Paraglide compiles to JavaScript with JSDoc type annotations. The recommended configurations above also emit `.d.ts` files so editors reliably refresh message keys when generated files change. Declarations are generated directly without requiring TypeScript to be installed.
 
-If you disable declaration emission for faster compilation, enable TypeScript support for the generated JSDoc types with `allowJs` in your `tsconfig.json`:
+If you disable declaration emission, enable TypeScript support for the generated JSDoc types with `allowJs` in your `tsconfig.json`:
 
 ```json
 {
@@ -221,13 +221,18 @@ paraglideVitePlugin({
 });
 ```
 
-> [!NOTE]
-> Emitting declarations requires TypeScript 5.6 or newer and is slower than JSDoc-based types. The framework setup examples enable it for reliable language-server updates. Set `emitTsDeclarations: false` (or use `--no-emit-ts-declarations`) and `allowJs: true` when faster compilation matters more in your project.
+Declarations are generated directly from message metadata and runtime declaration templates. The generated declarations do not depend on the TypeScript version installed in your project. The framework setup examples enable declarations for reliable language-server updates. Set `emitTsDeclarations: false` (or use `--no-emit-ts-declarations`) and `allowJs: true` to use JSDoc-based types.
 
-> [!NOTE]
-> With TypeScript 5 and 6, declarations are generated with the in-process compiler API. TypeScript 7+ no longer provides that API, so Paraglide invokes its `tsc` CLI in a child process instead. When TypeScript 7 is installed beside TypeScript 5/6 under the `@typescript/native` alias, as documented for `svelte-check --tsgo`, Paraglide uses its `tsc` too, which is much faster with `locale-modules` on large projects. The exported types are the same, but the output differs between the two (quote style, declaration ordering, `export declare const` vs `export const`, and some JSDoc: TypeScript 7 currently leaves `@typedef` types without their descriptions) — expect `.d.ts` churn when switching.
+When using `additionalFiles`, supply a companion `.d.ts` file for each custom `.js` file, including replacements for generated modules. For example:
 
-When `additionalFiles` contains JavaScript (`.js`), Paraglide keeps using the TypeScript 5/6 compiler API even if `@typescript/native` is installed. This preserves project dependency resolution and inferred types for those files. Non-JavaScript additional files do not disable alias acceleration. Projects with TypeScript 7 installed as `typescript` continue to use its CLI.
+```ts
+additionalFiles: {
+  "custom.js": "export const greeting = 'hello';",
+  "custom.d.ts": "export declare const greeting: string;",
+}
+```
+
+Paraglide reports a missing companion declaration when `emitTsDeclarations` is enabled. Companion declarations are copied verbatim.
 
 ## Generated Output
 

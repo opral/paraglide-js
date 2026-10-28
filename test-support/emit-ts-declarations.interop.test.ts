@@ -5,7 +5,8 @@ import {
 	loadProjectInMemory,
 	newProject,
 } from "@inlang/sdk";
-import { compileProject } from "./compile-project.js";
+import { compileProject } from "../src/compiler/compile-project.js";
+import { emitTsDeclarations } from "./emit-ts-declarations.js";
 
 // Bundlers and CJS interop can deliver the `typescript` module in a
 // default-only shape (`{ default: ts }` without hoisted named exports).
@@ -58,12 +59,14 @@ test("emitTsDeclarations uses the compiler API for a default-only interop shape 
 	};
 	await insertBundleNested(project.db, bundle);
 
-	const output = await compileProject({
+	const javascript = await compileProject({
 		project,
 		compilerOptions: {
-			emitTsDeclarations: true,
+			emitTsDeclarations: false,
 		},
 	});
+
+	const output = await emitTsDeclarations(javascript);
 
 	expect(output).toHaveProperty("runtime.d.ts");
 	// the quoted alias distinguishes the two paths: TypeScript 5's CLI would

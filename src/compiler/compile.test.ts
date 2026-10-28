@@ -503,6 +503,9 @@ test.each([
 				emitTsDeclarations,
 				additionalFiles: {
 					"nested/additional.js": "export const extra = true;",
+					...(emitTsDeclarations
+						? { "nested/additional.d.ts": "export declare const extra: true;" }
+						: {}),
 				},
 			});
 			expect(await hashDirectory("/output", fs.promises)).toEqual(

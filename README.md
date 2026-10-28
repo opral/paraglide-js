@@ -124,7 +124,7 @@ export default defineConfig({
 });
 ```
 
-`emitTsDeclarations` requires TypeScript 5.6 or newer and keeps editor types in sync when message files change. Set it to `false` to use the faster JavaScript/JSDoc inference path instead.
+`emitTsDeclarations` generates declarations directly and keeps editor types in sync when message files change. No TypeScript installation is required. Set it to `false` to use JavaScript/JSDoc inference instead.
 
 The `Greeting` component shown above is all the app code you need. By default, `setLocale()` updates the selection through your configured strategies and performs a full document navigation: it navigates to the localized URL when URL routing is enabled, or reloads the current document otherwise. The new document renders the app and any document-level locale settings together, with no i18n provider or framework reactivity to wire up.
 
