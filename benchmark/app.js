@@ -1,7 +1,8 @@
 import { init, setLanguage, plural } from "./adapter.js";
 
-let locale = "en";
-let route = 0;
+const params = new URLSearchParams(location.search);
+let locale = DOCUMENT_LOCALE_SWITCH ? (params.get("locale") ?? "en") : "en";
+let route = DOCUMENT_LOCALE_SWITCH ? Number(params.get("route") ?? 0) : 0;
 const pages = [
 	() => import("./pages/route0.js"),
 	() => import("./pages/route1.js"),
@@ -53,6 +54,16 @@ window.benchmark = {
 		await render();
 	},
 	async language(next) {
+		if (DOCUMENT_LOCALE_SWITCH) {
+			const url = new URL(
+				LOCALE_PATHS[next] ?? import.meta.env.BASE_URL,
+				location.origin
+			);
+			url.searchParams.set("locale", next);
+			url.searchParams.set("route", String(route));
+			location.assign(url);
+			return;
+		}
 		locale = next;
 		await setLanguage(locale, route);
 		await render();

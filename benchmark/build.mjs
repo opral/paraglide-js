@@ -1,12 +1,18 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { build } from "vite";
-import { compile } from "@inlang/paraglide-js";
+import { build, createBuilder } from "vite";
+import { compile, paraglideVitePlugin } from "@inlang/paraglide-js";
 import { fixture, pluralForms } from "./fixture.mjs";
-import { scenarios, variants, nameOf } from "./config.mjs";
+import {
+	scenarios,
+	variants,
+	nameOf,
+	documentLocaleSwitch,
+} from "./config.mjs";
 
-process.chdir(path.dirname(fileURLToPath(import.meta.url)));
+const sourceDirectory = path.dirname(fileURLToPath(import.meta.url));
+process.chdir(process.env.BENCHMARK_OUTPUT ?? sourceDirectory);
 await fs.mkdir("dist", { recursive: true });
 await fs.mkdir(".work", { recursive: true });
 const manifest = [];
@@ -74,15 +80,31 @@ for (const s of chosen) {
 		const name = nameOf(s, variant);
 		const appDir = path.resolve(".work", name);
 		await fs.mkdir(path.join(appDir, "pages"), { recursive: true });
-		await fs.copyFile("app.js", path.join(appDir, "app.js"));
+		await fs.copyFile(
+			path.join(sourceDirectory, "app.js"),
+			path.join(appDir, "app.js")
+		);
 		await fs.writeFile(
 			path.join(appDir, "index.html"),
 			'<!doctype html><html><head><meta charset="utf-8"><link rel="icon" href="data:,"><title>i18n benchmark</title></head><body><nav id="navigation"></nav><nav id="languages"></nav><main id="app"></main><p id="plural"></p><p id="date"></p><script type="module" src="./app.js"></script></body></html>'
 		);
+		const perLocale = variant === "paraglide-per-locale";
+		const isParaglide = variant.startsWith("paraglide");
+		const generated = perLocale
+			? path.join(appDir, "paraglide")
+			: path.join(workspace, "paraglide");
+		const localePaths = perLocale
+			? Object.fromEntries(
+					f.locales.map((locale) => [
+						locale,
+						`/${name}/__paraglide/${locale}-${Buffer.from(locale).toString("hex")}/`,
+					])
+				)
+			: undefined;
 		let adapter;
-		if (variant === "paraglide") {
-			const runtime = path.join(workspace, "paraglide/runtime.js");
-			const messages = path.join(workspace, "paraglide/messages.js");
+		if (isParaglide) {
+			const runtime = path.join(generated, "runtime.js");
+			const messages = path.join(generated, "messages.js");
 			adapter = `import {setLocale} from ${JSON.stringify(runtime)}; import {m} from ${JSON.stringify(messages)};
 export async function init(){}; export async function setLanguage(locale){setLocale(locale,{reload:false})}; export const plural=count=>m.benchItems({count});`;
 		} else {
@@ -106,33 +128,68 @@ export const plural=count=>translate('common','benchItems',{count});`;
 		await fs.writeFile(path.join(appDir, "adapter.js"), adapter);
 		for (let i = 0; i < 5; i++) {
 			const calls = f.routes[i].map((e) =>
-				variant === "paraglide"
+				isParaglide
 					? `m.${e.key}(${JSON.stringify(e.inputs)})`
 					: `translate(${JSON.stringify(e.ns)},${JSON.stringify(e.key)},${JSON.stringify(e.inputs)})`
 			);
-			const imports =
-				variant === "paraglide"
-					? `import {m} from ${JSON.stringify(path.join(workspace, "paraglide/messages.js"))};`
-					: `import {translate} from '../adapter.js';`;
+			const imports = isParaglide
+				? `import {m} from ${JSON.stringify(path.join(generated, "messages.js"))};`
+				: `import {translate} from '../adapter.js';`;
 			await fs.writeFile(
 				path.join(appDir, "pages", `route${i}.js`),
 				`${imports}\nexport const messages=()=>[${calls.join(",")}];`
 			);
 		}
 		const start = performance.now();
-		await build({
+		const buildOptions = {
 			root: appDir,
 			configFile: false,
 			logLevel: "error",
-			base: `/${name}/`,
-			define: { LOCALES: JSON.stringify(f.locales) },
+			base: perLocale ? "./" : `/${name}/`,
+			define: {
+				LOCALES: JSON.stringify(f.locales),
+				DOCUMENT_LOCALE_SWITCH: JSON.stringify(documentLocaleSwitch),
+				LOCALE_PATHS: JSON.stringify(localePaths ?? {}),
+			},
 			build: {
-				outDir: path.resolve("dist", name),
+				outDir: perLocale ? "build" : path.resolve("dist", name),
 				emptyOutDir: true,
 				target: "es2022",
 				sourcemap: false,
 			},
-		});
+		};
+		if (perLocale) {
+			const builder = await createBuilder({
+				...buildOptions,
+				plugins: [
+					paraglideVitePlugin({
+						project: path.join(workspace, "project.inlang"),
+						outdir: generated,
+						isServer: "false",
+						strategy: ["globalVariable", "baseLocale"],
+						experimentalPerLocaleBuild: true,
+					}),
+				],
+			});
+			await builder.buildApp();
+			await fs.rm(path.resolve("dist", name), { recursive: true, force: true });
+			await fs.cp(path.join(appDir, "build"), path.resolve("dist", name), {
+				recursive: true,
+			});
+			const emitted = JSON.parse(
+				await fs.readFile(
+					path.resolve("dist", name, "paraglide-vite-locales.json"),
+					"utf8"
+				)
+			);
+			for (const locale of f.locales) {
+				if (
+					localePaths[locale] !==
+					`/${name}/${emitted.locales[locale].directory}/`
+				)
+					throw Error("Locale manifest and serving paths disagree");
+			}
+		} else await build(buildOptions);
 		const buildMs = performance.now() - start;
 		if (variant.includes("http")) {
 			for (const l of f.locales) {
@@ -154,6 +211,7 @@ export const plural=count=>translate('common','benchItems',{count});`;
 		manifest.push({
 			name,
 			variant,
+			...(localePaths ? { localePaths } : {}),
 			...s,
 			compileMs: variant === "paraglide" ? compiled.get(key) : 0,
 			buildMs,

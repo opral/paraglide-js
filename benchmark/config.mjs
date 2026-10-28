@@ -1,3 +1,5 @@
+export const documentLocaleSwitch =
+	process.env.BENCHMARK_COHORT === "locale-build";
 export const locales = [
 	"en",
 	"de",
@@ -12,6 +14,7 @@ export const locales = [
 ];
 export const variants = [
 	"paraglide",
+	...(documentLocaleSwitch ? ["paraglide-per-locale"] : []),
 	"i18next-bundled",
 	"i18next-http-global",
 	"i18next-http-routes",
@@ -26,6 +29,9 @@ export const scenarios = [200, 1000, 4000].flatMap((total) =>
 export const nameOf = (s, variant) =>
 	`l${s.localeCount}-m${s.used}-n${s.total}-${variant}`;
 export const settings = {
+	...(documentLocaleSwitch
+		? { languageSwitch: "document", switchesPerJourney: 1 }
+		: {}),
 	repeats: 5,
 	compression: "br",
 	brotliQuality: 5,
@@ -34,3 +40,6 @@ export const settings = {
 	uploadBytesPerSecond: 625_000,
 	cpuSlowdown: 4,
 };
+
+export const urlFor = (build, locale = "en", route = 0) =>
+	`${build.localePaths?.[locale] ?? `/${build.name}/`}${documentLocaleSwitch ? `?locale=${locale}&route=${route}` : ""}`;
