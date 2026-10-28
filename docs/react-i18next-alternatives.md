@@ -12,7 +12,7 @@ description: Looking for a react-i18next alternative? Compare compiler-based and
 npx @inlang/paraglide-js init
 ```
 
-[React + Vite example →](https://github.com/opral/paraglide-js/tree/main/examples/react) · [Paraglide vs react-i18next →](/paraglide-vs-react-i18next)
+[React + Vite guide →](https://paraglidejs.com/react) · [Paraglide vs react-i18next →](/paraglide-vs-react-i18next)
 
 [react-i18next](https://react.i18next.com/) is the most popular i18n library for React, but it isn't the only option — and for modern **React + Vite** apps it isn't always the best fit. The most common reasons developers look for an alternative:
 
@@ -68,4 +68,4 @@ If most of your keys are only known at runtime (CMS-driven content), you have a 
 npx @inlang/paraglide-js init
 ```
 
-[React + Vite example](https://github.com/opral/paraglide-js/tree/main/examples/react) · [Benchmark](/benchmark) · [Full comparison](/comparison)
+[React + Vite guide](https://paraglidejs.com/react) · [Benchmark](/benchmark) · [Full comparison](/comparison)

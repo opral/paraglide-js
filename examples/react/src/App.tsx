@@ -1,12 +1,22 @@
 import { m } from "./paraglide/messages.js";
-import { setLocale } from "./paraglide/runtime.js";
+import { getLocale, locales, setLocale } from "./paraglide/runtime.js";
 
 function App() {
 	return (
-		<div>
-			<button onClick={() => setLocale("en")}>Switch locale to en</button>
-			<button onClick={() => setLocale("de")}>Switch locale to de</button>
-			<button onClick={() => setLocale("fr")}>Switch locale to fr</button>
+		<main>
+			<h1>{m.greeting({ name: "World" })}</h1>
+			<nav aria-label="Language">
+				{locales.map((locale) => (
+					<button
+						key={locale}
+						type="button"
+						aria-pressed={getLocale() === locale}
+						onClick={() => setLocale(locale)}
+					>
+						{locale.toUpperCase()}
+					</button>
+				))}
+			</nav>
 			<p>
 				{m.jojo_mountain_day({
 					username: "John Doe",
@@ -14,7 +24,7 @@ function App() {
 					userGender: "male",
 				})}
 			</p>
-		</div>
+		</main>
 	);
 }
 

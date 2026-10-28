@@ -12,7 +12,7 @@ description: A side-by-side comparison of Paraglide JS and react-i18next for Rea
 npx @inlang/paraglide-js init
 ```
 
-[Try the React + Vite example →](https://github.com/opral/paraglide-js/tree/main/examples/react) · [See the benchmark →](/benchmark)
+[Try the React + Vite guide →](https://paraglidejs.com/react) · [See the benchmark →](/benchmark)
 
 [react-i18next](https://react.i18next.com/) is the de-facto standard for React i18n, with millions of weekly downloads and a deep ecosystem. The difference is architectural: react-i18next resolves keys from a dictionary **at runtime**, while Paraglide **compiles** your messages into tree-shakable, typed functions **at build time**. This page compares them honestly so you can pick the right one.
 
@@ -29,7 +29,7 @@ npx @inlang/paraglide-js init
 | **Architecture** | 🏗️ Compiler (build-time) | 🏃 Runtime dictionary |
 | **i18n bundle size** | [Up to 70% smaller](/benchmark) via per-message tree-shaking | Ships the i18next runtime + your catalogs |
 | **Bundle growth** | Flat — only *used* messages ship | Grows with catalog size |
-| **Type safety** | ✅ Generated typed functions (keys **and** params) | 🟠 Via TypeScript [workarounds](https://www.i18next.com/overview/typescript) |
+| **Type safety** | ✅ Generated typed functions (keys **and** params) | ✅ [Typed resources and selector API](https://www.i18next.com/overview/typescript), requires configuration |
 | **Setup** | One Vite plugin, no provider/context | `I18nextProvider` + init + hooks |
 | **Calling a message** | `m.greeting({ name })` (plain function) | `t("greeting", { name })` via `useTranslation()` |
 | **Rich text / `<Trans>`** | ✅ Typed [markup adapter](https://paraglidejs.com/markup) | ✅ `<Trans>` component |
@@ -69,7 +69,7 @@ If bundle size on a client-rendered React + Vite app is a priority, this is the 
 
 ## Type safety
 
-Paraglide generates the message functions, so keys and parameters are typed by default — a renamed or missing message is a **compile error**, and your editor autocompletes both names and arguments. react-i18next can approximate this with [TypeScript augmentation](https://www.i18next.com/overview/typescript), but it's opt-in setup you maintain rather than something you get for free.
+Paraglide generates the message functions, so keys and parameters are typed by default — a renamed or missing message is a **compile error**, and your editor autocompletes both names and arguments. i18next also supports typed keys and a selector API through [TypeScript configuration](https://www.i18next.com/overview/typescript). Interpolation inference depends on how resources and types are declared. Paraglide derives message signatures from compilation, while i18next requires configuring resource types. Both approaches need TypeScript checking in your workflow.
 
 ## Locale switching in React
 
@@ -131,6 +131,6 @@ To be fair: react-i18next remains an excellent, battle-tested choice. Prefer it 
 npx @inlang/paraglide-js init
 ```
 
-- [Full React + Vite example](https://github.com/opral/paraglide-js/tree/main/examples/react)
+- [React + Vite setup guide](https://paraglidejs.com/react)
 - [React Router (SSR) guide](https://paraglidejs.com/react-router)
 - [Benchmark](/benchmark) · [Full comparison](/comparison)
