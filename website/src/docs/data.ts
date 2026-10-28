@@ -107,6 +107,16 @@ const mirrorPages: Record<string, MirrorSpec> = {
 			"- SEO-friendly localized URLs",
 			"- Works with CSR, SSR, and SSG",
 			"- Tested as part of [TanStack's CI/CD pipeline](https://paraglidejs.com/blog/tanstack-ci)",
+			"",
+			"## Why use Paraglide with TanStack Start?",
+			"",
+			"TanStack maintains a [Paraglide example](https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide). TanStack Router continues to own the route tree, loaders, and navigation; Paraglide supplies typed message functions, locale detection, localized URL mapping, and request-scoped locale handling for SSR. The setup below shows how these pieces compose.",
+			"",
+			"Translations can stay in version-controlled JSON files. `project.inlang/settings.json` configures locales, file paths, and format plugins; no hosted translation service is required. Existing i18next JSON can use the [i18next plugin](https://inlang.com/m/3i8bor92/plugin-inlang-i18next), and ICU MessageFormat 1 can use the [ICU plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1).",
+			"",
+			"Static message imports let the bundler remove unused messages. This differs from loading only the active locale: default output includes configured locales for retained messages. Compare [benchmark methodology](https://paraglidejs.com/benchmark) and [compiler options](https://paraglidejs.com/compiling-messages) against your own routes, messages, and locale count. Do not compare total app transfer sizes with library-only overhead.",
+			"",
+			"Locale switching uses document navigation by default so the localized URL, server-rendered HTML, and client locale agree. See [locale switching](https://paraglidejs.com/basics#getting-and-setting-the-locale) before implementing an in-place switcher.",
 		].join("\n"),
 	},
 };
@@ -208,6 +218,7 @@ export function formatNavTitle(slug: string) {
 	const normalized = slug.toLowerCase();
 	const directMap: Record<string, string> = {
 		sveltekit: "SvelteKit",
+		react: "React + Vite",
 		"react-router": "React Router",
 		"next-js": "Next.js",
 		"tanstack-router": "TanStack Router",

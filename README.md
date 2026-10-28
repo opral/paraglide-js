@@ -83,7 +83,7 @@ The compiler turns your messages into typed ESM functions. Vite, Rollup, and oth
 ## Get Started With Your Framework
 
 <p>
-  <a href="#react--vite"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="18" height="18" /> React</a> ·
+  <a href="https://paraglidejs.com/react"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="18" height="18" /> React</a> ·
   <a href="https://paraglidejs.com/vite"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue" width="18" height="18" /> Vue</a> ·
   <a href="https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide"><img src="https://tanstack.com/images/logos/logo-color-100.png" alt="TanStack" width="18" height="18" /> TanStack Start</a> ·
   <a href="https://paraglidejs.com/sveltekit"><img src="https://cdn.simpleicons.org/svelte/FF3E00" alt="Svelte" width="18" height="18" /> SvelteKit</a> ·
@@ -92,7 +92,7 @@ The compiler turns your messages into typed ESM functions. Vite, Rollup, and oth
   <a href="https://paraglidejs.com/vanilla-js-ts"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="18" height="18" /> Vanilla JS/TS</a>
 </p>
 
-- **[React + Vite example](https://github.com/opral/paraglide-js/tree/main/examples/react)** — plain React SPA with the Vite plugin, messages, and a language switcher.
+- **[React + Vite guide](https://paraglidejs.com/react)** — plain React SPA with the Vite plugin, messages, and a language switcher.
 - **[TanStack Start example](https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide)** — SSR, localized routing, and TanStack Router integration.
 - **[SvelteKit guide](https://paraglidejs.com/sveltekit)** — SvelteKit's official i18n integration.
 - **[React Router guide](https://paraglidejs.com/react-router)** — SSR and client routing.
@@ -130,7 +130,7 @@ The `Greeting` component shown above is all the app code you need. By default, `
 
 For the deliberately narrow browser-only `setLocale(locale, { reload: false })` escape hatch, see [the warning in Basics](https://paraglidejs.com/basics#advanced-stay-on-the-current-document). It is for a fully client-rendered, non-URL surface that must preserve non-restorable in-memory work and transfers all reactive and document-state updates to the application.
 
-**[Full React + Vite example →](https://github.com/opral/paraglide-js/tree/main/examples/react)** · **[React Router (SSR) guide →](https://paraglidejs.com/react-router)**
+**[React + Vite setup guide →](https://paraglidejs.com/react)** · **[Runnable example →](https://github.com/opral/paraglide-js/tree/main/examples/react)** · **[React Router (SSR) guide →](https://paraglidejs.com/react-router)**
 
 ## SSR Ready
 
