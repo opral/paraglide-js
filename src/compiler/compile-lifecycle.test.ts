@@ -7,6 +7,9 @@ import { memfs } from "memfs";
 import { test, expect, vi } from "vitest";
 import { compile } from "./compile.js";
 
+vi.mock("./load-sdk-catalog.js", () => ({
+	getCatalogLoader: async () => undefined,
+}));
 vi.mock("@inlang/sdk", async (importOriginal) => {
 	const sdk = await importOriginal<typeof import("@inlang/sdk")>();
 	return {

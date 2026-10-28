@@ -53,7 +53,12 @@ export async function writeOutput(args: {
 	fs: typeof nodeFs;
 	previousOutputHashes?: Record<string, string>;
 }) {
-	const currentOutputHashes = await hashOutput(args.output, args.directory);
+	const encodedOutput = new Map<string, Buffer>();
+	const currentOutputHashes = await hashOutput(
+		args.output,
+		args.directory,
+		encodedOutput
+	);
 
 	// if the output hasn't changed, don't write it
 	const changedFiles = new Set<string>();
@@ -114,7 +119,7 @@ export async function writeOutput(args: {
 	await forEachConcurrent(filesToWrite, (filePath) =>
 		args.fs.writeFile(
 			path.resolve(args.directory, filePath),
-			args.output[filePath]!
+			encodedOutput.get(filePath) ?? args.output[filePath]!
 		)
 	);
 
@@ -180,12 +185,22 @@ function hashString(input: string): string {
 
 async function hashOutput(
 	output: Record<string, string>,
-	outputDirectory: string
+	outputDirectory: string,
+	encodedOutput: Map<string, Buffer>
 ): Promise<Record<string, string>> {
 	const entries = Object.entries(output).map(([filePath, fileContent]) => {
-		const combinedContent =
-			fileContent + path.resolve(outputDirectory, filePath);
-		return [filePath, hashString(combinedContent)] as const;
+		const absolutePath = path.resolve(outputDirectory, filePath);
+		// Large grouped modules otherwise encode their contents twice, once for
+		// hashing and again for writing. Small per-message files favor strings.
+		if (fileContent.length >= 64 * 1024) {
+			const encoded = Buffer.from(fileContent);
+			encodedOutput.set(filePath, encoded);
+			return [
+				filePath,
+				createHash("sha256").update(encoded).update(absolutePath).digest("hex"),
+			] as const;
+		}
+		return [filePath, hashString(fileContent + absolutePath)] as const;
 	});
 	return Object.fromEntries(entries);
 }

@@ -8,6 +8,7 @@ import {
 } from "./compile-bundle.js";
 import type { CompilerOptions } from "./compiler-options.js";
 import { inputsType } from "./jsdoc-types.js";
+import { declarationShardTypes } from "./output-structure/shard-types.js";
 import { toSafeModuleId } from "./safe-module-id.js";
 
 const localizedString =
@@ -20,11 +21,13 @@ export function emitTsDeclarations(args: {
 	settings: Pick<ProjectSettings, "locales">;
 	fallbackMap: Record<string, string | undefined>;
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
+	messageModuleSize?: number;
 }): Record<string, string> {
 	const output: Record<string, string> = {
 		"messages.d.ts":
 			'export * from "./messages/_index.js";\nexport * as m from "./messages/_index.js";\n',
 	};
+	const options = `{ locale?: ${args.settings.locales.map((locale) => JSON.stringify(locale)).join(" | ") || "never"} }`;
 	const declarations = args.compiledBundles.map((compiled, index) => {
 		const bundle = args.bundles[index]!;
 		const name = toSafeModuleId(bundle.id);
@@ -33,15 +36,18 @@ export function emitTsDeclarations(args: {
 		const inputs = bundle.declarations.filter(
 			(declaration) => declaration.type === "input-variable"
 		);
-		const options = `{ locale?: ${args.settings.locales.map((locale) => JSON.stringify(locale)).join(" | ") || "never"} }`;
 		const parameters = `inputs${inputs.length === 0 ? "?" : ""}: ${alias}, options?: ${options}`;
 		const call = `(${parameters}) => LocalizedString`;
-		const parts = bundleHasMarkup(bundle)
-			? ` & { parts: (${parameters}) => import("../runtime.js").MessagePart[] }`
-			: "";
-		const schema = buildMarkupSchemaType(bundle, compiled.matchTypes);
-		const type = `(${call})${parts} & import("../runtime.js").MessageMetadata<${alias}, ${options}, ${schema}>`;
-		const comment = buildEnglishMatchTableDoc(bundle);
+		const parts =
+			!compiled.usesSharedFactory && bundleHasMarkup(bundle)
+				? ` & { parts: (${parameters}) => import("../runtime.js").MessagePart[] }`
+				: "";
+		const type =
+			(args.messageModuleSize ?? 1) > 1 && !parts
+				? `${inputs.length ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${alias}>`
+				: `(${call})${parts} & import("../runtime.js").MessageMetadata<${alias}, ${options}, ${buildMarkupSchemaType(bundle, compiled.matchTypes)}>`;
+		const comment =
+			compiled.englishMatchTableDoc ?? buildEnglishMatchTableDoc(bundle);
 		const exported =
 			name === bundle.id
 				? `export const ${name}: ${type};`
@@ -62,16 +68,28 @@ export function emitTsDeclarations(args: {
 				localizedString.replace("export ", "") + "\n";
 			return output;
 		}
-		for (const declaration of declarations) {
-			output[`messages/${declaration.name}.d.ts`] =
-				[declaration.exported, localizedString, declaration.definition].join(
-					"\n"
-				) + "\n";
+		const size = args.messageModuleSize ?? 1;
+		const filenames: string[] = [];
+		for (let start = 0; start < declarations.length; start += size) {
+			const group = declarations.slice(start, start + size);
+			const name = size === 1 ? group[0]!.name : `_shard_${filenames.length}`;
+			filenames.push(name);
+			output[`messages/${name}.d.ts`] =
+				size === 1
+					? [group[0]!.exported, localizedString, group[0]!.definition].join(
+							"\n"
+						) + "\n"
+					: [
+							...group.map((d) => d.exported),
+							localizedString,
+							declarationShardTypes(args.settings.locales),
+							...group.map((d) => d.definition),
+						].join("\n") + "\n";
 		}
 		output["messages/_index.d.ts"] =
 			[
-				...declarations.map(
-					({ name }) => `export * from ${JSON.stringify(`./${name}.js`)};`
+				...filenames.map(
+					(name) => `export * from ${JSON.stringify(`./${name}.js`)};`
 				),
 				localizedString,
 			].join("\n") + "\n";

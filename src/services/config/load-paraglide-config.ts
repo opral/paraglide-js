@@ -1,4 +1,3 @@
-import { createJiti } from "jiti";
 import * as v from "valibot";
 import { createRequire } from "node:module";
 import { resolve } from "node:path";
@@ -90,6 +89,7 @@ async function load(
 ): Promise<LoadedParaglideConfig | undefined> {
 	const configPath = await resolveConfigCandidate(projectDir);
 	if (configPath === undefined) return undefined;
+	const { createJiti } = await import("jiti");
 
 	// A fresh jiti instance per load with a disabled module cache ensures
 	// that reloading a changed config file picks up the new content.

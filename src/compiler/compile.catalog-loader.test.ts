@@ -13,6 +13,9 @@ const mocks = vi.hoisted(() => ({
 		throw new Error("Catalog compilation must not query a database");
 	}),
 }));
+vi.mock("./load-sdk-catalog.js", () => ({
+	getCatalogLoader: async () => mocks.load,
+}));
 vi.mock("@inlang/sdk", async (importOriginal) => ({
 	...(await importOriginal<typeof import("@inlang/sdk")>()),
 	loadProjectCatalog: mocks.load,

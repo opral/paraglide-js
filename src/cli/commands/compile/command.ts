@@ -41,6 +41,15 @@ const parseOutputStructure = (value: string): OutputStructure => {
 	);
 };
 
+const parseMessageModuleSize = (value: string): number => {
+	const size = Number(value);
+	if (!Number.isSafeInteger(size) || size < 1)
+		throw new InvalidArgumentError(
+			"Message module size must be a positive safe integer."
+		);
+	return size;
+};
+
 export const compileCommand = new Command()
 	.name("compile")
 	.summary("Compiles inlang Paraglide-JS")
@@ -130,6 +139,11 @@ export const compileCommand = new Command()
 		].join("\n"),
 		parseOutputStructure
 	)
+	.option(
+		"--message-module-size <number>",
+		"Messages per module with message-modules output (default: 1)",
+		parseMessageModuleSize
+	)
 	.option("--watch", "Watch project files and recompile on change", false)
 	.action(
 		async (options: {
@@ -146,6 +160,7 @@ export const compileCommand = new Command()
 			experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 			disableAsyncLocalStorage?: CompilerOptions["disableAsyncLocalStorage"];
 			outputStructure?: OutputStructure;
+			messageModuleSize?: number;
 			watch?: boolean;
 		}) => {
 			const logger = new Logger({ silent: options.silent, prefix: true });
@@ -200,6 +215,7 @@ export const compileCommand = new Command()
 						cleanOutdir: options.cleanOutdir,
 						experimentalStaticLocale: options.experimentalStaticLocale,
 						disableAsyncLocalStorage: options.disableAsyncLocalStorage,
+						messageModuleSize: options.messageModuleSize,
 						// The CLI always uses message-modules unless told otherwise
 						// (plugins apply their own development default).
 						outputStructure:

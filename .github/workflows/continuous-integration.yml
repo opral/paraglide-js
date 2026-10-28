@@ -63,17 +63,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: opral/inlang
-          ref: 1102ccee29024d0598f46007cbaddbf7797efce5
+          ref: 3637f8fcf20350debd682e31569b54fe0a7865b6
           path: .catalog-sdk
 
-      - name: Build and link the unreleased SDK
+      - name: Build and link the unreleased SDK and message-format plugin
         run: |
-          pnpm --dir .catalog-sdk install --frozen-lockfile --filter @inlang/sdk...
+          pnpm --dir .catalog-sdk install --frozen-lockfile --filter @inlang/sdk... --filter @inlang/plugin-message-format...
           pnpm --dir .catalog-sdk --filter @inlang/sdk build
+          pnpm --dir .catalog-sdk --filter @inlang/plugin-message-format build
           ln -sfn "$PWD/.catalog-sdk/packages/sdk" node_modules/@inlang/sdk
-          node --input-type=module -e 'import { loadProjectCatalog } from "@inlang/sdk"; if (typeof loadProjectCatalog !== "function") throw new Error("Linked SDK catalog API is missing");'
+          ln -sfn "$PWD/.catalog-sdk/packages/plugins/inlang-message-format" node_modules/@inlang/plugin-message-format
+          node --input-type=module -e 'import { loadProjectCatalog } from "@inlang/sdk/catalog"; import plugin from "@inlang/plugin-message-format"; if (typeof loadProjectCatalog !== "function" || typeof plugin.tryImportCatalog !== "function") throw new Error("Linked catalog APIs are missing");'
 
       - name: Verify catalog integration
         run: |
           pnpm build
-          pnpm exec vitest run src/compiler/compile-catalog.test.ts src/compiler/compile.catalog-loader.test.ts src/compiler/compile.catalog-cache.test.ts src/compiler/compile-lifecycle.test.ts
+          pnpm exec vitest run src/compiler/compile-catalog.test.ts src/compiler/compile.catalog-loader.test.ts src/compiler/compile.catalog-cache.test.ts src/compiler/compile-lifecycle.test.ts src/compiler/load-sdk-catalog.test.ts src/compiler/message-module-size.test.ts

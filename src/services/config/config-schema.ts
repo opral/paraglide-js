@@ -124,6 +124,14 @@ export const paraglideConfigSchema = v.object({
 	outputStructure: v.optional(
 		v.picklist(["message-modules", "locale-modules"])
 	),
+	messageModuleSize: v.optional(
+		v.pipe(
+			v.number(),
+			v.integer(),
+			v.minValue(1),
+			v.maxValue(Number.MAX_SAFE_INTEGER)
+		)
+	),
 	cleanOutdir: v.optional(v.boolean()),
 });
 

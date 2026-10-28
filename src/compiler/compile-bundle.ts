@@ -5,7 +5,12 @@ import type {
 	MarkupStart,
 	ProjectSettings,
 } from "@inlang/sdk";
-import { compileMessage, type CompiledMessage } from "./compile-message.js";
+import {
+	compileMessage,
+	messageBundleId,
+	type CompiledMessage,
+} from "./compile-message.js";
+import { compilePattern } from "./compile-pattern.js";
 import type { Compiled } from "./types.js";
 import {
 	inputTypeForName,
@@ -34,6 +39,8 @@ export type CompiledBundleWithMessages = {
 	inputTypeAliasName?: string;
 	/** Compiled message helpers with no emitted reference in message-modules. */
 	unreferencedMessageLocales?: string[];
+	usesSharedFactory?: boolean;
+	englishMatchTableDoc?: string;
 };
 
 /**
@@ -46,9 +53,18 @@ export const compileBundle = (args: {
 	settings?: ProjectSettings;
 	/** Internal layout control; locale modules keep text grouped by language. */
 	inlineMessages?: boolean;
+	/** Internal: shard wrappers export their returned message functions. */
+	exported?: boolean;
+	/** Internal: compile only bodies whose locale helper will never be emitted. */
+	fuseInlineMessages?: boolean;
+	/** Internal: grouped modules share their function and option typedefs. */
+	compactTypes?: boolean;
+	sharedMessageFactory?: boolean;
 	experimentalMiddlewareLocaleSplitting?: boolean;
 	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 }): CompiledBundleWithMessages => {
+	const fused = args.fuseInlineMessages && tryCompileInlineBundle(args);
+	if (fused) return fused;
 	const compiledMessages: Record<string, CompiledMessage> = {};
 	const safeBundleId = toSafeModuleId(args.bundle.id);
 	const inputTypeAliasName = toBundleInputTypeAliasName(safeBundleId);
@@ -114,6 +130,8 @@ export const compileBundle = (args: {
 				args.experimentalMiddlewareLocaleSplitting ?? false,
 			experimentalStaticLocale: args.experimentalStaticLocale,
 			inputTypeAliasName,
+			exported: args.exported,
+			compactTypes: args.compactTypes,
 		}),
 		messages: compiledMessages,
 		matchTypes,
@@ -121,6 +139,140 @@ export const compileBundle = (args: {
 		unreferencedMessageLocales,
 	};
 };
+
+/**
+ * Fully translated, unformatted single-variant messages need no retained helper.
+ * Fuse pattern compilation and inline metadata instead of constructing helper
+ * functions and traversing the same patterns again to discard those functions.
+ * Every other message uses the general compiler, including its diagnostics.
+ */
+function tryCompileInlineBundle(
+	args: Parameters<typeof compileBundle>[0]
+): CompiledBundleWithMessages | undefined {
+	if (
+		!args.inlineMessages ||
+		args.experimentalMiddlewareLocaleSplitting ||
+		!args.settings ||
+		args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression
+	)
+		return;
+	if (args.bundle.declarations.some((d) => d.type !== "input-variable")) return;
+	const locales = Object.keys(args.fallbackMap);
+	if (locales.length === 0 || args.bundle.messages.length !== locales.length)
+		return;
+	const seen = new Set<string>();
+	const declared =
+		args.bundle.declarations.length > 1
+			? new Set(args.bundle.declarations.map((d) => d.name))
+			: undefined;
+	const singleInput = args.bundle.declarations[0]?.name;
+	for (const message of args.bundle.messages) {
+		// Keep the public catalog entry point's missing-reference diagnostic.
+		messageBundleId(message);
+		if (
+			seen.has(message.locale) ||
+			!Object.hasOwn(args.fallbackMap, message.locale) ||
+			message.variants.length !== 1 ||
+			message.selectors.length
+		)
+			return;
+		seen.add(message.locale);
+		const variant = message.variants[0]!;
+		if (variant.matches.length) return;
+		for (const part of variant.pattern) {
+			if (part.type === "text") continue;
+			if (
+				part.type !== "expression" ||
+				part.annotation ||
+				(part.arg.type === "variable-reference" &&
+					(declared
+						? !declared.has(part.arg.name)
+						: part.arg.name !== singleInput))
+			)
+				return;
+		}
+	}
+	const inputTypeAliasName = toBundleInputTypeAliasName(
+		toSafeModuleId(args.bundle.id)
+	);
+	const matchTypes: InputMatchTypes = new Map();
+	const messages: Record<string, CompiledMessage> = {};
+	const expressions: Record<string, string> = Object.create(null);
+	const plain: Record<string, string> | undefined = args.sharedMessageFactory
+		? undefined
+		: Object.create(null);
+	const bodies: Record<string, InlineBody> | undefined =
+		args.sharedMessageFactory ? undefined : Object.create(null);
+	for (const message of args.bundle.messages) {
+		const pattern = message.variants[0]!.pattern;
+		const compiled = compilePattern({
+			pattern,
+			declarations: args.bundle.declarations,
+			locale: message.locale,
+		});
+		if (args.sharedMessageFactory) {
+			expressions[message.locale] =
+				`i => /** @type {LocalizedString} */ (${compiled.code})`;
+			continue;
+		}
+		const readsInput = pattern.some(
+			(p) => p.type === "expression" && p.arg.type === "variable-reference"
+		);
+		const plainText = pattern.every((p) => p.type === "text")
+			? pattern
+					.map((p) => (p.type === "text" ? p.value : ""))
+					.join("")
+					.replace(/\r\n?/g, "\n")
+			: undefined;
+		const inline = {
+			statements: [`return /** @type {LocalizedString} */ (${compiled.code})`],
+			readsInput,
+		};
+		messages[message.locale] = {
+			node: message,
+			code: "",
+			registryFunctions: [],
+			inline,
+		};
+		if (plainText !== undefined) plain![message.locale] = plainText;
+		else bodies![message.locale] = inline;
+	}
+	const englishMatchTableDoc = args.sharedMessageFactory
+		? buildEnglishMatchTableDoc(args.bundle)
+		: undefined;
+	const compiledBundle = args.sharedMessageFactory
+		? {
+				node: args.bundle,
+				code: `${englishMatchTableDoc ? `/**\n${englishMatchTableDoc}*/\n` : ""}const ${toSafeModuleId(args.bundle.id)} = /** @type {${args.bundle.declarations.length ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${inputTypeAliasName}>} */ (/* @__PURE__ */ ${args.bundle.declarations.length ? "__paraglideMessage" : "__paraglideOptionalMessage"}(${JSON.stringify(toSafeModuleId(args.bundle.id))}, ${locales
+					.map((locale) => expressions[locale])
+					.join(", ")}));`,
+			}
+		: compileBundleFunction({
+				bundle: args.bundle,
+				availableLocales: locales,
+				messageReferenceExpression: args.messageReferenceExpression,
+				inlinePlainTextByLocale: plain,
+				inlineBodiesByLocale: bodies,
+				settings: args.settings,
+				matchTypes,
+				hasMarkup: false,
+				experimentalMiddlewareLocaleSplitting:
+					args.experimentalMiddlewareLocaleSplitting ?? false,
+				experimentalStaticLocale: args.experimentalStaticLocale,
+				inputTypeAliasName,
+				exported: args.exported,
+				compactTypes: args.compactTypes,
+			});
+	return {
+		bundle: compiledBundle,
+		usesSharedFactory: args.sharedMessageFactory,
+		englishMatchTableDoc,
+		messages,
+		matchTypes,
+		inputTypeAliasName,
+		unreferencedMessageLocales: Object.keys(messages),
+	};
+}
 
 /**
  * Finds one-variant messages whose pattern is entirely static text. Their
@@ -239,6 +391,8 @@ const compileBundleFunction = (args: {
 	 * Shared typedef name for bundle input types used across emitted JSDoc.
 	 */
 	inputTypeAliasName: string;
+	exported?: boolean;
+	compactTypes?: boolean;
 }): Compiled<Bundle> => {
 	const inputs = args.bundle.declarations.filter(
 		(decl) => decl.type === "input-variable"
@@ -327,14 +481,20 @@ const compileBundleFunction = (args: {
 		? ""
 		: buildEnglishMatchTableDoc(args.bundle);
 
-	const commonJsDoc = `/**
+	const compactTypes = args.compactTypes === true && !args.hasMarkup;
+	const commonJsDoc = compactTypes
+		? `/**\n${englishMatchTableDoc}*/`
+		: `/**
 ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
-		inputs,
-		locales: args.availableLocales,
-		matchTypes: args.matchTypes,
-		inputTypeOverride: args.inputTypeAliasName,
-	})}
+				inputs,
+				locales: args.availableLocales,
+				matchTypes: args.matchTypes,
+				inputTypeOverride: args.inputTypeAliasName,
+			})}
 */`;
+	const stringFunctionType = compactTypes
+		? `${hasInputs ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${inputType}>`
+		: `(${bundleFunctionType}) & ${messageMetadataType}`;
 
 	const clientMiddlewareGuard = (indent: string): string => {
 		if (!args.experimentalMiddlewareLocaleSplitting) {
@@ -389,7 +549,7 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 
 	if (!args.hasMarkup) {
 		code = `${commonJsDoc}
-${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & ${messageMetadataType}} */ ((${inputsName}${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
+${args.exported !== false && isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {${stringFunctionType}} */ ((${inputsName}${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
 			"\t"
 		)}${keepUnusedInputsParameter("\t")}
 ${localeResolutionStatement("\t")}
@@ -401,7 +561,7 @@ ${localeResolutionStatement("\t")}
 });`;
 	} else {
 		code = `${commonJsDoc}
-${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & { parts: ${partsFunctionType} } & ${messageMetadataType}} */ (
+${args.exported !== false && isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & { parts: ${partsFunctionType} } & ${messageMetadataType}} */ (
 	/* @__PURE__ */ Object.assign(
 		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
 			"\t\t\t"
@@ -429,7 +589,7 @@ ${localeResolutionStatement("\t\t\t\t")}
 );`;
 	}
 
-	if (isSafeBundleId === false) {
+	if (args.exported !== false && isSafeBundleId === false) {
 		code += `\nexport { ${safeBundleId} as "${escapeForDoubleQuoteString(args.bundle.id)}" }`;
 	}
 

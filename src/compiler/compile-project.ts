@@ -1,13 +1,9 @@
 import { compileBundle } from "./compile-bundle.js";
-import {
-	selectBundleNested,
-	type InlangProject,
-	type BundleNested,
-	type ProjectSettings,
-} from "@inlang/sdk";
+import type { InlangProject, BundleNested, ProjectSettings } from "@inlang/sdk";
 import { lookup } from "../services/lookup.js";
 import * as localeModules from "./output-structure/locale-modules.js";
 import * as messageModules from "./output-structure/message-modules.js";
+import * as messageShards from "./output-structure/message-shards.js";
 import {
 	defaultCompilerOptions,
 	type CompilerOptions,
@@ -40,6 +36,7 @@ export const compileProject = async (args: {
 	projectPath?: string;
 	compilerOptions?: Omit<CompilerOptions, "fs" | "project" | "outdir">;
 }): Promise<Record<string, string>> => {
+	const { selectBundleNested } = await import("@inlang/sdk");
 	return compileCatalog({
 		...args,
 		catalog: {
@@ -68,6 +65,27 @@ export const compileCatalog = async (args: {
 		...defaultCompilerOptions,
 		...args.compilerOptions,
 	};
+	const messageModuleSize = optionsWithDefaults.messageModuleSize ?? 1;
+	if (!Number.isSafeInteger(messageModuleSize) || messageModuleSize < 1) {
+		throw new Error("messageModuleSize must be a positive safe integer");
+	}
+	if (
+		messageModuleSize > 1 &&
+		optionsWithDefaults.outputStructure !== "message-modules"
+	) {
+		throw new Error(
+			"messageModuleSize above one requires message-modules outputStructure"
+		);
+	}
+	if (
+		messageModuleSize > 1 &&
+		optionsWithDefaults.experimentalStaticLocale ===
+			perLocaleBuildStaticLocaleExpression
+	) {
+		throw new Error(
+			"messageModuleSize above one is not supported for locale-specialized builds"
+		);
+	}
 	await ensureURLPatternAvailable();
 	validateRouteStrategyMatchers(optionsWithDefaults.routeStrategies);
 
@@ -102,6 +120,10 @@ export const compileCatalog = async (args: {
 			bundle,
 			fallbackMap,
 			inlineMessages: optionsWithDefaults.outputStructure === "message-modules",
+			exported: messageModuleSize === 1,
+			fuseInlineMessages: true,
+			compactTypes: messageModuleSize > 1,
+			sharedMessageFactory: messageModuleSize > 1,
 			messageReferenceExpression: outputStructure.messageReferenceExpression,
 			settings,
 			experimentalMiddlewareLocaleSplitting:
@@ -131,12 +153,20 @@ export const compileCatalog = async (args: {
 	// generate the output modules
 	Object.assign(
 		output,
-		outputStructure.generateOutput(
-			compiledBundles,
-			settings,
-			fallbackMap,
-			optionsWithDefaults.experimentalMiddlewareLocaleSplitting
-		)
+		messageModuleSize > 1
+			? messageShards.generateOutput(
+					compiledBundles,
+					settings,
+					fallbackMap,
+					optionsWithDefaults.experimentalMiddlewareLocaleSplitting,
+					messageModuleSize
+				)
+			: outputStructure.generateOutput(
+					compiledBundles,
+					settings,
+					fallbackMap,
+					optionsWithDefaults.experimentalMiddlewareLocaleSplitting
+				)
 	);
 
 	if (optionsWithDefaults.emitGitIgnore) {
@@ -205,6 +235,7 @@ export const compileCatalog = async (args: {
 				settings,
 				fallbackMap,
 				outputStructure: optionsWithDefaults.outputStructure,
+				messageModuleSize,
 			})
 		);
 		// Explicit custom declarations also cover overrides of generated modules.

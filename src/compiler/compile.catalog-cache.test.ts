@@ -8,6 +8,13 @@ const database = vi.hoisted(() =>
 		throw new Error("Catalog compilation must not open a project database");
 	})
 );
+vi.mock("./load-sdk-catalog.js", () => ({
+	getCatalogLoader: async () => {
+		const actual =
+			await vi.importActual<typeof import("@inlang/sdk")>("@inlang/sdk");
+		return Reflect.get(actual, "loadProjectCatalog");
+	},
+}));
 vi.mock("@inlang/sdk", async (importOriginal) => {
 	const actual = await importOriginal<typeof import("@inlang/sdk")>();
 	return {

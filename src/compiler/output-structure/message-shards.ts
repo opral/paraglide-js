@@ -1,0 +1,94 @@
+import type { ProjectSettings } from "@inlang/sdk";
+import type { CompiledBundleWithMessages } from "../compile-bundle.js";
+import { toBundleInputTypeAliasName } from "../compile-bundle.js";
+import { toSafeModuleId } from "../safe-module-id.js";
+import { inputsType } from "../jsdoc-types.js";
+import { jsShardTypes, jsShardFactory } from "./shard-types.js";
+import { generateMessageBody } from "./message-modules.js";
+
+/** Isolated pure wrappers preserve tree shaking and each message's local bindings. */
+export function generateOutput(
+	bundles: CompiledBundleWithMessages[],
+	settings: Pick<ProjectSettings, "locales" | "baseLocale">,
+	fallbackMap: Record<string, string | undefined>,
+	middleware: boolean,
+	size: number
+): Record<string, string> {
+	const output: Record<string, string> = {};
+	const files: string[] = [];
+	for (let start = 0; start < bundles.length; start += size) {
+		const shard = bundles.slice(start, start + size);
+		const filename = `_shard_${files.length}.js`;
+		const names = new Set(shard.map((b) => toSafeModuleId(b.bundle.node.id)));
+		files.push(filename);
+		const runtime = middleware
+			? "getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale"
+			: "getLocale, experimentalStaticLocale";
+		const chunks = [
+			`import { ${runtime} } from '../runtime.js';`,
+			"/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */",
+			jsShardTypes(settings.locales),
+		];
+		if (
+			shard.some((b) =>
+				Object.values(b.messages).some((m) => m.registryFunctions.length)
+			)
+		)
+			chunks.unshift("import * as registry from '../registry.js';");
+		for (const optional of [false, true]) {
+			if (
+				shard.some(
+					(b) =>
+						b.usesSharedFactory &&
+						(b.bundle.node.declarations.length === 0) === optional
+				)
+			) {
+				chunks.push(
+					jsShardFactory(
+						Object.keys(fallbackMap),
+						settings.baseLocale,
+						optional
+					)
+				);
+			}
+		}
+		for (let offset = 0; offset < shard.length; offset++) {
+			const bundle = shard[offset]!;
+			const id = bundle.bundle.node.id;
+			const safe = toSafeModuleId(id);
+			const alias =
+				bundle.inputTypeAliasName ?? toBundleInputTypeAliasName(safe);
+			const inputs = bundle.bundle.node.declarations.filter(
+				(d) => d.type === "input-variable"
+			);
+			chunks.push(
+				`/** @typedef {${inputsType(inputs, bundle.matchTypes)}} ${alias} */`
+			);
+			const body = bundle.usesSharedFactory
+				? bundle.bundle.code
+				: generateMessageBody(bundle, settings, fallbackMap, alias);
+			const allInline =
+				bundle.usesSharedFactory ||
+				settings.locales.every(
+					(locale) =>
+						bundle.messages[locale] &&
+						bundle.unreferencedMessageLocales?.includes(locale)
+				);
+			if (allInline && safe !== "registry" && safe !== "undefined") {
+				chunks.push(`${body}\nexport { ${safe} as ${JSON.stringify(id)} };`);
+			} else {
+				let local = `__message_${offset}`;
+				while (names.has(local)) local += "_";
+				chunks.push(
+					`const ${local} = /* @__PURE__ */ (() => {\n${body}\nreturn ${safe};\n})();\nexport { ${local} as ${JSON.stringify(id)} };`
+				);
+			}
+		}
+		output[`messages/${filename}`] = chunks.join("\n\n");
+	}
+	output["messages/_index.js"] = [
+		"/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */",
+		...files.map((f) => `export * from './${f}';`),
+	].join("\n");
+	return output;
+}

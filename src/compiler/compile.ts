@@ -1,10 +1,6 @@
-import * as sdk from "@inlang/sdk";
+import { getCatalogLoader } from "./load-sdk-catalog.js";
 import path from "node:path";
-import {
-	compileProject,
-	compileCatalog,
-	type CatalogInput,
-} from "./compile-project.js";
+import { compileProject, compileCatalog } from "./compile-project.js";
 import { writeOutput } from "../services/file-handling/write-output.js";
 import {
 	defaultCompilerOptions,
@@ -61,13 +57,7 @@ export async function compile(
 
 			// Keep the published SDK range usable until the catalog API is released.
 			// A locally linked SDK (or a later compatible release) takes this path.
-			const loadProjectCatalog = Reflect.get(sdk, "loadProjectCatalog") as
-				| ((args: {
-						path: string;
-						fs: typeof fs;
-						writePluginCache?: boolean;
-				  }) => Promise<CatalogInput & { diagnostics: Error[] }>)
-				| undefined;
+			const loadProjectCatalog = await getCatalogLoader();
 			const catalog =
 				typeof loadProjectCatalog === "function"
 					? await loadProjectCatalog({
@@ -78,7 +68,9 @@ export async function compile(
 					: undefined;
 			const project = catalog
 				? undefined
-				: await sdk.loadProjectFromDirectory({
+				: await (
+						await import("@inlang/sdk")
+					).loadProjectFromDirectory({
 						path: withDefaultOptions.project,
 						fs,
 					});

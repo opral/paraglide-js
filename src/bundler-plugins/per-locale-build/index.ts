@@ -1,6 +1,5 @@
 import nodeFs from "node:fs";
 import { resolve } from "node:path";
-import { loadProjectFromDirectory } from "@inlang/sdk";
 import type { Plugin } from "vite";
 import { perLocaleBuildStaticLocaleExpression } from "../../compiler/per-locale-build.js";
 import type { PerLocaleBuildSettings } from "./types.js";
@@ -115,6 +114,7 @@ async function loadSettings(
 		overrides: options,
 		root,
 	});
+	const { loadProjectFromDirectory } = await import("@inlang/sdk");
 	const loadedProject = await loadProjectFromDirectory({
 		path: project,
 		fs: options.fs ?? nodeFs,

@@ -1,5 +1,8 @@
 # Read-only SDK catalog compilation
 
+Latest measurements and implementation details are in [round2](./round2/README.md).
+The measurements below record the initial catalog implementation.
+
 Directory compilation uses `@inlang/sdk.loadProjectCatalog()` when that API is
 available. The dependency range remains compatible with the published SDK; older
 SDK versions use the existing project loader. `compileProject({ project })`
