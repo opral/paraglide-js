@@ -71,6 +71,7 @@ jobs:
           pnpm --dir .catalog-sdk install --frozen-lockfile --filter @inlang/sdk...
           pnpm --dir .catalog-sdk --filter @inlang/sdk build
           ln -sfn "$PWD/.catalog-sdk/packages/sdk" node_modules/@inlang/sdk
+          node --input-type=module -e 'import { loadProjectCatalog } from "@inlang/sdk"; if (typeof loadProjectCatalog !== "function") throw new Error("Linked SDK catalog API is missing");'
 
       - name: Verify catalog integration
         run: |
