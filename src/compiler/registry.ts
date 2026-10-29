@@ -13,6 +13,8 @@ type RegistryFunction = {
 	jsdoc: string;
 	/** The function declaration, without `export` */
 	code: string;
+	/** A helper of the other functions, not exported */
+	internal?: true;
 };
 
 /**
@@ -20,6 +22,7 @@ type RegistryFunction = {
  */
 const registryFunctions: Record<string, RegistryFunction> = {
 	getIntlFormatter: {
+		internal: true,
 		jsdoc: `/**
  * @template T
  * @param {new (locale: string, options?: any) => T} Constructor
@@ -35,9 +38,13 @@ const registryFunctions: Record<string, RegistryFunction> = {
 		return new Constructor(locale, options)
 	}
 	const state = /** @type {{ caches?: WeakMap<object, Map<string, any>>, prototypeKeys?: Set<string> }} */ (/** @type {unknown} */ (getIntlFormatter));
+	// A string key marks options that are all literals. Their formatter is
+	// built from their own properties only (ownOptions()), so Object.prototype
+	// cannot reach it and needs no scan.
+	const literal = typeof cacheable === "string";
 	// Compiler literals inherit Object.prototype. Extensions to it may supply
 	// Intl options, so preserve native reads instead of caching in that case.
-	if (options !== undefined) {
+	if (options !== undefined && !literal) {
 		const standardKeys = state.prototypeKeys ??= new Set(["constructor", "__defineGetter__", "__defineSetter__", "hasOwnProperty", "__lookupGetter__", "__lookupSetter__", "isPrototypeOf", "propertyIsEnumerable", "toString", "valueOf", "__proto__", "toLocaleString"]);
 		if (Object.getOwnPropertyNames(Object.prototype).some((name) => !standardKeys.has(name))) return new Constructor(locale, options)
 	}
@@ -56,6 +63,10 @@ const registryFunctions: Record<string, RegistryFunction> = {
 		}
 		key = JSON.stringify([locale, entries]);
 	}
+	// Without the scan, an inherited \`caches\` must not stand in for this one.
+	if (literal && !Object.hasOwn(state, "caches")) {
+		Object.defineProperty(state, "caches", { value: new WeakMap(), writable: true });
+	}
 	const caches = state.caches ??= new WeakMap();
 	let cache = caches.get(Constructor);
 	if (!cache) {
@@ -63,7 +74,7 @@ const registryFunctions: Record<string, RegistryFunction> = {
 		caches.set(Constructor, cache);
 	}
 	if (cache.has(key)) return cache.get(key)
-	const formatter = new Constructor(locale, options);
+	const formatter = new Constructor(locale, literal ? ownOptions(options) : options);
 	// Bound retention when applications use dynamic formatter options.
 	if (cache.size >= 256) {
 		const oldest = cache.keys().next().value;
@@ -71,6 +82,32 @@ const registryFunctions: Record<string, RegistryFunction> = {
 	}
 	cache.set(key, formatter);
 	return formatter
+};`,
+	},
+	ownOptions: {
+		internal: true,
+		jsdoc: `/**
+ * A prototype-free copy of literal options. Compiled messages read only the
+ * options they were written with, never ones added to Object.prototype.
+ *
+ * @param {any} options
+ * @returns {any}
+ */`,
+		code: `function ownOptions(options) {
+	return options === undefined ? undefined : Object.assign(Object.create(null), options)
+};`,
+	},
+	ownOption: {
+		internal: true,
+		jsdoc: `/**
+ * One option of literal options, read as an own property, see ownOptions().
+ *
+ * @param {any} options
+ * @param {string} name
+ * @returns {unknown}
+ */`,
+		code: `function ownOption(options, name) {
+	return options !== undefined && Object.hasOwn(options, name) ? options[name] : undefined
 };`,
 	},
 	plural: {
@@ -86,7 +123,7 @@ const registryFunctions: Record<string, RegistryFunction> = {
  * @returns {string}
  */`,
 		code: `function plural(locale, input, options, cacheable = false) {
-	return getIntlFormatter(Intl.PluralRules, locale, options, cacheable).select(Number(input) - Number(options?.offset ?? 0))
+	return getIntlFormatter(Intl.PluralRules, locale, options, cacheable).select(Number(input) - Number((typeof cacheable === "string" ? ownOption(options, "offset") : options?.offset) ?? 0))
 };`,
 	},
 	number: {
@@ -117,7 +154,7 @@ const registryFunctions: Record<string, RegistryFunction> = {
 		code: `function icuPound(locale, input, options, cacheable = false) {
 	const value = typeof input === "number" ? input : typeof input === "string" && input.trim() !== "" ? Number(input) : NaN
 	if (!Number.isFinite(value)) return String(input)
-	return number(locale, value - Number(options?.offset ?? 0), undefined, cacheable)
+	return number(locale, value - Number((typeof cacheable === "string" ? ownOption(options, "offset") : options?.offset) ?? 0), undefined, cacheable)
 };`,
 	},
 	datetime: {
@@ -129,10 +166,11 @@ const registryFunctions: Record<string, RegistryFunction> = {
  * @returns {string}
  */`,
 		code: `function datetime(locale, input, options, cacheable = false) {
+	const literal = typeof cacheable === "string";
 	// The host default zone can change while the app is running.
-	const formatter = cacheable && options?.timeZone !== undefined
+	const formatter = cacheable && (literal ? ownOption(options, "timeZone") : options?.timeZone) !== undefined
 		? getIntlFormatter(Intl.DateTimeFormat, locale, options, cacheable)
-		: new Intl.DateTimeFormat(locale, options);
+		: new Intl.DateTimeFormat(locale, literal ? ownOptions(options) : options);
 	return formatter.format(new Date(/** @type {string} */ (input)))
 };`,
 	},
@@ -161,9 +199,6 @@ export function createRegistry(): string {
  */
 
 ${Object.values(registryFunctions)
-	.map(
-		(fn) =>
-			`${fn.jsdoc}\n${fn === registryFunctions.getIntlFormatter ? "" : "export "}${fn.code}`
-	)
+	.map((fn) => `${fn.jsdoc}\n${fn.internal ? "" : "export "}${fn.code}`)
 	.join("\n\n")}`;
 }

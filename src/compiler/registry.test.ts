@@ -251,7 +251,10 @@ test("direct calls never invoke prototype or descriptor traps", async () => {
 });
 
 test("keeps the cache helper private in the generated registry", async () => {
-	expect(await loadRegistry()).not.toHaveProperty("getIntlFormatter");
+	const registry = await loadRegistry();
+	expect(registry).not.toHaveProperty("getIntlFormatter");
+	expect(registry).not.toHaveProperty("ownOptions");
+	expect(registry).not.toHaveProperty("ownOption");
 });
 
 test("does not enumerate proxy option keys or inspect descriptors", async () => {
@@ -472,47 +475,96 @@ test("compiled literal options pass the runtime key and share its formatter", as
 	}
 });
 
-test("compiled literal options read Intl options from an extended Object.prototype, like other calls", async () => {
-	const { registry } = await compileCall("number", []);
-	// extended before the first call
-	withPrototypeProperty("minimumFractionDigits", { value: 1 }, () =>
-		expect(registry.format(2)).toBe("2.0")
-	);
-	expect(registry.format(2)).toBe("2");
-	// extended after the formatter was cached
-	for (const descriptor of [{ value: 2 }, { get: () => 2 }]) {
-		withPrototypeProperty("minimumFractionDigits", descriptor, () =>
-			expect(registry.format(2)).toBe("2.00")
+test("compiled literal options ignore options added to Object.prototype", async () => {
+	const date = "2026-01-01T02:00:00Z";
+	const cases: Array<
+		[
+			annotation: string,
+			options: Option[],
+			input: unknown,
+			name: string,
+			value: unknown,
+		]
+	> = [
+		["number", [], 2, "minimumFractionDigits", 2],
+		["number", [], 2, "style", "percent"],
+		["plural", [], 1, "offset", 1],
+		["icu:pound", [], 1234, "offset", 1],
+		["relativetime", [literal("unit", "day")], -1, "numeric", "auto"],
+		[
+			"datetime",
+			[literal("timeZone", "UTC"), literal("year", "numeric")],
+			date,
+			"calendar",
+			"buddhist",
+		],
+		["datetime", [literal("hour", "numeric")], date, "timeZone", "Asia/Tokyo"],
+		// the registry's own cache state
+		["number", [], 2, "caches", 1],
+		// invalid values that would make every call throw
+		["number", [], 2, "maximumFractionDigits", 500],
+		["datetime", [literal("hour", "numeric")], date, "timeZone", "Not/A_Zone"],
+	];
+	for (const [annotation, options, input, name, value] of cases) {
+		const cached = await compileCall(annotation, options);
+		const expected = cached.registry.format(input);
+		withPrototypeProperty(name, { value }, () =>
+			expect(cached.registry.format(input)).toBe(expected)
 		);
-		expect(registry.format(2)).toBe("2");
+		// added before the first call
+		const fresh = await compileCall(annotation, options);
+		withPrototypeProperty(name, { value }, () =>
+			expect(fresh.registry.format(input)).toBe(expected)
+		);
 	}
 });
 
-test("compiled relativetime and datetime literals read inherited numeric, calendar and timeZone, like other calls", async () => {
-	const date = "2026-01-01T02:00:00Z";
-	const native = (options: Intl.DateTimeFormatOptions) =>
-		new Intl.DateTimeFormat("en", options).format(new Date(date));
-	const relative = await compileCall("relativetime", [literal("unit", "day")]);
-	expect(relative.registry.format(-1)).toBe("1 day ago");
-	withPrototypeProperty("numeric", { value: "auto" }, () =>
-		expect(relative.registry.format(-1)).toBe("yesterday")
+test("literal datetime options without their own time zone follow host TZ changes, despite an inherited one", () => {
+	// TZ changes affect Intl in Node's main thread, not Vitest worker threads.
+	const url = `data:text/javascript;base64,${Buffer.from(createRegistry()).toString("base64")}`;
+	execFileSync(
+		process.execPath,
+		[
+			"--input-type=module",
+			"-e",
+			`
+			import assert from "node:assert/strict";
+			const registry = await import(${JSON.stringify(url)});
+			const input = "2026-01-01T02:00:00Z";
+			const native = () => new Intl.DateTimeFormat("en", { hour: "numeric" }).format(new Date(input));
+			const format = () => registry.datetime("en", input, { hour: "numeric" }, '["en",[["hour","numeric"]]]');
+			process.env.TZ = "UTC";
+			const expected = native();
+			Object.prototype.timeZone = "America/New_York";
+			const utc = format();
+			assert.equal(utc, expected);
+			process.env.TZ = "America/Los_Angeles";
+			const losAngeles = format();
+			delete Object.prototype.timeZone;
+			assert.equal(losAngeles, native());
+			assert.notEqual(utc, losAngeles);
+		`,
+		],
+		{ env: { ...process.env, TZ: "UTC" }, timeout: 10000 }
 	);
-	const zoned = await compileCall("datetime", [
-		literal("timeZone", "UTC"),
-		literal("year", "numeric"),
-	]);
-	expect(zoned.registry.format(date)).toBe("2026");
-	withPrototypeProperty("calendar", { value: "buddhist" }, () =>
-		expect(zoned.registry.format(date)).toBe(
-			native({ timeZone: "UTC", year: "numeric", calendar: "buddhist" })
-		)
-	);
-	const unzoned = await compileCall("datetime", [literal("hour", "numeric")]);
-	withPrototypeProperty("timeZone", { value: "Asia/Tokyo" }, () =>
-		expect(unzoned.registry.format(date)).toBe(
-			native({ hour: "numeric", timeZone: "Asia/Tokyo" })
-		)
-	);
+});
+
+test("calls without a key read offset and timeZone as before", async () => {
+	const registry = await loadRegistry();
+	// converting the input changes the offset before it is read
+	const options = { offset: 0 };
+	const input = { valueOf: () => ((options.offset = 1), 2) };
+	expect(registry.plural("en", input, options)).toBe("one");
+	// without the flag, only the constructor reads the time zone, once
+	let reads = 0;
+	const zoned = {
+		hour: "numeric",
+		get timeZone() {
+			return reads++ === 0 ? "UTC" : "America/New_York";
+		},
+	};
+	expect(registry.datetime("en", "2026-01-01T02:00:00Z", zoned)).toBe("2 AM");
+	expect(reads).toBe(1);
 });
 
 test("options with a variable, a name that is not an identifier, or a number that is not finite keep the runtime key", async () => {
