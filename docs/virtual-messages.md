@@ -154,6 +154,3 @@ Vite default. Watched config edits can switch layouts.
   keeps its existing physical-layout defaults.
 - Virtual module IDs are internal implementation details; import the public
   `messages.js` entry point in application code.
-
-For the measured workload, methodology and raw observations, see the
-[A/B benchmark report](../benchmarks/virtual-messages/README.md).

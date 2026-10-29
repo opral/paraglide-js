@@ -129,6 +129,9 @@ test("Vite defaults to virtual messages and preserves aliases, edits, additions/
 					unused: "UNUSED_TREE_SHAKE_SENTINEL",
 				})
 			);
+			// Both failure/recovery events are delivered explicitly: Chokidar may
+			// coalesce these rapid writes. Earlier edits exercise native watching.
+			await server.pluginContainer.watchChange(resources, { event: "update" });
 			await vi.waitFor(
 				async () =>
 					expect(
