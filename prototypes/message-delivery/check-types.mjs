@@ -24,16 +24,21 @@ const root = await fs.realpath(
 );
 const results = [];
 try {
-	for (const [count, shape] of [
-		[6400, "plain"],
-		[20000, "plain"],
-		[6400, "mixed"],
-	]) {
+	const cases = process.argv.includes("--large-only")
+		? [[20000, "plain"]]
+		: [
+				[6400, "plain"],
+				[20000, "plain"],
+				[6400, "mixed"],
+			];
+	for (const [count, shape] of cases) {
 		const catalog = fixture(count, ["en", "de", "fr"], shape);
 		const selected = variants.filter((variant) =>
-			["virtual-message-types-64", "virtual-message-single-types"].includes(
-				variant.name
-			)
+			[
+				"disk-message",
+				"disk-group-64",
+				"virtual-message-single-types",
+			].includes(variant.name)
 		);
 		const directories = new Map();
 		for (const variant of selected) {
@@ -88,6 +93,7 @@ try {
 						})
 					);
 					const start = performance.now();
+					let failure;
 					try {
 						await run(
 							process.execPath,
@@ -95,7 +101,14 @@ try {
 							{ env: { ...process.env, ELECTRON_RUN_AS_NODE: "1" } }
 						);
 					} catch (error) {
-						throw new Error(error.stdout || error.message, { cause: error });
+						const diagnostics = (error.stdout || error.message)
+							.split("\n")
+							.filter((line) => /error TS\d+:/.test(line));
+						if (!diagnostics.length) throw error;
+						failure = {
+							diagnosticCount: diagnostics.length,
+							firstDiagnostic: diagnostics[0]?.replace(root, "<fixture>"),
+						};
 					}
 					const record = {
 						count,
@@ -104,6 +117,8 @@ try {
 						skipLibCheck,
 						round,
 						ms: performance.now() - start,
+						status: failure ? "failed" : "passed",
+						...(failure ? { failure } : {}),
 					};
 					results.push(record);
 					console.log(JSON.stringify(record));

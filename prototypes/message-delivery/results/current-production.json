@@ -1,0 +1,374 @@
+{
+	"metadata": {
+		"node": "v24.22.1",
+		"cpu": "Apple M5 Pro",
+		"count": 20000,
+		"locales": ["en", "de", "fr"],
+		"routes": 100,
+		"usedMessages": 2000,
+		"rounds": 3,
+		"note": "Generated framework applications, not a customer production app. Fresh build processes and empty output dirs; warm OS caches and cached SDK plugin downloads. Sequential timings; no dependency installation/network included."
+	},
+	"results": [
+		{
+			"kind": "integrated-compiler",
+			"round": 0,
+			"scenario": "disk-message",
+			"coldCompilerAndViteMs": 2425.8028750000003,
+			"initialSsrGraphMs": 9868.362833,
+			"updatesMs": [
+				338.166541999999, 444.50487500000054, 344.78800000000047,
+				310.9002499999988, 302.12895800000115
+			],
+			"files": 40011
+		},
+		{
+			"kind": "integrated-compiler",
+			"round": 1,
+			"scenario": "disk-message",
+			"coldCompilerAndViteMs": 2409.115166,
+			"initialSsrGraphMs": 10013.896709,
+			"updatesMs": [
+				351.3621669999993, 320.12879200000134, 325.37637500000164,
+				306.24733300000116, 288.9324579999993
+			],
+			"files": 40011
+		},
+		{
+			"kind": "integrated-compiler",
+			"round": 2,
+			"scenario": "disk-message",
+			"coldCompilerAndViteMs": 2242.681625,
+			"initialSsrGraphMs": 9857.286583000001,
+			"updatesMs": [
+				400.2681670000002, 344.09270800000013, 309.77737499999967, 317.689042,
+				282.0187500000011
+			],
+			"files": 40011
+		},
+		{
+			"kind": "integrated-compiler",
+			"round": 0,
+			"scenario": "disk-group-64",
+			"coldCompilerAndViteMs": 535.8235420000001,
+			"initialSsrGraphMs": 1222.509167,
+			"updatesMs": [
+				324.9012090000001, 327.1715829999998, 382.3468750000002,
+				293.24095799999986, 311.98141699999996
+			],
+			"files": 637
+		},
+		{
+			"kind": "integrated-compiler",
+			"round": 1,
+			"scenario": "disk-group-64",
+			"coldCompilerAndViteMs": 487.286208,
+			"initialSsrGraphMs": 1118.695209,
+			"updatesMs": [
+				328.8922499999999, 326.3891249999999, 299.4201250000001,
+				349.47112500000003, 301.9600409999998
+			],
+			"files": 637
+		},
+		{
+			"kind": "integrated-compiler",
+			"round": 2,
+			"scenario": "disk-group-64",
+			"coldCompilerAndViteMs": 481.49104100000005,
+			"initialSsrGraphMs": 1068.1133330000002,
+			"updatesMs": [
+				335.29604199999994, 317.761833, 292.59762500000033, 312.2749170000002,
+				389.50470799999994
+			],
+			"files": 637
+		},
+		{
+			"kind": "integrated-compiler",
+			"round": 0,
+			"scenario": "virtual-single",
+			"coldCompilerAndViteMs": 701.470959,
+			"initialSsrGraphMs": 6583.824375,
+			"updatesMs": [
+				408.3404580000006, 385.53829099999984, 348.5280409999996,
+				386.8426670000008, 325.25966699999844
+			],
+			"files": 7
+		},
+		{
+			"kind": "integrated-compiler",
+			"round": 1,
+			"scenario": "virtual-single",
+			"coldCompilerAndViteMs": 598.0907080000001,
+			"initialSsrGraphMs": 6704.034209,
+			"updatesMs": [
+				367.594333, 371.86562499999945, 388.7721249999995, 306.43829200000073,
+				398.1811660000003
+			],
+			"files": 7
+		},
+		{
+			"kind": "integrated-compiler",
+			"round": 2,
+			"scenario": "virtual-single",
+			"coldCompilerAndViteMs": 625.486333,
+			"initialSsrGraphMs": 6577.834541,
+			"updatesMs": [
+				396.5303750000003, 360.9997920000005, 315.9949999999999,
+				321.229041999999, 297.00174999999945
+			],
+			"files": 7
+		},
+		{
+			"kind": "framework",
+			"framework": "sveltekit",
+			"round": 0,
+			"scenario": "disk-message",
+			"buildMs": 5138.978459000005,
+			"typecheckMs": 4970.252833999999,
+			"pipelineMs": 10109.231293000004,
+			"outdirFiles": 40011,
+			"clientChunks": 110,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 470592,
+			"clientGzipBytes": 99453
+		},
+		{
+			"kind": "framework",
+			"framework": "sveltekit",
+			"round": 0,
+			"scenario": "disk-group-64",
+			"buildMs": 1902.168915999995,
+			"typecheckMs": 1300.1740419999987,
+			"pipelineMs": 3202.342957999994,
+			"outdirFiles": 637,
+			"clientChunks": 277,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 497528,
+			"clientGzipBytes": 160599
+		},
+		{
+			"kind": "framework",
+			"framework": "sveltekit",
+			"round": 0,
+			"scenario": "virtual-single",
+			"buildMs": 5616.167707999994,
+			"typecheckMs": 4023.8049170000013,
+			"pipelineMs": 9639.972624999995,
+			"outdirFiles": 7,
+			"clientChunks": 110,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 470588,
+			"clientGzipBytes": 99453
+		},
+		{
+			"kind": "framework",
+			"framework": "sveltekit",
+			"round": 1,
+			"scenario": "disk-group-64",
+			"buildMs": 1829.4867079999967,
+			"typecheckMs": 1314.6865420000104,
+			"pipelineMs": 3144.173250000007,
+			"outdirFiles": 637,
+			"clientChunks": 277,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 497532,
+			"clientGzipBytes": 160602
+		},
+		{
+			"kind": "framework",
+			"framework": "sveltekit",
+			"round": 1,
+			"scenario": "virtual-single",
+			"buildMs": 5406.524833999996,
+			"typecheckMs": 3891.197166999991,
+			"pipelineMs": 9297.722000999987,
+			"outdirFiles": 7,
+			"clientChunks": 110,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 470588,
+			"clientGzipBytes": 99450
+		},
+		{
+			"kind": "framework",
+			"framework": "sveltekit",
+			"round": 1,
+			"scenario": "disk-message",
+			"buildMs": 5255.525292000006,
+			"typecheckMs": 5035.93524999998,
+			"pipelineMs": 10291.460541999986,
+			"outdirFiles": 40011,
+			"clientChunks": 110,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 470588,
+			"clientGzipBytes": 99448
+		},
+		{
+			"kind": "framework",
+			"framework": "sveltekit",
+			"round": 2,
+			"scenario": "virtual-single",
+			"buildMs": 5425.650292000006,
+			"typecheckMs": 3923.1769579999964,
+			"pipelineMs": 9348.827250000002,
+			"outdirFiles": 7,
+			"clientChunks": 110,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 470592,
+			"clientGzipBytes": 99452
+		},
+		{
+			"kind": "framework",
+			"framework": "sveltekit",
+			"round": 2,
+			"scenario": "disk-message",
+			"buildMs": 5379.019834000006,
+			"typecheckMs": 4980.855791999988,
+			"pipelineMs": 10359.875625999994,
+			"outdirFiles": 40011,
+			"clientChunks": 110,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 470588,
+			"clientGzipBytes": 99449
+		},
+		{
+			"kind": "framework",
+			"framework": "sveltekit",
+			"round": 2,
+			"scenario": "disk-group-64",
+			"buildMs": 1977.0735419999983,
+			"typecheckMs": 1309.0664170000236,
+			"pipelineMs": 3286.139959000022,
+			"outdirFiles": 637,
+			"clientChunks": 277,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 497528,
+			"clientGzipBytes": 160600
+		},
+		{
+			"kind": "framework",
+			"framework": "tanstack-start",
+			"round": 0,
+			"scenario": "disk-message",
+			"buildMs": 5518.008540999988,
+			"typecheckMs": 5270.382249999995,
+			"pipelineMs": 10788.390790999983,
+			"outdirFiles": 40011,
+			"clientChunks": 101,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 694485,
+			"clientGzipBytes": 156281
+		},
+		{
+			"kind": "framework",
+			"framework": "tanstack-start",
+			"round": 0,
+			"scenario": "disk-group-64",
+			"buildMs": 1780.1736669999955,
+			"typecheckMs": 1985.8475830000243,
+			"pipelineMs": 3766.02125000002,
+			"outdirFiles": 637,
+			"clientChunks": 268,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 729657,
+			"clientGzipBytes": 222762
+		},
+		{
+			"kind": "framework",
+			"framework": "tanstack-start",
+			"round": 0,
+			"scenario": "virtual-single",
+			"buildMs": 3501.559500000003,
+			"typecheckMs": 4025.335458000016,
+			"pipelineMs": 7526.894958000019,
+			"outdirFiles": 7,
+			"clientChunks": 101,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 694485,
+			"clientGzipBytes": 156281
+		},
+		{
+			"kind": "framework",
+			"framework": "tanstack-start",
+			"round": 1,
+			"scenario": "disk-group-64",
+			"buildMs": 1723.8425839999982,
+			"typecheckMs": 1843.0852920000034,
+			"pipelineMs": 3566.9278760000016,
+			"outdirFiles": 637,
+			"clientChunks": 268,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 729657,
+			"clientGzipBytes": 222762
+		},
+		{
+			"kind": "framework",
+			"framework": "tanstack-start",
+			"round": 1,
+			"scenario": "virtual-single",
+			"buildMs": 3499.4320000000007,
+			"typecheckMs": 4138.210791999998,
+			"pipelineMs": 7637.642791999999,
+			"outdirFiles": 7,
+			"clientChunks": 101,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 694485,
+			"clientGzipBytes": 156281
+		},
+		{
+			"kind": "framework",
+			"framework": "tanstack-start",
+			"round": 1,
+			"scenario": "disk-message",
+			"buildMs": 5423.3817500000005,
+			"typecheckMs": 5440.570500000002,
+			"pipelineMs": 10863.952250000002,
+			"outdirFiles": 40011,
+			"clientChunks": 101,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 694485,
+			"clientGzipBytes": 156281
+		},
+		{
+			"kind": "framework",
+			"framework": "tanstack-start",
+			"round": 2,
+			"scenario": "virtual-single",
+			"buildMs": 3386.9968750000116,
+			"typecheckMs": 3967.6365839999926,
+			"pipelineMs": 7354.633459000004,
+			"outdirFiles": 7,
+			"clientChunks": 101,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 694485,
+			"clientGzipBytes": 156281
+		},
+		{
+			"kind": "framework",
+			"framework": "tanstack-start",
+			"round": 2,
+			"scenario": "disk-message",
+			"buildMs": 5359.027624999988,
+			"typecheckMs": 5291.328166000021,
+			"pipelineMs": 10650.355791000009,
+			"outdirFiles": 40011,
+			"clientChunks": 101,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 694485,
+			"clientGzipBytes": 156281
+		},
+		{
+			"kind": "framework",
+			"framework": "tanstack-start",
+			"round": 2,
+			"scenario": "disk-group-64",
+			"buildMs": 1681.5247499999823,
+			"typecheckMs": 1867.7152080000087,
+			"pipelineMs": 3549.239957999991,
+			"outdirFiles": 637,
+			"clientChunks": 268,
+			"retainedUnusedMessages": 0,
+			"clientJsBytes": 729657,
+			"clientGzipBytes": 222762
+		}
+	]
+}

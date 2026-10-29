@@ -1,0 +1,183 @@
+{
+	"metadata": {
+		"node": "v24.22.1",
+		"typescript": "5.9.2",
+		"note": "Fresh CLI subprocesses, including compiler/library startup. Not language-server or editor latency. allowJs false, strict true, noEmit true. Three rotated repetitions."
+	},
+	"results": [
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-message",
+			"skipLibCheck": false,
+			"round": 0,
+			"ms": 3832.104417,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-group-64",
+			"skipLibCheck": false,
+			"round": 0,
+			"ms": 711.4757499999996,
+			"status": "failed",
+			"failure": {
+				"diagnosticCount": 936,
+				"firstDiagnostic": "../../../../..<fixture>/20000-plain-disk-group-64/paraglide/messages/_index.d.ts(2,1): error TS2308: Module \"./_shard_0.js\" has already exported a member named '__ParaglideMessage'. Consider explicitly re-exporting to resolve the ambiguity."
+			}
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "virtual-message-single-types",
+			"skipLibCheck": false,
+			"round": 0,
+			"ms": 3410.2487920000003,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "virtual-message-single-types",
+			"skipLibCheck": false,
+			"round": 1,
+			"ms": 3624.35225,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-group-64",
+			"skipLibCheck": false,
+			"round": 1,
+			"ms": 729.0053750000006,
+			"status": "failed",
+			"failure": {
+				"diagnosticCount": 936,
+				"firstDiagnostic": "../../../../..<fixture>/20000-plain-disk-group-64/paraglide/messages/_index.d.ts(2,1): error TS2308: Module \"./_shard_0.js\" has already exported a member named '__ParaglideMessage'. Consider explicitly re-exporting to resolve the ambiguity."
+			}
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-message",
+			"skipLibCheck": false,
+			"round": 1,
+			"ms": 3832.0262919999986,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-message",
+			"skipLibCheck": false,
+			"round": 2,
+			"ms": 3838.4968750000007,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-group-64",
+			"skipLibCheck": false,
+			"round": 2,
+			"ms": 737.6431249999987,
+			"status": "failed",
+			"failure": {
+				"diagnosticCount": 936,
+				"firstDiagnostic": "../../../../..<fixture>/20000-plain-disk-group-64/paraglide/messages/_index.d.ts(2,1): error TS2308: Module \"./_shard_0.js\" has already exported a member named '__ParaglideMessage'. Consider explicitly re-exporting to resolve the ambiguity."
+			}
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "virtual-message-single-types",
+			"skipLibCheck": false,
+			"round": 2,
+			"ms": 3488.996000000003,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-message",
+			"skipLibCheck": true,
+			"round": 0,
+			"ms": 3345.596209000003,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-group-64",
+			"skipLibCheck": true,
+			"round": 0,
+			"ms": 353.2472080000007,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "virtual-message-single-types",
+			"skipLibCheck": true,
+			"round": 0,
+			"ms": 2802.7387909999998,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "virtual-message-single-types",
+			"skipLibCheck": true,
+			"round": 1,
+			"ms": 3057.353916,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-group-64",
+			"skipLibCheck": true,
+			"round": 1,
+			"ms": 385.596083000004,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-message",
+			"skipLibCheck": true,
+			"round": 1,
+			"ms": 3249.4109160000007,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-message",
+			"skipLibCheck": true,
+			"round": 2,
+			"ms": 3211.0647499999977,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "disk-group-64",
+			"skipLibCheck": true,
+			"round": 2,
+			"ms": 376.0710840000029,
+			"status": "passed"
+		},
+		{
+			"count": 20000,
+			"shape": "plain",
+			"variant": "virtual-message-single-types",
+			"skipLibCheck": true,
+			"round": 2,
+			"ms": 2836.328125,
+			"status": "passed"
+		}
+	]
+}

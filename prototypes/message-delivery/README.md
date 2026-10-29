@@ -2,6 +2,10 @@
 
 This is an experiment for the follow-up to Paraglide v3, stacked on #847. It includes an opt-in Vite integration; existing defaults are unchanged. It compares the existing grouped emitter with virtual message implementations in Vite. `runtime.js`, `server.js`, `registry.js`, and declarations stay on disk. Most variants also keep the public `messages.js` facade on disk; the single-declaration variant virtualizes it too.
 
+## Current integrated measurements
+
+See [CURRENT-BENCHMARKS.md](./CURRENT-BENCHMARKS.md) for fresh measurements of the integrated seven-file transport: 20,000 messages, real SDK/watch-queue updates, declaration checks, and 100-route SvelteKit/TanStack production build-and-check pipelines. It includes the raw observations, timing boundaries, grouped-output declaration failure, and reproduction commands. Earlier tables below remain historical comparisons with different scopes.
+
 ## Run
 
 Use Node 22.18+ or 24+ and install the repository's dependencies. Build the package first (`npm run build`). The parent PR currently requires the catalog SDK from inlang PR #4503; see #847 for that prerequisite.
