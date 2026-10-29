@@ -14,6 +14,11 @@ import {
 } from "./compiler-options.js";
 import { Logger } from "../services/logger/index.js";
 
+import {
+	transformOutput,
+	type PublicationOptions,
+} from "./output-transform.js";
+
 // Serialize the entire operation, including publication and failure recovery.
 let compilationQueue: Promise<void> = Promise.resolve();
 
@@ -63,7 +68,8 @@ const logger = new Logger();
  *   })
  */
 export function compile(
-	options: CompilerOptions & { previousCompilation?: CompilationResult }
+	options: CompilerOptions &
+		PublicationOptions & { previousCompilation?: CompilationResult }
 ): Promise<CompilationResult> {
 	const result = compilationQueue.then(() => compileUnlocked(options));
 	compilationQueue = result.then(
@@ -74,7 +80,8 @@ export function compile(
 }
 
 async function compileUnlocked(
-	options: CompilerOptions & { previousCompilation?: CompilationResult }
+	options: CompilerOptions &
+		PublicationOptions & { previousCompilation?: CompilationResult }
 ): Promise<CompilationResult> {
 	assertNoRemovedOptions(options);
 	const withDefaultOptions = {
@@ -182,7 +189,11 @@ async function compileUnlocked(
 				previous: prior?.generated,
 				previousCatalog: prior?.catalog,
 			});
-			const output = generated.output;
+			const transformed = options[transformOutput]?.(
+				generated.output,
+				absoluteOutdir
+			);
+			const output = transformed?.output ?? generated.output;
 			nextCatalogState.generated = generated;
 			const previous = options.previousCompilation;
 			const previousPublication = previous
@@ -203,6 +214,7 @@ async function compileUnlocked(
 				previousOutputHashes: compatible ? previous.outputHashes : undefined,
 				previousOutput:
 					compatible &&
+					!options[transformOutput] &&
 					prior &&
 					prior.fs === fs &&
 					prior.directory === absoluteOutdir &&
@@ -213,6 +225,7 @@ async function compileUnlocked(
 			});
 
 			nextCatalogState.hashes = outputHashes;
+			transformed?.onPublished();
 
 			const warningsAndErrors = catalog.diagnostics;
 

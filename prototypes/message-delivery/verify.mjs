@@ -322,36 +322,68 @@ test("virtual facade uses explicit virtual IDs and type-checks applications with
 			),
 			[]
 		);
-		// Resolve types even when the generated directory is absent from include.
+		// Test consumer-only roots and whole-output inclusion independently.
+		let checked = 0;
 		for (const [module, moduleResolution] of [
+			["Node16", "Node16"],
 			["NodeNext", "NodeNext"],
 			["ESNext", "Bundler"],
-		]) {
-			const minimal = ts.parseJsonConfigFileContent(
-				{
-					compilerOptions: {
-						...config.raw.compilerOptions,
-						module,
-						moduleResolution,
-						noUnusedLocals: true,
-						verbatimModuleSyntax: true,
-						noUncheckedSideEffectImports: true,
-					},
-					files: ["consumer.ts", "consumer.js"],
-				},
-				ts.sys,
-				directory
-			);
-			assert.deepEqual(
-				ts
-					.getPreEmitDiagnostics(
-						ts.createProgram(minimal.fileNames, minimal.options)
-					)
-					.map((item) =>
-						ts.flattenDiagnosticMessageText(item.messageText, " ")
-					),
-				[]
-			);
-		}
+		])
+			for (const [allowJs, checkJs] of [
+				[false, false],
+				[true, false],
+				[true, true],
+			])
+				for (const skipLibCheck of [false, true])
+					for (const wholeOutput of [false, true]) {
+						const parsed = ts.parseJsonConfigFileContent(
+							{
+								compilerOptions: {
+									...config.raw.compilerOptions,
+									module,
+									moduleResolution,
+									allowJs,
+									checkJs,
+									skipLibCheck,
+									noUnusedLocals: true,
+									verbatimModuleSyntax: true,
+									noUncheckedSideEffectImports: true,
+									isolatedModules: true,
+									noUncheckedIndexedAccess: true,
+									exactOptionalPropertyTypes: true,
+								},
+								...(wholeOutput
+									? { include: ["**/*.ts", "**/*.js"] }
+									: {
+											files: allowJs
+												? ["consumer.ts", "consumer.js"]
+												: ["consumer.ts"],
+										}),
+							},
+							ts.sys,
+							directory
+						);
+						const diagnostics = [
+							...parsed.errors,
+							...ts.getPreEmitDiagnostics(
+								ts.createProgram(parsed.fileNames, parsed.options)
+							),
+						];
+						assert.deepEqual(
+							diagnostics.map((item) =>
+								ts.flattenDiagnosticMessageText(item.messageText, " ")
+							),
+							[],
+							JSON.stringify({
+								moduleResolution,
+								allowJs,
+								checkJs,
+								skipLibCheck,
+								wholeOutput,
+							})
+						);
+						checked++;
+					}
+		assert.equal(checked, 36);
 	});
 });

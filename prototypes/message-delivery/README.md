@@ -1,6 +1,6 @@
 # Message delivery prototype
 
-This is a standalone experiment for the follow-up to Paraglide v3, stacked on #847. It changes no shipped compiler options, bundler plugins, or defaults. It compares the existing grouped emitter with virtual message implementations in Vite. `runtime.js`, `server.js`, `registry.js`, and declarations stay on disk. Most variants also keep the public `messages.js` facade on disk; the single-declaration variant virtualizes it too.
+This is an experiment for the follow-up to Paraglide v3, stacked on #847. It includes an opt-in Vite integration; existing defaults are unchanged. It compares the existing grouped emitter with virtual message implementations in Vite. `runtime.js`, `server.js`, `registry.js`, and declarations stay on disk. Most variants also keep the public `messages.js` facade on disk; the single-declaration variant virtualizes it too.
 
 ## Run
 
@@ -32,7 +32,7 @@ node prototypes/message-delivery/summarize.mjs --single
 
 The ordinary Vite plugin currently chooses `locale-modules` during development and `message-modules` during production. Both baselines matter: virtualizing individual messages can be slower than the existing development default even when it writes fewer files than production's default.
 
-`prototype.mjs` contains a reusable `virtualMessages(outdir, files)` Vite plugin. It resolves relative imports from virtual modules back into the generated directory, keeps trees scoped to their own output directories, and marks generated message implementations as side-effect-free. It uses a `\0` namespace according to [Vite's virtual module convention](https://vite.dev/guide/api-plugin.html#importing-a-virtual-file).
+`prototype.mjs` reuses the `virtualMessages(outdir, files)` transport from the Vite integration. It resolves relative imports from virtual modules back into the generated directory, keeps trees scoped to their own output directories, and marks generated message implementations as side-effect-free. It uses a `\0` namespace according to [Vite's virtual module convention](https://vite.dev/guide/api-plugin.html#importing-a-virtual-file).
 
 The prototype exposes `plugin.api.update(nextVirtualFiles)`. This invalidates changed modules and their importers, including the re-export barrel, and sends a full reload. Verification covers SSR execution, disk registry imports, added/removed exports, edits, no-op updates, and declaration consumers with quoted exports and markup. The benchmark's build outputs are also executed, and unused-message sentinels are checked.
 
@@ -44,9 +44,9 @@ Declaration packing changes declaration paths only; JavaScript still has indepen
 
 The `messages.js` facade is now virtual too. Application imports stay `./paraglide/messages.js`; Vite resolves that path to an internal `\0virtual:paraglide/<output-id>/messages.js` ID. Its in-memory source re-exports an explicit `virtual:paraglide/<output-id>/messages/_index.js` barrel. Individual message modules remain virtual, and runtime/server/registry code remains on disk.
 
-TypeScript resolves the application's `.js` import to the real `messages.d.ts` using ordinary extension substitution. No physical facade contains unresolved virtual imports for `checkJs` to flag. There are no TypeScript suppression comments, ambient-module setup, or tsconfig edits. Verification covers `checkJs: true` with NodeNext and Bundler resolution, TS/JS consumers, and consumer-only file lists that do not explicitly include generated declarations.
+TypeScript resolves the application's `.js` import to the real `messages.d.ts` using ordinary extension substitution. No physical facade contains unresolved virtual imports for `checkJs` to flag. There are no TypeScript suppression comments, ambient-module setup, or tsconfig edits. Verification covers 36 configurations: Node16, NodeNext and Bundler resolution; `allowJs: false`, `allowJs: true` with `checkJs: false` or `true`; both `skipLibCheck` settings; and consumer-only or whole-output inclusion. Strictness also includes `isolatedModules`, `verbatimModuleSyntax`, `noUncheckedSideEffectImports`, `noUncheckedIndexedAccess`, and `exactOptionalPropertyTypes`.
 
-The current tree has seven disk files: `runtime.js`, `server.js`, `registry.js`, their three declaration companions, and `messages.d.ts`. Switching from packed declarations or an older physical facade removes obsolete files. The eight-file counts in the recorded single-declaration matrix precede this facade change; those observations remain historical data, not a measurement of the updated transport.
+With optional README/ignore files disabled, the current tree has seven disk files: `runtime.js`, `server.js`, `registry.js`, their three declaration companions, and `messages.d.ts`. Switching from packed declarations or an older physical facade removes obsolete files. The eight-file counts in the recorded single-declaration matrix precede this facade change; those observations remain historical data, not a measurement of the updated transport.
 
 Vite's documented convention is a `virtual:` public ID plus a `\0` resolved ID. Community plugins such as vite-plugin-pwa also provide ambient `declare module` types for applications importing virtual IDs directly. Here the application keeps a normal relative entry-point import and a real declaration file, so it needs no ambient registration. A `virtual:` prefix alone would not make TypeScript resolve a physical facade's import.
 
@@ -75,12 +75,32 @@ See [RESULTS.md](./RESULTS.md) and the complete JSON observations under `results
 - The edit case changes the first English message. It uses the existing incremental compiler, then packs/transports and publishes files. Its table column excludes the subsequent graph crawl. That later crawl deliberately invalidates the entire graph for both transports, so it does not claim to measure selective HMR latency. OS watcher scheduling is excluded; the plugin receives explicit updates.
 - `emitTsDeclarations: true` throughout. README and ignore-file generation are disabled. Disk counts include the generated messages/package.json. Virtual counts and generated byte totals are retained in raw results.
 - Build comparisons use Vite 8's default minifier, target ES2022, ES-module entry exports preserved, and `write: false`. Gzip uses Node's defaults. One-message bundles execute and return the expected string; 10% bundles return the expected array length.
-- Memory, browser requests, language-server responsiveness, declaration-check performance, real application routing/code splitting, middleware locale splitting, per-locale builds, SDK I/O, and production watcher/cache integration are not measured. No universal default should be selected from this experiment alone.
+- The historical timing matrix does not measure memory, browser startup, language-server responsiveness, real application routing/code splitting, middleware locale splitting, per-locale builds, or SDK I/O. The follow-up below tests real applications and watcher/cache correctness without assigning timing measurements to them. No universal default should be selected from this experiment alone.
 
-## Production integration still needed
+## Integrated Vite prototype
 
-The plugin eagerly receives the generated message strings; it is not a lazy compiler and does not eliminate generation or retained-memory cost. Virtual modules also do not remove Vite module graph nodes.
+Enable it only on the Vite plugin:
 
-A production integration must connect virtual output to the existing compiler queue, tracked input watching, error overlay and recovery, config reloads, and Vite client/SSR environments. A fresh process must reconstruct virtual content even when the persistent disk cache would skip compilation. It must also clean obsolete disk implementations when switching transport modes and preserve the tooling paths needed by editors, linters, tests, and non-Vite consumers.
+```ts
+paraglideVitePlugin({
+	project: "./project.inlang",
+	experimentalVirtualMessages: true,
+});
+```
 
-Full reloads are intentional for this prototype. Granular HMR and real browser latency need separate validation. The parent release PR remains separate; this branch does not change the v3 default.
+This selects message modules and declarations within this opt-in mode. It rejects explicit `emitTsDeclarations: false`, locale-module output, and the per-locale-build experiment. Ordinary compiler/CLI behavior and global defaults remain unchanged. Application imports keep their existing paths, including SvelteKit `$lib` aliases and TanStack `@/` paths. Vite's native TypeScript path resolver requires a real target; the integration resolves the real declaration through Vite and maps its identity to the virtual JavaScript implementation.
+
+The compiler's existing serial queue, tracked input watcher, config resolution and error handling publish the physical output first, then update the virtual graph. Failed compilation/publication leaves the last successful implementations available. New plugin instances have isolated compilation state and bypass disk-only persistent cache restoration, because disk hashes cannot reconstruct virtual strings. Switching from disk output removes the old message implementations and declaration leaves. Changes invalidate imports and trigger full reloads.
+
+Reproduce the verification after building the package:
+
+```sh
+node --test prototypes/message-delivery/verify.mjs
+node prototypes/message-delivery/framework-e2e.mjs
+node prototypes/message-delivery/vite-versions.mjs
+node node_modules/vitest/vitest.mjs run --dir src
+```
+
+The framework runner copies repository examples into temporary directories and uses their installed dependencies, real Vite dev/preview processes, and headless Playwright Chromium. It needs Playwright and a browser installed in the workspace dependency store. The Vite-version runner needs Vite 5/6/7/8 installed in that store. The TanStack fixture adapts the example's legacy `.validator` call to `.inputValidator` and removes an unused import only in the temporary copy. No example files are modified.
+
+See [INTEGRATION.md](./INTEGRATION.md) and [results/integration.json](./results/integration.json) for the tested versions and results. This remains experimental: implementations are eagerly generated and retained in memory; the single declaration is assembled from the direct emitter's fixed output format; deep message imports have no declaration leaves; and direct Node/non-Vite execution of message imports is unsupported. Full reloads are intentional. The parent release PR remains separate.

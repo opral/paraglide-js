@@ -1,0 +1,134 @@
+{
+	"node": "v24.22.1",
+	"frameworkVersions": {
+		"sveltekit": {
+			"vite": "8.1.4",
+			"typescript": "5.8.3",
+			"@sveltejs/kit": "2.69.2",
+			"svelte": "5.56.4"
+		},
+		"tanstack-start": {
+			"vite": "8.1.4",
+			"typescript": "5.9.3",
+			"@tanstack/react-start": "1.168.27",
+			"react": "19.2.3"
+		},
+		"react": {
+			"vite": "6.4.1",
+			"typescript": "5.6.2",
+			"react": "18.3.1"
+		}
+	},
+	"frameworkChecks": [
+		{
+			"framework": "sveltekit",
+			"check": "dev SSR, hydration, locale switch and watched edits",
+			"pass": true
+		},
+		{
+			"framework": "sveltekit",
+			"check": "cold production client/SSR build",
+			"pass": true
+		},
+		{
+			"framework": "sveltekit",
+			"check": "whole-project skipLibCheck=false matches disk baseline",
+			"pass": true,
+			"existingDependencyErrors": 37
+		},
+		{
+			"framework": "sveltekit",
+			"check": "svelte-check strict checkJs skipLibCheck=true (whole project)",
+			"pass": true
+		},
+		{
+			"framework": "sveltekit",
+			"check": "svelte-check strict checkJs skipLibCheck=false (application and generated declarations)",
+			"pass": true
+		},
+		{
+			"framework": "sveltekit",
+			"check": "production browser SSR/hydration",
+			"pass": true
+		},
+		{
+			"framework": "tanstack-start",
+			"check": "dev SSR, hydration and client navigation",
+			"pass": true
+		},
+		{
+			"framework": "tanstack-start",
+			"check": "cold production client/SSR build",
+			"pass": true
+		},
+		{
+			"framework": "tanstack-start",
+			"check": "framework TypeScript configuration",
+			"pass": true
+		},
+		{
+			"framework": "tanstack-start",
+			"check": "production browser SSR, hydration and client navigation",
+			"pass": true
+		},
+		{
+			"framework": "react",
+			"check": "dev client rendering",
+			"pass": true
+		},
+		{
+			"framework": "react",
+			"check": "cold production client/SSR build",
+			"pass": true
+		},
+		{
+			"framework": "react",
+			"check": "framework TypeScript configuration",
+			"pass": true
+		},
+		{
+			"framework": "react",
+			"check": "production browser rendering",
+			"pass": true
+		}
+	],
+	"viteVersionChecks": [
+		{
+			"vite": "5.4.21",
+			"devSsr": true,
+			"productionBuild": true,
+			"treeShaking": true,
+			"diskMigration": true
+		},
+		{
+			"vite": "6.4.1",
+			"devSsr": true,
+			"productionBuild": true,
+			"treeShaking": true,
+			"diskMigration": true
+		},
+		{
+			"vite": "7.3.1",
+			"devSsr": true,
+			"productionBuild": true,
+			"treeShaking": true,
+			"diskMigration": true
+		},
+		{
+			"vite": "8.1.4",
+			"devSsr": true,
+			"productionBuild": true,
+			"treeShaking": true,
+			"diskMigration": true
+		}
+	],
+	"typeScriptMatrix": {
+		"version": "5.9.2",
+		"configurations": 36,
+		"passed": 36
+	},
+	"coreTests": {
+		"passed": 1087,
+		"skipped": 5
+	}
+}
