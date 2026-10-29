@@ -251,18 +251,7 @@ paraglideVitePlugin({
 });
 ```
 
-Declarations are generated directly from message metadata and runtime declaration templates. The generated declarations do not depend on the TypeScript version installed in your project. The framework setup examples enable declarations for reliable language-server updates. Set `emitTsDeclarations: false` (or use `--no-emit-ts-declarations`) and `allowJs: true` to use JSDoc-based types.
-
-When using `additionalFiles`, supply a companion `.d.ts` file for each custom `.js` file, including replacements for generated modules. For example:
-
-```ts
-additionalFiles: {
-  "custom.js": "export const greeting = 'hello';",
-  "custom.d.ts": "export declare const greeting: string;",
-}
-```
-
-Paraglide reports a missing companion declaration when `emitTsDeclarations` is enabled. Companion declarations are copied verbatim.
+Declarations are generated directly from message metadata and runtime declaration templates. The generated declarations do not depend on the TypeScript version installed in your project. The CLI emits declarations by default, and init enables them in generated integrations without modifying your tsconfig. Programmatic compiler calls and manually configured bundler plugins retain `emitTsDeclarations: false` as their default. Set `emitTsDeclarations: false` (or use `--no-emit-ts-declarations`) and `allowJs: true` to use JSDoc-based types.
 
 ## Generated Output
 
@@ -369,3 +358,17 @@ for (const [filename, content] of Object.entries(output)) {
 	await writeFile(join(outdir, filename), content);
 }
 ```
+
+## Migrating to Paraglide JS 3
+
+Paraglide JS 3 removes the `additionalFiles` compiler option. Remove this option from your compiler calls, bundler plugin options, and `paraglide.config.*` files.
+
+Keep framework helpers and message re-export wrappers in your application source, outside the generated output directory. For example, a wrapper in `src/messages.js` can re-export generated messages:
+
+```js
+export * from "./paraglide/messages.js";
+```
+
+Use your own build tooling for extra assets, metadata files, and source maps. Paraglide owns the generated output directory and may remove files placed there during compilation. With `emitTsDeclarations: true`, Paraglide continues to emit declarations for its generated JavaScript.
+
+Paraglide JS 3 uses the SDK catalog API directly; older SDKs without `@inlang/sdk/catalog` are no longer supported.

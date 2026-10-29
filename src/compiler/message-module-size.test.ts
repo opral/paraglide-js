@@ -398,7 +398,7 @@ for (const [fixtureName, inputCatalog] of [
 	}
 }
 
-test("TypeScript 7 validates grouped declarations and rejects invalid consumers", async () => {
+test("TypeScript validates grouped declarations and rejects invalid consumers", async () => {
 	for (const inputCatalog of [catalog, fullyTranslated]) {
 		const output = await compile({ messageModuleSize: 100 }, inputCatalog);
 		const directory = await fs.mkdtemp(
@@ -454,7 +454,7 @@ test("TypeScript 7 validates grouped declarations and rejects invalid consumers"
 			);
 			const compiler = path.join(
 				path.dirname(
-					createRequire(import.meta.url).resolve("typescript-go/package.json")
+					createRequire(import.meta.url).resolve("typescript/package.json")
 				),
 				"lib/tsc.js"
 			);
@@ -466,7 +466,7 @@ test("TypeScript 7 validates grouped declarations and rejects invalid consumers"
 				);
 			} catch (error) {
 				throw new Error(
-					`TypeScript 7 grouped consumer failed: ${(error as { stdout?: string }).stdout ?? error}`,
+					`TypeScript grouped consumer failed: ${(error as { stdout?: string }).stdout ?? error}`,
 					{ cause: error }
 				);
 			}

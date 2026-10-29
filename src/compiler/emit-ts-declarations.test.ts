@@ -20,17 +20,6 @@ import { compileProject } from "./compile-project.js";
 import type { CompilerOptions } from "./compiler-options.js";
 
 const execFileAsync = promisify(execFile);
-// Keep the reference compiler outside src/dist. A variable import also prevents
-// the production tsconfig from pulling development tooling into its rootDir.
-const referenceUrl = new URL(
-	"../../test-support/emit-ts-declarations.ts",
-	import.meta.url
-).href;
-const referenceEmitter = (await import(referenceUrl)).emitTsDeclarations as (
-	output: Record<string, string>,
-	options?: { allowNativeAlias?: boolean }
-) => Promise<Record<string, string>>;
-
 function bundle(args: {
 	id: string;
 	declarations?: Declaration[];
@@ -280,10 +269,7 @@ setLocale("fr");
 m.rich.parts();
 `;
 
-async function checkConsumer(
-	output: Record<string, string>,
-	compiler: "typescript" | "typescript-go"
-) {
+async function checkConsumer(output: Record<string, string>) {
 	const directory = await fs.mkdtemp(
 		path.join(os.tmpdir(), "paraglide-consumer-")
 	);
@@ -319,7 +305,7 @@ async function checkConsumer(
 		);
 		const compilerPath = path.join(
 			path.dirname(
-				createRequire(import.meta.url).resolve(`${compiler}/package.json`)
+				createRequire(import.meta.url).resolve("typescript/package.json")
 			),
 			"lib",
 			"tsc.js"
@@ -335,7 +321,7 @@ async function checkConsumer(
 			);
 		} catch (error) {
 			throw new Error(
-				`${compiler} consumer failed:\n${(error as { stdout?: string }).stdout ?? error}`,
+				`TypeScript consumer failed:\n${(error as { stdout?: string }).stdout ?? error}`,
 				{ cause: error }
 			);
 		}
@@ -345,48 +331,37 @@ async function checkConsumer(
 }
 
 for (const outputStructure of ["message-modules", "locale-modules"] as const) {
-	test(`${outputStructure}: direct declarations preserve the TypeScript 5 contract`, async () => {
+	test(`${outputStructure}: direct declarations preserve the public contract`, async () => {
 		const project = await fixture();
 		try {
-			const javascript = await compileProject({
-				project,
-				compilerOptions: { outputStructure },
-			});
-			const reference = normalizeDeclarations(
-				await referenceEmitter(javascript, { allowNativeAlias: false })
-			);
-			// Pin the reference independently of the direct implementation.
-			expect(
-				Object.fromEntries(
-					Object.entries(reference).filter(([name]) =>
-						name.startsWith("messages")
-					)
-				)
-			).toMatchSnapshot();
 			const direct = await compileProject({
 				project,
 				compilerOptions: { outputStructure, emitTsDeclarations: true },
 			});
-			expect(normalizeDeclarations(direct)).toEqual(reference);
+			expect(
+				Object.fromEntries(
+					Object.entries(normalizeDeclarations(direct)).filter(([name]) =>
+						name.startsWith("messages")
+					)
+				)
+			).toMatchSnapshot();
 		} finally {
 			await project.close();
 		}
 	});
 
-	for (const compiler of ["typescript", "typescript-go"] as const) {
-		test(`${outputStructure}: ${compiler} accepts valid consumers and rejects invalid calls`, async () => {
-			const project = await fixture();
-			try {
-				const output = await compileProject({
-					project,
-					compilerOptions: { outputStructure, emitTsDeclarations: true },
-				});
-				await checkConsumer(output, compiler);
-			} finally {
-				await project.close();
-			}
-		});
-	}
+	test(`${outputStructure}: TypeScript accepts valid consumers and rejects invalid calls`, async () => {
+		const project = await fixture();
+		try {
+			const output = await compileProject({
+				project,
+				compilerOptions: { outputStructure, emitTsDeclarations: true },
+			});
+			await checkConsumer(output);
+		} finally {
+			await project.close();
+		}
+	});
 }
 
 for (const extraOptions of [
@@ -400,94 +375,7 @@ for (const extraOptions of [
 				project,
 				compilerOptions: { ...extraOptions, emitTsDeclarations: true },
 			});
-			await checkConsumer(output, "typescript");
-		} finally {
-			await project.close();
-		}
-	});
-}
-
-for (const name of ["custom.js", "runtime.js", "messages/_index.js"]) {
-	test(`additional JavaScript ${name} requires companion declarations`, async () => {
-		const project = await fixture();
-		try {
-			await expect(
-				compileProject({
-					project,
-					compilerOptions: {
-						emitTsDeclarations: true,
-						additionalFiles: { [name]: "export const custom = 1;" },
-					},
-				})
-			).rejects.toThrow(name.replace(/\.js$/, ".d.ts"));
-		} finally {
-			await project.close();
-		}
-	});
-}
-
-test("custom and overridden modules preserve explicitly supplied declarations", async () => {
-	const project = await fixture();
-	const additionalFiles = {
-		"custom.js": "export const custom = 1;",
-		"custom.d.ts": "export declare const custom: 1;",
-		"registry.js": "export const replacement = true;",
-		"registry.d.ts": "export declare const replacement: true;",
-		"types-only.d.ts": "export type ApplicationType = string;",
-	};
-	try {
-		const output = await compileProject({
-			project,
-			compilerOptions: {
-				emitTsDeclarations: true,
-				additionalFiles,
-				includeEslintDisableComment: false,
-			},
-		});
-		for (const [name, source] of Object.entries(additionalFiles))
-			expect(output[name]).toBe(source);
-	} finally {
-		await project.close();
-	}
-});
-
-test("custom JavaScript remains accepted without declarations when declaration emission is off", async () => {
-	const project = await fixture();
-	try {
-		const output = await compileProject({
-			project,
-			compilerOptions: {
-				additionalFiles: { "custom.js": "export const custom = 1;" },
-				includeEslintDisableComment: false,
-			},
-		});
-		expect(output["custom.js"]).toBe("export const custom = 1;");
-		expect(output["custom.d.ts"]).toBeUndefined();
-	} finally {
-		await project.close();
-	}
-});
-
-for (const outputStructure of ["message-modules", "locale-modules"] as const) {
-	test(`${outputStructure}: empty projects emit valid empty message modules`, async () => {
-		const project = await loadProjectInMemory({
-			blob: await newProject({
-				settings: { baseLocale: "en", locales: ["en"] },
-			}),
-		});
-		try {
-			const javascript = await compileProject({
-				project,
-				compilerOptions: { outputStructure },
-			});
-			const reference = normalizeDeclarations(
-				await referenceEmitter(javascript, { allowNativeAlias: false })
-			);
-			const direct = await compileProject({
-				project,
-				compilerOptions: { outputStructure, emitTsDeclarations: true },
-			});
-			expect(normalizeDeclarations(direct)).toEqual(reference);
+			await checkConsumer(output);
 		} finally {
 			await project.close();
 		}

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`locale-modules: direct declarations preserve the TypeScript 5 contract 1`] = `
+exports[`locale-modules: direct declarations preserve the public contract 1`] = `
 {
   "messages.d.ts": "export * as m from "./messages/_index.js";
 export * from "./messages/_index.js";",
@@ -162,7 +162,7 @@ export type _DefaultInputs = {};",
 }
 `;
 
-exports[`message-modules: direct declarations preserve the TypeScript 5 contract 1`] = `
+exports[`message-modules: direct declarations preserve the public contract 1`] = `
 {
   "messages.d.ts": "export * as m from "./messages/_index.js";
 export * from "./messages/_index.js";",

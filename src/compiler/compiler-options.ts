@@ -246,36 +246,6 @@ export type CompilerOptions = {
 	 */
 	cookieSecure?: boolean | "auto";
 	/**
-	 * Additional files to copy to the output directory, keyed by output path.
-	 *
-	 * When `emitTsDeclarations` is enabled, each custom `.js` file must include
-	 * a companion `.d.ts` file, including overrides of generated modules.
-	 * Companion declarations are copied verbatim.
-	 *
-	 * @example
-	 *
-	 * ```diff
-	 * await compile({
-	 *   project: "./project.inlang",
-	 *   outdir: "./src/paraglide",
-	 *   additionalFiles: {
-	 * +    "my-file.js": "console.log('hello')"
-	 *   }
-	 * })
-	 * ```
-	 *
-	 * The output will look like this:
-	 *
-	 * ```diff
-	 *   - outdir/
-	 *     - messages/
-	 * +   - my-file.js
-	 *     - messages.js
-	 *     - runtime.js
-	 * ```
-	 */
-	additionalFiles?: Record<string, string>;
-	/**
 	 * If `emitPrettierIgnore` is set to `true` a `.prettierignore` file will be emitted in the output directory. Defaults to `true`.
 	 *
 	 * ```diff

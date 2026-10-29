@@ -105,7 +105,6 @@ export const paraglideConfigSchema = v.object({
 	cookieDomain: v.optional(v.string()),
 	cookieSameSite: v.optional(v.picklist(["lax", "strict", "none"])),
 	cookieSecure: v.optional(v.union([v.boolean(), v.literal("auto")])),
-	additionalFiles: v.optional(v.record(v.string(), v.string())),
 	emitPrettierIgnore: v.optional(v.boolean()),
 	emitReadme: v.optional(v.boolean()),
 	emitTsDeclarations: v.optional(v.boolean()),

@@ -344,3 +344,14 @@ describe("loadParaglideConfig", () => {
 		}
 	});
 });
+
+test("rejects additionalFiles in JavaScript configs with migration guidance", async () => {
+	const projectDir = await createProjectDirectory();
+	await writeFile(
+		path.join(projectDir, "paraglide.config.js"),
+		'export default { additionalFiles: { "custom.js": "export const custom = 1;" } }'
+	);
+	await expect(loadParaglideConfig({ projectDir })).rejects.toThrow(
+		"additionalFiles was removed in Paraglide JS 3"
+	);
+});

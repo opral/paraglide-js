@@ -1,7 +1,7 @@
 import { isDeepStrictEqual } from "node:util";
 import { compileCatalog, type CatalogInput } from "./compile-project.js";
 import type { CompilerOptions } from "./compiler-options.js";
-import type { CatalogUpdate } from "./load-sdk-catalog.js";
+import type { CatalogUpdate } from "@inlang/sdk/catalog";
 import { toSafeModuleId } from "./safe-module-id.js";
 
 export type GeneratedCatalog = {
@@ -29,8 +29,7 @@ export async function generateCatalog(args: {
 		snapshot !== undefined &&
 		(options.outputStructure ?? "message-modules") === "message-modules" &&
 		(options.messageModuleSize ?? 1) === 1 &&
-		!options.experimentalStaticLocale &&
-		!Object.keys(options.additionalFiles ?? {}).length;
+		!options.experimentalStaticLocale;
 	const previous = args.previous;
 	if (
 		snapshot !== undefined &&

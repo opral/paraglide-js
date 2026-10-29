@@ -73,7 +73,7 @@ export const compileCommand = new Command()
 	.requiredOption("--silent", "Only log errors to the console", false)
 	.option(
 		"--emit-ts-declarations",
-		`Emit .d.ts files directly for the generated output (default: ${defaultCompilerOptions.emitTsDeclarations})`
+		"Emit .d.ts files directly for the generated output (default: true)"
 	)
 	.option(
 		"--no-emit-ts-declarations",
@@ -212,7 +212,10 @@ export const compileCommand = new Command()
 						project: projectOverride,
 						outdir: outdirOverride,
 						strategy: validatedStrategy,
-						emitTsDeclarations: options.emitTsDeclarations,
+						emitTsDeclarations:
+							options.emitTsDeclarations ??
+							loadedConfig?.config.emitTsDeclarations ??
+							true,
 						emitGitIgnore: options.emitGitIgnore,
 						emitPrettierIgnore: options.emitPrettierIgnore,
 						emitReadme: options.emitReadme,
