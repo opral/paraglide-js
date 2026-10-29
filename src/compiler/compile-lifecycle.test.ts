@@ -7,78 +7,42 @@ import { memfs } from "memfs";
 import { test, expect, vi } from "vitest";
 import { compile } from "./compile.js";
 
-vi.mock("./load-sdk-catalog.js", () => ({
-	getCatalogLoader: async () => undefined,
-}));
-vi.mock("@inlang/sdk", async (importOriginal) => {
-	const sdk = await importOriginal<typeof import("@inlang/sdk")>();
-	return {
-		...sdk,
-		// Explicitly exercise compatibility with published SDKs lacking this API.
-		createCatalogLoader: undefined,
-		loadProjectFromDirectory: vi.fn(sdk.loadProjectFromDirectory),
-	};
-});
-
-test.each([false, true])(
-	"closes the loaded project after write failure and permits a retry (cleanup fails: %s)",
-	async (cleanupFails) => {
-		const sdk = await import("@inlang/sdk");
-		const fs = memfs().fs as unknown as typeof import("node:fs");
-		const project = await loadProjectInMemory({ blob: await newProject({}) });
-		try {
-			await saveProjectToDirectory({
-				project,
-				path: "/project.inlang",
-				fs: fs.promises,
-			});
-		} finally {
-			await project.close();
-		}
-		const load = sdk.loadProjectFromDirectory;
-		const closed = vi.fn();
-		const loadSpy = vi
-			.spyOn(sdk, "loadProjectFromDirectory")
-			.mockImplementation(async (args) => {
-				const loaded = await load(args);
-				const close = loaded.close.bind(loaded);
-				loaded.close = async () => {
-					closed();
-					await close();
-					if (cleanupFails && closed.mock.calls.length === 1)
-						throw new Error("close failed");
-				};
-				return loaded;
-			});
-		const originalWrite = fs.promises.writeFile.bind(fs.promises);
-		const error = Object.assign(new Error("write: no space left on device"), {
-			code: "ENOSPC",
+test("permits a retry after catalog output publication fails", async () => {
+	const fs = memfs().fs as unknown as typeof import("node:fs");
+	const project = await loadProjectInMemory({ blob: await newProject({}) });
+	try {
+		await saveProjectToDirectory({
+			project,
+			path: "/project.inlang",
+			fs: fs.promises,
 		});
-		const writeSpy = vi
-			.spyOn(fs.promises, "writeFile")
-			.mockImplementation((async (...args) => {
-				if (String(args[0]).startsWith("/output/")) throw error;
-				return originalWrite(...args);
-			}) as typeof fs.promises.writeFile);
-		try {
-			await expect(
-				compile({ project: "/project.inlang", outdir: "/output", fs })
-			).rejects.toBe(error);
-			expect(closed).toHaveBeenCalledTimes(1);
-			writeSpy.mockRestore();
-			const result = await compile({
-				project: "/project.inlang",
-				outdir: "/output",
-				fs,
-			});
-			expect(result.outputHashes).toHaveProperty("runtime.js");
-			expect(closed).toHaveBeenCalledTimes(2);
-		} finally {
-			loadSpy.mockRestore();
-			writeSpy.mockRestore();
-		}
+	} finally {
+		await project.close();
 	}
-);
+	const originalWrite = fs.promises.writeFile.bind(fs.promises);
+	const error = Object.assign(new Error("write: no space left on device"), {
+		code: "ENOSPC",
+	});
+	const writeSpy = vi
+		.spyOn(fs.promises, "writeFile")
+		.mockImplementation((async (...args) => {
+			if (String(args[0]).startsWith("/output/")) throw error;
+			return originalWrite(...args);
+		}) as typeof fs.promises.writeFile);
+	try {
+		await expect(
+			compile({ project: "/project.inlang", outdir: "/output", fs })
+		).rejects.toBe(error);
+	} finally {
+		writeSpy.mockRestore();
+	}
+	const result = await compile({
+		project: "/project.inlang",
+		outdir: "/output",
+		fs,
+	});
+	expect(result.outputHashes).toHaveProperty("runtime.js");
+});
 
 async function createMessageFormatProject() {
 	const fs = memfs().fs as unknown as typeof import("node:fs");
@@ -123,23 +87,9 @@ test.each([
 ] as const)(
 	"rejects unreadable translation resources before %s",
 	async (_, cleanOutdir) => {
-		const sdk = await import("@inlang/sdk");
 		const { hashDirectory } =
 			await import("../services/file-handling/write-output.js");
 		const fs = await createMessageFormatProject();
-		const load = sdk.loadProjectFromDirectory;
-		const closed = vi.fn();
-		const loadSpy = vi
-			.spyOn(sdk, "loadProjectFromDirectory")
-			.mockImplementation(async (args) => {
-				const loaded = await load(args);
-				const close = loaded.close.bind(loaded);
-				loaded.close = async () => {
-					closed();
-					await close();
-				};
-				return loaded;
-			});
 		const originalRead = fs.promises.readFile.bind(fs.promises);
 		const denied = Object.assign(
 			new Error("EACCES: permission denied, open '/messages/de.json'"),
@@ -182,15 +132,12 @@ test.each([
 					cause: denied,
 				}),
 			]);
-			expect(closed).toHaveBeenCalledTimes(2);
 
 			readSpy.mockRestore();
 			const recovered = await compile(options);
 			expect(recovered.outputHashes).toEqual(previous.outputHashes);
 			expect(await hashDirectory("/output", fs.promises)).toEqual(before);
-			expect(closed).toHaveBeenCalledTimes(3);
 		} finally {
-			loadSpy.mockRestore();
 			readSpy.mockRestore();
 		}
 	}

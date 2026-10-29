@@ -705,3 +705,38 @@ test("compile --watch forwards the newly exposed compiler options (#757)", async
 		})
 	);
 });
+
+test.each([
+	{ configValue: undefined, flags: [], expected: true },
+	{ configValue: false, flags: [], expected: false },
+	{ configValue: false, flags: ["--emit-ts-declarations"], expected: true },
+	{ configValue: true, flags: ["--no-emit-ts-declarations"], expected: false },
+])(
+	"CLI declaration default and overrides: %j",
+	async ({ configValue, flags, expected }) => {
+		const { workspace, projectDir } = await createWorkspace();
+		await writeConfig(projectDir, path.join(workspace, "output"));
+		if (configValue !== undefined) {
+			await writeFile(
+				path.join(projectDir, "paraglide.config.ts"),
+				`export default { outdir: ${JSON.stringify(path.join(workspace, "output"))}, emitTsDeclarations: ${configValue} }`
+			);
+		}
+		const compileMock = vi.fn().mockResolvedValue({ outputHashes: {} });
+		vi.doMock("../../../compiler/compile.js", () => ({ compile: compileMock }));
+		const exitError = new Error("process.exit");
+		vi.spyOn(process, "exit").mockImplementation(() => {
+			throw exitError;
+		});
+		const { compileCommand } = await import("./command.js");
+		await expect(
+			compileCommand.parseAsync(
+				["--project", projectDir, "--silent", ...flags],
+				{ from: "user" }
+			)
+		).rejects.toBe(exitError);
+		expect(compileMock).toHaveBeenCalledWith(
+			expect.objectContaining({ emitTsDeclarations: expected })
+		);
+	}
+);

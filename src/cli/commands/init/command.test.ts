@@ -70,7 +70,9 @@ test("headless setup and rerun preserve project/messages/comments and skip optio
 	);
 	const tsconfig = await readFile(join(root, "tsconfig.json"), "utf8");
 	expect(tsconfig).toContain("keep this comment");
-	expect(tsconfig).toContain('"allowJs": true');
+	expect(tsconfig).toBe(
+		'// keep this comment\n{ "compilerOptions": { "strict": true, }, }\n'
+	);
 	expect(tsconfig).toContain('"strict": true');
 	const pkg = JSON.parse(packageFirst);
 	expect(pkg.scripts["machine-translate"]).toBeUndefined();
@@ -107,6 +109,7 @@ test("explicit paths and ESLint setup work without prompts", async () => {
 	);
 	expect(pkg.scripts.build).toContain("./config/project.inlang");
 	expect(pkg.scripts.build).toContain("./src/i18n");
+	expect(pkg.scripts.build).toContain("--emit-ts-declarations");
 });
 
 test("closed input without an unattended flag fails before writes", async () => {
@@ -165,4 +168,18 @@ test("invalid lint choices fail before creating files", async () => {
 		command.parseAsync(["--yes", "--lint", "invalid"], { from: "user" })
 	).rejects.toThrow("Allowed choices");
 	expect(await readdir(root)).toEqual(["package.json"]);
+});
+
+test("init emits declarations without requiring or editing a tsconfig", async () => {
+	const tsconfig =
+		'{ "compilerOptions": { "allowJs": false, "strict": true } }';
+	await writeFile(join(root, "tsconfig.json"), tsconfig);
+	await runInit({ yes: true });
+	expect(await readFile(join(root, "tsconfig.json"), "utf8")).toBe(tsconfig);
+	expect(
+		await readFile(join(root, "src/paraglide/messages.d.ts"), "utf8")
+	).toContain("export");
+	expect(
+		await readFile(join(root, "src/paraglide/runtime.d.ts"), "utf8")
+	).toContain("getLocale");
 });

@@ -32,7 +32,7 @@ export default defineConfig({
 		import { defineConfig } from "vite"
 
 		export default defineConfig({
-			plugins: [paraglideVitePlugin({ project: "./project.inlang", outdir: "./src/paraglide" }),sveltekit()],
+			plugins: [paraglideVitePlugin({ project: "./project.inlang", outdir: "./src/paraglide", emitTsDeclarations: true }),sveltekit()],
 		})
 		"
 	`);
@@ -50,6 +50,7 @@ test("doesn't update configs where the paraglide plugin is already present", asy
                 paraglideVitePlugin({
                     project: "./project.inlang",
                     outdir: "./src/paraglide",
+                    emitTsDeclarations: false,
                 }),
                 sveltekit(),
                 visualizer({
@@ -98,4 +99,18 @@ test("existing integration must match requested paths before unattended reuse", 
 			outdir: "./src/paraglide",
 		})
 	).toMatchObject({ ok: false });
+});
+
+test("init enables declarations in an existing plugin when the option is absent", () => {
+	const config =
+		'import {paraglideVitePlugin} from "@inlang/paraglide-js"; export default {plugins:[paraglideVitePlugin({project:"./project.inlang",outdir:"./src/paraglide"})]}';
+	const result = updateViteConfig({
+		config,
+		projectPath: "./project.inlang",
+		outdir: "./src/paraglide",
+	});
+	expect(result.ok).toBe(true);
+	expect(result.updated).toContain(
+		"paraglideVitePlugin({ emitTsDeclarations: true,project:"
+	);
 });

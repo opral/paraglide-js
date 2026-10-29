@@ -1,7 +1,7 @@
 import { isDeepStrictEqual } from "node:util";
 import { compileCatalog, type CatalogInput } from "./compile-project.js";
 import type { CompilerOptions } from "./compiler-options.js";
-import type { CatalogUpdate } from "./load-sdk-catalog.js";
+import type { CatalogUpdate } from "@inlang/sdk/catalog";
 import { toSafeModuleId } from "./safe-module-id.js";
 
 export type GeneratedCatalog = {

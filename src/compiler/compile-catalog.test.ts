@@ -1,3 +1,4 @@
+import { createCatalogLoader } from "@inlang/sdk/catalog";
 import { afterAll, beforeAll, expect, test } from "vitest";
 import * as sdk from "@inlang/sdk";
 import messageFormat from "@inlang/plugin-message-format";
@@ -210,46 +211,31 @@ test("catalog declarations preserve strict consumer inputs and locale checking",
 	).toEqual([]);
 });
 
-// This differential test activates automatically once the SDK release includes
-// the new API. The tests above and mocked compile() route run on SDK4.0.4 too.
-const createCatalogLoader = (
-	sdk as typeof sdk & {
-		createCatalogLoader?: (
-			args: Parameters<typeof sdk.loadProjectFromDirectory>[0]
-		) => {
-			load(): Promise<CatalogInput & { type: "reset"; diagnostics: Error[] }>;
-		};
+test("actual catalog loader produces the same compiled files as the project database", async () => {
+	const loaded = await createCatalogLoader({
+		path: "/project.inlang",
+		fs,
+		providePlugins: [messageFormat as sdk.InlangPlugin],
+	}).load();
+	expect(loaded.diagnostics).toEqual([]);
+	if (loaded.type !== "reset") throw new Error("Expected first load to reset");
+	for (const outputStructure of [
+		"message-modules",
+		"locale-modules",
+	] as const) {
+		expect(
+			await compileCatalog({
+				catalog: { settings: loaded.settings, bundles: [...loaded.bundles] },
+				compilerOptions: { outputStructure, emitTsDeclarations: true },
+			})
+		).toEqual(
+			await compileProject({
+				project,
+				compilerOptions: { outputStructure, emitTsDeclarations: true },
+			})
+		);
 	}
-).createCatalogLoader;
-test.runIf(createCatalogLoader)(
-	"actual catalog loader produces the same compiled files as the project database",
-	async () => {
-		const loaded = await createCatalogLoader!({
-			path: "/project.inlang",
-			fs,
-			providePlugins: [messageFormat as sdk.InlangPlugin],
-		}).load();
-		expect(loaded.diagnostics).toEqual([]);
-		if (loaded.type !== "reset")
-			throw new Error("Expected first load to reset");
-		for (const outputStructure of [
-			"message-modules",
-			"locale-modules",
-		] as const) {
-			expect(
-				await compileCatalog({
-					catalog: { settings: loaded.settings, bundles: [...loaded.bundles] },
-					compilerOptions: { outputStructure, emitTsDeclarations: true },
-				})
-			).toEqual(
-				await compileProject({
-					project,
-					compilerOptions: { outputStructure, emitTsDeclarations: true },
-				})
-			);
-		}
-	}
-);
+});
 
 async function loadMessages(
 	output: Record<string, string>
