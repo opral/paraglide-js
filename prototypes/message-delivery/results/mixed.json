@@ -1,0 +1,1991 @@
+{
+  "metadata": {
+    "node": "v24.22.1",
+    "vite": "8.1.4",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpus": "Apple M5 Pro",
+    "sizes": [
+      1000,
+      6400
+    ],
+    "rounds": 3,
+    "shape": "mixed",
+    "locales": [
+      "en",
+      "de",
+      "fr"
+    ],
+    "note": "Same-process medians; cold means new Vite graph/output directory, not OS cache eviction. SDK loading, browser network, watcher delivery, declaration checking, and memory excluded."
+  },
+  "results": [
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-message",
+      "generateMs": 21.718707999999992,
+      "prepareMs": 0.4551669999999888,
+      "writeMs": 82.416458,
+      "disk": {
+        "total": 2011,
+        "js": 1005,
+        "declarations": 1005,
+        "bytes": 2665527
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 6.464959000000022,
+      "devGraphMs": 277.21004100000005,
+      "dev": {
+        "modules": 1005,
+        "bytes": 2143269
+      },
+      "edit": {
+        "noOpCompileMs": 0.36933299999998326,
+        "compileMs": 1.556332999999995,
+        "prepareMs": 0.38733300000001236,
+        "writeAndInvalidateMs": 5.935124999999971,
+        "graphMs": 226.01908300000002,
+        "warmGraphMs": 92.91391699999997
+      },
+      "buildOneMs": 32.76770799999997,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 28.394833999999946,
+      "bundleManyBytes": 45141,
+      "bundleManyGzipBytes": 4894
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-group-16",
+      "generateMs": 12.387583999999833,
+      "prepareMs": 0.02983300000005329,
+      "writeMs": 7.212750000000142,
+      "disk": {
+        "total": 137,
+        "js": 68,
+        "declarations": 68,
+        "bytes": 2222543
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.3389999999999418,
+      "devGraphMs": 112.7812919999999,
+      "dev": {
+        "modules": 68,
+        "bytes": 1852065
+      },
+      "edit": {
+        "noOpCompileMs": 0.06570800000008603,
+        "compileMs": 11.970625000000155,
+        "prepareMs": 0.015499999999974534,
+        "writeAndInvalidateMs": 1.5862079999999423,
+        "graphMs": 96.09754199999998,
+        "warmGraphMs": 72.62804200000005
+      },
+      "buildOneMs": 12.146458000000166,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 12.54704199999992,
+      "bundleManyBytes": 45886,
+      "bundleManyGzipBytes": 4378
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-group-64",
+      "generateMs": 10.783791000000065,
+      "prepareMs": 0.010541999999986729,
+      "writeMs": 4.4143340000000535,
+      "disk": {
+        "total": 43,
+        "js": 21,
+        "declarations": 21,
+        "bytes": 2102176
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.4570830000000115,
+      "devGraphMs": 95.04866700000002,
+      "dev": {
+        "modules": 21,
+        "bytes": 1752801
+      },
+      "edit": {
+        "noOpCompileMs": 0.0669999999997799,
+        "compileMs": 10.142125000000078,
+        "prepareMs": 0.0060829999999896245,
+        "writeAndInvalidateMs": 1.538583000000017,
+        "graphMs": 88.54679199999987,
+        "warmGraphMs": 69.43304200000011
+      },
+      "buildOneMs": 10.636124999999993,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 10.99104199999988,
+      "bundleManyBytes": 44341,
+      "bundleManyGzipBytes": 4284
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-group-256",
+      "generateMs": 10.301500000000033,
+      "prepareMs": 0.004625000000032742,
+      "writeMs": 2.5311659999999847,
+      "disk": {
+        "total": 19,
+        "js": 9,
+        "declarations": 9,
+        "bytes": 2071756
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.3048749999998108,
+      "devGraphMs": 89.11458300000004,
+      "dev": {
+        "modules": 9,
+        "bytes": 1727763
+      },
+      "edit": {
+        "noOpCompileMs": 0.05883299999982228,
+        "compileMs": 9.755791999999929,
+        "prepareMs": 0.004083999999920707,
+        "writeAndInvalidateMs": 7.144416999999976,
+        "graphMs": 85.1695830000001,
+        "warmGraphMs": 71.66079200000013
+      },
+      "buildOneMs": 15.126917000000049,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 15.64779099999987,
+      "bundleManyBytes": 44032,
+      "bundleManyGzipBytes": 4259
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-locale",
+      "generateMs": 15.57733300000018,
+      "prepareMs": 0.019792000000052212,
+      "writeMs": 4.694707999999991,
+      "disk": {
+        "total": 16,
+        "js": 8,
+        "declarations": 8,
+        "bytes": 3309283
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0746670000003178,
+      "devGraphMs": 122.54433400000016,
+      "dev": {
+        "modules": 8,
+        "bytes": 2399182
+      },
+      "edit": {
+        "noOpCompileMs": 0.05258400000002439,
+        "compileMs": 15.207082999999784,
+        "prepareMs": 0.006957999999940512,
+        "writeAndInvalidateMs": 5.2308750000001965,
+        "graphMs": 162.78804200000013,
+        "warmGraphMs": 99.69808400000011
+      },
+      "buildOneMs": 32.21149999999989,
+      "bundleOneBytes": 2669,
+      "bundleOneGzipBytes": 1269,
+      "buildManyMs": 33.5343340000004,
+      "bundleManyBytes": 47911,
+      "bundleManyGzipBytes": 5914
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "virtual-message",
+      "generateMs": 13.25958300000002,
+      "prepareMs": 0.44179199999962293,
+      "writeMs": 40.2348750000001,
+      "disk": {
+        "total": 1010,
+        "js": 4,
+        "declarations": 1005,
+        "bytes": 651803
+      },
+      "virtual": {
+        "total": 1001,
+        "js": 1001,
+        "declarations": 0,
+        "bytes": 2013724
+      },
+      "serverStartMs": 1.229207999999744,
+      "devGraphMs": 178.09229200000027,
+      "dev": {
+        "modules": 1005,
+        "bytes": 2288559
+      },
+      "edit": {
+        "noOpCompileMs": 0.05479199999990669,
+        "compileMs": 1.3131250000001273,
+        "prepareMs": 0.5210419999998521,
+        "writeAndInvalidateMs": 2.6484169999998812,
+        "graphMs": 167.758417,
+        "warmGraphMs": 86.37695800000029
+      },
+      "buildOneMs": 38.55229200000031,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 35.35525000000007,
+      "bundleManyBytes": 45141,
+      "bundleManyGzipBytes": 4894
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "virtual-message-types-64",
+      "generateMs": 15.557749999999942,
+      "prepareMs": 2.753208000000086,
+      "writeMs": 3.4509170000001177,
+      "disk": {
+        "total": 26,
+        "js": 4,
+        "declarations": 21,
+        "bytes": 550463
+      },
+      "virtual": {
+        "total": 1001,
+        "js": 1001,
+        "declarations": 0,
+        "bytes": 2013724
+      },
+      "serverStartMs": 1.20049999999992,
+      "devGraphMs": 167.12629199999992,
+      "dev": {
+        "modules": 1005,
+        "bytes": 2297577
+      },
+      "edit": {
+        "noOpCompileMs": 0.06133300000010422,
+        "compileMs": 1.268083999999817,
+        "prepareMs": 1.1272079999998823,
+        "writeAndInvalidateMs": 0.9347080000002279,
+        "graphMs": 169.48749999999973,
+        "warmGraphMs": 83.07941699999992
+      },
+      "buildOneMs": 34.75895900000023,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 35.88862500000005,
+      "bundleManyBytes": 45141,
+      "bundleManyGzipBytes": 4894
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "virtual-group-64",
+      "generateMs": 11.623708000000079,
+      "prepareMs": 0.027916999999888503,
+      "writeMs": 3.5638749999998254,
+      "disk": {
+        "total": 26,
+        "js": 4,
+        "declarations": 21,
+        "bytes": 442656
+      },
+      "virtual": {
+        "total": 17,
+        "js": 17,
+        "declarations": 0,
+        "bytes": 1659520
+      },
+      "serverStartMs": 1.037083000000166,
+      "devGraphMs": 91.32433300000002,
+      "dev": {
+        "modules": 21,
+        "bytes": 1755429
+      },
+      "edit": {
+        "noOpCompileMs": 0.0779170000000704,
+        "compileMs": 9.787417000000005,
+        "prepareMs": 0.020916999999826658,
+        "writeAndInvalidateMs": 1.0461669999999685,
+        "graphMs": 92.62562500000013,
+        "warmGraphMs": 71.75500000000011
+      },
+      "buildOneMs": 11.631750000000011,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 13.011332999999922,
+      "bundleManyBytes": 44341,
+      "bundleManyGzipBytes": 4284
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-group-16",
+      "generateMs": 9.75629200000003,
+      "prepareMs": 0.025042000000212283,
+      "writeMs": 7.660542000000078,
+      "disk": {
+        "total": 137,
+        "js": 68,
+        "declarations": 68,
+        "bytes": 2222543
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.1457080000000133,
+      "devGraphMs": 105.48937500000011,
+      "dev": {
+        "modules": 68,
+        "bytes": 1852065
+      },
+      "edit": {
+        "noOpCompileMs": 0.053167000000030384,
+        "compileMs": 9.299083999999311,
+        "prepareMs": 0.017209000000548258,
+        "writeAndInvalidateMs": 3.242374999999811,
+        "graphMs": 106.75450000000001,
+        "warmGraphMs": 73.27983300000051
+      },
+      "buildOneMs": 11.755084000000352,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 12.44683299999997,
+      "bundleManyBytes": 45886,
+      "bundleManyGzipBytes": 4378
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-group-64",
+      "generateMs": 9.420916999999463,
+      "prepareMs": 0.0159590000002936,
+      "writeMs": 3.305959000000257,
+      "disk": {
+        "total": 43,
+        "js": 21,
+        "declarations": 21,
+        "bytes": 2102176
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.1071249999995416,
+      "devGraphMs": 98.09000000000015,
+      "dev": {
+        "modules": 21,
+        "bytes": 1752801
+      },
+      "edit": {
+        "noOpCompileMs": 0.04549999999926513,
+        "compileMs": 8.854333000000224,
+        "prepareMs": 0.009375000000545697,
+        "writeAndInvalidateMs": 2.5433750000001965,
+        "graphMs": 98.99370799999997,
+        "warmGraphMs": 71.96291699999983
+      },
+      "buildOneMs": 11.336208000000624,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 11.963916000000609,
+      "bundleManyBytes": 44341,
+      "bundleManyGzipBytes": 4284
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-group-256",
+      "generateMs": 10.650791999999456,
+      "prepareMs": 0.00837500000034197,
+      "writeMs": 2.5351250000003347,
+      "disk": {
+        "total": 19,
+        "js": 9,
+        "declarations": 9,
+        "bytes": 2071756
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0962910000007469,
+      "devGraphMs": 91.91891699999996,
+      "dev": {
+        "modules": 9,
+        "bytes": 1727763
+      },
+      "edit": {
+        "noOpCompileMs": 0.049874999999701686,
+        "compileMs": 9.970667000000503,
+        "prepareMs": 0.010750000000371074,
+        "writeAndInvalidateMs": 2.727375000000393,
+        "graphMs": 91.7747500000005,
+        "warmGraphMs": 75.99454100000003
+      },
+      "buildOneMs": 17.07025000000067,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 18.865208000000166,
+      "bundleManyBytes": 44032,
+      "bundleManyGzipBytes": 4259
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-locale",
+      "generateMs": 14.718166999999994,
+      "prepareMs": 0.032000000000152795,
+      "writeMs": 3.2795420000002196,
+      "disk": {
+        "total": 16,
+        "js": 8,
+        "declarations": 8,
+        "bytes": 3309283
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0342909999999392,
+      "devGraphMs": 130.6785829999999,
+      "dev": {
+        "modules": 8,
+        "bytes": 2399182
+      },
+      "edit": {
+        "noOpCompileMs": 0.07916699999987031,
+        "compileMs": 15.815708000000086,
+        "prepareMs": 0.010124999999788997,
+        "writeAndInvalidateMs": 2.6280409999999392,
+        "graphMs": 131.2318749999995,
+        "warmGraphMs": 105.39116699999977
+      },
+      "buildOneMs": 31.89758299999994,
+      "bundleOneBytes": 2669,
+      "bundleOneGzipBytes": 1269,
+      "buildManyMs": 33.94683400000031,
+      "bundleManyBytes": 47911,
+      "bundleManyGzipBytes": 5914
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "virtual-message",
+      "generateMs": 12.869666000000507,
+      "prepareMs": 0.43841599999996106,
+      "writeMs": 41.04424999999992,
+      "disk": {
+        "total": 1010,
+        "js": 4,
+        "declarations": 1005,
+        "bytes": 651803
+      },
+      "virtual": {
+        "total": 1001,
+        "js": 1001,
+        "declarations": 0,
+        "bytes": 2013724
+      },
+      "serverStartMs": 1.111374999999498,
+      "devGraphMs": 171.3460409999998,
+      "dev": {
+        "modules": 1005,
+        "bytes": 2288559
+      },
+      "edit": {
+        "noOpCompileMs": 0.05466599999999744,
+        "compileMs": 1.412000000000262,
+        "prepareMs": 0.8063330000004498,
+        "writeAndInvalidateMs": 2.0817079999997077,
+        "graphMs": 155.54841599999963,
+        "warmGraphMs": 83.87687499999993
+      },
+      "buildOneMs": 37.60187499999938,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 35.3598750000001,
+      "bundleManyBytes": 45141,
+      "bundleManyGzipBytes": 4894
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "virtual-message-types-64",
+      "generateMs": 13.685915999999452,
+      "prepareMs": 0.980040999999801,
+      "writeMs": 3.885457999999744,
+      "disk": {
+        "total": 26,
+        "js": 4,
+        "declarations": 21,
+        "bytes": 550463
+      },
+      "virtual": {
+        "total": 1001,
+        "js": 1001,
+        "declarations": 0,
+        "bytes": 2013724
+      },
+      "serverStartMs": 1.156792000000678,
+      "devGraphMs": 187.3073749999994,
+      "dev": {
+        "modules": 1005,
+        "bytes": 2297577
+      },
+      "edit": {
+        "noOpCompileMs": 0.05466699999942648,
+        "compileMs": 1.3242079999999987,
+        "prepareMs": 2.5195000000003347,
+        "writeAndInvalidateMs": 1.038749999999709,
+        "graphMs": 156.9270000000006,
+        "warmGraphMs": 82.27516699999978
+      },
+      "buildOneMs": 35.555209000000104,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 39.65491699999984,
+      "bundleManyBytes": 45141,
+      "bundleManyGzipBytes": 4894
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "virtual-group-64",
+      "generateMs": 9.785417000000052,
+      "prepareMs": 0.033083000000260654,
+      "writeMs": 5.213166999999885,
+      "disk": {
+        "total": 26,
+        "js": 4,
+        "declarations": 21,
+        "bytes": 442656
+      },
+      "virtual": {
+        "total": 17,
+        "js": 17,
+        "declarations": 0,
+        "bytes": 1659520
+      },
+      "serverStartMs": 1.0891670000000886,
+      "devGraphMs": 99.29887500000041,
+      "dev": {
+        "modules": 21,
+        "bytes": 1755429
+      },
+      "edit": {
+        "noOpCompileMs": 0.05366700000013225,
+        "compileMs": 9.630292000000736,
+        "prepareMs": 0.0185830000000351,
+        "writeAndInvalidateMs": 0.931416999999783,
+        "graphMs": 85.37054099999932,
+        "warmGraphMs": 73.42612499999996
+      },
+      "buildOneMs": 13.167957999999999,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 12.956457999999657,
+      "bundleManyBytes": 44341,
+      "bundleManyGzipBytes": 4284
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-message",
+      "generateMs": 11.899791999999252,
+      "prepareMs": 0.48758400000042457,
+      "writeMs": 75.15829100000064,
+      "disk": {
+        "total": 2011,
+        "js": 1005,
+        "declarations": 1005,
+        "bytes": 2665527
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.2278329999999187,
+      "devGraphMs": 250.36799999999948,
+      "dev": {
+        "modules": 1005,
+        "bytes": 2143269
+      },
+      "edit": {
+        "noOpCompileMs": 0.049250000000029104,
+        "compileMs": 1.5557500000004438,
+        "prepareMs": 0.3821670000006634,
+        "writeAndInvalidateMs": 4.442167000000154,
+        "graphMs": 226.44945899999948,
+        "warmGraphMs": 85.57187499999964
+      },
+      "buildOneMs": 27.39745900000071,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 25.548374999999396,
+      "bundleManyBytes": 45141,
+      "bundleManyGzipBytes": 4894
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-group-64",
+      "generateMs": 9.36595799999941,
+      "prepareMs": 0.010958000000755419,
+      "writeMs": 4.300583000000188,
+      "disk": {
+        "total": 43,
+        "js": 21,
+        "declarations": 21,
+        "bytes": 2102176
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.2643339999995078,
+      "devGraphMs": 96.3789999999999,
+      "dev": {
+        "modules": 21,
+        "bytes": 1752801
+      },
+      "edit": {
+        "noOpCompileMs": 0.059874999999919964,
+        "compileMs": 9.683541999999761,
+        "prepareMs": 0.006374999999934516,
+        "writeAndInvalidateMs": 1.7089999999998327,
+        "graphMs": 86.33845800000017,
+        "warmGraphMs": 69.45616699999937
+      },
+      "buildOneMs": 12.26458300000013,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 12.140666999999667,
+      "bundleManyBytes": 44341,
+      "bundleManyGzipBytes": 4284
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-group-256",
+      "generateMs": 9.552958000000217,
+      "prepareMs": 0.004416999999193649,
+      "writeMs": 2.5377079999998386,
+      "disk": {
+        "total": 19,
+        "js": 9,
+        "declarations": 9,
+        "bytes": 2071756
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 0.9431250000006912,
+      "devGraphMs": 88.62687500000084,
+      "dev": {
+        "modules": 9,
+        "bytes": 1727763
+      },
+      "edit": {
+        "noOpCompileMs": 0.05837500000052387,
+        "compileMs": 9.16175000000112,
+        "prepareMs": 0.0054579999996349216,
+        "writeAndInvalidateMs": 2.4746670000004087,
+        "graphMs": 87.03870800000004,
+        "warmGraphMs": 77.5970840000009
+      },
+      "buildOneMs": 14.886791999999332,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 16.3464159999985,
+      "bundleManyBytes": 44032,
+      "bundleManyGzipBytes": 4259
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-locale",
+      "generateMs": 12.972916999999143,
+      "prepareMs": 0.005708000000595348,
+      "writeMs": 3.3530419999988226,
+      "disk": {
+        "total": 16,
+        "js": 8,
+        "declarations": 8,
+        "bytes": 3309283
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0201670000005834,
+      "devGraphMs": 122.03341700000055,
+      "dev": {
+        "modules": 8,
+        "bytes": 2399182
+      },
+      "edit": {
+        "noOpCompileMs": 0.049624999999650754,
+        "compileMs": 14.873792000000321,
+        "prepareMs": 0.007499999999708962,
+        "writeAndInvalidateMs": 2.4900419999994483,
+        "graphMs": 127.58533299999908,
+        "warmGraphMs": 101.3971249999995
+      },
+      "buildOneMs": 30.29254100000071,
+      "bundleOneBytes": 2669,
+      "bundleOneGzipBytes": 1269,
+      "buildManyMs": 35.651082999998835,
+      "bundleManyBytes": 47911,
+      "bundleManyGzipBytes": 5914
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "virtual-message",
+      "generateMs": 10.945583000000624,
+      "prepareMs": 0.32854199999928824,
+      "writeMs": 38.291166999999405,
+      "disk": {
+        "total": 1010,
+        "js": 4,
+        "declarations": 1005,
+        "bytes": 651803
+      },
+      "virtual": {
+        "total": 1001,
+        "js": 1001,
+        "declarations": 0,
+        "bytes": 2013724
+      },
+      "serverStartMs": 1.0022079999998823,
+      "devGraphMs": 154.83333400000083,
+      "dev": {
+        "modules": 1005,
+        "bytes": 2288559
+      },
+      "edit": {
+        "noOpCompileMs": 0.04758399999991525,
+        "compileMs": 1.2524999999986903,
+        "prepareMs": 0.48845799999980954,
+        "writeAndInvalidateMs": 2.074333000000479,
+        "graphMs": 151.03237499999886,
+        "warmGraphMs": 80.05774999999994
+      },
+      "buildOneMs": 33.71820900000057,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 39.862458999999944,
+      "bundleManyBytes": 45141,
+      "bundleManyGzipBytes": 4894
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "virtual-message-types-64",
+      "generateMs": 9.816999999999098,
+      "prepareMs": 1.1642080000001442,
+      "writeMs": 4.309999999999491,
+      "disk": {
+        "total": 26,
+        "js": 4,
+        "declarations": 21,
+        "bytes": 550463
+      },
+      "virtual": {
+        "total": 1001,
+        "js": 1001,
+        "declarations": 0,
+        "bytes": 2013724
+      },
+      "serverStartMs": 0.9942499999997381,
+      "devGraphMs": 236.97229100000004,
+      "dev": {
+        "modules": 1005,
+        "bytes": 2297577
+      },
+      "edit": {
+        "noOpCompileMs": 0.058042000000568805,
+        "compileMs": 1.5507079999988491,
+        "prepareMs": 1.2267909999991389,
+        "writeAndInvalidateMs": 1.0753329999988637,
+        "graphMs": 174.04033300000083,
+        "warmGraphMs": 86.56545800000094
+      },
+      "buildOneMs": 37.98270799999955,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 40.823959000001196,
+      "bundleManyBytes": 45141,
+      "bundleManyGzipBytes": 4894
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "virtual-group-64",
+      "generateMs": 10.22912499999984,
+      "prepareMs": 0.009000000000014552,
+      "writeMs": 5.306875000000218,
+      "disk": {
+        "total": 26,
+        "js": 4,
+        "declarations": 21,
+        "bytes": 442656
+      },
+      "virtual": {
+        "total": 17,
+        "js": 17,
+        "declarations": 0,
+        "bytes": 1659520
+      },
+      "serverStartMs": 1.0034159999995609,
+      "devGraphMs": 92.08833300000151,
+      "dev": {
+        "modules": 21,
+        "bytes": 1755429
+      },
+      "edit": {
+        "noOpCompileMs": 0.04641699999956472,
+        "compileMs": 8.840541999999914,
+        "prepareMs": 0.008417000000918051,
+        "writeAndInvalidateMs": 0.8756670000002487,
+        "graphMs": 80.68362499999967,
+        "warmGraphMs": 76.12825000000157
+      },
+      "buildOneMs": 12.562708999999813,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 12.65270800000144,
+      "bundleManyBytes": 44341,
+      "bundleManyGzipBytes": 4284
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-message",
+      "generateMs": 11.363542000000962,
+      "prepareMs": 0.39229100000011385,
+      "writeMs": 73.67683299999953,
+      "disk": {
+        "total": 2011,
+        "js": 1005,
+        "declarations": 1005,
+        "bytes": 2665527
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.1654170000001614,
+      "devGraphMs": 232.72658299999966,
+      "dev": {
+        "modules": 1005,
+        "bytes": 2143269
+      },
+      "edit": {
+        "noOpCompileMs": 0.060166000001117936,
+        "compileMs": 1.4232080000001588,
+        "prepareMs": 0.2667920000003505,
+        "writeAndInvalidateMs": 5.954792000000452,
+        "graphMs": 212.2945409999993,
+        "warmGraphMs": 79.70424999999886
+      },
+      "buildOneMs": 26.676124999999956,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 28.516083999998955,
+      "bundleManyBytes": 45141,
+      "bundleManyGzipBytes": 4894
+    },
+    {
+      "count": 1000,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-group-16",
+      "generateMs": 9.603332999999111,
+      "prepareMs": 0.022874999998748535,
+      "writeMs": 7.105417000000671,
+      "disk": {
+        "total": 137,
+        "js": 68,
+        "declarations": 68,
+        "bytes": 2222543
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0284579999988637,
+      "devGraphMs": 97.72562500000095,
+      "dev": {
+        "modules": 68,
+        "bytes": 1852065
+      },
+      "edit": {
+        "noOpCompileMs": 0.04541600000084145,
+        "compileMs": 8.99933400000009,
+        "prepareMs": 0.014374999998835847,
+        "writeAndInvalidateMs": 1.765917000000627,
+        "graphMs": 115.65945800000009,
+        "warmGraphMs": 69.10420799999883
+      },
+      "buildOneMs": 13.431000000000495,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 13.563374999999724,
+      "bundleManyBytes": 45886,
+      "bundleManyGzipBytes": 4378
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-message",
+      "generateMs": 86.91495899999973,
+      "prepareMs": 2.785250000000815,
+      "writeMs": 506.3970419999987,
+      "disk": {
+        "total": 12811,
+        "js": 6405,
+        "declarations": 6405,
+        "bytes": 16405827
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.121500000001106,
+      "devGraphMs": 1382.8596670000006,
+      "dev": {
+        "modules": 6405,
+        "bytes": 13332069
+      },
+      "edit": {
+        "noOpCompileMs": 0.12341699999888078,
+        "compileMs": 3.604917000000569,
+        "prepareMs": 2.50616699999955,
+        "writeAndInvalidateMs": 23.752000000000407,
+        "graphMs": 1387.7240000000002,
+        "warmGraphMs": 498.4575420000001
+      },
+      "buildOneMs": 131.83195800000067,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 130.3368329999994,
+      "bundleManyBytes": 273290,
+      "bundleManyGzipBytes": 19963
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-group-16",
+      "generateMs": 49.23762500000157,
+      "prepareMs": 0.11850000000049477,
+      "writeMs": 42.76349999999729,
+      "disk": {
+        "total": 811,
+        "js": 405,
+        "declarations": 405,
+        "bytes": 13552750
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 0.9914160000007541,
+      "devGraphMs": 646.4834579999988,
+      "dev": {
+        "modules": 405,
+        "bytes": 11461959
+      },
+      "edit": {
+        "noOpCompileMs": 0.11424999999871943,
+        "compileMs": 50.89795899999808,
+        "prepareMs": 0.09945900000093388,
+        "writeAndInvalidateMs": 9.57562500000131,
+        "graphMs": 621.9659169999977,
+        "warmGraphMs": 444.46166599999924
+      },
+      "buildOneMs": 30.570749999998952,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 38.43475000000035,
+      "bundleManyBytes": 276661,
+      "bundleManyGzipBytes": 16513
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-group-64",
+      "generateMs": 54.5191670000022,
+      "prepareMs": 0.04608300000109011,
+      "writeMs": 18.25,
+      "disk": {
+        "total": 211,
+        "js": 105,
+        "declarations": 105,
+        "bytes": 12783850
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0292499999995925,
+      "devGraphMs": 557.7302920000002,
+      "dev": {
+        "modules": 105,
+        "bytes": 10828059
+      },
+      "edit": {
+        "noOpCompileMs": 0.18400000000110595,
+        "compileMs": 57.37583399999858,
+        "prepareMs": 0.025916000002325745,
+        "writeAndInvalidateMs": 9.233499999998457,
+        "graphMs": 555.4956249999996,
+        "warmGraphMs": 451.8029170000009
+      },
+      "buildOneMs": 25.613124999999854,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 34.87029199999961,
+      "bundleManyBytes": 267268,
+      "bundleManyGzipBytes": 15799
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-group-256",
+      "generateMs": 59.95000000000073,
+      "prepareMs": 0.01791600000069593,
+      "writeMs": 9.64366599999994,
+      "disk": {
+        "total": 61,
+        "js": 30,
+        "declarations": 30,
+        "bytes": 12593725
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0396250000012515,
+      "devGraphMs": 555.0963340000017,
+      "dev": {
+        "modules": 30,
+        "bytes": 10671609
+      },
+      "edit": {
+        "noOpCompileMs": 0.1129590000018652,
+        "compileMs": 50.13333400000192,
+        "prepareMs": 0.010000000002037268,
+        "writeAndInvalidateMs": 6.452042000000802,
+        "graphMs": 548.3255420000023,
+        "warmGraphMs": 444.676666000003
+      },
+      "buildOneMs": 27.924999999999272,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 34.66458299999795,
+      "bundleManyBytes": 265105,
+      "bundleManyGzipBytes": 15777
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "disk-locale",
+      "generateMs": 89.9387089999982,
+      "prepareMs": 0.006958000001759501,
+      "writeMs": 22.65574999999808,
+      "disk": {
+        "total": 16,
+        "js": 8,
+        "declarations": 8,
+        "bytes": 20627083
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0649169999996957,
+      "devGraphMs": 853.0038749999985,
+      "dev": {
+        "modules": 8,
+        "bytes": 15018982
+      },
+      "edit": {
+        "noOpCompileMs": 0.2562919999982114,
+        "compileMs": 123.33062500000233,
+        "prepareMs": 0.009000000001833541,
+        "writeAndInvalidateMs": 20.19812499999898,
+        "graphMs": 846.3595830000013,
+        "warmGraphMs": 741.9861249999994
+      },
+      "buildOneMs": 176.29062499999782,
+      "bundleOneBytes": 2669,
+      "bundleOneGzipBytes": 1269,
+      "buildManyMs": 209.41612500000338,
+      "bundleManyBytes": 291046,
+      "bundleManyGzipBytes": 26303
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "virtual-message",
+      "generateMs": 99.62658299999748,
+      "prepareMs": 2.7759170000026643,
+      "writeMs": 235.88054099999863,
+      "disk": {
+        "total": 6410,
+        "js": 4,
+        "declarations": 6405,
+        "bytes": 3403103
+      },
+      "virtual": {
+        "total": 6401,
+        "js": 6401,
+        "declarations": 0,
+        "bytes": 13002724
+      },
+      "serverStartMs": 1.077792000000045,
+      "devGraphMs": 1066.1540840000016,
+      "dev": {
+        "modules": 6405,
+        "bytes": 14260359
+      },
+      "edit": {
+        "noOpCompileMs": 0.1613340000003518,
+        "compileMs": 4.297708000001876,
+        "prepareMs": 3.092291999997542,
+        "writeAndInvalidateMs": 12.268166000001656,
+        "graphMs": 995.724291999999,
+        "warmGraphMs": 527.5663330000025
+      },
+      "buildOneMs": 212.52404100000058,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 212.96508299999914,
+      "bundleManyBytes": 273290,
+      "bundleManyGzipBytes": 19963
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "virtual-message-types-64",
+      "generateMs": 93.00225000000137,
+      "prepareMs": 9.35858300000109,
+      "writeMs": 11.491750000001048,
+      "disk": {
+        "total": 110,
+        "js": 4,
+        "declarations": 105,
+        "bytes": 2748731
+      },
+      "virtual": {
+        "total": 6401,
+        "js": 6401,
+        "declarations": 0,
+        "bytes": 13002724
+      },
+      "serverStartMs": 1.0105000000003201,
+      "devGraphMs": 1026.849666000002,
+      "dev": {
+        "modules": 6405,
+        "bytes": 14317977
+      },
+      "edit": {
+        "noOpCompileMs": 0.11729200000263518,
+        "compileMs": 3.780125000001135,
+        "prepareMs": 7.525166999999783,
+        "writeAndInvalidateMs": 6.940290999998979,
+        "graphMs": 1000.7963339999988,
+        "warmGraphMs": 519.2654159999984
+      },
+      "buildOneMs": 187.49091600000247,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 217.59549999999945,
+      "bundleManyBytes": 273290,
+      "bundleManyGzipBytes": 19963
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 0,
+      "variant": "virtual-group-64",
+      "generateMs": 55.814542000000074,
+      "prepareMs": 0.057291999997687526,
+      "writeMs": 6.451166999999259,
+      "disk": {
+        "total": 110,
+        "js": 4,
+        "declarations": 105,
+        "bytes": 2052936
+      },
+      "virtual": {
+        "total": 101,
+        "js": 101,
+        "declarations": 0,
+        "bytes": 10730914
+      },
+      "serverStartMs": 1.2847079999992275,
+      "devGraphMs": 500.6037909999977,
+      "dev": {
+        "modules": 105,
+        "bytes": 10842951
+      },
+      "edit": {
+        "noOpCompileMs": 0.11404200000106357,
+        "compileMs": 50.81695799999579,
+        "prepareMs": 0.05345800000213785,
+        "writeAndInvalidateMs": 2.17637499999546,
+        "graphMs": 510.12870799999655,
+        "warmGraphMs": 428.2586249999986
+      },
+      "buildOneMs": 32.455041000001074,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 33.45945799999754,
+      "bundleManyBytes": 267268,
+      "bundleManyGzipBytes": 15799
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-group-16",
+      "generateMs": 50.235167000006186,
+      "prepareMs": 0.12183299999742303,
+      "writeMs": 40.04508299999725,
+      "disk": {
+        "total": 811,
+        "js": 405,
+        "declarations": 405,
+        "bytes": 13552750
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.1741670000046724,
+      "devGraphMs": 591.5370420000036,
+      "dev": {
+        "modules": 405,
+        "bytes": 11461959
+      },
+      "edit": {
+        "noOpCompileMs": 0.11416600000666222,
+        "compileMs": 52.01812500000233,
+        "prepareMs": 0.1060829999987618,
+        "writeAndInvalidateMs": 8.650999999998021,
+        "graphMs": 633.3934999999983,
+        "warmGraphMs": 433.2717920000068
+      },
+      "buildOneMs": 26.90008400000079,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 36.86708300000464,
+      "bundleManyBytes": 276661,
+      "bundleManyGzipBytes": 16513
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-group-64",
+      "generateMs": 48.078166000006604,
+      "prepareMs": 0.04216599999926984,
+      "writeMs": 16.336875000000873,
+      "disk": {
+        "total": 211,
+        "js": 105,
+        "declarations": 105,
+        "bytes": 12783850
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 0.9650409999958356,
+      "devGraphMs": 538.0993750000052,
+      "dev": {
+        "modules": 105,
+        "bytes": 10828059
+      },
+      "edit": {
+        "noOpCompileMs": 0.11199999999371357,
+        "compileMs": 48.30000000000291,
+        "prepareMs": 0.02629200000228593,
+        "writeAndInvalidateMs": 8.32737499999348,
+        "graphMs": 533.7833329999994,
+        "warmGraphMs": 425.68541600000026
+      },
+      "buildOneMs": 23.829124999996566,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 31.99149999999645,
+      "bundleManyBytes": 267268,
+      "bundleManyGzipBytes": 15799
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-group-256",
+      "generateMs": 50.63658399999986,
+      "prepareMs": 0.01504199999908451,
+      "writeMs": 16.90141600000061,
+      "disk": {
+        "total": 61,
+        "js": 30,
+        "declarations": 30,
+        "bytes": 12593725
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0227079999967827,
+      "devGraphMs": 539.7125830000004,
+      "dev": {
+        "modules": 30,
+        "bytes": 10671609
+      },
+      "edit": {
+        "noOpCompileMs": 0.11179200000333367,
+        "compileMs": 50.21795800000109,
+        "prepareMs": 0.011082999997597653,
+        "writeAndInvalidateMs": 6.6522079999995185,
+        "graphMs": 571.9131669999988,
+        "warmGraphMs": 446.06437499999447
+      },
+      "buildOneMs": 28.522499999999127,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 35.78762500000448,
+      "bundleManyBytes": 265105,
+      "bundleManyGzipBytes": 15777
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-locale",
+      "generateMs": 100.03379100000166,
+      "prepareMs": 0.008207999999285676,
+      "writeMs": 23.25654200000281,
+      "disk": {
+        "total": 16,
+        "js": 8,
+        "declarations": 8,
+        "bytes": 20627083
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0601250000036089,
+      "devGraphMs": 812.5154580000017,
+      "dev": {
+        "modules": 8,
+        "bytes": 15018982
+      },
+      "edit": {
+        "noOpCompileMs": 0.18154200000572018,
+        "compileMs": 102.4676249999975,
+        "prepareMs": 0.009583999999449588,
+        "writeAndInvalidateMs": 20.127291999997396,
+        "graphMs": 770.7652919999964,
+        "warmGraphMs": 803.0916660000003
+      },
+      "buildOneMs": 171.32712499999616,
+      "bundleOneBytes": 2669,
+      "bundleOneGzipBytes": 1269,
+      "buildManyMs": 203.33679100000154,
+      "bundleManyBytes": 291046,
+      "bundleManyGzipBytes": 26303
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "virtual-message",
+      "generateMs": 68.4705829999948,
+      "prepareMs": 2.662958000000799,
+      "writeMs": 237.44854200000555,
+      "disk": {
+        "total": 6410,
+        "js": 4,
+        "declarations": 6405,
+        "bytes": 3403103
+      },
+      "virtual": {
+        "total": 6401,
+        "js": 6401,
+        "declarations": 0,
+        "bytes": 13002724
+      },
+      "serverStartMs": 1.0504580000051646,
+      "devGraphMs": 990.1464579999956,
+      "dev": {
+        "modules": 6405,
+        "bytes": 14260359
+      },
+      "edit": {
+        "noOpCompileMs": 0.1124580000032438,
+        "compileMs": 3.734083000003011,
+        "prepareMs": 3.0239160000055563,
+        "writeAndInvalidateMs": 11.628250000001572,
+        "graphMs": 968.0667499999981,
+        "warmGraphMs": 509.205667000002
+      },
+      "buildOneMs": 182.95524999999907,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 207.5069169999988,
+      "bundleManyBytes": 273290,
+      "bundleManyGzipBytes": 19963
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "virtual-message-types-64",
+      "generateMs": 78.47854200000438,
+      "prepareMs": 10.032834000005096,
+      "writeMs": 11.803124999998545,
+      "disk": {
+        "total": 110,
+        "js": 4,
+        "declarations": 105,
+        "bytes": 2748731
+      },
+      "virtual": {
+        "total": 6401,
+        "js": 6401,
+        "declarations": 0,
+        "bytes": 13002724
+      },
+      "serverStartMs": 4.190875000000233,
+      "devGraphMs": 1053.940917,
+      "dev": {
+        "modules": 6405,
+        "bytes": 14317977
+      },
+      "edit": {
+        "noOpCompileMs": 0.32858300000225427,
+        "compileMs": 4.844875000002503,
+        "prepareMs": 7.943500000001222,
+        "writeAndInvalidateMs": 3.0471659999966505,
+        "graphMs": 990.8325000000041,
+        "warmGraphMs": 513.6491660000029
+      },
+      "buildOneMs": 194.76608300000225,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 210.41858299999876,
+      "bundleManyBytes": 273290,
+      "bundleManyGzipBytes": 19963
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "virtual-group-64",
+      "generateMs": 57.65933400000358,
+      "prepareMs": 0.06875000000582077,
+      "writeMs": 5.471417000000656,
+      "disk": {
+        "total": 110,
+        "js": 4,
+        "declarations": 105,
+        "bytes": 2052936
+      },
+      "virtual": {
+        "total": 101,
+        "js": 101,
+        "declarations": 0,
+        "bytes": 10730914
+      },
+      "serverStartMs": 1.1572499999965657,
+      "devGraphMs": 529.4342919999981,
+      "dev": {
+        "modules": 105,
+        "bytes": 10842951
+      },
+      "edit": {
+        "noOpCompileMs": 0.12220899999374524,
+        "compileMs": 54.45679100000416,
+        "prepareMs": 0.06041700000059791,
+        "writeAndInvalidateMs": 8.013249999996333,
+        "graphMs": 531.6038750000007,
+        "warmGraphMs": 438.8385419999977
+      },
+      "buildOneMs": 33.57724999999482,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 33.11870800000179,
+      "bundleManyBytes": 267268,
+      "bundleManyGzipBytes": 15799
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 1,
+      "variant": "disk-message",
+      "generateMs": 76.88950000000477,
+      "prepareMs": 2.7398750000065775,
+      "writeMs": 513.7461659999972,
+      "disk": {
+        "total": 12811,
+        "js": 6405,
+        "declarations": 6405,
+        "bytes": 16405827
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0186249999969732,
+      "devGraphMs": 1497.3951250000027,
+      "dev": {
+        "modules": 6405,
+        "bytes": 13332069
+      },
+      "edit": {
+        "noOpCompileMs": 0.20025000000168802,
+        "compileMs": 3.8709579999995185,
+        "prepareMs": 2.382000000005064,
+        "writeAndInvalidateMs": 29.278582999999344,
+        "graphMs": 1417.377542000002,
+        "warmGraphMs": 527.4481670000023
+      },
+      "buildOneMs": 133.57562499999767,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 149.63012500000332,
+      "bundleManyBytes": 273290,
+      "bundleManyGzipBytes": 19963
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-group-64",
+      "generateMs": 60.959249999999884,
+      "prepareMs": 0.05591699999786215,
+      "writeMs": 17.590125000002445,
+      "disk": {
+        "total": 211,
+        "js": 105,
+        "declarations": 105,
+        "bytes": 12783850
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.1465409999946132,
+      "devGraphMs": 582.557332999997,
+      "dev": {
+        "modules": 105,
+        "bytes": 10828059
+      },
+      "edit": {
+        "noOpCompileMs": 0.1166670000020531,
+        "compileMs": 51.034833000005165,
+        "prepareMs": 0.023416999996697996,
+        "writeAndInvalidateMs": 8.279500000004191,
+        "graphMs": 546.653750000005,
+        "warmGraphMs": 453.3792089999988
+      },
+      "buildOneMs": 25.543291000001773,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 33.460040999998455,
+      "bundleManyBytes": 267268,
+      "bundleManyGzipBytes": 15799
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-group-256",
+      "generateMs": 53.18637500000477,
+      "prepareMs": 0.014582999996491708,
+      "writeMs": 11.779541000003519,
+      "disk": {
+        "total": 61,
+        "js": 30,
+        "declarations": 30,
+        "bytes": 12593725
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0932499999980791,
+      "devGraphMs": 555.9572499999995,
+      "dev": {
+        "modules": 30,
+        "bytes": 10671609
+      },
+      "edit": {
+        "noOpCompileMs": 0.11279099999956088,
+        "compileMs": 53.827540999998746,
+        "prepareMs": 0.010665999994671438,
+        "writeAndInvalidateMs": 10.002917000005255,
+        "graphMs": 617.7330000000002,
+        "warmGraphMs": 474.1573750000025
+      },
+      "buildOneMs": 26.909999999996217,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 39.06641700000182,
+      "bundleManyBytes": 265105,
+      "bundleManyGzipBytes": 15777
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-locale",
+      "generateMs": 122.4499169999981,
+      "prepareMs": 0.0076249999983701855,
+      "writeMs": 16.495750000001863,
+      "disk": {
+        "total": 16,
+        "js": 8,
+        "declarations": 8,
+        "bytes": 20627083
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.2995000000009895,
+      "devGraphMs": 837.8864580000009,
+      "dev": {
+        "modules": 8,
+        "bytes": 15018982
+      },
+      "edit": {
+        "noOpCompileMs": 0.11495899999863468,
+        "compileMs": 116.21420800000487,
+        "prepareMs": 0.009084000004804693,
+        "writeAndInvalidateMs": 13.24462499999936,
+        "graphMs": 861.5499580000032,
+        "warmGraphMs": 727.0115000000005
+      },
+      "buildOneMs": 175.8765840000051,
+      "bundleOneBytes": 2669,
+      "bundleOneGzipBytes": 1269,
+      "buildManyMs": 205.72787500000413,
+      "bundleManyBytes": 291046,
+      "bundleManyGzipBytes": 26303
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "virtual-message",
+      "generateMs": 76.34995800000615,
+      "prepareMs": 2.715041999996174,
+      "writeMs": 278.73066599999584,
+      "disk": {
+        "total": 6410,
+        "js": 4,
+        "declarations": 6405,
+        "bytes": 3403103
+      },
+      "virtual": {
+        "total": 6401,
+        "js": 6401,
+        "declarations": 0,
+        "bytes": 13002724
+      },
+      "serverStartMs": 1.1148749999993015,
+      "devGraphMs": 1040.5739580000009,
+      "dev": {
+        "modules": 6405,
+        "bytes": 14260359
+      },
+      "edit": {
+        "noOpCompileMs": 0.12466699999640696,
+        "compileMs": 4.063290999998571,
+        "prepareMs": 3.1078750000015134,
+        "writeAndInvalidateMs": 12.492334000002302,
+        "graphMs": 980.0512500000041,
+        "warmGraphMs": 523.7936249999984
+      },
+      "buildOneMs": 192.52174999999988,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 200.6382500000036,
+      "bundleManyBytes": 273290,
+      "bundleManyGzipBytes": 19963
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "virtual-message-types-64",
+      "generateMs": 71.24624999999651,
+      "prepareMs": 8.59208299999591,
+      "writeMs": 9.021916999990935,
+      "disk": {
+        "total": 110,
+        "js": 4,
+        "declarations": 105,
+        "bytes": 2748731
+      },
+      "virtual": {
+        "total": 6401,
+        "js": 6401,
+        "declarations": 0,
+        "bytes": 13002724
+      },
+      "serverStartMs": 1.0079169999953592,
+      "devGraphMs": 1044.403290999995,
+      "dev": {
+        "modules": 6405,
+        "bytes": 14317977
+      },
+      "edit": {
+        "noOpCompileMs": 0.12574999999196734,
+        "compileMs": 3.6044160000019474,
+        "prepareMs": 7.696875000008731,
+        "writeAndInvalidateMs": 2.95820900000399,
+        "graphMs": 977.8315409999923,
+        "warmGraphMs": 513.1144579999964
+      },
+      "buildOneMs": 184.46024999998917,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 204.0300409999909,
+      "bundleManyBytes": 273290,
+      "bundleManyGzipBytes": 19963
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "virtual-group-64",
+      "generateMs": 50.256124999999884,
+      "prepareMs": 0.0514580000017304,
+      "writeMs": 7.872375000006286,
+      "disk": {
+        "total": 110,
+        "js": 4,
+        "declarations": 105,
+        "bytes": 2052936
+      },
+      "virtual": {
+        "total": 101,
+        "js": 101,
+        "declarations": 0,
+        "bytes": 10730914
+      },
+      "serverStartMs": 1.1611249999987194,
+      "devGraphMs": 518.0436659999978,
+      "dev": {
+        "modules": 105,
+        "bytes": 10842951
+      },
+      "edit": {
+        "noOpCompileMs": 0.11429199999838602,
+        "compileMs": 50.349042000001646,
+        "prepareMs": 0.05570799999986775,
+        "writeAndInvalidateMs": 4.114207999999053,
+        "graphMs": 608.9242909999884,
+        "warmGraphMs": 445.3579999999929
+      },
+      "buildOneMs": 33.11170900000434,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 37.561625000002095,
+      "bundleManyBytes": 267268,
+      "bundleManyGzipBytes": 15799
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-message",
+      "generateMs": 72.36729200000991,
+      "prepareMs": 3.008750000008149,
+      "writeMs": 495.11525000000256,
+      "disk": {
+        "total": 12811,
+        "js": 6405,
+        "declarations": 6405,
+        "bytes": 16405827
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.085917000003974,
+      "devGraphMs": 1389.4868750000023,
+      "dev": {
+        "modules": 6405,
+        "bytes": 13332069
+      },
+      "edit": {
+        "noOpCompileMs": 0.12487499999406282,
+        "compileMs": 3.854957999996259,
+        "prepareMs": 2.590374999999767,
+        "writeAndInvalidateMs": 24.970958999998402,
+        "graphMs": 1384.9753330000094,
+        "warmGraphMs": 512.9806249999965
+      },
+      "buildOneMs": 121.3225839999941,
+      "bundleOneBytes": 2639,
+      "bundleOneGzipBytes": 1252,
+      "buildManyMs": 131.15308299999742,
+      "bundleManyBytes": 273290,
+      "bundleManyGzipBytes": 19963
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "round": 2,
+      "variant": "disk-group-16",
+      "generateMs": 55.32158399999025,
+      "prepareMs": 0.11870800000906456,
+      "writeMs": 50.82741699999315,
+      "disk": {
+        "total": 811,
+        "js": 405,
+        "declarations": 405,
+        "bytes": 13552750
+      },
+      "virtual": {
+        "total": 0,
+        "js": 0,
+        "declarations": 0,
+        "bytes": 0
+      },
+      "serverStartMs": 1.0010830000101123,
+      "devGraphMs": 633.8097500000003,
+      "dev": {
+        "modules": 405,
+        "bytes": 11461959
+      },
+      "edit": {
+        "noOpCompileMs": 0.1183749999909196,
+        "compileMs": 53.674124999990454,
+        "prepareMs": 0.10112500000104774,
+        "writeAndInvalidateMs": 10.859416999999667,
+        "graphMs": 632.8613339999865,
+        "warmGraphMs": 443.8244999999879
+      },
+      "buildOneMs": 28.952332999993814,
+      "bundleOneBytes": 2753,
+      "bundleOneGzipBytes": 1314,
+      "buildManyMs": 37.5827500000014,
+      "bundleManyBytes": 276661,
+      "bundleManyGzipBytes": 16513
+    }
+  ]
+}
