@@ -158,7 +158,6 @@ test("inlines static text with safe escaping and preserves missing-locale fallba
 			baseLocale: "en",
 			locales: ["en", "de", "fr"],
 		} as ProjectSettings,
-		experimentalMiddlewareLocaleSplitting: true,
 	});
 
 	expect(result.bundle.code).toContain(
@@ -170,10 +169,6 @@ test("inlines static text with safe escaping and preserves missing-locale fallba
 	expect(result.bundle.code).toContain(
 		`return /** @type {LocalizedString} */ (${JSON.stringify(compiledText)})`
 	);
-	expect(result.bundle.code).toContain(`trackMessageCall("${safeId}", locale)`);
-	expect(result.bundle.code).toContain(
-		`globalThis).__paraglide.ssr.${safeId}(inputs)`
-	);
 	expect(result.messages.en?.code).toBeDefined();
 
 	const enMessage = result.messages.en;
@@ -181,8 +176,6 @@ test("inlines static text with safe escaping and preserves missing-locale fallba
 	if (!enMessage || !deMessage) throw new Error("Expected compiled messages");
 	const moduleSource = `
 const getLocale = () => "en";
-const trackMessageCall = () => {};
-const experimentalMiddlewareLocaleSplitting = false;
 const isServer = true;
 const experimentalStaticLocale = undefined;
 const en_${safeId} = ${enMessage.code.replace(/;\s*$/, "")};
@@ -501,52 +494,6 @@ test("inlines inputs in message modules of a per-locale build", async () => {
 	}
 });
 
-test("runs inlined bodies on the server and forwards the inputs on the client when middleware locale splitting is on", async () => {
-	const result = compileBundle({
-		inlineMessages: true,
-		bundle: createInputBundle(),
-		fallbackMap: { en: undefined, de: "en" },
-		messageReferenceExpression: (locale) => `${locale}_welcome`,
-		settings: { baseLocale: "en", locales: ["en", "de"] } as ProjectSettings,
-		experimentalMiddlewareLocaleSplitting: true,
-	});
-	expect(result.unreferencedMessageLocales).toEqual(["en", "de"]);
-	expect(result.bundle.code).not.toContain("_welcome");
-
-	const module = await importBundle(
-		result,
-		"welcome",
-		`const experimentalMiddlewareLocaleSplitting = true;
-let isServer = true;
-export const setIsServer = (value) => { isServer = value; };
-export const tracked = [];
-const trackMessageCall = (id, locale) => tracked.push([id, locale]);`
-	);
-	const inputs = { name: "Ada" };
-
-	expect(module.welcome(inputs, { locale: "de" })).toBe("Hallo Ada");
-	expect(module.tracked).toEqual([["welcome", "de"]]);
-
-	const serverCalls: unknown[] = [];
-	const scope = globalThis as { __paraglide?: unknown };
-	scope.__paraglide = {
-		ssr: {
-			welcome: (received: unknown) => {
-				serverCalls.push(received);
-				return "from the server";
-			},
-		},
-	};
-	try {
-		module.setIsServer(false);
-		expect(module.welcome(inputs, { locale: "de" })).toBe("from the server");
-		expect(serverCalls).toEqual([inputs]);
-		expect(serverCalls[0]).toBe(inputs);
-	} finally {
-		delete scope.__paraglide;
-	}
-});
-
 test("inlines static text in per-locale message modules and preserves override warnings", async () => {
 	const bundle = createPlainTextBundle("greeting", {
 		en: "Hello",
@@ -618,46 +565,6 @@ test("does not treat inherited object properties as inline locale messages", () 
 	);
 	expect(result.bundle.code).toContain(
 		'return /** @type {LocalizedString} */ ("Hello")'
-	);
-});
-
-test("emits middleware locale splitting hooks when enabled", () => {
-	const mockBundle: BundleNested = {
-		id: "blue_moon_bottle",
-		declarations: [{ type: "input-variable", name: "age" }],
-		messages: [
-			{
-				id: "message-id",
-				bundle_id: "blue_moon_bottle",
-				locale: "en",
-				selectors: [],
-				variants: [
-					{ id: "1", message_id: "message-id", matches: [], pattern: [] },
-				],
-			},
-		],
-	};
-
-	const result = compileBundle({
-		inlineMessages: true,
-		fallbackMap: { en: "en" },
-		bundle: mockBundle,
-		messageReferenceExpression: (locale) =>
-			`${toSafeModuleId(locale)}.blue_moon_bottle`,
-		settings: {
-			locales: ["en"],
-		} as ProjectSettings,
-		experimentalMiddlewareLocaleSplitting: true,
-	});
-
-	expect(result.bundle.code).toContain(
-		"if (experimentalMiddlewareLocaleSplitting && isServer === false)"
-	);
-	expect(result.bundle.code).toContain(
-		'trackMessageCall("blue_moon_bottle", locale)'
-	);
-	expect(result.bundle.code).toContain(
-		"globalThis).__paraglide.ssr.blue_moon_bottle(inputs)"
 	);
 });
 
@@ -947,8 +854,6 @@ test("adds .parts() to bundle functions when markup exists", async () => {
 
 	const moduleSource = `
 const getLocale = () => "en";
-const trackMessageCall = () => {};
-const experimentalMiddlewareLocaleSplitting = false;
 const isServer = true;
 const experimentalStaticLocale = undefined;
 const en = {

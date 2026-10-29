@@ -110,6 +110,13 @@ by the next build or development-server start.
 
 #### Experimental per-locale builds
 
+Per-locale builds are the recommended approach for shipping only the active
+locale's messages. Paraglide v3 removes `experimentalMiddlewareLocaleSplitting`.
+Remove that option from your compiler or Vite configuration and use
+`experimentalPerLocaleBuild` for supported Vite applications, as shown below.
+The middleware no longer injects message functions into HTML. Check the build
+and deployment constraints in this section before migrating.
+
 The Vite 8+ backend builds one independent Rolldown client environment per
 locale:
 

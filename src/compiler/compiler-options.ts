@@ -39,7 +39,6 @@ export const defaultCompilerOptions = {
 	emitTsDeclarations: false,
 	cleanOutdir: true,
 	disableAsyncLocalStorage: false,
-	experimentalMiddlewareLocaleSplitting: false,
 	localStorageKey: "PARAGLIDE_LOCALE",
 	isServer: "typeof window === 'undefined'",
 	strategy: ["cookie", "globalVariable", "baseLocale"],
@@ -109,22 +108,6 @@ export type CompilerOptions = {
 	 * ```
 	 */
 	routeStrategies?: RouteStrategy[];
-	/**
-	 * Whether or not to use experimental middleware locale splitting.
-	 *
-	 * ⚠️ This feature is experimental and only works in SSR/SSG environment
-	 *   without client-side routing. Do not rely on this feature for production.
-	 *
-	 * This feature is part of the exploration of per locale splitting. The
-	 * issue is ongoing and can be followed here [#88](https://github.com/opral/inlang-paraglide-js/issues/88).
-	 *
-	 * - The client bundle will tree-shake all messages (have close to 0kb JS).
-	 * - The server middleware will inject the used messages into the HTML.
-	 * - The client will re-trieve the messages from the injected HTML.
-	 *
-	 * @default false
-	 */
-	experimentalMiddlewareLocaleSplitting?: boolean;
 	/**
 	 * The name of the localStorage key to use for the localStorage strategy.
 	 *

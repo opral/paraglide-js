@@ -56,12 +56,11 @@ describe("supporting declaration templates", () => {
 			},
 		},
 		{
-			name: "middleware splitting and disabled async local storage",
+			name: "disabled async local storage",
 			baseLocale: "de",
 			locales: ["de"],
 			options: {
 				disableAsyncLocalStorage: true,
-				experimentalMiddlewareLocaleSplitting: true,
 				isServer: "true",
 				experimentalStaticLocale: '"de"',
 			},
@@ -105,7 +104,7 @@ describe("supporting declaration templates", () => {
 					locales,
 					compilerOptions,
 				}),
-				"server.js": createServerFile({ compiledBundles: [], compilerOptions }),
+				"server.js": createServerFile({ compilerOptions }),
 				"registry.js": createRegistry(),
 			};
 			const reference = await emitTsDeclarations(output, {

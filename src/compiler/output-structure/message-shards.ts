@@ -11,7 +11,6 @@ export function generateOutput(
 	bundles: CompiledBundleWithMessages[],
 	settings: Pick<ProjectSettings, "locales" | "baseLocale">,
 	fallbackMap: Record<string, string | undefined>,
-	middleware: boolean,
 	size: number
 ): Record<string, string> {
 	const output: Record<string, string> = {};
@@ -21,9 +20,7 @@ export function generateOutput(
 		const filename = `_shard_${files.length}.js`;
 		const names = new Set(shard.map((b) => toSafeModuleId(b.bundle.node.id)));
 		files.push(filename);
-		const runtime = middleware
-			? "getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale"
-			: "getLocale, experimentalStaticLocale";
+		const runtime = "getLocale, experimentalStaticLocale";
 		const chunks = [
 			`import { ${runtime} } from '../runtime.js';`,
 			"/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */",

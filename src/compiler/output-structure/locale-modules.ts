@@ -13,12 +13,9 @@ export function messageReferenceExpression(locale: string, bundleId: string) {
 export function generateOutput(
 	compiledBundles: CompiledBundleWithMessages[],
 	settings: Pick<ProjectSettings, "locales" | "baseLocale">,
-	fallbackMap: Record<string, string | undefined>,
-	experimentalMiddlewareLocaleSplitting = false
+	fallbackMap: Record<string, string | undefined>
 ): Record<string, string> {
-	const runtimeImport = experimentalMiddlewareLocaleSplitting
-		? `import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale } from "../runtime.js"`
-		: `import { getLocale, experimentalStaticLocale } from "../runtime.js"`;
+	const runtimeImport = `import { getLocale, experimentalStaticLocale } from "../runtime.js"`;
 
 	const indexFile = [
 		runtimeImport,

@@ -96,7 +96,6 @@ export const paraglideConfigSchema = v.object({
 	),
 	strategy: v.optional(v.array(strategyNameSchema)),
 	routeStrategies: v.optional(v.array(routeStrategySchema)),
-	experimentalMiddlewareLocaleSplitting: v.optional(v.boolean()),
 	localStorageKey: v.optional(v.string()),
 	isServer: v.optional(v.string()),
 	experimentalStaticLocale: v.optional(v.string()),

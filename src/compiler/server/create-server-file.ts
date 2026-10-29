@@ -1,19 +1,11 @@
 import fs from "node:fs";
-import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import type { CompilerOptions } from "../compiler-options.js";
-import { toSafeModuleId } from "../safe-module-id.js";
-import type { Locale } from "./runtime.d.ts";
-import { registryFunctionCode, withRegistryDependencies } from "../registry.js";
 
 /**
- * Returns the code for the `runtime.js` module
+ * Returns the code for the `server.js` module
  */
 export function createServerFile(args: {
-	compiledBundles: CompiledBundleWithMessages[];
 	compilerOptions: {
-		experimentalMiddlewareLocaleSplitting: NonNullable<
-			CompilerOptions["experimentalMiddlewareLocaleSplitting"]
-		>;
 		disableAsyncLocalStorage: NonNullable<
 			CompilerOptions["disableAsyncLocalStorage"]
 		>;
@@ -68,86 +60,7 @@ ${injectCode("./middleware.js")}
 		`${asyncLocalStorageBlock.join("\n")}\n` +
 		code.slice(endOfMarkerLine);
 
-	if (args.compilerOptions.experimentalMiddlewareLocaleSplitting) {
-		// Use a replacer function, not a replacement string. `String.replace()`
-		// treats a string replacement as a pattern where `$&`, `` $` ``, `$'`,
-		// `$$`, and `$<name>` have special meaning. A translated message value
-		// that contains a literal `$` (a price, a currency symbol) can produce
-		// one of these sequences inside the JSON payload, which `String.replace`
-		// then expands - e.g. `` $` `` is replaced with "everything before the
-		// match", splicing the file's own header into the string being built and
-		// corrupting the generated server file. A function's return value is
-		// used literally, with no pattern expansion.
-		code = code.replace(
-			"const compiledBundles = {};",
-			() =>
-				`const compiledBundles = ${JSON.stringify(createCompiledMessagesObject(args.compiledBundles))};`
-		);
-		code = code.replace(
-			"const compiledRegistry = { functions: {}, messages: {} };",
-			() =>
-				`const compiledRegistry = ${JSON.stringify(createCompiledRegistryObject(args.compiledBundles))};`
-		);
-	}
-
 	return code.replace(/\t/g, "  ");
-}
-
-function createCompiledMessagesObject(
-	compiledBundles: CompiledBundleWithMessages[]
-): Record<string, Record<Locale, string>> {
-	const result = {} as Record<string, Record<Locale, string>>;
-
-	for (const compiledBundle of compiledBundles) {
-		const bundleId = compiledBundle.bundle.node.id;
-		const safeModuleId = toSafeModuleId(bundleId);
-		// Key by the safe module id, not the raw bundle id: trackMessageCall()
-		// records calls under safeModuleId, the client reads
-		// globalThis.__paraglide.ssr[safeModuleId], and middleware.js looks up
-		// compiledBundles[id] with that same safe id. Keying by the raw
-		// bundleId here made every split-mode lookup miss.
-		if (result[safeModuleId] === undefined) {
-			result[safeModuleId] = {};
-		}
-		for (const [locale, compiledMessage] of Object.entries(
-			compiledBundle.messages
-		)) {
-			result[safeModuleId][locale] = compiledMessage.code
-				.replace(`export const ${safeModuleId} = `, "")
-				.replace(/;$/, "");
-		}
-	}
-	return result;
-}
-
-/**
- * The registry functions each compiled message calls, and their code, for
- * the messages the middleware injects into the page. Those run without
- * registry.js.
- */
-function createCompiledRegistryObject(
-	compiledBundles: CompiledBundleWithMessages[]
-): {
-	functions: Record<string, string>;
-	messages: Record<string, Record<string, string[]>>;
-} {
-	const messages: Record<string, Record<string, string[]>> = {};
-	const used = new Set<string>();
-
-	for (const compiledBundle of compiledBundles) {
-		const safeModuleId = toSafeModuleId(compiledBundle.bundle.node.id);
-		for (const [locale, compiledMessage] of Object.entries(
-			compiledBundle.messages
-		)) {
-			const names = withRegistryDependencies(compiledMessage.registryFunctions);
-			if (names.length === 0) continue;
-			messages[safeModuleId] ??= {};
-			messages[safeModuleId][locale] = names;
-			for (const name of names) used.add(name);
-		}
-	}
-
-	return { functions: registryFunctionCode(used), messages };
 }
 
 /**
