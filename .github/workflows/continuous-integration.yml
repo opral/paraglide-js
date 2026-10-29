@@ -78,4 +78,4 @@ jobs:
       - name: Verify catalog integration
         run: |
           pnpm build
-          pnpm exec vitest run src/compiler/compile-catalog.test.ts src/compiler/compile.catalog-loader.test.ts src/compiler/compile.catalog-cache.test.ts src/compiler/compile-lifecycle.test.ts src/compiler/message-module-size.test.ts src/compiler/incremental-output.test.ts src/bundler-plugins/vite-error-response.test.ts
+          pnpm exec vitest run src/compiler/compile-catalog.test.ts src/compiler/compile.catalog-loader.test.ts src/compiler/compile.catalog-cache.test.ts src/compiler/compile-lifecycle.test.ts src/compiler/message-module-size.test.ts src/compiler/incremental-output.test.ts src/bundler-plugins/vite-error-response.test.ts src/bundler-plugins/virtual-messages.test.ts src/bundler-plugins/virtual-messages.types.test.ts src/bundler-plugins/virtual-message-imports.test.ts

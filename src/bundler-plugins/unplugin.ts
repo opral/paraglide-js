@@ -1,3 +1,7 @@
+import {
+	transformOutput,
+	type OutputTransform,
+} from "../compiler/output-transform.js";
 import type { UnpluginFactory } from "unplugin";
 import { compile, type CompilationResult } from "../compiler/compile.js";
 import { dirname, join, relative, resolve } from "node:path";
@@ -117,10 +121,13 @@ type PluginState = {
 // only valid for the filesystem they were produced from.
 let pluginState: PluginState | undefined;
 
-function getPluginState(args: Pick<CompilerOptions, "fs">): PluginState {
-	if (pluginState === undefined || pluginState.baseFs !== args.fs) {
+function getPluginState(
+	args: Pick<CompilerOptions, "fs">,
+	isolated = false
+): PluginState {
+	if (isolated || pluginState === undefined || pluginState.baseFs !== args.fs) {
 		const tracked = createTrackedFs({ fs: args.fs });
-		pluginState = {
+		const state: PluginState = {
 			baseFs: args.fs,
 			trackedFs: tracked.fs,
 			readFiles: tracked.readFiles,
@@ -131,6 +138,8 @@ function getPluginState(args: Pick<CompilerOptions, "fs">): PluginState {
 			previousProject: undefined,
 			previousOutdir: undefined,
 		};
+		if (!isolated) pluginState = state;
+		return state;
 	}
 	return pluginState;
 }
@@ -288,6 +297,7 @@ async function writePersistentCache(
 	args: CompilerOptions,
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
 ): Promise<void> {
+	if (transformOutput in args) return;
 	if (
 		state.previousInputsDigest === undefined ||
 		state.previousCompilation?.outputHashes === undefined
@@ -327,6 +337,7 @@ async function restorePersistentCache(args: {
 	compilerOptions: CompilerOptions;
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
 }): Promise<boolean> {
+	if (transformOutput in args.compilerOptions) return false;
 	const cached = await readPersistentCache(
 		args.compilerOptions,
 		args.outputStructure
@@ -525,7 +536,12 @@ async function runCompilation(args: {
 
 // The return type preserves literal option types (`enforce: "pre"`, ...)
 // while `project` stays required on the input side.
-type UnpluginIntegrationOptions = Pick<CompilerOptions, "outputStructure"> & {
+type UnpluginIntegrationOptions = Pick<
+	CompilerOptions,
+	"outputStructure" | "emitTsDeclarations"
+> & {
+	transformOutput?: OutputTransform;
+	validateOptions?: (options: CompilerOptions) => void;
 	devErrorResponse?: boolean;
 };
 
@@ -540,7 +556,8 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 	_meta,
 	defaults
 ) => {
-	const state = getPluginState(userArgs);
+	// Virtual implementations cannot be recovered from the disk hash cache.
+	const state = getPluginState(userArgs, Boolean(defaults?.transformOutput));
 	const { readFiles, clearReadFiles } = state;
 	// Project root as reported by the bundler (vite `root`, webpack/rspack
 	// `context`). Falls back to the process working directory when the
@@ -651,6 +668,16 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 		) {
 			options.outputStructure = defaults.outputStructure;
 		}
+		if (defaults?.transformOutput) {
+			Object.assign(options, { [transformOutput]: defaults.transformOutput });
+		}
+		if (
+			userArgs.emitTsDeclarations === undefined &&
+			loaded?.config.emitTsDeclarations === undefined &&
+			defaults?.emitTsDeclarations !== undefined
+		)
+			options.emitTsDeclarations = defaults.emitTsDeclarations;
+		defaults?.validateOptions?.(options);
 		return options;
 	};
 

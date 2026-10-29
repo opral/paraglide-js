@@ -82,6 +82,12 @@ export default defineConfig({
 });
 ```
 
+#### Virtual message modules for large catalogs
+
+For large catalogs, the optional [virtual message mode](./virtual-messages)
+keeps public generated entry points while reducing emitted files and the Vite
+module graph for static message imports.
+
 #### Stop serving stale translations during development
 
 By default, compilation errors appear in Vite's error overlay and the last
