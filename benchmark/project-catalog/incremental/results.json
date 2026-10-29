@@ -1,0 +1,1922 @@
+[
+  {
+    "variant": "baseline",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 727.4033750000001,
+        "writes": 12814
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 85.97287499999993,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 124.44875000000002,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 128.88295900000014,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 127.61804099999995,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 118.97908299999995,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 141.12291600000003,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 115.8207910000001,
+        "writes": 0
+      }
+    ],
+    "round": 0
+  },
+  {
+    "variant": "current",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 650.459375,
+        "writes": 12814
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 11.430541000000062,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 72.71699999999998,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 56.072625000000016,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 57.68954199999996,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 117.4658750000001,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 121.04508399999997,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 51.29908299999988,
+        "writes": 0
+      }
+    ],
+    "round": 0
+  },
+  {
+    "variant": "grai",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 312.090542,
+        "writes": 66
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 1.917416000000003,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 8.40424999999999,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 7.618916000000013,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 8.442499999999995,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 244.85837499999997,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 253.24470800000006,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 7.65258300000005,
+        "writes": 0
+      }
+    ],
+    "round": 0
+  },
+  {
+    "variant": "baseline",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1417.537125,
+        "writes": 26614
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 176.3488339999999,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 256.2354579999999,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 269.6642499999998,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 255.43375000000015,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 255.14745799999992,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 266.4052919999999,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 243.27929200000017,
+        "writes": 0
+      }
+    ],
+    "round": 0
+  },
+  {
+    "variant": "current",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1421.598166,
+        "writes": 26614
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 23.284749999999804,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 158.0607090000001,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 136.779542,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 150.37587499999995,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 273.1337500000002,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 234.34625000000005,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 109.81020799999988,
+        "writes": 0
+      }
+    ],
+    "round": 0
+  },
+  {
+    "variant": "grai",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1236.295542,
+        "writes": 114
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 2.976957999999968,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 14.33337500000016,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 15.609541000000036,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 13.240540999999894,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 1130.4280829999998,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 1106.540333,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 11.708834000000024,
+        "writes": 0
+      }
+    ],
+    "round": 0
+  },
+  {
+    "variant": "current",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 631.289125,
+        "writes": 12814
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 11.472709000000009,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 69.40187500000002,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 54.225625000000036,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 55.7461659999999,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 117.01770899999997,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 120.93799999999999,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 50.82445900000016,
+        "writes": 0
+      }
+    ],
+    "round": 1
+  },
+  {
+    "variant": "grai",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 333.376,
+        "writes": 66
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 1.975500000000011,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 8.481542000000047,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 7.783166999999992,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 9.597667000000001,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 255.090416,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 248.86679199999992,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 9.71550000000002,
+        "writes": 0
+      }
+    ],
+    "round": 1
+  },
+  {
+    "variant": "baseline",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 657.741584,
+        "writes": 12814
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 84.01254200000005,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 125.44191599999999,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 134.36541699999998,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 127.91124999999988,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 116.57120899999995,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 132.26612499999987,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 113.30829100000005,
+        "writes": 0
+      }
+    ],
+    "round": 1
+  },
+  {
+    "variant": "current",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1404.98175,
+        "writes": 26614
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 23.419666000000007,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 202.49579199999994,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 125.51745800000003,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 133.07316699999978,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 247.19995900000004,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 243.92141700000002,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 113.5816249999998,
+        "writes": 0
+      }
+    ],
+    "round": 1
+  },
+  {
+    "variant": "grai",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1216.883542,
+        "writes": 114
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 2.711458999999877,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 14.072374999999965,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 15.34245900000019,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 13.451749999999947,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 1107.8236249999998,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 1088.4251669999999,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 15.89758299999994,
+        "writes": 0
+      }
+    ],
+    "round": 1
+  },
+  {
+    "variant": "baseline",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1517.9055,
+        "writes": 26614
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 173.563625,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 258.894583,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 274.69012499999985,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 257.3959170000003,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 243.28712499999983,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 288.0899589999999,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 242.7356249999998,
+        "writes": 0
+      }
+    ],
+    "round": 1
+  },
+  {
+    "variant": "grai",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 321.793209,
+        "writes": 66
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 2.464041000000009,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 16.913249999999948,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 7.937583000000018,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 8.44462500000003,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 245.747792,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 247.76850000000002,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 9.318875000000048,
+        "writes": 0
+      }
+    ],
+    "round": 2
+  },
+  {
+    "variant": "baseline",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 694.5059590000001,
+        "writes": 12814
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 102.84941700000002,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 126.69487500000002,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 135.22395900000004,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 134.757875,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 123.595417,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 144.7913749999998,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 116.66937499999995,
+        "writes": 0
+      }
+    ],
+    "round": 2
+  },
+  {
+    "variant": "current",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 701.1691249999999,
+        "writes": 12814
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 11.578041000000098,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 74.29612500000007,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 57.56745799999999,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 65.12454100000002,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 119.0385829999999,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 121.31920800000012,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 51.18779200000017,
+        "writes": 0
+      }
+    ],
+    "round": 2
+  },
+  {
+    "variant": "grai",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1220.6160419999999,
+        "writes": 114
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 2.8754169999999704,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 16.171290999999883,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 17.36887499999989,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 19.246666000000005,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 1115.638625,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 1128.1663330000001,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 16.433250000000044,
+        "writes": 0
+      }
+    ],
+    "round": 2
+  },
+  {
+    "variant": "baseline",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1305.019083,
+        "writes": 26614
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 172.48675000000003,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 258.6852079999999,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 269.39750000000004,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 251.23416700000007,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 254.59249999999975,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 272.47962499999994,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 241.863875,
+        "writes": 0
+      }
+    ],
+    "round": 2
+  },
+  {
+    "variant": "current",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1474.079791,
+        "writes": 26614
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 24.949249999999893,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 160.239417,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 122.26095800000007,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 127.4861249999999,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 291.55624999999986,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 242.75079200000027,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 109.0412080000001,
+        "writes": 0
+      }
+    ],
+    "round": 2
+  },
+  {
+    "variant": "baseline",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 629.776791,
+        "writes": 12814
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 83.5747080000001,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 126.19783300000006,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 122.37654200000009,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 151.73016599999994,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 119.55616699999996,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 123.1406669999999,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 111.190875,
+        "writes": 0
+      }
+    ],
+    "round": 3
+  },
+  {
+    "variant": "current",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 644.772417,
+        "writes": 12814
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 11.78125,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 74.13637500000004,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 54.805916000000025,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 56.04495799999995,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 115.42758299999991,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 120.90449999999987,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 51.79908399999999,
+        "writes": 0
+      }
+    ],
+    "round": 3
+  },
+  {
+    "variant": "grai",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 314.013459,
+        "writes": 66
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 1.857958999999994,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 8.946500000000015,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 7.825833999999986,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 8.279540999999995,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 244.82675,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 247.39270799999997,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 9.606499999999983,
+        "writes": 0
+      }
+    ],
+    "round": 3
+  },
+  {
+    "variant": "baseline",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1315.926375,
+        "writes": 26614
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 195.50824999999986,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 261.3565000000001,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 298.1005419999999,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 256.4632080000001,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 250.49741700000004,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 290.2702909999998,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 245.32466699999986,
+        "writes": 0
+      }
+    ],
+    "round": 3
+  },
+  {
+    "variant": "current",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1435.198959,
+        "writes": 26614
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 24.125166000000036,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 159.68770799999993,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 122.87329199999999,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 128.0892080000001,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 267.13629200000014,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 240.59791700000005,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 110.72825000000012,
+        "writes": 0
+      }
+    ],
+    "round": 3
+  },
+  {
+    "variant": "grai",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1232.508208,
+        "writes": 114
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 2.713124999999991,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 13.741040999999996,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 15.425958000000037,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 13.627250000000004,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 1107.200334,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 1102.9617090000002,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 15.833791999999903,
+        "writes": 0
+      }
+    ],
+    "round": 3
+  },
+  {
+    "variant": "current",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 615.9173340000001,
+        "writes": 12814
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 11.583124999999995,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 72.38733300000001,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 59.72387499999991,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 58.64304200000004,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 119.45349999999996,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 123.07450000000006,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 53.87875000000008,
+        "writes": 0
+      }
+    ],
+    "round": 4
+  },
+  {
+    "variant": "grai",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 312.230583,
+        "writes": 66
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 1.896250000000009,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 8.025916999999993,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 6.995875000000012,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 8.347624999999994,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 245.43212499999993,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 249.05554199999995,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 10.182875000000081,
+        "writes": 0
+      }
+    ],
+    "round": 4
+  },
+  {
+    "variant": "baseline",
+    "size": 6400,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "initial",
+        "ms": 821.248625,
+        "writes": 12814
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "noop",
+        "ms": 86.13258399999995,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "translation",
+        "ms": 127.30429200000003,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "distant-translation",
+        "ms": 134.28895899999998,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "input-change",
+        "ms": 129.91245800000002,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "add-key",
+        "ms": 117.00474999999983,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "delete-key",
+        "ms": 138.32370800000012,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 6400,
+        "scenario": "format-only",
+        "ms": 114.16758299999992,
+        "writes": 0
+      }
+    ],
+    "round": 4
+  },
+  {
+    "variant": "current",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1388.242417,
+        "writes": 26614
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 23.62850000000003,
+        "writes": 0
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 157.1149579999999,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 123.022334,
+        "writes": 1
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 129.08233300000006,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 269.6462080000001,
+        "writes": 4
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 242.23195899999973,
+        "writes": 2
+      },
+      {
+        "variant": "current",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 111.72375000000011,
+        "writes": 0
+      }
+    ],
+    "round": 4
+  },
+  {
+    "variant": "grai",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1230.287166,
+        "writes": 114
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 2.894166000000041,
+        "writes": 0
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 14.033957999999984,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 15.155250000000024,
+        "writes": 1
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 13.37820899999997,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 1096.537292,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 1095.4008749999998,
+        "writes": 5
+      },
+      {
+        "variant": "grai",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 15.795125000000098,
+        "writes": 0
+      }
+    ],
+    "round": 4
+  },
+  {
+    "variant": "baseline",
+    "size": 13300,
+    "verified": true,
+    "rows": [
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "initial",
+        "ms": 1293.4446249999999,
+        "writes": 26614
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "noop",
+        "ms": 178.16000000000008,
+        "writes": 0
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "translation",
+        "ms": 260.4011660000001,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "distant-translation",
+        "ms": 277.41045799999984,
+        "writes": 1
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "input-change",
+        "ms": 256.44758299999967,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "add-key",
+        "ms": 241.6279169999998,
+        "writes": 4
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "delete-key",
+        "ms": 281.6502919999998,
+        "writes": 2
+      },
+      {
+        "variant": "baseline",
+        "size": 13300,
+        "scenario": "format-only",
+        "ms": 243.72024999999985,
+        "writes": 0
+      }
+    ],
+    "round": 4
+  }
+]

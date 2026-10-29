@@ -218,29 +218,33 @@ test("catalog declarations preserve strict consumer inputs and locale checking",
 
 // This differential test activates automatically once the SDK release includes
 // the new API. The tests above and mocked compile() route run on SDK4.0.4 too.
-const loadProjectCatalog = (
+const createCatalogLoader = (
 	sdk as typeof sdk & {
-		loadProjectCatalog?: (
+		createCatalogLoader?: (
 			args: Parameters<typeof sdk.loadProjectFromDirectory>[0]
-		) => Promise<CatalogInput & { diagnostics: Error[] }>;
+		) => {
+			load(): Promise<CatalogInput & { type: "reset"; diagnostics: Error[] }>;
+		};
 	}
-).loadProjectCatalog;
-test.runIf(loadProjectCatalog)(
+).createCatalogLoader;
+test.runIf(createCatalogLoader)(
 	"actual catalog loader produces the same compiled files as the project database",
 	async () => {
-		const loaded = await loadProjectCatalog!({
+		const loaded = await createCatalogLoader!({
 			path: "/project.inlang",
 			fs,
 			providePlugins: [messageFormat as sdk.InlangPlugin],
-		});
+		}).load();
 		expect(loaded.diagnostics).toEqual([]);
+		if (loaded.type !== "reset")
+			throw new Error("Expected first load to reset");
 		for (const outputStructure of [
 			"message-modules",
 			"locale-modules",
 		] as const) {
 			expect(
 				await compileCatalog({
-					catalog: loaded,
+					catalog: { settings: loaded.settings, bundles: [...loaded.bundles] },
 					compilerOptions: { outputStructure, emitTsDeclarations: true },
 				})
 			).toEqual(

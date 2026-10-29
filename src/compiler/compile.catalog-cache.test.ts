@@ -12,16 +12,16 @@ vi.mock("./load-sdk-catalog.js", () => ({
 	getCatalogLoader: async () => {
 		const actual =
 			await vi.importActual<typeof import("@inlang/sdk")>("@inlang/sdk");
-		return Reflect.get(actual, "loadProjectCatalog");
+		return Reflect.get(actual, "createCatalogLoader");
 	},
 }));
 vi.mock("@inlang/sdk", async (importOriginal) => {
 	const actual = await importOriginal<typeof import("@inlang/sdk")>();
 	return {
 		...actual,
-		loadProjectCatalog: Object.hasOwn(actual, "loadProjectCatalog")
-			? (actual as typeof actual & { loadProjectCatalog?: unknown })
-					.loadProjectCatalog
+		createCatalogLoader: Object.hasOwn(actual, "createCatalogLoader")
+			? (actual as typeof actual & { createCatalogLoader?: unknown })
+					.createCatalogLoader
 			: undefined,
 		loadProjectFromDirectory: database,
 	};
@@ -31,9 +31,9 @@ afterEach(() => {
 	database.mockClear();
 });
 
-const loadProjectCatalog = (
-	sdk as typeof sdk & { loadProjectCatalog?: unknown }
-).loadProjectCatalog;
+const createCatalogLoader = (
+	sdk as typeof sdk & { createCatalogLoader?: unknown }
+).createCatalogLoader;
 const pluginUri = "https://example.invalid/compiler-cache-plugin.js";
 const pluginSource = `export default {
  key: "plugin.fixture.compilerCache",
@@ -49,9 +49,9 @@ const pluginSource = `export default {
  }
 };`;
 
-// Runs on SDK versions shipping loadProjectCatalog. The generic fast path remains
+// Runs on SDK versions shipping createCatalogLoader. The generic fast path remains
 // covered unconditionally by compile.catalog-loader.test.ts on published SDKs.
-test.runIf(loadProjectCatalog)(
+test.runIf(createCatalogLoader)(
 	"an online catalog compile seeds the remote plugin cache for an offline compile",
 	async () => {
 		const fs = memfs({

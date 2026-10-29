@@ -1,0 +1,722 @@
+[
+  {
+    "size": 6400,
+    "variant": "baseline",
+    "scenario": "initial",
+    "median": 694.5059590000001,
+    "min": 629.776791,
+    "max": 821.248625,
+    "writes": [
+      12814,
+      12814,
+      12814,
+      12814,
+      12814
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "baseline",
+    "scenario": "noop",
+    "median": 85.97287499999993,
+    "min": 83.5747080000001,
+    "max": 102.84941700000002,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "baseline",
+    "scenario": "translation",
+    "median": 126.19783300000006,
+    "min": 124.44875000000002,
+    "max": 127.30429200000003,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "baseline",
+    "scenario": "distant-translation",
+    "median": 134.28895899999998,
+    "min": 122.37654200000009,
+    "max": 135.22395900000004,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "baseline",
+    "scenario": "input-change",
+    "median": 129.91245800000002,
+    "min": 127.61804099999995,
+    "max": 151.73016599999994,
+    "writes": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "baseline",
+    "scenario": "add-key",
+    "median": 118.97908299999995,
+    "min": 116.57120899999995,
+    "max": 123.595417,
+    "writes": [
+      4,
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "baseline",
+    "scenario": "delete-key",
+    "median": 138.32370800000012,
+    "min": 123.1406669999999,
+    "max": 144.7913749999998,
+    "writes": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "baseline",
+    "scenario": "format-only",
+    "median": 114.16758299999992,
+    "min": 111.190875,
+    "max": 116.66937499999995,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "current",
+    "scenario": "initial",
+    "median": 644.772417,
+    "min": 615.9173340000001,
+    "max": 701.1691249999999,
+    "writes": [
+      12814,
+      12814,
+      12814,
+      12814,
+      12814
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "current",
+    "scenario": "noop",
+    "median": 11.578041000000098,
+    "min": 11.430541000000062,
+    "max": 11.78125,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "current",
+    "scenario": "translation",
+    "median": 72.71699999999998,
+    "min": 69.40187500000002,
+    "max": 74.29612500000007,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "current",
+    "scenario": "distant-translation",
+    "median": 56.072625000000016,
+    "min": 54.225625000000036,
+    "max": 59.72387499999991,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "current",
+    "scenario": "input-change",
+    "median": 57.68954199999996,
+    "min": 55.7461659999999,
+    "max": 65.12454100000002,
+    "writes": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "current",
+    "scenario": "add-key",
+    "median": 117.4658750000001,
+    "min": 115.42758299999991,
+    "max": 119.45349999999996,
+    "writes": [
+      4,
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "current",
+    "scenario": "delete-key",
+    "median": 121.04508399999997,
+    "min": 120.90449999999987,
+    "max": 123.07450000000006,
+    "writes": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "current",
+    "scenario": "format-only",
+    "median": 51.29908299999988,
+    "min": 50.82445900000016,
+    "max": 53.87875000000008,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "grai",
+    "scenario": "initial",
+    "median": 314.013459,
+    "min": 312.090542,
+    "max": 333.376,
+    "writes": [
+      66,
+      66,
+      66,
+      66,
+      66
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "grai",
+    "scenario": "noop",
+    "median": 1.917416000000003,
+    "min": 1.857958999999994,
+    "max": 2.464041000000009,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "grai",
+    "scenario": "translation",
+    "median": 8.481542000000047,
+    "min": 8.025916999999993,
+    "max": 16.913249999999948,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "grai",
+    "scenario": "distant-translation",
+    "median": 7.783166999999992,
+    "min": 6.995875000000012,
+    "max": 7.937583000000018,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "grai",
+    "scenario": "input-change",
+    "median": 8.442499999999995,
+    "min": 8.279540999999995,
+    "max": 9.597667000000001,
+    "writes": [
+      5,
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "grai",
+    "scenario": "add-key",
+    "median": 245.43212499999993,
+    "min": 244.82675,
+    "max": 255.090416,
+    "writes": [
+      5,
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "grai",
+    "scenario": "delete-key",
+    "median": 248.86679199999992,
+    "min": 247.39270799999997,
+    "max": 253.24470800000006,
+    "writes": [
+      5,
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  {
+    "size": 6400,
+    "variant": "grai",
+    "scenario": "format-only",
+    "median": 9.606499999999983,
+    "min": 7.65258300000005,
+    "max": 10.182875000000081,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "baseline",
+    "scenario": "initial",
+    "median": 1315.926375,
+    "min": 1293.4446249999999,
+    "max": 1517.9055,
+    "writes": [
+      26614,
+      26614,
+      26614,
+      26614,
+      26614
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "baseline",
+    "scenario": "noop",
+    "median": 176.3488339999999,
+    "min": 172.48675000000003,
+    "max": 195.50824999999986,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "baseline",
+    "scenario": "translation",
+    "median": 258.894583,
+    "min": 256.2354579999999,
+    "max": 261.3565000000001,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "baseline",
+    "scenario": "distant-translation",
+    "median": 274.69012499999985,
+    "min": 269.39750000000004,
+    "max": 298.1005419999999,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "baseline",
+    "scenario": "input-change",
+    "median": 256.44758299999967,
+    "min": 251.23416700000007,
+    "max": 257.3959170000003,
+    "writes": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "baseline",
+    "scenario": "add-key",
+    "median": 250.49741700000004,
+    "min": 241.6279169999998,
+    "max": 255.14745799999992,
+    "writes": [
+      4,
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "baseline",
+    "scenario": "delete-key",
+    "median": 281.6502919999998,
+    "min": 266.4052919999999,
+    "max": 290.2702909999998,
+    "writes": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "baseline",
+    "scenario": "format-only",
+    "median": 243.27929200000017,
+    "min": 241.863875,
+    "max": 245.32466699999986,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "current",
+    "scenario": "initial",
+    "median": 1421.598166,
+    "min": 1388.242417,
+    "max": 1474.079791,
+    "writes": [
+      26614,
+      26614,
+      26614,
+      26614,
+      26614
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "current",
+    "scenario": "noop",
+    "median": 23.62850000000003,
+    "min": 23.284749999999804,
+    "max": 24.949249999999893,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "current",
+    "scenario": "translation",
+    "median": 159.68770799999993,
+    "min": 157.1149579999999,
+    "max": 202.49579199999994,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "current",
+    "scenario": "distant-translation",
+    "median": 123.022334,
+    "min": 122.26095800000007,
+    "max": 136.779542,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "current",
+    "scenario": "input-change",
+    "median": 129.08233300000006,
+    "min": 127.4861249999999,
+    "max": 150.37587499999995,
+    "writes": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "current",
+    "scenario": "add-key",
+    "median": 269.6462080000001,
+    "min": 247.19995900000004,
+    "max": 291.55624999999986,
+    "writes": [
+      4,
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "current",
+    "scenario": "delete-key",
+    "median": 242.23195899999973,
+    "min": 234.34625000000005,
+    "max": 243.92141700000002,
+    "writes": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "current",
+    "scenario": "format-only",
+    "median": 110.72825000000012,
+    "min": 109.0412080000001,
+    "max": 113.5816249999998,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "grai",
+    "scenario": "initial",
+    "median": 1230.287166,
+    "min": 1216.883542,
+    "max": 1236.295542,
+    "writes": [
+      114,
+      114,
+      114,
+      114,
+      114
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "grai",
+    "scenario": "noop",
+    "median": 2.8754169999999704,
+    "min": 2.711458999999877,
+    "max": 2.976957999999968,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "grai",
+    "scenario": "translation",
+    "median": 14.072374999999965,
+    "min": 13.741040999999996,
+    "max": 16.171290999999883,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "grai",
+    "scenario": "distant-translation",
+    "median": 15.425958000000037,
+    "min": 15.155250000000024,
+    "max": 17.36887499999989,
+    "writes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "grai",
+    "scenario": "input-change",
+    "median": 13.451749999999947,
+    "min": 13.240540999999894,
+    "max": 19.246666000000005,
+    "writes": [
+      5,
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "grai",
+    "scenario": "add-key",
+    "median": 1107.8236249999998,
+    "min": 1096.537292,
+    "max": 1130.4280829999998,
+    "writes": [
+      5,
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "grai",
+    "scenario": "delete-key",
+    "median": 1102.9617090000002,
+    "min": 1088.4251669999999,
+    "max": 1128.1663330000001,
+    "writes": [
+      5,
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  {
+    "size": 13300,
+    "variant": "grai",
+    "scenario": "format-only",
+    "median": 15.833791999999903,
+    "min": 11.708834000000024,
+    "max": 16.433250000000044,
+    "writes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+]

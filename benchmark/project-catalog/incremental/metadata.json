@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-28",
+  "node": "v24.22.1",
+  "platform": "macOS",
+  "trialsPerCase": 5,
+  "sizes": [
+    6400,
+    13300
+  ],
+  "locales": [
+    "en",
+    "de",
+    "fr"
+  ],
+  "graiCommit": "e1293d8d37d535b96f79c4de176945dec680610c",
+  "baseline": "Frozen local compiler + stateful SDK before selective generation/hash reuse (not published Paraglide)",
+  "sourceSha256": {
+    "paraglide-project-catalog/src/compiler/incremental-output.ts": "c77666d41cc18a634622521903a5e9306ddef986d857e43117c728c8d02abf96",
+    "paraglide-project-catalog/src/compiler/compile.ts": "0595a88d4516d4cb92d84103d8e47160f7de253eeaa20b8045a2eb2d46d90bf2",
+    "paraglide-project-catalog/src/services/file-handling/write-output.ts": "4a82527c1d139ddac026bf8195e68ee29492e538e1340f6b21e04c8e344b4973",
+    "inlang-sdk-project-catalog/packages/sdk/src/project/createCatalogLoader.ts": "f76cfade196f98c5d91c60a261fc886badd1e8200e4916dd7531bc073cddeab9"
+  },
+  "pluginSha256": "0aff1308418564264a713be0c0351f84f81678c0c615d23577074f2c304a6d6b",
+  "verification": {
+    "date": "2026-10-28",
+    "builds": [
+      "Paraglide TypeScript build passed",
+      "SDK TypeScript build passed"
+    ],
+    "paraglide": {
+      "testFiles": 63,
+      "passed": 988,
+      "skipped": 5,
+      "scope": "compiler, bundler plugins, file handling, CLI"
+    },
+    "sdk": {
+      "testFiles": 3,
+      "passed": 63,
+      "skipped": 2,
+      "scope": "stateful catalog loader, catalog rows, directory loader compatibility"
+    },
+    "portableHarness": "300-key current validation passed after copying into repository",
+    "whitespace": "Both repository diffs pass git diff --check"
+  }
+}

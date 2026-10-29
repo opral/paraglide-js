@@ -619,6 +619,10 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 	function clearViteError(): void {
 		if (!viteServer || !viteError || configLoadFailed) return;
 		viteError = undefined;
+		// Compilation writes can precede Vite's filesystem invalidation event.
+		// Clear cached transforms before recovery reloads so pages cannot reload
+		// the previous successful message code and remain stale afterward.
+		viteServer.moduleGraph?.invalidateAll?.();
 		// An invalid config can recover without writing generated files,
 		// leaving no HMR update to dismiss the error overlay.
 		if (viteServer.ws.clients.size > 0) {

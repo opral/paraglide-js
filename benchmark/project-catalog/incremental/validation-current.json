@@ -1,0 +1,105 @@
+{
+  "variant": "current",
+  "size": 300,
+  "verified": true,
+  "rows": [
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "initial",
+      "ms": 48.59595899999999,
+      "writes": 614
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "noop",
+      "ms": 1.5324580000000054,
+      "writes": 0
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "translation",
+      "ms": 5.285291999999998,
+      "writes": 1
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "distant-translation",
+      "ms": 4.211084,
+      "writes": 1
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "input-change",
+      "ms": 3.8858749999999986,
+      "writes": 2
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "add-key",
+      "ms": 7.319333999999998,
+      "writes": 4
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "delete-key",
+      "ms": 8.607709,
+      "writes": 2
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "format-only",
+      "ms": 2.931041999999991,
+      "writes": 0
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "complex-plural-and-unicode",
+      "ms": 18.552457999999973,
+      "writes": 6
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "edit-plural",
+      "ms": 7.890375000000006,
+      "writes": 1
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "recovery",
+      "ms": 9.416709000000026,
+      "writes": 0
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "settings-invalidation",
+      "ms": 19.011124999999993,
+      "writes": 303
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "options-invalidation",
+      "ms": 13.346375000000023,
+      "writes": 306
+    },
+    {
+      "variant": "current",
+      "size": 300,
+      "scenario": "plugin-invalidation",
+      "ms": 13.426917000000003,
+      "writes": 0
+    }
+  ]
+}
