@@ -17,7 +17,7 @@ function stage(node) {
 	if (url.includes("/import-export/catalogRows.js"))
 		return "catalog row normalization / defensive copies";
 	if (
-		url.includes("/project/createCatalogLoader.js") ||
+		url.includes("/project/loadProjectCatalog.js") ||
 		url.includes("/project/directoryPlugins.js")
 	)
 		return "catalog loading / plugin IO";

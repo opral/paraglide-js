@@ -96,9 +96,9 @@ if (
 	backend === "catalog" &&
 	typeof (
 		await import(path.join(repo, "node_modules/@inlang/sdk/dist/index.js"))
-	).createCatalogLoader !== "function"
+	).loadProjectCatalog !== "function"
 )
-	throw Error("Candidate SDK does not expose createCatalogLoader");
+	throw Error("Candidate SDK does not expose loadProjectCatalog");
 const importMs = performance.now() - importStart,
 	options = {
 		project: projectPath,
@@ -131,7 +131,7 @@ else {
 		project,
 		catalog;
 	if (backend === "catalog")
-		catalog = await sdk.createCatalogLoader({ path: projectPath, fs }).load();
+		catalog = await sdk.loadProjectCatalog({ path: projectPath, fs });
 	else project = await sdk.loadProjectFromDirectory({ path: projectPath, fs });
 	phases.load = performance.now() - t;
 	if (project && compileCatalog) {

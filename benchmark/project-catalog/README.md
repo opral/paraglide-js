@@ -1,14 +1,10 @@
 # Read-only SDK catalog compilation
 
-End-to-end incremental measurements and recovery checks are in [incremental](./incremental/README.md).
-
-Fresh-build measurements using the existing importer are in [round3/no-v2](./round3/no-v2/README.md).
+Current measurements using the existing importer are in [round3/no-v2](./round3/no-v2/README.md).
 [Round2](./round2/README.md) records the superseded experimental importer.
-The measurements below record the initial catalog implementation. The unreleased
-API has since been replaced with the stateful `createCatalogLoader()` contract;
-recorded results in round directories retain their original source revisions.
+The measurements below record the initial catalog implementation.
 
-Directory compilation uses `@inlang/sdk/catalog.createCatalogLoader()` when that API is
+Directory compilation uses `@inlang/sdk.loadProjectCatalog()` when that API is
 available. The dependency range remains compatible with the published SDK; older
 SDK versions use the existing project loader. `compileProject({ project })`
 continues to work, and `compileCatalog({ catalog })` exposes the database-free
@@ -30,12 +26,9 @@ pnpm build
 Catalog loading does not update project metadata. Paraglide opts into the SDK's
 `writePluginCache: true` option so an online compile continues to populate the
 remote-plugin cache for subsequent offline builds; the loader remains read-only
-by default for other consumers. Unreadable resource files reject before publication,
+by default for other consumers. Its resource-file diagnostics are checked before output publication,
 matching the existing directory compiler's failure behavior. It does not change
-the emitted file layout. Warm compilations retain the loader via `previousCompilation`
-and apply reset/update batches. The default message layout now regenerates only
-changed bundles for edits with unchanged keys; see the incremental results for
-full-emitter fallbacks and other layouts.
+the emitted file layout or add incremental compilation.
 
 ## Measurements
 
