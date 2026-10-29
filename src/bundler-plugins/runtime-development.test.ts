@@ -57,6 +57,12 @@ async function fixture(configExpression?: string) {
 	return { workspace, projectDir, outdir };
 }
 
+function compilerPlugin(plugins: any): any {
+	return [plugins]
+		.flat(Infinity)
+		.find((plugin) => plugin.name === "unplugin-paraglide-js");
+}
+
 function configureVite(plugin: any, root: string, isProduction: boolean) {
 	const hook = plugin.configResolved ?? plugin.vite?.configResolved;
 	if (typeof hook === "function") hook({ root, isProduction });
@@ -71,8 +77,9 @@ async function expectRuntimeMode(outdir: string, expression: string) {
 }
 
 test.each(
-	(["message-modules", "locale-modules"] as const).flatMap((outputStructure) =>
-		[false, true].map((isProduction) => ({ outputStructure, isProduction }))
+	(["message-modules", "locale-modules", "virtual-modules"] as const).flatMap(
+		(outputStructure) =>
+			[false, true].map((isProduction) => ({ outputStructure, isProduction }))
 	)
 )(
 	"Vite production=$isProduction determines runtime diagnostics with fixed $outputStructure output",
@@ -82,11 +89,13 @@ test.each(
 		process.env.NODE_ENV = isProduction ? "development" : "production";
 		const { workspace, projectDir, outdir } = await fixture();
 		const { paraglideVitePlugin } = await import("./vite.js");
-		const plugin = paraglideVitePlugin({
-			project: projectDir,
-			outdir,
-			outputStructure,
-		}) as any;
+		const plugin = compilerPlugin(
+			paraglideVitePlugin({
+				project: projectDir,
+				outdir,
+				outputStructure,
+			})
+		);
 		configureVite(plugin, workspace, isProduction);
 		await plugin.buildStart.call(hookContext);
 		await expectRuntimeMode(outdir, String(!isProduction));
@@ -112,12 +121,14 @@ test.each([
 	async ({ isProduction, config, plugin: expression, expected }) => {
 		const { workspace, projectDir, outdir } = await fixture(config);
 		const { paraglideVitePlugin } = await import("./vite.js");
-		const plugin = paraglideVitePlugin({
-			project: projectDir,
-			outdir,
-			isDevelopment: expression,
-			outputStructure: "message-modules",
-		}) as any;
+		const plugin = compilerPlugin(
+			paraglideVitePlugin({
+				project: projectDir,
+				outdir,
+				isDevelopment: expression,
+				outputStructure: "message-modules",
+			})
+		);
 		configureVite(plugin, workspace, isProduction);
 		await plugin.buildStart.call(hookContext);
 		await expectRuntimeMode(outdir, expected);
@@ -136,11 +147,13 @@ test.each(["warm", "cold"])(
 		async function build(isProduction: boolean) {
 			if (cache === "cold") vi.resetModules();
 			const { paraglideVitePlugin } = await import("./vite.js");
-			const plugin = paraglideVitePlugin({
-				project: projectDir,
-				outdir,
-				outputStructure: "message-modules",
-			}) as any;
+			const plugin = compilerPlugin(
+				paraglideVitePlugin({
+					project: projectDir,
+					outdir,
+					outputStructure: "message-modules",
+				})
+			);
 			configureVite(plugin, workspace, isProduction);
 			await plugin.buildStart.call(hookContext);
 			await expectRuntimeMode(outdir, String(!isProduction));

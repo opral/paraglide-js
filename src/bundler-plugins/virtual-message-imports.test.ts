@@ -108,7 +108,6 @@ test("a following dependency observes the real generated runtime initialization"
 				compilerOptions: {
 					...defaultCompilerOptions,
 					strategy: ["baseLocale"],
-					experimentalMiddlewareLocaleSplitting: true,
 				},
 			})
 		);
@@ -118,7 +117,7 @@ test("a following dependency observes the real generated runtime initialization"
 		);
 		await fs.writeFile(
 			path.join(root, "initialize.js"),
-			'globalThis.__paraglide.ssr.custom="READY";'
+			'globalThis.__paraglide.custom="READY";'
 		);
 		const code =
 			'import {hello} from "./messages.js";import "./initialize.js";export const value=hello();';
@@ -133,7 +132,7 @@ test("a following dependency observes the real generated runtime initialization"
 		expect(
 			(await import(pathToFileURL(path.join(root, "app.js")).href)).value
 		).toBe("en");
-		expect(scope.__paraglide).toMatchObject({ ssr: { custom: "READY" } });
+		expect(scope.__paraglide).toMatchObject({ custom: "READY" });
 	} finally {
 		if (previous === undefined) delete scope.__paraglide;
 		else scope.__paraglide = previous;
