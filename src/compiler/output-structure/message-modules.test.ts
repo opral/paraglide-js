@@ -92,7 +92,7 @@ test("handles case senstivity by creating directories and files only in lowercas
 	expect(output).not.toHaveProperty("messages/HappyElephant.js");
 });
 
-test("emits minimal runtime imports when middleware splitting is disabled", () => {
+test("emits minimal runtime imports from the runtime", () => {
 	const resources: CompiledBundleWithMessages[] = [
 		{
 			bundle: {
@@ -115,8 +115,7 @@ test("emits minimal runtime imports when middleware splitting is disabled", () =
 	const output = generateOutput(
 		resources,
 		{ locales: ["en"], baseLocale: "en" },
-		{},
-		false
+		{}
 	);
 
 	expect(output["messages/happy_elephant.js"]).toContain(

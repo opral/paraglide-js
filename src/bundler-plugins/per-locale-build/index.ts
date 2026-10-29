@@ -79,18 +79,10 @@ function validateExplicitCompilerOptions(
 	const explicit = {
 		experimentalStaticLocale:
 			options.experimentalStaticLocale ?? config?.experimentalStaticLocale,
-		experimentalMiddlewareLocaleSplitting:
-			options.experimentalMiddlewareLocaleSplitting ??
-			config?.experimentalMiddlewareLocaleSplitting,
 	};
 	if (explicit.experimentalStaticLocale !== undefined) {
 		throw new Error(
 			"experimentalPerLocaleBuild cannot be combined with experimentalStaticLocale because it controls the compiler's static locale expression."
-		);
-	}
-	if (explicit.experimentalMiddlewareLocaleSplitting) {
-		throw new Error(
-			"experimentalPerLocaleBuild cannot be combined with experimentalMiddlewareLocaleSplitting."
 		);
 	}
 }

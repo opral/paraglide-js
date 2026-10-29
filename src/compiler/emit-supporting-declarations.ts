@@ -24,8 +24,8 @@ export function emitSupportingDeclarations(args: {
 	compilerOptions: Pick<
 		CompilerOptions,
 		| "disableAsyncLocalStorage"
-		| "experimentalMiddlewareLocaleSplitting"
 		| "isServer"
+		| "isDevelopment"
 		| "urlPatterns"
 		| "routeStrategies"
 	>;
@@ -42,13 +42,11 @@ export function emitSupportingDeclarations(args: {
 		DISABLE_ASYNC_LOCAL_STORAGE: String(
 			args.compilerOptions.disableAsyncLocalStorage ?? false
 		),
-		MIDDLEWARE_LOCALE_SPLITTING: String(
-			args.compilerOptions.experimentalMiddlewareLocaleSplitting ?? false
-		),
 		// isServer accepts arbitrary bundler expressions, whose environment is
 		// unknown at compile time (e.g. import.meta.env.SSR). Keep those open,
 		// matching the old declaration emitter's unresolved-expression behavior.
 		IS_SERVER: isServerType(args.compilerOptions.isServer),
+		IS_DEVELOPMENT: isServerType(args.compilerOptions.isDevelopment ?? "true"),
 	};
 	return {
 		"runtime.d.ts": templates.runtime!.replace(

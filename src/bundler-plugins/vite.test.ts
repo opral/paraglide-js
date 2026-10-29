@@ -70,13 +70,6 @@ test("experimentalPerLocaleBuild rejects conflicting compiler options", () => {
 		paraglideVitePlugin({
 			...common,
 			experimentalPerLocaleBuild: true,
-			experimentalMiddlewareLocaleSplitting: true,
-		})
-	).toThrow("cannot be combined with experimentalMiddlewareLocaleSplitting");
-	expect(() =>
-		paraglideVitePlugin({
-			...common,
-			experimentalPerLocaleBuild: true,
 			outputStructure: "message-modules",
 		})
 	).not.toThrow();
