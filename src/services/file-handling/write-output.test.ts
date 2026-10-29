@@ -317,6 +317,71 @@ test("hashDirectory skips directories that disappear while walking", async () =>
 	expect(seededHashes).toEqual({});
 });
 
+test("hashDirectory reads large outputs with at most eight reads in flight", async () => {
+	const { writeOutput, hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({});
+	const output = Object.fromEntries(
+		Array.from({ length: 500 }, (_, i) => [
+			`messages/${i % 5}/${i}.js`,
+			`message ${i}`,
+		])
+	);
+	const hashes = await writeOutput({ directory: "/output", output, fs });
+	const readFile = fs.readFile.bind(fs);
+	let active = 0;
+	let peak = 0;
+	vi.spyOn(fs, "readFile").mockImplementation(async (...args) => {
+		active++;
+		peak = Math.max(peak, active);
+		try {
+			await new Promise<void>((resolve) => setImmediate(resolve));
+			if (args[0] === "/output/messages/0/250.js") {
+				throw new Error("file disappeared");
+			}
+			return await readFile(...args);
+		} finally {
+			active--;
+		}
+	});
+
+	const expected = { ...hashes };
+	delete expected["messages/0/250.js"];
+	expect(await hashDirectory("/output", fs)).toEqual(expected);
+	expect(peak).toBeGreaterThan(1);
+	expect(peak).toBeLessThanOrEqual(8);
+	expect(active).toBe(0);
+	vi.restoreAllMocks();
+});
+
+test("hashDirectory reads files again when concurrent reads run out of descriptors", async () => {
+	const { writeOutput, hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({});
+	const output = Object.fromEntries(
+		Array.from({ length: 40 }, (_, i) => [`messages/${i}.js`, `message ${i}`])
+	);
+	const hashes = await writeOutput({ directory: "/output", output, fs });
+	const readFile = fs.readFile.bind(fs);
+	// Seven descriptors are left: enough to read one file at a time.
+	let open = 0;
+	vi.spyOn(fs, "readFile").mockImplementation(async (...args) => {
+		if (open === 7) {
+			throw Object.assign(new Error("too many open files"), {
+				code: "EMFILE",
+			});
+		}
+		open++;
+		try {
+			await new Promise<void>((resolve) => setImmediate(resolve));
+			return await readFile(...args);
+		} finally {
+			open--;
+		}
+	});
+
+	expect(await hashDirectory("/output", fs)).toEqual(hashes);
+	vi.restoreAllMocks();
+});
+
 const mockFs = (files: memfs.DirectoryJSON) => {
 	const _memfs = memfs.createFsFromVolume(memfs.Volume.fromJSON(files));
 	return _memfs.promises as unknown as typeof fs;
