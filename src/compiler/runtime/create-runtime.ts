@@ -19,6 +19,7 @@ export function createRuntimeFile(args: {
 		urlPatterns?: CompilerOptions["urlPatterns"];
 		trailingSlash?: CompilerOptions["trailingSlash"];
 		isServer: CompilerOptions["isServer"];
+		isDevelopment?: CompilerOptions["isDevelopment"];
 		experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 		localStorageKey: CompilerOptions["localStorageKey"];
 		disableAsyncLocalStorage: NonNullable<
@@ -160,6 +161,10 @@ ${injectCode("./variables.js")
 		`export const isServer = ${args.compilerOptions.isServer};`
 	)
 	.replace(
+		`export const isDevelopment = /** @type {boolean} */ (true);`,
+		`export const isDevelopment = ${args.compilerOptions.isDevelopment ?? "true"};`
+	)
+	.replace(
 		`export const experimentalStaticLocale = undefined;`,
 		args.compilerOptions.experimentalStaticLocale
 			? `export const experimentalStaticLocale = ${
@@ -178,7 +183,9 @@ ${injectCode("./variables.js")
 		`export const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = false;`,
 		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${allUsedStrategies.has("localStorage")};`
 	)}
-
+// Shared runtime state for backward compatibility and future runtime behavior.
+/** @type {any} */ (globalThis).__paraglide =
+	/** @type {any} */ (globalThis).__paraglide ?? {};
 
 ${injectCode("./get-locale.js")}
 

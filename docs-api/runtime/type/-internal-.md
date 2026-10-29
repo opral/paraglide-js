@@ -318,7 +318,17 @@ Defined in: [runtime/variables.js:107](https://github.com/opral/paraglide-js/tre
 
 > `const` **experimentalStaticLocale**: `undefined` \| `string` = `undefined`
 
+Defined in: [runtime/variables.js:115](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+
+***
+
+## isDevelopment
+
+> `const` **isDevelopment**: `boolean`
+
 Defined in: [runtime/variables.js:112](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+
+Controls development-only runtime diagnostics.
 
 ***
 
@@ -1302,7 +1312,7 @@ The new implementation for `getUrlOrigin()`.
 
 > **overwriteServerAsyncLocalStorage**(`value`): `void`
 
-Defined in: [runtime/variables.js:124](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
+Defined in: [runtime/variables.js:127](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/variables.js)
 
 Sets the server side async local storage.
 

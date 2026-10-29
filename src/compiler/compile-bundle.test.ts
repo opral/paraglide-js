@@ -314,6 +314,7 @@ async function importBundle(
 const getLocale = () => "en";
 const experimentalStaticLocale = undefined;
 ${prelude}
+const isDevelopment = true;
 ${messageFunctions.join("\n")}
 ${result.bundle.code}
 `)
@@ -617,7 +618,7 @@ test("emits the per-locale build marker inside the message function", () => {
 		`const locale = ${expression} ?? options.locale ?? getLocale()`
 	);
 	expect(result.bundle.code).toContain(
-		`if (${expression} !== undefined && options.locale !== undefined && options.locale !== ${expression}) console.warn(`
+		`if (isDevelopment && ${expression} !== undefined && options.locale !== undefined && options.locale !== ${expression}) console.warn(`
 	);
 	expect(result.bundle.code).toContain("full document navigation");
 });

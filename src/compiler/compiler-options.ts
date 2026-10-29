@@ -41,6 +41,7 @@ export const defaultCompilerOptions = {
 	disableAsyncLocalStorage: false,
 	localStorageKey: "PARAGLIDE_LOCALE",
 	isServer: "typeof window === 'undefined'",
+	isDevelopment: "true",
 	strategy: ["cookie", "globalVariable", "baseLocale"],
 	cookieName: "PARAGLIDE_LOCALE",
 	cookieMaxAge: 60 * 60 * 24 * 400,
@@ -127,6 +128,16 @@ export type CompilerOptions = {
 	 * @default typeof window === "undefined"
 	 */
 	isServer?: string;
+	/**
+	 * JavaScript expression controlling development-only runtime diagnostics.
+	 *
+	 * Bundler integrations set this for their development and production modes.
+	 * Standalone compilation keeps diagnostics enabled unless explicitly disabled.
+	 * Set to "false" for production output to allow dead-code elimination.
+	 *
+	 * @default "true"
+	 */
+	isDevelopment?: string;
 	/**
 	 * Compile-time locale constant used for per-locale tree-shaking.
 	 *

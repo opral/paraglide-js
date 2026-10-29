@@ -40,6 +40,8 @@ export type CompiledBundleWithMessages = {
 	/** Compiled message helpers with no emitted reference in message-modules. */
 	unreferencedMessageLocales?: string[];
 	usesSharedFactory?: boolean;
+	/** The dispatcher reads the development-only diagnostic flag. */
+	usesDevelopmentDiagnostics?: boolean;
 	englishMatchTableDoc?: string;
 };
 
@@ -129,6 +131,8 @@ export const compileBundle = (args: {
 			compactTypes: args.compactTypes,
 		}),
 		messages: compiledMessages,
+		usesDevelopmentDiagnostics:
+			args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression,
 		matchTypes,
 		inputTypeAliasName,
 		unreferencedMessageLocales,
@@ -258,6 +262,8 @@ function tryCompileInlineBundle(
 	return {
 		bundle: compiledBundle,
 		usesSharedFactory: args.sharedMessageFactory,
+		usesDevelopmentDiagnostics:
+			args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression,
 		englishMatchTableDoc,
 		messages,
 		matchTypes,
@@ -489,7 +495,7 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 			? `${perLocaleBuildStaticLocaleExpression} ?? options.locale ?? getLocale()`
 			: "experimentalStaticLocale ?? options.locale ?? getLocale()";
 		const overrideWarning = perLocaleBuild
-			? `\n${indent}if (${perLocaleBuildStaticLocaleExpression} !== undefined && options.locale !== undefined && options.locale !== ${perLocaleBuildStaticLocaleExpression}) console.warn("Paraglide: options.locale cannot override a locale-specialized client bundle; use a full document navigation to switch locales.")`
+			? `\n${indent}if (isDevelopment && ${perLocaleBuildStaticLocaleExpression} !== undefined && options.locale !== undefined && options.locale !== ${perLocaleBuildStaticLocaleExpression}) console.warn("Paraglide: options.locale cannot override a locale-specialized client bundle; use a full document navigation to switch locales.")`
 			: "";
 
 		if (isFullyTranslated && args.availableLocales.length === 1) {

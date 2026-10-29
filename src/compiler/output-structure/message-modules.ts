@@ -48,7 +48,7 @@ export function generateOutput(
 		output[filename] = body;
 
 		// add the imports and type reference (LocalizedString is defined in runtime.js)
-		const runtimeImport = `import { getLocale, experimentalStaticLocale } from '../runtime.js';\n\n`;
+		const runtimeImport = `import { getLocale, experimentalStaticLocale${compiledBundle.usesDevelopmentDiagnostics ? ", isDevelopment" : ""} } from '../runtime.js';\n\n`;
 
 		output[filename] =
 			runtimeImport +
