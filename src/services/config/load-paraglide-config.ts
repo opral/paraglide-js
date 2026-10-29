@@ -1,3 +1,4 @@
+import { assertNoRemovedOptions } from "../../compiler/removed-options.js";
 import * as v from "valibot";
 import { createRequire } from "node:module";
 import { resolve } from "node:path";
@@ -131,6 +132,8 @@ function validateConfig(
 			`Invalid paraglide config file "${filePath}": expected an object with options as the default export.`
 		);
 	}
+
+	assertNoRemovedOptions(exported);
 
 	const result = v.safeParse(paraglideConfigSchema, exported);
 	if (!result.success) {

@@ -39,15 +39,15 @@ nativeTsc.tscJsPath = path.join(
 
 beforeEach(() => vi.clearAllMocks());
 
-const nonJavaScriptAdditionalFiles: (Record<string, string> | undefined)[] = [
+const nonJavaScriptOutput: (Record<string, string> | undefined)[] = [
 	undefined,
 	{},
 	{ "notes.txt": "Additional documentation" },
 ];
 
-test.each(nonJavaScriptAdditionalFiles)(
-	"emitTsDeclarations uses the tsc of @typescript/native with non-JavaScript additionalFiles: %j",
-	async (additionalFiles) => {
+test.each(nonJavaScriptOutput)(
+	"emitTsDeclarations uses the tsc of @typescript/native with non-JavaScript output: %j",
+	async (extraOutput) => {
 		const project = await loadProjectInMemory({
 			blob: await newProject({
 				settings: {
@@ -61,10 +61,10 @@ test.each(nonJavaScriptAdditionalFiles)(
 			project,
 			compilerOptions: {
 				emitTsDeclarations: false,
-				additionalFiles,
 			},
 		});
 
+		Object.assign(javascript, extraOutput);
 		const output = await emitTsDeclarations(javascript);
 
 		expect(output["runtime.d.ts"]).toContain("getLocale");
@@ -73,7 +73,7 @@ test.each(nonJavaScriptAdditionalFiles)(
 );
 
 test.each(["custom.js", "messages.js"])(
-	"additionalFiles preserves imported types with @typescript/native installed: %s",
+	"the legacy emitter preserves imported types with @typescript/native installed: %s",
 	async (fileName) => {
 		const projectRoot = await fs.realpath(
 			await fs.mkdtemp(path.join(os.tmpdir(), "paraglide-additional-types-"))
@@ -108,12 +108,11 @@ test.each(["custom.js", "messages.js"])(
 				project,
 				compilerOptions: {
 					emitTsDeclarations: false,
-					additionalFiles: {
-						[fileName]:
-							'import { value } from "fixture-dependency"; export const result = value();',
-					},
 				},
 			});
+
+			javascript[fileName] =
+				'import { value } from "fixture-dependency"; export const result = value();';
 
 			const output = await emitTsDeclarations(javascript, {
 				allowNativeAlias: false,

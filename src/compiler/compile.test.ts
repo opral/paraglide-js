@@ -242,52 +242,6 @@ test("multiple compile calls do not interfere with each other", async () => {
 	expect(runtime.locales).toEqual(["de"]);
 });
 
-test("emits additional files", async () => {
-	const additionalFiles = {
-		"adapter/component.svelte": "<script>console.log('hello')</script>",
-		"adapter.js": "console.log('hello')",
-	};
-
-	const project = await loadProjectInMemory({
-		blob: await newProject({
-			settings: {
-				baseLocale: "en",
-				locales: ["en", "de", "fr"],
-			},
-		}),
-	});
-
-	const fs = memfs().fs as unknown as typeof import("node:fs");
-
-	// save project to directory to test loading
-	await saveProjectToDirectory({
-		project,
-		path: "/project.inlang",
-		fs: fs.promises,
-	});
-
-	await compile({
-		project: "/project.inlang",
-		outdir: "/output",
-		fs: fs,
-		additionalFiles,
-	});
-
-	const outputDir = await fs.promises.readdir("/output");
-	const adapterDir = await fs.promises.readdir("/output/adapter");
-
-	expect(outputDir).toEqual(
-		expect.arrayContaining([
-			"runtime.js",
-			"server.js",
-			"messages.js",
-			"adapter.js",
-		])
-	);
-
-	expect(adapterDir).toEqual(["component.svelte"]);
-});
-
 test("includes eslint-disable comment", async () => {
 	const project = await loadProjectInMemory({
 		blob: await newProject({
@@ -501,19 +455,10 @@ test.each([
 				fs,
 				outputStructure,
 				emitTsDeclarations,
-				additionalFiles: {
-					"nested/additional.js": "export const extra = true;",
-					...(emitTsDeclarations
-						? { "nested/additional.d.ts": "export declare const extra: true;" }
-						: {}),
-				},
 			});
 			expect(await hashDirectory("/output", fs.promises)).toEqual(
 				result.outputHashes
 			);
-			expect(
-				await fs.promises.readFile("/output/nested/additional.js", "utf8")
-			).toContain("extra");
 			expect(Object.keys(result.outputHashes!)).toContain(
 				outputStructure === "message-modules"
 					? "messages/message_39.js"
@@ -529,3 +474,21 @@ test.each([
 		}
 	}
 );
+
+test("rejects additionalFiles before loading a project or changing output", async () => {
+	const fs = memfs({ "/output/sentinel.txt": "keep" })
+		.fs as unknown as typeof import("node:fs");
+	await expect(
+		compile({
+			project: "/missing-project.inlang",
+			outdir: "/output",
+			fs,
+			// @ts-expect-error additionalFiles was removed from the public API
+			additionalFiles: { "custom.js": "export const custom = 1;" },
+		})
+	).rejects.toThrow("additionalFiles was removed in Paraglide JS 3");
+	expect(await fs.promises.readdir("/output")).toEqual(["sentinel.txt"]);
+	expect(await fs.promises.readFile("/output/sentinel.txt", "utf8")).toBe(
+		"keep"
+	);
+});

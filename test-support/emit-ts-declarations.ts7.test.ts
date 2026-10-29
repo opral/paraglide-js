@@ -143,14 +143,13 @@ test("emitTsDeclarations works with TypeScript 7 (tsgo)", async () => {
 			compilerOptions: {
 				emitTsDeclarations: false,
 				outputStructure,
-				// path-traversing keys (incl. Windows separators) must be
-				// silently skipped like on the compiler-API path — neither
-				// escaping the temp dir nor failing the completeness check
-				additionalFiles: {
-					"../escape.js": "export const escape = 1;",
-					"foo\\..\\..\\escape.js": "export const escape = 1;",
-				},
 			},
+		});
+
+		// Reject path traversal in the legacy emitter's input map.
+		Object.assign(javascript, {
+			"../escape.js": "export const escape = 1;",
+			"foo\\..\\..\\escape.js": "export const escape = 1;",
 		});
 
 		const output = await emitTsDeclarations(javascript);

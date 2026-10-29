@@ -1,3 +1,4 @@
+import { assertNoRemovedOptions } from "./removed-options.js";
 import {
 	generateCatalog,
 	type GeneratedCatalog,
@@ -81,6 +82,7 @@ export function compile(
 async function compileUnlocked(
 	options: CompilerOptions & { previousCompilation?: CompilationResult }
 ): Promise<CompilationResult> {
+	assertNoRemovedOptions(options);
 	const withDefaultOptions = {
 		...defaultCompilerOptions,
 		...options,

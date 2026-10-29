@@ -107,10 +107,7 @@ test.each([
 	{ messageModuleSize: 2 },
 	{ experimentalMiddlewareLocaleSplitting: true },
 	{ experimentalStaticLocale: '"de"' },
-	{
-		additionalFiles: { "custom.js": "export {};", "custom.d.ts": "export {};" },
-	},
-])("shared or overridden output falls back safely: %j", async (extra) => {
+])("shared output falls back safely: %j", async (extra) => {
 	const o = { ...options, ...extra },
 		initial = catalog(),
 		first = await generateCatalog({

@@ -1,3 +1,4 @@
+import { assertNoRemovedOptions } from "./removed-options.js";
 import { compileBundle } from "./compile-bundle.js";
 import type { InlangProject, BundleNested, ProjectSettings } from "@inlang/sdk";
 import { lookup } from "../services/lookup.js";
@@ -36,6 +37,7 @@ export const compileProject = async (args: {
 	projectPath?: string;
 	compilerOptions?: Omit<CompilerOptions, "fs" | "project" | "outdir">;
 }): Promise<Record<string, string>> => {
+	assertNoRemovedOptions(args.compilerOptions ?? {});
 	const { selectBundleNested } = await import("@inlang/sdk");
 	return compileCatalog({
 		...args,
@@ -61,6 +63,7 @@ export const compileCatalog = async (args: {
 	projectPath?: string;
 	compilerOptions?: Omit<CompilerOptions, "fs" | "project" | "outdir">;
 }): Promise<Record<string, string>> => {
+	assertNoRemovedOptions(args.compilerOptions ?? {});
 	const optionsWithDefaults = {
 		...defaultCompilerOptions,
 		...args.compilerOptions,
@@ -88,24 +91,6 @@ export const compileCatalog = async (args: {
 	}
 	await ensureURLPatternAvailable();
 	validateRouteStrategyMatchers(optionsWithDefaults.routeStrategies);
-
-	if (optionsWithDefaults.emitTsDeclarations) {
-		for (const filename of Object.keys(
-			optionsWithDefaults.additionalFiles ?? {}
-		)) {
-			if (
-				filename.endsWith(".js") &&
-				!Object.hasOwn(
-					optionsWithDefaults.additionalFiles ?? {},
-					filename.slice(0, -3) + ".d.ts"
-				)
-			) {
-				throw new Error(
-					`Cannot emit declarations for additionalFiles[${JSON.stringify(filename)}]. Supply ${JSON.stringify(filename.slice(0, -3) + ".d.ts")} in additionalFiles, or disable emitTsDeclarations.`
-				);
-			}
-		}
-	}
 
 	const { settings, bundles } = args.catalog;
 
@@ -207,12 +192,6 @@ export const compileCatalog = async (args: {
 			"\n";
 	}
 
-	for (const [filename, content] of Object.entries(
-		optionsWithDefaults.additionalFiles ?? {}
-	)) {
-		output[filename] = content;
-	}
-
 	for (const [filename, content] of Object.entries(output)) {
 		if (optionsWithDefaults.includeEslintDisableComment) {
 			if (filename.endsWith(".js")) {
@@ -238,12 +217,6 @@ export const compileCatalog = async (args: {
 				messageModuleSize,
 			})
 		);
-		// Explicit custom declarations also cover overrides of generated modules.
-		for (const [filename, content] of Object.entries(
-			optionsWithDefaults.additionalFiles ?? {}
-		)) {
-			if (filename.endsWith(".d.ts")) output[filename] = content;
-		}
 	}
 
 	return output;

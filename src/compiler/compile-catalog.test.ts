@@ -99,12 +99,6 @@ for (const outputStructure of ["message-modules", "locale-modules"] as const) {
 				{ match: "/private/:path(.*)?", strategy: ["baseLocale"] },
 			],
 		},
-		{
-			additionalFiles: {
-				"custom.js": "export const custom = 1;",
-				"custom.d.ts": "export declare const custom: 1;",
-			},
-		},
 	] satisfies Partial<CompilerOptions>[]) {
 		test(`compileCatalog keeps ${outputStructure} option ${Object.keys(extraOptions)[0]} behavior`, async () => {
 			const compilerOptions = {
@@ -290,3 +284,19 @@ async function loadMessages(
 		await bundle.close();
 	}
 }
+
+test.each([compileCatalog, compileProject])(
+	"rejects the removed additionalFiles option before generating output (%#)",
+	async (compiler) => {
+		await expect(
+			compiler({
+				project,
+				catalog,
+				compilerOptions: {
+					// @ts-expect-error additionalFiles is no longer a public option
+					additionalFiles: { "runtime.js": "export const replaced = true;" },
+				},
+			})
+		).rejects.toThrow("additionalFiles was removed in Paraglide JS 3");
+	}
+);
