@@ -391,7 +391,7 @@ function rethrowUnlessEnoent(error: unknown): undefined {
 // https://github.com/opral/inlang-paraglide-js/issues/486
 function resolveOutputStructure(
 	options: CompilerOptions
-): "message-modules" | "locale-modules" {
+): NonNullable<CompilerOptions["outputStructure"]> {
 	const isProduction = process.env.NODE_ENV === "production";
 	return (
 		options.outputStructure ??
@@ -402,7 +402,7 @@ function resolveOutputStructure(
 function hasUnchangedInputs(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
-	outputStructure: "message-modules" | "locale-modules";
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
 }): Promise<boolean> {
 	if (args.state.previousCompilation === undefined) {
 		return Promise.resolve(false);
@@ -439,7 +439,7 @@ function maybeInvalidateForOptionsChange(
 async function compileAndUpdateState(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
-	outputStructure: "message-modules" | "locale-modules";
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
 	previousCompilation: CompilationResult | undefined;
 	/**
 	 * The `isServer` expression to bake into the compiled runtime.
@@ -536,11 +536,11 @@ async function runCompilation(args: {
 
 // The return type preserves literal option types (`enforce: "pre"`, ...)
 // while `project` stays required on the input side.
-type UnpluginIntegrationOptions = Pick<
-	CompilerOptions,
-	"outputStructure" | "emitTsDeclarations"
-> & {
-	transformOutput?: OutputTransform;
+type UnpluginIntegrationOptions = Pick<CompilerOptions, "outputStructure"> & {
+	getOutputTransform?: (
+		options: CompilerOptions
+	) => OutputTransform | undefined;
+	emitTsDeclarations?: boolean | ((options: CompilerOptions) => boolean);
 	validateOptions?: (options: CompilerOptions) => void;
 	devErrorResponse?: boolean;
 };
@@ -557,7 +557,7 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 	defaults
 ) => {
 	// Virtual implementations cannot be recovered from the disk hash cache.
-	const state = getPluginState(userArgs, Boolean(defaults?.transformOutput));
+	const state = getPluginState(userArgs, Boolean(defaults?.getOutputTransform));
 	const { readFiles, clearReadFiles } = state;
 	// Project root as reported by the bundler (vite `root`, webpack/rspack
 	// `context`). Falls back to the process working directory when the
@@ -668,16 +668,25 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 		) {
 			options.outputStructure = defaults.outputStructure;
 		}
-		if (defaults?.transformOutput) {
-			Object.assign(options, { [transformOutput]: defaults.transformOutput });
+		const outputTransform = defaults?.getOutputTransform?.(options);
+		if (outputTransform) {
+			Object.assign(options, { [transformOutput]: outputTransform });
 		}
 		if (
 			userArgs.emitTsDeclarations === undefined &&
 			loaded?.config.emitTsDeclarations === undefined &&
 			defaults?.emitTsDeclarations !== undefined
 		)
-			options.emitTsDeclarations = defaults.emitTsDeclarations;
+			options.emitTsDeclarations =
+				typeof defaults.emitTsDeclarations === "function"
+					? defaults.emitTsDeclarations(options)
+					: defaults.emitTsDeclarations;
 		defaults?.validateOptions?.(options);
+		if (options.outputStructure === "virtual-modules" && !outputTransform) {
+			throw new Error(
+				'outputStructure: "virtual-modules" requires the Paraglide Vite plugin. Use "message-modules" or "locale-modules" for physical output.'
+			);
+		}
 		return options;
 	};
 

@@ -204,13 +204,12 @@ if (args.includes("--worker")) {
 	const plugin = paraglideVitePlugin({
 		project: path.join(directory, "project.inlang"),
 		outdir,
-		outputStructure: "message-modules",
+		outputStructure: scenario.virtual ? "virtual-modules" : "message-modules",
 		emitTsDeclarations: true,
 		emitGitIgnore: false,
 		emitReadme: false,
 		emitPrettierIgnore: false,
 		messageModuleSize: scenario.size,
-		experimentalVirtualMessages: !!scenario.virtual,
 		strategy: ["baseLocale"],
 	});
 	const compilerBuildStartCallsMs = [];
@@ -354,7 +353,7 @@ const metadata = {
 	baseline:
 		"Individual disk message modules, emitTsDeclarations:true; same implementation revision with virtual mode off.",
 	implementation:
-		"experimentalVirtualMessages:true; explicit physical facade, combined declarations and static imports.",
+		"outputStructure:virtual-modules; explicit physical facade, combined declarations and static imports.",
 	note: "Generated framework applications, not a customer production app. Fresh build processes and empty output dirs; warm OS caches and cached SDK plugin downloads. Sequential timings; no dependency installation/network included.",
 };
 const checkpoint = () =>
@@ -390,9 +389,8 @@ function options(directory, scenario, framework) {
 			framework === "sveltekit" ? "src/lib/paraglide" : "src/paraglide"
 		),
 		strategy: ["baseLocale"],
-		outputStructure: "message-modules",
+		outputStructure: scenario.virtual ? "virtual-modules" : "message-modules",
 		messageModuleSize: scenario.size,
-		experimentalVirtualMessages: !!scenario.virtual,
 		emitTsDeclarations: true,
 		emitGitIgnore: false,
 		emitReadme: false,
@@ -528,14 +526,10 @@ async function prepare(framework, scenario, tag) {
 	}
 	// Download/cache the SDK importer outside the timing, then discard all generated output.
 	const { compile } = await import("../../dist/index.js");
-	const { experimentalVirtualMessages, ...opts } = options(
-		directory,
-		scenario,
-		framework
-	);
+	const opts = options(directory, scenario, framework);
 	for (const locale of ["en", "de", "fr"])
 		await fs.writeFile(path.join(directory, `messages/${locale}.json`), "{}");
-	await compile(opts);
+	await compile({ ...opts, outputStructure: "message-modules" });
 	for (const locale of ["en", "de", "fr"])
 		await fs.writeFile(
 			path.join(directory, `messages/${locale}.json`),

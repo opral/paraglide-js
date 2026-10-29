@@ -105,7 +105,7 @@ async function fixture(name) {
 	let config = await fs.readFile(configPath, "utf8");
 	config = config.replace(
 		/project: (['"])\.\/project.inlang\1/,
-		'experimentalVirtualMessages: true, project: "./project.inlang"'
+		'/* Paraglide Vite default layout */ project: "./project.inlang"'
 	);
 	await fs.writeFile(configPath, config);
 	return directory;
@@ -260,8 +260,8 @@ try {
 				virtualConfig
 					.replace(/optimizationPrototype\(\{[^}]*\}\),?/, "")
 					.replace(
-						"experimentalVirtualMessages: true",
-						"experimentalVirtualMessages: false"
+						"/* Paraglide Vite default layout */",
+						'outputStructure: "message-modules",'
 					)
 			);
 			await command(directory, vite, ["build"]);

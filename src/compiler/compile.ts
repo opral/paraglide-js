@@ -84,9 +84,22 @@ async function compileUnlocked(
 		PublicationOptions & { previousCompilation?: CompilationResult }
 ): Promise<CompilationResult> {
 	assertNoRemovedOptions(options);
+	if (
+		options.outputStructure === "virtual-modules" &&
+		!options[transformOutput]
+	) {
+		throw new Error(
+			'outputStructure: "virtual-modules" requires the Paraglide Vite plugin. Use "message-modules" or "locale-modules" for physical output.'
+		);
+	}
 	const withDefaultOptions = {
 		...defaultCompilerOptions,
 		...options,
+		// Vite publishes these independent message modules through its transport.
+		outputStructure:
+			options.outputStructure === "virtual-modules"
+				? ("message-modules" as const)
+				: (options.outputStructure ?? defaultCompilerOptions.outputStructure),
 	};
 
 	let nextCatalogState: CatalogState | undefined;

@@ -97,6 +97,13 @@ async function createProjectFixture(
 	return { workspace, projectDir, outdir };
 }
 
+/** Shared compiler-hook tests select the compiler from Vite's plugin array. */
+function compilerPlugin(plugins: any): any {
+	return [plugins]
+		.flat(Infinity)
+		.find((plugin) => plugin.name === "unplugin-paraglide-js");
+}
+
 /** Fires Vite's configResolved so the plugin learns its root. */
 function setViteRoot(plugin: any, root: string): void {
 	const configResolved =
@@ -193,7 +200,9 @@ test.each(["settings", "config"])(
 		process.env.NODE_ENV = "development";
 		const { workspace, projectDir, outdir } = await createProjectFixture();
 		const { paraglideVitePlugin } = await import("./vite.js");
-		const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(
+			paraglideVitePlugin({ project: projectDir, outdir })
+		);
 		setViteRoot(plugin, workspace);
 		await plugin.buildStart.call(mockContext);
 		await plugin.closeBundle.call(mockContext);
@@ -262,7 +271,13 @@ test.each(
 			};
 		});
 		let { paraglideVitePlugin } = await import("./vite.js");
-		let plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		let plugin = compilerPlugin(
+			paraglideVitePlugin({
+				project: projectDir,
+				outdir,
+				outputStructure: "message-modules",
+			})
+		);
 		setViteRoot(plugin, workspace);
 		let pending: Promise<void> | undefined;
 		try {
@@ -296,7 +311,13 @@ test.each(
 				({ paraglideVitePlugin } = await import("./vite.js"));
 			}
 			if (restart !== "same instance") {
-				plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+				plugin = compilerPlugin(
+					paraglideVitePlugin({
+						project: projectDir,
+						outdir,
+						outputStructure: "message-modules",
+					})
+				);
 				setViteRoot(plugin, workspace);
 			}
 			await plugin.buildStart.call(mockContext);
@@ -380,7 +401,9 @@ test.each(["settings", "config"])(
 			source === "settings" ? "{" : "export default { outdir: 42 }"
 		);
 		const { paraglideVitePlugin } = await import("./vite.js");
-		const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(
+			paraglideVitePlugin({ project: projectDir, outdir })
+		);
 		const { send } = configureViteServer(plugin);
 
 		await expect(plugin.buildStart.call(mockContext)).resolves.toBeUndefined();
@@ -408,7 +431,9 @@ test.each(["settings", "config"])(
 		const { projectDir, outdir } = await createProjectFixture();
 		const { paraglideVitePlugin } = await import("./vite.js");
 		const writeFile = vi.spyOn(realFs.promises, "writeFile");
-		const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(
+			paraglideVitePlugin({ project: projectDir, outdir })
+		);
 		const { send } = configureViteServer(plugin);
 		await plugin.buildStart.call(mockContext);
 		expect(send).not.toHaveBeenCalled();
@@ -555,7 +580,9 @@ test("vite error overlay retains errors without buffering them in Vite", async (
 	const original = await realFs.promises.readFile(file, "utf8");
 	await realFs.promises.writeFile(file, "{");
 	const { paraglideVitePlugin } = await import("./vite.js");
-	const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+	const plugin = compilerPlugin(
+		paraglideVitePlugin({ project: projectDir, outdir })
+	);
 	const ws = configureViteServer(plugin);
 	ws.clients.clear();
 	await plugin.buildStart.call(mockContext);
@@ -587,7 +614,9 @@ test("vite error overlay preserves compiler diagnostics and clears after a succe
 	try {
 		const { projectDir, outdir } = await createProjectFixture();
 		const { paraglideVitePlugin } = await import("./vite.js");
-		const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(
+			paraglideVitePlugin({ project: projectDir, outdir })
+		);
 		const { send } = configureViteServer(plugin);
 		await plugin.buildStart.call(mockContext);
 		expect(send).toHaveBeenCalledWith({
@@ -617,7 +646,9 @@ test("vite error overlay reports non-Error compiler failures during watchChange"
 	try {
 		const { projectDir, outdir } = await createProjectFixture();
 		const { paraglideVitePlugin } = await import("./vite.js");
-		const plugin = paraglideVitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(
+			paraglideVitePlugin({ project: projectDir, outdir })
+		);
 		const { send } = configureViteServer(plugin);
 		await plugin.buildStart.call(mockContext);
 		compile.mockRejectedValueOnce("Invalid translation");
@@ -741,7 +772,7 @@ test("watch mode follows config precedence flips", async () => {
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({ project: projectDir }) as any;
+	const plugin = compilerPlugin(vitePlugin({ project: projectDir }));
 	setViteRoot(plugin, workspace);
 
 	await plugin.buildStart?.call(mockContext);
@@ -776,10 +807,12 @@ test("vite plugin does not throw on compilation errors in development", async ()
 	const workspace = await mkdtemp(path.join(tmpdir(), "paraglide-plugin-"));
 	testDirectories.push(workspace);
 
-	const plugin = paraglideVitePlugin({
-		project: path.join(workspace, "does-not-exist.inlang"),
-		outdir: path.join(workspace, "out"),
-	}) as any;
+	const plugin = compilerPlugin(
+		paraglideVitePlugin({
+			project: path.join(workspace, "does-not-exist.inlang"),
+			outdir: path.join(workspace, "out"),
+		})
+	);
 
 	// In development mode - should catch errors and NOT throw
 	await expect(plugin.buildStart?.call(mockContext)).resolves.toBeUndefined();
@@ -795,10 +828,12 @@ test("vite plugin throws on compilation errors at build time", async () => {
 	const workspace = await mkdtemp(path.join(tmpdir(), "paraglide-plugin-"));
 	testDirectories.push(workspace);
 
-	const plugin = paraglideVitePlugin({
-		project: path.join(workspace, "does-not-exist.inlang"),
-		outdir: path.join(workspace, "out"),
-	}) as any;
+	const plugin = compilerPlugin(
+		paraglideVitePlugin({
+			project: path.join(workspace, "does-not-exist.inlang"),
+			outdir: path.join(workspace, "out"),
+		})
+	);
 
 	// In production mode - should throw the error
 	const { send } = configureViteServer(plugin);
@@ -826,11 +861,13 @@ test("vite plugin does not wipe outdir during first buildStart (#659)", async ()
 
 	const rmSpy = vi.spyOn(realFs.promises, "rm");
 
-	const plugin = vitePlugin({
-		project: projectDir,
-		outdir,
-		cleanOutdir: true,
-	}) as any;
+	const plugin = compilerPlugin(
+		vitePlugin({
+			project: projectDir,
+			outdir,
+			cleanOutdir: true,
+		})
+	);
 
 	await plugin.buildStart?.call(mockContext);
 
@@ -850,7 +887,13 @@ test("vite plugin warm-restart writes nothing when inputs unchanged (#659)", asy
 	{
 		const { paraglideVitePlugin: vitePlugin } =
 			await import("../bundler-plugins/vite.js");
-		const plugin = vitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(
+			vitePlugin({
+				project: projectDir,
+				outdir,
+				outputStructure: "message-modules",
+			})
+		);
 		await plugin.buildStart?.call(mockCtx);
 	}
 
@@ -860,7 +903,13 @@ test("vite plugin warm-restart writes nothing when inputs unchanged (#659)", asy
 	vi.resetModules();
 	const { paraglideVitePlugin: vitePluginFresh } =
 		await import("../bundler-plugins/vite.js");
-	const plugin2 = vitePluginFresh({ project: projectDir, outdir }) as any;
+	const plugin2 = compilerPlugin(
+		vitePluginFresh({
+			project: projectDir,
+			outdir,
+			outputStructure: "message-modules",
+		})
+	);
 
 	const writeFileSpy = vi.spyOn(realFs.promises, "writeFile");
 	await plugin2.buildStart?.call(mockCtx);
@@ -879,7 +928,13 @@ test("watchChange before buildStart writes nothing when inputs unchanged", async
 	{
 		const { paraglideVitePlugin: vitePlugin } =
 			await import("../bundler-plugins/vite.js");
-		const plugin = vitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(
+			vitePlugin({
+				project: projectDir,
+				outdir,
+				outputStructure: "message-modules",
+			})
+		);
 		await plugin.buildStart?.call(mockContext);
 	}
 
@@ -887,7 +942,13 @@ test("watchChange before buildStart writes nothing when inputs unchanged", async
 	vi.resetModules();
 	const { paraglideVitePlugin: vitePluginFresh } =
 		await import("../bundler-plugins/vite.js");
-	const plugin2 = vitePluginFresh({ project: projectDir, outdir }) as any;
+	const plugin2 = compilerPlugin(
+		vitePluginFresh({
+			project: projectDir,
+			outdir,
+			outputStructure: "message-modules",
+		})
+	);
 
 	// Modification times rather than a writeFile spy: the plugin's tracked fs
 	// copies the fs methods when its state is created.
@@ -932,6 +993,7 @@ test("vite plugin skips compile on an unchanged fresh process (#741)", async () 
 		let emitReadme = true;
 		const optionsGetter = () => ({
 			emitReadme,
+			outputStructure: "message-modules" as const,
 		});
 
 		const { projectDir, outdir } = await createProjectFixture({
@@ -941,11 +1003,13 @@ test("vite plugin skips compile on an unchanged fresh process (#741)", async () 
 			vi.resetModules();
 			const { paraglideVitePlugin } =
 				await import("../bundler-plugins/vite.js");
-			const plugin = paraglideVitePlugin({
-				project: projectDir,
-				outdir,
-				...optionsGetter(),
-			}) as any;
+			const plugin = compilerPlugin(
+				paraglideVitePlugin({
+					project: projectDir,
+					outdir,
+					...optionsGetter(),
+				})
+			);
 			await plugin.buildStart?.call(mockContext);
 		};
 
@@ -1030,7 +1094,7 @@ test("vite plugin skips compile() when buildStart fires again with unchanged inp
 			locales: ["en", "de", "fr"],
 		});
 
-		const plugin = vitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(vitePlugin({ project: projectDir, outdir }));
 
 		// First environment (e.g. client) compiles.
 		await plugin.buildStart?.call(mockContext);
@@ -1073,7 +1137,7 @@ test("vite plugin recompiles when a file is added to a tracked directory (#693)"
 
 		const { projectDir, outdir } = await createProjectFixture();
 
-		const plugin = vitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(vitePlugin({ project: projectDir, outdir }));
 
 		await plugin.buildStart?.call(mockContext);
 		await plugin.buildStart?.call(mockContext);
@@ -1112,7 +1176,7 @@ test("vite plugin does not reuse a digest from before a failed compile (#693)", 
 
 		const { projectDir, outdir } = await createProjectFixture();
 
-		const plugin = vitePlugin({ project: projectDir, outdir }) as any;
+		const plugin = compilerPlugin(vitePlugin({ project: projectDir, outdir }));
 
 		await plugin.buildStart?.call(mockContext);
 		expect(compileSpy).toHaveBeenCalledTimes(1);
@@ -1180,18 +1244,22 @@ test("vite plugin instances with different fs compile against their own fs (#693
 	await seedIntoFs(fsA);
 	await seedIntoFs(fsB);
 
-	const pluginA = vitePlugin({
-		project: "/project.inlang",
-		outdir,
-		fs: fsA,
-	}) as any;
+	const pluginA = compilerPlugin(
+		vitePlugin({
+			project: "/project.inlang",
+			outdir,
+			fs: fsA,
+		})
+	);
 	await pluginA.buildStart?.call(mockContext);
 
-	const pluginB = vitePlugin({
-		project: "/project.inlang",
-		outdir,
-		fs: fsB,
-	}) as any;
+	const pluginB = compilerPlugin(
+		vitePlugin({
+			project: "/project.inlang",
+			outdir,
+			fs: fsB,
+		})
+	);
 	await pluginB.buildStart?.call(mockContext);
 	// B's output must exist in B's filesystem — with a shared tracked fs it
 	// would have been read from and written into A's filesystem instead.
@@ -1213,10 +1281,12 @@ test("vite plugin reads options from a paraglide config file", async () => {
 	// No config yet: the plugin falls back to the default outdir.
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const pluginWithoutConfig = vitePlugin({
-		project: projectDir,
-		outdir,
-	}) as any;
+	const pluginWithoutConfig = compilerPlugin(
+		vitePlugin({
+			project: projectDir,
+			outdir,
+		})
+	);
 	setViteRoot(pluginWithoutConfig, workspace);
 	await pluginWithoutConfig.buildStart?.call(mockContext);
 	expect(await realFs.promises.readdir(outdir)).not.toHaveLength(0);
@@ -1230,7 +1300,7 @@ test("vite plugin reads options from a paraglide config file", async () => {
 			"}",
 		].join("\n")
 	);
-	const pluginWithConfig = vitePlugin({ project: projectDir }) as any;
+	const pluginWithConfig = compilerPlugin(vitePlugin({ project: projectDir }));
 	setViteRoot(pluginWithConfig, workspace);
 	await pluginWithConfig.buildStart?.call(mockContext);
 	expect(
@@ -1238,10 +1308,12 @@ test("vite plugin reads options from a paraglide config file", async () => {
 	).not.toHaveLength(0);
 
 	// ...and an explicit option wins over the config file.
-	const pluginWithOverride = vitePlugin({
-		project: projectDir,
-		outdir: flagOutdir,
-	}) as any;
+	const pluginWithOverride = compilerPlugin(
+		vitePlugin({
+			project: projectDir,
+			outdir: flagOutdir,
+		})
+	);
 	setViteRoot(pluginWithOverride, workspace);
 	await pluginWithOverride.buildStart?.call(mockContext);
 	expect(await realFs.promises.readdir(flagOutdir)).not.toHaveLength(0);
@@ -1253,10 +1325,12 @@ test("resolves a relative project option against the vite root", async () => {
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({
-		project: "./project.inlang", // relative — resolved against the root
-		outdir,
-	}) as any;
+	const plugin = compilerPlugin(
+		vitePlugin({
+			project: "./project.inlang", // relative — resolved against the root
+			outdir,
+		})
+	);
 	setViteRoot(plugin, workspace);
 
 	expect(projectDir).toBe(path.join(workspace, "project.inlang"));
@@ -1273,7 +1347,7 @@ test("watch mode hot-reloads when the config file changes", async () => {
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({ project: projectDir }) as any;
+	const plugin = compilerPlugin(vitePlugin({ project: projectDir }));
 	setViteRoot(plugin, workspace);
 
 	const capturingContext = {
@@ -1314,7 +1388,7 @@ test("watchChange keeps the previous output when the edited config is invalid", 
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({ project: projectDir, outdir }) as any;
+	const plugin = compilerPlugin(vitePlugin({ project: projectDir, outdir }));
 	setViteRoot(plugin, path.dirname(projectDir));
 
 	await plugin.buildStart?.call(mockContext);
@@ -1350,7 +1424,7 @@ test("buildStart does not throw when the config file is invalid in development",
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({ project: projectDir }) as any;
+	const plugin = compilerPlugin(vitePlugin({ project: projectDir }));
 	setViteRoot(plugin, path.dirname(projectDir));
 
 	await expect(plugin.buildStart?.call(mockContext)).resolves.toBeUndefined();
@@ -1371,7 +1445,7 @@ test("watchChange does not throw for unrelated files while the config is invalid
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({ project: projectDir }) as any;
+	const plugin = compilerPlugin(vitePlugin({ project: projectDir }));
 	setViteRoot(plugin, path.dirname(projectDir));
 
 	// Swallowed by buildStart; nothing valid ends up in the cache.
@@ -1393,7 +1467,7 @@ test("queued config events are applied even when input events follow", async () 
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({ project: projectDir }) as any;
+	const plugin = compilerPlugin(vitePlugin({ project: projectDir }));
 	setViteRoot(plugin, workspace);
 
 	await plugin.buildStart?.call(mockContext);
@@ -1437,7 +1511,7 @@ test("buildStart throws when the config is invalid in production", async () => {
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({ project: projectDir }) as any;
+	const plugin = compilerPlugin(vitePlugin({ project: projectDir }));
 	setViteRoot(plugin, path.dirname(projectDir));
 
 	await expect(plugin.buildStart?.call(mockContext)).rejects.toThrow(
@@ -1447,8 +1521,8 @@ test("buildStart throws when the config is invalid in production", async () => {
 
 // Regression (review): pinning outputStructure in the shared defaults
 // template killed the development default (#486). Without an explicit
-// structure, plugins must emit locale-modules outside production.
-test("development default output structure is locale-modules", async () => {
+// structure, Vite must still apply its virtual default without changing shared defaults.
+test("Vite development default output structure is virtual-modules", async () => {
 	const { writeFile } = await import("node:fs/promises");
 	const { projectDir, outdir } = await createProjectFixture();
 
@@ -1467,16 +1541,19 @@ test("development default output structure is locale-modules", async () => {
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({ project: projectDir, outdir }) as any;
+	const plugin = compilerPlugin(vitePlugin({ project: projectDir, outdir }));
 	setViteRoot(plugin, path.dirname(projectDir));
 
 	delete process.env.NODE_ENV;
 	await plugin.buildStart?.call(mockContext);
 
-	const messages = await realFs.promises.readdir(path.join(outdir, "messages"));
-	expect(messages).toContain("en.js");
-	expect(messages).toContain("de.js");
-	expect(messages).not.toContain("hello.js");
+	await expect(
+		realFs.promises.access(path.join(outdir, "messages"))
+	).rejects.toThrow();
+	expect(
+		await realFs.promises.readFile(path.join(outdir, "messages.js"), "utf8")
+	).toContain("virtual:paraglide/");
+	await realFs.promises.access(path.join(outdir, "messages.virtual.d.ts"));
 });
 
 // All four candidate names are registered inside the project directory so
@@ -1491,7 +1568,7 @@ test("registers all config candidates inside the project directory", async () =>
 
 	const { paraglideVitePlugin: vitePlugin } =
 		await import("../bundler-plugins/vite.js");
-	const plugin = vitePlugin({ project: projectDir }) as any;
+	const plugin = compilerPlugin(vitePlugin({ project: projectDir }));
 	setViteRoot(plugin, workspace);
 
 	const addedWatchFiles: string[] = [];

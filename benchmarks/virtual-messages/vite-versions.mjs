@@ -60,9 +60,7 @@ for (const major of [5, 6, 7, 8]) {
 			configFile: false,
 			logLevel: "silent",
 			resolve: { alias: { "@": path.join(directory, "src") } },
-			plugins: [
-				paraglideVitePlugin({ ...options, experimentalVirtualMessages: true }),
-			],
+			plugins: [paraglideVitePlugin({ ...options })],
 		};
 		process.env.NODE_ENV = "development";
 		server = await vite.createServer({
@@ -82,9 +80,7 @@ for (const major of [5, 6, 7, 8]) {
 		process.env.NODE_ENV = "production";
 		const built = await vite.build({
 			...config,
-			plugins: [
-				paraglideVitePlugin({ ...options, experimentalVirtualMessages: true }),
-			],
+			plugins: [paraglideVitePlugin({ ...options })],
 			build: {
 				write: false,
 				minify: false,

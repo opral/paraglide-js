@@ -10,7 +10,7 @@ Defined in: [compiler-options.ts:51](https://github.com/opral/paraglide-js/tree/
 
 > `optional` **cleanOutdir**: `boolean`
 
-Defined in: [compiler-options.ts:417](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:418](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Whether to clean the output directory before writing the new files.
 
@@ -325,7 +325,7 @@ https://github.com/opral/paraglide-js/issues/88#issuecomment-3634754638
 
 > `optional` **fs**: `any`
 
-Defined in: [compiler-options.ts:424](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:425](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The file system to use. Defaults to `await import('node:fs')`.
 
@@ -387,7 +387,7 @@ The name of the localStorage key to use for the localStorage strategy.
 
 > `optional` **messageModuleSize**: `number`
 
-Defined in: [compiler-options.ts:411](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:412](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Messages per generated module in the message-modules layout.
 Values above one group messages into shards and preserve messages.js exports,
@@ -419,18 +419,19 @@ await compile({
 
 #### outputStructure?
 
-> `optional` **outputStructure**: `"locale-modules"` \| `"message-modules"`
+> `optional` **outputStructure**: `"locale-modules"` \| `"message-modules"` \| `"virtual-modules"`
 
-Defined in: [compiler-options.ts:402](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:403](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The `outputStructure` defines how modules are structured in the output.
 
-- `message-modules` - Each module is a message. This is the default.
+- `message-modules` - Each module is a physical message file. Default for the CLI.
+- `virtual-modules` - Individual messages served by Vite, with combined declarations. Default for Vite; requires the Vite plugin.
 - `locale-modules` - Each module is a locale.
 
-It is recommended to use `locale-modules` for development and `message-modules` for production.
-Bundlers speed up the dev mode by bypassing bundling which can lead to many http requests
-during the dev mode with `message-modules`. See https://github.com/opral/inlang-paraglide-js/issues/486.
+Vite uses `virtual-modules` for development and production, keeping public entry
+points physical while avoiding individual message files. Other bundler plugins
+use `locale-modules` in development and `message-modules` in production.
 
 **`message-modules`**
 

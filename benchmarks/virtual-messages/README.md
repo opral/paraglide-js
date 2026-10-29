@@ -1,9 +1,10 @@
 # Virtual messages: end-to-end A/B
 
-This fixture compares individual disk message modules with opt-in Vite virtual
+This fixture compares individual disk message modules with Vite virtual
 messages. Both runs use the same compiler revision, SDK, framework, source
 catalog, message-module layout and declarations-enabled options. The only mode
-switch is `experimentalVirtualMessages`.
+switch is `outputStructure: "message-modules"` versus `"virtual-modules"`.
+Virtual modules are now the Vite default; the runner selects each mode explicitly.
 
 The implementation keeps physical runtime/server/registry files and the public
 `messages.js`, plus a tiny `messages.d.ts` and one combined
@@ -87,6 +88,12 @@ are committed alongside the runner. These measurements used clean source commit
 `9b1296dfe35d4ddb832e5a087c98c66ba9a8bcb7`. The linked SDK still reports package
 version 4.0.4; that is not the published 4.0.4 implementation. The parent/base
 reference is `84a283dc258f96e3f39389e32cf2e42aa08375c6`.
+
+The recorded source used the earlier experimental boolean. The public API now
+selects `outputStructure: "virtual-modules"` and defaults to it in Vite. The raw
+results retain their original source/API provenance; their timing has not been
+relabelled as a fresh measurement of this API/default change. The runner above
+uses the current output-structure API.
 
 Hardware: Apple M5 Pro; Node 24.22.1; Vite 8.1.4. SvelteKit 2.69.2 / Svelte 5.56.4
 uses TypeScript 5.8.3 and svelte-check 4.3.5. TanStack Start 1.168.27 / React 19.2.3
@@ -201,3 +208,19 @@ are compared against disk output; scoped application/generated-declaration
 checks pass with library checking enabled. SvelteKit whole-project checking with
 `skipLibCheck: false` reports 37 dependency diagnostics identical to the disk
 control; scoped application/output checking with that setting passes.
+
+## Output-structure API/default follow-up
+
+The API/default update passes 1,120 source tests (five skipped across 73 files),
+package build/type checking, and the existing 36-configuration declaration matrix.
+Browser checks now exercise the Vite default without an explicit layout setting.
+See [framework results](results/frameworks-default-output.json) and
+[Vite 5–8 results](results/vite-versions-default-output.json). Current whole-project
+SvelteKit library checking has 33 dependency diagnostics identical to physical
+output; scoped strict application/declaration checking passes. The historical
+records above remain unchanged.
+
+Two blind fresh-context agent usability probes favored explicit invocation
+options > project config > defaults. See [scenarios, limitations and applied
+decisions](configuration-usability.md). Regression tests cover all layout
+overrides, watched config transitions, CLI defaults and Vite-only rejection.

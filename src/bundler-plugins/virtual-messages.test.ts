@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { createServer, build } from "vite";
 import { paraglideVitePlugin } from "./vite.js";
 
-test("virtual messages preserve aliases, edits, additions/removals, cold restarts and tree shaking", async () => {
+test("Vite defaults to virtual messages and preserves aliases, edits, additions/removals, cold restarts and tree shaking", async () => {
 	const root = await fs.realpath(
 		await fs.mkdtemp(path.join(tmpdir(), "paraglide-virtual-integration-"))
 	);
@@ -54,7 +54,6 @@ test("virtual messages preserve aliases, edits, additions/removals, cold restart
 		const options = {
 			project,
 			outdir,
-			experimentalVirtualMessages: true,
 			strategy: ["baseLocale"] as const,
 			emitGitIgnore: false,
 			emitPrettierIgnore: false,
@@ -196,14 +195,11 @@ test("virtual messages preserve aliases, edits, additions/removals, cold restart
 test("virtual messages reject incompatible output options", () => {
 	const common = {
 		project: "./project.inlang",
-		experimentalVirtualMessages: true,
+		outputStructure: "virtual-modules" as const,
 	};
 	expect(() =>
 		paraglideVitePlugin({ ...common, emitTsDeclarations: false })
 	).toThrow("requires emitTsDeclarations");
-	expect(() =>
-		paraglideVitePlugin({ ...common, outputStructure: "locale-modules" })
-	).toThrow("requires message-modules");
 	expect(() =>
 		paraglideVitePlugin({ ...common, experimentalPerLocaleBuild: true })
 	).toThrow("cannot be combined");
@@ -214,7 +210,6 @@ test("virtual messages reject incompatible output options", () => {
 
 test.each([
 	["messageModuleSize: 64", "messageModuleSize"],
-	['outputStructure: "locale-modules"', "message-modules"],
 	["emitTsDeclarations: false", "emitTsDeclarations"],
 ])(
 	"virtual messages reject incompatible config-file options before publication: %s",
@@ -243,7 +238,7 @@ test.each([
 						paraglideVitePlugin({
 							project: path.join(root, "project.inlang"),
 							outdir: path.join(root, "out"),
-							experimentalVirtualMessages: true,
+							outputStructure: "virtual-modules" as const,
 						}),
 					],
 					build: {
@@ -296,7 +291,7 @@ test("two virtual outputs keep their static import indexes isolated through addi
 			projects.push({
 				project: path.join(directory, "project.inlang"),
 				outdir: path.join(directory, "out"),
-				experimentalVirtualMessages: true,
+				outputStructure: "virtual-modules" as const,
 				strategy: ["baseLocale" as const],
 				emitReadme: false,
 				emitGitIgnore: false,

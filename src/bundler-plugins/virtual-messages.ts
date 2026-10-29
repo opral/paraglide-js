@@ -240,46 +240,62 @@ export function createVirtualMessagesPlugins(
 	const compiler = createVitePlugin<ParaglidePluginOptions>((options, meta) =>
 		unpluginFactory(options, meta, {
 			devErrorResponse,
-			outputStructure: "message-modules",
-			emitTsDeclarations: true,
+			outputStructure: "virtual-modules",
+			emitTsDeclarations: (options) =>
+				options.outputStructure === "virtual-modules",
 			validateOptions(options) {
-				if (
-					(options.outputStructure ?? "message-modules") !== "message-modules"
-				)
-					throw new Error(
-						"experimentalVirtualMessages requires message-modules"
-					);
+				if (options.outputStructure !== "virtual-modules") return;
 				if (options.emitTsDeclarations === false)
 					throw new Error(
-						"experimentalVirtualMessages requires emitTsDeclarations"
+						'outputStructure: "virtual-modules" requires emitTsDeclarations: true. Enable declarations or select "message-modules" or "locale-modules" for physical output.'
 					);
 				if ((options.messageModuleSize ?? 1) !== 1)
 					throw new Error(
-						"experimentalVirtualMessages requires messageModuleSize: 1"
+						'outputStructure: "virtual-modules" requires messageModuleSize: 1'
 					);
 			},
-			transformOutput(output, nextDirectory, ids) {
-				const packed = virtualMessageOutput(output, nextDirectory);
-				const prefix = virtualMessagePrefix(nextDirectory);
-				const nextMessages = new Map(
-					ids
-						.filter((id) => id !== "default")
-						.map((id) => [
-							id,
-							prefix + "messages/" + toSafeModuleId(id) + ".js",
-						])
-				);
-				return {
-					output: packed.disk,
-					onPublished() {
-						messages = nextMessages;
-						if (!transport || directory !== nextDirectory) {
+			getOutputTransform(options) {
+				if (options.outputStructure !== "virtual-modules") {
+					if (!transport) return undefined;
+					return (output) => ({
+						output,
+						onPublished() {
 							transport?.api.update({});
-							directory = nextDirectory;
-							transport = virtualMessages(directory, packed.implementations);
-							if (server) transport.configureServer(server);
-						} else transport.api.update(packed.implementations);
-					},
+							transport = undefined;
+							directory = undefined;
+							messages = new Map();
+							server?.moduleGraph.invalidateAll();
+							server?.ws.send({ type: "full-reload" });
+						},
+					});
+				}
+				return (output, nextDirectory, ids) => {
+					const packed = virtualMessageOutput(output, nextDirectory);
+					const prefix = virtualMessagePrefix(nextDirectory);
+					const nextMessages = new Map(
+						ids
+							.filter((id) => id !== "default")
+							.map((id) => [
+								id,
+								prefix + "messages/" + toSafeModuleId(id) + ".js",
+							])
+					);
+					return {
+						output: packed.disk,
+						onPublished() {
+							messages = nextMessages;
+							if (!transport || directory !== nextDirectory) {
+								transport?.api.update({});
+								directory = nextDirectory;
+								transport = virtualMessages(directory, packed.implementations);
+								if (server) {
+									transport.configureServer(server);
+									server.moduleGraph.invalidateAll();
+									server.ws.send({ type: "full-reload" });
+								}
+							} else transport.api.update(packed.implementations);
+						},
+					};
 				};
 			},
 		})

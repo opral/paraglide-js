@@ -7,6 +7,14 @@ import { unpluginFactory } from "./unplugin.js";
 
 export type ParaglideVitePluginOptions = ParaglidePluginOptions & {
 	/**
+	 * Message output layout. Vite defaults to virtual-modules in development
+	 * and production. Use message-modules or locale-modules for physical files.
+	 * Virtual modules emit combined declarations and require this plugin.
+	 *
+	 * @default "virtual-modules"
+	 */
+	outputStructure?: ParaglidePluginOptions["outputStructure"];
+	/**
 	 * Respond with HTTP 500 while the development compiler or its config is
 	 * invalid, instead of serving the last successful output. Error overlays
 	 * remain enabled. Set this on the Vite plugin, not in paraglide.config.
@@ -14,15 +22,6 @@ export type ParaglideVitePluginOptions = ParaglidePluginOptions & {
 	 * @default false
 	 */
 	devErrorResponse?: boolean;
-	/**
-	 * Serve individual message implementations virtually, keeping public runtime
-	 * and message entry points physical. Emits combined declarations and rewrites
-	 * safe static message imports. Requires this Vite plugin for dev/build.
-	 * Incompatible with grouped message modules and per-locale builds.
-	 * @experimental
-	 * @default false
-	 */
-	experimentalVirtualMessages?: boolean;
 	/**
 	 * Emit one compiler-specialized client asset tree per project locale.
 	 *
@@ -39,57 +38,46 @@ export type ParaglideVitePluginOptions = ParaglidePluginOptions & {
 
 type CompilerVitePluginOptions = Omit<
 	ParaglideVitePluginOptions,
-	"experimentalPerLocaleBuild" | "experimentalVirtualMessages"
+	"experimentalPerLocaleBuild"
 >;
 
-const createCompilerVitePlugin = createVitePlugin<CompilerVitePluginOptions>(
-	({ devErrorResponse, ...options }, meta) =>
-		unpluginFactory(options, meta, { devErrorResponse })
-);
 const createPerLocaleCompilerVitePlugin =
 	createVitePlugin<CompilerVitePluginOptions>(
 		({ devErrorResponse, ...options }, meta) =>
 			unpluginFactory(options, meta, {
 				outputStructure: "locale-modules",
 				devErrorResponse,
+				validateOptions(options) {
+					if (options.outputStructure === "virtual-modules")
+						throw new Error(
+							'outputStructure: "virtual-modules" cannot be combined with experimentalPerLocaleBuild'
+						);
+				},
 			})
 	);
 
 export function paraglideVitePlugin(
 	options: ParaglideVitePluginOptions
 ): Plugin | Plugin[] {
-	const {
-		experimentalPerLocaleBuild,
-		experimentalVirtualMessages,
-		devErrorResponse,
-		...compilerOptions
-	} = options;
-	if (experimentalVirtualMessages) {
-		if (experimentalPerLocaleBuild)
-			throw new Error(
-				"experimentalVirtualMessages cannot be combined with experimentalPerLocaleBuild"
-			);
-		if (
-			compilerOptions.outputStructure &&
-			compilerOptions.outputStructure !== "message-modules"
-		)
-			throw new Error("experimentalVirtualMessages requires message-modules");
-		if (compilerOptions.emitTsDeclarations === false)
-			throw new Error(
-				"experimentalVirtualMessages requires emitTsDeclarations"
-			);
-		if ((compilerOptions.messageModuleSize ?? 1) !== 1)
-			throw new Error(
-				"experimentalVirtualMessages requires messageModuleSize: 1"
-			);
+	const { experimentalPerLocaleBuild, devErrorResponse, ...compilerOptions } =
+		options;
+	if (!experimentalPerLocaleBuild) {
+		if (compilerOptions.outputStructure === "virtual-modules") {
+			if (compilerOptions.emitTsDeclarations === false)
+				throw new Error(
+					'outputStructure: "virtual-modules" requires emitTsDeclarations: true. Enable declarations or select "message-modules" or "locale-modules" for physical output.'
+				);
+			if ((compilerOptions.messageModuleSize ?? 1) !== 1)
+				throw new Error(
+					'outputStructure: "virtual-modules" requires messageModuleSize: 1'
+				);
+		}
 		return createVirtualMessagesPlugins(compilerOptions, devErrorResponse);
 	}
-	if (!experimentalPerLocaleBuild) {
-		return createCompilerVitePlugin({
-			...compilerOptions,
-			devErrorResponse,
-		}) as Plugin;
-	}
+	if (compilerOptions.outputStructure === "virtual-modules")
+		throw new Error(
+			'outputStructure: "virtual-modules" cannot be combined with experimentalPerLocaleBuild'
+		);
 
 	return createPerLocaleBuildPlugins({
 		compilerOptions,

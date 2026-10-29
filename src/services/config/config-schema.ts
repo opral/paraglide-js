@@ -121,7 +121,7 @@ export const paraglideConfigSchema = v.object({
 	disableAsyncLocalStorage: v.optional(v.boolean()),
 	emitGitIgnore: v.optional(v.boolean()),
 	outputStructure: v.optional(
-		v.picklist(["message-modules", "locale-modules"])
+		v.picklist(["message-modules", "locale-modules", "virtual-modules"])
 	),
 	messageModuleSize: v.optional(
 		v.pipe(
