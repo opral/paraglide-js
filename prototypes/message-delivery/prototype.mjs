@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import ts from "typescript";
 import { generateCatalog } from "../../dist/compiler/incremental-output.js";
@@ -155,11 +156,6 @@ export function singleMessageDeclaration(output) {
 				name !== "messages/package.json"
 		)
 	);
-	// TypeScript cannot resolve Vite-only relative modules when checkJs includes
-	// this generated facade. Application typing comes from messages.d.ts.
-	result["messages.js"] =
-		"// @ts-nocheck\n// Vite resolves these generated imports; messages.d.ts provides application types.\n" +
-		output["messages.js"];
 	const localizedString =
 		'export type LocalizedString = import("../runtime.js").LocalizedString;';
 	const definitions = Object.entries(output)
@@ -268,7 +264,12 @@ export function transport(output, variant) {
 	const disk = {},
 		virtual = {};
 	for (const [name, code] of Object.entries(files)) {
-		if (variant.virtual && name.startsWith("messages/") && name.endsWith(".js"))
+		if (
+			variant.virtual &&
+			(name.startsWith("messages/") ||
+				(variant.singleTypes && name === "messages.js")) &&
+			name.endsWith(".js")
+		)
 			virtual[name] = code;
 		else disk[name] = code;
 	}
@@ -285,11 +286,16 @@ export async function publish(directory, files, previous) {
 	});
 }
 
-// Normal facade/runtime imports remain on disk. Only message implementations
-// use Vite's \0 virtual IDs. Relative imports must resolve in the original
-// generated directory, not relative to the artificial virtual namespace.
+// Runtime imports remain on disk; the facade can be virtual too. Public IDs
+// use virtual:paraglide/ and resolve to Vite's internal \0 IDs. Relative imports
+// resolve in the original generated directory, not the virtual namespace.
 export function virtualMessages(directory, initial) {
-	const prefix = "\0paraglide-prototype:" + directory + ":";
+	const namespace = createHash("sha256")
+		.update(path.resolve(directory))
+		.digest("hex")
+		.slice(0, 16);
+	const publicPrefix = `virtual:paraglide/${namespace}/`;
+	const prefix = "\0" + publicPrefix;
 	let files = initial;
 	let server;
 	const virtualName = (id) =>
@@ -309,6 +315,10 @@ export function virtualMessages(directory, initial) {
 			server = value;
 		},
 		resolveId(source, importer) {
+			if (source.startsWith(publicPrefix)) {
+				const name = source.slice(publicPrefix.length);
+				return Object.hasOwn(files, name) ? prefix + name : null;
+			}
 			const ownName = virtualName(source);
 			if (ownName !== undefined)
 				return Object.hasOwn(files, ownName) ? source : null;
@@ -332,7 +342,17 @@ export function virtualMessages(directory, initial) {
 		load(id) {
 			const name = virtualName(id);
 			if (name !== undefined && Object.hasOwn(files, name))
-				return { code: files[name], map: null, moduleSideEffects: false };
+				return {
+					code:
+						name === "messages.js"
+							? files[name].replaceAll(
+									"'./messages/_index.js'",
+									JSON.stringify(publicPrefix + "messages/_index.js")
+								)
+							: files[name],
+					map: null,
+					moduleSideEffects: false,
+				};
 			return null;
 		},
 		api: {

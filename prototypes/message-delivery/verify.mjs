@@ -29,91 +29,95 @@ async function workspace(operation) {
 	}
 }
 
-test("virtual message graph executes SSR and invalidates changed, added and removed exports", async () => {
-	await workspace(async (directory) => {
-		const catalog = fixture(8);
-		// Exercise a relative registry import from a virtual message to a disk file.
-		catalog.bundles[1].messages[0].variants[0].pattern = [
-			{
-				type: "expression",
-				arg: { type: "variable-reference", name: "name" },
-				annotation: { type: "function-reference", name: "number", options: [] },
-			},
-		];
-		const variant = variants.find(
-			(variant) => variant.name === "virtual-message"
-		);
-		const generated = await generate(catalog, variant);
-		const files = transport(generated.output, variant);
-		const outdir = path.join(directory, "src/paraglide");
-		let hashes = await publish(outdir, files.disk);
-		await fs.writeFile(
-			path.join(directory, "package.json"),
-			'{"type":"module"}'
-		);
-		await fs.writeFile(
-			path.join(directory, "src/entry.js"),
-			'export { m } from "./paraglide/messages.js";'
-		);
-		assert.ok(files.disk["runtime.js"]);
-		assert.ok(files.disk["server.js"]);
-		assert.ok(files.disk["registry.js"]);
-		assert.ok(files.disk["messages.d.ts"]);
-		assert.equal(files.disk["messages/message_0.js"], undefined);
-		const plugin = virtualMessages(outdir, files.virtual);
-		const server = await createServer({
-			root: directory,
-			configFile: false,
-			logLevel: "silent",
-			plugins: [plugin],
-			optimizeDeps: { noDiscovery: true },
-			server: { watch: null, preTransformRequests: false },
+for (const mode of ["virtual-message", "virtual-message-single-types"]) {
+	test(`${mode}: executes SSR and invalidates changed, added and removed exports`, async () => {
+		await workspace(async (directory) => {
+			const catalog = fixture(8);
+			// Exercise a relative registry import from a virtual message to a disk file.
+			catalog.bundles[1].messages[0].variants[0].pattern = [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "name" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [],
+					},
+				},
+			];
+			const variant = variants.find((variant) => variant.name === mode);
+			const generated = await generate(catalog, variant);
+			const files = transport(generated.output, variant);
+			const outdir = path.join(directory, "src/paraglide");
+			let hashes = await publish(outdir, files.disk);
+			await fs.writeFile(
+				path.join(directory, "package.json"),
+				'{"type":"module"}'
+			);
+			await fs.writeFile(
+				path.join(directory, "src/entry.js"),
+				'export { m } from "./paraglide/messages.js";'
+			);
+			assert.ok(files.disk["runtime.js"]);
+			assert.ok(files.disk["server.js"]);
+			assert.ok(files.disk["registry.js"]);
+			assert.ok(files.disk["messages.d.ts"]);
+			assert.equal(files.disk["messages/message_0.js"], undefined);
+			const plugin = virtualMessages(outdir, files.virtual);
+			const server = await createServer({
+				root: directory,
+				configFile: false,
+				logLevel: "silent",
+				plugins: [plugin],
+				optimizeDeps: { noDiscovery: true },
+				server: { watch: null, preTransformRequests: false },
+			});
+			const reloads = [];
+			const send = server.ws.send;
+			server.ws.send = (payload) => reloads.push(payload);
+			try {
+				assert.ok((await crawl(server)).modules >= 12);
+				let module = await server.ssrLoadModule("/src/entry.js");
+				assert.equal(module.m.message_0({ name: "Ada" }), "en_SENTINEL_0_ Ada");
+				assert.equal(
+					module.m.message_0({ name: "Ada" }, { locale: "de" }),
+					"de_SENTINEL_0_ Ada"
+				);
+				assert.equal(module.m.message_1({ name: 123 }), "123");
+				const next = structuredClone(catalog);
+				next.bundles[0].messages[0].variants[0].pattern[0].value = "EDITED ";
+				next.bundles.splice(7, 1);
+				const added = fixture(9).bundles[8];
+				next.bundles.push(added);
+				// Full reset tests added/removed export surfaces, independently of the
+				// incremental compiler implementation used in the timing harness.
+				const nextGenerated = await generate(next, variant);
+				const nextFiles = transport(nextGenerated.output, variant);
+				hashes = await publish(outdir, nextFiles.disk, hashes);
+				const changed = plugin.api.update(nextFiles.virtual);
+				assert.ok(changed.includes("messages/_index.js"));
+				module = await server.ssrLoadModule("/src/entry.js");
+				assert.equal(module.m.message_0({ name: "Ada" }), "EDITED Ada");
+				assert.equal(module.m.message_7, undefined);
+				assert.equal(module.m.message_8({ name: "Ada" }), "en_SENTINEL_8_ Ada");
+				assert.deepEqual(reloads, [{ type: "full-reload" }]);
+				assert.deepEqual(plugin.api.update(nextFiles.virtual), []);
+				assert.equal(reloads.length, 1);
+				// A separate generated tree with identical relative paths is not captured.
+				assert.equal(
+					plugin.resolveId(
+						"../other/messages/message_0.js",
+						path.join(outdir, "messages.js")
+					),
+					null
+				);
+			} finally {
+				server.ws.send = send;
+				await server.close();
+			}
 		});
-		const reloads = [];
-		const send = server.ws.send;
-		server.ws.send = (payload) => reloads.push(payload);
-		try {
-			assert.ok((await crawl(server)).modules >= 12);
-			let module = await server.ssrLoadModule("/src/entry.js");
-			assert.equal(module.m.message_0({ name: "Ada" }), "en_SENTINEL_0_ Ada");
-			assert.equal(
-				module.m.message_0({ name: "Ada" }, { locale: "de" }),
-				"de_SENTINEL_0_ Ada"
-			);
-			assert.equal(module.m.message_1({ name: 123 }), "123");
-			const next = structuredClone(catalog);
-			next.bundles[0].messages[0].variants[0].pattern[0].value = "EDITED ";
-			next.bundles.splice(7, 1);
-			const added = fixture(9).bundles[8];
-			next.bundles.push(added);
-			// Full reset tests added/removed export surfaces, independently of the
-			// incremental compiler implementation used in the timing harness.
-			const nextGenerated = await generate(next, variant);
-			const nextFiles = transport(nextGenerated.output, variant);
-			hashes = await publish(outdir, nextFiles.disk, hashes);
-			const changed = plugin.api.update(nextFiles.virtual);
-			assert.ok(changed.includes("messages/_index.js"));
-			module = await server.ssrLoadModule("/src/entry.js");
-			assert.equal(module.m.message_0({ name: "Ada" }), "EDITED Ada");
-			assert.equal(module.m.message_7, undefined);
-			assert.equal(module.m.message_8({ name: "Ada" }), "en_SENTINEL_8_ Ada");
-			assert.deepEqual(reloads, [{ type: "full-reload" }]);
-			assert.deepEqual(plugin.api.update(nextFiles.virtual), []);
-			assert.equal(reloads.length, 1);
-			// A separate generated tree with identical relative paths is not captured.
-			assert.equal(
-				plugin.resolveId(
-					"../other/messages/message_0.js",
-					path.join(outdir, "messages.js")
-				),
-				null
-			);
-		} finally {
-			server.ws.send = send;
-			await server.close();
-		}
 	});
-});
+}
 
 for (const mode of [
 	"virtual-message-types-64",
@@ -162,6 +166,7 @@ for (const mode of [
 				await assert.rejects(
 					fs.access(path.join(outdir, "messages/_types_0.d.ts"))
 				);
+				await assert.rejects(fs.access(path.join(outdir, "messages.js")));
 			} else await publish(outdir, files.disk);
 			assert.equal(
 				Object.keys(files.disk).filter(
@@ -172,7 +177,9 @@ for (const mode of [
 					: Math.ceil(catalog.bundles.length / variant.typeGroup) + 1
 			);
 			if (variant.singleTypes) {
-				assert.equal(Object.keys(files.disk).length, 8);
+				assert.equal(Object.keys(files.disk).length, 7);
+				assert.equal(files.disk["messages.js"], undefined);
+				assert.ok(files.virtual["messages.js"]);
 				assert.equal(files.disk["messages/package.json"], undefined);
 			}
 			await fs.writeFile(
@@ -231,7 +238,7 @@ for (const mode of [
 	});
 }
 
-test("single declarations type-check applications when checkJs includes the generated facade", async () => {
+test("virtual facade uses explicit virtual IDs and type-checks applications without suppression comments", async () => {
 	await workspace(async (directory) => {
 		const variant = variants.find((item) => item.singleTypes);
 		const files = transport(
@@ -288,30 +295,63 @@ test("single declarations type-check applications when checkJs includes the gene
 			ts.sys,
 			directory
 		);
-		assert.ok(config.fileNames.includes(path.join(outdir, "messages.js")));
-		const diagnostics = () =>
-			ts.getPreEmitDiagnostics(
-				ts.createProgram(config.fileNames, config.options)
-			);
-		// Pin the original failure so the guard cannot become an untested blanket
-		// suppression. Consumer @ts-expect-error checks fail if types become any.
-		await fs.writeFile(
-			path.join(outdir, "messages.js"),
-			files["messages.js"].replace("// @ts-nocheck\n", "")
+		assert.equal(
+			config.fileNames.includes(path.join(outdir, "messages.js")),
+			false
 		);
+		assert.ok(config.fileNames.includes(path.join(outdir, "messages.d.ts")));
 		assert.ok(
-			diagnostics().some(
-				(item) =>
-					item.code === 2307 &&
-					item.file?.fileName === path.join(outdir, "messages.js")
-			)
+			Object.values(files).every((code) => !/@ts-(?:nocheck|ignore)/.test(code))
 		);
-		await fs.writeFile(path.join(outdir, "messages.js"), files["messages.js"]);
+		const plugin = virtualMessages(
+			outdir,
+			transport((await generate(fixture(3), variant)).output, variant).virtual
+		);
+		const id = plugin.resolveId(
+			"./paraglide/messages.js",
+			path.join(directory, "consumer.js")
+		);
+		assert.ok(id.startsWith("\0virtual:paraglide/"));
+		assert.match(plugin.load(id).code, /export \* from "virtual:paraglide\//);
+		const diagnostics = ts.getPreEmitDiagnostics(
+			ts.createProgram(config.fileNames, config.options)
+		);
 		assert.deepEqual(
-			diagnostics().map((item) =>
+			diagnostics.map((item) =>
 				ts.flattenDiagnosticMessageText(item.messageText, " ")
 			),
 			[]
 		);
+		// Resolve types even when the generated directory is absent from include.
+		for (const [module, moduleResolution] of [
+			["NodeNext", "NodeNext"],
+			["ESNext", "Bundler"],
+		]) {
+			const minimal = ts.parseJsonConfigFileContent(
+				{
+					compilerOptions: {
+						...config.raw.compilerOptions,
+						module,
+						moduleResolution,
+						noUnusedLocals: true,
+						verbatimModuleSyntax: true,
+						noUncheckedSideEffectImports: true,
+					},
+					files: ["consumer.ts", "consumer.js"],
+				},
+				ts.sys,
+				directory
+			);
+			assert.deepEqual(
+				ts
+					.getPreEmitDiagnostics(
+						ts.createProgram(minimal.fileNames, minimal.options)
+					)
+					.map((item) =>
+						ts.flattenDiagnosticMessageText(item.messageText, " ")
+					),
+				[]
+			);
+		}
 	});
 });

@@ -2,16 +2,16 @@
 
 The design works: JavaScript message implementations stay independent and virtual, while one real `messages.d.ts` provides all message types through the public `messages.js` entry point. Per-message declaration files are unnecessary for that API.
 
-There are eight emitted files regardless of catalog size:
+The current prototype emits seven files regardless of catalog size. The `messages.js` facade is now virtual too, and needs no TypeScript suppression comments:
 
 ```text
-messages.js       messages.d.ts
+                  messages.d.ts
 runtime.js        runtime.d.ts
 server.js         server.d.ts
 registry.js       registry.d.ts
 ```
 
-The public facade still imports virtual message modules. Runtime, registry functions, and server code remain normal files. There is no declaration barrel, declaration shard directory, or unused messages/package.json in this variant.
+Application imports of `./paraglide/messages.js` resolve through Vite to the virtual facade, which re-exports explicit `virtual:paraglide/...` message modules. TypeScript resolves the same application imports to the real `messages.d.ts`. Runtime, registry functions, and server code remain normal files. There is no declaration barrel, declaration shard directory, or unused messages/package.json in this variant.
 
 ## What was checked
 
@@ -21,7 +21,7 @@ The public facade still imports virtual message modules. Runtime, registry funct
 - Removing old grouped declaration files when switching to the single declaration layout.
 - Vite builds and SSR execution of virtual messages. Runtime behavior, unused-message elimination, and production bundle sizes match individual virtual messages with packed declarations in the paired runs.
 - Strict consumers with `allowJs: false`, both `skipLibCheck` settings, and 6,400/20,000 messages.
-- `checkJs: true` when generated JavaScript is included: only the generated facade gets `@ts-nocheck`, while application TypeScript and JavaScript consumers retain declaration-based checking. The test reproduces the missing virtual-module error without that guard.
+- No TypeScript suppression comments. Application TS/JS checks pass with `checkJs`, NodeNext/Bundler resolution, strict checking, and consumer-only file lists without ambient declarations or tsconfig changes.
 
 The prototype packs declarations already generated in memory. A production implementation should emit this structure directly from metadata. It does not add a production TypeScript dependency or change the shipped output/default.
 
@@ -36,6 +36,8 @@ These results measure this representation, not an inherent lower bound for a sin
 Individual message deep imports remain unsupported in the packed/single-declaration modes. The public `messages.js` entry point works without extra declaration files. Production watcher, cache, editor navigation/completion, and actual browser behavior still need validation as described in the README.
 
 ## Measurements
+
+The observations below precede virtualization of the facade: the measured single-declaration tree had eight files. The current seven-file transport has passed dev/SSR, type-check, and production-build verification, but this full timing matrix has not been rerun for that revision.
 
 Three rotated repetitions for each paired scenario, with the same compiler and Vite settings as the original prototype. Source-generation/publication measurements exclude SDK loading. Dev graph measurements are in-process transform/crawls, not browser startup. Absolute timings vary between runs, so use the paired observations below rather than mixing them with the earlier matrix.
 
