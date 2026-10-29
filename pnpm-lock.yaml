@@ -93,9 +93,6 @@ importers:
       typescript:
         specifier: 5.9.2
         version: 5.9.2
-      typescript-go:
-        specifier: npm:typescript@7.0.2
-        version: typescript@7.0.2
       vite:
         specifier: 8.1.4
         version: 8.1.4(@types/node@22.19.3)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.8.2)
@@ -15855,6 +15852,7 @@ snapshots:
       '@typescript/typescript-sunos-x64': 7.0.2
       '@typescript/typescript-win32-arm64': 7.0.2
       '@typescript/typescript-win32-x64': 7.0.2
+    optional: true
 
   uc.micro@2.1.0: {}
 

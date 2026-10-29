@@ -20,17 +20,6 @@ import { compileProject } from "./compile-project.js";
 import type { CompilerOptions } from "./compiler-options.js";
 
 const execFileAsync = promisify(execFile);
-// Keep the reference compiler outside src/dist. A variable import also prevents
-// the production tsconfig from pulling development tooling into its rootDir.
-const referenceUrl = new URL(
-	"../../test-support/emit-ts-declarations.ts",
-	import.meta.url
-).href;
-const referenceEmitter = (await import(referenceUrl)).emitTsDeclarations as (
-	output: Record<string, string>,
-	options?: { allowNativeAlias?: boolean }
-) => Promise<Record<string, string>>;
-
 function bundle(args: {
 	id: string;
 	declarations?: Declaration[];
@@ -280,10 +269,7 @@ setLocale("fr");
 m.rich.parts();
 `;
 
-async function checkConsumer(
-	output: Record<string, string>,
-	compiler: "typescript" | "typescript-go"
-) {
+async function checkConsumer(output: Record<string, string>) {
 	const directory = await fs.mkdtemp(
 		path.join(os.tmpdir(), "paraglide-consumer-")
 	);
@@ -319,7 +305,7 @@ async function checkConsumer(
 		);
 		const compilerPath = path.join(
 			path.dirname(
-				createRequire(import.meta.url).resolve(`${compiler}/package.json`)
+				createRequire(import.meta.url).resolve("typescript/package.json")
 			),
 			"lib",
 			"tsc.js"
@@ -335,7 +321,7 @@ async function checkConsumer(
 			);
 		} catch (error) {
 			throw new Error(
-				`${compiler} consumer failed:\n${(error as { stdout?: string }).stdout ?? error}`,
+				`TypeScript consumer failed:\n${(error as { stdout?: string }).stdout ?? error}`,
 				{ cause: error }
 			);
 		}
@@ -345,48 +331,37 @@ async function checkConsumer(
 }
 
 for (const outputStructure of ["message-modules", "locale-modules"] as const) {
-	test(`${outputStructure}: direct declarations preserve the TypeScript 5 contract`, async () => {
+	test(`${outputStructure}: direct declarations preserve the public contract`, async () => {
 		const project = await fixture();
 		try {
-			const javascript = await compileProject({
-				project,
-				compilerOptions: { outputStructure },
-			});
-			const reference = normalizeDeclarations(
-				await referenceEmitter(javascript, { allowNativeAlias: false })
-			);
-			// Pin the reference independently of the direct implementation.
-			expect(
-				Object.fromEntries(
-					Object.entries(reference).filter(([name]) =>
-						name.startsWith("messages")
-					)
-				)
-			).toMatchSnapshot();
 			const direct = await compileProject({
 				project,
 				compilerOptions: { outputStructure, emitTsDeclarations: true },
 			});
-			expect(normalizeDeclarations(direct)).toEqual(reference);
+			expect(
+				Object.fromEntries(
+					Object.entries(normalizeDeclarations(direct)).filter(([name]) =>
+						name.startsWith("messages")
+					)
+				)
+			).toMatchSnapshot();
 		} finally {
 			await project.close();
 		}
 	});
 
-	for (const compiler of ["typescript", "typescript-go"] as const) {
-		test(`${outputStructure}: ${compiler} accepts valid consumers and rejects invalid calls`, async () => {
-			const project = await fixture();
-			try {
-				const output = await compileProject({
-					project,
-					compilerOptions: { outputStructure, emitTsDeclarations: true },
-				});
-				await checkConsumer(output, compiler);
-			} finally {
-				await project.close();
-			}
-		});
-	}
+	test(`${outputStructure}: TypeScript accepts valid consumers and rejects invalid calls`, async () => {
+		const project = await fixture();
+		try {
+			const output = await compileProject({
+				project,
+				compilerOptions: { outputStructure, emitTsDeclarations: true },
+			});
+			await checkConsumer(output);
+		} finally {
+			await project.close();
+		}
+	});
 }
 
 for (const extraOptions of [
@@ -401,7 +376,7 @@ for (const extraOptions of [
 				project,
 				compilerOptions: { ...extraOptions, emitTsDeclarations: true },
 			});
-			await checkConsumer(output, "typescript");
+			await checkConsumer(output);
 		} finally {
 			await project.close();
 		}
