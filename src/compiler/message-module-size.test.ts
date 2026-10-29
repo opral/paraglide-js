@@ -208,20 +208,6 @@ test("shared factory calls remain independently removable within one shard", asy
 	expect(code).not.toContain("ONE_ITEM");
 });
 
-test("middleware keeps full helpers for otherwise factory-eligible messages", async () => {
-	const output = await compile(
-		{ messageModuleSize: 100, experimentalMiddlewareLocaleSplitting: true },
-		fullyTranslated
-	);
-	const shards = Object.entries(output)
-		.filter(([name]) => name.startsWith("messages/") && name.endsWith(".js"))
-		.map(([, code]) => code)
-		.join("\n");
-	expect(shards).not.toContain("function __paraglideMessage(");
-	expect(output["server.js"]).toContain("EN_FALLBACK");
-	expect(output["server.js"]).toContain("DE_COMPLETE");
-});
-
 test("default fused simple code matches the general compiler's frozen output", () => {
 	const fixtures = [
 		bundle("plain", { en: text("Plain\r\nline"), de: text("Einfach") }),
@@ -506,33 +492,6 @@ test.each([
 		expect(code).not.toContain("ONE_ITEM");
 	}
 );
-
-test("grouped client dispatchers preserve middleware message and parts lookups", async () => {
-	const output = await compile({
-		messageModuleSize: 100,
-		experimentalMiddlewareLocaleSplitting: true,
-		isServer: "false",
-	});
-	const { module } = await bundled(
-		output,
-		`
-		import { foo, markup } from "./paraglide/messages.js";
-		export const result = (() => {
-			const previous = globalThis.__paraglide;
-			globalThis.__paraglide = { ssr: {
-				foo: ({ name }) => "SERVER " + name,
-				markup: Object.assign(({ name }) => "SERVER MARKUP " + name, { parts: ({ name }) => [{ type: "text", value: "SERVER PARTS " + name }] })
-			} };
-			try { return [foo({ name: "Ada" }), markup.parts({ name: "Ada" })]; }
-			finally { globalThis.__paraglide = previous; }
-		})();
-	`
-	);
-	expect(module.result).toEqual([
-		"SERVER Ada",
-		[{ type: "text", value: "SERVER PARTS Ada" }],
-	]);
-});
 
 test("empty grouped catalog still has importable JS and declarations", async () => {
 	const output = await compileCatalog({

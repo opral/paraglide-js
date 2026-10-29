@@ -86,11 +86,7 @@ export async function createParaglide(
 
 	// remove the runtime import statement to avoid module resolution issues
 	const serverSideRuntime = createServerFile({
-		compiledBundles: [],
 		compilerOptions: {
-			experimentalMiddlewareLocaleSplitting:
-				args.experimentalMiddlewareLocaleSplitting ??
-				defaultCompilerOptions.experimentalMiddlewareLocaleSplitting,
 			disableAsyncLocalStorage:
 				args.disableAsyncLocalStorage ??
 				defaultCompilerOptions.disableAsyncLocalStorage,

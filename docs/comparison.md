@@ -37,7 +37,7 @@ Paraglide's standard locale switch performs document navigation. react-i18next c
 
 Unused-message tree-shaking removes message functions your application does not reference. Active-locale loading avoids delivering translations for other languages. One does not prove the other.
 
-Default Paraglide output includes configured locales for each retained message. [Experimental locale splitting](/compiling-messages) has additional deployment and framework constraints. There is no universal threshold such as “20 locales” at which a loading strategy becomes better: message usage, compression, caching, and route splitting all matter.
+Default Paraglide output includes configured locales for each retained message. [Per-locale builds](/compiling-messages#experimental-per-locale-builds) are the recommended approach for shipping only the active locale, with additional deployment and framework constraints. There is no universal threshold such as “20 locales” at which a loading strategy becomes better: message usage, compression, caching, and route splitting all matter.
 
 The [benchmark](/benchmark) shows cases where HTTP i18next transfers fewer bytes while Paraglide reaches translated DOM readiness sooner. Read the conditions and measured losses as well as the wins. These client-rendered Vite measurements do not establish SSR, React rendering, or cross-device performance.
 

@@ -40,6 +40,8 @@ export type CompiledBundleWithMessages = {
 	/** Compiled message helpers with no emitted reference in message-modules. */
 	unreferencedMessageLocales?: string[];
 	usesSharedFactory?: boolean;
+	/** The dispatcher reads the development-only diagnostic flag. */
+	usesDevelopmentDiagnostics?: boolean;
 	englishMatchTableDoc?: string;
 };
 
@@ -60,7 +62,6 @@ export const compileBundle = (args: {
 	/** Internal: grouped modules share their function and option typedefs. */
 	compactTypes?: boolean;
 	sharedMessageFactory?: boolean;
-	experimentalMiddlewareLocaleSplitting?: boolean;
 	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 }): CompiledBundleWithMessages => {
 	const fused = args.fuseInlineMessages && tryCompileInlineBundle(args);
@@ -124,14 +125,14 @@ export const compileBundle = (args: {
 			settings: args.settings,
 			matchTypes,
 			hasMarkup,
-			experimentalMiddlewareLocaleSplitting:
-				args.experimentalMiddlewareLocaleSplitting ?? false,
 			experimentalStaticLocale: args.experimentalStaticLocale,
 			inputTypeAliasName,
 			exported: args.exported,
 			compactTypes: args.compactTypes,
 		}),
 		messages: compiledMessages,
+		usesDevelopmentDiagnostics:
+			args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression,
 		matchTypes,
 		inputTypeAliasName,
 		unreferencedMessageLocales,
@@ -149,7 +150,6 @@ function tryCompileInlineBundle(
 ): CompiledBundleWithMessages | undefined {
 	if (
 		!args.inlineMessages ||
-		args.experimentalMiddlewareLocaleSplitting ||
 		!args.settings ||
 		args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression
 	)
@@ -254,8 +254,6 @@ function tryCompileInlineBundle(
 				settings: args.settings,
 				matchTypes,
 				hasMarkup: false,
-				experimentalMiddlewareLocaleSplitting:
-					args.experimentalMiddlewareLocaleSplitting ?? false,
 				experimentalStaticLocale: args.experimentalStaticLocale,
 				inputTypeAliasName,
 				exported: args.exported,
@@ -264,6 +262,8 @@ function tryCompileInlineBundle(
 	return {
 		bundle: compiledBundle,
 		usesSharedFactory: args.sharedMessageFactory,
+		usesDevelopmentDiagnostics:
+			args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression,
 		englishMatchTableDoc,
 		messages,
 		matchTypes,
@@ -376,10 +376,6 @@ const compileBundleFunction = (args: {
 	 * Whether at least one variant in this bundle contains markup.
 	 */
 	hasMarkup: boolean;
-	/**
-	 * Whether middleware locale splitting runtime hooks should be emitted.
-	 */
-	experimentalMiddlewareLocaleSplitting: boolean;
 	/**
 	 * Static locale expression emitted inside the message function so a
 	 * bundler can tree-shake unselected locale modules.
@@ -494,62 +490,28 @@ ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
 		? `${hasInputs ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${inputType}>`
 		: `(${bundleFunctionType}) & ${messageMetadataType}`;
 
-	const clientMiddlewareGuard = (indent: string): string => {
-		if (!args.experimentalMiddlewareLocaleSplitting) {
-			return "";
-		}
-
-		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\treturn /** @type {any} */ (globalThis).__paraglide.ssr.${safeBundleId}(${inputsName})\n${indent}}`;
-	};
-
-	const clientPartsMiddlewareGuard = (indent: string): string => {
-		if (!args.experimentalMiddlewareLocaleSplitting) {
-			return "";
-		}
-
-		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\tconst serverMessage = /** @type {any} */ (globalThis).__paraglide.ssr.${safeBundleId}\n${indent}\tif (typeof serverMessage.parts === "function") {\n${indent}\t\treturn /** @type {import('../runtime.js').MessagePart[]} */ (serverMessage.parts(inputs))\n${indent}\t}\n${indent}\treturn /** @type {import('../runtime.js').MessagePart[]} */ ([{ type: "text", value: serverMessage(inputs) }])\n${indent}}`;
-	};
-
-	const maybeTrackMessageCall = (indent: string): string => {
-		if (!args.experimentalMiddlewareLocaleSplitting) {
-			return "";
-		}
-
-		return `\n${indent}trackMessageCall("${safeBundleId}", locale)`;
-	};
-
 	const localeResolutionStatement = (indent: string): string => {
 		const localeExpression = perLocaleBuild
 			? `${perLocaleBuildStaticLocaleExpression} ?? options.locale ?? getLocale()`
 			: "experimentalStaticLocale ?? options.locale ?? getLocale()";
 		const overrideWarning = perLocaleBuild
-			? `\n${indent}if (${perLocaleBuildStaticLocaleExpression} !== undefined && options.locale !== undefined && options.locale !== ${perLocaleBuildStaticLocaleExpression}) console.warn("Paraglide: options.locale cannot override a locale-specialized client bundle; use a full document navigation to switch locales.")`
+			? `\n${indent}if (isDevelopment && ${perLocaleBuildStaticLocaleExpression} !== undefined && options.locale !== undefined && options.locale !== ${perLocaleBuildStaticLocaleExpression}) console.warn("Paraglide: options.locale cannot override a locale-specialized client bundle; use a full document navigation to switch locales.")`
 			: "";
 
-		if (
-			isFullyTranslated &&
-			args.availableLocales.length === 1 &&
-			!args.experimentalMiddlewareLocaleSplitting
-		) {
+		if (isFullyTranslated && args.availableLocales.length === 1) {
 			return `${indent}${localeExpression}${overrideWarning}`;
 		}
 
-		return `${indent}const locale = ${localeExpression}${overrideWarning}${maybeTrackMessageCall(
-			indent
-		)}`;
+		return `${indent}const locale = ${localeExpression}${overrideWarning}`;
 	};
 	const keepUnusedInputsParameter = (indent: string): string =>
-		!anyBranchReadsInputs && !args.experimentalMiddlewareLocaleSplitting
-			? `\n${indent}void ${inputsName};`
-			: "";
+		!anyBranchReadsInputs ? `\n${indent}void ${inputsName};` : "";
 
 	let code = "";
 
 	if (!args.hasMarkup) {
 		code = `${commonJsDoc}
-${args.exported !== false && isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {${stringFunctionType}} */ ((${inputsName}${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
-			"\t"
-		)}${keepUnusedInputsParameter("\t")}
+${args.exported !== false && isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {${stringFunctionType}} */ ((${inputsName}${hasInputs ? "" : " = {}"}, options = {}) => {${keepUnusedInputsParameter("\t")}
 ${localeResolutionStatement("\t")}
 	${compileLocaleReturnStatements("string", "\t")}${
 		!isFullyTranslated
@@ -561,9 +523,7 @@ ${localeResolutionStatement("\t")}
 		code = `${commonJsDoc}
 ${args.exported !== false && isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & { parts: ${partsFunctionType} } & ${messageMetadataType}} */ (
 	/* @__PURE__ */ Object.assign(
-		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
-			"\t\t\t"
-		)}${keepUnusedInputsParameter("\t\t\t")}
+		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${keepUnusedInputsParameter("\t\t\t")}
 ${localeResolutionStatement("\t\t\t")}
 			${compileLocaleReturnStatements("string", "\t\t\t")}${
 				!isFullyTranslated
@@ -574,7 +534,7 @@ ${localeResolutionStatement("\t\t\t")}
 		{
 			parts: /** @type {${partsFunctionType}} */ ((inputs${
 				hasInputs ? "" : " = {}"
-			}, options = {}) => {${clientPartsMiddlewareGuard("\t\t\t\t")}
+			}, options = {}) => {
 ${localeResolutionStatement("\t\t\t\t")}
 				${compileLocaleReturnStatements("parts", "\t\t\t\t")}${
 					!isFullyTranslated

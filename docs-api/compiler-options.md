@@ -24,7 +24,7 @@ true
 
 > `optional` **cookieDomain**: `string`
 
-Defined in: [compiler-options.ts:212](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:206](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The host to which the cookie will be sent.
 If undefined or empty, the domain attribute is omitted from the cookie, scoping it to the exact current domain only (no subdomains).
@@ -53,7 +53,7 @@ cookieDomain: "example.com" // Cookie: "PARAGLIDE_LOCALE=en; path=/; max-age=345
 
 > `optional` **cookieMaxAge**: `number`
 
-Defined in: [compiler-options.ts:192](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:186](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The max-age in seconds of the cookie until it expires.
 
@@ -67,7 +67,7 @@ The max-age in seconds of the cookie until it expires.
 
 > `optional` **cookieName**: `string`
 
-Defined in: [compiler-options.ts:186](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:180](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The name of the cookie to use for the cookie strategy.
 
@@ -81,7 +81,7 @@ The name of the cookie to use for the cookie strategy.
 
 > `optional` **cookieSameSite**: `"lax"` \| `"strict"` \| `"none"`
 
-Defined in: [compiler-options.ts:231](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:225](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The `SameSite` attribute of the cookie.
 
@@ -109,7 +109,7 @@ undefined (no samesite attribute)
 
 > `optional` **cookieSecure**: `boolean` \| `"auto"`
 
-Defined in: [compiler-options.ts:253](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:247](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Whether the cookie gets the `Secure` attribute.
 
@@ -253,35 +253,11 @@ await compile({
 false
 ```
 
-#### experimentalMiddlewareLocaleSplitting?
-
-> `optional` **experimentalMiddlewareLocaleSplitting**: `boolean`
-
-Defined in: [compiler-options.ts:127](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
-
-Whether or not to use experimental middleware locale splitting.
-
-⚠️ This feature is experimental and only works in SSR/SSG environment
-  without client-side routing. Do not rely on this feature for production.
-
-This feature is part of the exploration of per locale splitting. The
-issue is ongoing and can be followed here [#88](https://github.com/opral/inlang-paraglide-js/issues/88).
-
-- The client bundle will tree-shake all messages (have close to 0kb JS).
-- The server middleware will inject the used messages into the HTML.
-- The client will re-trieve the messages from the injected HTML.
-
-##### Default
-
-```ts
-false
-```
-
 #### experimentalStaticLocale?
 
 > `optional` **experimentalStaticLocale**: `string`
 
-Defined in: [compiler-options.ts:180](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:174](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Compile-time locale constant used for per-locale tree-shaking.
 
@@ -345,11 +321,29 @@ Whether to include an eslint-disable comment at the top of each .js file.
 true
 ```
 
+#### isDevelopment?
+
+> `optional` **isDevelopment**: `string`
+
+Defined in: [compiler-options.ts:140](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+
+JavaScript expression controlling development-only runtime diagnostics.
+
+Bundler integrations set this for their development and production modes.
+Standalone compilation keeps diagnostics enabled unless explicitly disabled.
+Set to "false" for production output to allow dead-code elimination.
+
+##### Default
+
+```ts
+"true"
+```
+
 #### isServer?
 
 > `optional` **isServer**: `string`
 
-Defined in: [compiler-options.ts:146](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:130](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Tree-shaking flag if the code is running on the server.
 
@@ -373,7 +367,7 @@ typeof window === "undefined"
 
 > `optional` **localStorageKey**: `string`
 
-Defined in: [compiler-options.ts:133](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:117](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The name of the localStorage key to use for the localStorage strategy.
 
@@ -659,13 +653,13 @@ Defined in: [compiler-options.ts:33](https://github.com/opral/paraglide-js/tree/
 
 > `readonly` **emitTsDeclarations**: `false` = `false`
 
-#### experimentalMiddlewareLocaleSplitting
-
-> `readonly` **experimentalMiddlewareLocaleSplitting**: `false` = `false`
-
 #### includeEslintDisableComment
 
 > `readonly` **includeEslintDisableComment**: `true` = `true`
+
+#### isDevelopment
+
+> `readonly` **isDevelopment**: `"true"` = `"true"`
 
 #### isServer
 

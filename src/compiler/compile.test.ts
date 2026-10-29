@@ -75,7 +75,7 @@ test("cleans the output directory", async () => {
 });
 
 // Regression coverage for https://github.com/opral/paraglide-js/issues/581
-test("runtime output strips sourcemap references", async () => {
+test("runtime output strips sourcemap references and omits middleware splitting artifacts", async () => {
 	const fs = memfs().fs as unknown as typeof import("node:fs");
 
 	const project = await loadProjectInMemory({
@@ -104,45 +104,14 @@ test("runtime output strips sourcemap references", async () => {
 
 	expect(runtimeFile).not.toMatch(/sourceMappingURL=/);
 	expect(serverFile).not.toMatch(/sourceMappingURL=/);
-});
-
-test("experimental middleware locale splitting uses globalThis.__paraglide.ssr", async () => {
-	const fs = memfs().fs as unknown as typeof import("node:fs");
-
-	const project = await loadProjectInMemory({
-		blob: await newProject({
-			settings: {
-				baseLocale: "en",
-				locales: ["en", "de"],
-			},
-		}),
-	});
-
-	await saveProjectToDirectory({
-		project,
-		path: "/project.inlang",
-		fs: fs.promises,
-	});
-
-	await compile({
-		project: "/project.inlang",
-		outdir: "/output",
-		fs,
-		experimentalMiddlewareLocaleSplitting: true,
-	});
-
-	const runtimeFile = await fs.promises.readFile("/output/runtime.js", "utf8");
-	const serverFile = await fs.promises.readFile("/output/server.js", "utf8");
-
-	expect(runtimeFile).toContain("(globalThis).__paraglide =");
-	expect(runtimeFile).toContain("(globalThis).__paraglide.ssr =");
-	expect(runtimeFile).not.toContain("__paraglide_ssr");
-	expect(serverFile).toContain(
-		"globalThis.__paraglide = globalThis.__paraglide ?? {};"
-	);
-	expect(serverFile).toContain("globalThis.__paraglide.ssr = ${escapedSsr}");
-	expect(serverFile).toContain(String.raw`replace(/<\/(script)/gi, "<\\/$1")`);
-	expect(serverFile).not.toContain("__paraglide_ssr");
+	for (const output of [runtimeFile, serverFile]) {
+		expect(output).not.toContain("__paraglide.ssr");
+		expect(output).not.toContain("experimentalMiddlewareLocaleSplitting");
+		expect(output).not.toContain("trackMessageCall");
+		expect(output).not.toContain("messageCalls");
+	}
+	expect(serverFile).not.toContain("compiledBundles");
+	expect(serverFile).not.toContain("compiledRegistry");
 });
 
 test("doesn't clean the output directory if option is set to false", async () => {

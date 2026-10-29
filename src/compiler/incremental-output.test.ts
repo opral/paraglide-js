@@ -105,7 +105,6 @@ test("translation and input edits compile only affected bundles and match a clea
 test.each([
 	{ outputStructure: "locale-modules" as const },
 	{ messageModuleSize: 2 },
-	{ experimentalMiddlewareLocaleSplitting: true },
 	{ experimentalStaticLocale: '"de"' },
 ])("shared output falls back safely: %j", async (extra) => {
 	const o = { ...options, ...extra },

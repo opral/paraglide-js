@@ -13,8 +13,6 @@ type RegistryFunction = {
 	jsdoc: string;
 	/** The function declaration, without `export` */
 	code: string;
-	/** Registry functions the code calls */
-	dependencies: string[];
 };
 
 /**
@@ -69,7 +67,6 @@ const registryFunctions: Record<string, RegistryFunction> = {
 	cache.set(key, formatter);
 	return formatter
 };`,
-		dependencies: [],
 	},
 	plural: {
 		jsdoc: `/**
@@ -86,7 +83,6 @@ const registryFunctions: Record<string, RegistryFunction> = {
 		code: `function plural(locale, input, options, cacheable = false) {
 	return getIntlFormatter(Intl.PluralRules, locale, options, cacheable).select(Number(input) - Number(options?.offset ?? 0))
 };`,
-		dependencies: ["getIntlFormatter"],
 	},
 	number: {
 		jsdoc: `/**
@@ -99,7 +95,6 @@ const registryFunctions: Record<string, RegistryFunction> = {
 		code: `function number(locale, input, options, cacheable = false) {
 	return getIntlFormatter(Intl.NumberFormat, locale, options, cacheable).format(Number(input))
 };`,
-		dependencies: ["getIntlFormatter"],
 	},
 	icuPound: {
 		jsdoc: `/**
@@ -118,7 +113,6 @@ const registryFunctions: Record<string, RegistryFunction> = {
 	if (!Number.isFinite(value)) return String(input)
 	return number(locale, value - Number(options?.offset ?? 0))
 };`,
-		dependencies: ["number"],
 	},
 	datetime: {
 		jsdoc: `/**
@@ -135,7 +129,6 @@ const registryFunctions: Record<string, RegistryFunction> = {
 		: new Intl.DateTimeFormat(locale, options);
 	return formatter.format(new Date(/** @type {string} */ (input)))
 };`,
-		dependencies: ["getIntlFormatter"],
 	},
 	relativetime: {
 		jsdoc: `/**
@@ -149,7 +142,6 @@ const registryFunctions: Record<string, RegistryFunction> = {
 	const { unit, ...intlOptions } = options;
 	return getIntlFormatter(Intl.RelativeTimeFormat, locale, intlOptions, cacheable).format(Number(input), unit);
 };`,
-		dependencies: ["getIntlFormatter"],
 	},
 };
 
@@ -168,37 +160,4 @@ ${Object.values(registryFunctions)
 			`${fn.jsdoc}\n${fn === registryFunctions.getIntlFormatter ? "" : "export "}${fn.code}`
 	)
 	.join("\n\n")}`;
-}
-
-/**
- * Returns the given registry functions and the registry functions they call,
- * in registry order.
- *
- * @example
- *   withRegistryDependencies(["icuPound"]) // ["number", "icuPound"]
- */
-export function withRegistryDependencies(names: Iterable<string>): string[] {
-	const needed = new Set<string>();
-	const add = (name: string) => {
-		const fn = registryFunctions[name];
-		if (!fn || needed.has(name)) return;
-		needed.add(name);
-		fn.dependencies.forEach(add);
-	};
-	for (const name of names) add(name);
-	return Object.keys(registryFunctions).filter((name) => needed.has(name));
-}
-
-/**
- * Returns the code of the given registry functions without `export`, by name.
- */
-export function registryFunctionCode(
-	names: Iterable<string>
-): Record<string, string> {
-	return Object.fromEntries(
-		Array.from(names).flatMap((name) => {
-			const fn = registryFunctions[name];
-			return fn ? [[name, fn.code]] : [];
-		})
-	);
 }

@@ -564,6 +564,7 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 	// bundler doesn't provide one. The config file is resolved inside the
 	// project directory.
 	let discoveryRoot: string | undefined;
+	let isDevelopment: string | undefined;
 	// Bound to the hook context in buildStart so that watchChange can
 	// register additional files.
 	let addWatchFile: ((path: string) => void) | undefined;
@@ -657,7 +658,14 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 	): CompilerOptions => {
 		const options = resolveCompilerOptions({
 			config: loaded?.config,
-			overrides: userArgs,
+			overrides: {
+				...userArgs,
+				isDevelopment:
+					userArgs.isDevelopment ??
+					loaded?.config.isDevelopment ??
+					isDevelopment ??
+					String(process.env.NODE_ENV !== "production"),
+			},
 			root: discoveryRoot ?? process.cwd(),
 		});
 		// Apply integration defaults after each config load, keeping watched
@@ -923,8 +931,12 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 				},
 			},
 			configResolved: {
-				handler: (config: { root?: string }) => {
+				handler: (config: { root?: string; isProduction?: boolean }) => {
 					discoveryRoot = config.root;
+					isDevelopment =
+						config.isProduction === undefined
+							? undefined
+							: String(!config.isProduction);
 				},
 			},
 			configureServer(server) {
