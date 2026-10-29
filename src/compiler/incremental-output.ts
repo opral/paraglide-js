@@ -29,7 +29,6 @@ export async function generateCatalog(args: {
 		snapshot !== undefined &&
 		(options.outputStructure ?? "message-modules") === "message-modules" &&
 		(options.messageModuleSize ?? 1) === 1 &&
-		!options.experimentalMiddlewareLocaleSplitting &&
 		!options.experimentalStaticLocale &&
 		!Object.keys(options.additionalFiles ?? {}).length;
 	const previous = args.previous;

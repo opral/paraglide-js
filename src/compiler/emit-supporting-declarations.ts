@@ -23,11 +23,7 @@ export function emitSupportingDeclarations(args: {
 	locales: string[];
 	compilerOptions: Pick<
 		CompilerOptions,
-		| "disableAsyncLocalStorage"
-		| "experimentalMiddlewareLocaleSplitting"
-		| "isServer"
-		| "urlPatterns"
-		| "routeStrategies"
+		"disableAsyncLocalStorage" | "isServer" | "urlPatterns" | "routeStrategies"
 	>;
 }): Record<string, string> {
 	const templates = getTemplates();
@@ -41,9 +37,6 @@ export function emitSupportingDeclarations(args: {
 		LOCALES: JSON.stringify(args.locales),
 		DISABLE_ASYNC_LOCAL_STORAGE: String(
 			args.compilerOptions.disableAsyncLocalStorage ?? false
-		),
-		MIDDLEWARE_LOCALE_SPLITTING: String(
-			args.compilerOptions.experimentalMiddlewareLocaleSplitting ?? false
 		),
 		// isServer accepts arbitrary bundler expressions, whose environment is
 		// unknown at compile time (e.g. import.meta.env.SSR). Keep those open,

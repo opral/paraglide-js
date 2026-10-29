@@ -1,11 +1,7 @@
 import { afterEach, expect, test, vi } from "vitest";
 import { execFileSync } from "node:child_process";
 import { compileMessage } from "./compile-message.js";
-import {
-	createRegistry,
-	registryFunctionCode,
-	withRegistryDependencies,
-} from "./registry.js";
+import { createRegistry } from "./registry.js";
 
 afterEach(() => vi.restoreAllMocks());
 
@@ -18,63 +14,55 @@ function spyConstructor(
 		.mockImplementation((...args: any[]) => Reflect.construct(Original, args));
 }
 
-async function loadRegistry(inline = false) {
-	const source = registrySource(inline);
-	const module = await import(
+async function loadRegistry() {
+	const source = createRegistry();
+	return import(
 		`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`
 	);
-	return inline ? module.registry : module;
 }
 
-function registrySource(inline: boolean) {
-	return inline
-		? `export const registry = (() => { ${Object.values(registryFunctionCode(withRegistryDependencies(["plural", "icuPound", "datetime", "relativetime"]))).join("\n")}\nreturn { plural, icuPound, number, datetime, relativetime }; })();`
-		: createRegistry();
-}
+test(`reuses each formatter with fresh equivalent options`, async () => {
+	const registry = await loadRegistry();
+	const cases = [
+		["plural", "PluralRules", 2, { type: "cardinal" }, "other"],
+		["number", "NumberFormat", 12, { minimumFractionDigits: 2 }, "12.00"],
+		[
+			"datetime",
+			"DateTimeFormat",
+			"2026-10-11",
+			{ timeZone: "UTC", year: "numeric" },
+			"2026",
+		],
+		[
+			"relativetime",
+			"RelativeTimeFormat",
+			-1,
+			{ unit: "day", numeric: "auto" },
+			"yesterday",
+		],
+	] as const;
+	for (const [fn, name, input, options, expected] of cases) {
+		const spy = spyConstructor(name);
+		for (let i = 0; i < 100; i++)
+			expect(registry[fn]("en", input, { ...options }, true)).toBe(expected);
+		expect(spy).toHaveBeenCalledTimes(1);
+		spy.mockRestore();
+	}
+	expect(registry.icuPound("en", 3, { offset: 1 })).toBe("2");
+});
 
-for (const inline of [false, true]) {
-	test(`reuses each formatter with fresh equivalent options (inline=${inline})`, async () => {
-		const registry = await loadRegistry(inline);
-		const cases = [
-			["plural", "PluralRules", 2, { type: "cardinal" }, "other"],
-			["number", "NumberFormat", 12, { minimumFractionDigits: 2 }, "12.00"],
-			[
-				"datetime",
-				"DateTimeFormat",
-				"2026-10-11",
-				{ timeZone: "UTC", year: "numeric" },
-				"2026",
-			],
-			[
-				"relativetime",
-				"RelativeTimeFormat",
-				-1,
-				{ unit: "day", numeric: "auto" },
-				"yesterday",
-			],
-		] as const;
-		for (const [fn, name, input, options, expected] of cases) {
-			const spy = spyConstructor(name);
-			for (let i = 0; i < 100; i++)
-				expect(registry[fn]("en", input, { ...options }, true)).toBe(expected);
-			expect(spy).toHaveBeenCalledTimes(1);
-			spy.mockRestore();
-		}
-		expect(registry.icuPound("en", 3, { offset: 1 })).toBe("2");
-	});
-
-	test(`default-zone datetime follows host TZ changes; explicit zones stay cached (inline=${inline})`, () => {
-		// TZ changes affect Intl in Node's main thread, not Vitest worker threads.
-		const url = `data:text/javascript;base64,${Buffer.from(registrySource(inline)).toString("base64")}`;
-		execFileSync(
-			process.execPath,
-			[
-				"--input-type=module",
-				"-e",
-				`
+test(`default-zone datetime follows host TZ changes; explicit zones stay cached`, () => {
+	// TZ changes affect Intl in Node's main thread, not Vitest worker threads.
+	const url = `data:text/javascript;base64,${Buffer.from(createRegistry()).toString("base64")}`;
+	execFileSync(
+		process.execPath,
+		[
+			"--input-type=module",
+			"-e",
+			`
 			import assert from "node:assert/strict";
 			const module = await import(${JSON.stringify(url)});
-			const registry = ${inline ? "module.registry" : "module"};
+			const registry = module;
 			const Native = Intl.DateTimeFormat;
 			let constructions = 0;
 			Intl.DateTimeFormat = new Proxy(Native, {
@@ -102,11 +90,10 @@ for (const inline of [false, true]) {
 			assert.equal(registry.datetime("en", input, { timeZone: "UTC" }, true), utc);
 			assert.equal(constructions - start, 1);
 		`,
-			],
-			{ env: { ...process.env, TZ: "UTC" }, timeout: 10000 }
-		);
-	});
-}
+		],
+		{ env: { ...process.env, TZ: "UTC" }, timeout: 10000 }
+	);
+});
 
 test("keys distinguish locales and options, independent of property order", async () => {
 	const registry = await loadRegistry();
@@ -263,7 +250,6 @@ test("direct calls never invoke prototype or descriptor traps", async () => {
 
 test("keeps the cache helper private in the generated registry", async () => {
 	expect(await loadRegistry()).not.toHaveProperty("getIntlFormatter");
-	expect(await loadRegistry(true)).not.toHaveProperty("getIntlFormatter");
 });
 
 test("does not enumerate proxy option keys or inspect descriptors", async () => {

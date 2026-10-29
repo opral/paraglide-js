@@ -411,11 +411,6 @@ export function localizeHref(href: string, options?: {
  */
 export function deLocalizeHref(href: string): string;
 /**
- * @param {string} safeModuleId
- * @param {Locale} locale
- */
-export function trackMessageCall(safeModuleId: string, locale: Locale): void;
-/**
  * Generates localized URL variants for all provided URLs based on your configured locales and URL patterns.
  *
  * This function is essential for Static Site Generation (SSG) where you need to tell your framework
@@ -557,9 +552,8 @@ export const trailingSlash: "always" | "never" | undefined;
  * 		getStore(): {
  *   		locale?: Locale,
  * 			origin?: string,
- * 			messageCalls?: Set<string>
  *   	} | undefined,
- * 		run: (store: { locale?: Locale, origin?: string, messageCalls?: Set<string>},
+ * 		run: (store: { locale?: Locale, origin?: string },
  *    cb: any) => any
  * }} ParaglideAsyncLocalStorage
  */
@@ -573,7 +567,6 @@ export const trailingSlash: "always" | "never" | undefined;
  */
 export let serverAsyncLocalStorage: ParaglideAsyncLocalStorage | undefined;
 export const disableAsyncLocalStorage: {{DISABLE_ASYNC_LOCAL_STORAGE}};
-export const experimentalMiddlewareLocaleSplitting: {{MIDDLEWARE_LOCALE_SPLITTING}};
 export const isServer: {{IS_SERVER}};
 /** @type {Locale | undefined} */
 export const experimentalStaticLocale: Locale | undefined;
@@ -678,12 +671,10 @@ export type ParaglideAsyncLocalStorage = {
     getStore(): {
         locale?: Locale;
         origin?: string;
-        messageCalls?: Set<string>;
     } | undefined;
     run: (store: {
         locale?: Locale;
         origin?: string;
-        messageCalls?: Set<string>;
     }, cb: any) => any;
 };
 export type SetLocaleFn = (newLocale: Locale, options?: {

@@ -126,8 +126,6 @@ export const compileCatalog = async (args: {
 			sharedMessageFactory: messageModuleSize > 1,
 			messageReferenceExpression: outputStructure.messageReferenceExpression,
 			settings,
-			experimentalMiddlewareLocaleSplitting:
-				optionsWithDefaults.experimentalMiddlewareLocaleSplitting,
 			experimentalStaticLocale: optionsWithDefaults.experimentalStaticLocale,
 		})
 	);
@@ -139,7 +137,6 @@ export const compileCatalog = async (args: {
 			compilerOptions: optionsWithDefaults,
 		}),
 		["server.js"]: createServerFile({
-			compiledBundles,
 			compilerOptions: optionsWithDefaults,
 		}),
 		["registry.js"]: createRegistry(),
@@ -158,15 +155,9 @@ export const compileCatalog = async (args: {
 					compiledBundles,
 					settings,
 					fallbackMap,
-					optionsWithDefaults.experimentalMiddlewareLocaleSplitting,
 					messageModuleSize
 				)
-			: outputStructure.generateOutput(
-					compiledBundles,
-					settings,
-					fallbackMap,
-					optionsWithDefaults.experimentalMiddlewareLocaleSplitting
-				)
+			: outputStructure.generateOutput(compiledBundles, settings, fallbackMap)
 	);
 
 	if (optionsWithDefaults.emitGitIgnore) {

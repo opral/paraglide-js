@@ -18,7 +18,6 @@ export function createRuntimeFile(args: {
 		cookieSecure?: CompilerOptions["cookieSecure"];
 		urlPatterns?: CompilerOptions["urlPatterns"];
 		trailingSlash?: CompilerOptions["trailingSlash"];
-		experimentalMiddlewareLocaleSplitting: CompilerOptions["experimentalMiddlewareLocaleSplitting"];
 		isServer: CompilerOptions["isServer"];
 		experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 		localStorageKey: CompilerOptions["localStorageKey"];
@@ -157,10 +156,6 @@ ${injectCode("./variables.js")
 		`const TREE_SHAKE_DEFAULT_URL_PATTERN_USED = ${defaultUrlPatternUsed};`
 	)
 	.replace(
-		`export const experimentalMiddlewareLocaleSplitting = false;`,
-		`export const experimentalMiddlewareLocaleSplitting = ${args.compilerOptions.experimentalMiddlewareLocaleSplitting};`
-	)
-	.replace(
 		`export const isServer = typeof window === "undefined";`,
 		`export const isServer = ${args.compilerOptions.isServer};`
 	)
@@ -184,10 +179,6 @@ ${injectCode("./variables.js")
 		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${allUsedStrategies.has("localStorage")};`
 	)}
 
-/** @type {any} */ (globalThis).__paraglide =
-	/** @type {any} */ (globalThis).__paraglide ?? {};
-/** @type {any} */ (globalThis).__paraglide.ssr =
-	/** @type {any} */ (globalThis).__paraglide.ssr ?? {};
 
 ${injectCode("./get-locale.js")}
 
@@ -254,7 +245,6 @@ ${injectCode("./should-redirect.js")}
 
 ${injectCode("./localize-href.js")}
 
-${injectCode("./track-message-call.js")}
 
 ${injectCode("./generate-static-localized-urls.js")}
 

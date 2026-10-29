@@ -91,7 +91,6 @@ for (const outputStructure of ["message-modules", "locale-modules"] as const) {
 		});
 	}
 	for (const extraOptions of [
-		{ experimentalMiddlewareLocaleSplitting: true },
 		{ experimentalStaticLocale: '"de"' },
 		{
 			disableAsyncLocalStorage: true,

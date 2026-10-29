@@ -105,12 +105,9 @@ export async function paraglideMiddleware(request, resolve, options) {
 	if (runtime.isExcludedByRouteStrategy(url.href)) {
 		const locale = runtime.baseLocale;
 		const newRequest = cloneRequestWithFallback(request, url);
-		/** @type {Set<string>} */
-		const messageCalls = new Set();
 		return /** @type {Response} */ (
-			await requestAsyncLocalStorage?.run(
-				{ locale, origin, messageCalls },
-				() => resolve({ locale, request: newRequest })
+			await requestAsyncLocalStorage?.run({ locale, origin }, () =>
+				resolve({ locale, request: newRequest })
 			)
 		);
 	}
@@ -173,13 +170,8 @@ export async function paraglideMiddleware(request, resolve, options) {
 		newRequest = cloneRequestWithFallback(request, url);
 	}
 
-	// the message functions that have been called in this request
-	/** @type {Set<string>} */
-	const messageCalls = new Set();
-
-	let response = await requestAsyncLocalStorage?.run(
-		{ locale, origin, messageCalls },
-		() => resolve({ locale, request: newRequest })
+	let response = await requestAsyncLocalStorage?.run({ locale, origin }, () =>
+		resolve({ locale, request: newRequest })
 	);
 
 	if (response instanceof Response) {
@@ -197,70 +189,6 @@ export async function paraglideMiddleware(request, resolve, options) {
 			responseVary.push(...navigationVary);
 		}
 		response = withVary(response, responseVary);
-	}
-
-	// Only modify HTML responses
-	if (
-		runtime.experimentalMiddlewareLocaleSplitting &&
-		typeof response?.headers?.get === "function" &&
-		typeof response.text === "function" &&
-		!response.bodyUsed &&
-		!response.body?.locked &&
-		response.headers.get("Content-Type")?.includes("html")
-	) {
-		const body = await response.text();
-
-		const messages = [];
-		/** @type {Set<string>} */
-		const registryFunctionNames = new Set();
-
-		// using .values() to avoid polyfilling in older projects. else the following error is thrown
-		// Type 'Set<string>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
-		for (const messageCall of Array.from(messageCalls)) {
-			const [id, locale] =
-				/** @type {[string, import("./runtime.js").Locale]} */ (
-					messageCall.split(":")
-				);
-			messages.push(`${id}: ${compiledBundles[id]?.[locale]}`);
-			for (const name of compiledRegistry.messages[id]?.[locale] ?? []) {
-				registryFunctionNames.add(name);
-			}
-		}
-
-		// The injected messages run without registry.js. Declare the registry
-		// functions they call (including the ones those call) in a closure.
-		let ssr = `{ ${messages.join(",")} }`;
-		if (registryFunctionNames.size > 0) {
-			const names = Array.from(registryFunctionNames);
-			ssr = `(() => { ${names
-				.map((name) => compiledRegistry.functions[name])
-				.join(
-					"\n"
-				)}\nconst registry = { ${names.join(", ")} };\nreturn ${ssr} })()`;
-		}
-
-		// Prevent translated content from terminating the inline script tag.
-		const escapedSsr = ssr.replace(/<\/(script)/gi, "<\\/$1");
-		// Reuse the request's CSP nonce (if any) so the injected script is allowed under a strict CSP
-		const nonce = response.headers
-			.get("Content-Security-Policy")
-			?.match(/'nonce-([\w+/=-]+)'/)?.[1];
-		const nonceAttr = nonce ? `nonce="${nonce}"` : "";
-		const script = `<script ${nonceAttr}>globalThis.__paraglide = globalThis.__paraglide ?? {}; globalThis.__paraglide.ssr = ${escapedSsr}</script>`;
-
-		// Insert the script before the closing head tag
-		const newBody = body.replace("</head>", `${script}</head>`);
-
-		// Create a new response with the modified body
-		// Clone all headers except Content-Length which will be set automatically
-		const newHeaders = new Headers(response.headers);
-		newHeaders.delete("Content-Length"); // Let the browser calculate the correct length
-
-		return new Response(newBody, {
-			status: response.status,
-			statusText: response.statusText,
-			headers: newHeaders,
-		});
 	}
 
 	return response;
@@ -497,26 +425,3 @@ function createMockAsyncLocalStorage() {
 
 // Used in generated server.js when async local storage is disabled.
 void createMockAsyncLocalStorage;
-
-/**
- * The compiled messages for the server middleware.
- *
- * Only populated if `enableMiddlewareOptimizations` is set to `true`.
- *
- * @type {Record<string, Record<import("./runtime.js").Locale, string>>}
- */
-const compiledBundles = {};
-
-/**
- * The registry functions the compiled messages call, for the injected
- * messages that run without registry.js.
- *
- * `messages[id][locale]` lists the registry functions a message calls,
- * including the ones those call. `functions[name]` is the code of a registry
- * function.
- *
- * Only populated if `enableMiddlewareOptimizations` is set to `true`.
- *
- * @type {{ functions: Record<string, string>, messages: Record<string, Record<string, string[]>> }}
- */
-const compiledRegistry = { functions: {}, messages: {} };

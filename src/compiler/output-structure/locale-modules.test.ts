@@ -174,7 +174,7 @@ test("prefixes locale imports to avoid message name collisions", () => {
 	expect(messageReferenceExpression("no", "no")).toBe("__no.no");
 });
 
-test("emits minimal runtime imports in index when middleware splitting is disabled", () => {
+test("emits minimal runtime imports in index from the runtime", () => {
 	const bundles: CompiledBundleWithMessages[] = [
 		{
 			bundle: {
@@ -197,8 +197,7 @@ test("emits minimal runtime imports in index when middleware splitting is disabl
 	const output = generateOutput(
 		bundles,
 		{ locales: ["en"], baseLocale: "en" },
-		{},
-		false
+		{}
 	);
 
 	expect(output["messages/_index.js"]).toContain(

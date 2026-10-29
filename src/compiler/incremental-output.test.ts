@@ -105,7 +105,6 @@ test("translation and input edits compile only affected bundles and match a clea
 test.each([
 	{ outputStructure: "locale-modules" as const },
 	{ messageModuleSize: 2 },
-	{ experimentalMiddlewareLocaleSplitting: true },
 	{ experimentalStaticLocale: '"de"' },
 	{
 		additionalFiles: { "custom.js": "export {};", "custom.d.ts": "export {};" },
