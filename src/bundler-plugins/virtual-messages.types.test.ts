@@ -4,6 +4,7 @@ import path from "node:path";
 import os from "node:os";
 import { createRequire } from "node:module";
 import ts from "typescript";
+import { setImmediate as yieldToWorker } from "node:timers/promises";
 import { compileCatalog } from "../compiler/compile-project.js";
 import { virtualMessageOutput } from "./virtual-messages.js";
 
@@ -178,7 +179,7 @@ for (const [module, moduleResolution] of [
 
 test.each(configurations)(
 	"virtual facade and declarations typecheck: %j",
-	({
+	async ({
 		module,
 		moduleResolution,
 		allowJs,
@@ -186,6 +187,9 @@ test.each(configurations)(
 		skipLibCheck,
 		wholeOutput,
 	}) => {
+		// TS checking is synchronous. Let Vitest deliver worker RPC updates
+		// between programs instead of starving them throughout the matrix.
+		await yieldToWorker();
 		const config = ts.parseJsonConfigFileContent(
 			{
 				compilerOptions: {
