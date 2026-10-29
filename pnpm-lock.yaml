@@ -12,8 +12,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1
       '@inlang/sdk':
-        specifier: ^4.0.4
-        version: 4.0.4
+        specifier: ^4.1.0
+        version: 4.1.0
       commander:
         specifier: 11.1.0
         version: 11.1.0
@@ -43,8 +43,8 @@ importers:
         specifier: ^2.29.7
         version: 2.29.8(@types/node@22.19.3)
       '@inlang/plugin-message-format':
-        specifier: ^4.5.0
-        version: 4.5.0
+        specifier: ^4.5.6
+        version: 4.5.6
       '@rollup/plugin-virtual':
         specifier: 3.0.2
         version: 3.0.2(rollup@4.55.1)
@@ -1777,6 +1777,9 @@ packages:
   '@inlang/plugin-message-format@4.5.0':
     resolution: {integrity: sha512-sUiIAxNjFBciVun5bVJMZZ0fN6jU9RRaul3ThmE7kyXUtOeOE5GwrBdVCipRn/gxgMhZlCh88oO8RJbXegn+pA==}
 
+  '@inlang/plugin-message-format@4.5.6':
+    resolution: {integrity: sha512-6ORzOI5D2vER/r/sK/G5EDkCgpvIKBTJeJQ0wHQ86otQiJnr2WeulbiYBMz3D5oz7CYb1QSvtfK0Lxjprx4wqw==}
+
   '@inlang/recommend-sherlock@0.2.1':
     resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
 
@@ -1786,6 +1789,10 @@ packages:
 
   '@inlang/sdk@4.0.4':
     resolution: {integrity: sha512-OJhVSGJa/Ak52WncgqIPHr9TyVJ1DuoublcmtNo9H8apoVn4Dr1DJNxUxawCCc01QmMSg8qoY8GrTV8SVIu1lg==}
+    engines: {node: '>=20.0.0'}
+
+  '@inlang/sdk@4.1.0':
+    resolution: {integrity: sha512-pPlaxyemcFMBcwBx31zbSNWwKORSLc2yv93v0uGCh4QgNh/kBRuLlBxbubmME6UJFsj+5nbao2WDZjz3Fzs+FA==}
     engines: {node: '>=20.0.0'}
 
   '@inquirer/external-editor@1.0.3':
@@ -9453,7 +9460,7 @@ snapshots:
   '@inlang/paraglide-js@2.29.3(eslint@10.12.0(jiti@2.7.0))(typescript@7.0.2)(vite@8.3.5(@types/node@22.19.3)(esbuild@0.27.2)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:
       '@inlang/recommend-sherlock': 0.2.1
-      '@inlang/sdk': 4.0.4
+      '@inlang/sdk': 4.1.0
       commander: 11.1.0
       consola: 3.4.0
       jiti: 2.7.0
@@ -9490,6 +9497,11 @@ snapshots:
       '@inlang/sdk': 4.0.0
       '@sinclair/typebox': 0.31.28
 
+  '@inlang/plugin-message-format@4.5.6':
+    dependencies:
+      '@inlang/sdk': 4.1.0
+      '@sinclair/typebox': 0.31.28
+
   '@inlang/recommend-sherlock@0.2.1':
     dependencies:
       comment-json: 4.5.1
@@ -9502,6 +9514,13 @@ snapshots:
       uuid: 14.0.0
 
   '@inlang/sdk@4.0.4':
+    dependencies:
+      '@lix-js/sdk': 0.20.1
+      '@sinclair/typebox': 0.31.28
+      kysely: 0.28.16
+      uuid: 14.0.0
+
+  '@inlang/sdk@4.1.0':
     dependencies:
       '@lix-js/sdk': 0.20.1
       '@sinclair/typebox': 0.31.28
