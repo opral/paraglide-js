@@ -13,6 +13,12 @@ export const variants = [
 	{ name: "virtual-message", size: 1, virtual: true },
 	{ name: "virtual-message-types-64", size: 1, virtual: true, typeGroup: 64 },
 	{ name: "virtual-group-64", size: 64, virtual: true },
+	{
+		name: "virtual-message-single-types",
+		size: 1,
+		virtual: true,
+		singleTypes: true,
+	},
 ];
 
 export function fixture(count, locales = ["en", "de", "fr"], shape = "plain") {
@@ -132,9 +138,87 @@ export function groupDeclarations(output, size) {
 				.map(([, code]) => code.replace(localizedString, ""))
 				.join("\n");
 	}
-	result["messages/_index.d.ts"] = names
-		.map((name) => `export * from './${name}.js';`)
+	result["messages/_index.d.ts"] =
+		localizedString +
+		"\n" +
+		names.map((name) => `export * from './${name}.js';`).join("\n");
+	return result;
+}
+
+// A real messages.d.ts is the editor entry point; its JavaScript dependencies
+// can remain virtual. Keep both named exports and the m namespace's type API.
+export function singleMessageDeclaration(output) {
+	const result = Object.fromEntries(
+		Object.entries(output).filter(
+			([name]) =>
+				(!name.startsWith("messages/") || !name.endsWith(".d.ts")) &&
+				name !== "messages/package.json"
+		)
+	);
+	const localizedString =
+		'export type LocalizedString = import("../runtime.js").LocalizedString;';
+	const definitions = Object.entries(output)
+		.filter(
+			([name]) =>
+				name.startsWith("messages/") &&
+				name.endsWith(".d.ts") &&
+				name !== "messages/_index.d.ts"
+		)
+		.map(([, code]) => code.replace(localizedString, ""))
 		.join("\n");
+	let body = (localizedString + "\n" + definitions).replaceAll(
+		'"../runtime.js"',
+		'"./runtime.js"'
+	);
+	// These non-generic exported aliases have a fixed spelling in our direct
+	// emitter. Extract only that generated form; do not parse/typecheck JS.
+	// A production emitter should produce these aliases from metadata directly.
+	const typeNames = [
+		...body.matchAll(/^export type ([A-Za-z_$][\w$]*) = /gm),
+	].map(([, name]) => name);
+	const values = [
+		...[...definitions.matchAll(/^export const ([A-Za-z_$][\w$]*):/gm)].map(
+			([, name]) => [name, name]
+		),
+		...[
+			...definitions.matchAll(
+				/^export \{ ([A-Za-z_$][\w$]*) as ("(?:[^"\\]|\\.)*") \};/gm
+			),
+		].map(([, local, name]) => [JSON.parse(name), local]),
+	];
+	// Local aliases avoid thousands of self-module imports while preserving
+	// namespace type exports. Resolve their targets in the root scope first.
+	const names = new Set([...typeNames, ...values.map(([, local]) => local)]);
+	const aliases = [];
+	const types = typeNames.map((name, index) => {
+		let alias = `__ParaglideNamespaceType_${index}`;
+		while (names.has(alias)) alias += "_";
+		names.add(alias);
+		aliases.push(`type ${alias} = ${name};`);
+		return `export type ${name} = ${alias};`;
+	});
+
+	// The public root m is the namespace, while a message whose ID is m is
+	// available as m.m. Keep its private binding separate in this flat file.
+	const shadowed = values.find(([name]) => name === "m");
+	if (shadowed) {
+		let local = "__paraglide_message_m";
+		while (definitions.includes(`const ${local}:`)) local += "_";
+		body = body.replace(/^export const m:/m, `declare const ${local}:`);
+		shadowed[1] = local;
+	}
+	result["messages.d.ts"] =
+		body +
+		"\n" +
+		aliases.join("\n") +
+		`
+export declare const m: {
+	${values.map(([name, local]) => `readonly ${JSON.stringify(name)}: typeof ${local};`).join("\n")}
+};
+export declare namespace m {
+	${types.join("\n")}
+}
+`;
 	return result;
 }
 
@@ -171,9 +255,11 @@ export async function generate(catalog, variant, previous, previousCatalog) {
 }
 
 export function transport(output, variant) {
-	const files = variant.typeGroup
-		? groupDeclarations(output, variant.typeGroup)
-		: output;
+	const files = variant.singleTypes
+		? singleMessageDeclaration(output)
+		: variant.typeGroup
+			? groupDeclarations(output, variant.typeGroup)
+			: output;
 	const disk = {},
 		virtual = {};
 	for (const [name, code] of Object.entries(files)) {

@@ -12,20 +12,23 @@ node prototypes/message-delivery/run.mjs --sizes=50 --rounds=1
 node prototypes/message-delivery/run.mjs --sizes=1000,6400,20000 --rounds=3 --output=/tmp/plain.json
 node prototypes/message-delivery/run.mjs --sizes=1000,6400 --rounds=3 --shape=mixed --output=/tmp/mixed.json
 node prototypes/message-delivery/summarize.mjs
+node prototypes/message-delivery/check-types.mjs /tmp/single-typechecks.json
+node prototypes/message-delivery/summarize.mjs --single
 ```
 
 `--variants=disk-message,disk-group-64,virtual-group-64` selects a smaller matrix. Each completed case checkpoints results to the requested JSON path. Temporary generated projects are removed after the run. Large runs create tens of thousands of temporary files and take several minutes.
 
 ## Variants
 
-| Name                       | JavaScript message modules                           | Declaration files                        |
-| -------------------------- | ---------------------------------------------------- | ---------------------------------------- |
-| `disk-message`             | One per message, on disk                             | One per message                          |
-| `disk-group-16/64/256`     | Existing `messageModuleSize` grouped output, on disk | Same grouping                            |
-| `disk-locale`              | Existing `locale-modules` output, on disk            | Existing locale declarations             |
-| `virtual-message`          | One virtual module per message                       | One per message, on disk                 |
-| `virtual-message-types-64` | One virtual module per message                       | Pack existing signatures in groups of 64 |
-| `virtual-group-64`         | Grouped modules, virtual                             | Groups of 64, on disk                    |
+| Name                           | JavaScript message modules                           | Declaration files                        |
+| ------------------------------ | ---------------------------------------------------- | ---------------------------------------- |
+| `disk-message`                 | One per message, on disk                             | One per message                          |
+| `disk-group-16/64/256`         | Existing `messageModuleSize` grouped output, on disk | Same grouping                            |
+| `disk-locale`                  | Existing `locale-modules` output, on disk            | Existing locale declarations             |
+| `virtual-message`              | One virtual module per message                       | One per message, on disk                 |
+| `virtual-message-types-64`     | One virtual module per message                       | Pack existing signatures in groups of 64 |
+| `virtual-group-64`             | Grouped modules, virtual                             | Groups of 64, on disk                    |
+| `virtual-message-single-types` | One virtual module per message                       | One `messages.d.ts` for all messages     |
 
 The ordinary Vite plugin currently chooses `locale-modules` during development and `message-modules` during production. Both baselines matter: virtualizing individual messages can be slower than the existing development default even when it writes fewer files than production's default.
 
@@ -34,6 +37,24 @@ The ordinary Vite plugin currently chooses `locale-modules` during development a
 The prototype exposes `plugin.api.update(nextVirtualFiles)`. This invalidates changed modules and their importers, including the re-export barrel, and sends a full reload. Verification covers SSR execution, disk registry imports, added/removed exports, edits, no-op updates, and declaration consumers with quoted exports and markup. The benchmark's build outputs are also executed, and unused-message sentinels are checked.
 
 Declaration packing changes declaration paths only; JavaScript still has independent message modules. It preserves the existing declaration signatures and uses the public `messages.js` facade. Individual message deep imports are intentionally unsupported in this mode. Packing is an experiment, not a proposed supported public API.
+
+## Single declaration follow-up
+
+`virtual-message-single-types` keeps JavaScript messages individual and virtual, with their named declarations directly in the real `messages.d.ts` entry point. It preserves value exports, quoted message IDs, input type exports, the `m` namespace and its input types, markup methods, and locale unions. A message named `m` remains accessible as `m.m`, without inventing a recursive namespace. Runtime type imports are adjusted for the root file.
+
+There are eight disk files: `messages.js`, `runtime.js`, `server.js`, `registry.js`, and their four `.d.ts` companions. No `messages/` declaration shards, declaration barrel, or otherwise unused `messages/package.json` are emitted. Switching from packed declarations removes the old files.
+
+This packages the existing direct emitter's declarations. It extracts their fixed non-generic type alias and value export formats to preserve the namespace API. A production emitter should generate this structure directly from metadata instead of building intermediate per-message declarations. It adds no production TypeScript dependency.
+
+See [SINGLE-DECLARATION.md](./SINGLE-DECLARATION.md) for the follow-up results. To reproduce:
+
+```sh
+node prototypes/message-delivery/run.mjs --sizes=6400,20000 --rounds=3 --variants=virtual-message-types-64,virtual-message-single-types,virtual-group-64 --output=/tmp/single-plain.json
+node prototypes/message-delivery/run.mjs --sizes=6400 --rounds=3 --shape=mixed --variants=virtual-message-types-64,virtual-message-single-types,virtual-group-64 --output=/tmp/single-mixed.json
+node prototypes/message-delivery/check-types.mjs /tmp/single-typechecks.json
+```
+
+The separate type-check experiment runs fresh TypeScript CLI subprocesses with `strict: true`, `allowJs: false`, and both `skipLibCheck` settings. It validates first/last messages, named and namespaced input types, and rejected calls at 6,400 and 20,000 messages. Timings include process/compiler/library startup, not language-server latency. The original eight-variant graph experiment did not measure type-checking.
 
 ## Measurement boundaries
 

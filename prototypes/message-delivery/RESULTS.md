@@ -1,5 +1,7 @@
 # Message delivery results
 
+Follow-up: [individual virtual messages with one messages.d.ts](./SINGLE-DECLARATION.md) tests the eight-file design and includes large-catalog TypeScript checks.
+
 Measured on an Apple M5 Pro, darwin arm64, Node 24.22.1, Vite 8.1.4. Three runs per scenario. Raw observations and metadata are in [plain.json](./results/plain.json) and [mixed.json](./results/mixed.json). The raw files also include 1,000-message runs, server startup, warm/no-op work, bundle build times, and one-message bundle sizes.
 
 ## Findings

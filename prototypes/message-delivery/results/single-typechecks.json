@@ -1,0 +1,297 @@
+{
+  "metadata": {
+    "node": "v24.22.1",
+    "typescript": "5.9.2",
+    "note": "Fresh CLI subprocesses, including compiler/library startup. Not language-server or editor latency. allowJs false, strict true, noEmit true. Three rotated repetitions."
+  },
+  "results": [
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": false,
+      "round": 0,
+      "ms": 651.4945
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": false,
+      "round": 0,
+      "ms": 948.4588749999999
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": false,
+      "round": 1,
+      "ms": 916.1340839999998
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": false,
+      "round": 1,
+      "ms": 664.5290829999999
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": false,
+      "round": 2,
+      "ms": 631.3894580000001
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": false,
+      "round": 2,
+      "ms": 918.0740830000004
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": true,
+      "round": 0,
+      "ms": 323.84000000000015
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": true,
+      "round": 0,
+      "ms": 552.7299159999993
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": true,
+      "round": 1,
+      "ms": 562.0438749999994
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": true,
+      "round": 1,
+      "ms": 333.6651670000001
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": true,
+      "round": 2,
+      "ms": 378.8399580000005
+    },
+    {
+      "count": 6400,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": true,
+      "round": 2,
+      "ms": 634.8657919999996
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": false,
+      "round": 0,
+      "ms": 1271.9057080000002
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": false,
+      "round": 0,
+      "ms": 3575.9563749999998
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": false,
+      "round": 1,
+      "ms": 3673.1866250000003
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": false,
+      "round": 1,
+      "ms": 1189.7760000000017
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": false,
+      "round": 2,
+      "ms": 1301.8211670000019
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": false,
+      "round": 2,
+      "ms": 3776.1974579999987
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": true,
+      "round": 0,
+      "ms": 617.6556249999994
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": true,
+      "round": 0,
+      "ms": 2950.037333
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": true,
+      "round": 1,
+      "ms": 2959.1893750000017
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": true,
+      "round": 1,
+      "ms": 792.1569170000002
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": true,
+      "round": 2,
+      "ms": 696.2860000000001
+    },
+    {
+      "count": 20000,
+      "shape": "plain",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": true,
+      "round": 2,
+      "ms": 3047.5092499999955
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": false,
+      "round": 0,
+      "ms": 691.7098750000005
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": false,
+      "round": 0,
+      "ms": 1008.3107089999976
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": false,
+      "round": 1,
+      "ms": 1019.6269590000011
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": false,
+      "round": 1,
+      "ms": 703.6026669999992
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": false,
+      "round": 2,
+      "ms": 687.630250000002
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": false,
+      "round": 2,
+      "ms": 1030.356958999997
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": true,
+      "round": 0,
+      "ms": 335.8341670000009
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": true,
+      "round": 0,
+      "ms": 670.3667910000004
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": true,
+      "round": 1,
+      "ms": 681.166541999999
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": true,
+      "round": 1,
+      "ms": 338.14358399999765
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-types-64",
+      "skipLibCheck": true,
+      "round": 2,
+      "ms": 336.5833749999947
+    },
+    {
+      "count": 6400,
+      "shape": "mixed",
+      "variant": "virtual-message-single-types",
+      "skipLibCheck": true,
+      "round": 2,
+      "ms": 678.2403330000016
+    }
+  ]
+}
