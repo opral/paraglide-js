@@ -104,7 +104,7 @@ test.each(["single", "multiple"])(
 		const compiled = compileMessage(declarations, message, variants);
 
 		expect(compiled.code).toContain(
-			'const alpha = registry.number("en", zebra, {}, true);'
+			`const alpha = registry.number("en", zebra, {}, '["en",[]]');`
 		);
 
 		const { chained_locals } = await import(
@@ -219,7 +219,9 @@ test("compiles pattern-level annotations to registry calls", async () => {
 
 	const compiled = compileMessage(declarations, message, variants);
 
-	expect(compiled.code).toContain('registry.number("en", i?.count, {}, true)');
+	expect(compiled.code).toContain(
+		`registry.number("en", i?.count, {}, '["en",[]]')`
+	);
 
 	const { views } = await import(
 		"data:text/javascript;base64," +

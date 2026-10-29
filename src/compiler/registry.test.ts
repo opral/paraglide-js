@@ -1,5 +1,7 @@
 import { afterEach, expect, test, vi } from "vitest";
 import { execFileSync } from "node:child_process";
+import type { FunctionReference } from "@inlang/sdk";
+import { compileAnnotation } from "./compile-annotation.js";
 import { compileMessage } from "./compile-message.js";
 import { createRegistry } from "./registry.js";
 
@@ -347,4 +349,193 @@ test("preserves options inherited from an extended Object.prototype", async () =
 			);
 		else Reflect.deleteProperty(Object.prototype, "minimumFractionDigits");
 	}
+});
+
+type Option = FunctionReference["options"][number];
+
+function literal(name: string, value: string): Option {
+	return { name, value: { type: "literal", value } };
+}
+
+let compiledCalls = 0;
+
+async function compileCall(name: string, options: Option[]) {
+	const code = compileAnnotation("input", "en", {
+		type: "function-reference",
+		name,
+		options,
+	});
+	// a distinct module each time, with its own registry state
+	const source = `// ${compiledCalls++}\n${createRegistry()}\nconst registry = { plural, number, icuPound, datetime, relativetime };\nexport const format = (input) => ${code}`;
+	const registry = await import(
+		`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`
+	);
+	return { code, registry };
+}
+
+/** Runs `run` while Object.prototype has the property, then restores it. */
+function withPrototypeProperty(
+	name: string,
+	descriptor: PropertyDescriptor,
+	run: () => void
+) {
+	const previous = Object.getOwnPropertyDescriptor(Object.prototype, name);
+	Object.defineProperty(Object.prototype, name, {
+		...descriptor,
+		configurable: true,
+	});
+	try {
+		run();
+	} finally {
+		if (previous) Object.defineProperty(Object.prototype, name, previous);
+		else Reflect.deleteProperty(Object.prototype, name);
+	}
+}
+
+test("compiled literal options pass the runtime key and share its formatter", async () => {
+	const cases: Array<
+		[
+			annotation: string,
+			constructor: Parameters<typeof spyConstructor>[0],
+			options: Option[],
+			input: unknown,
+			expected: string,
+			equivalent: [fn: string, options: Record<string, unknown> | undefined],
+		]
+	> = [
+		["plural", "PluralRules", [], 1, "one", ["plural", { offset: undefined }]],
+		[
+			"plural",
+			"PluralRules",
+			[literal("type", "ordinal")],
+			2,
+			"two",
+			["plural", { type: "ordinal" }],
+		],
+		[
+			"plural",
+			"PluralRules",
+			[literal("offset", "1")],
+			2,
+			"one",
+			["plural", { offset: 1 }],
+		],
+		[
+			"number",
+			"NumberFormat",
+			[literal("useGrouping", "false"), literal("minimumFractionDigits", "2")],
+			1234.5,
+			"1234.50",
+			["number", { minimumFractionDigits: 2, useGrouping: false }],
+		],
+		[
+			"icu:pound",
+			"NumberFormat",
+			[literal("offset", "1")],
+			1234,
+			"1,233",
+			["number", undefined],
+		],
+		[
+			"datetime",
+			"DateTimeFormat",
+			[literal("timeZone", "UTC"), literal("year", "numeric")],
+			"2026-10-11",
+			"2026",
+			["datetime", { year: "numeric", timeZone: "UTC" }],
+		],
+		[
+			"relativetime",
+			"RelativeTimeFormat",
+			[literal("unit", "day"), literal("numeric", "auto")],
+			-1,
+			"yesterday",
+			["relativetime", { numeric: "auto", unit: "day" }],
+		],
+	];
+	for (const [
+		annotation,
+		name,
+		options,
+		input,
+		expected,
+		[fn, equivalent],
+	] of cases) {
+		const { code, registry } = await compileCall(annotation, options);
+		expect(code).toMatch(/, '\["en",.*\]'\)$/);
+		const spy = spyConstructor(name);
+		for (let i = 0; i < 100; i++) expect(registry.format(input)).toBe(expected);
+		// the same options with a runtime key reuse that formatter
+		registry[fn]("en", input, equivalent && { ...equivalent }, true);
+		expect(spy).toHaveBeenCalledTimes(1);
+		spy.mockRestore();
+	}
+});
+
+test("compiled literal options read Intl options from an extended Object.prototype, like other calls", async () => {
+	const { registry } = await compileCall("number", []);
+	// extended before the first call
+	withPrototypeProperty("minimumFractionDigits", { value: 1 }, () =>
+		expect(registry.format(2)).toBe("2.0")
+	);
+	expect(registry.format(2)).toBe("2");
+	// extended after the formatter was cached
+	for (const descriptor of [{ value: 2 }, { get: () => 2 }]) {
+		withPrototypeProperty("minimumFractionDigits", descriptor, () =>
+			expect(registry.format(2)).toBe("2.00")
+		);
+		expect(registry.format(2)).toBe("2");
+	}
+});
+
+test("compiled relativetime and datetime literals read inherited numeric, calendar and timeZone, like other calls", async () => {
+	const date = "2026-01-01T02:00:00Z";
+	const native = (options: Intl.DateTimeFormatOptions) =>
+		new Intl.DateTimeFormat("en", options).format(new Date(date));
+	const relative = await compileCall("relativetime", [literal("unit", "day")]);
+	expect(relative.registry.format(-1)).toBe("1 day ago");
+	withPrototypeProperty("numeric", { value: "auto" }, () =>
+		expect(relative.registry.format(-1)).toBe("yesterday")
+	);
+	const zoned = await compileCall("datetime", [
+		literal("timeZone", "UTC"),
+		literal("year", "numeric"),
+	]);
+	expect(zoned.registry.format(date)).toBe("2026");
+	withPrototypeProperty("calendar", { value: "buddhist" }, () =>
+		expect(zoned.registry.format(date)).toBe(
+			native({ timeZone: "UTC", year: "numeric", calendar: "buddhist" })
+		)
+	);
+	const unzoned = await compileCall("datetime", [literal("hour", "numeric")]);
+	withPrototypeProperty("timeZone", { value: "Asia/Tokyo" }, () =>
+		expect(unzoned.registry.format(date)).toBe(
+			native({ hour: "numeric", timeZone: "Asia/Tokyo" })
+		)
+	);
+});
+
+test("options with a variable, a name that is not an identifier, or a number that is not finite keep the runtime key", async () => {
+	const variable: Option = {
+		name: "offset",
+		value: { type: "variable-reference", name: "shift" },
+	};
+	expect((await compileCall("icu:pound", [variable])).code).toMatch(
+		/\{ offset: i\?\.shift \}\)$/
+	);
+	const exponent = await compileCall("number", [literal("1e1", "2")]);
+	expect(exponent.code).toMatch(/, true\)$/);
+	expect(exponent.registry.format(2)).toBe("2");
+	const escaped = await compileCall("number", [
+		literal("\\u006dinimumFractionDigits", "2"),
+	]);
+	expect(escaped.code).toMatch(/, true\)$/);
+	expect(escaped.registry.format(2)).toBe("2.00");
+	const digits = `1${"0".repeat(400)}`;
+	const overflow = await compileCall("number", [
+		literal("minimumFractionDigits", digits),
+	]);
+	// the emitted token stays a number literal, not `Infinity`
+	expect(overflow.code).toContain(`minimumFractionDigits: ${digits} }, true)`);
+	expect(() => overflow.registry.format(2)).toThrow(RangeError);
 });
