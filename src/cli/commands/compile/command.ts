@@ -33,6 +33,11 @@ const errorMessage = (error: unknown): string =>
 	error instanceof Error ? error.message : String(error);
 
 const parseOutputStructure = (value: string): OutputStructure => {
+	if (value === "virtual-modules") {
+		throw new InvalidArgumentError(
+			'"virtual-modules" requires the Paraglide Vite plugin. Use "message-modules" or "locale-modules" with the CLI.'
+		);
+	}
 	if (value === "message-modules" || value === "locale-modules") {
 		return value;
 	}
@@ -225,10 +230,11 @@ export const compileCommand = new Command()
 						experimentalStaticLocale: options.experimentalStaticLocale,
 						disableAsyncLocalStorage: options.disableAsyncLocalStorage,
 						messageModuleSize: options.messageModuleSize,
-						// The CLI always uses message-modules unless told otherwise
-						// (plugins apply their own development default).
+						// Explicit project configuration wins over the CLI default.
 						outputStructure:
-							options.outputStructure ?? defaultCompilerOptions.outputStructure,
+							options.outputStructure ??
+							loadedConfig?.config.outputStructure ??
+							defaultCompilerOptions.outputStructure,
 					},
 					root: process.cwd(),
 				});

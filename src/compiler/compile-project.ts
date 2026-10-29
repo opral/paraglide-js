@@ -38,6 +38,11 @@ export const compileProject = async (args: {
 	compilerOptions?: Omit<CompilerOptions, "fs" | "project" | "outdir">;
 }): Promise<Record<string, string>> => {
 	assertNoRemovedOptions(args.compilerOptions ?? {});
+	if (args.compilerOptions?.outputStructure === "virtual-modules") {
+		throw new Error(
+			'outputStructure: "virtual-modules" requires the Paraglide Vite plugin. Use "message-modules" or "locale-modules" for physical output.'
+		);
+	}
 	const { selectBundleNested } = await import("@inlang/sdk");
 	return compileCatalog({
 		...args,
@@ -68,6 +73,11 @@ export const compileCatalog = async (args: {
 		...defaultCompilerOptions,
 		...args.compilerOptions,
 	};
+	if (optionsWithDefaults.outputStructure === "virtual-modules") {
+		throw new Error(
+			'outputStructure: "virtual-modules" requires the Paraglide Vite plugin. Use "message-modules" or "locale-modules" for physical output.'
+		);
+	}
 	const messageModuleSize = optionsWithDefaults.messageModuleSize ?? 1;
 	if (!Number.isSafeInteger(messageModuleSize) || messageModuleSize < 1) {
 		throw new Error("messageModuleSize must be a positive safe integer");

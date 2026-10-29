@@ -744,3 +744,50 @@ test.each([
 		);
 	}
 );
+
+test.each([
+	{ configured: undefined, flag: undefined, expected: "message-modules" },
+	{ configured: "locale-modules", flag: undefined, expected: "locale-modules" },
+	{
+		configured: "virtual-modules",
+		flag: undefined,
+		expected: "virtual-modules",
+	},
+	{
+		configured: "virtual-modules",
+		flag: "message-modules",
+		expected: "message-modules",
+	},
+])(
+	"CLI output structure honors explicit config before applying its default: %j",
+	async ({ configured, flag, expected }) => {
+		const { workspace, projectDir } = await createWorkspace();
+		await writeConfig(projectDir, path.join(workspace, "output"));
+		await writeFile(
+			path.join(projectDir, "paraglide.config.ts"),
+			`export default ${JSON.stringify({ outdir: path.join(workspace, "output"), outputStructure: configured })};`
+		);
+		// Check option resolution separately from the compiler's Vite-only guard.
+		const compileMock = vi.fn().mockResolvedValue({ outputHashes: {} });
+		vi.doMock("../../../compiler/compile.js", () => ({ compile: compileMock }));
+		const exitError = new Error("process.exit");
+		vi.spyOn(process, "exit").mockImplementation(() => {
+			throw exitError;
+		});
+		const { compileCommand } = await import("./command.js");
+		await expect(
+			compileCommand.parseAsync(
+				[
+					"--project",
+					projectDir,
+					"--silent",
+					...(flag ? ["--output-structure", flag] : []),
+				],
+				{ from: "user" }
+			)
+		).rejects.toBe(exitError);
+		expect(compileMock).toHaveBeenCalledWith(
+			expect.objectContaining({ outputStructure: expected })
+		);
+	}
+);

@@ -88,6 +88,12 @@ export default defineConfig({
 });
 ```
 
+#### Virtual message modules for large catalogs
+
+The Vite plugin defaults to [virtual message modules](./virtual-messages), which
+keep public generated entry points while reducing emitted files and the Vite
+module graph for static message imports.
+
 #### Stop serving stale translations during development
 
 By default, compilation errors appear in Vite's error overlay and the last
@@ -279,7 +285,12 @@ paraglide/
 | `runtime.js`  | Locale utilities: `getLocale()`, `setLocale()`, `locales`, `baseLocale`  |
 | `server.js`   | Server middleware: `paraglideMiddleware()`                               |
 
-The `outputStructure` option controls how messages are organized. See [Compiler Options](./compiler-options) for details.
+The `outputStructure` option controls how messages are organized. The Vite
+plugin defaults to `"virtual-modules"` in development and production; this layout
+is available only through Vite. Select `"message-modules"` or `"locale-modules"`
+for physical message files. The CLI defaults to `"message-modules"`.
+See [Virtual Messages in Vite](./virtual-messages) for output and migration details,
+and [Compiler Options](./compiler-options) for all options.
 
 Large projects can reduce file creation and repeated generated code by grouping messages:
 

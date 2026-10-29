@@ -1,3 +1,7 @@
+import {
+	transformOutput,
+	type OutputTransform,
+} from "../compiler/output-transform.js";
 import type { UnpluginFactory } from "unplugin";
 import { compile, type CompilationResult } from "../compiler/compile.js";
 import { dirname, join, relative, resolve } from "node:path";
@@ -117,10 +121,13 @@ type PluginState = {
 // only valid for the filesystem they were produced from.
 let pluginState: PluginState | undefined;
 
-function getPluginState(args: Pick<CompilerOptions, "fs">): PluginState {
-	if (pluginState === undefined || pluginState.baseFs !== args.fs) {
+function getPluginState(
+	args: Pick<CompilerOptions, "fs">,
+	isolated = false
+): PluginState {
+	if (isolated || pluginState === undefined || pluginState.baseFs !== args.fs) {
 		const tracked = createTrackedFs({ fs: args.fs });
-		pluginState = {
+		const state: PluginState = {
 			baseFs: args.fs,
 			trackedFs: tracked.fs,
 			readFiles: tracked.readFiles,
@@ -131,6 +138,8 @@ function getPluginState(args: Pick<CompilerOptions, "fs">): PluginState {
 			previousProject: undefined,
 			previousOutdir: undefined,
 		};
+		if (!isolated) pluginState = state;
+		return state;
 	}
 	return pluginState;
 }
@@ -288,6 +297,7 @@ async function writePersistentCache(
 	args: CompilerOptions,
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>
 ): Promise<void> {
+	if (transformOutput in args) return;
 	if (
 		state.previousInputsDigest === undefined ||
 		state.previousCompilation?.outputHashes === undefined
@@ -327,6 +337,7 @@ async function restorePersistentCache(args: {
 	compilerOptions: CompilerOptions;
 	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
 }): Promise<boolean> {
+	if (transformOutput in args.compilerOptions) return false;
 	const cached = await readPersistentCache(
 		args.compilerOptions,
 		args.outputStructure
@@ -380,7 +391,7 @@ function rethrowUnlessEnoent(error: unknown): undefined {
 // https://github.com/opral/inlang-paraglide-js/issues/486
 function resolveOutputStructure(
 	options: CompilerOptions
-): "message-modules" | "locale-modules" {
+): NonNullable<CompilerOptions["outputStructure"]> {
 	const isProduction = process.env.NODE_ENV === "production";
 	return (
 		options.outputStructure ??
@@ -391,7 +402,7 @@ function resolveOutputStructure(
 function hasUnchangedInputs(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
-	outputStructure: "message-modules" | "locale-modules";
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
 }): Promise<boolean> {
 	if (args.state.previousCompilation === undefined) {
 		return Promise.resolve(false);
@@ -428,7 +439,7 @@ function maybeInvalidateForOptionsChange(
 async function compileAndUpdateState(args: {
 	state: PluginState;
 	compilerOptions: CompilerOptions;
-	outputStructure: "message-modules" | "locale-modules";
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
 	previousCompilation: CompilationResult | undefined;
 	/**
 	 * The `isServer` expression to bake into the compiled runtime.
@@ -526,6 +537,11 @@ async function runCompilation(args: {
 // The return type preserves literal option types (`enforce: "pre"`, ...)
 // while `project` stays required on the input side.
 type UnpluginIntegrationOptions = Pick<CompilerOptions, "outputStructure"> & {
+	getOutputTransform?: (
+		options: CompilerOptions
+	) => OutputTransform | undefined;
+	emitTsDeclarations?: boolean | ((options: CompilerOptions) => boolean);
+	validateOptions?: (options: CompilerOptions) => void;
 	devErrorResponse?: boolean;
 };
 
@@ -540,7 +556,8 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 	_meta,
 	defaults
 ) => {
-	const state = getPluginState(userArgs);
+	// Virtual implementations cannot be recovered from the disk hash cache.
+	const state = getPluginState(userArgs, Boolean(defaults?.getOutputTransform));
 	const { readFiles, clearReadFiles } = state;
 	// Project root as reported by the bundler (vite `root`, webpack/rspack
 	// `context`). Falls back to the process working directory when the
@@ -658,6 +675,25 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 			defaults?.outputStructure !== undefined
 		) {
 			options.outputStructure = defaults.outputStructure;
+		}
+		const outputTransform = defaults?.getOutputTransform?.(options);
+		if (outputTransform) {
+			Object.assign(options, { [transformOutput]: outputTransform });
+		}
+		if (
+			userArgs.emitTsDeclarations === undefined &&
+			loaded?.config.emitTsDeclarations === undefined &&
+			defaults?.emitTsDeclarations !== undefined
+		)
+			options.emitTsDeclarations =
+				typeof defaults.emitTsDeclarations === "function"
+					? defaults.emitTsDeclarations(options)
+					: defaults.emitTsDeclarations;
+		defaults?.validateOptions?.(options);
+		if (options.outputStructure === "virtual-modules" && !outputTransform) {
+			throw new Error(
+				'outputStructure: "virtual-modules" requires the Paraglide Vite plugin. Use "message-modules" or "locale-modules" for physical output.'
+			);
 		}
 		return options;
 	};
