@@ -16,6 +16,7 @@ type FixtureOptions = {
 	experimentalPerLocaleBuild?: boolean;
 	source: "settings" | "config";
 	isInitiallyInvalid?: boolean;
+	message?: string;
 };
 
 const cleanups: Array<() => Promise<void>> = [];
@@ -43,6 +44,25 @@ async function createFixture(options: FixtureOptions) {
 	} finally {
 		await project.close();
 	}
+
+	const resourceFile = path.join(root, "messages.json");
+	if (options.message) {
+		const settingsFile = path.join(projectDir, "settings.json");
+		const settings = JSON.parse(await fs.readFile(settingsFile, "utf8"));
+		settings.modules = ["./fixture-plugin.js"];
+		await fs.writeFile(settingsFile, JSON.stringify(settings));
+		await fs.writeFile(
+			resourceFile,
+			JSON.stringify({ greeting: options.message })
+		);
+		await fs.writeFile(
+			path.join(root, "fixture-plugin.js"),
+			`export default {key:"plugin.fixture.recovery",toBeImportedFiles:async()=>[{path:"./messages.json",locale:"en"}],importFiles:({files})=>{
+	 const entries=Object.entries(JSON.parse(new TextDecoder().decode(files[0].content)));
+	 return {bundles:entries.map(([id])=>({id})),messages:entries.map(([id])=>({bundleId:id,locale:"en"})),variants:entries.map(([id,value])=>({messageBundleId:id,messageLocale:"en",pattern:[{type:"text",value}]}))};
+	 }};`
+		);
+	}
 	const configFile = path.join(projectDir, "paraglide.config.js");
 	await fs.writeFile(configFile, "export default {};");
 	await fs.writeFile(
@@ -66,6 +86,9 @@ async function createFixture(options: FixtureOptions) {
 				project: projectDir,
 				outdir: path.join(root, "paraglide"),
 				devErrorResponse: options.devErrorResponse,
+				...(options.message
+					? { outputStructure: "message-modules" as const }
+					: {}),
 				experimentalPerLocaleBuild: options.experimentalPerLocaleBuild,
 			}),
 		],
@@ -75,7 +98,7 @@ async function createFixture(options: FixtureOptions) {
 	cleanups.push(() => server.close());
 	await server.listen();
 	const url = server.resolvedUrls!.local[0]!;
-	return { server, file, original, invalid, url };
+	return { server, file, original, invalid, url, resourceFile };
 }
 
 async function notifyChange(server: ViteDevServer, file: string) {
@@ -197,4 +220,28 @@ test("blocks generated modules while preserving errors and recovery for connecte
 	const recovered = await fetch(moduleUrl);
 	expect(recovered.status).toBe(200);
 	expect(await recovered.text()).toContain("baseLocale");
+});
+
+test("recovery invalidates cached message transforms before serving the restored page", async () => {
+	const fixture = await createFixture({
+		source: "settings",
+		devErrorResponse: true,
+		message: "Before error",
+	});
+	const moduleUrl = new URL("/paraglide/messages/greeting.js", fixture.url);
+	expect(await fetch(moduleUrl).then((response) => response.text())).toContain(
+		"Before error"
+	);
+	// Watcher disabled: the compiler's source event precedes output-file events.
+	await fs.writeFile(fixture.resourceFile, "{invalid");
+	await notifyChange(fixture.server, fixture.resourceFile);
+	expect((await fetch(moduleUrl)).status).toBe(500);
+	await fs.writeFile(
+		fixture.resourceFile,
+		JSON.stringify({ greeting: "Recovered message" })
+	);
+	await notifyChange(fixture.server, fixture.resourceFile);
+	const recovered = await fetch(moduleUrl);
+	expect(recovered.status).toBe(200);
+	expect(await recovered.text()).toContain("Recovered message");
 });

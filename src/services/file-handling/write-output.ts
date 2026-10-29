@@ -52,12 +52,19 @@ export async function writeOutput(args: {
 	cleanDirectory?: boolean;
 	fs: typeof nodeFs;
 	previousOutputHashes?: Record<string, string>;
+	/** Privately retained output from the same directory and filesystem. */
+	previousOutput?: {
+		files: Record<string, string>;
+		hashes: Record<string, string>;
+	};
 }) {
 	const encodedOutput = new Map<string, Buffer>();
 	const currentOutputHashes = await hashOutput(
 		args.output,
 		args.directory,
-		encodedOutput
+		encodedOutput,
+		args.previousOutput?.files,
+		args.previousOutput?.hashes
 	);
 
 	// if the output hasn't changed, don't write it
@@ -186,9 +193,18 @@ function hashString(input: string): string {
 async function hashOutput(
 	output: Record<string, string>,
 	outputDirectory: string,
-	encodedOutput: Map<string, Buffer>
+	encodedOutput: Map<string, Buffer>,
+	previousOutput?: Record<string, string>,
+	previousOutputHashes?: Record<string, string>
 ): Promise<Record<string, string>> {
 	const entries = Object.entries(output).map(([filePath, fileContent]) => {
+		const previousHash = previousOutputHashes?.[filePath];
+		if (
+			previousHash !== undefined &&
+			previousOutput?.[filePath] === fileContent
+		) {
+			return [filePath, previousHash] as const;
+		}
 		const absolutePath = path.resolve(outputDirectory, filePath);
 		// Large grouped modules otherwise encode their contents twice, once for
 		// hashing and again for writing. Small per-message files favor strings.

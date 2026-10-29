@@ -2,11 +2,25 @@ import type nodeFs from "node:fs";
 import { createRequire } from "node:module";
 import type { CatalogInput } from "./compile-project.js";
 
-type CatalogLoader = (args: {
+export type CatalogUpdate =
+	| {
+			settings: CatalogInput["settings"];
+			type: "reset";
+			bundles: readonly CatalogInput["bundles"][number][];
+			diagnostics: readonly Error[];
+	  }
+	| {
+			type: "update";
+			bundles: readonly CatalogInput["bundles"][number][];
+			removedBundleIds: readonly string[];
+			diagnostics: readonly Error[];
+	  };
+export type CatalogLoader = { load(): Promise<CatalogUpdate> };
+export type CatalogLoaderFactory = (args: {
 	path: string;
 	fs: typeof nodeFs;
 	writePluginCache?: boolean;
-}) => Promise<CatalogInput & { diagnostics: Error[] }>;
+}) => CatalogLoader;
 
 /** Resolve the lightweight SDK API while retaining older published SDK support. */
 export async function getCatalogLoader(
@@ -15,7 +29,7 @@ export async function getCatalogLoader(
 	) => import(specifier),
 	resolveModule: (specifier: string) => unknown = createRequire(import.meta.url)
 		.resolve
-): Promise<CatalogLoader | undefined> {
+): Promise<CatalogLoaderFactory | undefined> {
 	try {
 		// Resolve separately so missing exports inside a dependency cannot hide a
 		// broken catalog entry point by silently selecting the legacy loader.
@@ -26,14 +40,16 @@ export async function getCatalogLoader(
 		)
 			throw error;
 		const sdk = await importModule("@inlang/sdk");
-		const loader = Reflect.get(sdk, "loadProjectCatalog");
-		return typeof loader === "function" ? (loader as CatalogLoader) : undefined;
+		const loader = Reflect.get(sdk, "createCatalogLoader");
+		return typeof loader === "function"
+			? (loader as CatalogLoaderFactory)
+			: undefined;
 	}
 	// A variable specifier supports optional subpaths in bundled Paraglide too.
 	const catalog = await importModule("@inlang/sdk/catalog");
-	if (typeof catalog.loadProjectCatalog !== "function")
+	if (typeof catalog.createCatalogLoader !== "function")
 		throw new Error(
-			"The SDK catalog entry point does not export loadProjectCatalog"
+			"The SDK catalog entry point does not export createCatalogLoader"
 		);
-	return catalog.loadProjectCatalog as CatalogLoader;
+	return catalog.createCatalogLoader as CatalogLoaderFactory;
 }

@@ -16,7 +16,7 @@ const oldPackage = (specifier: string): string => {
 
 test("loads the narrow catalog entry without importing the SDK root", async () => {
 	const loader = vi.fn();
-	const importModule = vi.fn(async () => ({ loadProjectCatalog: loader }));
+	const importModule = vi.fn(async () => ({ createCatalogLoader: loader }));
 	const resolveModule = vi.fn(resolveCatalog);
 	expect(await getCatalogLoader(importModule, resolveModule)).toBe(loader);
 	expect(resolveModule.mock.calls).toEqual([["@inlang/sdk/catalog"]]);
@@ -25,15 +25,15 @@ test("loads the narrow catalog entry without importing the SDK root", async () =
 
 test("older packages without the catalog subpath retain their root catalog API", async () => {
 	const loader = vi.fn();
-	const importModule = vi.fn(async () => ({ loadProjectCatalog: loader }));
+	const importModule = vi.fn(async () => ({ createCatalogLoader: loader }));
 	expect(await getCatalogLoader(importModule, oldPackage)).toBe(loader);
 	expect(importModule.mock.calls).toEqual([["@inlang/sdk"]]);
 });
 
 test.each([
 	{},
-	{ loadProjectCatalog: undefined },
-	{ loadProjectCatalog: "unsupported" },
+	{ createCatalogLoader: undefined },
+	{ createCatalogLoader: "unsupported" },
 ])(
 	"root packages without a callable catalog API use the existing project loader: %j",
 	async (module) => {
@@ -61,7 +61,7 @@ for (const failure of [
 	),
 	Object.assign(
 		new Error(
-			"Cannot find module '/node_modules/@inlang/sdk/dist/project/loadProjectCatalog.js'"
+			"Cannot find module '/node_modules/@inlang/sdk/dist/project/createCatalogLoader.js'"
 		),
 		{ code: "MODULE_NOT_FOUND" }
 	),
