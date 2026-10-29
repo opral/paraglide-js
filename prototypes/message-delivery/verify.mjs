@@ -1,4 +1,5 @@
 import { test } from "node:test";
+import ts from "typescript";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import os from "node:os";
@@ -229,3 +230,88 @@ for (const mode of [
 		});
 	});
 }
+
+test("single declarations type-check applications when checkJs includes the generated facade", async () => {
+	await workspace(async (directory) => {
+		const variant = variants.find((item) => item.singleTypes);
+		const files = transport(
+			(await generate(fixture(3), variant)).output,
+			variant
+		).disk;
+		const outdir = path.join(directory, "paraglide");
+		await publish(outdir, files);
+		await fs.writeFile(
+			path.join(directory, "package.json"),
+			'{"type":"module"}'
+		);
+		await fs.writeFile(
+			path.join(directory, "consumer.ts"),
+			`
+			import { m } from "./paraglide/messages.js";
+			m.message_0({ name: "Ada" });
+			// @ts-expect-error application types must still reject missing inputs
+			m.message_0();
+			// @ts-expect-error application types must still enforce the locale union
+			m.message_0({ name: "Ada" }, { locale: "invalid" });
+		`
+		);
+		await fs.writeFile(
+			path.join(directory, "consumer.js"),
+			`
+			import { m } from "./paraglide/messages.js";
+			m.message_1({ name: "Ada" });
+			// @ts-expect-error JS consumers must remain typed with checkJs
+			m.message_1();
+		`
+		);
+		const nodeTypes = path.dirname(
+			path.dirname(
+				createRequire(import.meta.url).resolve("@types/node/package.json")
+			)
+		);
+		const config = ts.parseJsonConfigFileContent(
+			{
+				compilerOptions: {
+					strict: true,
+					noEmit: true,
+					allowJs: true,
+					checkJs: true,
+					module: "NodeNext",
+					moduleResolution: "NodeNext",
+					target: "ES2022",
+					types: ["node"],
+					typeRoots: [nodeTypes],
+					skipLibCheck: false,
+				},
+				include: ["**/*.ts", "**/*.js"],
+			},
+			ts.sys,
+			directory
+		);
+		assert.ok(config.fileNames.includes(path.join(outdir, "messages.js")));
+		const diagnostics = () =>
+			ts.getPreEmitDiagnostics(
+				ts.createProgram(config.fileNames, config.options)
+			);
+		// Pin the original failure so the guard cannot become an untested blanket
+		// suppression. Consumer @ts-expect-error checks fail if types become any.
+		await fs.writeFile(
+			path.join(outdir, "messages.js"),
+			files["messages.js"].replace("// @ts-nocheck\n", "")
+		);
+		assert.ok(
+			diagnostics().some(
+				(item) =>
+					item.code === 2307 &&
+					item.file?.fileName === path.join(outdir, "messages.js")
+			)
+		);
+		await fs.writeFile(path.join(outdir, "messages.js"), files["messages.js"]);
+		assert.deepEqual(
+			diagnostics().map((item) =>
+				ts.flattenDiagnosticMessageText(item.messageText, " ")
+			),
+			[]
+		);
+	});
+});

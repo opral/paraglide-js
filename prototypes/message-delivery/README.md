@@ -42,6 +42,10 @@ Declaration packing changes declaration paths only; JavaScript still has indepen
 
 `virtual-message-single-types` keeps JavaScript messages individual and virtual, with their named declarations directly in the real `messages.d.ts` entry point. It preserves value exports, quoted message IDs, input type exports, the `m` namespace and its input types, markup methods, and locale unions. A message named `m` remains accessible as `m.m`, without inventing a recursive namespace. Runtime type imports are adjusted for the root file.
 
+The physical `messages.js` facade still contains `export * from './messages/_index.js'` and `export * as m from './messages/_index.js'`. Vite intercepts that path and serves the virtual barrel and its individual message modules. During production builds, Vite resolves and bundles those imports into the application output.
+
+TypeScript application imports resolve against the adjacent `messages.d.ts`; it does not need to resolve virtual implementations for those types. If `checkJs` also checks the generated facade itself, its virtual imports otherwise cause TS2307. The single-file variant therefore puts `// @ts-nocheck` on that generated facade only. This does not disable checks in application TS/JS code, whose types still come from the declaration. Verification includes `checkJs: true` across generated/application files, confirms the original missing-module error without the guard, and checks that invalid calls are still rejected after it.
+
 There are eight disk files: `messages.js`, `runtime.js`, `server.js`, `registry.js`, and their four `.d.ts` companions. No `messages/` declaration shards, declaration barrel, or otherwise unused `messages/package.json` are emitted. Switching from packed declarations removes the old files.
 
 This packages the existing direct emitter's declarations. It extracts their fixed non-generic type alias and value export formats to preserve the namespace API. A production emitter should generate this structure directly from metadata instead of building intermediate per-message declarations. It adds no production TypeScript dependency.

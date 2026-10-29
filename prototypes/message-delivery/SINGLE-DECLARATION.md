@@ -21,6 +21,7 @@ The public facade still imports virtual message modules. Runtime, registry funct
 - Removing old grouped declaration files when switching to the single declaration layout.
 - Vite builds and SSR execution of virtual messages. Runtime behavior, unused-message elimination, and production bundle sizes match individual virtual messages with packed declarations in the paired runs.
 - Strict consumers with `allowJs: false`, both `skipLibCheck` settings, and 6,400/20,000 messages.
+- `checkJs: true` when generated JavaScript is included: only the generated facade gets `@ts-nocheck`, while application TypeScript and JavaScript consumers retain declaration-based checking. The test reproduces the missing virtual-module error without that guard.
 
 The prototype packs declarations already generated in memory. A production implementation should emit this structure directly from metadata. It does not add a production TypeScript dependency or change the shipped output/default.
 

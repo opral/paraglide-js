@@ -155,6 +155,11 @@ export function singleMessageDeclaration(output) {
 				name !== "messages/package.json"
 		)
 	);
+	// TypeScript cannot resolve Vite-only relative modules when checkJs includes
+	// this generated facade. Application typing comes from messages.d.ts.
+	result["messages.js"] =
+		"// @ts-nocheck\n// Vite resolves these generated imports; messages.d.ts provides application types.\n" +
+		output["messages.js"];
 	const localizedString =
 		'export type LocalizedString = import("../runtime.js").LocalizedString;';
 	const definitions = Object.entries(output)
