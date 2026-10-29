@@ -23,7 +23,11 @@ export function emitSupportingDeclarations(args: {
 	locales: string[];
 	compilerOptions: Pick<
 		CompilerOptions,
-		"disableAsyncLocalStorage" | "isServer" | "urlPatterns" | "routeStrategies"
+		| "disableAsyncLocalStorage"
+		| "isServer"
+		| "isDevelopment"
+		| "urlPatterns"
+		| "routeStrategies"
 	>;
 }): Record<string, string> {
 	const templates = getTemplates();
@@ -42,6 +46,7 @@ export function emitSupportingDeclarations(args: {
 		// unknown at compile time (e.g. import.meta.env.SSR). Keep those open,
 		// matching the old declaration emitter's unresolved-expression behavior.
 		IS_SERVER: isServerType(args.compilerOptions.isServer),
+		IS_DEVELOPMENT: isServerType(args.compilerOptions.isDevelopment ?? "true"),
 	};
 	return {
 		"runtime.d.ts": templates.runtime!.replace(

@@ -71,6 +71,7 @@ describe("supporting declaration templates", () => {
 			locales: ["en", "de"],
 			options: {
 				isServer: "false",
+				isDevelopment: "false",
 				experimentalStaticLocale: perLocaleBuildStaticLocaleExpression,
 			},
 		},
@@ -91,6 +92,7 @@ describe("supporting declaration templates", () => {
 			locales: ["en", "de"],
 			options: {
 				isServer: "import.meta.env.SSR",
+				isDevelopment: "import.meta.env.DEV",
 				experimentalStaticLocale: "import.meta.env.LOCALE",
 			},
 		},

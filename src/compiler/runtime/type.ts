@@ -16,6 +16,7 @@ export type Runtime = {
 	serverAsyncLocalStorage: typeof import("./variables.js").serverAsyncLocalStorage;
 	getServerAsyncLocalStorage: typeof import("./variables.js").getServerAsyncLocalStorage;
 	isServer: typeof import("./variables.js").isServer;
+	isDevelopment: typeof import("./variables.js").isDevelopment;
 	experimentalStaticLocale: typeof import("./variables.js").experimentalStaticLocale;
 	getLocale: typeof import("./get-locale.js").getLocale;
 	getTextDirection: typeof import("./get-text-direction.js").getTextDirection;

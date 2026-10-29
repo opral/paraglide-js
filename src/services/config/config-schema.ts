@@ -98,6 +98,7 @@ export const paraglideConfigSchema = v.object({
 	routeStrategies: v.optional(v.array(routeStrategySchema)),
 	localStorageKey: v.optional(v.string()),
 	isServer: v.optional(v.string()),
+	isDevelopment: v.optional(v.string()),
 	experimentalStaticLocale: v.optional(v.string()),
 	cookieName: v.optional(v.string()),
 	cookieMaxAge: v.optional(v.number()),

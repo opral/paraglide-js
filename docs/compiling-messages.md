@@ -16,6 +16,12 @@ There are three ways to invoke the Paraglide JS compiler:
 
 For all available options, see the [Compiler Options Reference](./compiler-options). Options can also be centralized in a `paraglide.config.js/ts` file that is used by the CLI and all bundler plugins — see [Configuration File](./configuration).
 
+## Runtime diagnostics
+
+The generated runtime uses the bundler-independent `isDevelopment` flag for development-only diagnostics, such as warning when a locale override cannot change a locale-specialized build. Vite sets this flag from its resolved development/production mode. Other bundler plugins default to `NODE_ENV !== "production"`. Explicit plugin or project configuration takes precedence.
+
+Standalone compilation enables diagnostics by default. Set the compiler option `isDevelopment: "false"`, or pass `--is-development false` to the CLI, to remove these diagnostics from production bundles. Like `isServer`, the option accepts a JavaScript expression as a string; no Vite-specific globals are required.
+
 ## Via the Paraglide CLI
 
 > [!TIP]

@@ -108,6 +108,9 @@ export const disableAsyncLocalStorage = false;
 
 export const isServer = typeof window === "undefined";
 
+/** Controls development-only runtime diagnostics. */
+export const isDevelopment = /** @type {boolean} */ (true);
+
 /** @type {Locale | undefined} */
 export const experimentalStaticLocale = undefined;
 

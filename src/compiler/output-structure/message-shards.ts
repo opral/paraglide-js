@@ -20,7 +20,7 @@ export function generateOutput(
 		const filename = `_shard_${files.length}.js`;
 		const names = new Set(shard.map((b) => toSafeModuleId(b.bundle.node.id)));
 		files.push(filename);
-		const runtime = "getLocale, experimentalStaticLocale";
+		const runtime = `getLocale, experimentalStaticLocale${shard.some((bundle) => bundle.usesDevelopmentDiagnostics) ? ", isDevelopment" : ""}`;
 		const chunks = [
 			`import { ${runtime} } from '../runtime.js';`,
 			"/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */",

@@ -189,6 +189,7 @@ test("compile exposes and forwards compiler options missing from the CLI (#757)"
 	expect(help).toContain("--experimental-static-locale <expression>");
 	expect(help).toContain("--disable-async-local-storage");
 	expect(help).toContain("--message-module-size");
+	expect(help).toContain("--is-development <expression>");
 
 	await expect(
 		compileCommand.parseAsync(
@@ -203,6 +204,8 @@ test("compile exposes and forwards compiler options missing from the CLI (#757)"
 				"--disable-async-local-storage",
 				"--message-module-size",
 				"512",
+				"--is-development",
+				"false",
 				"--silent",
 			],
 			{ from: "user" }
@@ -215,6 +218,7 @@ test("compile exposes and forwards compiler options missing from the CLI (#757)"
 			cleanOutdir: false,
 			disableAsyncLocalStorage: true,
 			messageModuleSize: 512,
+			isDevelopment: "false",
 			experimentalStaticLocale: 'import.meta.env.PARAGLIDE_LOCALE ?? "en"',
 			previousCompilation: undefined,
 		})

@@ -568,6 +568,8 @@ export const trailingSlash: "always" | "never" | undefined;
 export let serverAsyncLocalStorage: ParaglideAsyncLocalStorage | undefined;
 export const disableAsyncLocalStorage: {{DISABLE_ASYNC_LOCAL_STORAGE}};
 export const isServer: {{IS_SERVER}};
+/** Controls development-only runtime diagnostics. */
+export const isDevelopment: {{IS_DEVELOPMENT}};
 /** @type {Locale | undefined} */
 export const experimentalStaticLocale: Locale | undefined;
 export function getLocale(): Locale;

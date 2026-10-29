@@ -15,7 +15,7 @@ export function generateOutput(
 	settings: Pick<ProjectSettings, "locales" | "baseLocale">,
 	fallbackMap: Record<string, string | undefined>
 ): Record<string, string> {
-	const runtimeImport = `import { getLocale, experimentalStaticLocale } from "../runtime.js"`;
+	const runtimeImport = `import { getLocale, experimentalStaticLocale${compiledBundles.some((bundle) => bundle.usesDevelopmentDiagnostics) ? ", isDevelopment" : ""} } from "../runtime.js"`;
 
 	const indexFile = [
 		runtimeImport,
