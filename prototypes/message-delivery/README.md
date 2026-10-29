@@ -2,6 +2,10 @@
 
 This is an experiment for the follow-up to Paraglide v3, stacked on #847. It includes an opt-in Vite integration; existing defaults are unchanged. It compares the existing grouped emitter with virtual message implementations in Vite. `runtime.js`, `server.js`, `registry.js`, and declarations stay on disk. Most variants also keep the public `messages.js` facade on disk; the single-declaration variant virtualizes it too.
 
+## Static import optimization and profiling
+
+The follow-up in [OPTIMIZATION.md](./OPTIMIZATION.md) compares resolver shortcuts, raw module fusion and conservative static-import rewriting. The recommended prototype adds a shared export index to the static rewrite. It preserves individual-message tree shaking and seven output files, cuts the controlled first SSR module load from 6.45s to 49ms, and reduces Vite build time by 46%/38% for the SvelteKit/TanStack scale fixtures. Separate V8 captures, hook counts, paired raw observations and reproduction commands are included. It is an isolated prototype helper; the public Vite option/defaults are unchanged.
+
 ## Current integrated measurements
 
 See [CURRENT-BENCHMARKS.md](./CURRENT-BENCHMARKS.md) for fresh measurements of the integrated seven-file transport: 20,000 messages, real SDK/watch-queue updates, declaration checks, and 100-route SvelteKit/TanStack production build-and-check pipelines. It includes the raw observations, timing boundaries, grouped-output declaration failure, and reproduction commands. Earlier tables below remain historical comparisons with different scopes.

@@ -21,11 +21,36 @@ const destination = option(
 	"output",
 	"/tmp/paraglide-production-benchmark.json"
 );
-const scenarios = [
+const allScenarios = [
 	{ name: "disk-message", size: 1 },
 	{ name: "disk-group-64", size: 64 },
 	{ name: "virtual-single", size: 1, virtual: true },
+	{ name: "virtual-direct", size: 1, virtual: true, optimization: "direct" },
+	{
+		name: "virtual-direct-indexed",
+		size: 1,
+		virtual: true,
+		optimization: "direct-indexed",
+	},
+	{
+		name: "virtual-fused-64",
+		size: 1,
+		virtual: true,
+		optimization: "fused-64",
+	},
+	{
+		name: "virtual-sync-resolve",
+		size: 1,
+		virtual: true,
+		optimization: "sync-resolve",
+	},
 ];
+const selected = option(
+	"scenarios",
+	"disk-message,disk-group-64,virtual-single"
+).split(",");
+const scenarios = allScenarios.filter((s) => selected.includes(s.name));
+
 const measure = async (operation) => {
 	const start = performance.now();
 	const value = await operation();
@@ -47,7 +72,7 @@ async function walk(directory) {
 }
 if (args.includes("--worker")) {
 	const directory = option("directory");
-	const scenario = scenarios.find((s) => s.name === option("scenario"));
+	const scenario = allScenarios.find((s) => s.name === option("scenario"));
 	const { paraglideVitePlugin } = await import("../../dist/index.js");
 	const { createServer } = await import("vite");
 	const outdir = path.join(directory, "src/paraglide");
@@ -63,12 +88,16 @@ if (args.includes("--worker")) {
 		experimentalVirtualMessages: !!scenario.virtual,
 		strategy: ["baseLocale"],
 	});
+	const { optimizationPrototype } = await import("./optimization-plugin.mjs");
+	const optimization = scenario.optimization
+		? optimizationPrototype({ outdir, mode: scenario.optimization })
+		: [];
 	const cold = await measure(async () => {
 		const server = await createServer({
 			root: directory,
 			configFile: false,
 			logLevel: "silent",
-			plugins: [plugin],
+			plugins: [optimization, plugin],
 			optimizeDeps: { noDiscovery: true },
 			server: { watch: null, port: 0 },
 		});
@@ -84,7 +113,10 @@ if (args.includes("--worker")) {
 		);
 		const graph = await measure(() => server.ssrLoadModule("/src/entry.js"));
 		assert.equal(graph.value.value, "en_SENTINEL_0_ Ada");
+		const initialSsrModules =
+			server.environments.ssr.moduleGraph.idToModuleMap.size;
 		const updates = [];
+		const updatedSsrLoads = [];
 		const file = path.join(directory, "messages/en.json");
 		const messages = JSON.parse(await fs.readFile(file, "utf8"));
 		for (let i = 0; i < 5; i++) {
@@ -95,6 +127,11 @@ if (args.includes("--worker")) {
 				await server.pluginContainer.watchChange(file, { event: "update" });
 			});
 			updates.push(edited.ms);
+			const refreshed = await measure(() =>
+				server.ssrLoadModule("/src/entry.js")
+			);
+			assert.equal(refreshed.value.value, `EDITED_${i}_ Ada`);
+			updatedSsrLoads.push(refreshed.ms);
 		}
 		console.log(
 			"BENCHMARK_RESULT " +
@@ -103,6 +140,9 @@ if (args.includes("--worker")) {
 					coldCompilerAndViteMs: cold.ms,
 					initialSsrGraphMs: graph.ms,
 					updatesMs: updates,
+					updatedSsrLoadsMs: updatedSsrLoads,
+					initialSsrModules,
+					optimizationStats: optimization.find((p) => p.api)?.api.stats,
 					files: (await walk(outdir)).length,
 				})
 		);
@@ -231,10 +271,16 @@ async function prepare(framework, scenario) {
 	await resources(directory);
 	if (framework !== "compiler") {
 		const opts = JSON.stringify(options(directory, scenario, framework));
+		const optimizationImport = scenario.optimization
+			? `import {optimizationPrototype} from ${JSON.stringify(path.join(root, "prototypes/message-delivery/optimization-plugin.mjs"))};`
+			: "";
+		const optimizationPlugins = scenario.optimization
+			? `optimizationPrototype(${JSON.stringify({ outdir: options(directory, scenario, framework).outdir, mode: scenario.optimization })}),`
+			: "";
 		if (framework === "sveltekit") {
 			await fs.writeFile(
 				path.join(directory, "vite.config.ts"),
-				`import {sveltekit} from '@sveltejs/kit/vite';import {defineConfig} from 'vite';import {paraglideVitePlugin} from '@inlang/paraglide-js';export default defineConfig({plugins:[sveltekit(),paraglideVitePlugin(${opts})],build:{reportCompressedSize:false}});`
+				`${optimizationImport}import {sveltekit} from '@sveltejs/kit/vite';import {defineConfig} from 'vite';import {paraglideVitePlugin} from '@inlang/paraglide-js';export default defineConfig({plugins:[${optimizationPlugins}sveltekit(),paraglideVitePlugin(${opts})],build:{reportCompressedSize:false}});`
 			);
 			await fs.writeFile(
 				path.join(directory, "svelte.config.js"),
@@ -253,7 +299,7 @@ async function prepare(framework, scenario) {
 			});
 			await fs.writeFile(
 				path.join(directory, "vite.config.ts"),
-				`import {paraglideVitePlugin} from '@inlang/paraglide-js';import {defineConfig} from 'vite';import {tanstackStart} from '@tanstack/react-start/plugin/vite';import react from '@vitejs/plugin-react';export default defineConfig({resolve:{tsconfigPaths:true},plugins:[paraglideVitePlugin(${opts}),tanstackStart(),react()],build:{reportCompressedSize:false}});`
+				`${optimizationImport}import {paraglideVitePlugin} from '@inlang/paraglide-js';import {defineConfig} from 'vite';import {tanstackStart} from '@tanstack/react-start/plugin/vite';import react from '@vitejs/plugin-react';export default defineConfig({resolve:{tsconfigPaths:true},plugins:[${optimizationPlugins}paraglideVitePlugin(${opts}),tanstackStart(),react()],build:{reportCompressedSize:false}});`
 			);
 			await fs.mkdir(path.join(directory, "src/routes"), { recursive: true });
 			await fs.writeFile(
@@ -302,7 +348,7 @@ async function prepare(framework, scenario) {
 	return directory;
 }
 console.log(`Workspace ${workspace}`);
-for (const scenario of scenarios) {
+for (const scenario of args.includes("--skip-compiler") ? [] : scenarios) {
 	const directory = await prepare("compiler", scenario);
 	for (let round = 0; round < rounds; round++) {
 		await fs.rm(path.join(directory, "src/paraglide"), {
@@ -341,8 +387,8 @@ for (const framework of ["sveltekit", "tanstack-start"]) {
 		directories.set(scenario.name, await prepare(framework, scenario));
 	for (let round = 0; round < rounds; round++) {
 		const order = [
-			...scenarios.slice(round % 3),
-			...scenarios.slice(0, round % 3),
+			...scenarios.slice(round % scenarios.length),
+			...scenarios.slice(0, round % scenarios.length),
 		];
 		for (const scenario of order) {
 			const directory = directories.get(scenario.name);

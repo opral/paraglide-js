@@ -22,6 +22,12 @@ const { chromium } = await import(
 	path.join(store, playwrightPath, "node_modules/playwright/index.mjs")
 );
 const browser = await chromium.launch({ headless: true });
+const optimizationMode = process.argv
+	.find((arg) => arg.startsWith("--optimization="))
+	?.split("=")[1];
+const requestedFrameworks = process.argv
+	.slice(2)
+	.filter((arg) => !arg.startsWith("--"));
 const results = [];
 async function command(directory, script, args = []) {
 	try {
@@ -102,6 +108,19 @@ async function fixture(name) {
 		/project: (['"])\.\/project.inlang\1/,
 		'experimentalVirtualMessages: true, project: "./project.inlang"'
 	);
+	if (optimizationMode) {
+		config =
+			`import {optimizationPrototype} from ${JSON.stringify(path.join(root, "prototypes/message-delivery/optimization-plugin.mjs"))};\n` +
+			config;
+		const outdir = path.join(
+			directory,
+			name === "sveltekit" ? "src/lib/paraglide" : "src/paraglide"
+		);
+		config = config.replace(
+			/plugins:\s*\[/,
+			`plugins: [optimizationPrototype(${JSON.stringify({ outdir, mode: optimizationMode })}),`
+		);
+	}
 	await fs.writeFile(configPath, config);
 	return directory;
 }
@@ -133,8 +152,8 @@ async function visit(server, pathname, expected) {
 	return page;
 }
 try {
-	for (const framework of process.argv.slice(2).length
-		? process.argv.slice(2)
+	for (const framework of requestedFrameworks.length
+		? requestedFrameworks
 		: ["sveltekit", "tanstack-start", "react"]) {
 		const directory = await fixture(framework);
 		const local = createRequire(path.join(directory, "package.json"));
@@ -241,10 +260,12 @@ try {
 			const virtualConfig = await fs.readFile(viteConfig, "utf8");
 			await fs.writeFile(
 				viteConfig,
-				virtualConfig.replace(
-					"experimentalVirtualMessages: true",
-					"experimentalVirtualMessages: false"
-				)
+				virtualConfig
+					.replace(/optimizationPrototype\(\{[^}]*\}\),?/, "")
+					.replace(
+						"experimentalVirtualMessages: true",
+						"experimentalVirtualMessages: false"
+					)
 			);
 			await command(directory, vite, ["build"]);
 			const diskErrors = await diagnostics();

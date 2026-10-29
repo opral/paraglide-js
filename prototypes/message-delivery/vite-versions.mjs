@@ -7,6 +7,10 @@ import { paraglideVitePlugin, compile } from "../../dist/index.js";
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const store = path.join(root, "node_modules/.pnpm");
 const packages = await fs.readdir(store);
+const optimizationMode = process.argv
+	.find((arg) => arg.startsWith("--optimization="))
+	?.split("=")[1];
+const { optimizationPrototype } = await import("./optimization-plugin.mjs");
 const results = [];
 for (const major of [5, 6, 7, 8]) {
 	const installed = packages.find((name) => name.startsWith(`vite@${major}.`));
@@ -61,6 +65,12 @@ for (const major of [5, 6, 7, 8]) {
 			logLevel: "silent",
 			resolve: { alias: { "@": path.join(directory, "src") } },
 			plugins: [
+				...(optimizationMode
+					? optimizationPrototype({
+							outdir: options.outdir,
+							mode: optimizationMode,
+						})
+					: []),
 				paraglideVitePlugin({ ...options, experimentalVirtualMessages: true }),
 			],
 		};
@@ -83,6 +93,12 @@ for (const major of [5, 6, 7, 8]) {
 		const built = await vite.build({
 			...config,
 			plugins: [
+				...(optimizationMode
+					? optimizationPrototype({
+							outdir: options.outdir,
+							mode: optimizationMode,
+						})
+					: []),
 				paraglideVitePlugin({ ...options, experimentalVirtualMessages: true }),
 			],
 			build: {
@@ -110,6 +126,7 @@ for (const major of [5, 6, 7, 8]) {
 			productionBuild: true,
 			treeShaking: true,
 			diskMigration: true,
+			...(optimizationMode ? { optimizationMode } : {}),
 		});
 	} finally {
 		await server?.close();

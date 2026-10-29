@@ -1,0 +1,2177 @@
+{
+	"note": "Separate profiling passes; sampled self-time includes VM/native attribution and idle states. V8 main-thread samples do not fully attribute Rolldown worker CPU. Timed benchmark medians are from unprofiled runs. Machine-local paths were sanitized in compressed captures.",
+	"profiles": [
+		{
+			"category": "ssr",
+			"case": "baseline",
+			"profileDurationMs": 7572.166,
+			"sampledIntervalMs": 7572.166,
+			"topSampledSelfTime": [
+				{
+					"function": "runInlinedModule",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/module-runner.js",
+					"line": 1005,
+					"ms": 1748.665
+				},
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 1229.179
+				},
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 916.372
+				},
+				{
+					"function": "(anonymous)",
+					"url": "",
+					"line": 0,
+					"ms": 568.95
+				},
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 467.799
+				},
+				{
+					"function": "jsonParseAst",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/parse-D4dtlfWy.mjs",
+					"line": 25,
+					"ms": 249.921
+				},
+				{
+					"function": "encode$1",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 831,
+					"ms": 133.286
+				},
+				{
+					"function": "post",
+					"url": "node:inspector",
+					"line": 115,
+					"ms": 121.25
+				},
+				{
+					"function": "parse$2",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 3870,
+					"ms": 116.92
+				},
+				{
+					"function": "MagicString",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4456,
+					"ms": 108.628
+				},
+				{
+					"function": "wrappedHook",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/normalize-string-or-regex-dnh67V_w.mjs",
+					"line": 19,
+					"ms": 94.373
+				},
+				{
+					"function": "transform",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 30119,
+					"ms": 78.584
+				},
+				{
+					"function": "G",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 3910,
+					"ms": 69.958
+				},
+				{
+					"function": "eachNext",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4178,
+					"ms": 55.292
+				},
+				{
+					"function": "_splitChunk",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4916,
+					"ms": 54.334
+				},
+				{
+					"function": "RegExp: \\w",
+					"url": "",
+					"line": 0,
+					"ms": 53.46
+				},
+				{
+					"function": "visit",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 11750,
+					"ms": 50.083
+				},
+				{
+					"function": "enter",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 12068,
+					"ms": 45.458
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4582,
+					"ms": 41.792
+				},
+				{
+					"function": "addUneditedChunk",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4396,
+					"ms": 38.705
+				},
+				{
+					"function": "normalizeString",
+					"url": "node:path",
+					"line": 92,
+					"ms": 38.333
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 27424,
+					"ms": 38.168
+				},
+				{
+					"function": "resolve",
+					"url": "node:path",
+					"line": 1245,
+					"ms": 37.416
+				},
+				{
+					"function": "transform",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 27339,
+					"ms": 36.044
+				},
+				{
+					"function": "resolveId",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 30023,
+					"ms": 34.208
+				}
+			],
+			"metrics": {
+				"mode": "baseline",
+				"ms": 7450.657083,
+				"modules": 20004,
+				"messageModules": 20002
+			},
+			"capture": "ssr-baseline.cpuprofile.gz"
+		},
+		{
+			"category": "ssr",
+			"case": "direct",
+			"profileDurationMs": 184.875,
+			"sampledIntervalMs": 183.667,
+			"topSampledSelfTime": [
+				{
+					"function": "post",
+					"url": "node:inspector",
+					"line": 115,
+					"ms": 124.625
+				},
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 5.209
+				},
+				{
+					"function": "scan",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 12794,
+					"ms": 4.542
+				},
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 3.0
+				},
+				{
+					"function": "nextTokenWithoutCheck",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 33664,
+					"ms": 2.917
+				},
+				{
+					"function": "encodeInteger",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 717,
+					"ms": 2.125
+				},
+				{
+					"function": "addUneditedChunk",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4396,
+					"ms": 2.0
+				},
+				{
+					"function": "bindJSDoc",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 23007,
+					"ms": 1.708
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 34131,
+					"ms": 1.625
+				},
+				{
+					"function": "transform",
+					"url": "file://<workspace>/paraglide-project-catalog/prototypes/message-delivery/optimization-plugin.mjs",
+					"line": 132,
+					"ms": 1.542
+				},
+				{
+					"function": "runInlinedModule",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/module-runner.js",
+					"line": 1005,
+					"ms": 1.542
+				},
+				{
+					"function": "parseUnaryExpressionOrHigher",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 36353,
+					"ms": 1.541
+				},
+				{
+					"function": "write",
+					"url": "node:string_decoder",
+					"line": 76,
+					"ms": 1.5
+				},
+				{
+					"function": "simpleNormalizePath",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 8969,
+					"ms": 1.5
+				},
+				{
+					"function": "wasm-function[32]",
+					"url": "wasm://wasm/6a2fa82e",
+					"line": 1,
+					"ms": 1.5
+				},
+				{
+					"function": "addSegmentInternal",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 1268,
+					"ms": 1.5
+				},
+				{
+					"function": "wrappedHook",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/normalize-string-or-regex-dnh67V_w.mjs",
+					"line": 19,
+					"ms": 1.5
+				},
+				{
+					"function": "speculationHelper",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 14525,
+					"ms": 1.5
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 17831,
+					"ms": 1.5
+				},
+				{
+					"function": "isConflictMarkerTrivia",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 11870,
+					"ms": 1.5
+				},
+				{
+					"function": "parsePropertyOrMethodSignature",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 35215,
+					"ms": 1.5
+				},
+				{
+					"function": "isInScope",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 12051,
+					"ms": 1.5
+				},
+				{
+					"function": "utf8Write",
+					"url": "node:internal/buffer",
+					"line": 988,
+					"ms": 1.5
+				},
+				{
+					"function": "RegExp: readonly (\"(?:[^\"\\\\]|\\\\.)*\"): typeof ",
+					"url": "",
+					"line": 0,
+					"ms": 1.458
+				},
+				{
+					"function": "jsonParseAst",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/parse-D4dtlfWy.mjs",
+					"line": 25,
+					"ms": 1.417
+				}
+			],
+			"metrics": {
+				"mode": "direct",
+				"ms": 60.00108400000022,
+				"modules": 3,
+				"messageModules": 1,
+				"stats": {
+					"transformed": 1,
+					"rewrittenAccesses": 1,
+					"fallbacks": 0,
+					"parsedAppBytes": 88,
+					"fusedGroups": 0
+				}
+			},
+			"capture": "ssr-direct.cpuprofile.gz"
+		},
+		{
+			"category": "ssr",
+			"case": "fused-64",
+			"profileDurationMs": 2771.708,
+			"sampledIntervalMs": 2770.416,
+			"topSampledSelfTime": [
+				{
+					"function": "runInlinedModule",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/module-runner.js",
+					"line": 1005,
+					"ms": 402.8
+				},
+				{
+					"function": "jsonParseAst",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/parse-D4dtlfWy.mjs",
+					"line": 25,
+					"ms": 252.207
+				},
+				{
+					"function": "post",
+					"url": "node:inspector",
+					"line": 115,
+					"ms": 124.833
+				},
+				{
+					"function": "eachNext",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4178,
+					"ms": 119.29
+				},
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 112.706
+				},
+				{
+					"function": "encode$1",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 831,
+					"ms": 104.537
+				},
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 100.709
+				},
+				{
+					"function": "scan",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 12794,
+					"ms": 90.042
+				},
+				{
+					"function": "RegExp: \\w",
+					"url": "",
+					"line": 0,
+					"ms": 87.834
+				},
+				{
+					"function": "visit",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 11750,
+					"ms": 65.833
+				},
+				{
+					"function": "addWorkItem",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 33000,
+					"ms": 54.498
+				},
+				{
+					"function": "forEachChildRecursively",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 32960,
+					"ms": 52.5
+				},
+				{
+					"function": "genSourceMapUrl",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 19068,
+					"ms": 52.417
+				},
+				{
+					"function": "addUneditedChunk",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4396,
+					"ms": 49.792
+				},
+				{
+					"function": "enter",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 12068,
+					"ms": 42.124
+				},
+				{
+					"function": "iterateCommentRanges",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 11917,
+					"ms": 41.708
+				},
+				{
+					"function": "internIdentifier",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 33986,
+					"ms": 32.876
+				},
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 31.705
+				},
+				{
+					"function": "codePointAt",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 14617,
+					"ms": 31.375
+				},
+				{
+					"function": "_splitChunk",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4916,
+					"ms": 27.709
+				},
+				{
+					"function": "G",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 3910,
+					"ms": 25.584
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 12052,
+					"ms": 24.334
+				},
+				{
+					"function": "speculationHelper",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 33707,
+					"ms": 23.958
+				},
+				{
+					"function": "scanJsDocToken",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 14438,
+					"ms": 23.834
+				},
+				{
+					"function": "doJSDocScan",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/typescript@5.9.2/node_modules/typescript/lib/typescript.js",
+					"line": 39054,
+					"ms": 20.499
+				}
+			],
+			"metrics": {
+				"mode": "fused-64",
+				"ms": 2646.644208,
+				"modules": 317,
+				"messageModules": 315,
+				"stats": {
+					"transformed": 0,
+					"rewrittenAccesses": 0,
+					"fallbacks": 0,
+					"parsedAppBytes": 0,
+					"fusedGroups": 313
+				}
+			},
+			"capture": "ssr-fused-64.cpuprofile.gz"
+		},
+		{
+			"category": "ssr",
+			"case": "sync-resolve",
+			"profileDurationMs": 7330.25,
+			"sampledIntervalMs": 7329.542,
+			"topSampledSelfTime": [
+				{
+					"function": "runInlinedModule",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/module-runner.js",
+					"line": 1005,
+					"ms": 1666.423
+				},
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 1304.326
+				},
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 790.418
+				},
+				{
+					"function": "ResolveTask",
+					"url": "",
+					"line": 0,
+					"ms": 648.408
+				},
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 461.345
+				},
+				{
+					"function": "jsonParseAst",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/parse-D4dtlfWy.mjs",
+					"line": 25,
+					"ms": 287.285
+				},
+				{
+					"function": "post",
+					"url": "node:inspector",
+					"line": 115,
+					"ms": 107.542
+				},
+				{
+					"function": "parse$2",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 3870,
+					"ms": 101.458
+				},
+				{
+					"function": "MagicString",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4456,
+					"ms": 96.085
+				},
+				{
+					"function": "wrappedHook",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/normalize-string-or-regex-dnh67V_w.mjs",
+					"line": 19,
+					"ms": 78.914
+				},
+				{
+					"function": "encode$1",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 831,
+					"ms": 74.088
+				},
+				{
+					"function": "RegExp: \\w",
+					"url": "",
+					"line": 0,
+					"ms": 60.335
+				},
+				{
+					"function": "G",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 3910,
+					"ms": 58.126
+				},
+				{
+					"function": "transform",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 30119,
+					"ms": 54.545
+				},
+				{
+					"function": "_splitChunk",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4916,
+					"ms": 53.297
+				},
+				{
+					"function": "visit",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 11750,
+					"ms": 49.585
+				},
+				{
+					"function": "generateDecodedMap",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4575,
+					"ms": 49.043
+				},
+				{
+					"function": "transform",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 27339,
+					"ms": 46.458
+				},
+				{
+					"function": "wasm-function[56]",
+					"url": "wasm://wasm/6a2fa82e",
+					"line": 1,
+					"ms": 45.749
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 27424,
+					"ms": 43.331
+				},
+				{
+					"function": "resolveId",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 30023,
+					"ms": 38.916
+				},
+				{
+					"function": "resolve",
+					"url": "node:path",
+					"line": 1245,
+					"ms": 38.456
+				},
+				{
+					"function": "addUneditedChunk",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4396,
+					"ms": 35.838
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 4582,
+					"ms": 35.165
+				},
+				{
+					"function": "enter",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 12068,
+					"ms": 28.877
+				}
+			],
+			"metrics": {
+				"mode": "sync-resolve",
+				"ms": 7222.507791,
+				"modules": 20004,
+				"messageModules": 20002,
+				"stats": {
+					"transformed": 0,
+					"rewrittenAccesses": 0,
+					"fallbacks": 0,
+					"parsedAppBytes": 0,
+					"fusedGroups": 0
+				}
+			},
+			"capture": "ssr-sync-resolve.cpuprofile.gz"
+		},
+		{
+			"category": "build",
+			"case": "sveltekit-baseline",
+			"profileDurationMs": 5377.833,
+			"sampledIntervalMs": 5377.333,
+			"topSampledSelfTime": [
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 1559.623
+				},
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 1095.912
+				},
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 504.961
+				},
+				{
+					"function": "resolve",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 1261,
+					"ms": 202.795
+				},
+				{
+					"function": "resolve",
+					"url": "node:path",
+					"line": 1245,
+					"ms": 137.623
+				},
+				{
+					"function": "resolveId",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 88,
+					"ms": 75.25
+				},
+				{
+					"function": "relative",
+					"url": "node:path",
+					"line": 1353,
+					"ms": 70.208
+				},
+				{
+					"function": "createFreshCatalog",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 29,
+					"ms": 66.877
+				},
+				{
+					"function": "normalizeString",
+					"url": "node:path",
+					"line": 92,
+					"ms": 59.249
+				},
+				{
+					"function": "singleMessageDeclaration",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 5,
+					"ms": 57.082
+				},
+				{
+					"function": "importFiles",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2163,
+					"ms": 51.878
+				},
+				{
+					"function": "plugin",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 1546,
+					"ms": 48.708
+				},
+				{
+					"function": "join",
+					"url": "node:path",
+					"line": 1329,
+					"ms": 42.332
+				},
+				{
+					"function": "bundleFingerprint",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/project/createCatalogLoader.js",
+					"line": 91,
+					"ms": 34.209
+				},
+				{
+					"function": "resolveId",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@sveltejs+kit@2.69.2_@sveltejs+vite-plugin-svelte@7.2.0_svelte@5.56.4_@typescript-eslin_7ebdf562580dc99673ae4565b3d8f9fc/node_modules/@sveltejs/kit/src/exports/vite/index.js",
+					"line": 705,
+					"ms": 33.126
+				},
+				{
+					"function": "relativeName",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 74,
+					"ms": 31.585
+				},
+				{
+					"function": "(anonymous)",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2684,
+					"ms": 31.582
+				},
+				{
+					"function": "writeFileUtf8",
+					"url": "",
+					"line": 0,
+					"ms": 30.918
+				},
+				{
+					"function": "compileCatalog",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-project.js",
+					"line": 44,
+					"ms": 30.418
+				},
+				{
+					"function": "jsonCopy",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 371,
+					"ms": 29.378
+				},
+				{
+					"function": "tryCompileInlineBundle",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+					"line": 81,
+					"ms": 28.669
+				},
+				{
+					"function": "generateOutput",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/output-structure/message-modules.js",
+					"line": 8,
+					"ms": 27.166
+				},
+				{
+					"function": "plugin.<computed>",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 1957,
+					"ms": 27.126
+				},
+				{
+					"function": "getModuleOption",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 844,
+					"ms": 25.625
+				},
+				{
+					"function": "updateModuleOption",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 832,
+					"ms": 25.456
+				}
+			],
+			"hooks": [
+				{
+					"hook": "compiler.buildStart",
+					"environment": "ssr",
+					"ms": 586.4744170000001
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "ssr",
+					"plugins": [
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 20002,
+								"resolutions": 2
+							}
+						}
+					]
+				},
+				{
+					"hook": "compiler.buildStart",
+					"environment": "client",
+					"ms": 460.129375
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "client",
+					"plugins": [
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 20002,
+								"resolutions": 2
+							}
+						}
+					]
+				}
+			],
+			"capture": "build-sveltekit-baseline.cpuprofile.gz"
+		},
+		{
+			"category": "build",
+			"case": "sveltekit-direct-indexed",
+			"profileDurationMs": 3278.375,
+			"sampledIntervalMs": 3277.209,
+			"topSampledSelfTime": [
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 1098.5
+				},
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 269.492
+				},
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 227.628
+				},
+				{
+					"function": "createFreshCatalog",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 29,
+					"ms": 64.253
+				},
+				{
+					"function": "singleMessageDeclaration",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 5,
+					"ms": 55.876
+				},
+				{
+					"function": "importFiles",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2163,
+					"ms": 51.793
+				},
+				{
+					"function": "parse",
+					"url": "",
+					"line": 0,
+					"ms": 42.042
+				},
+				{
+					"function": "bundleFingerprint",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/project/createCatalogLoader.js",
+					"line": 91,
+					"ms": 38.582
+				},
+				{
+					"function": "jsonCopy",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 371,
+					"ms": 33.791
+				},
+				{
+					"function": "buildEnglishMatchTableDoc",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+					"line": 412,
+					"ms": 29.624
+				},
+				{
+					"function": "readCatalog",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/project/createCatalogLoader.js",
+					"line": 111,
+					"ms": 28.416
+				},
+				{
+					"function": "resolve",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 1261,
+					"ms": 28.251
+				},
+				{
+					"function": "compileCatalog",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-project.js",
+					"line": 44,
+					"ms": 27.834
+				},
+				{
+					"function": "(anonymous)",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2683,
+					"ms": 27.668
+				},
+				{
+					"function": "generateOutput",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/output-structure/message-modules.js",
+					"line": 8,
+					"ms": 27.664
+				},
+				{
+					"function": "tryCompileInlineBundle",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+					"line": 81,
+					"ms": 25.457
+				},
+				{
+					"function": "emitTsDeclarations",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/emit-ts-declarations.js",
+					"line": 7,
+					"ms": 24.082
+				},
+				{
+					"function": "detectModuleFormat",
+					"url": "node:internal/modules/esm/get_format",
+					"line": 94,
+					"ms": 23.333
+				},
+				{
+					"function": "writeFileUtf8",
+					"url": "",
+					"line": 0,
+					"ms": 23.248
+				},
+				{
+					"function": "apply_mutations",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/zimmerframe@1.1.4/node_modules/zimmerframe/src/walk.js",
+					"line": 153,
+					"ms": 22.792
+				},
+				{
+					"function": "resolve",
+					"url": "node:path",
+					"line": 1245,
+					"ms": 20.458
+				},
+				{
+					"function": "unique",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2683,
+					"ms": 19.958
+				},
+				{
+					"function": "(anonymous)",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2684,
+					"ms": 18.668
+				},
+				{
+					"function": "ModuleWrap",
+					"url": "",
+					"line": 0,
+					"ms": 16.666
+				},
+				{
+					"function": "flattenMessageKeys",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 1794,
+					"ms": 15.582
+				}
+			],
+			"hooks": [
+				{
+					"hook": "compiler.buildStart",
+					"environment": "ssr",
+					"ms": 598.031916
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "ssr",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 100,
+								"rewrittenAccesses": 2000,
+								"fallbacks": 0,
+								"parsedAppBytes": 123480,
+								"fusedGroups": 0,
+								"indexReads": 1,
+								"indexBuilds": 1
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 2000,
+								"resolutions": 4000
+							}
+						}
+					]
+				},
+				{
+					"hook": "compiler.buildStart",
+					"environment": "client",
+					"ms": 530.4932919999999
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "client",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 100,
+								"rewrittenAccesses": 2000,
+								"fallbacks": 0,
+								"parsedAppBytes": 139980,
+								"fusedGroups": 0,
+								"indexReads": 1,
+								"indexBuilds": 1
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 2000,
+								"resolutions": 4000
+							}
+						}
+					]
+				}
+			],
+			"capture": "build-sveltekit-direct-indexed.cpuprofile.gz"
+		},
+		{
+			"category": "build",
+			"case": "sveltekit-direct-unindexed",
+			"profileDurationMs": 4699.791,
+			"sampledIntervalMs": 4699.166,
+			"topSampledSelfTime": [
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 1096.417
+				},
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 524.049
+				},
+				{
+					"function": "write",
+					"url": "node:string_decoder",
+					"line": 76,
+					"ms": 307.873
+				},
+				{
+					"function": "loadIndex",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/sveltekit/node_modules/.vite-temp/vite.config.ts.timestamp-1793293519211-ca85c184ac3258.mjs",
+					"line": 386,
+					"ms": 283.333
+				},
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 265.412
+				},
+				{
+					"function": "loadIndex",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/sveltekit/node_modules/.vite-temp/vite.config.ts.timestamp-1793293516739-ca11b8164c94f.mjs",
+					"line": 386,
+					"ms": 253.582
+				},
+				{
+					"function": "RegExp: readonly (\"(?:[^\"\\\\]|\\\\.)*\"): typeof ",
+					"url": "",
+					"line": 0,
+					"ms": 202.373
+				},
+				{
+					"function": "createFreshCatalog",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 29,
+					"ms": 84.749
+				},
+				{
+					"function": "singleMessageDeclaration",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 5,
+					"ms": 61.25
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/sveltekit/node_modules/.vite-temp/vite.config.ts.timestamp-1793293516739-ca11b8164c94f.mjs",
+					"line": 390,
+					"ms": 60.042
+				},
+				{
+					"function": "importFiles",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2163,
+					"ms": 49.626
+				},
+				{
+					"function": "parse",
+					"url": "",
+					"line": 0,
+					"ms": 48.04
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/sveltekit/node_modules/.vite-temp/vite.config.ts.timestamp-1793293519211-ca85c184ac3258.mjs",
+					"line": 390,
+					"ms": 47.248
+				},
+				{
+					"function": "bundleFingerprint",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/project/createCatalogLoader.js",
+					"line": 91,
+					"ms": 38.125
+				},
+				{
+					"function": "(anonymous)",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2684,
+					"ms": 33.248
+				},
+				{
+					"function": "tryCompileInlineBundle",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+					"line": 81,
+					"ms": 31.458
+				},
+				{
+					"function": "resolve",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 1261,
+					"ms": 29.5
+				},
+				{
+					"function": "generateOutput",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/output-structure/message-modules.js",
+					"line": 8,
+					"ms": 29.458
+				},
+				{
+					"function": "detectModuleFormat",
+					"url": "node:internal/modules/esm/get_format",
+					"line": 94,
+					"ms": 26.666
+				},
+				{
+					"function": "jsonCopy",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 371,
+					"ms": 26.416
+				},
+				{
+					"function": "compileCatalog",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-project.js",
+					"line": 44,
+					"ms": 26.167
+				},
+				{
+					"function": "emitTsDeclarations",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/emit-ts-declarations.js",
+					"line": 7,
+					"ms": 25.75
+				},
+				{
+					"function": "toSafeModuleId",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/safe-module-id.js",
+					"line": 6,
+					"ms": 24.665
+				},
+				{
+					"function": "(anonymous)",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2683,
+					"ms": 23.625
+				},
+				{
+					"function": "writeFileUtf8",
+					"url": "",
+					"line": 0,
+					"ms": 23.249
+				}
+			],
+			"hooks": [
+				{
+					"hook": "compiler.buildStart",
+					"environment": "ssr",
+					"ms": 604.598208
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "ssr",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 100,
+								"rewrittenAccesses": 2000,
+								"fallbacks": 0,
+								"parsedAppBytes": 123480,
+								"fusedGroups": 0,
+								"indexReads": 102,
+								"indexBuilds": 102
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 2000,
+								"resolutions": 4000
+							}
+						}
+					]
+				},
+				{
+					"hook": "compiler.buildStart",
+					"environment": "client",
+					"ms": 473.718625
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "client",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 100,
+								"rewrittenAccesses": 2000,
+								"fallbacks": 0,
+								"parsedAppBytes": 139980,
+								"fusedGroups": 0,
+								"indexReads": 101,
+								"indexBuilds": 101
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 2000,
+								"resolutions": 4000
+							}
+						}
+					]
+				}
+			],
+			"capture": "build-sveltekit-direct-unindexed.cpuprofile.gz"
+		},
+		{
+			"category": "build",
+			"case": "sveltekit-direct",
+			"profileDurationMs": 4428.833,
+			"sampledIntervalMs": 4427.333,
+			"topSampledSelfTime": [
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 1022.667
+				},
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 465.921
+				},
+				{
+					"function": "write",
+					"url": "node:string_decoder",
+					"line": 76,
+					"ms": 298.958
+				},
+				{
+					"function": "transform",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/sveltekit/node_modules/.vite-temp/vite.config.ts.timestamp-1793292851430-967b3a23bd92f.mjs",
+					"line": 381,
+					"ms": 251.211
+				},
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 244.419
+				},
+				{
+					"function": "transform",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/sveltekit/node_modules/.vite-temp/vite.config.ts.timestamp-1793292849095-ae4b1476492b68.mjs",
+					"line": 381,
+					"ms": 239.499
+				},
+				{
+					"function": "RegExp: readonly (\"(?:[^\"\\\\]|\\\\.)*\"): typeof ",
+					"url": "",
+					"line": 0,
+					"ms": 207.626
+				},
+				{
+					"function": "createFreshCatalog",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 29,
+					"ms": 77.917
+				},
+				{
+					"function": "importFiles",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2163,
+					"ms": 67.085
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/sveltekit/node_modules/.vite-temp/vite.config.ts.timestamp-1793292849095-ae4b1476492b68.mjs",
+					"line": 385,
+					"ms": 55.666
+				},
+				{
+					"function": "singleMessageDeclaration",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 5,
+					"ms": 54.333
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/sveltekit/node_modules/.vite-temp/vite.config.ts.timestamp-1793292851430-967b3a23bd92f.mjs",
+					"line": 385,
+					"ms": 54.037
+				},
+				{
+					"function": "bundleFingerprint",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/project/createCatalogLoader.js",
+					"line": 91,
+					"ms": 40.292
+				},
+				{
+					"function": "parse",
+					"url": "",
+					"line": 0,
+					"ms": 40.126
+				},
+				{
+					"function": "resolve",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 1261,
+					"ms": 37.416
+				},
+				{
+					"function": "tryCompileInlineBundle",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+					"line": 81,
+					"ms": 34.624
+				},
+				{
+					"function": "(anonymous)",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2683,
+					"ms": 30.459
+				},
+				{
+					"function": "generateOutput",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/output-structure/message-modules.js",
+					"line": 8,
+					"ms": 29.999
+				},
+				{
+					"function": "jsonCopy",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 371,
+					"ms": 29.794
+				},
+				{
+					"function": "compileCatalog",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-project.js",
+					"line": 44,
+					"ms": 29.418
+				},
+				{
+					"function": "writeFileUtf8",
+					"url": "",
+					"line": 0,
+					"ms": 26.71
+				},
+				{
+					"function": "(anonymous)",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2684,
+					"ms": 25.332
+				},
+				{
+					"function": "apply_mutations",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/zimmerframe@1.1.4/node_modules/zimmerframe/src/walk.js",
+					"line": 153,
+					"ms": 22.5
+				},
+				{
+					"function": "detectModuleFormat",
+					"url": "node:internal/modules/esm/get_format",
+					"line": 94,
+					"ms": 22.458
+				},
+				{
+					"function": "emitTsDeclarations",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/emit-ts-declarations.js",
+					"line": 7,
+					"ms": 20.166
+				}
+			],
+			"hooks": [
+				{
+					"hook": "compiler.buildStart",
+					"environment": "ssr",
+					"ms": 580.3878339999999
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "ssr",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 100,
+								"rewrittenAccesses": 2000,
+								"fallbacks": 0,
+								"parsedAppBytes": 123480,
+								"fusedGroups": 0
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 2000,
+								"resolutions": 4000
+							}
+						}
+					]
+				},
+				{
+					"hook": "compiler.buildStart",
+					"environment": "client",
+					"ms": 462.1449580000003
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "client",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 100,
+								"rewrittenAccesses": 2000,
+								"fallbacks": 0,
+								"parsedAppBytes": 139980,
+								"fusedGroups": 0
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 2000,
+								"resolutions": 4000
+							}
+						}
+					]
+				}
+			],
+			"capture": "build-sveltekit-direct.cpuprofile.gz"
+		},
+		{
+			"category": "build",
+			"case": "tanstack-baseline",
+			"profileDurationMs": 3328.541,
+			"sampledIntervalMs": 3327.958,
+			"topSampledSelfTime": [
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 760.711
+				},
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 383.252
+				},
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 317.412
+				},
+				{
+					"function": "resolve",
+					"url": "node:path",
+					"line": 1245,
+					"ms": 107.711
+				},
+				{
+					"function": "normalizeString",
+					"url": "node:path",
+					"line": 92,
+					"ms": 53.251
+				},
+				{
+					"function": "relative",
+					"url": "node:path",
+					"line": 1353,
+					"ms": 49.541
+				},
+				{
+					"function": "createFreshCatalog",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 29,
+					"ms": 37.669
+				},
+				{
+					"function": "visit",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/context.js",
+					"line": 75,
+					"ms": 35.582
+				},
+				{
+					"function": "importFiles",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2163,
+					"ms": 32.082
+				},
+				{
+					"function": "getOrCreateCachedPaths",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/cache.js",
+					"line": 31,
+					"ms": 31.46
+				},
+				{
+					"function": "visitQueue",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/context.js",
+					"line": 77,
+					"ms": 30.79
+				},
+				{
+					"function": "singleMessageDeclaration",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 5,
+					"ms": 29.708
+				},
+				{
+					"function": "resolveId",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 88,
+					"ms": 28.125
+				},
+				{
+					"function": "join",
+					"url": "node:path",
+					"line": 1329,
+					"ms": 24.166
+				},
+				{
+					"function": "plugin",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 1483,
+					"ms": 24.166
+				},
+				{
+					"function": "plugin",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/rolldown@1.1.5/node_modules/rolldown/dist/shared/bindingify-input-options-XPJLJOD0.mjs",
+					"line": 1546,
+					"ms": 22.832
+				},
+				{
+					"function": "injectSsrFlag",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/vite@8.1.4_@types+node@22.19.3_esbuild@0.27.2_jiti@2.7.0_tsx@4.21.0_yaml@2.8.2/node_modules/vite/dist/node/chunks/node.js",
+					"line": 33294,
+					"ms": 22.667
+				},
+				{
+					"function": "jsonCopy",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 371,
+					"ms": 21.792
+				},
+				{
+					"function": "bundleFingerprint",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/project/createCatalogLoader.js",
+					"line": 91,
+					"ms": 21.584
+				},
+				{
+					"function": "setScope",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/context.js",
+					"line": 124,
+					"ms": 21.542
+				},
+				{
+					"function": "compileSourceTextModule",
+					"url": "node:internal/modules/esm/utils",
+					"line": 317,
+					"ms": 21.0
+				},
+				{
+					"function": "setContext",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/context.js",
+					"line": 141,
+					"ms": 19.667
+				},
+				{
+					"function": "get",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/index.js",
+					"line": 72,
+					"ms": 19.457
+				},
+				{
+					"function": "getBindingIdentifiers",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+types@7.29.0/node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js",
+					"line": 8,
+					"ms": 19.417
+				},
+				{
+					"function": "traverseNode",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/traverse-node.js",
+					"line": 120,
+					"ms": 17.416
+				}
+			],
+			"hooks": [
+				{
+					"hook": "compiler.buildStart",
+					"environment": "client",
+					"ms": 584.752333
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "client",
+					"plugins": [
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 20002,
+								"resolutions": 1
+							}
+						}
+					]
+				},
+				{
+					"hook": "compiler.buildStart",
+					"environment": "ssr",
+					"ms": 2.7988329999998314
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "ssr",
+					"plugins": [
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 40004,
+								"resolutions": 2
+							}
+						}
+					]
+				}
+			],
+			"capture": "build-tanstack-baseline.cpuprofile.gz"
+		},
+		{
+			"category": "build",
+			"case": "tanstack-direct-indexed",
+			"profileDurationMs": 2248.25,
+			"sampledIntervalMs": 2248.167,
+			"topSampledSelfTime": [
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 202.332
+				},
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 184.084
+				},
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 160.96
+				},
+				{
+					"function": "visitQueue",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/context.js",
+					"line": 77,
+					"ms": 52.043
+				},
+				{
+					"function": "getOrCreateCachedPaths",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/cache.js",
+					"line": 31,
+					"ms": 40.877
+				},
+				{
+					"function": "singleMessageDeclaration",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 5,
+					"ms": 36.791
+				},
+				{
+					"function": "importFiles",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2163,
+					"ms": 33.499
+				},
+				{
+					"function": "visit",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/context.js",
+					"line": 75,
+					"ms": 32.835
+				},
+				{
+					"function": "jsonCopy",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 371,
+					"ms": 31.959
+				},
+				{
+					"function": "createFreshCatalog",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 29,
+					"ms": 31.916
+				},
+				{
+					"function": "parse",
+					"url": "",
+					"line": 0,
+					"ms": 25.166
+				},
+				{
+					"function": "setScope",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/context.js",
+					"line": 124,
+					"ms": 24.292
+				},
+				{
+					"function": "readFileUtf8",
+					"url": "",
+					"line": 0,
+					"ms": 20.249
+				},
+				{
+					"function": "setContext",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/context.js",
+					"line": 141,
+					"ms": 20.169
+				},
+				{
+					"function": "compileSourceTextModule",
+					"url": "node:internal/modules/esm/utils",
+					"line": 317,
+					"ms": 19.541
+				},
+				{
+					"function": "bundleFingerprint",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/project/createCatalogLoader.js",
+					"line": 91,
+					"ms": 18.832
+				},
+				{
+					"function": "normalizeString",
+					"url": "node:path",
+					"line": 92,
+					"ms": 18.581
+				},
+				{
+					"function": "traverseNode",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/traverse-node.js",
+					"line": 120,
+					"ms": 17.959
+				},
+				{
+					"function": "(anonymous)",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2684,
+					"ms": 17.75
+				},
+				{
+					"function": "unique",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2683,
+					"ms": 17.21
+				},
+				{
+					"function": "compileCatalog",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-project.js",
+					"line": 44,
+					"ms": 17.125
+				},
+				{
+					"function": "generateOutput",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/output-structure/message-modules.js",
+					"line": 8,
+					"ms": 16.792
+				},
+				{
+					"function": "get",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/common.js",
+					"line": 125,
+					"ms": 15.918
+				},
+				{
+					"function": "buildEnglishMatchTableDoc",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+					"line": 412,
+					"ms": 15.456
+				},
+				{
+					"function": "get",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/index.js",
+					"line": 72,
+					"ms": 14.748
+				}
+			],
+			"hooks": [
+				{
+					"hook": "compiler.buildStart",
+					"environment": "client",
+					"ms": 617.623292
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "client",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 100,
+								"rewrittenAccesses": 2000,
+								"fallbacks": 0,
+								"parsedAppBytes": 105480,
+								"fusedGroups": 0,
+								"indexReads": 1,
+								"indexBuilds": 1
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 2000,
+								"resolutions": 2000
+							}
+						}
+					]
+				},
+				{
+					"hook": "compiler.buildStart",
+					"environment": "ssr",
+					"ms": 2.88408400000003
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "ssr",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 200,
+								"rewrittenAccesses": 4000,
+								"fallbacks": 0,
+								"parsedAppBytes": 210960,
+								"fusedGroups": 0,
+								"indexReads": 1,
+								"indexBuilds": 1
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 4000,
+								"resolutions": 4000
+							}
+						}
+					]
+				}
+			],
+			"capture": "build-tanstack-direct-indexed.cpuprofile.gz"
+		},
+		{
+			"category": "build",
+			"case": "tanstack-direct",
+			"profileDurationMs": 2840.25,
+			"sampledIntervalMs": 2839.708,
+			"topSampledSelfTime": [
+				{
+					"function": "(garbage collector)",
+					"url": "",
+					"line": 0,
+					"ms": 300.458
+				},
+				{
+					"function": "transform",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/tanstack-start/node_modules/.vite-temp/vite.config.ts.timestamp-1793292857063-7924a6b7b2099.mjs",
+					"line": 382,
+					"ms": 253.418
+				},
+				{
+					"function": "(idle)",
+					"url": "",
+					"line": 0,
+					"ms": 185.415
+				},
+				{
+					"function": "(program)",
+					"url": "",
+					"line": 0,
+					"ms": 173.373
+				},
+				{
+					"function": "write",
+					"url": "node:string_decoder",
+					"line": 76,
+					"ms": 138.625
+				},
+				{
+					"function": "RegExp: readonly (\"(?:[^\"\\\\]|\\\\.)*\"): typeof ",
+					"url": "",
+					"line": 0,
+					"ms": 94.875
+				},
+				{
+					"function": "visitQueue",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/context.js",
+					"line": 77,
+					"ms": 59.167
+				},
+				{
+					"function": "(anonymous)",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/examples/tanstack-start/node_modules/.vite-temp/vite.config.ts.timestamp-1793292857063-7924a6b7b2099.mjs",
+					"line": 386,
+					"ms": 49.541
+				},
+				{
+					"function": "createFreshCatalog",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 29,
+					"ms": 40.253
+				},
+				{
+					"function": "importFiles",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2163,
+					"ms": 37.623
+				},
+				{
+					"function": "visit",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/context.js",
+					"line": 75,
+					"ms": 33.584
+				},
+				{
+					"function": "getOrCreateCachedPaths",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/cache.js",
+					"line": 31,
+					"ms": 30.875
+				},
+				{
+					"function": "singleMessageDeclaration",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/bundler-plugins/virtual-messages.js",
+					"line": 5,
+					"ms": 27.124
+				},
+				{
+					"function": "get",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/index.js",
+					"line": 72,
+					"ms": 26.332
+				},
+				{
+					"function": "parse",
+					"url": "",
+					"line": 0,
+					"ms": 25.583
+				},
+				{
+					"function": "setContext",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+traverse@7.29.0/node_modules/@babel/traverse/lib/path/context.js",
+					"line": 141,
+					"ms": 22.457
+				},
+				{
+					"function": "getBindingIdentifiers",
+					"url": "file://<workspace>/paraglide-direct-declarations-pr/node_modules/.pnpm/@babel+types@7.29.0/node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js",
+					"line": 8,
+					"ms": 22.333
+				},
+				{
+					"function": "tryCompileInlineBundle",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+					"line": 81,
+					"ms": 18.168
+				},
+				{
+					"function": "generateOutput",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/output-structure/message-modules.js",
+					"line": 8,
+					"ms": 17.75
+				},
+				{
+					"function": "compileSourceTextModule",
+					"url": "node:internal/modules/esm/utils",
+					"line": 317,
+					"ms": 16.834
+				},
+				{
+					"function": "resolve",
+					"url": "node:path",
+					"line": 1245,
+					"ms": 16.376
+				},
+				{
+					"function": "bundleFingerprint",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/project/createCatalogLoader.js",
+					"line": 91,
+					"ms": 16.168
+				},
+				{
+					"function": "(anonymous)",
+					"url": "data:text/javascript;base64,dmFyIF9fY3JlYXRlID0gT2JqZWN0LmNyZWF0ZTsKdmFyIF9fZGVmUHJvcCA9IE9iamVjdC5kZWZpbmVQcm9wZXJ0eTsKdmFyIF9fZ2V0T3duUHJvcERlc2MgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlEZXNjcmlwdG9yOwp2YXIgX19nZXRPd25Qcm9wTmFtZXMgPSBPYmplY3QuZ2V0T3duUHJvcGVydHlOYW1lczsKdmFyIF9fZ2V0UHJvdG9PZiA9IE9iamVjdC5nZXRQcm90b3R5cGVPZjsKdmFyIF9faGFzT3duUHJvcCA9IE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHk7CnZhciBfX2NvbW1vbkpTID0gKGNiLCBtb2QpID0+IGZ1bmN0aW9uIF9fcmVxdWlyZSgpIHsKICByZXR1cm4gbW9kIHx8ICgwLCBjYltfX2dldE93blByb3BOYW1lcyhjYilbMF1dKSgobW9kID0geyBleHBvcnRzOiB7fSB9KS5leHBvcnRzLCBtb2QpLCBtb2QuZXhwb3J0czsKfTsKdmFyIF9fY29weVByb3BzID0gKHRvLCBmcm9tLCBleGNlcHQsIGRlc2MpID0+IHsKICBpZiAoZnJvbSAmJiB0eXBlb2YgZnJvbSA9PT0gIm9iamVjdCIgfHwgdHlwZW9mIGZyb20gPT09ICJmdW5jdGlvbiIpIHsKICAgIGZvciAobGV0IGtleSBvZiBfX2dldE93blByb3BOYW1lcyhmcm9tKSkKICAgICAgaWYgKCFfX2hhc093blByb3AuY2FsbCh0bywga2V5KSAmJiBrZXkgIT09IGV4Y2VwdCkKICAgICAgICBfX2RlZlByb3AodG8sIGtleSwgeyBnZXQ6ICgpID0+IGZyb21ba2V5XSwgZW51bWVyYWJsZTogIShkZXNjID0gX19nZXRPd25Qcm9wRGVzYyhmcm9tLCBr",
+					"line": 2684,
+					"ms": 16.167
+				},
+				{
+					"function": "jsonCopy",
+					"url": "file://<workspace>/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+					"line": 371,
+					"ms": 16.0
+				},
+				{
+					"function": "compileCatalog",
+					"url": "file://<workspace>/paraglide-project-catalog/dist/compiler/compile-project.js",
+					"line": 44,
+					"ms": 15.583
+				}
+			],
+			"hooks": [
+				{
+					"hook": "compiler.buildStart",
+					"environment": "client",
+					"ms": 595.9429579999999
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "client",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 100,
+								"rewrittenAccesses": 2000,
+								"fallbacks": 0,
+								"parsedAppBytes": 105480,
+								"fusedGroups": 0
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 2000,
+								"resolutions": 2000
+							}
+						}
+					]
+				},
+				{
+					"hook": "compiler.buildStart",
+					"environment": "ssr",
+					"ms": 3.0045000000000073
+				},
+				{
+					"hook": "buildEnd",
+					"environment": "ssr",
+					"plugins": [
+						{
+							"name": "paraglide-optimization-prototype-setup",
+							"stats": {
+								"transformed": 200,
+								"rewrittenAccesses": 4000,
+								"fallbacks": 0,
+								"parsedAppBytes": 210960,
+								"fusedGroups": 0
+							}
+						},
+						{
+							"name": "paraglide-virtual-messages",
+							"profile": {
+								"loads": 4000,
+								"resolutions": 4000
+							}
+						}
+					]
+				}
+			],
+			"capture": "build-tanstack-direct.cpuprofile.gz"
+		}
+	]
+}
