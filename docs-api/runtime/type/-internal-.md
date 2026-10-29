@@ -928,7 +928,7 @@ const sitemapUrls = generateStaticLocalizedUrls(allPages);
 
 > **getLocale**(): `string`
 
-Defined in: [runtime/get-locale.js:53](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-locale.js)
+Defined in: [runtime/get-locale.js:54](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-locale.js)
 
 Get the current locale.
 
@@ -1250,7 +1250,7 @@ localizeUrl(url, { locale: "de" });
 
 > **overwriteGetLocale**(`fn`): `void`
 
-Defined in: [runtime/get-locale.js:199](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-locale.js)
+Defined in: [runtime/get-locale.js:205](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/get-locale.js)
 
 Overwrite the `getLocale()` function.
 
