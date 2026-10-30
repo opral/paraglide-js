@@ -5,6 +5,7 @@ import type { Program } from "estree";
 import { createVitePlugin } from "unplugin";
 import { unpluginFactory, type ParaglidePluginOptions } from "./unplugin.js";
 import { toSafeModuleId } from "../compiler/safe-module-id.js";
+import { shareRuntimeTypes } from "../compiler/emit-ts-declarations.js";
 import { rewriteVirtualMessageImports } from "./virtual-message-imports.js";
 
 export function virtualMessagePrefix(directory: string) {
@@ -68,7 +69,7 @@ export function virtualMessageOutput(
 		`export * from ${JSON.stringify(id)};\nexport * as m from ${JSON.stringify(id)};\n`;
 	disk["messages.virtual.d.ts"] =
 		`declare module ${JSON.stringify(id)} {\n` +
-		(localizedString + "\n" + declarations)
+		(localizedString + "\n" + shareRuntimeTypes(declarations))
 			.replaceAll('import("../runtime.js")', 'import("./runtime.js")')
 			.replace(/^declare const /gm, "const ") +
 		"\n}\n";
