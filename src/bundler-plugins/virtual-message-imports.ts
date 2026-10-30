@@ -1,5 +1,11 @@
 import MagicString from "magic-string";
-import type { Node, Program, ImportSpecifier, MemberExpression } from "estree";
+import type {
+	Node,
+	Program,
+	ImportSpecifier,
+	MemberExpression,
+	ObjectPattern,
+} from "estree";
 
 function walk(
 	node: Node,
@@ -20,6 +26,42 @@ function walk(
 
 const start = (node: Node) => (node as Node & { start: number }).start;
 const end = (node: Node) => (node as Node & { end: number }).end;
+
+/**
+ * The name a property key spells: an identifier or a string, or, when computed,
+ * a string literal or a template literal without expressions. Anything else is
+ * not statically known.
+ */
+function propertyName(key: Node, computed: boolean): string | undefined {
+	if (key.type === "Literal")
+		return typeof key.value === "string" ? key.value : undefined;
+	if (!computed) return key.type === "Identifier" ? key.name : undefined;
+	if (key.type === "TemplateLiteral" && key.expressions.length === 0)
+		return key.quasis[0]?.value.cooked ?? undefined;
+	return undefined;
+}
+
+/**
+ * The object pattern that reads `node` whole, as `const { key } = m` does. An
+ * assignment counts only as a statement, where its value, `node` itself, is unused.
+ */
+function destructuringPattern(
+	node: Node,
+	parent: Node,
+	owner: Node | undefined
+): ObjectPattern | undefined {
+	const target =
+		parent.type === "VariableDeclarator" && parent.init === node
+			? parent.id
+			: (parent.type === "AssignmentExpression" &&
+						parent.operator === "=" &&
+						parent.right === node &&
+						owner?.type === "ExpressionStatement") ||
+				  (parent.type === "AssignmentPattern" && parent.right === node)
+				? parent.left
+				: undefined;
+	return target?.type === "ObjectPattern" ? target : undefined;
+}
 
 /** Rewrite only verified public imports and unambiguous static namespace reads. */
 export function rewriteVirtualMessageImports(args: {
@@ -97,6 +139,8 @@ export function rewriteVirtualMessageImports(args: {
 			}
 			const local = specifier.local.name;
 			const references: { node: MemberExpression; name: string }[] = [];
+			// `m` read by an object pattern, e.g. `const { key } = m`.
+			const destructured: { node: Node; names: string[] }[] = [];
 			let unsafe = false;
 			walk(ast, (node, parent) => {
 				if (node.type !== "Identifier" || node.name !== local || !parent)
@@ -123,6 +167,23 @@ export function rewriteVirtualMessageImports(args: {
 						!parent.computed)
 				)
 					return;
+				const pattern = destructuringPattern(node, parent, parents.get(parent));
+				if (pattern) {
+					const names: string[] = [];
+					for (const property of pattern.properties) {
+						const name =
+							property.type === "Property"
+								? propertyName(property.key, property.computed)
+								: undefined;
+						if (name === undefined || !messages.has(name)) {
+							unsafe = true;
+							return;
+						}
+						names.push(name);
+					}
+					destructured.push({ node, names });
+					return;
+				}
 				if (
 					parent.type !== "MemberExpression" ||
 					parent.object !== node ||
@@ -131,14 +192,7 @@ export function rewriteVirtualMessageImports(args: {
 					unsafe = true;
 					return;
 				}
-				const name =
-					!parent.computed && parent.property.type === "Identifier"
-						? parent.property.name
-						: parent.computed &&
-							  parent.property.type === "Literal" &&
-							  typeof parent.property.value === "string"
-							? parent.property.value
-							: undefined;
+				const name = propertyName(parent.property, parent.computed);
 				const owner = parents.get(parent);
 				if (
 					!name ||
@@ -169,20 +223,35 @@ export function rewriteVirtualMessageImports(args: {
 				}
 				references.push({ node: parent, name });
 			});
-			if (unsafe || !references.length) {
+			if (unsafe || (!references.length && !destructured.length)) {
 				keep.push(text(specifier));
 				continue;
 			}
 			const locals = new Map<string, string>();
-			for (const reference of references) {
-				let alias = locals.get(reference.name);
+			const aliasOf = (name: string) => {
+				let alias = locals.get(name);
 				if (!alias) {
 					alias = fresh();
-					locals.set(reference.name, alias);
-					addImport(reference.name, alias, replacements);
+					locals.set(name, alias);
+					addImport(name, alias, replacements);
 				}
-				changes.push([start(reference.node), end(reference.node), alias]);
-			}
+				return alias;
+			};
+			for (const reference of references)
+				changes.push([
+					start(reference.node),
+					end(reference.node),
+					aliasOf(reference.name),
+				]);
+			// The pattern reads only these properties, so an object holding just
+			// them gives it the same values as the namespace. Computed keys make
+			// each one a data property, `__proto__` included.
+			for (const reference of destructured)
+				changes.push([
+					start(reference.node),
+					end(reference.node),
+					`{ ${reference.names.map((name) => `[${JSON.stringify(name)}]: ${aliasOf(name)}`).join(", ")} }`,
+				]);
 		}
 		if (!replacements.length) continue;
 		rewritten = true;
