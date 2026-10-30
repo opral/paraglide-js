@@ -1772,7 +1772,7 @@ describe.each([
 			});
 
 			expect(Object.values(output).join("\n")).toContain(
-				'registry.number("en", i?.count, { maximumFractionDigits: 1 }, true)'
+				`registry.number("en", i?.count, { maximumFractionDigits: 1 }, '["en",[["maximumFractionDigits",1]]]')`
 			);
 
 			const tsProject = await typescriptProject({

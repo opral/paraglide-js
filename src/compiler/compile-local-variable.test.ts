@@ -83,7 +83,9 @@ test("compiles a local variable with an annotation and empty options", () => {
 			},
 		},
 	});
-	expect(code).toEqual('const myVar = registry.number("en", "Hello", {}, true);');
+	expect(code).toEqual(
+		`const myVar = registry.number("en", "Hello", {}, '["en",[]]');`
+	);
 });
 
 test("interpolates the raw value for an unknown annotation, like a pattern", () => {
@@ -200,7 +202,7 @@ test("compiles number formatter fraction digit options as numeric literals", () 
 	});
 
 	expect(code).toEqual(
-		'const formattedValue = registry.number("en", i?.value, { minimumFractionDigits: 1, maximumFractionDigits: 1 }, true);'
+		`const formattedValue = registry.number("en", i?.value, { minimumFractionDigits: 1, maximumFractionDigits: 1 }, '["en",[["maximumFractionDigits",1],["minimumFractionDigits",1]]]');`
 	);
 });
 
@@ -228,7 +230,7 @@ test("compiles number formatter useGrouping option as boolean literal", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedValue = registry.number("en", i?.value, { useGrouping: false }, true);'
+		`const formattedValue = registry.number("en", i?.value, { useGrouping: false }, '["en",[["useGrouping",false]]]');`
 	);
 });
 
@@ -256,7 +258,7 @@ test("keeps negative digit options as strings to avoid emitting invalid numeric 
 	});
 
 	expect(code).toEqual(
-		'const formattedValue = registry.number("en", i?.value, { minimumFractionDigits: "-1" }, true);'
+		`const formattedValue = registry.number("en", i?.value, { minimumFractionDigits: "-1" }, '["en",[["minimumFractionDigits","-1"]]]');`
 	);
 });
 
@@ -283,7 +285,7 @@ test("compiles relative time formatter with a literal unit", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: "day", numeric: "auto", style: "short" }, true);'
+		`const formattedDuration = registry.relativetime("en", i?.duration, { unit: "day", numeric: "auto", style: "short" }, '["en",[["numeric","auto"],["style","short"]]]');`
 	);
 });
 
@@ -405,7 +407,7 @@ test("accepts plural relative time formatter units", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: "days" }, true);'
+		`const formattedDuration = registry.relativetime("en", i?.duration, { unit: "days" }, '["en",[]]');`
 	);
 });
 
@@ -524,9 +526,12 @@ test("accepts dollar-prefixed relative time formatter unit options with non-iden
 });
 
 test.each([
-	["date", '{ dateStyle: "medium" }'],
-	["time", '{ timeStyle: "medium" }'],
-	["datetime", '{ dateStyle: "medium", timeStyle: "short" }'],
+	["date", `{ dateStyle: "medium" }, '["en",[["dateStyle","medium"]]]'`],
+	["time", `{ timeStyle: "medium" }, '["en",[["timeStyle","medium"]]]'`],
+	[
+		"datetime",
+		`{ dateStyle: "medium", timeStyle: "short" }, '["en",[["dateStyle","medium"],["timeStyle","short"]]]'`,
+	],
 ])("compiles a %s local variable with its default style", (name, options) => {
 	const code = compileLocalVariable({
 		locale: "en",
@@ -541,6 +546,6 @@ test.each([
 		},
 	});
 	expect(code).toBe(
-		`const formatted = registry.datetime("en", i?.d, ${options}, true);`
+		`const formatted = registry.datetime("en", i?.d, ${options});`
 	);
 });
