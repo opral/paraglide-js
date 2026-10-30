@@ -439,7 +439,7 @@ The used URL patterns.
 
 > **assertIsLocale**(`input`): `string`
 
-Defined in: [runtime/check-locale.js:49](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
+Defined in: [runtime/check-locale.js:67](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
 
 Asserts that the input can be normalized to a locale.
 
@@ -1073,7 +1073,7 @@ Returns whether the given URL is excluded from middleware i18n processing.
 
 > **isLocale**(`locale`): `locale is string`
 
-Defined in: [runtime/check-locale.js:38](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
+Defined in: [runtime/check-locale.js:56](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
 
 Check if something is an available locale with the canonical project casing.
 
@@ -1494,7 +1494,7 @@ export async function handle(request) {
 
 > **toLocale**(`value`): `undefined` \| `string`
 
-Defined in: [runtime/check-locale.js:9](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
+Defined in: [runtime/check-locale.js:18](https://github.com/opral/paraglide-js/tree/main/src/compiler/runtime/check-locale.js)
 
 Coerces a locale-like string to the canonical locale value used by the runtime.
 
