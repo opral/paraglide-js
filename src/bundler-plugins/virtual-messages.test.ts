@@ -2,7 +2,12 @@ import { test, expect, vi } from "vitest";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { tmpdir } from "node:os";
-import { createServer, build } from "vite";
+import {
+	createServer,
+	build,
+	createRunnableDevEnvironment,
+	isRunnableDevEnvironment,
+} from "vite";
 import { paraglideVitePlugin } from "./vite.js";
 
 test("Vite defaults to virtual messages and preserves aliases, edits, additions/removals, cold restarts and tree shaking", async () => {
@@ -194,6 +199,170 @@ test("Vite defaults to virtual messages and preserves aliases, edits, additions/
 		await fs.rm(root, { recursive: true, force: true });
 	}
 }, 30_000);
+
+test("virtual messages update every Vite environment after an edit", async () => {
+	const root = await fs.realpath(
+		await fs.mkdtemp(path.join(tmpdir(), "paraglide-virtual-environments-"))
+	);
+	const originalEnv = process.env.NODE_ENV;
+	let server: Awaited<ReturnType<typeof createServer>> | undefined;
+	try {
+		process.env.NODE_ENV = "development";
+		await fs.mkdir(path.join(root, "project.inlang"));
+		await fs.writeFile(path.join(root, "package.json"), '{"type":"module"}');
+		await fs.writeFile(
+			path.join(root, "project.inlang/settings.json"),
+			JSON.stringify({
+				baseLocale: "en",
+				locales: ["en"],
+				modules: ["./plugin.js"],
+			})
+		);
+		await fs.writeFile(
+			path.join(root, "plugin.js"),
+			`export default {key:"plugin.fixture.environments",toBeImportedFiles:async()=>[{path:"./messages.json",locale:"en"}],importFiles:({files})=>{const entries=Object.entries(JSON.parse(new TextDecoder().decode(files[0].content)));return {bundles:entries.map(([id])=>({id})),messages:entries.map(([id])=>({bundleId:id,locale:"en"})),variants:entries.map(([id,value])=>({messageBundleId:id,messageLocale:"en",pattern:[{type:"text",value}]}))}}};`
+		);
+		const messages = path.join(root, "messages.json");
+		await fs.writeFile(messages, JSON.stringify({ greeting: "FIRST" }));
+		await fs.writeFile(
+			path.join(root, "entry.js"),
+			'import { m } from "./paraglide/messages.js";\nexport const text = m.greeting();'
+		);
+		server = await createServer({
+			root,
+			configFile: false,
+			logLevel: "silent",
+			plugins: [
+				paraglideVitePlugin({
+					project: path.join(root, "project.inlang"),
+					outdir: path.join(root, "paraglide"),
+					strategy: ["baseLocale"],
+					emitGitIgnore: false,
+					emitPrettierIgnore: false,
+					emitReadme: false,
+				}),
+			],
+			environments: {
+				custom: {
+					consumer: "server",
+					dev: {
+						createEnvironment: (name, config) =>
+							createRunnableDevEnvironment(name, config),
+					},
+				},
+			},
+			optimizeDeps: { noDiscovery: true },
+			server: { port: 0, watch: null },
+		});
+		await server.pluginContainer.buildStart({});
+		const custom = server.environments.custom;
+		if (!custom || !isRunnableDevEnvironment(custom))
+			throw new Error("custom must be a runnable environment");
+		const read = async () => [
+			(await server!.ssrLoadModule("/entry.js")).text,
+			(await custom.runner.import("/entry.js")).text,
+		];
+		expect(await read()).toEqual(["FIRST", "FIRST"]);
+		await fs.writeFile(messages, JSON.stringify({ greeting: "EDITED" }));
+		await server.pluginContainer.watchChange(messages, { event: "update" });
+		expect(await read()).toEqual(["EDITED", "EDITED"]);
+	} finally {
+		await server?.close();
+		process.env.NODE_ENV = originalEnv;
+		await fs.rm(root, { recursive: true, force: true });
+	}
+});
+
+test("replacing the virtual output reloads each Vite environment once", async () => {
+	const root = await fs.realpath(
+		await fs.mkdtemp(path.join(tmpdir(), "paraglide-virtual-replace-"))
+	);
+	const originalEnv = process.env.NODE_ENV;
+	let server: Awaited<ReturnType<typeof createServer>> | undefined;
+	try {
+		process.env.NODE_ENV = "development";
+		const project = path.join(root, "project.inlang");
+		const config = path.join(project, "paraglide.config.js");
+		await fs.mkdir(project);
+		await fs.writeFile(path.join(root, "package.json"), '{"type":"module"}');
+		await fs.writeFile(
+			path.join(project, "settings.json"),
+			JSON.stringify({
+				baseLocale: "en",
+				locales: ["en"],
+				modules: ["./plugin.js"],
+			})
+		);
+		await fs.writeFile(path.join(root, "messages.json"), "{}");
+		await fs.writeFile(
+			path.join(root, "plugin.js"),
+			`export default {key:"plugin.fixture.replace",toBeImportedFiles:async()=>[{path:"./messages.json",locale:"en"}],importFiles:()=>({bundles:[{id:"greeting"}],messages:[{bundleId:"greeting",locale:"en"}],variants:[{messageBundleId:"greeting",messageLocale:"en",pattern:[{type:"text",value:"HELLO"}]}]})};`
+		);
+		await fs.writeFile(config, 'export default { outdir: "./one" };');
+		server = await createServer({
+			root,
+			configFile: false,
+			logLevel: "silent",
+			plugins: [
+				paraglideVitePlugin({
+					project,
+					strategy: ["baseLocale"],
+					emitGitIgnore: false,
+					emitReadme: false,
+					emitPrettierIgnore: false,
+				}),
+			],
+			environments: {
+				custom: {
+					consumer: "server",
+					dev: {
+						createEnvironment: (name, config) =>
+							createRunnableDevEnvironment(name, config),
+					},
+				},
+			},
+			optimizeDeps: { noDiscovery: true },
+			server: { port: 0, watch: null },
+		});
+		await server.pluginContainer.buildStart({});
+		const reloads = Object.fromEntries(
+			Object.entries(server.environments).map(([name, environment]) => [
+				name,
+				vi.spyOn(environment.hot, "send"),
+			])
+		);
+		const reloadCounts = () =>
+			Object.fromEntries(
+				Object.entries(reloads).map(([name, send]) => {
+					const count = send.mock.calls.filter(
+						([payload]: unknown[]) =>
+							typeof payload === "object" &&
+							payload !== null &&
+							"type" in payload &&
+							payload.type === "full-reload"
+					).length;
+					send.mockClear();
+					return [name, count];
+				})
+			);
+		const once = { client: 1, ssr: 1, custom: 1 };
+		// another output directory replaces the transport
+		await fs.writeFile(config, 'export default { outdir: "./two" };');
+		await server.pluginContainer.watchChange(config, { event: "update" });
+		expect(reloadCounts()).toEqual(once);
+		// physical output removes it
+		await fs.writeFile(
+			config,
+			'export default { outdir: "./two", outputStructure: "message-modules" };'
+		);
+		await server.pluginContainer.watchChange(config, { event: "update" });
+		expect(reloadCounts()).toEqual(once);
+	} finally {
+		await server?.close();
+		process.env.NODE_ENV = originalEnv;
+		await fs.rm(root, { recursive: true, force: true });
+	}
+});
 
 test("virtual messages reject incompatible output options", () => {
 	const common = {
