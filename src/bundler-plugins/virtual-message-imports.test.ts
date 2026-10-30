@@ -9,18 +9,21 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-function rewrite(code: string) {
+function rewrite(
+	code: string,
+	messages = new Map(
+		["hello", "greeting.hello", "m", "class"].map((name) => [
+			name,
+			`virtual:test/${name}.js`,
+		])
+	)
+) {
 	return rewriteVirtualMessageImports({
 		code,
 		id: "app.js",
 		ast: parseAst(code) as unknown as Program,
 		imports: new Set(["./messages.js"]),
-		messages: new Map(
-			["hello", "greeting.hello", "m", "class"].map((name) => [
-				name,
-				`virtual:test/${name}.js`,
-			])
-		),
+		messages,
 	});
 }
 
@@ -49,6 +52,12 @@ test.each([
 	"use(m)",
 	'm.hello(); eval("m.hello()")',
 	'm.hello(); eval?.("m.hello()")',
+	"const {...rest}=m",
+	"const {[key]:value}=m",
+	"const {missing}=m",
+	"const [first]=m",
+	"m[`hel${suffix}`]()",
+	"let hello; use(({hello}=m))",
 ])(
 	"ambiguous or mutable namespace usage keeps the barrel: %s",
 	(expression) => {
@@ -57,6 +66,100 @@ test.each([
 		).toBeNull();
 	}
 );
+
+/**
+ * Runs `code` as written and as rewritten against message modules named
+ * `names`, and returns both modules' `output` exports.
+ */
+async function runBoth(code: string, names: string[]) {
+	const root = await fs.realpath(
+		await fs.mkdtemp(path.join(os.tmpdir(), "paraglide-patterns-"))
+	);
+	try {
+		await fs.writeFile(path.join(root, "package.json"), '{"type":"module"}');
+		for (const name of names)
+			await fs.writeFile(
+				path.join(root, `${name}.js`),
+				`const message = () => ${JSON.stringify(name)};\nexport { message as ${JSON.stringify(name)} };`
+			);
+		await fs.writeFile(
+			path.join(root, "messages.js"),
+			'export * as m from "./barrel.js";'
+		);
+		await fs.writeFile(
+			path.join(root, "barrel.js"),
+			names
+				.map((name) => `export * from ${JSON.stringify(`./${name}.js`)};`)
+				.join(" ")
+		);
+		const result = rewrite(
+			code,
+			new Map(names.map((name) => [name, `./${name}.js`]))
+		)!;
+		expect(result.code).not.toContain('"./messages.js"');
+		await fs.writeFile(path.join(root, "original.js"), code);
+		await fs.writeFile(path.join(root, "rewritten.js"), result.code);
+		const original = await import(
+			pathToFileURL(path.join(root, "original.js")).href
+		);
+		const rewritten = await import(
+			pathToFileURL(path.join(root, "rewritten.js")).href
+		);
+		return { original: original.output, rewritten: rewritten.output };
+	} finally {
+		await fs.rm(root, { recursive: true, force: true });
+	}
+}
+
+test("object patterns and static template-literal keys read messages without the barrel", async () => {
+	const { original, rewritten } = await runBoth(
+		`import {m} from "./messages.js";
+const {hello, "greeting.hello": greet = () => "unused"} = m;
+let renamed;
+({class: renamed} = m);
+const read = ({hello: inner} = m) => inner();
+export const output = [hello(), greet(), renamed(), read(), m[\`class\`]()];`,
+		["hello", "greeting.hello", "class"]
+	);
+	expect(rewritten).toEqual(original);
+	expect(original).toEqual([
+		"hello",
+		"greeting.hello",
+		"class",
+		"hello",
+		"class",
+	]);
+});
+
+test("a destructured __proto__ message reads the message twice", async () => {
+	const { original, rewritten } = await runBoth(
+		`import {m} from "./messages.js";
+const {__proto__: first, __proto__: second} = m;
+export const output = [first(), second()];`,
+		["__proto__"]
+	);
+	expect(rewritten).toEqual(original);
+	expect(original).toEqual(["__proto__", "__proto__"]);
+});
+
+test("a destructured __proto__ message does not depend on Object.prototype.__proto__", async () => {
+	const { original, rewritten } = await runBoth(
+		`import {m} from "./messages.js";
+const accessor = Object.getOwnPropertyDescriptor(Object.prototype, "__proto__");
+delete Object.prototype.__proto__;
+let output;
+try {
+	const {__proto__: message} = m;
+	output = typeof message;
+} finally {
+	Object.defineProperty(Object.prototype, "__proto__", accessor);
+}
+export {output};`,
+		["__proto__"]
+	);
+	expect(rewritten).toEqual(original);
+	expect(original).toBe("function");
+});
 
 test("compiled Vue templates read messages through unref without the barrel", () => {
 	// @vitejs/plugin-vue's production output for `{{ m.hello() }}` in a

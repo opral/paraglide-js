@@ -11,6 +11,7 @@ import {
 	localStorageKey,
 	serverAsyncLocalStorage,
 	experimentalStaticLocale,
+	routeStrategies,
 	strategy,
 	TREE_SHAKE_COOKIE_STRATEGY_USED,
 	TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED,
@@ -64,14 +65,19 @@ export let getLocale = () => {
 		}
 	}
 
-	let strategyToUse = strategy;
-	if (!isServer && typeof window !== "undefined" && window.location?.href) {
-		strategyToUse = getStrategyForUrl(window.location.href);
-	}
+	// Message calls resolve the locale on every call, and each read of
+	// `window.location.href` serializes the URL. Only route strategies and the
+	// url strategy use it.
+	const url =
+		!isServer &&
+		(routeStrategies.length > 0 || TREE_SHAKE_URL_STRATEGY_USED) &&
+		typeof window !== "undefined"
+			? window.location?.href
+			: undefined;
 
 	const resolved = resolveLocaleWithStrategies(
-		strategyToUse,
-		typeof window !== "undefined" ? window.location?.href : undefined
+		url ? getStrategyForUrl(url) : strategy,
+		url
 	);
 	if (resolved) {
 		if (!localeInitiallySet) {
