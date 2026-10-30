@@ -244,7 +244,7 @@ export async function hashDirectory(
 		return undefined;
 	}
 
-	const hashes: Record<string, string> = {};
+	const files: string[] = [];
 
 	async function walk(currentDir: string, relativePrefix: string) {
 		let entries;
@@ -261,19 +261,41 @@ export async function hashDirectory(
 			if (entry.isDirectory()) {
 				await walk(entryAbsolutePath, relativePath);
 			} else if (entry.isFile()) {
-				try {
-					const fileContent = await fs.readFile(entryAbsolutePath, "utf-8");
-					const combinedContent =
-						fileContent + path.resolve(directory, relativePath);
-					hashes[relativePath] = await hashString(combinedContent);
-				} catch {
-					// Another compiler process may be rewriting this file. A partial
-					// seed is safe; the following compile will repair missing outputs.
-				}
+				files.push(relativePath);
 			}
 		}
 	}
 
 	await walk(directory, "");
+
+	const hashes: Record<string, string> = {};
+	const hashFile = async (relativePath: string) => {
+		const absolutePath = path.resolve(directory, relativePath);
+		const fileContent = await fs.readFile(absolutePath, "utf-8");
+		hashes[relativePath] = hashString(fileContent + absolutePath);
+	};
+
+	// One read at a time leaves the filesystem idle between thousands of small
+	// message modules; read with the same bound as the writes. Concurrent reads
+	// can still exhaust a descriptor limit that serial reads stay within, so
+	// those files are read again, one at a time, once the others have closed.
+	const outOfDescriptors: string[] = [];
+	await forEachConcurrent(files, async (relativePath) => {
+		try {
+			await hashFile(relativePath);
+		} catch (error) {
+			if (error instanceof Error && "code" in error && error.code === "EMFILE")
+				outOfDescriptors.push(relativePath);
+			// Otherwise another compiler process may be rewriting this file. A
+			// partial seed is safe; the following compile repairs missing outputs.
+		}
+	});
+	for (const relativePath of outOfDescriptors) {
+		try {
+			await hashFile(relativePath);
+		} catch {
+			// Still unreadable: leave it out of the partial seed, as above.
+		}
+	}
 	return hashes;
 }
