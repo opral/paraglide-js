@@ -1,7 +1,6 @@
 import type { ProjectSettings } from "@inlang/sdk";
 import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import { toBundleInputTypeAliasName } from "../compile-bundle.js";
-import { toSafeModuleId } from "../safe-module-id.js";
 import { inputsType } from "../jsdoc-types.js";
 import {
 	jsShardFactory,
@@ -10,6 +9,27 @@ import {
 	shardTypesModule,
 } from "./shard-types.js";
 import { generateMessageBody } from "./message-modules.js";
+import { allocateModuleIds } from "../safe-module-id.js";
+import { registryBinding } from "../registry.js";
+
+/**
+ * Allocates the binding and type name of each message within its shard, the
+ * module that declares them. Grouped modules have no message files, so no
+ * name is reserved.
+ */
+export function moduleIds(
+	bundleIds: readonly string[],
+	size: number
+): Map<string, string> {
+	const moduleIds = new Map<string, string>();
+	for (let start = 0; start < bundleIds.length; start += size)
+		for (const [id, moduleId] of allocateModuleIds(
+			bundleIds.slice(start, start + size),
+			new Set()
+		))
+			moduleIds.set(id, moduleId);
+	return moduleIds;
+}
 
 /** Isolated pure wrappers preserve tree shaking and each message's local bindings. */
 export function generateOutput(
@@ -23,7 +43,7 @@ export function generateOutput(
 	for (let start = 0; start < bundles.length; start += size) {
 		const shard = bundles.slice(start, start + size);
 		const filename = `_shard_${files.length}.js`;
-		const names = new Set(shard.map((b) => toSafeModuleId(b.bundle.node.id)));
+		const names = new Set(shard.map((b) => b.moduleId));
 		files.push(filename);
 		const runtime = `getLocale, experimentalStaticLocale${shard.some((bundle) => bundle.usesDevelopmentDiagnostics) ? ", isDevelopment" : ""}`;
 		const chunks = [
@@ -36,7 +56,7 @@ export function generateOutput(
 				Object.values(b.messages).some((m) => m.registryFunctions.length)
 			)
 		)
-			chunks.unshift("import * as registry from '../registry.js';");
+			chunks.unshift(`import * as ${registryBinding} from '../registry.js';`);
 		for (const optional of [false, true]) {
 			if (
 				shard.some(
@@ -57,7 +77,7 @@ export function generateOutput(
 		for (let offset = 0; offset < shard.length; offset++) {
 			const bundle = shard[offset]!;
 			const id = bundle.bundle.node.id;
-			const safe = toSafeModuleId(id);
+			const safe = bundle.moduleId;
 			const alias =
 				bundle.inputTypeAliasName ?? toBundleInputTypeAliasName(safe);
 			const inputs = bundle.bundle.node.declarations.filter(
@@ -76,7 +96,7 @@ export function generateOutput(
 						bundle.messages[locale] &&
 						bundle.unreferencedMessageLocales?.includes(locale)
 				);
-			if (allInline && safe !== "registry" && safe !== "undefined") {
+			if (allInline && safe !== "undefined") {
 				chunks.push(`${body}\nexport { ${safe} as ${JSON.stringify(id)} };`);
 			} else {
 				let local = `__message_${offset}`;

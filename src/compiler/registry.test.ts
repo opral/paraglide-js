@@ -1,7 +1,7 @@
 import { afterEach, expect, test, vi } from "vitest";
 import { execFileSync } from "node:child_process";
 import { compileMessage } from "./compile-message.js";
-import { createRegistry } from "./registry.js";
+import { createRegistry, registryBinding } from "./registry.js";
 
 afterEach(() => vi.restoreAllMocks());
 
@@ -307,7 +307,7 @@ test("compiled messages reuse formatters for their plain option literals", async
 			},
 		]
 	);
-	const source = `${createRegistry()}\nconst registry = { number };\nexport const price = ${compiled.code}`;
+	const source = `${createRegistry()}\nconst ${registryBinding} = { number };\nexport const price = ${compiled.code}`;
 	const { price } = await import(
 		`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`
 	);

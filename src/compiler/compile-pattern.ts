@@ -8,7 +8,10 @@ import type {
 } from "@inlang/sdk";
 import type { Compiled } from "./types.js";
 import { escapeForTemplateLiteral } from "../services/codegen/escape.js";
-import { compileInputAccess } from "./variable-access.js";
+import {
+	compileInputAccess,
+	compileLocalVariableName,
+} from "./variable-access.js";
 import {
 	compileAnnotation,
 	ignoreUnknownFormatter,
@@ -201,7 +204,7 @@ function compileVariableReference(
 		return compileInputAccess(reference.name);
 	}
 	if (declaration?.type === "local-variable") {
-		return reference.name;
+		return compileLocalVariableName(reference.name);
 	}
 
 	throw new Error(

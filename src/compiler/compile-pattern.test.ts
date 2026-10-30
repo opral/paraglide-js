@@ -143,7 +143,7 @@ test("compiles a pattern expression annotation to a registry call", () => {
 		locale: "en",
 	});
 
-	expect(code).toBe('`${registry.number("en", i?.count, {}, true)} views`');
+	expect(code).toBe('`${__paraglideRegistry.number("en", i?.count, {}, true)} views`');
 });
 
 test("compiles pattern expression annotation options like local variable annotations", () => {
@@ -172,7 +172,7 @@ test("compiles pattern expression annotation options like local variable annotat
 	});
 
 	expect(code).toBe(
-		'`${registry.number("de", i?.price, { minimumFractionDigits: 2, style: "percent" }, true)}`'
+		'`${__paraglideRegistry.number("de", i?.price, { minimumFractionDigits: 2, style: "percent" }, true)}`'
 	);
 });
 
@@ -208,7 +208,7 @@ test("compiles pattern annotation options that reference local variables", () =>
 	});
 
 	expect(code).toBe(
-		'`${registry.number("en", i?.price, { minimumFractionDigits: digits }, true)}`'
+		'`${__paraglideRegistry.number("en", i?.price, { minimumFractionDigits: digits }, true)}`'
 	);
 });
 
@@ -230,7 +230,7 @@ test("parts mode compiles pattern expression annotations to registry calls", () 
 	});
 
 	expect(code).toBe(
-		'[{ type: "text", value: String(registry.number("en", i?.count, {}, true)) }, { type: "text", value: " views" }]'
+		'[{ type: "text", value: String(__paraglideRegistry.number("en", i?.count, {}, true)) }, { type: "text", value: " views" }]'
 	);
 });
 
@@ -370,7 +370,7 @@ describe("ICU MessageFormat 1 styles, as imported by the ICU1 plugin", () => {
 			"data:text/javascript;base64," +
 				btoa(
 					createRegistry() +
-						`export const format = (i) => ${code.replaceAll("registry.", "")};`
+						`export const format = (i) => ${code.replaceAll("__paraglideRegistry.", "")};`
 				)
 		);
 		return { code, output: format({ value: input }) as string };
@@ -385,7 +385,7 @@ describe("ICU MessageFormat 1 styles, as imported by the ICU1 plugin", () => {
 		[undefined, { dateStyle: "medium" }],
 	] as const)("formats {d, date, %s} like Intl", async (style, options) => {
 		const { code, output } = await run("date", style, date);
-		expect(code).toContain("registry.datetime(");
+		expect(code).toContain("__paraglideRegistry.datetime(");
 		expect(output).toBe(new Intl.DateTimeFormat("en", options).format(date));
 	});
 
@@ -467,7 +467,7 @@ describe("default date and time styles", () => {
 			"data:text/javascript;base64," +
 				btoa(
 					createRegistry() +
-						`export const format = (i) => ${code.replaceAll("registry.", "")};`
+						`export const format = (i) => ${code.replaceAll("__paraglideRegistry.", "")};`
 				)
 		);
 		return { code, output: format({ value: date }) as string };
@@ -534,5 +534,5 @@ test("a style from a variable replaces the default date style", () => {
 		],
 		locale: "en",
 	});
-	expect(code).toBe('`${registry.datetime("en", i?.d, { dateStyle: i?.s }, true)}`');
+	expect(code).toBe('`${__paraglideRegistry.datetime("en", i?.d, { dateStyle: i?.s }, true)}`');
 });

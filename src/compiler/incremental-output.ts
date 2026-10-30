@@ -4,6 +4,7 @@ import type { CompilerOptions } from "./compiler-options.js";
 import type { CatalogUpdate } from "@inlang/sdk/catalog";
 import { messageModulesIndexDeclaration } from "./emit-ts-declarations.js";
 import { toSafeModuleId } from "./safe-module-id.js";
+import { moduleIds } from "./output-structure/message-modules.js";
 
 export type GeneratedCatalog = {
 	output: Record<string, string>;
@@ -74,7 +75,10 @@ export async function generateCatalog(args: {
 			}
 		}
 		if (Object.hasOwn(output, "messages/_index.d.ts"))
-			output["messages/_index.d.ts"] = messageModulesIndexDeclaration(output);
+			output["messages/_index.d.ts"] = messageModulesIndexDeclaration(
+				output,
+				previousIds.has("default") ? toSafeModuleId("default") : undefined
+			);
 		return { output, options: snapshot, canPatch: true };
 	}
 	const output = await compileCatalog({
@@ -82,15 +86,15 @@ export async function generateCatalog(args: {
 		projectPath: options.project,
 		compilerOptions: options,
 	});
-	const names = args.catalog.bundles.map((bundle) => toSafeModuleId(bundle.id));
-	// An existing collision may make one bundle overwrite another's module.
-	// Preserve the full emitter's behavior rather than patching the wrong owner.
+	// A patch compiles the changed bundles alone, so the module ids they get may
+	// not depend on the other bundles: every bundle must keep its safe module id.
 	return {
 		output,
 		options: snapshot,
 		canPatch:
 			canPatch &&
-			!names.includes("_index") &&
-			new Set(names).size === names.length,
+			[...moduleIds(args.catalog.bundles.map((bundle) => bundle.id))].every(
+				([id, moduleId]) => moduleId === toSafeModuleId(id)
+			),
 	};
 }

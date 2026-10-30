@@ -8,6 +8,13 @@
  * For now, Paraglide ships a custom solution with INTL functions.
  */
 
+/**
+ * The binding generated modules import registry.js as. A message or a local
+ * variable cannot take it: no module id has an uppercase letter, and a message
+ * function declares no local under a name it reads.
+ */
+export const registryBinding = "__paraglideRegistry";
+
 type RegistryFunction = {
 	/** JSDoc of the function in registry.js */
 	jsdoc: string;

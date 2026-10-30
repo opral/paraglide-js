@@ -41,7 +41,7 @@ async function compileAndImport(args: {
 	const source =
 		createRegistry() +
 		"\nexport const exact_message = " +
-		compiled.code.replaceAll("registry.", "");
+		compiled.code.replaceAll("__paraglideRegistry.", "");
 	const module = await import(
 		"data:text/javascript;base64," + Buffer.from(source).toString("base64")
 	);
@@ -696,7 +696,7 @@ describe("ICU plural offset (`{count, plural, offset:1 …}`)", () => {
 		});
 
 		// a number, not the string "1"
-		expect(code).toContain('registry.plural("en", i?.count, { offset: 1 }, true)');
+		expect(code).toContain('__paraglideRegistry.plural("en", i?.count, { offset: 1 }, true)');
 		expect(render(message, [0, 1, 2, 3, 22, "1", "2"])).toEqual({
 			"0": "Nobody",
 			"1": "Only you",
@@ -814,7 +814,7 @@ describe("ICU plural offset (`{count, plural, offset:1 …}`)", () => {
 			],
 		});
 
-		expect(code).toContain('registry.icuPound("en", i?.count, { offset: 1 })');
+		expect(code).toContain('__paraglideRegistry.icuPound("en", i?.count, { offset: 1 })');
 		expect(render(message, [0, 1, 2, 3, 1234, "2"])).toEqual({
 			"0": "Nobody",
 			"1": "You",
@@ -843,7 +843,7 @@ describe("ICU plural offset (`{count, plural, offset:1 …}`)", () => {
 			variants,
 		});
 
-		expect(en.code).toContain('registry.icuPound("en", i?.count, {})');
+		expect(en.code).toContain('__paraglideRegistry.icuPound("en", i?.count, {})');
 		expect(render(en.message, [1, 2, 1234, 1.5])).toEqual({
 			"1": "1 item",
 			"2": "2 items",

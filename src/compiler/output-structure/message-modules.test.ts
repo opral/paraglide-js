@@ -12,6 +12,7 @@ test("should emit per locale message files", () => {
 					id: "happy_elephant",
 				} as unknown as Bundle,
 			},
+			moduleId: "happy_elephant",
 			messages: {
 				en: {
 					code: 'console.log("message in English");',
@@ -54,6 +55,7 @@ test("handles case senstivity by creating directories and files only in lowercas
 					id: "HappyElephant",
 				} as unknown as Bundle,
 			},
+			moduleId: "happyelephant2",
 			messages: {
 				en: {
 					code: 'export const HappyElephant = () => "HappyElephant0"',
@@ -70,6 +72,7 @@ test("handles case senstivity by creating directories and files only in lowercas
 					id: "happyelephant",
 				} as unknown as Bundle,
 			},
+			moduleId: "happyelephant",
 			messages: {
 				en: {
 					code: 'export const happyelephant = () => "happyelephant1"',
@@ -101,6 +104,7 @@ test("emits minimal runtime imports from the runtime", () => {
 					id: "happy_elephant",
 				} as unknown as Bundle,
 			},
+			moduleId: "happy_elephant",
 			messages: {
 				en: {
 					code: '() => "happy"',
@@ -141,6 +145,7 @@ test("emits fallback definitions after their dependencies", () => {
 					declarations: [],
 				} as unknown as Bundle,
 			},
+			moduleId: "admin_tasks",
 			messages: {
 				en: {
 					code: '/** @type {(inputs: {}) => string} */ () => "admin"',
@@ -194,6 +199,7 @@ test("imports the registry only when a message calls it, not when the text menti
 			code: `export const ${id} = () => en_${id}()`,
 			node: { id } as unknown as Bundle,
 		},
+		moduleId: id,
 		messages: {
 			en: { code, node: {} as unknown as Message, registryFunctions },
 		},
@@ -204,7 +210,7 @@ test("imports the registry only when a message calls it, not when the text menti
 		baseLocale: "en",
 	};
 	const registryImport =
-		/import \* as registry from ['"]\.\.\/registry\.js['"]/;
+		/import \* as __paraglideRegistry from ['"]\.\.\/registry\.js['"]/;
 
 	const textOnly = generateOutput(
 		[bundle("registry_text", "() => `Open the registry. Now.`", [])],
@@ -219,7 +225,7 @@ test("imports the registry only when a message calls it, not when the text menti
 
 	const withNumber = generateOutput(
 		[
-			bundle("amount", '(i) => `${registry.number("en", i?.amount, {})}`', [
+			bundle("amount", '(i) => `${__paraglideRegistry.number("en", i?.amount, {})}`', [
 				"number",
 			]),
 		],

@@ -29,6 +29,8 @@ type InlineBody = NonNullable<CompiledMessage["inline"]>;
 export type CompiledBundleWithMessages = {
 	/** The compilation result for the bundle index */
 	bundle: Compiled<Bundle>;
+	/** The bundle's identifier in the generated modules, see `compileBundle()` */
+	moduleId: string;
 	/** The compilation results for the languages */
 	messages: {
 		[locale: string]: CompiledMessage;
@@ -50,8 +52,18 @@ export type CompiledBundleWithMessages = {
  */
 export const compileBundle = (args: {
 	bundle: BundleNested;
+	/**
+	 * The bundle's identifier in the generated modules, distinct from the other
+	 * bundles'. Defaults to `toSafeModuleId(bundle.id)`.
+	 */
+	moduleId?: string;
 	fallbackMap: Record<string, string | undefined>;
-	messageReferenceExpression: (locale: string, bundleId: string) => string;
+	/** The expression of a locale's message, from the bundle's id and module id. */
+	messageReferenceExpression: (
+		locale: string,
+		bundleId: string,
+		moduleId: string
+	) => string;
 	settings?: ProjectSettings;
 	/** Internal layout control; locale modules keep text grouped by language. */
 	inlineMessages?: boolean;
@@ -64,11 +76,12 @@ export const compileBundle = (args: {
 	sharedMessageFactory?: boolean;
 	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 }): CompiledBundleWithMessages => {
-	const fused = args.fuseInlineMessages && tryCompileInlineBundle(args);
+	const moduleId = args.moduleId ?? toSafeModuleId(args.bundle.id);
+	const fused =
+		args.fuseInlineMessages && tryCompileInlineBundle(args, moduleId);
 	if (fused) return fused;
 	const compiledMessages: Record<string, CompiledMessage> = {};
-	const safeBundleId = toSafeModuleId(args.bundle.id);
-	const inputTypeAliasName = toBundleInputTypeAliasName(safeBundleId);
+	const inputTypeAliasName = toBundleInputTypeAliasName(moduleId);
 	const matchTypes = collectInputMatchTypes(args.bundle);
 	const hasMarkup = bundleHasMarkup(args.bundle);
 
@@ -118,6 +131,7 @@ export const compileBundle = (args: {
 	return {
 		bundle: compileBundleFunction({
 			bundle: args.bundle,
+			moduleId,
 			availableLocales: Object.keys(args.fallbackMap),
 			messageReferenceExpression: args.messageReferenceExpression,
 			inlinePlainTextByLocale,
@@ -130,6 +144,7 @@ export const compileBundle = (args: {
 			exported: args.exported,
 			compactTypes: args.compactTypes,
 		}),
+		moduleId,
 		messages: compiledMessages,
 		usesDevelopmentDiagnostics:
 			args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression,
@@ -146,7 +161,8 @@ export const compileBundle = (args: {
  * Every other message uses the general compiler, including its diagnostics.
  */
 function tryCompileInlineBundle(
-	args: Parameters<typeof compileBundle>[0]
+	args: Parameters<typeof compileBundle>[0],
+	moduleId: string
 ): CompiledBundleWithMessages | undefined {
 	if (
 		!args.inlineMessages ||
@@ -190,9 +206,7 @@ function tryCompileInlineBundle(
 				return;
 		}
 	}
-	const inputTypeAliasName = toBundleInputTypeAliasName(
-		toSafeModuleId(args.bundle.id)
-	);
+	const inputTypeAliasName = toBundleInputTypeAliasName(moduleId);
 	const matchTypes: InputMatchTypes = new Map();
 	const messages: Record<string, CompiledMessage> = {};
 	const expressions: Record<string, string> = Object.create(null);
@@ -241,12 +255,13 @@ function tryCompileInlineBundle(
 	const compiledBundle = args.sharedMessageFactory
 		? {
 				node: args.bundle,
-				code: `${englishMatchTableDoc ? `/**\n${englishMatchTableDoc}*/\n` : ""}const ${toSafeModuleId(args.bundle.id)} = /** @type {${args.bundle.declarations.length ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${inputTypeAliasName}>} */ (/* @__PURE__ */ ${args.bundle.declarations.length ? "__paraglideMessage" : "__paraglideOptionalMessage"}(${JSON.stringify(toSafeModuleId(args.bundle.id))}, ${locales
+				code: `${englishMatchTableDoc ? `/**\n${englishMatchTableDoc}*/\n` : ""}const ${moduleId} = /** @type {${args.bundle.declarations.length ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${inputTypeAliasName}>} */ (/* @__PURE__ */ ${args.bundle.declarations.length ? "__paraglideMessage" : "__paraglideOptionalMessage"}(${JSON.stringify(moduleId)}, ${locales
 					.map((locale) => expressions[locale])
 					.join(", ")}));`,
 			}
 		: compileBundleFunction({
 				bundle: args.bundle,
+				moduleId,
 				availableLocales: locales,
 				messageReferenceExpression: args.messageReferenceExpression,
 				inlinePlainTextByLocale: plain,
@@ -261,6 +276,7 @@ function tryCompileInlineBundle(
 			});
 	return {
 		bundle: compiledBundle,
+		moduleId,
 		usesSharedFactory: args.sharedMessageFactory,
 		usesDevelopmentDiagnostics:
 			args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression,
@@ -353,13 +369,21 @@ const compileBundleFunction = (args: {
 	 */
 	bundle: BundleNested;
 	/**
+	 * The bundle's identifier in the generated modules
+	 */
+	moduleId: string;
+	/**
 	 * The language tags which are available
 	 */
 	availableLocales: string[];
 	/**
 	 * The message reference expression
 	 */
-	messageReferenceExpression: (locale: string, bundleId: string) => string;
+	messageReferenceExpression: (
+		locale: string,
+		bundleId: string,
+		moduleId: string
+	) => string;
 	/** Static text messages that can be returned directly from the dispatcher. */
 	inlinePlainTextByLocale?: Record<string, string>;
 	/** Message function bodies that the dispatcher runs in place of a call. */
@@ -392,7 +416,7 @@ const compileBundleFunction = (args: {
 		(decl) => decl.type === "input-variable"
 	);
 	const hasInputs = inputs.length > 0;
-	const safeBundleId = toSafeModuleId(args.bundle.id);
+	const safeBundleId = args.moduleId;
 
 	const isSafeBundleId = safeBundleId === args.bundle.id;
 
@@ -440,7 +464,8 @@ const compileBundleFunction = (args: {
 				const prefix = index > 0 ? continuationIndent : "";
 				const messageRef = args.messageReferenceExpression(
 					locale,
-					args.bundle.id
+					args.bundle.id,
+					args.moduleId
 				);
 
 				if (mode === "string") {

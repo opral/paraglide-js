@@ -13,7 +13,7 @@ import {
 	declarationShardTypesImport,
 	shardTypesModule,
 } from "./output-structure/shard-types.js";
-import { toSafeModuleId } from "./safe-module-id.js";
+import { escapeIdentifier } from "./safe-module-id.js";
 
 const localizedString =
 	'export type LocalizedString = import("../runtime.js").LocalizedString;';
@@ -59,12 +59,17 @@ const defaultValueExport =
  * module in one file, so TypeScript reads one file for `messages.js` instead of
  * one per message. The per-message files remain for direct imports. Like the
  * JavaScript barrel's `export *`, it leaves out the value of a message named
- * "default". Built from the message files so incremental output can rebuild it.
+ * "default", whose module id is `defaultModuleId`. Built from the message files
+ * so incremental output can rebuild it.
  */
 export function messageModulesIndexDeclaration(
-	output: Record<string, string>
+	output: Record<string, string>,
+	defaultModuleId: string | undefined
 ): string {
-	const defaultModule = `messages/${toSafeModuleId("default")}.d.ts`;
+	const defaultModule =
+		defaultModuleId === undefined
+			? undefined
+			: `messages/${defaultModuleId}.d.ts`;
 	const values: string[] = [];
 	const types: string[] = [];
 	for (const [name, code] of Object.entries(output)) {
@@ -86,6 +91,35 @@ export function messageModulesIndexDeclaration(
 	return shareRuntimeTypes([...values, `${localizedString}\n`, ...types].join(""));
 }
 
+/**
+ * The barrel's exports of grouped modules. Shards allocate type names on their
+ * own, so two shards can declare one for different keys: `a.b` and `a-b` both
+ * get `A_BInputs`. The barrel exports such a type under its key's escaped name,
+ * the one it has in message modules, instead of an ambiguous one.
+ */
+function groupedIndexExports(
+	filenames: string[],
+	groups: { bundle: BundleNested; alias: string }[][]
+): string[] {
+	const declaringShards = new Map<string, number>();
+	for (const group of groups)
+		for (const { alias } of group)
+			declaringShards.set(alias, (declaringShards.get(alias) ?? 0) + 1);
+	return groups.map((group, index) => {
+		const file = JSON.stringify(`./${filenames[index]}.js`);
+		if (group.every(({ alias }) => declaringShards.get(alias) === 1))
+			return `export * from ${file};`;
+		const names = group.flatMap(({ bundle, alias }) => [
+			// like `export *`, without the value of a message named "default"
+			...(bundle.id === "default" ? [] : [JSON.stringify(bundle.id)]),
+			declaringShards.get(alias) === 1
+				? `type ${alias}`
+				: `type ${alias} as ${toBundleInputTypeAliasName(escapeIdentifier(bundle.id))}`,
+		]);
+		return `export { ${names.join(", ")} } from ${file};`;
+	});
+}
+
 /** Writes declarations from the same bundle and input metadata used by JavaScript generation. */
 export function emitTsDeclarations(args: {
 	compiledBundles: CompiledBundleWithMessages[];
@@ -102,7 +136,7 @@ export function emitTsDeclarations(args: {
 	const options = `{ locale?: ${args.settings.locales.map((locale) => JSON.stringify(locale)).join(" | ") || "never"} }`;
 	const declarations = args.compiledBundles.map((compiled, index) => {
 		const bundle = args.bundles[index]!;
-		const name = toSafeModuleId(bundle.id);
+		const name = compiled.moduleId;
 		const alias =
 			compiled.inputTypeAliasName ?? toBundleInputTypeAliasName(name);
 		const inputs = bundle.declarations.filter(
@@ -142,10 +176,12 @@ export function emitTsDeclarations(args: {
 		}
 		const size = args.messageModuleSize ?? 1;
 		const filenames: string[] = [];
+		const groups: (typeof declarations)[] = [];
 		for (let start = 0; start < declarations.length; start += size) {
 			const group = declarations.slice(start, start + size);
 			const name = size === 1 ? group[0]!.name : `_shard_${filenames.length}`;
 			filenames.push(name);
+			groups.push(group);
 			output[`messages/${name}.d.ts`] =
 				size === 1
 					? [group[0]!.exported, localizedString, group[0]!.definition].join(
@@ -164,13 +200,13 @@ export function emitTsDeclarations(args: {
 			);
 		output["messages/_index.d.ts"] =
 			size === 1
-				? messageModulesIndexDeclaration(output)
-				: [
-						...filenames.map(
-							(name) => `export * from ${JSON.stringify(`./${name}.js`)};`
-						),
-						localizedString,
-					].join("\n") + "\n";
+				? messageModulesIndexDeclaration(
+						output,
+						declarations.find(({ bundle }) => bundle.id === "default")?.name
+					)
+				: [...groupedIndexExports(filenames, groups), localizedString].join(
+						"\n"
+					) + "\n";
 		return output;
 	}
 
