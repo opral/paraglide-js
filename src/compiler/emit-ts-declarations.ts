@@ -8,7 +8,11 @@ import {
 } from "./compile-bundle.js";
 import type { CompilerOptions } from "./compiler-options.js";
 import { inputsType } from "./jsdoc-types.js";
-import { declarationShardTypes } from "./output-structure/shard-types.js";
+import {
+	declarationShardTypes,
+	declarationShardTypesImport,
+	shardTypesModule,
+} from "./output-structure/shard-types.js";
 import { toSafeModuleId } from "./safe-module-id.js";
 
 const localizedString =
@@ -80,12 +84,16 @@ export function emitTsDeclarations(args: {
 							"\n"
 						) + "\n"
 					: [
+							declarationShardTypesImport,
 							...group.map((d) => d.exported),
 							localizedString,
-							declarationShardTypes(args.settings.locales),
 							...group.map((d) => d.definition),
 						].join("\n") + "\n";
 		}
+		if (size > 1)
+			output[`messages/${shardTypesModule}.d.ts`] = declarationShardTypes(
+				args.settings.locales
+			);
 		output["messages/_index.d.ts"] =
 			[
 				...filenames.map(

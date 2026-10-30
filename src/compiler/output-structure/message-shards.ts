@@ -3,7 +3,12 @@ import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import { toBundleInputTypeAliasName } from "../compile-bundle.js";
 import { toSafeModuleId } from "../safe-module-id.js";
 import { inputsType } from "../jsdoc-types.js";
-import { jsShardTypes, jsShardFactory } from "./shard-types.js";
+import {
+	jsShardFactory,
+	jsShardTypes,
+	jsShardTypesImport,
+	shardTypesModule,
+} from "./shard-types.js";
 import { generateMessageBody } from "./message-modules.js";
 
 /** Isolated pure wrappers preserve tree shaking and each message's local bindings. */
@@ -24,7 +29,7 @@ export function generateOutput(
 		const chunks = [
 			`import { ${runtime} } from '../runtime.js';`,
 			"/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */",
-			jsShardTypes(settings.locales),
+			jsShardTypesImport,
 		];
 		if (
 			shard.some((b) =>
@@ -83,6 +88,8 @@ export function generateOutput(
 		}
 		output[`messages/${filename}`] = chunks.join("\n\n");
 	}
+	if (files.length > 0)
+		output[`messages/${shardTypesModule}.js`] = jsShardTypes(settings.locales);
 	output["messages/_index.js"] = [
 		"/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */",
 		...files.map((f) => `export * from './${f}';`),
