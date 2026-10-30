@@ -269,7 +269,10 @@ setLocale("fr");
 m.rich.parts();
 `;
 
-async function checkConsumer(output: Record<string, string>) {
+async function checkConsumer(
+	output: Record<string, string>,
+	source = consumer
+) {
 	const directory = await fs.mkdtemp(
 		path.join(os.tmpdir(), "paraglide-consumer-")
 	);
@@ -285,7 +288,7 @@ async function checkConsumer(output: Record<string, string>) {
 			path.join(directory, "package.json"),
 			'{"type":"module"}'
 		);
-		await fs.writeFile(path.join(directory, "consumer.ts"), consumer);
+		await fs.writeFile(path.join(directory, "consumer.ts"), source);
 		await fs.writeFile(
 			path.join(directory, "tsconfig.json"),
 			JSON.stringify({
@@ -363,6 +366,73 @@ for (const outputStructure of ["message-modules", "locale-modules"] as const) {
 		}
 	});
 }
+
+test("locale-modules: combined declarations have a bounded number of import() types", async () => {
+	const project = await fixture();
+	try {
+		const output = await compileProject({
+			project,
+			compilerOptions: {
+				outputStructure: "locale-modules",
+				emitTsDeclarations: true,
+			},
+		});
+		// LocalizedString and the shared runtime aliases, whatever the catalog size.
+		expect(output["messages/_index.d.ts"]?.match(/import\(/g)).toHaveLength(4);
+		for (const locale of ["en", "de", "de-CH"])
+			expect(
+				output[`messages/${locale}.d.ts`]?.match(/import\(/g)?.length ?? 0
+			).toBeLessThanOrEqual(2);
+	} finally {
+		await project.close();
+	}
+});
+
+test("locale-modules: the shared runtime aliases stay private", async () => {
+	// No message ID needs renaming, so no other export declaration hides them.
+	const project = await loadProjectInMemory({
+		blob: await newProject({
+			settings: { baseLocale: "en", locales: ["en", "de"] },
+		}),
+	});
+	try {
+		for (const value of [
+			bundle({ id: "plain" }),
+			bundle({
+				id: "rich",
+				pattern: [
+					{ type: "markup-start", name: "strong", options: [], attributes: [] },
+					{ type: "text", value: "Rich" },
+					{ type: "markup-end", name: "strong", options: [], attributes: [] },
+				],
+			}),
+		])
+			await insertBundleNested(project.db, value);
+		const output = await compileProject({
+			project,
+			compilerOptions: {
+				outputStructure: "locale-modules",
+				emitTsDeclarations: true,
+			},
+		});
+		await checkConsumer(
+			output,
+			`
+import { m } from "./messages.js";
+// @ts-expect-error the runtime aliases are private
+import type { __ParaglideMessageMetadata } from "./messages/_index.js";
+// @ts-expect-error the runtime aliases are private
+import type { __ParaglideMessagePart } from "./messages/_index.js";
+// @ts-expect-error the runtime aliases are private
+import type { __ParaglideMessagePart as EnglishPart } from "./messages/en.js";
+m.plain() satisfies string;
+m.rich.parts({});
+`
+		);
+	} finally {
+		await project.close();
+	}
+});
 
 for (const extraOptions of [
 	{ experimentalStaticLocale: '"de"' },

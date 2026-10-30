@@ -7,6 +7,39 @@ import ts from "typescript";
 import { setImmediate as yieldToWorker } from "node:timers/promises";
 import { compileCatalog } from "../compiler/compile-project.js";
 import { virtualMessageOutput } from "./virtual-messages.js";
+import { toSafeModuleId } from "../compiler/safe-module-id.js";
+import { toBundleInputTypeAliasName } from "../compiler/compile-bundle.js";
+import type { BundleNested, Pattern } from "@inlang/sdk";
+
+/** A bundle with one English message; its type checks the fixture's literals. */
+function englishBundle(
+	id: string,
+	pattern: Pattern,
+	inputs: string[] = []
+): BundleNested {
+	return {
+		id,
+		declarations: inputs.map((name) => ({ type: "input-variable", name })),
+		messages: [
+			{
+				id: `${id}_en`,
+				bundle_id: id,
+				locale: "en",
+				selectors: [],
+				variants: [
+					{ id: `${id}_en_v`, message_id: `${id}_en`, matches: [], pattern },
+				],
+			},
+		],
+	};
+}
+const icon: Pattern = [
+	{ type: "markup-standalone", name: "icon", options: [], attributes: [] },
+];
+const nameInput: Pattern = [
+	{ type: "expression", arg: { type: "variable-reference", name: "name" } },
+];
+const text = (value: string): Pattern => [{ type: "text", value }];
 
 let root: string;
 let typeRoots: string[];
@@ -245,3 +278,139 @@ test.each(configurations)(
 	},
 	30000
 );
+
+test("the virtual declaration has a bounded number of import() types", async () => {
+	const code = await fs.readFile(
+		path.join(root, "paraglide", "messages.virtual.d.ts"),
+		"utf8"
+	);
+	// LocalizedString and the shared runtime aliases, whatever the catalog size.
+	expect(code.match(/import\(/g)).toHaveLength(4);
+});
+
+test("the virtual declaration declares what the message declarations do", async () => {
+	const directory = await fs.realpath(
+		await fs.mkdtemp(path.join(os.tmpdir(), "paraglide-virtual-contract-"))
+	);
+	try {
+		const ids = Array.from({ length: 300 }, (_, index) =>
+			index % 3 === 0 ? `group.item-${index}` : `item${index}`
+		);
+		const output = await compileCatalog({
+			projectPath: path.join(directory, "project.inlang"),
+			compilerOptions: { emitTsDeclarations: true, emitReadme: false },
+			catalog: {
+				settings: { baseLocale: "en", locales: ["en", "de"], modules: [] },
+				bundles: ids.map((id, index) =>
+					englishBundle(
+						id,
+						[
+							...(index % 5 === 0 ? icon : []),
+							...(index % 2 ? nameInput : text(id)),
+						],
+						index % 2 ? ["name"] : []
+					)
+				),
+			},
+		});
+		const outdir = path.join(directory, "paraglide");
+		const { disk } = virtualMessageOutput(output, outdir);
+		// The per-message declarations the virtual file is built from, beside it.
+		for (const [name, code] of [
+			...Object.entries(disk),
+			...Object.entries(output).filter(
+				([name]) =>
+					name.startsWith("messages/") &&
+					name.endsWith(".d.ts") &&
+					name !== "messages/_index.d.ts"
+			),
+		]) {
+			await fs.mkdir(path.dirname(path.join(outdir, name)), {
+				recursive: true,
+			});
+			await fs.writeFile(path.join(outdir, name), code);
+		}
+		const leaves = ids.map((id, index) => ({
+			id,
+			module: `leaf${index}`,
+			file: `./paraglide/messages/${toSafeModuleId(id)}.js`,
+			inputs: toBundleInputTypeAliasName(toSafeModuleId(id)),
+		}));
+		await fs.writeFile(
+			path.join(directory, "consumer.ts"),
+			[
+				'import { m } from "./paraglide/messages.js";',
+				...leaves.map(
+					(leaf) =>
+						`import * as ${leaf.module} from ${JSON.stringify(leaf.file)};`
+				),
+				"type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2 ? true : false;",
+				`export const names: Equal<keyof typeof m, ${leaves.map((leaf) => JSON.stringify(leaf.id)).join(" | ")}> = true;`,
+				...leaves.flatMap((leaf) => [
+					`export const value_${leaf.module}: Equal<(typeof m)[${JSON.stringify(leaf.id)}], (typeof ${leaf.module})[${JSON.stringify(leaf.id)}]> = true;`,
+					`export const inputs_${leaf.module}: Equal<m.${leaf.inputs}, ${leaf.module}.${leaf.inputs}> = true;`,
+				]),
+			].join("\n")
+		);
+		expect(diagnosticsOf(path.join(directory, "consumer.ts"))).toEqual([]);
+	} finally {
+		await fs.rm(directory, { recursive: true, force: true });
+	}
+}, 30000);
+
+test("the virtual declaration keeps the shared runtime aliases private", async () => {
+	const directory = await fs.realpath(
+		await fs.mkdtemp(path.join(os.tmpdir(), "paraglide-virtual-private-"))
+	);
+	try {
+		// No message ID needs renaming, so no other export declaration hides them.
+		const output = await compileCatalog({
+			projectPath: path.join(directory, "project.inlang"),
+			compilerOptions: { emitTsDeclarations: true, emitReadme: false },
+			catalog: {
+				settings: { baseLocale: "en", locales: ["en"], modules: [] },
+				bundles: [
+					englishBundle("plain", text("Plain")),
+					englishBundle("rich", icon),
+				],
+			},
+		});
+		const outdir = path.join(directory, "paraglide");
+		await fs.mkdir(outdir);
+		for (const [name, code] of Object.entries(
+			virtualMessageOutput(output, outdir).disk
+		))
+			await fs.writeFile(path.join(outdir, name), code);
+		await fs.writeFile(
+			path.join(directory, "consumer.ts"),
+			[
+				'import { m } from "./paraglide/messages.js";',
+				"// @ts-expect-error the runtime aliases are private",
+				'import type { __ParaglideMessageMetadata } from "./paraglide/messages.js";',
+				"// @ts-expect-error the runtime aliases are private",
+				'import type { __ParaglideMessagePart } from "./paraglide/messages.js";',
+				"m.plain();",
+				"m.rich.parts();",
+			].join("\n")
+		);
+		expect(diagnosticsOf(path.join(directory, "consumer.ts"))).toEqual([]);
+	} finally {
+		await fs.rm(directory, { recursive: true, force: true });
+	}
+});
+
+function diagnosticsOf(file: string) {
+	const program = ts.createProgram([file], {
+		strict: true,
+		noEmit: true,
+		target: ts.ScriptTarget.ES2022,
+		module: ts.ModuleKind.ESNext,
+		moduleResolution: ts.ModuleResolutionKind.Bundler,
+		types: [],
+	});
+	return ts
+		.getPreEmitDiagnostics(program)
+		.map((diagnostic) =>
+			ts.flattenDiagnosticMessageText(diagnostic.messageText, " ")
+		);
+}

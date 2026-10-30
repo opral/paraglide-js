@@ -14,6 +14,38 @@ import { toSafeModuleId } from "./safe-module-id.js";
 const localizedString =
 	'export type LocalizedString = import("../runtime.js").LocalizedString;';
 
+const runtimeMetadata = 'import("../runtime.js").MessageMetadata<';
+const runtimePart = 'import("../runtime.js").MessagePart';
+
+/**
+ * Makes the declarations of many messages in one file refer to the runtime's
+ * types through private aliases. TypeScript locates each `import("…")` type of
+ * a file by walking the file from its first statement, so one per message makes
+ * creating the program quadratic in the number of messages.
+ */
+export function shareRuntimeTypes(declarations: string): string {
+	const aliases: string[] = [];
+	if (declarations.includes(runtimeMetadata))
+		aliases.push(
+			'type __ParaglideMessageMetadata<Inputs, Options, Markup extends import("../runtime.js").MessageMarkupSchema> = import("../runtime.js").MessageMetadata<Inputs, Options, Markup>;'
+		);
+	if (declarations.includes(runtimePart))
+		aliases.push(
+			'type __ParaglideMessagePart = import("../runtime.js").MessagePart;'
+		);
+	if (aliases.length === 0) return declarations;
+	return [
+		...aliases,
+		declarations
+			.replaceAll(runtimeMetadata, "__ParaglideMessageMetadata<")
+			.replaceAll(runtimePart, "__ParaglideMessagePart")
+			.trimEnd(),
+		// A declaration file exports every declaration unless it has an export
+		// declaration; this one keeps the aliases private.
+		"export {};\n",
+	].join("\n");
+}
+
 /** Writes declarations from the same bundle and input metadata used by JavaScript generation. */
 export function emitTsDeclarations(args: {
 	compiledBundles: CompiledBundleWithMessages[];
@@ -96,12 +128,13 @@ export function emitTsDeclarations(args: {
 		return output;
 	}
 
-	output["messages/_index.d.ts"] =
+	output["messages/_index.d.ts"] = shareRuntimeTypes(
 		[
 			...declarations.map(({ exported }) => exported),
 			localizedString,
 			...declarations.map(({ definition }) => definition),
-		].join("\n") + "\n";
+		].join("\n") + "\n"
+	);
 	for (const locale of args.settings.locales) {
 		const contents: string[] = [];
 		let needsTypes = false;
@@ -139,8 +172,9 @@ export function emitTsDeclarations(args: {
 				seen.add(alias);
 			}
 		}
-		output[`messages/${locale}.d.ts`] =
-			contents.join("\n") + (contents.length ? "\n" : "");
+		output[`messages/${locale}.d.ts`] = shareRuntimeTypes(
+			contents.join("\n") + (contents.length ? "\n" : "")
+		);
 	}
 	return output;
 }
