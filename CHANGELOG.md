@@ -1,5 +1,65 @@
 # @inlang/paraglide-js
 
+## 3.0.0
+
+### Major Changes
+
+- f65ba59: Remove the `additionalFiles` compiler option in Paraglide JS 3. Custom files and overrides of generated files are no longer supported through this option. Existing JavaScript configurations using it fail with migration guidance instead of silently dropping those files.
+
+  Remove `additionalFiles` from your compiler, bundler plugin, or `paraglide.config.*` options. Keep framework helpers and message re-export wrappers in your application source, outside Paraglide's generated output directory. Manage extra assets, metadata, and source maps through your own build tooling. Paraglide continues to generate declarations for its own output when `emitTsDeclarations` is enabled.
+
+  Allow Paraglide JS 3 in the framework helper packages’ peer dependency ranges.
+
+  The CLI emits declarations by default (use `--no-emit-ts-declarations` to disable them). Init explicitly enables declaration emission in generated Vite integrations, compile scripts, and its initial compilation, and no longer reads or changes `tsconfig.json` to enable `allowJs`. The programmatic compiler and bundler plugin option default remains `emitTsDeclarations: false`.
+
+  Use the SDK catalog entry point directly, removing the older SDK database-loading fallback and compatibility detection. Remove the unused deprecated `NodeishFilesystem` type. The public `createParaglide()` API remains available.
+
+- 05a3e17: Remove `experimentalMiddlewareLocaleSplitting` for Paraglide v3, including its compiler option, runtime message tracking, and middleware HTML script injection. Generated runtimes no longer export `trackMessageCall` or `experimentalMiddlewareLocaleSplitting`, and async local storage no longer tracks message calls.
+
+  Per-locale builds are the recommended way to ship only the active locale's messages. Remove `experimentalMiddlewareLocaleSplitting` from your configuration and use `experimentalPerLocaleBuild: true` for supported Vite applications. Per-locale builds require full-document navigation when switching locales and a deployment that selects the matching locale output. See the [per-locale build guide](https://paraglidejs.com/compiling-messages#experimental-per-locale-builds) for framework and deployment constraints.
+
+- eb5dc1d: Add `outputStructure: "virtual-modules"` and make it the default for the Vite
+  integration in development and production. Keep public
+  runtime/message entry points on disk, combine message declarations, and serve
+  individual message implementations virtually. Safe static message imports avoid
+  loading the complete message barrel while preserving per-message tree shaking.
+
+  This layout requires the Vite plugin. Select `outputStructure: "message-modules"`
+  or `"locale-modules"` explicitly for physical message files, standalone Node
+  scripts or grouped output. CLI and other bundler defaults remain unchanged.
+
+### Minor Changes
+
+- f09ced5: Require SDK 4.1.0 and use its stateful `createCatalogLoader()` for directory compilation. Reuse the loader through `previousCompilation`, apply complete reset/update batches, and replace the unreleased snapshot catalog integration. Existing `compileProject()`, `compileCatalog()` and offline plugin caches remain supported.
+
+  Reuse unchanged generated output and hashes. With the default one-message-per-module layout, translation and input edits compile only changed bundles. Settings, plugin, key-set, option and shared-layout changes use the full emitter as needed; unchanged catalogs reuse output for all layouts. Serialize concurrent compiles and invalidate consumed loader state and disk hashes after publication failures so retries restore missing files. Invalidate Vite's transform cache before error-recovery reloads to serve fresh translations.
+
+  Retain opt-in `messageModuleSize` grouping for `message-modules` output, including `--message-module-size` in the CLI. Groups preserve named exports, input types, metadata, documentation, and per-message tree shaking. The default remains one message per file; import grouped messages through `messages.js` because grouping changes direct generated module paths.
+
+- 565b11b: Generate `.d.ts` files directly when `emitTsDeclarations` is enabled, removing TypeScript compiler analysis and the optional TypeScript peer dependency. TypeScript is no longer required to generate declarations.
+
+  On a synthetic project with 6,400 messages and three locales, declaration generation takes 23 ms for `message-modules` and 26 ms for `locale-modules`, compared with 2.22 s and 2.54 s through TypeScript 7 (about 99% less time). The TypeScript 5 path takes 3.48 s and 20.03 s, respectively. These are medians of three runs on Node.js 22 and measure declaration generation only, excluding project loading, JavaScript generation, and final output writes.
+
+  Generated declarations preserve boolean literals and common `typeof` comparisons for `isServer`. Other custom expressions have type `any`, allowing bundler-specific expressions without analyzing JavaScript.
+
+- 506efa1: Add a bundler-independent `isDevelopment` compiler expression for runtime diagnostics. Vite uses its resolved development/production mode; other bundler plugins default from `NODE_ENV`. Standalone compilation can disable diagnostics with `isDevelopment: "false"` or `--is-development false`.
+
+  Make locale-specialized override warnings development-only and allow unused cookie-pattern setup to be tree-shaken. Keep the shared `globalThis.__paraglide` runtime object initialized for backward compatibility and future runtime behavior.
+
+### Patch Changes
+
+- 0d500bb: Read `window.location.href` in `getLocale()` only when a route strategy or the `url` strategy needs it. Every message call resolves the locale, and each read of `window.location.href` serializes the URL; `getLocale()` read it up to three times per call.
+- 9a44eb7: With `outputStructure: "message-modules"` and one message per module, `messages/_index.d.ts` declares every message itself instead of re-exporting one declaration file per message, so TypeScript reads one declaration file for `messages.js`. The per-message declarations remain for direct imports.
+- b2db911: Read existing output files concurrently when hashing the output directory. An unchanged start of the bundler plugins with physical output, and a CLI compile into an existing output directory, no longer read thousands of message modules one at a time.
+- dcac182: Escape line breaks in the quoted string literals the compiler emits, such as formatter option values and `.local` literals. A literal containing a line break made the generated module fail to parse.
+- 87d1360: Allow message-body inlining in per-locale builds using `outputStructure: "message-modules"`, reducing generated client code while retaining locale selection, fallback behavior, and override warnings.
+- 49ff68f: Look up locales in `toLocale()` by their lowercased form instead of lowercasing every configured locale on each call. Calls that resolve their locale through the runtime's strategies paid one `toLowerCase()` per configured locale before the active one. The configured locales are treated as immutable, as their readonly type states.
+- 9436403: Grouped message modules (`messageModuleSize` above 1) no longer export their shared helper types. Every shard declared `__ParaglideOptions`, `__ParaglideMessage` and `__ParaglideOptionalMessage`, so `messages.js` exported them: a module that re-exported `messages.js` beside another export of those names failed with TS2308, and with two or more shards `messages/_index.js` (with `checkJs`) and `messages/_index.d.ts` (with `skipLibCheck: false`) failed because their `export *` exported the same names from every shard. The helpers are now declared once, in `messages/_shard_types.js` and `.d.ts`, which the barrel does not re-export, and each shard imports them type-only.
+- 2b999e4: Declarations that hold many messages in one file (`messages.virtual.d.ts`, and `messages/_index.d.ts` and the per-locale files of `locale-modules`) now refer to the runtime's `MessageMetadata` and `MessagePart` types through private shared aliases instead of an `import("…")` type per message. TypeScript locates each `import()` type by walking the file from its first statement, so creating the program took time quadratic in the number of messages.
+- 6f5ccc4: Read the locale of the default URL pattern from the URL that `extractLocaleFromUrl()` already parsed, instead of parsing it a second time. `localizeHref()` and `localizeUrl()` extract the locale of every link they localize.
+- 7525f9c: Rewrite `const { key } = m` (and other object patterns that read the namespace whole) and fully static template-literal keys such as ``m[`key`]`` to direct virtual message imports. Before, both kept the whole message barrel: in development every message module loaded, and a production build that destructured `m` bundled the entire catalog.
+- 7bcdae7: Rewrite the `_unref(m).key` reads that compiled Vue templates use (production builds inline the template into `<script setup>`) to direct virtual message imports. Vue's `unref(x)` returns `x.value` only when `x.__v_isRef === true`; every export of the message namespace is a message function, so none can be `true`, `unref(m)` is `m`, and these reads are static. Before, a Vue component that used `m` in its template kept the whole message barrel, and the production build bundled every message.
+
 ## 2.29.3
 
 ### Patch Changes
