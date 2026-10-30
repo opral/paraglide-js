@@ -1,4 +1,12 @@
 /**
+ * Keeps a string literal from ending the JSDoc comment it is written in, e.g.
+ * as a property name in a type: the escape `\/` keeps the value of the string.
+ */
+export function escapeCommentTerminator(literal: string): string {
+	return literal.replaceAll("*/", "*\\/");
+}
+
+/**
  * Escapes some Text so that it can safely be used inside a template literal.
  */
 export function escapeForTemplateLiteral(text: string): string {

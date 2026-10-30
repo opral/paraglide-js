@@ -80,7 +80,7 @@ export function generateOutput(
 					file += `\nexport { ${bundleModuleId} } from "./${fallbackLocale}.js"`;
 				} else {
 					// no fallback exists, render the bundleId
-					file += `\n/** @type {(inputs: ${inputTypeAliasName}) => LocalizedString} */\nexport const ${bundleModuleId} = () => /** @type {LocalizedString} */ ('${bundleId}')`;
+					file += `\n/** @type {(inputs: ${inputTypeAliasName}) => LocalizedString} */\nexport const ${bundleModuleId} = () => /** @type {LocalizedString} */ (${JSON.stringify(bundleId)})`;
 				}
 				continue;
 			}

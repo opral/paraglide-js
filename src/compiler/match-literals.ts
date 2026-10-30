@@ -1,3 +1,5 @@
+import { escapeCommentTerminator } from "../services/codegen/escape.js";
+
 const UNSUPPORTED_NUMERIC_MATCH_PREFIX = /^(0[bBoOxX]|NaN$)/;
 const INFINITY_MATCH_LITERAL = /^[+]?Infinity$/;
 
@@ -28,7 +30,8 @@ export function renderInputMatchTypeVariants(literalValue: string): string[] {
 		);
 	}
 
-	variants.add(JSON.stringify(literalValue));
+	// the types are written in JSDoc comments, too
+	variants.add(escapeCommentTerminator(JSON.stringify(literalValue)));
 
 	return Array.from(variants);
 }

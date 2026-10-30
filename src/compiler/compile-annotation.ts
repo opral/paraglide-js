@@ -4,7 +4,11 @@ import type {
 	Literal,
 	VariableReference,
 } from "@inlang/sdk";
-import { compileVariableAccess } from "./variable-access.js";
+import {
+	compileVariableAccess,
+	isValidIdentifier,
+	quotePropertyKey,
+} from "./variable-access.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
 import { Logger } from "../services/logger/index.js";
 
@@ -315,15 +319,18 @@ function compileOptions(
 	if (options.length === 0) {
 		return "{}";
 	}
-	const entries: string[] = options.map(
-		(option) =>
-			`${option.name}: ${compileOptionLiteralOrVarRef(
-				annotationName,
-				option.name,
-				option.value,
-				declarations
-			)}`
-	);
+	const entries: string[] = options.map((option) => {
+		// MessageFormat option names may contain `-`, `.` and a `:` namespace
+		const key = isValidIdentifier(option.name)
+			? option.name
+			: quotePropertyKey(option.name);
+		return `${key}: ${compileOptionLiteralOrVarRef(
+			annotationName,
+			option.name,
+			option.value,
+			declarations
+		)}`;
+	});
 	const code = "{ " + entries.join(", ") + " }";
 
 	return code;

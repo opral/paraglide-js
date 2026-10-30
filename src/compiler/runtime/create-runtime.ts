@@ -88,83 +88,93 @@ export function createRuntimeFile(args: {
 	const code = `
 ${needsUrlPatternPolyfill ? `import "@inlang/paraglide-js/urlpattern-polyfill";` : "/** @type {any} */\nconst URLPattern = {}"}
 
-${injectCode("./variables.js")
-	.replace(
+${substitute(injectCode("./variables.js"), [
+	[
 		`export const baseLocale = "en";`,
-		`export const baseLocale = "${args.baseLocale}";`
-	)
-	.replace(
+		`export const baseLocale = ${JSON.stringify(args.baseLocale)};`,
+	],
+	[
 		`export const locales = /** @type {readonly string[]} */ (["en", "de"]);`,
-		`export const locales = /** @type {const} */ (${JSON.stringify(args.locales)});`
-	)
-	.replace(
+		`export const locales = /** @type {const} */ (${JSON.stringify(args.locales)});`,
+	],
+	[
 		`export const strategy = ["globalVariable"];`,
-		`export const strategy = ${JSON.stringify(args.compilerOptions.strategy, null, 2)};`
-	)
-	.replace(`<cookie-name>`, `${args.compilerOptions.cookieName}`)
-	.replace(`60 * 60 * 24 * 400`, `${args.compilerOptions.cookieMaxAge}`)
-	.replace(`<cookie-domain>`, `${args.compilerOptions.cookieDomain}`)
-	.replace(
+		`export const strategy = ${JSON.stringify(args.compilerOptions.strategy, null, 2)};`,
+	],
+	// String() keeps an explicit `undefined` the string it always was
+	[
+		`export const cookieName = "<cookie-name>";`,
+		`export const cookieName = ${JSON.stringify(String(args.compilerOptions.cookieName))};`,
+	],
+	[
+		`export const cookieMaxAge = 60 * 60 * 24 * 400;`,
+		`export const cookieMaxAge = ${args.compilerOptions.cookieMaxAge};`,
+	],
+	[
+		`export const cookieDomain = "<cookie-domain>";`,
+		`export const cookieDomain = ${JSON.stringify(String(args.compilerOptions.cookieDomain))};`,
+	],
+	[
 		`/** @type {"lax" | "strict" | "none" | undefined} */ (undefined)`,
 		`/** @type {"lax" | "strict" | "none" | undefined} */ (${
 			args.compilerOptions.cookieSameSite === undefined
 				? "undefined"
 				: JSON.stringify(args.compilerOptions.cookieSameSite)
-		})`
-	)
-	.replace(
+		})`,
+	],
+	[
 		`/** @type {boolean | "auto"} */ (false)`,
-		`/** @type {boolean | "auto"} */ (${JSON.stringify(cookieSecure)})`
-	)
-	.replace(
+		`/** @type {boolean | "auto"} */ (${JSON.stringify(cookieSecure)})`,
+	],
+	[
 		`export const routeStrategies = [];`,
-		`export const routeStrategies = ${JSON.stringify(routeStrategies, null, 2)};`
-	)
-	.replace(
+		`export const routeStrategies = ${JSON.stringify(routeStrategies, null, 2)};`,
+	],
+	[
 		`export const TREE_SHAKE_COOKIE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_COOKIE_STRATEGY_USED = ${allUsedStrategies.has("cookie")};`
-	)
-	.replace(
+		`const TREE_SHAKE_COOKIE_STRATEGY_USED = ${allUsedStrategies.has("cookie")};`,
+	],
+	[
 		`export const TREE_SHAKE_URL_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_URL_STRATEGY_USED = ${allUsedStrategies.has("url")};`
-	)
-	.replace(
+		`const TREE_SHAKE_URL_STRATEGY_USED = ${allUsedStrategies.has("url")};`,
+	],
+	[
 		`export const TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED = ${allUsedStrategies.has("globalVariable")};`
-	)
-	.replace(
+		`const TREE_SHAKE_GLOBAL_VARIABLE_STRATEGY_USED = ${allUsedStrategies.has("globalVariable")};`,
+	],
+	[
 		`export const TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED = ${allUsedStrategies.has("preferredLanguage")};`
-	)
-	.replace(
+		`const TREE_SHAKE_PREFERRED_LANGUAGE_STRATEGY_USED = ${allUsedStrategies.has("preferredLanguage")};`,
+	],
+	[
 		`export const urlPatterns = [];`,
-		`export const urlPatterns = ${JSON.stringify(urlPatterns, null, 2)};`
-	)
-	.replace(
+		`export const urlPatterns = ${JSON.stringify(urlPatterns, null, 2)};`,
+	],
+	[
 		`export const trailingSlash = undefined;`,
 		`export const trailingSlash = ${
 			args.compilerOptions.trailingSlash === undefined
 				? "undefined"
 				: JSON.stringify(args.compilerOptions.trailingSlash)
-		};`
-	)
-	.replace(
+		};`,
+	],
+	[
 		`export const disableAsyncLocalStorage = false;`,
-		`export const disableAsyncLocalStorage = ${args.compilerOptions.disableAsyncLocalStorage};`
-	)
-	.replace(
+		`export const disableAsyncLocalStorage = ${args.compilerOptions.disableAsyncLocalStorage};`,
+	],
+	[
 		`export const TREE_SHAKE_DEFAULT_URL_PATTERN_USED = false;`,
-		`const TREE_SHAKE_DEFAULT_URL_PATTERN_USED = ${defaultUrlPatternUsed};`
-	)
-	.replace(
+		`const TREE_SHAKE_DEFAULT_URL_PATTERN_USED = ${defaultUrlPatternUsed};`,
+	],
+	[
 		`export const isServer = typeof window === "undefined";`,
-		`export const isServer = ${args.compilerOptions.isServer};`
-	)
-	.replace(
+		`export const isServer = ${args.compilerOptions.isServer};`,
+	],
+	[
 		`export const isDevelopment = /** @type {boolean} */ (true);`,
-		`export const isDevelopment = ${args.compilerOptions.isDevelopment ?? "true"};`
-	)
-	.replace(
+		`export const isDevelopment = ${args.compilerOptions.isDevelopment ?? "true"};`,
+	],
+	[
 		`export const experimentalStaticLocale = undefined;`,
 		args.compilerOptions.experimentalStaticLocale
 			? `export const experimentalStaticLocale = ${
@@ -173,16 +183,17 @@ ${injectCode("./variables.js")
 						? args.compilerOptions.experimentalStaticLocale
 						: `assertIsLocale(${args.compilerOptions.experimentalStaticLocale})`
 				};`
-			: `export const experimentalStaticLocale = undefined;`
-	)
-	.replace(
+			: `export const experimentalStaticLocale = undefined;`,
+	],
+	[
 		`export const localStorageKey = "PARAGLIDE_LOCALE";`,
-		`export const localStorageKey = "${args.compilerOptions.localStorageKey}";`
-	)
-	.replace(
+		`export const localStorageKey = ${JSON.stringify(String(args.compilerOptions.localStorageKey))};`,
+	],
+	[
 		`export const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = false;`,
-		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${allUsedStrategies.has("localStorage")};`
-	)}
+		`const TREE_SHAKE_LOCAL_STORAGE_STRATEGY_USED = ${allUsedStrategies.has("localStorage")};`,
+	],
+])}
 // Shared runtime state for backward compatibility and future runtime behavior.
 /** @type {any} */ (globalThis).__paraglide =
 	/** @type {any} */ (globalThis).__paraglide ?? {};
@@ -264,6 +275,34 @@ ${injectCode("./type-definitions.js").replace(
 `;
 
 	return code;
+}
+
+/**
+ * Replaces each search text of the template with its replacement. Every search
+ * text is found in the template as given, so a replacement is never searched,
+ * and inserted values stay exactly as they are.
+ */
+function substitute(
+	template: string,
+	substitutions: ReadonlyArray<[search: string, replacement: string]>
+): string {
+	const found = substitutions
+		.map(([search, replacement]) => {
+			const index = template.indexOf(search);
+			if (index === -1)
+				throw new Error(
+					`The runtime template has no ${JSON.stringify(search)}`
+				);
+			return { index, end: index + search.length, replacement };
+		})
+		.sort((a, b) => a.index - b.index);
+	let result = "";
+	let position = 0;
+	for (const { index, end, replacement } of found) {
+		result += template.slice(position, index) + replacement;
+		position = end;
+	}
+	return result + template.slice(position);
 }
 
 /**

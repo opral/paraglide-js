@@ -339,6 +339,35 @@ test("parts mode compiles text, markup, options and attributes", () => {
 	);
 });
 
+test("markup options and attributes named __proto__ are own properties", () => {
+	const { code } = compilePattern({
+		mode: "parts",
+		pattern: [
+			{
+				type: "markup-standalone",
+				name: "link",
+				options: [
+					{ name: "__proto__", value: { type: "literal", value: "option" } },
+				],
+				attributes: [
+					{ name: "__proto__", value: { type: "literal", value: "attribute" } },
+				],
+			},
+		],
+		declarations: [],
+	});
+	const [link] = new Function("i", `return ${code}`)({});
+	for (const [properties, value] of [
+		[link.options, "option"],
+		[link.attributes, "attribute"],
+	]) {
+		expect(
+			Object.getOwnPropertyDescriptor(properties, "__proto__")?.value
+		).toBe(value);
+		expect(Object.getPrototypeOf(properties)).toBe(Object.prototype);
+	}
+});
+
 describe("ICU MessageFormat 1 styles, as imported by the ICU1 plugin", () => {
 	const date = new Date(Date.UTC(2026, 9, 9, 14, 30));
 

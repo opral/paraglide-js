@@ -12,6 +12,10 @@ import {
 	type CatalogInput,
 } from "./compile-project.js";
 import type { CompilerOptions } from "./compiler-options.js";
+import { compileBundle } from "./compile-bundle.js";
+import { toSafeModuleId } from "./safe-module-id.js";
+import { messageReferenceExpression } from "./output-structure/message-modules.js";
+import type { BundleNested, Declaration, Pattern } from "@inlang/sdk";
 
 const settings = {
 	baseLocale: "en",
@@ -254,7 +258,7 @@ async function loadMessages(
 						.filter(([name]) => name.endsWith(".js"))
 						.map(([name, code]) => [`paraglide/${name}`, code])
 				),
-				"main.js": 'export * from "./paraglide/messages.js";',
+				"main.js": 'export { m } from "./paraglide/messages.js";',
 			}),
 		],
 	});
@@ -285,3 +289,162 @@ test.each([compileCatalog, compileProject])(
 		).rejects.toThrow("additionalFiles was removed in Paraglide JS 3");
 	}
 );
+
+const layouts = [
+	{ outputStructure: "message-modules" },
+	{ outputStructure: "locale-modules" },
+	{ outputStructure: "message-modules", messageModuleSize: 2 },
+] satisfies Partial<CompilerOptions>[];
+
+function bundle(
+	id: string,
+	patterns: Record<string, Pattern>,
+	declarations: Declaration[] = []
+): BundleNested {
+	return {
+		id,
+		declarations,
+		messages: Object.entries(patterns).map(([locale, pattern]) => ({
+			id: `${id}_${locale}`,
+			bundle_id: id,
+			locale,
+			selectors: [],
+			variants: [
+				{
+					id: `${id}_${locale}_v`,
+					message_id: `${id}_${locale}`,
+					matches: [],
+					pattern,
+				},
+			],
+		})),
+	};
+}
+
+test("names and match keys that contain the comment terminator keep the generated JSDoc closed", async () => {
+	const welcome = bundle(
+		"welcome",
+		{
+			en: [
+				{ type: "text", value: "Hello " },
+				{ type: "expression", arg: { type: "variable-reference", name: "*/" } },
+			],
+		},
+		[{ type: "input-variable", name: "*/" }]
+	);
+	const state = bundle("state", { en: [{ type: "text", value: "closed" }] }, [
+		{ type: "input-variable", name: "x" },
+	]);
+	state.messages[0]!.selectors = [{ type: "variable-reference", name: "x" }];
+	state.messages[0]!.variants[0]!.matches = [
+		{ type: "literal-match", key: "x", value: "*/" },
+	];
+	for (const layout of layouts) {
+		const output = await compileCatalog({
+			catalog: {
+				settings: { baseLocale: "en", locales: ["en"] },
+				bundles: [welcome, state],
+			},
+			compilerOptions: { ...layout, strategy: ["baseLocale"] },
+		});
+		const m = await loadMessages(output);
+		expect(m.welcome({ "*/": "World" })).toBe("Hello World");
+		expect(m.state({ x: "*/" })).toBe("closed");
+		const consumer = await typescriptProject({
+			useInMemoryFileSystem: true,
+			compilerOptions: {
+				strict: true,
+				allowJs: true,
+				checkJs: true,
+				noEmit: true,
+				module: ts.ModuleKind.Node16,
+				moduleResolution: ts.ModuleResolutionKind.Node16,
+			},
+		});
+		// server.js imports Node's async_hooks
+		for (const [name, code] of Object.entries(output))
+			if (name.endsWith(".js") && name !== "server.js")
+				consumer.createSourceFile(name, code);
+		consumer.createSourceFile(
+			"consumer.ts",
+			`import { m } from "./messages.js";
+			m.welcome({ "*/": "World" }) satisfies string;
+			m.state({ x: "*/" }) satisfies string;
+			// @ts-expect-error required input
+			m.welcome({});
+			// @ts-expect-error closed selector input
+			m.state({ x: "open" });`
+		);
+		expect(
+			ts
+				.getPreEmitDiagnostics(consumer.createProgram())
+				.map((diagnostic) => diagnostic.messageText),
+			JSON.stringify(layout)
+		).toEqual([]);
+	}
+});
+
+test("an untranslated key with quotes and backslashes falls back to itself", async () => {
+	const id = `don't say "hi" \\`;
+	for (const layout of layouts) {
+		const output = await compileCatalog({
+			catalog: {
+				settings: { baseLocale: "en", locales: ["en", "de"] },
+				bundles: [bundle(id, { de: [{ type: "text", value: "Hallo" }] })],
+			},
+			compilerOptions: { ...layout, strategy: ["baseLocale"] },
+		});
+		const m = await loadMessages(output);
+		expect(m[id]({}, { locale: "en" }), JSON.stringify(layout)).toBe(id);
+		expect(m[id]({}, { locale: "de" })).toBe("Hallo");
+	}
+	// without settings, the dispatcher returns the key for unknown locales
+	const { code } = compileBundle({
+		bundle: bundle(id, { de: [{ type: "text", value: "Hallo" }] }),
+		fallbackMap: { de: undefined },
+		messageReferenceExpression,
+		exported: false,
+	}).bundle;
+	const message = new Function(
+		"experimentalStaticLocale",
+		"getLocale",
+		`${code}\nreturn ${toSafeModuleId(id)};`
+	)(undefined, () => "en");
+	expect(message({})).toBe(id);
+});
+
+test("formatter options named with a namespace or a dash compile", async () => {
+	const literal = (value: string) => ({ type: "literal" as const, value });
+	const price = bundle(
+		"price",
+		{
+			en: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "value" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						options: [
+							{ name: "u:locale", value: literal("de") },
+							{ name: "foo-bar", value: literal("1") },
+							{ name: "maximumFractionDigits", value: literal("0") },
+						],
+					},
+				},
+			],
+		},
+		[{ type: "input-variable", name: "value" }]
+	);
+	for (const layout of layouts) {
+		const output = await compileCatalog({
+			catalog: {
+				settings: { baseLocale: "en", locales: ["en"] },
+				bundles: [price],
+			},
+			compilerOptions: { ...layout, strategy: ["baseLocale"] },
+		});
+		const m = await loadMessages(output);
+		expect(m.price({ value: 1.5 }), JSON.stringify(layout)).toBe("2");
+	}
+});
