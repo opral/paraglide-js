@@ -140,7 +140,7 @@ describe("emits only the locals a message reads", () => {
 
 		expect(code).toContain("const countValue = i?.count;");
 		expect(code).toContain(
-			'const countPlural = registry.plural("en", countValue, {}, true);'
+			'const countPlural = registry.plural("en", countValue, {}, \'["en",[]]\');'
 		);
 		expect(code).toContain("const nameValue = i?.name;");
 		expect(code).not.toContain("unusedPlural");

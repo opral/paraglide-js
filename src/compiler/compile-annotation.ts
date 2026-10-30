@@ -5,7 +5,10 @@ import type {
 	VariableReference,
 } from "@inlang/sdk";
 import { compileVariableAccess } from "./variable-access.js";
-import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
+import {
+	escapeForDoubleQuoteString,
+	escapeForSingleQuoteString,
+} from "../services/codegen/escape.js";
 import { Logger } from "../services/logger/index.js";
 
 /**
@@ -110,10 +113,63 @@ export function compileAnnotation(
 	// compileOptions emits a plain data object, so the registry can safely cache it.
 	const cacheable =
 		["plural", "number", "datetime", "relativetime"].includes(functionName) &&
-		!options.some((option) => option.name === "__proto__")
-			? ", true"
-			: "";
-	return `registry.${functionName}("${locale}", ${str}, ${compileOptions(optionsOf, options, declarations)}${cacheable})`;
+		!options.some((option) => option.name === "__proto__");
+	let cache = "";
+	if (cacheable || functionName === "icuPound") {
+		// The key of literal options is known now, so calls need not compute it.
+		const key = literalOptionsKey(locale, optionsOf, options);
+		if (key !== undefined) cache = `, '${escapeForSingleQuoteString(key)}'`;
+		else if (cacheable) cache = ", true";
+	}
+	return `registry.${functionName}("${locale}", ${str}, ${compileOptions(optionsOf, options, declarations)}${cache})`;
+}
+
+/**
+ * The key under which the registry caches the formatter of options that are
+ * all literals: the key getIntlFormatter() in registry.js computes from them
+ * at runtime. Undefined when an option reads a variable, has a name that is
+ * not a plain identifier, or holds a number that is not finite.
+ *
+ * @example
+ *   literalOptionsKey("en", "plural", [{ name: "type", value: { type: "literal", value: "ordinal" } }])
+ *   >> '["en",[["type","ordinal"]]]'
+ */
+function literalOptionsKey(
+	locale: string,
+	annotationName: string,
+	options: FunctionReference["options"]
+): string | undefined {
+	const values = new Map<string, string | number | boolean>();
+	for (const option of options) {
+		if (
+			option.value.type !== "literal" ||
+			readsVariable(annotationName, option.name, option.value.value) ||
+			// the emitted property must have this exact name, e.g. not `1e1`
+			!/^[A-Za-z_$][\w$]*$/.test(option.name)
+		) {
+			return undefined;
+		}
+		// relativetime() passes the unit to format(), and icuPound() formats
+		// with number() and no options
+		if (
+			annotationName === "icu:pound" ||
+			(annotationName === "relativetime" && option.name === "unit")
+		) {
+			continue;
+		}
+		const value = optionLiteralValue(
+			annotationName,
+			option.name,
+			option.value.value
+		);
+		if (typeof value === "number" && !Number.isFinite(value)) return undefined;
+		values.set(option.name, value);
+	}
+	const names = [...values.keys()].sort();
+	return JSON.stringify([
+		locale,
+		names.map((name) => [name, values.get(name)]),
+	]);
 }
 
 const icuDateTimeStyles = new Set(["short", "medium", "long", "full"]);
@@ -368,11 +424,7 @@ function compileOptionLiteralOrVarRef(
 		return compileVariableAccess(value.name, declarations);
 	}
 
-	if (
-		annotationName === "relativetime" &&
-		optionName === "unit" &&
-		isDollarVariableReference(value.value)
-	) {
+	if (readsVariable(annotationName, optionName, value.value)) {
 		return `/** @type {import("../registry.js").RelativeTimeFormatUnit} */ (${compileVariableAccess(value.value.slice(1), declarations)})`;
 	}
 
@@ -390,6 +442,44 @@ function compileOptionLiteralOrVarRef(
 	}
 
 	return `"${escapeForDoubleQuoteString(value.value)}"`;
+}
+
+/**
+ * Whether a literal option compiles to a variable read: a relativetime unit
+ * like `$unit`.
+ */
+function readsVariable(
+	annotationName: string,
+	optionName: string,
+	literal: string
+): boolean {
+	return (
+		annotationName === "relativetime" &&
+		optionName === "unit" &&
+		isDollarVariableReference(literal)
+	);
+}
+
+/**
+ * The value an option literal compiles to: a number or a boolean for numeric
+ * and boolean options, otherwise the string.
+ */
+function optionLiteralValue(
+	annotationName: string,
+	optionName: string,
+	literal: string
+): string | number | boolean {
+	if (
+		shouldEmitNumberLiteral(annotationName, optionName, literal) ||
+		// validated by validateOffsetOptions()
+		(offsetAnnotations.has(annotationName) && optionName === "offset")
+	) {
+		return Number(literal);
+	}
+	if (shouldEmitBooleanLiteral(annotationName, optionName, literal)) {
+		return literal === "true";
+	}
+	return literal;
 }
 
 function shouldEmitNumberLiteral(

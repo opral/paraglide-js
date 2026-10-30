@@ -6,20 +6,20 @@
  * @param {import("./runtime.js").Locale} locale
  * @param {unknown} input
  * @param {Intl.PluralRulesOptions & { offset?: unknown }} [options]
- * @param {boolean} [cacheable=false] Internal compiler flag for plain data options.
+ * @param {boolean | string} [cacheable=false] Internal compiler flag for plain data options, or their key when all are literals.
  * @returns {string}
  */
 export function plural(locale: import("./runtime.js").Locale, input: unknown, options?: Intl.PluralRulesOptions & {
     offset?: unknown;
-}, cacheable?: boolean): string;
+}, cacheable?: boolean | string): string;
 /**
  * @param {import("./runtime.js").Locale} locale
  * @param {unknown} input
  * @param {Intl.NumberFormatOptions} [options]
- * @param {boolean} [cacheable=false] Internal compiler flag for plain data options.
+ * @param {boolean | string} [cacheable=false] Internal compiler flag for plain data options, or their key when all are literals.
  * @returns {string}
  */
-export function number(locale: import("./runtime.js").Locale, input: unknown, options?: Intl.NumberFormatOptions, cacheable?: boolean): string;
+export function number(locale: import("./runtime.js").Locale, input: unknown, options?: Intl.NumberFormatOptions, cacheable?: boolean | string): string;
 /**
  * Formats "#" in ICU MessageFormat 1 plurals: the number "input - options.offset",
  * formatted like number(). The offset comes from "{count, plural, offset:1 ...}".
@@ -29,27 +29,28 @@ export function number(locale: import("./runtime.js").Locale, input: unknown, op
  * @param {import("./runtime.js").Locale} locale
  * @param {unknown} input
  * @param {{ offset?: unknown }} [options]
+ * @param {boolean | string} [cacheable=false] Internal compiler flag of the number() call.
  * @returns {string}
  */
 export function icuPound(locale: import("./runtime.js").Locale, input: unknown, options?: {
     offset?: unknown;
-}): string;
+}, cacheable?: boolean | string): string;
 /**
  * @param {import("./runtime.js").Locale} locale
  * @param {unknown} input
  * @param {Intl.DateTimeFormatOptions} [options]
- * @param {boolean} [cacheable=false] Internal compiler flag for plain data options.
+ * @param {boolean | string} [cacheable=false] Internal compiler flag for plain data options, or their key when all are literals.
  * @returns {string}
  */
-export function datetime(locale: import("./runtime.js").Locale, input: unknown, options?: Intl.DateTimeFormatOptions, cacheable?: boolean): string;
+export function datetime(locale: import("./runtime.js").Locale, input: unknown, options?: Intl.DateTimeFormatOptions, cacheable?: boolean | string): string;
 /**
  * @param {import("./runtime.js").Locale} locale
  * @param {unknown} input
  * @param {Intl.RelativeTimeFormatOptions & { unit: RelativeTimeFormatUnit }} options
- * @param {boolean} [cacheable=false] Internal compiler flag for plain data options.
+ * @param {boolean | string} [cacheable=false] Internal compiler flag for plain data options, or their key when all are literals.
  * @returns {string}
  */
 export function relativetime(locale: import("./runtime.js").Locale, input: unknown, options: Intl.RelativeTimeFormatOptions & {
     unit: RelativeTimeFormatUnit;
-}, cacheable?: boolean): string;
+}, cacheable?: boolean | string): string;
 export type RelativeTimeFormatUnit = "year" | "years" | "quarter" | "quarters" | "month" | "months" | "week" | "weeks" | "day" | "days" | "hour" | "hours" | "minute" | "minutes" | "second" | "seconds";

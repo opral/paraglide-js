@@ -143,7 +143,9 @@ test("compiles a pattern expression annotation to a registry call", () => {
 		locale: "en",
 	});
 
-	expect(code).toBe('`${registry.number("en", i?.count, {}, true)} views`');
+	expect(code).toBe(
+		'`${registry.number("en", i?.count, {}, \'["en",[]]\')} views`'
+	);
 });
 
 test("compiles pattern expression annotation options like local variable annotations", () => {
@@ -172,7 +174,7 @@ test("compiles pattern expression annotation options like local variable annotat
 	});
 
 	expect(code).toBe(
-		'`${registry.number("de", i?.price, { minimumFractionDigits: 2, style: "percent" }, true)}`'
+		'`${registry.number("de", i?.price, { minimumFractionDigits: 2, style: "percent" }, \'["de",[["minimumFractionDigits",2],["style","percent"]]]\')}`'
 	);
 });
 
@@ -230,7 +232,7 @@ test("parts mode compiles pattern expression annotations to registry calls", () 
 	});
 
 	expect(code).toBe(
-		'[{ type: "text", value: String(registry.number("en", i?.count, {}, true)) }, { type: "text", value: " views" }]'
+		`[{ type: "text", value: String(registry.number("en", i?.count, {}, '["en",[]]')) }, { type: "text", value: " views" }]`
 	);
 });
 
