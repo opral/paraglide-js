@@ -63,6 +63,38 @@ function destructuringPattern(
 	return target?.type === "ObjectPattern" ? target : undefined;
 }
 
+/**
+ * Local names of Vue's `unref`, imported from "vue" and never redeclared or
+ * used other than as a call. `unref(x)` returns `x.value` when `x.__v_isRef` is
+ * strictly `true` and `x` otherwise. The properties of `m` are message exports,
+ * which are functions, so none of them is `true` and `unref(m)` is `m`.
+ */
+function vueUnrefBindings(ast: Program): Set<string> {
+	const names = new Set<string>();
+	for (const statement of ast.body)
+		if (
+			statement.type === "ImportDeclaration" &&
+			statement.source.value === "vue"
+		)
+			for (const specifier of statement.specifiers)
+				if (
+					specifier.type === "ImportSpecifier" &&
+					specifier.imported.type === "Identifier" &&
+					specifier.imported.name === "unref"
+				)
+					names.add(specifier.local.name);
+	walk(ast, (node, parent) => {
+		if (
+			node.type === "Identifier" &&
+			names.has(node.name) &&
+			parent?.type !== "ImportSpecifier" &&
+			!(parent?.type === "CallExpression" && parent.callee === node)
+		)
+			names.delete(node.name);
+	});
+	return names;
+}
+
 /** Rewrite only verified public imports and unambiguous static namespace reads. */
 export function rewriteVirtualMessageImports(args: {
 	code: string;
@@ -87,6 +119,7 @@ export function rewriteVirtualMessageImports(args: {
 	});
 	// Direct eval can reference an import through a string. Its scope is opaque.
 	if (hasEval) return null;
+	const unrefs = vueUnrefBindings(ast);
 	const changes: [number, number, string][] = [];
 	let rewritten = false;
 	let serial = 0;
@@ -184,32 +217,44 @@ export function rewriteVirtualMessageImports(args: {
 					destructured.push({ node, names });
 					return;
 				}
+				// Compiled Vue templates read imports as `_unref(m).key`; that call
+				// returns `m` itself (see vueUnrefBindings).
+				const read =
+					parent.type === "CallExpression" &&
+					!parent.optional &&
+					parent.callee.type === "Identifier" &&
+					unrefs.has(parent.callee.name) &&
+					parent.arguments.length === 1 &&
+					parent.arguments[0] === node
+						? parent
+						: node;
+				const member = read === node ? parent : parents.get(read);
 				if (
-					parent.type !== "MemberExpression" ||
-					parent.object !== node ||
-					parent.optional
+					member?.type !== "MemberExpression" ||
+					member.object !== read ||
+					member.optional
 				) {
 					unsafe = true;
 					return;
 				}
-				const name = propertyName(parent.property, parent.computed);
-				const owner = parents.get(parent);
+				const name = propertyName(member.property, member.computed);
+				const owner = parents.get(member);
 				if (
 					!name ||
 					!messages.has(name) ||
 					owner?.type === "ChainExpression" ||
-					(owner?.type === "AssignmentExpression" && owner.left === parent) ||
+					(owner?.type === "AssignmentExpression" && owner.left === member) ||
 					(owner?.type === "UnaryExpression" && owner.operator === "delete") ||
 					owner?.type === "UpdateExpression" ||
 					((owner?.type === "ForOfStatement" ||
 						owner?.type === "ForInStatement") &&
-						owner.left === parent)
+						owner.left === member)
 				) {
 					unsafe = true;
 					return;
 				}
 				// Destructuring writes may nest the target below a pattern node.
-				let ancestor: Node | undefined = parent;
+				let ancestor: Node | undefined = member;
 				while (ancestor && ancestor !== statement) {
 					if (
 						ancestor.type === "AssignmentPattern" ||
@@ -221,7 +266,7 @@ export function rewriteVirtualMessageImports(args: {
 					}
 					ancestor = parents.get(ancestor);
 				}
-				references.push({ node: parent, name });
+				references.push({ node: member, name });
 			});
 			if (unsafe || (!references.length && !destructured.length)) {
 				keep.push(text(specifier));

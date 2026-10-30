@@ -161,6 +161,26 @@ export {output};`,
 	expect(original).toBe("function");
 });
 
+test("compiled Vue templates read messages through unref without the barrel", () => {
+	// @vitejs/plugin-vue's production output for `{{ m.hello() }}` in a
+	// <script setup> component that imports `m`.
+	const result = rewrite(
+		'import { unref as _unref, toDisplayString as _toDisplayString } from "vue"; import { m } from "./messages.js"; export const render = () => [_toDisplayString(_unref(m).hello()), _unref(m)["greeting.hello"]()];'
+	)!;
+	expect(result.code).not.toContain("./messages.js");
+	expect(result.code).toContain("_toDisplayString(__paraglide_message_0())");
+});
+
+test.each([
+	'import {unref as _unref} from "vue"; function f(_unref){return _unref(m).hello()}',
+	'import {unref as _unref} from "other"; _unref(m).hello()',
+	'import {unref as _unref} from "vue"; use(_unref(m))',
+	'import {unref as _unref} from "vue"; _unref?.(m).hello()',
+	'import {unref as _unref} from "vue"; const alias=_unref; _unref(m).hello()',
+])("an unverified unref keeps the barrel: %s", (code) => {
+	expect(rewrite(`import {m} from './messages.js'; ${code};`)).toBeNull();
+});
+
 test("an unused namespace binding is retained when other named imports are optimized", () => {
 	const result = rewrite("import {m,hello} from './messages.js'; hello();")!;
 	expect(result.code).toContain('import { m } from "./messages.js"');
