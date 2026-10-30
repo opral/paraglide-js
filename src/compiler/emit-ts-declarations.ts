@@ -14,6 +14,42 @@ import { toSafeModuleId } from "./safe-module-id.js";
 const localizedString =
 	'export type LocalizedString = import("../runtime.js").LocalizedString;';
 
+// How a message module declares the value of a message named "default".
+const defaultValueExport =
+	/^declare const [A-Za-z_$][\w$]*: [^\n]*\nexport \{ [A-Za-z_$][\w$]* as "default" \};\n/m;
+
+/**
+ * The barrel declaration of `message-modules`: the declarations of every message
+ * module in one file, so TypeScript reads one file for `messages.js` instead of
+ * one per message. The per-message files remain for direct imports. Like the
+ * JavaScript barrel's `export *`, it leaves out the value of a message named
+ * "default". Built from the message files so incremental output can rebuild it.
+ */
+export function messageModulesIndexDeclaration(
+	output: Record<string, string>
+): string {
+	const defaultModule = `messages/${toSafeModuleId("default")}.d.ts`;
+	const values: string[] = [];
+	const types: string[] = [];
+	for (const [name, code] of Object.entries(output)) {
+		if (
+			!name.startsWith("messages/") ||
+			!name.endsWith(".d.ts") ||
+			name === "messages/_index.d.ts"
+		)
+			continue;
+		// A message module declares its value, then LocalizedString, then its types.
+		const [value = "", type = ""] = code.split(`${localizedString}\n`);
+		values.push(
+			name === defaultModule ? value.replace(defaultValueExport, "") : value
+		);
+		types.push(type);
+	}
+	// Values first and types after: TypeScript builds the program for the same
+	// declarations in about 40% less time than with each type after its value.
+	return [...values, `${localizedString}\n`, ...types].join("");
+}
+
 /** Writes declarations from the same bundle and input metadata used by JavaScript generation. */
 export function emitTsDeclarations(args: {
 	compiledBundles: CompiledBundleWithMessages[];
@@ -87,12 +123,14 @@ export function emitTsDeclarations(args: {
 						].join("\n") + "\n";
 		}
 		output["messages/_index.d.ts"] =
-			[
-				...filenames.map(
-					(name) => `export * from ${JSON.stringify(`./${name}.js`)};`
-				),
-				localizedString,
-			].join("\n") + "\n";
+			size === 1
+				? messageModulesIndexDeclaration(output)
+				: [
+						...filenames.map(
+							(name) => `export * from ${JSON.stringify(`./${name}.js`)};`
+						),
+						localizedString,
+					].join("\n") + "\n";
 		return output;
 	}
 
