@@ -533,3 +533,43 @@ test("falls back to the next strategy when localStorage throws", async () => {
 		writable: true,
 	});
 });
+
+test("getLocale reads the page URL only when a strategy needs it", async () => {
+	let urlReads = 0;
+	vi.stubGlobal("window", {
+		location: {
+			get href() {
+				urlReads++;
+				return "https://example.com/de/page";
+			},
+		},
+	});
+	vi.stubGlobal("document", { cookie: "PARAGLIDE_LOCALE=de" });
+	try {
+		const cookieRuntime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "de"] },
+			}),
+			strategy: ["cookie", "baseLocale"],
+			isServer: "false",
+		});
+		const urlRuntime = await createParaglide({
+			blob: await newProject({
+				settings: { baseLocale: "en", locales: ["en", "de"] },
+			}),
+			strategy: ["url", "baseLocale"],
+			isServer: "false",
+		});
+		// The first call also stores the locale through setLocale().
+		cookieRuntime.getLocale();
+		urlRuntime.getLocale();
+
+		urlReads = 0;
+		expect(cookieRuntime.getLocale()).toBe("de");
+		expect(urlReads).toBe(0);
+		expect(urlRuntime.getLocale()).toBe("de");
+		expect(urlReads).toBe(1);
+	} finally {
+		vi.unstubAllGlobals();
+	}
+});

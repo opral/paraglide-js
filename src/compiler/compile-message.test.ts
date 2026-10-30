@@ -234,6 +234,65 @@ test("compiles pattern-level annotations to registry calls", async () => {
 	expect(views({ count: 1234567.891 })).toBe("1,234,567.891 views");
 });
 
+test("compiles literals that contain line breaks", async () => {
+	const declarations: Declaration[] = [
+		{ type: "input-variable", name: "amount" },
+		{
+			type: "local-variable",
+			name: "note",
+			value: {
+				type: "expression",
+				arg: { type: "literal", value: "first\nsecond" },
+			},
+		},
+	];
+	const message: Message = {
+		locale: "en",
+		bundleId: "line_breaks",
+		id: "message-id",
+		selectors: [],
+	};
+	const variants: Variant[] = [
+		{
+			id: "1",
+			messageId: "message-id",
+			matches: [],
+			pattern: [
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "note" },
+				},
+				{ type: "text", value: " " },
+				{
+					type: "expression",
+					arg: { type: "variable-reference", name: "amount" },
+					annotation: {
+						type: "function-reference",
+						name: "number",
+						// an option Intl ignores
+						options: [
+							{ name: "label", value: { type: "literal", value: "a\r\nb" } },
+						],
+					},
+				},
+			],
+		},
+	];
+
+	const compiled = compileMessage(declarations, message, variants);
+
+	const { line_breaks } = await import(
+		"data:text/javascript;base64," +
+			btoa(
+				createRegistry() +
+					"\nexport const line_breaks = " +
+					compiled.code.replaceAll("registry.", "")
+			)
+	);
+
+	expect(line_breaks({ amount: 2 })).toBe("first\nsecond 2");
+});
+
 test("compiles pattern-level annotations in multi-variant messages", async () => {
 	const declarations: Declaration[] = [
 		{ type: "input-variable", name: "count" },

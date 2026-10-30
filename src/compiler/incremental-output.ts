@@ -2,6 +2,7 @@ import { isDeepStrictEqual } from "node:util";
 import { compileCatalog, type CatalogInput } from "./compile-project.js";
 import type { CompilerOptions } from "./compiler-options.js";
 import type { CatalogUpdate } from "@inlang/sdk/catalog";
+import { messageModulesIndexDeclaration } from "./emit-ts-declarations.js";
 import { toSafeModuleId } from "./safe-module-id.js";
 
 export type GeneratedCatalog = {
@@ -63,7 +64,8 @@ export async function generateCatalog(args: {
 		});
 		const output = { ...previous.output };
 		// Index and supporting modules depend on the whole catalog. With unchanged
-		// keys/settings they retain their previous contents; only bundle modules vary.
+		// keys/settings they retain their previous contents; only bundle modules
+		// vary, and the index declaration, which holds every bundle's declarations.
 		for (const bundle of args.update.bundles) {
 			const name = toSafeModuleId(bundle.id);
 			for (const suffix of ["js", "d.ts"]) {
@@ -71,6 +73,8 @@ export async function generateCatalog(args: {
 				if (Object.hasOwn(patch, file)) output[file] = patch[file]!;
 			}
 		}
+		if (Object.hasOwn(output, "messages/_index.d.ts"))
+			output["messages/_index.d.ts"] = messageModulesIndexDeclaration(output);
 		return { output, options: snapshot, canPatch: true };
 	}
 	const output = await compileCatalog({

@@ -2,9 +2,19 @@ export function optionsType(locales: readonly string[]): string {
 	return `{ locale?: ${locales.map((l) => JSON.stringify(l)).join(" | ") || "never"} }`;
 }
 
-/** Shared aliases keep each message's public input and metadata types intact. */
+/**
+ * Shared aliases keep each message's public input and metadata types intact.
+ * They are declared once, in `messages/_shard_types`, which the message barrel
+ * never re-exports, and each shard imports them type-only. Declared in each
+ * shard, they would be exported with it (a JSDoc typedef always is), and the
+ * barrel's `export *` of two shards would export the same names twice.
+ */
+export const shardTypesModule = "_shard_types";
+
+/** `messages/_shard_types.js`. */
 export function jsShardTypes(locales: readonly string[]): string {
-	return `/** @typedef {${optionsType(locales)}} __ParaglideOptions */
+	return `/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */
+/** @typedef {${optionsType(locales)}} __ParaglideOptions */
 /**
  * @template I
  * @typedef {((inputs: I, options?: __ParaglideOptions) => LocalizedString) & import('../runtime.js').MessageMetadata<I, __ParaglideOptions, {}>} __ParaglideMessage
@@ -12,14 +22,23 @@ export function jsShardTypes(locales: readonly string[]): string {
 /**
  * @template I
  * @typedef {((inputs?: I, options?: __ParaglideOptions) => LocalizedString) & import('../runtime.js').MessageMetadata<I, __ParaglideOptions, {}>} __ParaglideOptionalMessage
- */`;
+ */
+export {};
+`;
 }
 
+export const jsShardTypesImport = `/** @import { __ParaglideOptions, __ParaglideMessage, __ParaglideOptionalMessage } from './${shardTypesModule}.js' */`;
+
+/** `messages/_shard_types.d.ts`. */
 export function declarationShardTypes(locales: readonly string[]): string {
-	return `type __ParaglideOptions = ${optionsType(locales)};
-type __ParaglideMessage<I> = ((inputs: I, options?: __ParaglideOptions) => LocalizedString) & import('../runtime.js').MessageMetadata<I, __ParaglideOptions, {}>;
-type __ParaglideOptionalMessage<I> = ((inputs?: I, options?: __ParaglideOptions) => LocalizedString) & import('../runtime.js').MessageMetadata<I, __ParaglideOptions, {}>;`;
+	return `import type { LocalizedString, MessageMetadata } from "../runtime.js";
+export type __ParaglideOptions = ${optionsType(locales)};
+export type __ParaglideMessage<I> = ((inputs: I, options?: __ParaglideOptions) => LocalizedString) & MessageMetadata<I, __ParaglideOptions, {}>;
+export type __ParaglideOptionalMessage<I> = ((inputs?: I, options?: __ParaglideOptions) => LocalizedString) & MessageMetadata<I, __ParaglideOptions, {}>;
+`;
 }
+
+export const declarationShardTypesImport = `import type { __ParaglideMessage, __ParaglideOptionalMessage } from "./${shardTypesModule}.js";`;
 
 /** Typed pure factories share locale dispatch while retaining each public function's name/arity. */
 export function jsShardFactory(

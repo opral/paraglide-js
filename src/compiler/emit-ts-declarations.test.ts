@@ -434,6 +434,57 @@ m.rich.parts({});
 	}
 });
 
+test("message-modules: importing messages.js reads one message declaration file", async () => {
+	const project = await fixture();
+	const directory = await fs.mkdtemp(
+		path.join(os.tmpdir(), "paraglide-declarations-")
+	);
+	try {
+		const output = await compileProject({
+			project,
+			compilerOptions: {
+				outputStructure: "message-modules",
+				emitTsDeclarations: true,
+			},
+		});
+		expect(output["messages/_index.d.ts"]?.match(/import\(/g)).toHaveLength(4);
+		for (const [name, source] of Object.entries(output)) {
+			if (!name.endsWith(".d.ts")) continue;
+			await fs.mkdir(path.dirname(path.join(directory, name)), {
+				recursive: true,
+			});
+			await fs.writeFile(path.join(directory, name), source);
+		}
+		await fs.writeFile(
+			path.join(directory, "consumer.ts"),
+			'import { m } from "./messages.js";\nm.plain();\n'
+		);
+		const program = ts.createProgram([path.join(directory, "consumer.ts")], {
+			noEmit: true,
+			target: ts.ScriptTarget.ES2022,
+			module: ts.ModuleKind.ESNext,
+			moduleResolution: ts.ModuleResolutionKind.Bundler,
+			types: [],
+		});
+		expect(
+			ts
+				.getPreEmitDiagnostics(program)
+				.map((diagnostic) =>
+					ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n")
+				)
+		).toEqual([]);
+		expect(
+			program
+				.getSourceFiles()
+				.map((file) => path.relative(directory, file.fileName))
+				.filter((name) => name.startsWith("messages/"))
+		).toEqual(["messages/_index.d.ts"]);
+	} finally {
+		await project.close();
+		await fs.rm(directory, { recursive: true, force: true });
+	}
+});
+
 for (const extraOptions of [
 	{ experimentalStaticLocale: '"de"' },
 	{ disableAsyncLocalStorage: true },

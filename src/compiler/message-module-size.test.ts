@@ -288,14 +288,11 @@ test("rejects grouping for locale modules", async () => {
 
 test("groups JS and declarations into bounded modules and keeps the public barrel", async () => {
 	const output = await compile({ messageModuleSize: 3 });
-	const js = Object.keys(output).filter(
-		(name) =>
-			name.startsWith("messages/") &&
-			name.endsWith(".js") &&
-			!name.endsWith("/_index.js")
+	const js = Object.keys(output).filter((name) =>
+		/^messages\/_shard_\d+\.js$/.test(name)
 	);
 	expect(js).toHaveLength(Math.ceil(catalog.bundles.length / 3));
-	for (const name of js)
+	for (const name of [...js, "messages/_shard_types.js"])
 		expect(output).toHaveProperty(name.replace(/\.js$/, ".d.ts"));
 	expect(JSON.parse(output["messages/package.json"]!)).toEqual({
 		type: "module",
@@ -332,10 +329,16 @@ for (const [fixtureName, inputCatalog] of [
 	["fallback", catalog],
 	["fully translated factory", fullyTranslated],
 ] as const) {
-	for (const emitTsDeclarations of [false, true]) {
-		test(`grouped ${fixtureName} output preserves strict consumer types (declarations: ${emitTsDeclarations})`, async () => {
+	for (const { emitTsDeclarations, messageModuleSize } of [false, true].flatMap(
+		(emitTsDeclarations) =>
+			[2, 100].map((messageModuleSize) => ({
+				emitTsDeclarations,
+				messageModuleSize,
+			}))
+	)) {
+		test(`grouped ${fixtureName} output preserves strict consumer types (declarations: ${emitTsDeclarations}, ${messageModuleSize} per module)`, async () => {
 			const output = await compile(
-				{ messageModuleSize: 100, emitTsDeclarations },
+				{ messageModuleSize, emitTsDeclarations },
 				inputCatalog
 			);
 			const project = await createProject({
@@ -399,8 +402,13 @@ for (const [fixtureName, inputCatalog] of [
 }
 
 test("TypeScript validates grouped declarations and rejects invalid consumers", async () => {
-	for (const inputCatalog of [catalog, fullyTranslated]) {
-		const output = await compile({ messageModuleSize: 100 }, inputCatalog);
+	for (const { inputCatalog, messageModuleSize } of [
+		catalog,
+		fullyTranslated,
+	].flatMap((inputCatalog) =>
+		[2, 100].map((messageModuleSize) => ({ inputCatalog, messageModuleSize }))
+	)) {
+		const output = await compile({ messageModuleSize }, inputCatalog);
 		const directory = await fs.mkdtemp(
 			path.join(os.tmpdir(), "paraglide-shard-consumer-")
 		);
@@ -448,6 +456,7 @@ test("TypeScript validates grouped declarations and rejects invalid consumers", 
 						moduleResolution: "NodeNext",
 						types: [],
 						lib: ["ESNext", "DOM"],
+						skipLibCheck: false,
 					},
 					files: ["consumer.ts"],
 				})
@@ -475,6 +484,110 @@ test("TypeScript validates grouped declarations and rejects invalid consumers", 
 		}
 	}
 });
+
+/**
+ * A strict program, libraries checked, over each output (JavaScript and
+ * declarations) in its own directory and `sources` beside them.
+ */
+async function strictProgram(
+	outputs: Record<string, Record<string, string>>,
+	sources: Record<string, string>
+) {
+	const project = await createProject({
+		useInMemoryFileSystem: true,
+		compilerOptions: {
+			strict: true,
+			allowJs: true,
+			checkJs: true,
+			skipLibCheck: false,
+			noEmit: true,
+			module: ts.ModuleKind.Node16,
+			moduleResolution: ts.ModuleResolutionKind.Node16,
+		},
+	});
+	for (const [directory, output] of Object.entries(outputs))
+		for (const [name, code] of Object.entries(output))
+			if (name.endsWith(".js") || name.endsWith(".d.ts"))
+				project.createSourceFile(path.posix.join(directory, name), code);
+	for (const [name, code] of Object.entries(sources))
+		project.createSourceFile(name, code);
+	return project.createProgram();
+}
+
+const diagnosticsOf = (program: ts.Program) =>
+	ts
+		.getPreEmitDiagnostics(program)
+		.map(
+			(d) =>
+				`${d.file?.fileName}: ${ts.flattenDiagnosticMessageText(d.messageText, "\n")}`
+		)
+		.filter((message) => !message.includes("Cannot find module 'async_hooks'"));
+
+test.each([false, true])(
+	"the shared shard types stay private (declarations: %s)",
+	async (emitTsDeclarations) => {
+		// Re-exporting the messages beside a module that exports the same names
+		// must not make them ambiguous.
+		const program = await strictProgram(
+			{ "": await compile({ messageModuleSize: 2, emitTsDeclarations }) },
+			{
+				"helpers.ts":
+					"export type __ParaglideOptions = 1;\nexport type __ParaglideMessage<I> = I;\nexport type __ParaglideOptionalMessage<I> = I;\n",
+				"barrel.ts":
+					'export * from "./messages.js";\nexport * from "./helpers.js";\n',
+			}
+		);
+		expect(diagnosticsOf(program)).toEqual([]);
+	}
+);
+
+test.each([false, true])(
+	"grouped output exports the names and types of one module per message (declarations: %s)",
+	async (emitTsDeclarations) => {
+		for (const inputCatalog of [catalog, fullyTranslated]) {
+			const outputs = {
+				grouped: await compile(
+					{ messageModuleSize: 2, emitTsDeclarations },
+					inputCatalog
+				),
+				single: await compile({ emitTsDeclarations }, inputCatalog),
+			};
+			const ids = inputCatalog.bundles.map((entry) => entry.id);
+			const program = await strictProgram(outputs, {});
+			const checker = program.getTypeChecker();
+			const exportedNames = (directory: string) => {
+				const file = program.getSourceFile(
+					`/${directory}/messages.${emitTsDeclarations ? "d.ts" : "js"}`
+				);
+				const module = file && checker.getSymbolAtLocation(file);
+				if (!module) throw new Error(`no messages module in ${directory}`);
+				return checker
+					.getExportsOfModule(module)
+					.map((symbol) => symbol.name)
+					.sort();
+			};
+			const names = exportedNames("single");
+			expect(exportedNames("grouped")).toEqual(names);
+			const types = names.filter((name) => name !== "m" && !ids.includes(name));
+			const surface = await strictProgram(outputs, {
+				"surface.ts": [
+					'import * as grouped from "./grouped/messages.js";',
+					'import * as single from "./single/messages.js";',
+					"type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2 ? true : false;",
+					...ids.map(
+						(id, index) =>
+							`export const value${index}: Equal<(typeof grouped)[${JSON.stringify(id)}], (typeof single)[${JSON.stringify(id)}]> = true;`
+					),
+					...types.map(
+						(name, index) =>
+							`export const type${index}: Equal<grouped.${name}, single.${name}> = true;`
+					),
+				].join("\n"),
+			});
+			expect(diagnosticsOf(surface)).toEqual([]);
+		}
+	}
+);
 
 test.each([
 	'import { foo } from "./paraglide/messages.js"; export const result = foo({ name: "Ada" });',

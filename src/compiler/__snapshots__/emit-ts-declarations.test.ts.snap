@@ -185,18 +185,96 @@ export { _class as "class" };",
 export type LocalizedString = import("../runtime.js").LocalizedString;
 export type _DefaultInputs = {};
 export { _default as "default" };",
-  "messages/_index.d.ts": "export * from "./_class.js";
-export * from "./_default.js";
-export * from "./count.js";
-export * from "./greeting_hello.js";
-export * from "./numeric.js";
-export * from "./plain.js";
-export * from "./plural.js";
-export * from "./rich.js";
-export * from "./status.js";
-export * from "./unusual.js";
-export * from "./welcome.js";
-export type LocalizedString = import("../runtime.js").LocalizedString;",
+  "messages/_index.d.ts": "const _class: ((inputs?: _ClassInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & __ParaglideMessageMetadata<_ClassInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+const greeting_hello: ((inputs?: Greeting_HelloInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & __ParaglideMessageMetadata<Greeting_HelloInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const count: ((inputs: CountInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & __ParaglideMessageMetadata<CountInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const numeric: ((inputs: NumericInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & __ParaglideMessageMetadata<NumericInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const plain: ((inputs?: PlainInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & __ParaglideMessageMetadata<PlainInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const plural: ((inputs: PluralInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & __ParaglideMessageMetadata<PluralInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const rich: ((inputs: RichInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & {
+    parts: (inputs: RichInputs, options?: {
+        locale?: "en" | "de" | "de-CH";
+    }) => __ParaglideMessagePart[];
+} & __ParaglideMessageMetadata<RichInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {
+    strong: {
+        options: {};
+        attributes: {};
+        children: true;
+    };
+}>;
+export const status: ((inputs: StatusInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & __ParaglideMessageMetadata<StatusInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const unusual: ((inputs: UnusualInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & __ParaglideMessageMetadata<UnusualInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export const welcome: ((inputs: WelcomeInputs, options?: {
+    locale?: "en" | "de" | "de-CH";
+}) => LocalizedString) & __ParaglideMessageMetadata<WelcomeInputs, {
+    locale?: "en" | "de" | "de-CH";
+}, {}>;
+export type CountInputs = {
+    count: NonNullable<unknown>;
+};
+export type Greeting_HelloInputs = {};
+export type LocalizedString = import("../runtime.js").LocalizedString;
+export type NumericInputs = {
+    value: 1 | "1" | 2 | "2";
+};
+export type PlainInputs = {};
+export type PluralInputs = {
+    count: NonNullable<unknown>;
+};
+export type RichInputs = {
+    amount: NonNullable<unknown>;
+};
+export type StatusInputs = {
+    state: "busy" | "ready";
+};
+export type UnusualInputs = {
+    "user-name": NonNullable<unknown>;
+};
+export type WelcomeInputs = {
+    username: NonNullable<unknown>;
+};
+export type _ClassInputs = {};
+export type _DefaultInputs = {};
+export { _class as "class" };
+export { greeting_hello as "greeting.hello" };
+type __ParaglideMessageMetadata<Inputs, Options, Markup extends import("../runtime.js").MessageMarkupSchema> = import("../runtime.js").MessageMetadata<Inputs, Options, Markup>;
+type __ParaglideMessagePart = import("../runtime.js").MessagePart;",
   "messages/count.d.ts": "export const count: ((inputs: CountInputs, options?: {
     locale?: "en" | "de" | "de-CH";
 }) => LocalizedString) & import("../runtime.js").MessageMetadata<CountInputs, {
