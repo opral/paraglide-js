@@ -515,7 +515,7 @@ ${args.exported !== false && isSafeBundleId ? "export " : ""}const ${safeBundleI
 ${localeResolutionStatement("\t")}
 	${compileLocaleReturnStatements("string", "\t")}${
 		!isFullyTranslated
-			? `\n	return /** @type {LocalizedString} */ ("${args.bundle.id}")`
+			? `\n	return /** @type {LocalizedString} */ (${JSON.stringify(args.bundle.id)})`
 			: ""
 	}
 });`;

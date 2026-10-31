@@ -1,5 +1,8 @@
 import type { Declaration } from "@inlang/sdk";
-import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
+import {
+	escapeCommentTerminator,
+	escapeForDoubleQuoteString,
+} from "../services/codegen/escape.js";
 
 const identifierPattern = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
 
@@ -7,8 +10,9 @@ export function isValidIdentifier(name: string): boolean {
 	return identifierPattern.test(name);
 }
 
+/** A quoted property name, also in a type inside a JSDoc comment. */
 export function quotePropertyKey(name: string): string {
-	return `"${escapeForDoubleQuoteString(name)}"`;
+	return escapeCommentTerminator(`"${escapeForDoubleQuoteString(name)}"`);
 }
 
 export function compileInputAccess(name: string): string {
