@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import path from "node:path";
-import type { ViteDevServer, ModuleNode, Plugin } from "vite";
+import type { ViteDevServer, Plugin } from "vite";
 import type { Program } from "estree";
 import { createVitePlugin } from "unplugin";
 import { unpluginFactory, type ParaglidePluginOptions } from "./unplugin.js";
@@ -151,24 +151,58 @@ export function virtualMessages(
 					...new Set([...Object.keys(files), ...Object.keys(next)]),
 				].filter((name) => files[name] !== next[name]);
 				files = next;
-				if (server) {
-					// Invalidate every importer: re-export barrels must not keep stale
-					// transformed bindings when a message's exports change.
-					const seen = new Set<ModuleNode>();
-					const invalidate = (module: ModuleNode | undefined) => {
-						if (!module || seen.has(module)) return;
-						seen.add(module);
-						for (const importer of module.importers) invalidate(importer);
-						server!.moduleGraph.invalidateModule(module);
-					};
-					for (const name of changed)
-						invalidate(server.moduleGraph.getModuleById(prefix + name));
-					if (changed.length) server.ws.send({ type: "full-reload" });
-				}
+				if (server && changed.length)
+					reloadEnvironments(
+						server,
+						changed.map((name) => prefix + name)
+					);
 				return changed;
 			},
 		},
 	};
+}
+
+/**
+ * Invalidates the modules with these ids and their importers, or every module,
+ * in each environment of the dev server, and reloads the environment. Each
+ * Vite 6+ environment has its own module graph and hot channel; the server's
+ * `moduleGraph` and `ws` reach only the client and SSR environments, which are
+ * the only ones Vite 5 has.
+ */
+function reloadEnvironments(server: ViteDevServer, ids?: string[]) {
+	if (!server.environments) {
+		invalidate(server.moduleGraph, ids);
+		server.ws.send({ type: "full-reload" });
+		return;
+	}
+	for (const environment of Object.values(server.environments)) {
+		invalidate(environment.moduleGraph, ids);
+		environment.hot.send({ type: "full-reload" });
+	}
+}
+
+function invalidate<Module extends { importers: Set<Module> }>(
+	moduleGraph: {
+		getModuleById(id: string): Module | undefined;
+		invalidateModule(module: Module): void;
+		invalidateAll(): void;
+	},
+	ids: string[] | undefined
+) {
+	if (!ids) {
+		moduleGraph.invalidateAll();
+		return;
+	}
+	// Invalidate every importer: re-export barrels must not keep stale
+	// transformed bindings when a message's exports change.
+	const seen = new Set<Module>();
+	const invalidateWithImporters = (module: Module | undefined) => {
+		if (!module || seen.has(module)) return;
+		seen.add(module);
+		for (const importer of module.importers) invalidateWithImporters(importer);
+		moduleGraph.invalidateModule(module);
+	};
+	for (const id of ids) invalidateWithImporters(moduleGraph.getModuleById(id));
 }
 
 export function createVirtualMessagesPlugins(
@@ -261,12 +295,10 @@ export function createVirtualMessagesPlugins(
 					return (output) => ({
 						output,
 						onPublished() {
-							transport?.api.update({});
 							transport = undefined;
 							directory = undefined;
 							messages = new Map();
-							server?.moduleGraph.invalidateAll();
-							server?.ws.send({ type: "full-reload" });
+							if (server) reloadEnvironments(server);
 						},
 					});
 				}
@@ -286,13 +318,11 @@ export function createVirtualMessagesPlugins(
 						onPublished() {
 							messages = nextMessages;
 							if (!transport || directory !== nextDirectory) {
-								transport?.api.update({});
 								directory = nextDirectory;
 								transport = virtualMessages(directory, packed.implementations);
 								if (server) {
 									transport.configureServer(server);
-									server.moduleGraph.invalidateAll();
-									server.ws.send({ type: "full-reload" });
+									reloadEnvironments(server);
 								}
 							} else transport.api.update(packed.implementations);
 						},
