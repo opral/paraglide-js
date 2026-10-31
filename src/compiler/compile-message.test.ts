@@ -104,7 +104,7 @@ test.each(["single", "multiple"])(
 		const compiled = compileMessage(declarations, message, variants);
 
 		expect(compiled.code).toContain(
-			'const alpha = registry.number("en", zebra, {}, true);'
+			'const alpha = __paraglideRegistry.number("en", zebra, {}, true);'
 		);
 
 		const { chained_locals } = await import(
@@ -112,7 +112,7 @@ test.each(["single", "multiple"])(
 				btoa(
 					createRegistry() +
 						"\nexport const chained_locals = " +
-						compiled.code.replaceAll("registry.", "")
+						compiled.code.replaceAll("__paraglideRegistry.", "")
 				)
 		);
 
@@ -177,7 +177,7 @@ test("evaluates formatter options that reference earlier local variables", async
 			btoa(
 				createRegistry() +
 					"\nexport const local_options = " +
-					compiled.code.replaceAll("registry.", "")
+					compiled.code.replaceAll("__paraglideRegistry.", "")
 			)
 	);
 
@@ -219,7 +219,7 @@ test("compiles pattern-level annotations to registry calls", async () => {
 
 	const compiled = compileMessage(declarations, message, variants);
 
-	expect(compiled.code).toContain('registry.number("en", i?.count, {}, true)');
+	expect(compiled.code).toContain('__paraglideRegistry.number("en", i?.count, {}, true)');
 
 	const { views } = await import(
 		"data:text/javascript;base64," +
@@ -227,7 +227,7 @@ test("compiles pattern-level annotations to registry calls", async () => {
 			btoa(
 				createRegistry() +
 					"\nexport const views = " +
-					compiled.code.replaceAll("registry.", "")
+					compiled.code.replaceAll("__paraglideRegistry.", "")
 			)
 	);
 
@@ -286,7 +286,7 @@ test("compiles literals that contain line breaks", async () => {
 			btoa(
 				createRegistry() +
 					"\nexport const line_breaks = " +
-					compiled.code.replaceAll("registry.", "")
+					compiled.code.replaceAll("__paraglideRegistry.", "")
 			)
 	);
 
@@ -337,7 +337,7 @@ test("compiles pattern-level annotations in multi-variant messages", async () =>
 			btoa(
 				createRegistry() +
 					"\nexport const views_multi = " +
-					compiled.code.replaceAll("registry.", "")
+					compiled.code.replaceAll("__paraglideRegistry.", "")
 			)
 	);
 
@@ -897,7 +897,7 @@ test("compiles messages that use plural()", async () => {
 			btoa(
 				createRegistry() +
 					"export const plural_test = " +
-					compiled.code.replace("registry.", "")
+					compiled.code.replace("__paraglideRegistry.", "")
 			)
 	);
 
@@ -990,7 +990,7 @@ test("compiles messages that use plural() with ordinal type", async () => {
 			btoa(
 				createRegistry() +
 					"export const ordinal_test = " +
-					compiled.code.replace("registry.", "")
+					compiled.code.replace("__paraglideRegistry.", "")
 			)
 	);
 
@@ -1050,7 +1050,7 @@ test("compiles messages that use number()", async () => {
 				btoa(
 					createRegistry() +
 						"export const number_test = " +
-						compiled.code.replace("registry.", "")
+						compiled.code.replace("__paraglideRegistry.", "")
 				)
 		);
 		return number_test;
@@ -1122,7 +1122,7 @@ test("compiles messages that use number() with options", async () => {
 				btoa(
 					createRegistry() +
 						"export const number_test = " +
-						compiled.code.replace("registry.", "")
+						compiled.code.replace("__paraglideRegistry.", "")
 				)
 		);
 		return number_test;
@@ -1185,7 +1185,7 @@ test("compiles messages that use datetime()", async () => {
 				btoa(
 					createRegistry() +
 						"export const datetime_test =" +
-						compiled.code.replace("registry.", "")
+						compiled.code.replace("__paraglideRegistry.", "")
 				)
 		);
 		return datetime_test;
@@ -1262,7 +1262,7 @@ test("compiles messages that use datetime a function with options", async () => 
 				btoa(
 					createRegistry() +
 						"export const datetime_test = " +
-						compiled.code.replace("registry.", "")
+						compiled.code.replace("__paraglideRegistry.", "")
 				)
 		);
 		return datetime_test;
@@ -1332,7 +1332,7 @@ test("compiles messages that use relativetime() with options", async () => {
 				btoa(
 					createRegistry() +
 						"export const relative_time_test = " +
-						compiled.code.replace("registry.", "")
+						compiled.code.replace("__paraglideRegistry.", "")
 				)
 		);
 		return relative_time_test;
@@ -1401,7 +1401,7 @@ test("compiles messages that use relativetime() with dynamic units", async () =>
 			btoa(
 				createRegistry() +
 					"export const relative_time_test = " +
-					compiled.code.replace("registry.", "")
+					compiled.code.replace("__paraglideRegistry.", "")
 			)
 	);
 

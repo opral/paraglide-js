@@ -173,8 +173,8 @@ test("mutating options and changing message keys invalidates generated output", 
 	expect(third.output).not.toHaveProperty("messages/gamma.js");
 });
 
-test("colliding module names retain full-emitter ordering", async () => {
-	const initial = catalog(["a-b", "a_b"]),
+test("bundles whose module ids depend on other bundles are compiled with the whole catalog", async () => {
+	const initial = catalog(["a-b", "a_b", "registry"]),
 		first = await generateCatalog({
 			catalog: initial,
 			update: reset(initial),
@@ -182,7 +182,7 @@ test("colliding module names retain full-emitter ordering", async () => {
 		});
 	const next = structuredClone(initial);
 	next.bundles[0]!.messages[0]!.variants[0]!.pattern = [
-		{ type: "text", value: "must remain shadowed" },
+		{ type: "text", value: "edited" },
 	];
 	const result = await generateCatalog({
 		catalog: next,
@@ -197,4 +197,5 @@ test("colliding module names retain full-emitter ordering", async () => {
 		previousCatalog: initial,
 	});
 	expect(result.output).toEqual(await fresh(next));
+	expect(result.output["messages/$a$2d$b.js"]).toContain("edited");
 });

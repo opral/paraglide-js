@@ -1,12 +1,25 @@
 import type { ProjectSettings } from "@inlang/sdk";
 import type { CompiledBundleWithMessages } from "../compile-bundle.js";
 import { escapeForSingleQuoteString } from "../../services/codegen/escape.js";
-import { toSafeModuleId } from "../safe-module-id.js";
+import { allocateModuleIds, toSafeModuleId } from "../safe-module-id.js";
 import { inputsType } from "../jsdoc-types.js";
 import { toBundleInputTypeAliasName } from "../compile-bundle.js";
+import { registryBinding } from "../registry.js";
 
-export function messageReferenceExpression(locale: string, bundleId: string) {
-	return `${toSafeModuleId(locale)}_${toSafeModuleId(bundleId)}`;
+/** The barrel's file name, which a message cannot take. */
+const reservedModuleIds: ReadonlySet<string> = new Set(["_index"]);
+
+/** Allocates the module id of each message: its file name and binding. */
+export function moduleIds(bundleIds: Iterable<string>): Map<string, string> {
+	return allocateModuleIds(bundleIds, reservedModuleIds);
+}
+
+export function messageReferenceExpression(
+	locale: string,
+	_bundleId: string,
+	moduleId: string
+) {
+	return `${toSafeModuleId(locale)}_${moduleId}`;
 }
 
 export function generateOutput(
@@ -19,7 +32,7 @@ export function generateOutput(
 	const moduleFilenames = new Set<string>();
 
 	for (const compiledBundle of compiledBundles) {
-		const safeModuleId = toSafeModuleId(compiledBundle.bundle.node.id);
+		const safeModuleId = compiledBundle.moduleId;
 		const inputs =
 			compiledBundle.bundle.node.declarations?.filter(
 				(decl) => decl.type === "input-variable"
@@ -65,7 +78,8 @@ export function generateOutput(
 		);
 		if (usesRegistry) {
 			output[filename] =
-				`import * as registry from '../registry.js'\n` + output[filename];
+				`import * as ${registryBinding} from '../registry.js'\n` +
+				output[filename];
 		}
 	}
 
@@ -87,7 +101,7 @@ export function generateMessageBody(
 	inputTypeAliasName: string
 ): string {
 	const bundleId = compiledBundle.bundle.node.id;
-	const safeModuleId = toSafeModuleId(bundleId);
+	const safeModuleId = compiledBundle.moduleId;
 	const needsFallback: string[] = [];
 
 	const messages: string[] = [];

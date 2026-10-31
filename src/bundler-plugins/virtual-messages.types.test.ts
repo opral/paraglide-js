@@ -9,6 +9,7 @@ import { compileCatalog } from "../compiler/compile-project.js";
 import { virtualMessageOutput } from "./virtual-messages.js";
 import { toSafeModuleId } from "../compiler/safe-module-id.js";
 import { toBundleInputTypeAliasName } from "../compiler/compile-bundle.js";
+import { moduleIds } from "../compiler/output-structure/message-modules.js";
 import type { BundleNested, Pattern } from "@inlang/sdk";
 
 /** A bundle with one English message; its type checks the fixture's literals. */
@@ -48,6 +49,15 @@ beforeAll(async () => {
 		await fs.mkdtemp(path.join(os.tmpdir(), "paraglide-virtual-types-"))
 	);
 	const outdir = path.join(root, "paraglide");
+	const ids = [
+		"hello",
+		"m",
+		"class",
+		"default",
+		"greeting.hello",
+		"path",
+		"rich",
+	];
 	const output = await compileCatalog({
 		projectPath: path.join(root, "project.inlang"),
 		compilerOptions: {
@@ -59,15 +69,7 @@ beforeAll(async () => {
 		},
 		catalog: {
 			settings: { baseLocale: "en", locales: ["en", "de"], modules: [] },
-			bundles: [
-				"hello",
-				"m",
-				"class",
-				"default",
-				"greeting.hello",
-				"path",
-				"rich",
-			].map((id) => ({
+			bundles: ids.map((id) => ({
 				id,
 				declarations: [
 					{
@@ -132,7 +134,11 @@ beforeAll(async () => {
 			})),
 		},
 	});
-	const { disk } = virtualMessageOutput(output, outdir);
+	const { disk } = virtualMessageOutput(
+		output,
+		outdir,
+		moduleIds(ids).get("default")
+	);
 	await fs.mkdir(outdir);
 	for (const [name, code] of Object.entries(disk))
 		await fs.writeFile(path.join(outdir, name), code);
@@ -314,7 +320,7 @@ test("the virtual declaration declares what the message declarations do", async 
 			},
 		});
 		const outdir = path.join(directory, "paraglide");
-		const { disk } = virtualMessageOutput(output, outdir);
+		const { disk } = virtualMessageOutput(output, outdir, undefined);
 		// The per-message declarations the virtual file is built from, beside it.
 		for (const [name, code] of [
 			...Object.entries(disk),
@@ -378,7 +384,7 @@ test("the virtual declaration keeps the shared runtime aliases private", async (
 		const outdir = path.join(directory, "paraglide");
 		await fs.mkdir(outdir);
 		for (const [name, code] of Object.entries(
-			virtualMessageOutput(output, outdir).disk
+			virtualMessageOutput(output, outdir, undefined).disk
 		))
 			await fs.writeFile(path.join(outdir, name), code);
 		await fs.writeFile(

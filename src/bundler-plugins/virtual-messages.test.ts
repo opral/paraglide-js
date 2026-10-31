@@ -343,3 +343,114 @@ test("two virtual outputs keep their static import indexes isolated through addi
 		await fs.rm(root, { recursive: true, force: true });
 	}
 });
+
+test("virtual messages keep keys that collide with module ids, bindings and the barrel", async () => {
+	const root = await fs.realpath(
+		await fs.mkdtemp(path.join(tmpdir(), "paraglide-virtual-identifiers-"))
+	);
+	const originalEnv = process.env.NODE_ENV;
+	const count = [{ type: "input-variable", name: "count" }];
+	const number = (name: string) => [
+		{
+			type: "expression",
+			arg: { type: "variable-reference", name },
+			annotation: { type: "function-reference", name: "number", options: [] },
+		},
+	];
+	const bundles = {
+		"a.b": { pattern: [{ type: "text", value: "dot" }] },
+		a_b: { pattern: [{ type: "text", value: "underscore" }] },
+		_index: { pattern: [{ type: "text", value: "hello" }] },
+		registry: { declarations: count, pattern: number("count") },
+		price: {
+			declarations: [
+				...count,
+				{
+					type: "local-variable",
+					name: "i",
+					value: number("count")[0],
+				},
+			],
+			pattern: [
+				{ type: "expression", arg: { type: "variable-reference", name: "i" } },
+			],
+		},
+	};
+	const read =
+		"[m['a.b'](), m.a_b(), m._index(), m.registry({ count: 1234 }), m.price({ count: 1234 })]";
+	const expected = ["dot", "underscore", "hello", "1,234", "1,234"];
+	const options = {
+		project: path.join(root, "project.inlang"),
+		outdir: path.join(root, "paraglide"),
+		strategy: ["baseLocale" as const],
+		emitGitIgnore: false,
+		emitPrettierIgnore: false,
+		emitReadme: false,
+	};
+	try {
+		await fs.mkdir(options.project);
+		await fs.writeFile(path.join(root, "package.json"), '{"type":"module"}');
+		await fs.writeFile(
+			path.join(options.project, "settings.json"),
+			JSON.stringify({
+				baseLocale: "en",
+				locales: ["en"],
+				modules: ["./plugin.js"],
+			})
+		);
+		await fs.writeFile(
+			path.join(root, "plugin.js"),
+			`export default {key:"plugin.fixture.identifiers",toBeImportedFiles:async()=>[{path:"./messages.json",locale:"en"}],importFiles:({files})=>{const entries=Object.entries(JSON.parse(new TextDecoder().decode(files[0].content)));return {bundles:entries.map(([id,{declarations=[]}])=>({id,declarations})),messages:entries.map(([id])=>({bundleId:id,locale:"en"})),variants:entries.map(([id,{pattern}])=>({messageBundleId:id,messageLocale:"en",pattern}))}}};`
+		);
+		await fs.writeFile(
+			path.join(root, "messages.json"),
+			JSON.stringify(bundles)
+		);
+		await fs.writeFile(
+			path.join(root, "entry.js"),
+			`import { m } from "./paraglide/messages.js";\nexport const result = ${read};`
+		);
+		process.env.NODE_ENV = "development";
+		const server = await createServer({
+			root,
+			configFile: false,
+			logLevel: "silent",
+			plugins: [paraglideVitePlugin(options)],
+			optimizeDeps: { noDiscovery: true },
+			server: { port: 0, watch: null },
+		});
+		try {
+			await server.listen();
+			await server.environments.ssr!.pluginContainer.buildStart({});
+			expect((await server.ssrLoadModule("/entry.js")).result).toEqual(
+				expected
+			);
+		} finally {
+			await server.close();
+		}
+		process.env.NODE_ENV = "production";
+		const result = await build({
+			root,
+			configFile: false,
+			logLevel: "silent",
+			plugins: [paraglideVitePlugin(options)],
+			build: {
+				write: false,
+				minify: false,
+				lib: { entry: path.join(root, "entry.js"), formats: ["es"] },
+			},
+		});
+		const code = (Array.isArray(result) ? result : [result])
+			.flatMap((output) => ("output" in output ? output.output : []))
+			.filter((output) => output.type === "chunk")
+			.map((chunk) => chunk.code)
+			.join("\n");
+		const module = await import(
+			`data:text/javascript;base64,${Buffer.from(code).toString("base64")}`
+		);
+		expect(module.result).toEqual(expected);
+	} finally {
+		process.env.NODE_ENV = originalEnv;
+		await fs.rm(root, { recursive: true, force: true });
+	}
+}, 30_000);

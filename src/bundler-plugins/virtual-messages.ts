@@ -4,7 +4,7 @@ import type { ViteDevServer, ModuleNode, Plugin } from "vite";
 import type { Program } from "estree";
 import { createVitePlugin } from "unplugin";
 import { unpluginFactory, type ParaglidePluginOptions } from "./unplugin.js";
-import { toSafeModuleId } from "../compiler/safe-module-id.js";
+import { moduleIds } from "../compiler/output-structure/message-modules.js";
 import { shareRuntimeTypes } from "../compiler/emit-ts-declarations.js";
 import { rewriteVirtualMessageImports } from "./virtual-message-imports.js";
 
@@ -12,10 +12,14 @@ export function virtualMessagePrefix(directory: string) {
 	return `virtual:paraglide/${createHash("sha256").update(path.resolve(directory)).digest("hex").slice(0, 16)}/`;
 }
 
-/** Aggregate direct-emitter declarations without parsing application JavaScript. */
+/**
+ * Aggregate direct-emitter declarations without parsing application JavaScript.
+ * `defaultModuleId` is the module id of the message named "default", if any.
+ */
 export function virtualMessageOutput(
 	output: Record<string, string>,
-	directory: string
+	directory: string,
+	defaultModuleId: string | undefined
 ) {
 	const id = virtualMessagePrefix(directory) + "messages/_index.js";
 	const localizedString =
@@ -30,7 +34,10 @@ export function virtualMessageOutput(
 		.map(([name, code]) => {
 			// The public disk barrel uses export *, which excludes a leaf's
 			// default value. Keep its input type but preserve that value surface.
-			if (name === `messages/${toSafeModuleId("default")}.d.ts`)
+			if (
+				defaultModuleId !== undefined &&
+				name === `messages/${defaultModuleId}.d.ts`
+			)
 				code = code.replace(
 					/^declare const [A-Za-z_$][\w$]*:[^\n]*\r?\nexport \{ [A-Za-z_$][\w$]* as "default" \};\r?$/m,
 					""
@@ -271,14 +278,19 @@ export function createVirtualMessagesPlugins(
 					});
 				}
 				return (output, nextDirectory, ids) => {
-					const packed = virtualMessageOutput(output, nextDirectory);
+					const messageModuleIds = moduleIds(ids);
+					const packed = virtualMessageOutput(
+						output,
+						nextDirectory,
+						messageModuleIds.get("default")
+					);
 					const prefix = virtualMessagePrefix(nextDirectory);
 					const nextMessages = new Map(
-						ids
-							.filter((id) => id !== "default")
-							.map((id) => [
+						[...messageModuleIds]
+							.filter(([id]) => id !== "default")
+							.map(([id, moduleId]) => [
 								id,
-								prefix + "messages/" + toSafeModuleId(id) + ".js",
+								prefix + "messages/" + moduleId + ".js",
 							])
 					);
 					return {

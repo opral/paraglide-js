@@ -109,10 +109,16 @@ export const compileCatalog = async (args: {
 	const fallbackMap = getFallbackMap(settings.locales, settings.baseLocale);
 
 	const outputStructure = outputStructures[optionsWithDefaults.outputStructure];
+	const bundleIds = bundles.map((bundle) => bundle.id);
+	const moduleIds =
+		messageModuleSize > 1
+			? messageShards.moduleIds(bundleIds, messageModuleSize)
+			: outputStructure.moduleIds(bundleIds, settings.locales);
 
 	const compiledBundles = bundles.map((bundle) =>
 		compileBundle({
 			bundle,
+			moduleId: moduleIds.get(bundle.id),
 			fallbackMap,
 			inlineMessages: optionsWithDefaults.outputStructure === "message-modules",
 			exported: messageModuleSize === 1,

@@ -37,6 +37,71 @@ export function isSafeModuleId(id: string): boolean {
 	return toSafeModuleId(id) === id;
 }
 
+/**
+ * Gives each id its module id: its `toSafeModuleId()`, unless another id or a
+ * reserved name has the same one. Then each id that is not that module id
+ * itself gets `escapeIdentifier(id)`, which depends on the id alone, so adding
+ * or removing an id moves only the ids that share its safe module id.
+ *
+ * `eval` and `arguments` are always reserved: a module cannot declare them.
+ *
+ * @example
+ *   allocateModuleIds(["a.b", "a_b", "_index"], new Set(["_index"]))
+ *   // Map { "a.b" => "$a$2e$b", "a_b" => "a_b", "_index" => "$_index" }
+ */
+export function allocateModuleIds(
+	ids: Iterable<string>,
+	reserved: ReadonlySet<string>
+): Map<string, string> {
+	const safeIds = new Map<string, string>();
+	const idsBySafeId = new Map<string, number>();
+	for (const id of ids) {
+		const safeId = toSafeModuleId(id);
+		safeIds.set(id, safeId);
+		idsBySafeId.set(safeId, (idsBySafeId.get(safeId) ?? 0) + 1);
+	}
+	const moduleIds = new Map<string, string>();
+	for (const [id, safeId] of safeIds) {
+		const keeps =
+			!reserved.has(safeId) &&
+			!unbindableNames.has(safeId) &&
+			(id === safeId || idsBySafeId.get(safeId) === 1);
+		moduleIds.set(id, keeps ? safeId : escapeIdentifier(id));
+	}
+	return moduleIds;
+}
+
+const unbindableNames = new Set(["eval", "arguments"]);
+
+/**
+ * `$` and the text, with every character other than a lowercase ASCII letter,
+ * a digit or `_` written as its UTF-16 code in hex between two `$`.
+ *
+ * Distinct texts give distinct identifiers, which are also distinct file names
+ * on case-insensitive file systems. Safe module ids contain no `$`, so none is
+ * an escaped identifier.
+ *
+ * @example
+ *   escapeIdentifier("a.b") // "$a$2e$b"
+ */
+export function escapeIdentifier(text: string): string {
+	return (
+		"$" +
+		text.replace(
+			/[^a-z0-9_]/g,
+			(character) => `$${character.charCodeAt(0).toString(16)}$`
+		)
+	);
+}
+
+/**
+ * Whether a binding generated code declares must avoid the name: the words
+ * strict-mode code reserves, `eval`, `arguments` and `then`.
+ */
+export function isReservedBindingName(name: string): boolean {
+	return reservedJsKeywords.includes(name) || unbindableNames.has(name);
+}
+
 const reservedJsKeywords = [
 	"break",
 	"case",

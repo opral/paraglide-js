@@ -15,6 +15,7 @@ test("should emit per locale message files", () => {
 					id: "happy_elephant",
 				} as unknown as Bundle,
 			},
+			moduleId: "happy_elephant",
 			messages: {
 				en: {
 					code: 'console.log("message in English");',
@@ -60,6 +61,7 @@ test("the files should include files for each locale, even if there are no messa
 					id: "happy_elephant",
 				} as unknown as Bundle,
 			},
+			moduleId: "happy_elephant",
 			messages: {},
 			matchTypes: new Map(),
 		},
@@ -91,6 +93,7 @@ test("should handle case sensitivity in message IDs correctly", () => {
 					id: "sad_penguin_bundle",
 				} as unknown as Bundle,
 			},
+			moduleId: "sad_penguin_bundle",
 			messages: {
 				en: {
 					code: 'console.log("sad_penguin_bundle");',
@@ -107,6 +110,7 @@ test("should handle case sensitivity in message IDs correctly", () => {
 					id: "Sad_penguin_bundle",
 				} as unknown as Bundle,
 			},
+			moduleId: "sad_penguin_bundle1",
 			messages: {
 				en: {
 					code: 'console.log("Sad_penguin_bundle");',
@@ -147,6 +151,7 @@ test("prefixes locale imports to avoid message name collisions", () => {
 					id: "no",
 				} as unknown as Bundle,
 			},
+			moduleId: "no",
 			messages: {
 				no: {
 					code: "const no = () => 'Nei';",
@@ -171,7 +176,7 @@ test("prefixes locale imports to avoid message name collisions", () => {
 	expect(output["messages/_index.js"]).not.toContain(
 		`import * as no from "./no.js"`
 	);
-	expect(messageReferenceExpression("no", "no")).toBe("__no.no");
+	expect(messageReferenceExpression("no", "no", "no")).toBe("__no.no");
 });
 
 test("emits minimal runtime imports in index from the runtime", () => {
@@ -183,6 +188,7 @@ test("emits minimal runtime imports in index from the runtime", () => {
 					id: "happy_elephant",
 				} as unknown as Bundle,
 			},
+			moduleId: "happy_elephant",
 			messages: {
 				en: {
 					code: '() => "happy"',
@@ -220,6 +226,7 @@ test("imports the registry only when a message calls it, not when the text menti
 			code: `export const ${id} = () => en_${id}()`,
 			node: { id } as unknown as Bundle,
 		},
+		moduleId: id,
 		messages: {
 			en: { code, node: {} as unknown as Message, registryFunctions },
 		},
@@ -230,7 +237,7 @@ test("imports the registry only when a message calls it, not when the text menti
 		baseLocale: "en",
 	};
 	const registryImport =
-		/import \* as registry from ['"]\.\.\/registry\.js['"]/;
+		/import \* as __paraglideRegistry from ['"]\.\.\/registry\.js['"]/;
 
 	const textOnly = generateOutput(
 		[bundle("registry_text", "() => `Open the registry. Now.`", [])],
@@ -245,7 +252,7 @@ test("imports the registry only when a message calls it, not when the text menti
 
 	const withNumber = generateOutput(
 		[
-			bundle("amount", '(i) => `${registry.number("en", i?.amount, {})}`', [
+			bundle("amount", '(i) => `${__paraglideRegistry.number("en", i?.amount, {})}`', [
 				"number",
 			]),
 		],
