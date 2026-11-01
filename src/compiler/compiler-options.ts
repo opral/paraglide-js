@@ -40,9 +40,9 @@ export const defaultCompilerOptions = {
 	cleanOutdir: true,
 	checkTranslations: false,
 	disableAsyncLocalStorage: false,
-	experimentalMiddlewareLocaleSplitting: false,
 	localStorageKey: "PARAGLIDE_LOCALE",
 	isServer: "typeof window === 'undefined'",
+	isDevelopment: "true",
 	strategy: ["cookie", "globalVariable", "baseLocale"],
 	cookieName: "PARAGLIDE_LOCALE",
 	cookieMaxAge: 60 * 60 * 24 * 400,
@@ -121,22 +121,6 @@ export type CompilerOptions = {
 	 */
 	routeStrategies?: RouteStrategy[];
 	/**
-	 * Whether or not to use experimental middleware locale splitting.
-	 *
-	 * ⚠️ This feature is experimental and only works in SSR/SSG environment
-	 *   without client-side routing. Do not rely on this feature for production.
-	 *
-	 * This feature is part of the exploration of per locale splitting. The
-	 * issue is ongoing and can be followed here [#88](https://github.com/opral/inlang-paraglide-js/issues/88).
-	 *
-	 * - The client bundle will tree-shake all messages (have close to 0kb JS).
-	 * - The server middleware will inject the used messages into the HTML.
-	 * - The client will re-trieve the messages from the injected HTML.
-	 *
-	 * @default false
-	 */
-	experimentalMiddlewareLocaleSplitting?: boolean;
-	/**
 	 * The name of the localStorage key to use for the localStorage strategy.
 	 *
 	 * @default 'PARAGLIDE_LOCALE'
@@ -155,6 +139,16 @@ export type CompilerOptions = {
 	 * @default typeof window === "undefined"
 	 */
 	isServer?: string;
+	/**
+	 * JavaScript expression controlling development-only runtime diagnostics.
+	 *
+	 * Bundler integrations set this for their development and production modes.
+	 * Standalone compilation keeps diagnostics enabled unless explicitly disabled.
+	 * Set to "false" for production output to allow dead-code elimination.
+	 *
+	 * @default "true"
+	 */
+	isDevelopment?: string;
 	/**
 	 * Compile-time locale constant used for per-locale tree-shaking.
 	 *
@@ -263,32 +257,6 @@ export type CompilerOptions = {
 	 */
 	cookieSecure?: boolean | "auto";
 	/**
-	 * The `additionalFiles` option is an array of paths to additional files that should be copied to the output directory.
-	 *
-	 * @example
-	 *
-	 * ```diff
-	 * await compile({
-	 *   project: "./project.inlang",
-	 *   outdir: "./src/paraglide",
-	 *   additionalFiles: [
-	 * +    "my-file.js": "console.log('hello')"
-	 *   ]
-	 * })
-	 * ```
-	 *
-	 * The output will look like this:
-	 *
-	 * ```diff
-	 *   - outdir/
-	 *     - messages/
-	 * +   - my-file.js
-	 *     - messages.js
-	 *     - runtime.js
-	 * ```
-	 */
-	additionalFiles?: Record<string, string>;
-	/**
 	 * If `emitPrettierIgnore` is set to `true` a `.prettierignore` file will be emitted in the output directory. Defaults to `true`.
 	 *
 	 * ```diff
@@ -320,24 +288,14 @@ export type CompilerOptions = {
 	 */
 	emitReadme?: boolean;
 	/**
-	 * Emit `.d.ts` files for the generated output using the TypeScript compiler.
+	 * Emit `.d.ts` files directly for the generated output.
 	 *
 	 * Useful when `allowJs: true` cannot be set in your `tsconfig.json`
 	 * (e.g., due to project constraints or conflicting compiler options), or when
 	 * an editor language server caches stale JSDoc types for generated messages.
 	 *
-	 * Requires `typescript` to be resolvable in your toolchain.
-	 *
-	 * **Note:** Enabling this option reduces compiler speed because TypeScript
-	 * needs to generate declaration files for all output modules.
-	 *
-	 * **Note:** With TypeScript 5/6 the declarations are generated in-process.
-	 * TypeScript 7+ no longer provides the compiler API, so its `tsc` CLI is
-	 * invoked in a child process instead, also when TypeScript 7 is installed
-	 * beside TypeScript 5/6 as `@typescript/native`. The exported types are the
-	 * same, but formatting, ordering and some JSDoc differ between the two.
-	 * When `additionalFiles` contains JavaScript, TypeScript 5/6 keeps using
-	 * the compiler API so imports resolve against the project's dependencies.
+	 * Declarations are generated from message metadata and runtime declaration
+	 * templates. No TypeScript installation is required.
 	 *
 	 * @example
 	 * ```ts
@@ -399,12 +357,13 @@ export type CompilerOptions = {
 	/**
 	 * The `outputStructure` defines how modules are structured in the output.
 	 *
-	 * - `message-modules` - Each module is a message. This is the default.
+	 * - `message-modules` - Each module is a physical message file. Default for the CLI.
+	 * - `virtual-modules` - Individual messages served by Vite, with combined declarations. Default for Vite; requires the Vite plugin.
 	 * - `locale-modules` - Each module is a locale.
 	 *
-	 * It is recommended to use `locale-modules` for development and `message-modules` for production.
-	 * Bundlers speed up the dev mode by bypassing bundling which can lead to many http requests
-	 * during the dev mode with `message-modules`. See https://github.com/opral/inlang-paraglide-js/issues/486.
+	 * Vite uses `virtual-modules` for development and production, keeping public entry
+	 * points physical while avoiding individual message files. Other bundler plugins
+	 * use `locale-modules` in development and `message-modules` in production.
 	 *
 	 * **`message-modules`**
 	 *
@@ -446,7 +405,16 @@ export type CompilerOptions = {
 	 *
 	 * @default "message-modules"
 	 */
-	outputStructure?: "locale-modules" | "message-modules";
+	outputStructure?: "locale-modules" | "message-modules" | "virtual-modules";
+	/**
+	 * Messages per generated module in the message-modules layout.
+	 * Values above one group messages into shards and preserve messages.js exports,
+	 * while replacing per-message module paths with shard files. Defaults to one.
+	 * Locale-specialized builds currently require the default value.
+	 *
+	 * @default 1
+	 */
+	messageModuleSize?: number;
 	/**
 	 * Whether to clean the output directory before writing the new files.
 	 *

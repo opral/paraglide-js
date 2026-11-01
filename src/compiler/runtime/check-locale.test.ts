@@ -1,5 +1,5 @@
 import { newProject } from "@inlang/sdk";
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { createParaglide } from "../create-paraglide.js";
 import type { Locale } from "./type-definitions.js";
 
@@ -21,6 +21,25 @@ test("toLocale canonicalizes case-insensitive matches without throwing", async (
 	expect(runtime.toLocale(undefined)).toBeUndefined();
 	expect(runtime.toLocale(123)).toBeUndefined();
 	expect(runtime.toLocale({})).toBeUndefined();
+});
+
+test("toLocale lowercases only its input, and the first configured casing wins", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "pt-BR", "de-ch", "DE-CH"],
+			},
+		}),
+	});
+	expect(runtime.toLocale("en")).toBe("en");
+	const toLowerCase = vi.spyOn(String.prototype, "toLowerCase");
+	try {
+		expect(runtime.toLocale("De-Ch")).toBe("de-ch");
+		expect(toLowerCase).toHaveBeenCalledTimes(1);
+	} finally {
+		toLowerCase.mockRestore();
+	}
 });
 
 test("isLocale still checks canonical locale casing", async () => {

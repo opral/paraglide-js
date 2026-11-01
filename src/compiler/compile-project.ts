@@ -1,12 +1,15 @@
+import { assertNoRemovedOptions } from "./removed-options.js";
 import { compileBundle } from "./compile-bundle.js";
 import {
 	checkBundle,
-	selectBundleNested,
 	type InlangProject,
+	type BundleNested,
+	type ProjectSettings,
 } from "@inlang/sdk";
 import { lookup } from "../services/lookup.js";
 import * as localeModules from "./output-structure/locale-modules.js";
 import * as messageModules from "./output-structure/message-modules.js";
+import * as messageShards from "./output-structure/message-shards.js";
 import {
 	defaultCompilerOptions,
 	type CompilerOptions,
@@ -15,6 +18,7 @@ import { createRuntimeFile } from "./runtime/create-runtime.js";
 import { createServerFile } from "./server/create-server-file.js";
 import { createRegistry } from "./registry.js";
 import { emitTsDeclarations } from "./emit-ts-declarations.js";
+import { emitSupportingDeclarations } from "./emit-supporting-declarations.js";
 import { createReadme } from "./create-readme.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 
@@ -38,15 +42,72 @@ export const compileProject = async (args: {
 	projectPath?: string;
 	compilerOptions?: Omit<CompilerOptions, "fs" | "project" | "outdir">;
 }): Promise<Record<string, string>> => {
+	assertNoRemovedOptions(args.compilerOptions ?? {});
+	if (args.compilerOptions?.outputStructure === "virtual-modules") {
+		throw new Error(
+			'outputStructure: "virtual-modules" requires the Paraglide Vite plugin. Use "message-modules" or "locale-modules" for physical output.'
+		);
+	}
+	const { selectBundleNested } = await import("@inlang/sdk");
+	return compileCatalog({
+		...args,
+		catalog: {
+			settings: await args.project.settings.get(),
+			bundles: await selectBundleNested(args.project.db).execute(),
+		},
+	});
+};
+
+/** The detached settings and nested messages needed by the compiler. */
+export type CatalogInput = {
+	settings: ProjectSettings;
+	bundles: BundleNested[];
+};
+
+/**
+ * Compiles a read-only project catalog without querying or opening a database.
+ * Both this entry point and compileProject use the same code generator.
+ */
+export const compileCatalog = async (args: {
+	catalog: CatalogInput;
+	projectPath?: string;
+	compilerOptions?: Omit<CompilerOptions, "fs" | "project" | "outdir">;
+}): Promise<Record<string, string>> => {
+	assertNoRemovedOptions(args.compilerOptions ?? {});
 	const optionsWithDefaults = {
 		...defaultCompilerOptions,
 		...args.compilerOptions,
 	};
+	if (optionsWithDefaults.outputStructure === "virtual-modules") {
+		throw new Error(
+			'outputStructure: "virtual-modules" requires the Paraglide Vite plugin. Use "message-modules" or "locale-modules" for physical output.'
+		);
+	}
+	const messageModuleSize = optionsWithDefaults.messageModuleSize ?? 1;
+	if (!Number.isSafeInteger(messageModuleSize) || messageModuleSize < 1) {
+		throw new Error("messageModuleSize must be a positive safe integer");
+	}
+	if (
+		messageModuleSize > 1 &&
+		optionsWithDefaults.outputStructure !== "message-modules"
+	) {
+		throw new Error(
+			"messageModuleSize above one requires message-modules outputStructure"
+		);
+	}
+	if (
+		messageModuleSize > 1 &&
+		optionsWithDefaults.experimentalStaticLocale ===
+			perLocaleBuildStaticLocaleExpression
+	) {
+		throw new Error(
+			"messageModuleSize above one is not supported for locale-specialized builds"
+		);
+	}
 	await ensureURLPatternAvailable();
 	validateRouteStrategyMatchers(optionsWithDefaults.routeStrategies);
 
-	const settings = await args.project.settings.get();
-	const bundles = await selectBundleNested(args.project.db).execute();
+	const { settings, bundles } = args.catalog;
 	if (optionsWithDefaults.checkTranslations) {
 		const diagnostics = bundles.flatMap((bundle) =>
 			checkBundle({
@@ -69,16 +130,24 @@ export const compileProject = async (args: {
 	const fallbackMap = getFallbackMap(settings.locales, settings.baseLocale);
 
 	const outputStructure = outputStructures[optionsWithDefaults.outputStructure];
+	const bundleIds = bundles.map((bundle) => bundle.id);
+	const moduleIds =
+		messageModuleSize > 1
+			? messageShards.moduleIds(bundleIds, messageModuleSize)
+			: outputStructure.moduleIds(bundleIds, settings.locales);
 
 	const compiledBundles = bundles.map((bundle) =>
 		compileBundle({
 			bundle,
+			moduleId: moduleIds.get(bundle.id),
 			fallbackMap,
 			inlineMessages: optionsWithDefaults.outputStructure === "message-modules",
+			exported: messageModuleSize === 1,
+			fuseInlineMessages: true,
+			compactTypes: messageModuleSize > 1,
+			sharedMessageFactory: messageModuleSize > 1,
 			messageReferenceExpression: outputStructure.messageReferenceExpression,
 			settings,
-			experimentalMiddlewareLocaleSplitting:
-				optionsWithDefaults.experimentalMiddlewareLocaleSplitting,
 			experimentalStaticLocale: optionsWithDefaults.experimentalStaticLocale,
 		})
 	);
@@ -90,7 +159,6 @@ export const compileProject = async (args: {
 			compilerOptions: optionsWithDefaults,
 		}),
 		["server.js"]: createServerFile({
-			compiledBundles,
 			compilerOptions: optionsWithDefaults,
 		}),
 		["registry.js"]: createRegistry(),
@@ -104,12 +172,14 @@ export const compileProject = async (args: {
 	// generate the output modules
 	Object.assign(
 		output,
-		outputStructure.generateOutput(
-			compiledBundles,
-			settings,
-			fallbackMap,
-			optionsWithDefaults.experimentalMiddlewareLocaleSplitting
-		)
+		messageModuleSize > 1
+			? messageShards.generateOutput(
+					compiledBundles,
+					settings,
+					fallbackMap,
+					messageModuleSize
+				)
+			: outputStructure.generateOutput(compiledBundles, settings, fallbackMap)
 	);
 
 	if (optionsWithDefaults.emitGitIgnore) {
@@ -150,12 +220,6 @@ export const compileProject = async (args: {
 			"\n";
 	}
 
-	for (const [filename, content] of Object.entries(
-		optionsWithDefaults.additionalFiles ?? {}
-	)) {
-		output[filename] = content;
-	}
-
 	for (const [filename, content] of Object.entries(output)) {
 		if (optionsWithDefaults.includeEslintDisableComment) {
 			if (filename.endsWith(".js")) {
@@ -165,15 +229,22 @@ export const compileProject = async (args: {
 	}
 
 	if (optionsWithDefaults.emitTsDeclarations) {
-		// Additional JavaScript can import project dependencies. Keep the
-		// compiler API's project-relative resolution: the native CLI stages
-		// files in an OS temporary directory, outside the project's packages.
-		const declarations = await emitTsDeclarations(output, {
-			allowNativeAlias: !Object.keys(
-				optionsWithDefaults.additionalFiles ?? {}
-			).some((fileName) => fileName.endsWith(".js")),
-		});
-		Object.assign(output, declarations);
+		Object.assign(
+			output,
+			emitSupportingDeclarations({
+				baseLocale: settings.baseLocale,
+				locales: settings.locales,
+				compilerOptions: optionsWithDefaults,
+			}),
+			emitTsDeclarations({
+				compiledBundles,
+				bundles,
+				settings,
+				fallbackMap,
+				outputStructure: optionsWithDefaults.outputStructure,
+				messageModuleSize,
+			})
+		);
 	}
 
 	return output;

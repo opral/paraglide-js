@@ -1,4 +1,4 @@
-import { test, expect } from "vitest";
+import { test, expect, vi } from "vitest";
 import { createParaglide } from "../create-paraglide.js";
 import { newProject } from "@inlang/sdk";
 
@@ -207,4 +207,33 @@ test("default pattern is case-insensitive but custom urlPatterns keep exact matc
 	expect(
 		customRuntime.extractLocaleFromUrl("https://example.com/DE/about")
 	).toBe(undefined);
+});
+
+test("the default url pattern parses each URL once", async () => {
+	const runtime = await createParaglide({
+		blob: await newProject({
+			settings: {
+				baseLocale: "en",
+				locales: ["en", "de"],
+			},
+		}),
+	});
+	let parsed = 0;
+	vi.stubGlobal(
+		"URL",
+		class extends URL {
+			constructor(...args: ConstructorParameters<typeof URL>) {
+				super(...args);
+				parsed++;
+			}
+		}
+	);
+	try {
+		expect(runtime.extractLocaleFromUrl("https://example.com/de/about")).toBe(
+			"de"
+		);
+		expect(parsed).toBe(1);
+	} finally {
+		vi.unstubAllGlobals();
+	}
 });

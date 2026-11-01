@@ -1,7 +1,7 @@
 {
 	"name": "@inlang/paraglide-js",
 	"type": "module",
-	"version": "2.29.1",
+	"version": "2.29.3",
 	"license": "MIT",
 	"publishConfig": {
 		"access": "public",
@@ -27,13 +27,13 @@
 		"./eslint": "./dist/eslint/index.js"
 	},
 	"scripts": {
-		"dev": "tsc --watch",
+		"dev": "node ./scripts/copy-declaration-templates.js && tsc --watch",
 		"dev:website": "pnpm --filter @inlang/paraglide-js-website dev",
 		"bench": "vitest bench --run",
 		"build:framework": "pnpm -r --filter \"./framework/**\" --if-present --workspace-concurrency=1 build",
 		"build:examples": "pnpm -r --filter \"./examples/**\" --if-present --workspace-concurrency=1 build",
 		"build:website": "pnpm --filter @inlang/paraglide-js-website build",
-		"build": "npm run env-variables && tsc --build && npm run generate-api-docs",
+		"build": "npm run env-variables && tsc --build && node ./scripts/copy-declaration-templates.js && npm run generate-api-docs",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
 		"generate-api-docs": "typedoc",
@@ -50,25 +50,21 @@
 	},
 	"dependencies": {
 		"@inlang/recommend-sherlock": "^0.2.1",
-		"@inlang/sdk": "^4.0.4",
+		"@inlang/sdk": "^4.1.0",
 		"commander": "11.1.0",
 		"consola": "3.4.0",
 		"jiti": "^2.7.0",
 		"json5": "2.2.3",
-		"jsonc-parser": "^3.3.1",
+		"magic-string": "^0.30.21",
 		"unplugin": "^2.1.2",
 		"urlpattern-polyfill": "^10.0.0",
 		"valibot": "^1.4.2"
 	},
 	"peerDependencies": {
 		"eslint": "^9.0.0 || ^10.0.0",
-		"typescript": ">=5.6",
 		"vite": ">=5.0.0"
 	},
 	"peerDependenciesMeta": {
-		"typescript": {
-			"optional": true
-		},
 		"vite": {
 			"optional": true
 		},
@@ -78,7 +74,7 @@
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.29.7",
-		"@inlang/plugin-message-format": "^4.5.0",
+		"@inlang/plugin-message-format": "^4.5.6",
 		"@rollup/plugin-virtual": "3.0.2",
 		"@ts-morph/bootstrap": "0.26.0",
 		"@types/estree": "^1.0.9",
@@ -95,7 +91,6 @@
 		"typedoc-plugin-markdown": "4.7.0",
 		"typedoc-plugin-missing-exports": "4.0.0",
 		"typescript": "5.9.2",
-		"typescript-go": "npm:typescript@7.0.2",
 		"vite": "8.1.4",
 		"vitest": "3.1.4"
 	},

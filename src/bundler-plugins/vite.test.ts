@@ -27,7 +27,6 @@ test("experimentalPerLocaleBuild generates locale source modules and installs th
 		fs,
 		experimentalPerLocaleBuild: true,
 		strategy: ["preferredLanguage", "baseLocale"],
-		additionalFiles: { "custom.js": "export const custom = true;\n" },
 	});
 	if (!Array.isArray(plugins)) {
 		throw new Error("Expected multiple Vite plugins");
@@ -53,9 +52,6 @@ test("experimentalPerLocaleBuild generates locale source modules and installs th
 	expect(
 		await fs.promises.readFile("/src/paraglide/runtime.js", "utf8")
 	).toContain(perLocaleBuildStaticLocaleExpression);
-	expect(
-		await fs.promises.readFile("/src/paraglide/custom.js", "utf8")
-	).toContain("export const custom = true;");
 	await expect(
 		fs.promises.readFile("/src/paraglide/tanstack-start.server.js", "utf8")
 	).rejects.toThrow();
@@ -70,13 +66,6 @@ test("experimentalPerLocaleBuild rejects conflicting compiler options", () => {
 			experimentalStaticLocale: '"de"',
 		})
 	).toThrow("cannot be combined with experimentalStaticLocale");
-	expect(() =>
-		paraglideVitePlugin({
-			...common,
-			experimentalPerLocaleBuild: true,
-			experimentalMiddlewareLocaleSplitting: true,
-		})
-	).toThrow("cannot be combined with experimentalMiddlewareLocaleSplitting");
 	expect(() =>
 		paraglideVitePlugin({
 			...common,

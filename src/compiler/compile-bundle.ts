@@ -5,7 +5,12 @@ import type {
 	MarkupStart,
 	ProjectSettings,
 } from "@inlang/sdk";
-import { compileMessage, type CompiledMessage } from "./compile-message.js";
+import {
+	compileMessage,
+	messageBundleId,
+	type CompiledMessage,
+} from "./compile-message.js";
+import { compilePattern } from "./compile-pattern.js";
 import type { Compiled } from "./types.js";
 import {
 	inputTypeForName,
@@ -24,6 +29,8 @@ type InlineBody = NonNullable<CompiledMessage["inline"]>;
 export type CompiledBundleWithMessages = {
 	/** The compilation result for the bundle index */
 	bundle: Compiled<Bundle>;
+	/** The bundle's identifier in the generated modules, see `compileBundle()` */
+	moduleId: string;
 	/** The compilation results for the languages */
 	messages: {
 		[locale: string]: CompiledMessage;
@@ -34,6 +41,10 @@ export type CompiledBundleWithMessages = {
 	inputTypeAliasName?: string;
 	/** Compiled message helpers with no emitted reference in message-modules. */
 	unreferencedMessageLocales?: string[];
+	usesSharedFactory?: boolean;
+	/** The dispatcher reads the development-only diagnostic flag. */
+	usesDevelopmentDiagnostics?: boolean;
+	englishMatchTableDoc?: string;
 };
 
 /**
@@ -41,17 +52,36 @@ export type CompiledBundleWithMessages = {
  */
 export const compileBundle = (args: {
 	bundle: BundleNested;
+	/**
+	 * The bundle's identifier in the generated modules, distinct from the other
+	 * bundles'. Defaults to `toSafeModuleId(bundle.id)`.
+	 */
+	moduleId?: string;
 	fallbackMap: Record<string, string | undefined>;
-	messageReferenceExpression: (locale: string, bundleId: string) => string;
+	/** The expression of a locale's message, from the bundle's id and module id. */
+	messageReferenceExpression: (
+		locale: string,
+		bundleId: string,
+		moduleId: string
+	) => string;
 	settings?: ProjectSettings;
 	/** Internal layout control; locale modules keep text grouped by language. */
 	inlineMessages?: boolean;
-	experimentalMiddlewareLocaleSplitting?: boolean;
+	/** Internal: shard wrappers export their returned message functions. */
+	exported?: boolean;
+	/** Internal: compile only bodies whose locale helper will never be emitted. */
+	fuseInlineMessages?: boolean;
+	/** Internal: grouped modules share their function and option typedefs. */
+	compactTypes?: boolean;
+	sharedMessageFactory?: boolean;
 	experimentalStaticLocale?: CompilerOptions["experimentalStaticLocale"];
 }): CompiledBundleWithMessages => {
+	const moduleId = args.moduleId ?? toSafeModuleId(args.bundle.id);
+	const fused =
+		args.fuseInlineMessages && tryCompileInlineBundle(args, moduleId);
+	if (fused) return fused;
 	const compiledMessages: Record<string, CompiledMessage> = {};
-	const safeBundleId = toSafeModuleId(args.bundle.id);
-	const inputTypeAliasName = toBundleInputTypeAliasName(safeBundleId);
+	const inputTypeAliasName = toBundleInputTypeAliasName(moduleId);
 	const matchTypes = collectInputMatchTypes(args.bundle);
 	const hasMarkup = bundleHasMarkup(args.bundle);
 
@@ -71,9 +101,7 @@ export const compileBundle = (args: {
 		// set the pattern for the language tag
 		compiledMessages[message.locale] = compiledMessage;
 	}
-	const inlineMessages =
-		args.inlineMessages === true &&
-		args.experimentalStaticLocale !== perLocaleBuildStaticLocaleExpression;
+	const inlineMessages = args.inlineMessages === true;
 	const inlinePlainTextByLocale = inlineMessages
 		? findPlainTextMessages(args.bundle)
 		: undefined;
@@ -103,6 +131,7 @@ export const compileBundle = (args: {
 	return {
 		bundle: compileBundleFunction({
 			bundle: args.bundle,
+			moduleId,
 			availableLocales: Object.keys(args.fallbackMap),
 			messageReferenceExpression: args.messageReferenceExpression,
 			inlinePlainTextByLocale,
@@ -110,17 +139,154 @@ export const compileBundle = (args: {
 			settings: args.settings,
 			matchTypes,
 			hasMarkup,
-			experimentalMiddlewareLocaleSplitting:
-				args.experimentalMiddlewareLocaleSplitting ?? false,
 			experimentalStaticLocale: args.experimentalStaticLocale,
 			inputTypeAliasName,
+			exported: args.exported,
+			compactTypes: args.compactTypes,
 		}),
+		moduleId,
 		messages: compiledMessages,
+		usesDevelopmentDiagnostics:
+			args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression,
 		matchTypes,
 		inputTypeAliasName,
 		unreferencedMessageLocales,
 	};
 };
+
+/**
+ * Fully translated, unformatted single-variant messages need no retained helper.
+ * Fuse pattern compilation and inline metadata instead of constructing helper
+ * functions and traversing the same patterns again to discard those functions.
+ * Every other message uses the general compiler, including its diagnostics.
+ */
+function tryCompileInlineBundle(
+	args: Parameters<typeof compileBundle>[0],
+	moduleId: string
+): CompiledBundleWithMessages | undefined {
+	if (
+		!args.inlineMessages ||
+		!args.settings ||
+		args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression
+	)
+		return;
+	if (args.bundle.declarations.some((d) => d.type !== "input-variable")) return;
+	const locales = Object.keys(args.fallbackMap);
+	if (locales.length === 0 || args.bundle.messages.length !== locales.length)
+		return;
+	const seen = new Set<string>();
+	const declared =
+		args.bundle.declarations.length > 1
+			? new Set(args.bundle.declarations.map((d) => d.name))
+			: undefined;
+	const singleInput = args.bundle.declarations[0]?.name;
+	for (const message of args.bundle.messages) {
+		// Keep the public catalog entry point's missing-reference diagnostic.
+		messageBundleId(message);
+		if (
+			seen.has(message.locale) ||
+			!Object.hasOwn(args.fallbackMap, message.locale) ||
+			message.variants.length !== 1 ||
+			message.selectors.length
+		)
+			return;
+		seen.add(message.locale);
+		const variant = message.variants[0]!;
+		if (variant.matches.length) return;
+		for (const part of variant.pattern) {
+			if (part.type === "text") continue;
+			if (
+				part.type !== "expression" ||
+				part.annotation ||
+				(part.arg.type === "variable-reference" &&
+					(declared
+						? !declared.has(part.arg.name)
+						: part.arg.name !== singleInput))
+			)
+				return;
+		}
+	}
+	const inputTypeAliasName = toBundleInputTypeAliasName(moduleId);
+	const matchTypes: InputMatchTypes = new Map();
+	const messages: Record<string, CompiledMessage> = {};
+	const expressions: Record<string, string> = Object.create(null);
+	const plain: Record<string, string> | undefined = args.sharedMessageFactory
+		? undefined
+		: Object.create(null);
+	const bodies: Record<string, InlineBody> | undefined =
+		args.sharedMessageFactory ? undefined : Object.create(null);
+	for (const message of args.bundle.messages) {
+		const pattern = message.variants[0]!.pattern;
+		const compiled = compilePattern({
+			pattern,
+			declarations: args.bundle.declarations,
+			locale: message.locale,
+		});
+		const readsInput = pattern.some(
+			(p) => p.type === "expression" && p.arg.type === "variable-reference"
+		);
+		if (args.sharedMessageFactory) {
+			expressions[message.locale] =
+				`${readsInput ? "i" : "()"} => /** @type {LocalizedString} */ (${compiled.code})`;
+			continue;
+		}
+		const plainText = pattern.every((p) => p.type === "text")
+			? pattern
+					.map((p) => (p.type === "text" ? p.value : ""))
+					.join("")
+					.replace(/\r\n?/g, "\n")
+			: undefined;
+		const inline = {
+			statements: [`return /** @type {LocalizedString} */ (${compiled.code})`],
+			readsInput,
+		};
+		messages[message.locale] = {
+			node: message,
+			code: "",
+			registryFunctions: [],
+			inline,
+		};
+		if (plainText !== undefined) plain![message.locale] = plainText;
+		else bodies![message.locale] = inline;
+	}
+	const englishMatchTableDoc = args.sharedMessageFactory
+		? buildEnglishMatchTableDoc(args.bundle)
+		: undefined;
+	const compiledBundle = args.sharedMessageFactory
+		? {
+				node: args.bundle,
+				code: `${englishMatchTableDoc ? `/**\n${englishMatchTableDoc}*/\n` : ""}const ${moduleId} = /** @type {${args.bundle.declarations.length ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${inputTypeAliasName}>} */ (/* @__PURE__ */ ${args.bundle.declarations.length ? "__paraglideMessage" : "__paraglideOptionalMessage"}(${JSON.stringify(moduleId)}, ${locales
+					.map((locale) => expressions[locale])
+					.join(", ")}));`,
+			}
+		: compileBundleFunction({
+				bundle: args.bundle,
+				moduleId,
+				availableLocales: locales,
+				messageReferenceExpression: args.messageReferenceExpression,
+				inlinePlainTextByLocale: plain,
+				inlineBodiesByLocale: bodies,
+				settings: args.settings,
+				matchTypes,
+				hasMarkup: false,
+				experimentalStaticLocale: args.experimentalStaticLocale,
+				inputTypeAliasName,
+				exported: args.exported,
+				compactTypes: args.compactTypes,
+			});
+	return {
+		bundle: compiledBundle,
+		moduleId,
+		usesSharedFactory: args.sharedMessageFactory,
+		usesDevelopmentDiagnostics:
+			args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression,
+		englishMatchTableDoc,
+		messages,
+		matchTypes,
+		inputTypeAliasName,
+		unreferencedMessageLocales: Object.keys(messages),
+	};
+}
 
 /**
  * Finds one-variant messages whose pattern is entirely static text. Their
@@ -203,13 +369,21 @@ const compileBundleFunction = (args: {
 	 */
 	bundle: BundleNested;
 	/**
+	 * The bundle's identifier in the generated modules
+	 */
+	moduleId: string;
+	/**
 	 * The language tags which are available
 	 */
 	availableLocales: string[];
 	/**
 	 * The message reference expression
 	 */
-	messageReferenceExpression: (locale: string, bundleId: string) => string;
+	messageReferenceExpression: (
+		locale: string,
+		bundleId: string,
+		moduleId: string
+	) => string;
 	/** Static text messages that can be returned directly from the dispatcher. */
 	inlinePlainTextByLocale?: Record<string, string>;
 	/** Message function bodies that the dispatcher runs in place of a call. */
@@ -227,10 +401,6 @@ const compileBundleFunction = (args: {
 	 */
 	hasMarkup: boolean;
 	/**
-	 * Whether middleware locale splitting runtime hooks should be emitted.
-	 */
-	experimentalMiddlewareLocaleSplitting: boolean;
-	/**
 	 * Static locale expression emitted inside the message function so a
 	 * bundler can tree-shake unselected locale modules.
 	 */
@@ -239,12 +409,14 @@ const compileBundleFunction = (args: {
 	 * Shared typedef name for bundle input types used across emitted JSDoc.
 	 */
 	inputTypeAliasName: string;
+	exported?: boolean;
+	compactTypes?: boolean;
 }): Compiled<Bundle> => {
 	const inputs = args.bundle.declarations.filter(
 		(decl) => decl.type === "input-variable"
 	);
 	const hasInputs = inputs.length > 0;
-	const safeBundleId = toSafeModuleId(args.bundle.id);
+	const safeBundleId = args.moduleId;
 
 	const isSafeBundleId = safeBundleId === args.bundle.id;
 
@@ -292,7 +464,8 @@ const compileBundleFunction = (args: {
 				const prefix = index > 0 ? continuationIndent : "";
 				const messageRef = args.messageReferenceExpression(
 					locale,
-					args.bundle.id
+					args.bundle.id,
+					args.moduleId
 				);
 
 				if (mode === "string") {
@@ -327,85 +500,55 @@ const compileBundleFunction = (args: {
 		? ""
 		: buildEnglishMatchTableDoc(args.bundle);
 
-	const commonJsDoc = `/**
+	const compactTypes = args.compactTypes === true && !args.hasMarkup;
+	const commonJsDoc = compactTypes
+		? `/**\n${englishMatchTableDoc}*/`
+		: `/**
 ${englishMatchTableDoc}${jsDocBundleFunctionTypes({
-		inputs,
-		locales: args.availableLocales,
-		matchTypes: args.matchTypes,
-		inputTypeOverride: args.inputTypeAliasName,
-	})}
+				inputs,
+				locales: args.availableLocales,
+				matchTypes: args.matchTypes,
+				inputTypeOverride: args.inputTypeAliasName,
+			})}
 */`;
-
-	const clientMiddlewareGuard = (indent: string): string => {
-		if (!args.experimentalMiddlewareLocaleSplitting) {
-			return "";
-		}
-
-		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\treturn /** @type {any} */ (globalThis).__paraglide.ssr.${safeBundleId}(${inputsName})\n${indent}}`;
-	};
-
-	const clientPartsMiddlewareGuard = (indent: string): string => {
-		if (!args.experimentalMiddlewareLocaleSplitting) {
-			return "";
-		}
-
-		return `\n${indent}if (experimentalMiddlewareLocaleSplitting && isServer === false) {\n${indent}\tconst serverMessage = /** @type {any} */ (globalThis).__paraglide.ssr.${safeBundleId}\n${indent}\tif (typeof serverMessage.parts === "function") {\n${indent}\t\treturn /** @type {import('../runtime.js').MessagePart[]} */ (serverMessage.parts(inputs))\n${indent}\t}\n${indent}\treturn /** @type {import('../runtime.js').MessagePart[]} */ ([{ type: "text", value: serverMessage(inputs) }])\n${indent}}`;
-	};
-
-	const maybeTrackMessageCall = (indent: string): string => {
-		if (!args.experimentalMiddlewareLocaleSplitting) {
-			return "";
-		}
-
-		return `\n${indent}trackMessageCall("${safeBundleId}", locale)`;
-	};
+	const stringFunctionType = compactTypes
+		? `${hasInputs ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${inputType}>`
+		: `(${bundleFunctionType}) & ${messageMetadataType}`;
 
 	const localeResolutionStatement = (indent: string): string => {
 		const localeExpression = perLocaleBuild
 			? `${perLocaleBuildStaticLocaleExpression} ?? options.locale ?? getLocale()`
 			: "experimentalStaticLocale ?? options.locale ?? getLocale()";
 		const overrideWarning = perLocaleBuild
-			? `\n${indent}if (${perLocaleBuildStaticLocaleExpression} !== undefined && options.locale !== undefined && options.locale !== ${perLocaleBuildStaticLocaleExpression}) console.warn("Paraglide: options.locale cannot override a locale-specialized client bundle; use a full document navigation to switch locales.")`
+			? `\n${indent}if (isDevelopment && ${perLocaleBuildStaticLocaleExpression} !== undefined && options.locale !== undefined && options.locale !== ${perLocaleBuildStaticLocaleExpression}) console.warn("Paraglide: options.locale cannot override a locale-specialized client bundle; use a full document navigation to switch locales.")`
 			: "";
 
-		if (
-			isFullyTranslated &&
-			args.availableLocales.length === 1 &&
-			!args.experimentalMiddlewareLocaleSplitting
-		) {
+		if (isFullyTranslated && args.availableLocales.length === 1) {
 			return `${indent}${localeExpression}${overrideWarning}`;
 		}
 
-		return `${indent}const locale = ${localeExpression}${overrideWarning}${maybeTrackMessageCall(
-			indent
-		)}`;
+		return `${indent}const locale = ${localeExpression}${overrideWarning}`;
 	};
 	const keepUnusedInputsParameter = (indent: string): string =>
-		!anyBranchReadsInputs && !args.experimentalMiddlewareLocaleSplitting
-			? `\n${indent}void ${inputsName};`
-			: "";
+		!anyBranchReadsInputs ? `\n${indent}void ${inputsName};` : "";
 
 	let code = "";
 
 	if (!args.hasMarkup) {
 		code = `${commonJsDoc}
-${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & ${messageMetadataType}} */ ((${inputsName}${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
-			"\t"
-		)}${keepUnusedInputsParameter("\t")}
+${args.exported !== false && isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {${stringFunctionType}} */ ((${inputsName}${hasInputs ? "" : " = {}"}, options = {}) => {${keepUnusedInputsParameter("\t")}
 ${localeResolutionStatement("\t")}
 	${compileLocaleReturnStatements("string", "\t")}${
 		!isFullyTranslated
-			? `\n	return /** @type {LocalizedString} */ ("${args.bundle.id}")`
+			? `\n	return /** @type {LocalizedString} */ (${JSON.stringify(args.bundle.id)})`
 			: ""
 	}
 });`;
 	} else {
 		code = `${commonJsDoc}
-${isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & { parts: ${partsFunctionType} } & ${messageMetadataType}} */ (
+${args.exported !== false && isSafeBundleId ? "export " : ""}const ${safeBundleId} = /** @type {(${bundleFunctionType}) & { parts: ${partsFunctionType} } & ${messageMetadataType}} */ (
 	/* @__PURE__ */ Object.assign(
-		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${clientMiddlewareGuard(
-			"\t\t\t"
-		)}${keepUnusedInputsParameter("\t\t\t")}
+		/** @type {${bundleFunctionType}} */ ((inputs${hasInputs ? "" : " = {}"}, options = {}) => {${keepUnusedInputsParameter("\t\t\t")}
 ${localeResolutionStatement("\t\t\t")}
 			${compileLocaleReturnStatements("string", "\t\t\t")}${
 				!isFullyTranslated
@@ -416,7 +559,7 @@ ${localeResolutionStatement("\t\t\t")}
 		{
 			parts: /** @type {${partsFunctionType}} */ ((inputs${
 				hasInputs ? "" : " = {}"
-			}, options = {}) => {${clientPartsMiddlewareGuard("\t\t\t\t")}
+			}, options = {}) => {
 ${localeResolutionStatement("\t\t\t\t")}
 				${compileLocaleReturnStatements("parts", "\t\t\t\t")}${
 					!isFullyTranslated
@@ -429,7 +572,7 @@ ${localeResolutionStatement("\t\t\t\t")}
 );`;
 	}
 
-	if (isSafeBundleId === false) {
+	if (args.exported !== false && isSafeBundleId === false) {
 		code += `\nexport { ${safeBundleId} as "${escapeForDoubleQuoteString(args.bundle.id)}" }`;
 	}
 
@@ -439,7 +582,7 @@ ${localeResolutionStatement("\t\t\t\t")}
 	};
 };
 
-function buildEnglishMatchTableDoc(bundle: BundleNested): string {
+export function buildEnglishMatchTableDoc(bundle: BundleNested): string {
 	const message = selectEnglishMessage(bundle);
 	if (!message) {
 		return "";
@@ -587,7 +730,7 @@ type MarkupTagAccumulator = {
 	attributes: Map<string, MarkupValueAccumulator>;
 };
 
-function buildMarkupSchemaType(
+export function buildMarkupSchemaType(
 	bundle: BundleNested,
 	matchTypes: InputMatchTypes
 ): string {
@@ -848,7 +991,7 @@ function collectInputMatchTypes(bundle: BundleNested): InputMatchTypes {
 	return matchTypes;
 }
 
-function bundleHasMarkup(bundle: BundleNested): boolean {
+export function bundleHasMarkup(bundle: BundleNested): boolean {
 	return bundle.messages.some((message) =>
 		message.variants.some((variant) =>
 			variant.pattern.some(

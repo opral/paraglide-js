@@ -6,7 +6,6 @@ import {
 } from "./compiler-options.js";
 import { createRuntimeFile } from "./runtime/create-runtime.js";
 import { createServerFile } from "./server/create-server-file.js";
-import { loadProjectInMemory } from "@inlang/sdk";
 
 /**
  * Creates an in-memory Paraglide module for use in tests and non-bundled environments.
@@ -48,6 +47,7 @@ export async function createParaglide(
 	} & Omit<CompilerOptions, "outdir" | "project" | "fs">
 ): Promise<Runtime & ServerRuntime & { m: Record<string, unknown> }> {
 	// Load the project from the blob
+	const { loadProjectInMemory } = await import("@inlang/sdk");
 	const project = await loadProjectInMemory({ blob: args.blob });
 	const settings = await project.settings.get();
 
@@ -86,11 +86,7 @@ export async function createParaglide(
 
 	// remove the runtime import statement to avoid module resolution issues
 	const serverSideRuntime = createServerFile({
-		compiledBundles: [],
 		compilerOptions: {
-			experimentalMiddlewareLocaleSplitting:
-				args.experimentalMiddlewareLocaleSplitting ??
-				defaultCompilerOptions.experimentalMiddlewareLocaleSplitting,
 			disableAsyncLocalStorage:
 				args.disableAsyncLocalStorage ??
 				defaultCompilerOptions.disableAsyncLocalStorage,

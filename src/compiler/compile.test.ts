@@ -75,7 +75,7 @@ test("cleans the output directory", async () => {
 });
 
 // Regression coverage for https://github.com/opral/paraglide-js/issues/581
-test("runtime output strips sourcemap references", async () => {
+test("runtime output strips sourcemap references and omits middleware splitting artifacts", async () => {
 	const fs = memfs().fs as unknown as typeof import("node:fs");
 
 	const project = await loadProjectInMemory({
@@ -104,45 +104,14 @@ test("runtime output strips sourcemap references", async () => {
 
 	expect(runtimeFile).not.toMatch(/sourceMappingURL=/);
 	expect(serverFile).not.toMatch(/sourceMappingURL=/);
-});
-
-test("experimental middleware locale splitting uses globalThis.__paraglide.ssr", async () => {
-	const fs = memfs().fs as unknown as typeof import("node:fs");
-
-	const project = await loadProjectInMemory({
-		blob: await newProject({
-			settings: {
-				baseLocale: "en",
-				locales: ["en", "de"],
-			},
-		}),
-	});
-
-	await saveProjectToDirectory({
-		project,
-		path: "/project.inlang",
-		fs: fs.promises,
-	});
-
-	await compile({
-		project: "/project.inlang",
-		outdir: "/output",
-		fs,
-		experimentalMiddlewareLocaleSplitting: true,
-	});
-
-	const runtimeFile = await fs.promises.readFile("/output/runtime.js", "utf8");
-	const serverFile = await fs.promises.readFile("/output/server.js", "utf8");
-
-	expect(runtimeFile).toContain("(globalThis).__paraglide =");
-	expect(runtimeFile).toContain("(globalThis).__paraglide.ssr =");
-	expect(runtimeFile).not.toContain("__paraglide_ssr");
-	expect(serverFile).toContain(
-		"globalThis.__paraglide = globalThis.__paraglide ?? {};"
-	);
-	expect(serverFile).toContain("globalThis.__paraglide.ssr = ${escapedSsr}");
-	expect(serverFile).toContain(String.raw`replace(/<\/(script)/gi, "<\\/$1")`);
-	expect(serverFile).not.toContain("__paraglide_ssr");
+	for (const output of [runtimeFile, serverFile]) {
+		expect(output).not.toContain("__paraglide.ssr");
+		expect(output).not.toContain("experimentalMiddlewareLocaleSplitting");
+		expect(output).not.toContain("trackMessageCall");
+		expect(output).not.toContain("messageCalls");
+	}
+	expect(serverFile).not.toContain("compiledBundles");
+	expect(serverFile).not.toContain("compiledRegistry");
 });
 
 test("doesn't clean the output directory if option is set to false", async () => {
@@ -240,52 +209,6 @@ test("multiple compile calls do not interfere with each other", async () => {
 	// expecting the second compile step to overwrite the first
 	expect(runtime.baseLocale).toBe("de");
 	expect(runtime.locales).toEqual(["de"]);
-});
-
-test("emits additional files", async () => {
-	const additionalFiles = {
-		"adapter/component.svelte": "<script>console.log('hello')</script>",
-		"adapter.js": "console.log('hello')",
-	};
-
-	const project = await loadProjectInMemory({
-		blob: await newProject({
-			settings: {
-				baseLocale: "en",
-				locales: ["en", "de", "fr"],
-			},
-		}),
-	});
-
-	const fs = memfs().fs as unknown as typeof import("node:fs");
-
-	// save project to directory to test loading
-	await saveProjectToDirectory({
-		project,
-		path: "/project.inlang",
-		fs: fs.promises,
-	});
-
-	await compile({
-		project: "/project.inlang",
-		outdir: "/output",
-		fs: fs,
-		additionalFiles,
-	});
-
-	const outputDir = await fs.promises.readdir("/output");
-	const adapterDir = await fs.promises.readdir("/output/adapter");
-
-	expect(outputDir).toEqual(
-		expect.arrayContaining([
-			"runtime.js",
-			"server.js",
-			"messages.js",
-			"adapter.js",
-		])
-	);
-
-	expect(adapterDir).toEqual(["component.svelte"]);
 });
 
 test("includes eslint-disable comment", async () => {
@@ -501,16 +424,10 @@ test.each([
 				fs,
 				outputStructure,
 				emitTsDeclarations,
-				additionalFiles: {
-					"nested/additional.js": "export const extra = true;",
-				},
 			});
 			expect(await hashDirectory("/output", fs.promises)).toEqual(
 				result.outputHashes
 			);
-			expect(
-				await fs.promises.readFile("/output/nested/additional.js", "utf8")
-			).toContain("extra");
 			expect(Object.keys(result.outputHashes!)).toContain(
 				outputStructure === "message-modules"
 					? "messages/message_39.js"
@@ -526,3 +443,21 @@ test.each([
 		}
 	}
 );
+
+test("rejects additionalFiles before loading a project or changing output", async () => {
+	const fs = memfs({ "/output/sentinel.txt": "keep" })
+		.fs as unknown as typeof import("node:fs");
+	await expect(
+		compile({
+			project: "/missing-project.inlang",
+			outdir: "/output",
+			fs,
+			// @ts-expect-error additionalFiles was removed from the public API
+			additionalFiles: { "custom.js": "export const custom = 1;" },
+		})
+	).rejects.toThrow("additionalFiles was removed in Paraglide JS 3");
+	expect(await fs.promises.readdir("/output")).toEqual(["sentinel.txt"]);
+	expect(await fs.promises.readFile("/output/sentinel.txt", "utf8")).toBe(
+		"keep"
+	);
+});

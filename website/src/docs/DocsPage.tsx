@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { DocsHeading, DocsPageData, DocsSection } from "./data";
 import { initMarkdownInteractive } from "../components/markdown-interactive";
 
 const loadedImports = new Set<string>();
 
-export function DocsPage({ data }: { data: DocsPageData }) {
+export function DocsPage({
+	data,
+	renderMarkdown = (html) => <MarkdownHtml html={html} />,
+}: {
+	data: DocsPageData;
+	renderMarkdown?: (html: string) => ReactNode;
+}) {
 	const headings = data.headings ?? [];
 	const [activeId, setActiveId] = useState<string>("");
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -165,12 +171,12 @@ export function DocsPage({ data }: { data: DocsPageData }) {
 										/>
 										{copyButton}
 									</div>
-									<MarkdownHtml html={restHtml} />
+									{renderMarkdown(restHtml)}
 								</>
 							) : (
 								<>
 									<div className="flex justify-end pb-2 pt-5">{copyButton}</div>
-									<MarkdownHtml html={data.markdown} />
+									{renderMarkdown(data.markdown)}
 								</>
 							)}
 
@@ -203,7 +209,7 @@ export function DocsPage({ data }: { data: DocsPageData }) {
 	);
 }
 
-function MarkdownHtml({ html }: { html: string }) {
+export function MarkdownHtml({ html }: { html: string }) {
 	return (
 		<div
 			className="marketplace-markdown pb-2.5"

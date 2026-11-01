@@ -1,6 +1,5 @@
 import nodeFs from "node:fs";
 import { resolve } from "node:path";
-import { loadProjectFromDirectory } from "@inlang/sdk";
 import type { Plugin } from "vite";
 import { perLocaleBuildStaticLocaleExpression } from "../../compiler/per-locale-build.js";
 import type { PerLocaleBuildSettings } from "./types.js";
@@ -66,11 +65,6 @@ function createPerLocaleCompilerOptions(
 	return {
 		...compilerOptions,
 		experimentalStaticLocale: perLocaleBuildStaticLocaleExpression,
-		// Only forward additionalFiles when explicitly supplied — an empty
-		// object would override files provided by paraglide.config.*.
-		...(compilerOptions.additionalFiles !== undefined
-			? { additionalFiles: { ...compilerOptions.additionalFiles } }
-			: {}),
 	};
 }
 
@@ -85,18 +79,10 @@ function validateExplicitCompilerOptions(
 	const explicit = {
 		experimentalStaticLocale:
 			options.experimentalStaticLocale ?? config?.experimentalStaticLocale,
-		experimentalMiddlewareLocaleSplitting:
-			options.experimentalMiddlewareLocaleSplitting ??
-			config?.experimentalMiddlewareLocaleSplitting,
 	};
 	if (explicit.experimentalStaticLocale !== undefined) {
 		throw new Error(
 			"experimentalPerLocaleBuild cannot be combined with experimentalStaticLocale because it controls the compiler's static locale expression."
-		);
-	}
-	if (explicit.experimentalMiddlewareLocaleSplitting) {
-		throw new Error(
-			"experimentalPerLocaleBuild cannot be combined with experimentalMiddlewareLocaleSplitting."
 		);
 	}
 }
@@ -115,6 +101,7 @@ async function loadSettings(
 		overrides: options,
 		root,
 	});
+	const { loadProjectFromDirectory } = await import("@inlang/sdk");
 	const loadedProject = await loadProjectFromDirectory({
 		path: project,
 		fs: options.fs ?? nodeFs,

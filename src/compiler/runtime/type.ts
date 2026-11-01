@@ -15,8 +15,8 @@ export type Runtime = {
 	disableAsyncLocalStorage: typeof import("./variables.js").disableAsyncLocalStorage;
 	serverAsyncLocalStorage: typeof import("./variables.js").serverAsyncLocalStorage;
 	getServerAsyncLocalStorage: typeof import("./variables.js").getServerAsyncLocalStorage;
-	experimentalMiddlewareLocaleSplitting: typeof import("./variables.js").experimentalMiddlewareLocaleSplitting;
 	isServer: typeof import("./variables.js").isServer;
+	isDevelopment: typeof import("./variables.js").isDevelopment;
 	experimentalStaticLocale: typeof import("./variables.js").experimentalStaticLocale;
 	getLocale: typeof import("./get-locale.js").getLocale;
 	getTextDirection: typeof import("./get-text-direction.js").getTextDirection;
@@ -41,7 +41,6 @@ export type Runtime = {
 	extractLocaleFromHeader: typeof import("./extract-locale-from-header.js").extractLocaleFromHeader;
 	extractLocaleFromNavigator: typeof import("./extract-locale-from-navigator.js").extractLocaleFromNavigator;
 	generateStaticLocalizedUrls: typeof import("./generate-static-localized-urls.js").generateStaticLocalizedUrls;
-	trackMessageCall: typeof import("./track-message-call.js").trackMessageCall;
 	getStrategyForUrl: typeof import("./route-strategy.js").getStrategyForUrl;
 	isExcludedByRouteStrategy: typeof import("./route-strategy.js").isExcludedByRouteStrategy;
 	defineCustomServerStrategy: typeof import("./strategy.js").defineCustomServerStrategy;

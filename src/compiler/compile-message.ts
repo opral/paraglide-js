@@ -11,7 +11,10 @@ import { inputsType, type InputMatchTypes } from "./jsdoc-types.js";
 import { compileLocalVariable } from "./compile-local-variable.js";
 import type { RegistryUsage } from "./compile-annotation.js";
 import { renderInputMatchCondition } from "./match-literals.js";
-import { compileInputAccess } from "./variable-access.js";
+import {
+	compileInputAccess,
+	compileLocalVariableName,
+} from "./variable-access.js";
 import { resolveInputAlias } from "./input-alias.js";
 import {
 	patternVariableReferences,
@@ -240,10 +243,11 @@ function compileMessageWithMultipleVariants(
 				// value (e.g. ICU `=0` imports as `.local countPluralExact = {$count}`)
 				// and must match like the input itself, numerically for numbers.
 				// Annotated locals hold the function's result and match as strings.
+				const local = compileLocalVariableName(match.key);
 				conditions.push(
 					resolveInputAlias(match.key, declarations) !== undefined
-						? renderInputMatchCondition(match.key, match.value)
-						: `${match.key} === ${JSON.stringify(match.value)}`
+						? renderInputMatchCondition(local, match.value)
+						: `${local} === ${JSON.stringify(match.value)}`
 				);
 			}
 		}

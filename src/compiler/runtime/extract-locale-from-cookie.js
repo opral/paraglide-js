@@ -1,10 +1,10 @@
 import { toLocale } from "./check-locale.js";
 import { cookieName } from "./variables.js";
 
-const cookieNamePattern = cookieName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-const localeCookiePattern = new RegExp(
-	`(?:^|;\\s*)${cookieNamePattern}=([^;]*)`
-);
+const localeCookiePattern = /* @__PURE__ */ (() => {
+	const cookieNamePattern = cookieName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	return new RegExp(`(?:^|;\\s*)${cookieNamePattern}=([^;]*)`);
+})();
 
 const noCachedLocale = Symbol();
 /** @type {Locale | undefined | typeof noCachedLocale} */

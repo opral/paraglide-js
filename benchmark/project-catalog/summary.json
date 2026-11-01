@@ -1,0 +1,117 @@
+{
+  "summary": [
+    {
+      "size": 6400,
+      "layout": "message",
+      "results": [
+        {
+          "backend": "sdk",
+          "totalMs": 4505.086542,
+          "coldWithImportMs": 4587.535209,
+          "trials": 3,
+          "files": 12814,
+          "dts": 6405,
+          "hash": "0d329105917ec6f793e54630f7835f31949da99bfdf4f7d438b0f31f8614554b",
+          "validated": 19200
+        },
+        {
+          "backend": "catalog",
+          "totalMs": 912.9382499999999,
+          "coldWithImportMs": 988.8155419999999,
+          "trials": 3,
+          "files": 12814,
+          "dts": 6405,
+          "hash": "0d329105917ec6f793e54630f7835f31949da99bfdf4f7d438b0f31f8614554b",
+          "validated": 19200
+        }
+      ],
+      "reductionPercent": 79.73538928744513,
+      "speedup": 4.934711128600429
+    },
+    {
+      "size": 6400,
+      "layout": "locale",
+      "results": [
+        {
+          "backend": "sdk",
+          "totalMs": 3955.201167,
+          "coldWithImportMs": 4042.1195420000004,
+          "trials": 3,
+          "files": 19,
+          "dts": 8,
+          "hash": "d2f2d9b86843a39032c0f40e30a2830def6f2f6785d15bc608db51bfafb8cb93",
+          "validated": 19200
+        },
+        {
+          "backend": "catalog",
+          "totalMs": 471.438667,
+          "coldWithImportMs": 556.095125,
+          "trials": 3,
+          "files": 19,
+          "dts": 8,
+          "hash": "d2f2d9b86843a39032c0f40e30a2830def6f2f6785d15bc608db51bfafb8cb93",
+          "validated": 19200
+        }
+      ],
+      "reductionPercent": 88.0805388374826,
+      "speedup": 8.38964099438199
+    },
+    {
+      "size": 13300,
+      "layout": "message",
+      "results": [
+        {
+          "backend": "sdk",
+          "totalMs": 7283.517458,
+          "coldWithImportMs": 7352.347208,
+          "trials": 3,
+          "files": 26614,
+          "dts": 13305,
+          "hash": "5cf4692eb7e9cf7f61a0e253814f017262914dba8b77e80a56b2ee761217e065",
+          "validated": 39900
+        },
+        {
+          "backend": "catalog",
+          "totalMs": 1704.1427919999999,
+          "coldWithImportMs": 1769.1580419999998,
+          "trials": 3,
+          "files": 26614,
+          "dts": 13305,
+          "hash": "5cf4692eb7e9cf7f61a0e253814f017262914dba8b77e80a56b2ee761217e065",
+          "validated": 39900
+        }
+      ],
+      "reductionPercent": 76.60274995114868,
+      "speedup": 4.274006551676335
+    },
+    {
+      "size": 13300,
+      "layout": "locale",
+      "results": [
+        {
+          "backend": "sdk",
+          "totalMs": 6427.911958,
+          "coldWithImportMs": 6497.0533749999995,
+          "trials": 3,
+          "files": 19,
+          "dts": 8,
+          "hash": "e5acc0084b1ba571116bd18d5669bfd5b55cd356ced36fed16a403dc1b6958fd",
+          "validated": 39900
+        },
+        {
+          "backend": "catalog",
+          "totalMs": 937.0537499999999,
+          "coldWithImportMs": 1011.4820829999999,
+          "trials": 3,
+          "files": 19,
+          "dts": 8,
+          "hash": "e5acc0084b1ba571116bd18d5669bfd5b55cd356ced36fed16a403dc1b6958fd",
+          "validated": 39900
+        }
+      ],
+      "reductionPercent": 85.42211287082473,
+      "speedup": 6.859704641275914
+    }
+  ],
+  "phases": []
+}

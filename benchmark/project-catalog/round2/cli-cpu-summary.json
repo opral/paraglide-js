@@ -1,0 +1,426 @@
+{
+  "input": "artifacts/catalog-speed-round2/production-profile/cli.cpuprofile",
+  "scope": "Whole Node CLI process CPU profile, including startup/module imports, CLI configuration, compile, declarations and file publication. Sampling adds overhead; timings are diagnostic only.",
+  "sampleCount": 1590,
+  "sampledMs": 247.9170000000001,
+  "profileMs": 248.042,
+  "groups": [
+    {
+      "name": "native / runtime / unattributed",
+      "ms": 80.50200000000008,
+      "percent": 32.47135129902348
+    },
+    {
+      "name": "message JavaScript generation",
+      "ms": 41.04500000000008,
+      "percent": 16.555944126461707
+    },
+    {
+      "name": "garbage collection",
+      "ms": 36.24800000000004,
+      "percent": 14.621022358289277
+    },
+    {
+      "name": "catalog construction / validation",
+      "ms": 24.87400000000005,
+      "percent": 10.033196594021401
+    },
+    {
+      "name": "plugin import / parser",
+      "ms": 24.12600000000005,
+      "percent": 9.731482713972838
+    },
+    {
+      "name": "output hashing / file publication",
+      "ms": 14.915,
+      "percent": 6.016126364872112
+    },
+    {
+      "name": "output layout assembly",
+      "ms": 9.916,
+      "percent": 3.9997257146544998
+    },
+    {
+      "name": "direct declarations",
+      "ms": 6.2909999999999995,
+      "percent": 2.5375428066651327
+    },
+    {
+      "name": "compiler orchestration",
+      "ms": 2.8759999999999994,
+      "percent": 1.1600656671385983
+    },
+    {
+      "name": "catalog loading / plugin IO",
+      "ms": 2.75,
+      "percent": 1.109242206060899
+    },
+    {
+      "name": "idle / asynchronous IO wait",
+      "ms": 2.084,
+      "percent": 0.8406039117930595
+    },
+    {
+      "name": "supporting runtime generation",
+      "ms": 1.5410000000000001,
+      "percent": 0.6215789961963075
+    },
+    {
+      "name": "compile orchestration",
+      "ms": 0.7490000000000001,
+      "percent": 0.3021172408507685
+    }
+  ],
+  "topSelf": [
+    {
+      "name": "(garbage collector)",
+      "url": "",
+      "line": 0,
+      "ms": 36.24800000000004,
+      "percent": 14.621022358289277
+    },
+    {
+      "name": "tryImportCatalog",
+      "url": "data:plugin",
+      "line": 2833,
+      "ms": 17.24900000000001,
+      "percent": 6.957570477216167
+    },
+    {
+      "name": "addMessage",
+      "url": "file:///Users/samuel/git-repos/workspace-1/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+      "line": 35,
+      "ms": 16.582000000000004,
+      "percent": 6.688528822146121
+    },
+    {
+      "name": "tryCompileInlineBundle",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+      "line": 82,
+      "ms": 13.708999999999998,
+      "percent": 5.529673237414132
+    },
+    {
+      "name": "generateOutput",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/output-structure/message-shards.js",
+      "line": 7,
+      "ms": 8.29,
+      "percent": 3.343861050270855
+    },
+    {
+      "name": "compileSourceTextModule",
+      "url": "node:internal/modules/esm/utils",
+      "line": 344,
+      "ms": 7.0009999999999994,
+      "percent": 2.8239289762299467
+    },
+    {
+      "name": "(anonymous)",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-direct-declarations-pr/node_modules/.pnpm/consola@3.4.0/node_modules/consola/dist/index.mjs",
+      "line": 1,
+      "ms": 6.416999999999999,
+      "percent": 2.588366267742832
+    },
+    {
+      "name": "utf8Write",
+      "url": "node:internal/buffer",
+      "line": 1054,
+      "ms": 5.8359999999999985,
+      "percent": 2.354013641662329
+    },
+    {
+      "name": "buildEnglishMatchTableDoc",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+      "line": 413,
+      "ms": 5.706999999999998,
+      "percent": 2.3019800981780176
+    },
+    {
+      "name": "compileBundle",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+      "line": 12,
+      "ms": 4.917,
+      "percent": 1.9833250644368874
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 4.334,
+      "percent": 1.7481657167519769
+    },
+    {
+      "name": "createFromString",
+      "url": "node:buffer",
+      "line": 474,
+      "ms": 4.206999999999999,
+      "percent": 1.696938894872073
+    },
+    {
+      "name": "scalarParts",
+      "url": "data:plugin",
+      "line": 2879,
+      "ms": 3.792999999999999,
+      "percent": 1.5299475227596324
+    },
+    {
+      "name": "emitTsDeclarations",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/emit-ts-declarations.js",
+      "line": 7,
+      "ms": 3.1249999999999996,
+      "percent": 1.260502506887385
+    },
+    {
+      "name": "update",
+      "url": "node:internal/crypto/hash",
+      "line": 132,
+      "ms": 3.080999999999999,
+      "percent": 1.2427546315904106
+    },
+    {
+      "name": "serializePatternPreview",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+      "line": 493,
+      "ms": 2.542,
+      "percent": 1.0253431592024747
+    },
+    {
+      "name": "internalBinding",
+      "url": "node:internal/bootstrap/realm",
+      "line": 185,
+      "ms": 2.416,
+      "percent": 0.9745196981247752
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 2.29,
+      "percent": 0.9236962370470759
+    },
+    {
+      "name": "escapeTableCell",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+      "line": 459,
+      "ms": 2.289,
+      "percent": 0.923292876244872
+    },
+    {
+      "name": "inputsType",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/jsdoc-types.js",
+      "line": 19,
+      "ms": 2.168,
+      "percent": 0.8744862191781925
+    },
+    {
+      "name": "available",
+      "url": "file:///Users/samuel/git-repos/workspace-1/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+      "line": 30,
+      "ms": 2.166,
+      "percent": 0.8736794975737845
+    },
+    {
+      "name": "(idle)",
+      "url": "",
+      "line": 0,
+      "ms": 2.084,
+      "percent": 0.8406039117930595
+    },
+    {
+      "name": "(program)",
+      "url": "",
+      "line": 0,
+      "ms": 2,
+      "percent": 0.8067216044079266
+    },
+    {
+      "name": "compileCatalog",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/compile-project.js",
+      "line": 42,
+      "ms": 1.7920000000000003,
+      "percent": 0.7228225575495023
+    },
+    {
+      "name": "isSimplePattern",
+      "url": "data:plugin",
+      "line": 2862,
+      "ms": 1.584,
+      "percent": 0.6389235106910779
+    },
+    {
+      "name": "RegExp: ^[A-Za-z_$][A-Za-z0-9_$]*$",
+      "url": "",
+      "line": 0,
+      "ms": 1.584,
+      "percent": 0.6389235106910779
+    },
+    {
+      "name": "loadProjectCatalog",
+      "url": "file:///Users/samuel/git-repos/workspace-1/inlang-sdk-project-catalog/packages/sdk/dist/project/loadProjectCatalog.js",
+      "line": 28,
+      "ms": 1.5000000000000002,
+      "percent": 0.605041203305945
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 1.417,
+      "percent": 0.5715622567230161
+    },
+    {
+      "name": "compareIdentity",
+      "url": "file:///Users/samuel/git-repos/workspace-1/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+      "line": 543,
+      "ms": 1.3760000000000003,
+      "percent": 0.5550244638326536
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 1.252,
+      "percent": 0.505007724359362
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 1.248,
+      "percent": 0.5033942811505462
+    },
+    {
+      "name": "wellFormed",
+      "url": "file:///Users/samuel/git-repos/workspace-1/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+      "line": 439,
+      "ms": 1.209,
+      "percent": 0.4876632098645916
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 1.124,
+      "percent": 0.45337754167725475
+    },
+    {
+      "name": "(anonymous)",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/emit-ts-declarations.js",
+      "line": 12,
+      "ms": 1.084,
+      "percent": 0.43724310958909623
+    },
+    {
+      "name": "finalizeResolution",
+      "url": "node:internal/modules/esm/resolve",
+      "line": 228,
+      "ms": 1.0430000000000001,
+      "percent": 0.42070531669873373
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 1.0430000000000001,
+      "percent": 0.42070531669873373
+    },
+    {
+      "name": "toBundleTypeBaseName",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/compile-bundle.js",
+      "line": 468,
+      "ms": 0.9600000000000001,
+      "percent": 0.3872263701158048
+    },
+    {
+      "name": "inputsType",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/jsdoc-types.js",
+      "line": 19,
+      "ms": 0.9590000000000001,
+      "percent": 0.3868230093136008
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 0.9170000000000001,
+      "percent": 0.36988185562103437
+    },
+    {
+      "name": "openSync",
+      "url": "node:fs",
+      "line": 560,
+      "ms": 0.917,
+      "percent": 0.3698818556210343
+    },
+    {
+      "name": "percentDecode",
+      "url": "node:internal/data_url",
+      "line": 206,
+      "ms": 0.876,
+      "percent": 0.3533440627306718
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 0.8330000000000001,
+      "percent": 0.33599954823590145
+    },
+    {
+      "name": "compareVariantIds",
+      "url": "file:///Users/samuel/git-repos/workspace-1/inlang-sdk-project-catalog/packages/sdk/dist/import-export/variantSemantics.js",
+      "line": 55,
+      "ms": 0.8330000000000001,
+      "percent": 0.33599954823590145
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 0.7920000000000001,
+      "percent": 0.319461755345539
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 0.792,
+      "percent": 0.31946175534553894
+    },
+    {
+      "name": "toSafeModuleId",
+      "url": "file:///Users/samuel/git-repos/workspace-1/paraglide-project-catalog/dist/compiler/safe-module-id.js",
+      "line": 6,
+      "ms": 0.792,
+      "percent": 0.31946175534553894
+    },
+    {
+      "name": "takeBundles",
+      "url": "file:///Users/samuel/git-repos/workspace-1/inlang-sdk-project-catalog/packages/sdk/dist/import-export/catalogRows.js",
+      "line": 98,
+      "ms": 0.7910000000000001,
+      "percent": 0.319058394543335
+    },
+    {
+      "name": "stringPercentDecode",
+      "url": "node:internal/data_url",
+      "line": 174,
+      "ms": 0.791,
+      "percent": 0.319058394543335
+    },
+    {
+      "name": "importLocalPlugins",
+      "url": "file:///Users/samuel/git-repos/workspace-1/inlang-sdk-project-catalog/packages/sdk/dist/project/directoryPlugins.js",
+      "line": 28,
+      "ms": 0.7500000000000001,
+      "percent": 0.3025206016529725
+    },
+    {
+      "name": "compileForInternalLoader",
+      "url": "node:internal/bootstrap/realm",
+      "line": 385,
+      "ms": 0.7499999999999999,
+      "percent": 0.3025206016529724
+    }
+  ]
+}

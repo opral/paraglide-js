@@ -4,7 +4,10 @@ import type {
 	LocalVariable,
 	VariableReference,
 } from "@inlang/sdk";
-import { compileVariableAccess } from "./variable-access.js";
+import {
+	compileLocalVariableName,
+	compileVariableAccess,
+} from "./variable-access.js";
 import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
 import {
 	compileAnnotation,
@@ -48,7 +51,7 @@ export function compileLocalVariable(args: {
 					args.registryUsage
 				);
 
-	return `const ${args.declaration.name} = ${value};`;
+	return `const ${compileLocalVariableName(args.declaration.name)} = ${value};`;
 }
 
 function compileLiteralOrVarRef(

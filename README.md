@@ -67,14 +67,14 @@ export function Greeting() {
 }
 ```
 
-The compiler turns your messages into typed ESM functions. Vite, Rollup, and other modern bundlers can tree-shake unused translations before they reach the browser. Expect [**up to 70% smaller i18n bundle sizes**](https://paraglidejs.com/benchmark) compared to runtime i18n libraries (e.g. 47 KB vs 205 KB for 5 locales and 200 messages — [methodology](https://paraglidejs.com/benchmark)).
+The compiler turns your messages into typed ESM functions. Modern bundlers can remove unused message functions before they reach the browser. The [benchmark](https://paraglidejs.com/benchmark) compares translated DOM readiness and Brotli transfer against bundled and HTTP-loaded i18next, including scenarios where HTTP i18next transfers fewer bytes. See the [build workflow](https://paraglidejs.com/build-workflow) for generated files, Git, CI, and a tree-shaking reproduction.
 
 ## Why Paraglide?
 
 |                           |                                                                                                                                                                                                                |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Vite-Native**           | Designed for Vite and modern ESM bundlers. Works with React, TanStack Start, SvelteKit, React Router, Astro, Vue, Solid, and vanilla JS/TS.                                                                    |
-| **Smaller i18n Bundle**   | Up to 70% smaller i18n bundle size than runtime i18n libraries.                                                                                                                                                |
+| **Production loading**   | Unused messages can be removed; compare total transfer and active-locale loading in the [benchmark](https://paraglidejs.com/benchmark).                                                                                                                                                |
 | **Tree-Shakable**         | Messages compile to ESM functions, so unused translations are eliminated by your bundler.                                                                                                                       |
 | **Fully Typesafe**        | Autocomplete for message keys and parameters. Typos become compile errors.                                                                                                                                     |
 | **Built-in i18n Routing** | URL-based locale detection and localized paths out of the box.                                                                                                                                                 |
@@ -83,7 +83,7 @@ The compiler turns your messages into typed ESM functions. Vite, Rollup, and oth
 ## Get Started With Your Framework
 
 <p>
-  <a href="#react--vite"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="18" height="18" /> React</a> ·
+  <a href="https://paraglidejs.com/react"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="18" height="18" /> React</a> ·
   <a href="https://paraglidejs.com/vite"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue" width="18" height="18" /> Vue</a> ·
   <a href="https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide"><img src="https://tanstack.com/images/logos/logo-color-100.png" alt="TanStack" width="18" height="18" /> TanStack Start</a> ·
   <a href="https://paraglidejs.com/sveltekit"><img src="https://cdn.simpleicons.org/svelte/FF3E00" alt="Svelte" width="18" height="18" /> SvelteKit</a> ·
@@ -92,7 +92,7 @@ The compiler turns your messages into typed ESM functions. Vite, Rollup, and oth
   <a href="https://paraglidejs.com/vanilla-js-ts"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="18" height="18" /> Vanilla JS/TS</a>
 </p>
 
-- **[React + Vite example](https://github.com/opral/paraglide-js/tree/main/examples/react)** — plain React SPA with the Vite plugin, messages, and a language switcher.
+- **[React + Vite guide](https://paraglidejs.com/react)** — plain React SPA with the Vite plugin, messages, and a language switcher.
 - **[TanStack Start example](https://github.com/TanStack/router/tree/main/examples/react/start-i18n-paraglide)** — SSR, localized routing, and TanStack Router integration.
 - **[SvelteKit guide](https://paraglidejs.com/sveltekit)** — SvelteKit's official i18n integration.
 - **[React Router guide](https://paraglidejs.com/react-router)** — SSR and client routing.
@@ -124,13 +124,13 @@ export default defineConfig({
 });
 ```
 
-`emitTsDeclarations` requires TypeScript 5.6 or newer and keeps editor types in sync when message files change. Set it to `false` to use the faster JavaScript/JSDoc inference path instead.
+`emitTsDeclarations` generates declarations directly and keeps editor types in sync when message files change. No TypeScript installation is required. Set it to `false` to use JavaScript/JSDoc inference instead.
 
 The `Greeting` component shown above is all the app code you need. By default, `setLocale()` updates the selection through your configured strategies and performs a full document navigation: it navigates to the localized URL when URL routing is enabled, or reloads the current document otherwise. The new document renders the app and any document-level locale settings together, with no i18n provider or framework reactivity to wire up.
 
 For the deliberately narrow browser-only `setLocale(locale, { reload: false })` escape hatch, see [the warning in Basics](https://paraglidejs.com/basics#advanced-stay-on-the-current-document). It is for a fully client-rendered, non-URL surface that must preserve non-restorable in-memory work and transfers all reactive and document-state updates to the application.
 
-**[Full React + Vite example →](https://github.com/opral/paraglide-js/tree/main/examples/react)** · **[React Router (SSR) guide →](https://paraglidejs.com/react-router)**
+**[React + Vite setup guide →](https://paraglidejs.com/react)** · **[Runnable example →](https://github.com/opral/paraglide-js/tree/main/examples/react)** · **[React Router (SSR) guide →](https://paraglidejs.com/react-router)**
 
 ## SSR Ready
 
@@ -315,24 +315,24 @@ Runtime i18n libraries like i18next resolve message keys from dictionaries while
 
 That means Vite can tree-shake unused translations, TypeScript can autocomplete message keys and parameters, and your components call plain functions instead of resolving strings through a runtime lookup layer.
 
-In the [Paraglide benchmark](https://paraglidejs.com/benchmark), typical scenarios shipped **47-144 KB with Paraglide** vs **205-422 KB with i18next**. With 5 locales, 100 used messages, and 200 total messages, Paraglide shipped **47 KB** while i18next shipped **205 KB**.
+The [published benchmark](https://paraglidejs.com/benchmark) compares default and per-locale Paraglide with bundled and HTTP-loaded i18next in a client-rendered Vite app. It uses real translations, five routes, one document reload when changing language, and medians of five runs. Complete tables retain default Paraglide's transfer-size losses alongside the per-locale results. Readiness is a translated-content DOM mark, not paint or React rendering time.
 
-Tree-shaking also keeps Paraglide stable as your message catalog grows. In the benchmark, using 100 messages shipped **47 KB** with Paraglide whether the project had 200, 500, or 1,000 total messages. The i18next runtime bundle grew from **205 KB** to **414 KB**.
+Unused-message removal and active-locale loading are separate: default Paraglide output retains configured locales for every used message. There is no fixed percentage saving for every app. The [build workflow](https://paraglidejs.com/build-workflow) includes a runnable probe that adds unused messages and verifies unchanged production JavaScript hashes.
 
 ## Comparison
 
 | Feature                 | Paraglide                                                                        | Lingui                       | i18next              |
 | ----------------------- | -------------------------------------------------------------------------------- | ---------------------------- | -------------------- |
 | **Architecture**        | Compiler-first ESM message functions                                             | Extraction + compiled catalogs | Runtime dictionaries |
-| **i18n bundle size**    | Up to 70% smaller via message-level tree-shaking                                  | Compiled catalogs            | Runtime dictionaries |
-| **Tree-shakable**       | ✅ Message functions                                                              | Catalog-based                | ❌                   |
-| **Typesafe**            | ✅ Generated message functions                                                    | Macro/component workflow     | Partial              |
+| **i18n bundle size**    | Unused message functions removed; see benchmark                                  | Compiled catalogs            | Runtime dictionaries |
+| **Tree-shakable**       | ✅ Message functions                                                              | Catalog-based                | Loading is configured |
+| **Typesafe**            | ✅ Generated message functions                                                    | Macro/component workflow     | Typed resources and selector API |
 | **Framework support**   | TanStack Start, SvelteKit, React Router, Astro, Vue, Solid, vanilla JS/TS         | React, Vue, Astro, Svelte, Node.js, vanilla JS | Broad via wrappers |
 | **Routing + SSR**       | ✅ Middleware, request isolation, and URL helpers                                  | Use your framework/router    | Use your framework/router |
 | **Rich text**           | ✅ Typed markup adapters                                                          | ✅ Rich-text components       | Via framework wrappers |
 | **ICU MessageFormat 1** | ✅ [Via plugin](https://inlang.com/m/p7c8m1d2/plugin-inlang-icu-messageformat-1) | ✅                           | Via plugin           |
 
-**[Full Comparison →](https://paraglidejs.com/comparison)**
+**[Choose a React i18n library →](https://paraglidejs.com/react-i18next-alternatives)** · **[Full comparison →](https://paraglidejs.com/comparison)**
 
 ## FAQ
 

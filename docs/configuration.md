@@ -72,8 +72,7 @@ output directory so incremental compilation stays fast.
 
 Relative paths like `outdir` are resolved against your working directory or
 the tool's project root — exactly like the same value passed as a flag or
-plugin option. Note that `additionalFiles` values are file contents
-(`{ "output-file.js": "…" }`), not paths.
+plugin option.
 
 > [!TIP]
 > The `defineConfig` helper is optional — it only provides type inference

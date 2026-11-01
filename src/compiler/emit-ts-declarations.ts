@@ -1,509 +1,262 @@
-import path from "node:path";
-import fs from "node:fs/promises";
-import os from "node:os";
-import { execFile } from "node:child_process";
-import { promisify } from "node:util";
+import type { BundleNested, ProjectSettings } from "@inlang/sdk";
 import {
-	resolveNativeTscJsPath,
-	resolveTscJsPath,
-} from "./resolve-tsc-js-path.js";
+	buildEnglishMatchTableDoc,
+	buildMarkupSchemaType,
+	bundleHasMarkup,
+	toBundleInputTypeAliasName,
+	type CompiledBundleWithMessages,
+} from "./compile-bundle.js";
+import type { CompilerOptions } from "./compiler-options.js";
+import { inputsType } from "./jsdoc-types.js";
+import {
+	declarationShardTypes,
+	declarationShardTypesImport,
+	shardTypesModule,
+} from "./output-structure/shard-types.js";
+import { escapeIdentifier } from "./safe-module-id.js";
 
-const execFileAsync = promisify(execFile);
+const localizedString =
+	'export type LocalizedString = import("../runtime.js").LocalizedString;';
 
-type TypeScript = typeof import("typescript");
-
-const missingTypeScriptMessage = `Paraglide's "emitTsDeclarations" option requires the "typescript" package.
-
-Install TypeScript in your project, or disable "emitTsDeclarations".`;
-
-const failedToLoadTypeScriptMessage = `Paraglide's "emitTsDeclarations" option requires the "typescript" package.
-
-TypeScript appears to be installed, but failed to load. See the error cause for details.`;
-
-/**
- * Generates `.d.ts` files for the compiled Paraglide output using the TypeScript compiler.
- *
- * @param output - The generated compiler output keyed by relative file path.
- * @param options - Whether the optional native alias may replace the compiler API.
- * @returns The generated declaration files keyed by relative path.
- *
- * @example
- * const declarations = await emitTsDeclarations(output);
- * // Merge them into the compiler output before writing to disk
- */
-export async function emitTsDeclarations(
-	output: Record<string, string>,
-	options: { allowNativeAlias?: boolean } = {}
-): Promise<Record<string, string>> {
-	const ts = await importTypeScript();
-
-	const jsEntries = Object.entries(output).filter(([fileName]) =>
-		fileName.endsWith(".js")
-	);
-
-	if (jsEntries.length === 0) {
-		return {};
-	}
-
-	// TypeScript 7+ (the Go-based compiler) no longer ships the in-process
-	// compiler API — its main entry point only exports version metadata.
-	// https://github.com/opral/paraglide-js/issues/711
-	const compilerApi = resolveCompilerApi(ts);
-	if (compilerApi === undefined) {
-		// resolved before spawning so a missing tsc entry point surfaces its own
-		// pointed error instead of the generic "no declaration files" one
-		return emitWithTscCli(jsEntries, resolveTscJsPath());
-	}
-
-	// TypeScript 7 installed beside TypeScript 5/6, as svelte-check's `--tsgo`
-	// mode needs, emits declarations much faster than the compiler API.
-	if (options.allowNativeAlias !== false) {
-		const nativeTscJsPath = resolveNativeTscJsPath();
-		if (nativeTscJsPath !== undefined) {
-			return emitWithTscCli(jsEntries, nativeTscJsPath);
-		}
-	}
-
-	return emitWithCompilerApi(compilerApi, jsEntries);
-}
+const runtimeMetadata = 'import("../runtime.js").MessageMetadata<';
+const runtimePart = 'import("../runtime.js").MessagePart';
 
 /**
- * Returns the in-process compiler API (TypeScript 5/6), or `undefined` when
- * the installed TypeScript does not provide one (TypeScript 7+).
- *
- * Unwraps default-only interop shapes (`{ default: ts }`) that bundlers and
- * CJS interop can produce. Without the unwrap, TypeScript 5/6 would be
- * misrouted to the CLI path, whose TypeScript 5 declaration emitter produces
- * syntactically invalid quoted export aliases.
+ * Makes the declarations of many messages in one file refer to the runtime's
+ * types through private aliases. TypeScript locates each `import("…")` type of
+ * a file by walking the file from its first statement, so one per message makes
+ * creating the program quadratic in the number of messages.
  */
-function resolveCompilerApi(ts: TypeScript): TypeScript | undefined {
-	if (typeof ts.createProgram === "function") {
-		return ts;
-	}
-	const defaultExport = (ts as { default?: TypeScript }).default;
-	if (defaultExport && typeof defaultExport.createProgram === "function") {
-		return defaultExport;
-	}
-	return undefined;
-}
-
-/**
- * Emits declarations with the in-process TypeScript compiler API (TypeScript 5/6).
- */
-async function emitWithCompilerApi(
-	ts: TypeScript,
-	jsEntries: [string, string][]
-): Promise<Record<string, string>> {
-	const virtualRoot = path.join(process.cwd(), "__paraglide_virtual_output");
-	const normalizeFileName = (fileName: string) =>
-		path.normalize(
-			path.isAbsolute(fileName) ? fileName : path.join(virtualRoot, fileName)
+export function shareRuntimeTypes(declarations: string): string {
+	const aliases: string[] = [];
+	if (declarations.includes(runtimeMetadata))
+		aliases.push(
+			'type __ParaglideMessageMetadata<Inputs, Options, Markup extends import("../runtime.js").MessageMarkupSchema> = import("../runtime.js").MessageMetadata<Inputs, Options, Markup>;'
 		);
+	if (declarations.includes(runtimePart))
+		aliases.push(
+			'type __ParaglideMessagePart = import("../runtime.js").MessagePart;'
+		);
+	if (aliases.length === 0) return declarations;
+	return [
+		...aliases,
+		declarations
+			.replaceAll(runtimeMetadata, "__ParaglideMessageMetadata<")
+			.replaceAll(runtimePart, "__ParaglideMessagePart")
+			.trimEnd(),
+		// A declaration file exports every declaration unless it has an export
+		// declaration; this one keeps the aliases private.
+		"export {};\n",
+	].join("\n");
+}
 
-	const files = new Map(
-		jsEntries.map(([fileName, content]) => [
-			normalizeFileName(fileName),
-			content,
-		])
-	);
-	const quotedExportAliases = collectQuotedExportAliases(ts, files);
+// How a message module declares the value of a message named "default".
+const defaultValueExport =
+	/^declare const [A-Za-z_$][\w$]*: [^\n]*\nexport \{ [A-Za-z_$][\w$]* as "default" \};\n/m;
 
-	const virtualDirectories = new Set(
-		Array.from(files.keys()).flatMap((filePath) => {
-			const directories: string[] = [];
-			let current = path.dirname(filePath);
-			while (current.startsWith(virtualRoot) && current !== virtualRoot) {
-				directories.push(current);
-				const parent = path.dirname(current);
-				if (parent === current) break;
-				current = parent;
-			}
-			return directories;
-		})
-	);
-	// Ensure the virtual root itself is treated as existing
-	virtualDirectories.add(virtualRoot);
+/**
+ * The barrel declaration of `message-modules`: the declarations of every message
+ * module in one file, so TypeScript reads one file for `messages.js` instead of
+ * one per message. The per-message files remain for direct imports. Like the
+ * JavaScript barrel's `export *`, it leaves out the value of a message named
+ * "default", whose module id is `defaultModuleId`. Built from the message files
+ * so incremental output can rebuild it.
+ */
+export function messageModulesIndexDeclaration(
+	output: Record<string, string>,
+	defaultModuleId: string | undefined
+): string {
+	const defaultModule =
+		defaultModuleId === undefined
+			? undefined
+			: `messages/${defaultModuleId}.d.ts`;
+	const values: string[] = [];
+	const types: string[] = [];
+	for (const [name, code] of Object.entries(output)) {
+		if (
+			!name.startsWith("messages/") ||
+			!name.endsWith(".d.ts") ||
+			name === "messages/_index.d.ts"
+		)
+			continue;
+		// A message module declares its value, then LocalizedString, then its types.
+		const [value = "", type = ""] = code.split(`${localizedString}\n`);
+		values.push(
+			name === defaultModule ? value.replace(defaultValueExport, "") : value
+		);
+		types.push(type);
+	}
+	// Values first and types after: TypeScript builds the program for the same
+	// declarations in about 40% less time than with each type after its value.
+	return shareRuntimeTypes([...values, `${localizedString}\n`, ...types].join(""));
+}
 
-	const compilerOptions: import("typescript").CompilerOptions = {
-		allowJs: true,
-		checkJs: true,
-		declaration: true,
-		emitDeclarationOnly: true,
-		isolatedDeclarations: true,
-		esModuleInterop: true,
-		lib: ["ESNext", "DOM"],
-		module: ts.ModuleKind.ESNext,
-		moduleResolution: ts.ModuleResolutionKind.Bundler,
-		noEmitOnError: false,
-		outDir: virtualRoot,
-		rootDir: virtualRoot,
-		skipLibCheck: true,
-		target: ts.ScriptTarget.ESNext,
+/**
+ * The barrel's exports of grouped modules. Shards allocate type names on their
+ * own, so two shards can declare one for different keys: `a.b` and `a-b` both
+ * get `A_BInputs`. The barrel exports such a type under its key's escaped name,
+ * the one it has in message modules, instead of an ambiguous one.
+ */
+function groupedIndexExports(
+	filenames: string[],
+	groups: { bundle: BundleNested; alias: string }[][]
+): string[] {
+	const declaringShards = new Map<string, number>();
+	for (const group of groups)
+		for (const { alias } of group)
+			declaringShards.set(alias, (declaringShards.get(alias) ?? 0) + 1);
+	return groups.map((group, index) => {
+		const file = JSON.stringify(`./${filenames[index]}.js`);
+		if (group.every(({ alias }) => declaringShards.get(alias) === 1))
+			return `export * from ${file};`;
+		const names = group.flatMap(({ bundle, alias }) => [
+			// like `export *`, without the value of a message named "default"
+			...(bundle.id === "default" ? [] : [JSON.stringify(bundle.id)]),
+			declaringShards.get(alias) === 1
+				? `type ${alias}`
+				: `type ${alias} as ${toBundleInputTypeAliasName(escapeIdentifier(bundle.id))}`,
+		]);
+		return `export { ${names.join(", ")} } from ${file};`;
+	});
+}
+
+/** Writes declarations from the same bundle and input metadata used by JavaScript generation. */
+export function emitTsDeclarations(args: {
+	compiledBundles: CompiledBundleWithMessages[];
+	bundles: BundleNested[];
+	settings: Pick<ProjectSettings, "locales">;
+	fallbackMap: Record<string, string | undefined>;
+	outputStructure: NonNullable<CompilerOptions["outputStructure"]>;
+	messageModuleSize?: number;
+}): Record<string, string> {
+	const output: Record<string, string> = {
+		"messages.d.ts":
+			'export * from "./messages/_index.js";\nexport * as m from "./messages/_index.js";\n',
 	};
-
-	const defaultHost = ts.createCompilerHost(compilerOptions, true);
-	const declarations: Record<string, string> = {};
-
-	const host: import("typescript").CompilerHost = {
-		...defaultHost,
-		fileExists: (fileName) => {
-			const normalized = normalizeFileName(fileName);
-			return files.has(normalized) || defaultHost.fileExists(fileName);
-		},
-		directoryExists: (directoryName) => {
-			const normalized = normalizeFileName(directoryName);
-			return (
-				virtualDirectories.has(normalized) ||
-				defaultHost.directoryExists?.(directoryName) === true
-			);
-		},
-		getDirectories: (directoryName) => {
-			const normalized = normalizeFileName(directoryName);
-			const children = Array.from(virtualDirectories).filter(
-				(dir) => path.dirname(dir) === normalized
-			);
-			return [
-				...(defaultHost.getDirectories?.(directoryName) ?? []),
-				...children.map((dir) => path.basename(dir)),
-			];
-		},
-		readFile: (fileName) => {
-			const normalized = normalizeFileName(fileName);
-			return files.get(normalized) ?? defaultHost.readFile(fileName);
-		},
-		getSourceFile: (
-			fileName,
-			languageVersion,
-			onError,
-			shouldCreateNewFile
-		) => {
-			const normalized = normalizeFileName(fileName);
-			const sourceText = files.get(normalized);
-			if (sourceText !== undefined) {
-				return ts.createSourceFile(fileName, sourceText, languageVersion, true);
-			}
-			return defaultHost.getSourceFile(
-				fileName,
-				languageVersion,
-				onError,
-				shouldCreateNewFile
-			);
-		},
-		writeFile: (fileName, text) => {
-			const relativePath = path
-				.relative(virtualRoot, fileName)
-				.split(path.sep)
-				.join(path.posix.sep);
-
-			if (!relativePath.startsWith("..")) {
-				declarations[relativePath] = text;
-			}
-		},
-	};
-
-	const program = ts.createProgram(
-		Array.from(files.keys()),
-		compilerOptions,
-		host
-	);
-
-	program.emit(undefined, undefined, undefined, true, {
-		afterDeclarations: [
-			createQuotedExportAliasTransformer(
-				ts,
-				quotedExportAliases,
-				normalizeFileName
-			),
-		],
+	const options = `{ locale?: ${args.settings.locales.map((locale) => JSON.stringify(locale)).join(" | ") || "never"} }`;
+	const declarations = args.compiledBundles.map((compiled, index) => {
+		const bundle = args.bundles[index]!;
+		const name = compiled.moduleId;
+		const alias =
+			compiled.inputTypeAliasName ?? toBundleInputTypeAliasName(name);
+		const inputs = bundle.declarations.filter(
+			(declaration) => declaration.type === "input-variable"
+		);
+		const parameters = `inputs${inputs.length === 0 ? "?" : ""}: ${alias}, options?: ${options}`;
+		const call = `(${parameters}) => LocalizedString`;
+		const parts =
+			!compiled.usesSharedFactory && bundleHasMarkup(bundle)
+				? ` & { parts: (${parameters}) => import("../runtime.js").MessagePart[] }`
+				: "";
+		const type =
+			(args.messageModuleSize ?? 1) > 1 && !parts
+				? `${inputs.length ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${alias}>`
+				: `(${call})${parts} & import("../runtime.js").MessageMetadata<${alias}, ${options}, ${buildMarkupSchemaType(bundle, compiled.matchTypes)}>`;
+		const comment =
+			compiled.englishMatchTableDoc ?? buildEnglishMatchTableDoc(bundle);
+		const exported =
+			name === bundle.id
+				? `export const ${name}: ${type};`
+				: `declare const ${name}: ${type};\nexport { ${name} as ${JSON.stringify(bundle.id)} };`;
+		return {
+			bundle,
+			name,
+			alias,
+			definition: `export type ${alias} = ${inputsType(inputs, compiled.matchTypes)};`,
+			exported: `${comment ? `/**\n${comment}\n*/\n` : ""}${exported}`,
+		};
 	});
 
-	return declarations;
-}
-
-const failedToEmitWithTscMessage = `Paraglide's "emitTsDeclarations" option failed to generate declaration files with TypeScript 7's "tsc" CLI, which did not produce a declaration file for every compiled file.
-
-Paraglide uses that CLI when the "typescript" package is version 7+, or when TypeScript 7 is installed as "@typescript/native". As a workaround, use TypeScript 5 or 6 without "@typescript/native", or disable "emitTsDeclarations".`;
-
-/**
- * Emits declarations by invoking the given TypeScript 7+ `tsc` CLI.
- *
- * The compiled output is written to a temporary directory because the
- * Go-based compiler cannot read from a virtual filesystem.
- */
-async function emitWithTscCli(
-	jsEntries: [string, string][],
-	tscJsPath: string
-): Promise<Record<string, string>> {
-	// entries escaping the output root cannot be declared safely; the
-	// compiler-API path silently drops them too (see the writeFile hook).
-	// Checked against both separator conventions because path.join interprets
-	// backslashes on Windows (`foo\..\..\x.js` would escape the temp dir).
-	const safeEntries = jsEntries.filter(([fileName]) =>
-		[path.posix, path.win32].every((platformPath) => {
-			const normalized = platformPath.normalize(fileName);
-			return (
-				normalized.startsWith("..") === false &&
-				platformPath.isAbsolute(normalized) === false
+	if (args.outputStructure === "message-modules") {
+		if (declarations.length === 0) {
+			output["messages.d.ts"] = "export {};\n";
+			output["messages/_index.d.ts"] =
+				localizedString.replace("export ", "") + "\n";
+			return output;
+		}
+		const size = args.messageModuleSize ?? 1;
+		const filenames: string[] = [];
+		const groups: (typeof declarations)[] = [];
+		for (let start = 0; start < declarations.length; start += size) {
+			const group = declarations.slice(start, start + size);
+			const name = size === 1 ? group[0]!.name : `_shard_${filenames.length}`;
+			filenames.push(name);
+			groups.push(group);
+			output[`messages/${name}.d.ts`] =
+				size === 1
+					? [group[0]!.exported, localizedString, group[0]!.definition].join(
+							"\n"
+						) + "\n"
+					: [
+							declarationShardTypesImport,
+							...group.map((d) => d.exported),
+							localizedString,
+							...group.map((d) => d.definition),
+						].join("\n") + "\n";
+		}
+		if (size > 1)
+			output[`messages/${shardTypesModule}.d.ts`] = declarationShardTypes(
+				args.settings.locales
 			);
-		})
+		output["messages/_index.d.ts"] =
+			size === 1
+				? messageModulesIndexDeclaration(
+						output,
+						declarations.find(({ bundle }) => bundle.id === "default")?.name
+					)
+				: [...groupedIndexExports(filenames, groups), localizedString].join(
+						"\n"
+					) + "\n";
+		return output;
+	}
+
+	output["messages/_index.d.ts"] = shareRuntimeTypes(
+		[
+			...declarations.map(({ exported }) => exported),
+			localizedString,
+			...declarations.map(({ definition }) => definition),
+		].join("\n") + "\n"
 	);
-
-	const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "paraglide-dts-"));
-
-	try {
-		const srcDir = path.join(tempDir, "src");
-		const outDir = path.join(tempDir, "dist");
-		await fs.mkdir(outDir, { recursive: true });
-
-		for (const [fileName, content] of safeEntries) {
-			const filePath = path.join(srcDir, fileName);
-			await fs.mkdir(path.dirname(filePath), { recursive: true });
-			await fs.writeFile(filePath, content);
-		}
-
-		const tsconfigPath = path.join(tempDir, "tsconfig.json");
-		await fs.writeFile(
-			tsconfigPath,
-			JSON.stringify({
-				compilerOptions: {
-					allowJs: true,
-					checkJs: true,
-					declaration: true,
-					emitDeclarationOnly: true,
-					esModuleInterop: true,
-					lib: ["ESNext", "DOM"],
-					module: "ESNext",
-					moduleResolution: "bundler",
-					// Declaration emit does not need a typecheck; skipping it also
-					// suppresses diagnostics about the project's environment (e.g.
-					// a missing @types/node) that are irrelevant to the output.
-					noCheck: true,
-					noEmitOnError: false,
-					outDir: "./dist",
-					rootDir: "./src",
-					skipLibCheck: true,
-					target: "ESNext",
-				},
-				files: safeEntries.map(([fileName]) => `./src/${fileName}`),
-			})
-		);
-
-		let tscError: unknown;
-		try {
-			await execFileAsync(
-				process.execPath,
-				[tscJsPath, "--project", tsconfigPath],
-				{
-					maxBuffer: 64 * 1024 * 1024,
-					// Electron-based hosts must execute tsc with their embedded
-					// Node instead of launching another instance of the host app.
-					// Harmless under node and bun.
-					env: { ...process.env, ELECTRON_RUN_AS_NODE: "1" },
-				}
+	for (const locale of args.settings.locales) {
+		const contents: string[] = [];
+		let needsTypes = false;
+		for (const { bundle, name, alias } of declarations) {
+			const message = bundle.messages.find(
+				(message) => message.locale === locale
 			);
-		} catch (error) {
-			// tsc exits non-zero when the input has diagnostics even though the
-			// declaration files are still emitted (noEmitOnError is false).
-			// Success is judged by the presence of declaration files below.
-			tscError = error;
-		}
-
-		const declarations: Record<string, string> = {};
-
-		for (const entry of await fs.readdir(outDir, { recursive: true })) {
-			if (entry.endsWith(".d.ts")) {
-				declarations[entry.split(path.sep).join(path.posix.sep)] =
-					await fs.readFile(path.join(outDir, entry), "utf-8");
+			const fallback = args.fallbackMap[locale];
+			if (!message && fallback) {
+				contents.push(
+					`export { ${name} } from ${JSON.stringify(`./${fallback}.js`)};`
+				);
+				continue;
 			}
-		}
-
-		// tsc emits exactly one .d.ts per input .js (even for inputs with
-		// syntax errors), so a count mismatch means the compiler died mid-emit
-		// and the result would be silently incomplete.
-		if (Object.keys(declarations).length !== safeEntries.length) {
-			throw new Error(withTscOutput(failedToEmitWithTscMessage, tscError), {
-				cause: tscError,
-			});
-		}
-
-		return declarations;
-	} finally {
-		await fs.rm(tempDir, { recursive: true, force: true });
-	}
-}
-
-/**
- * Appends the spawned compiler's output to the error message.
- *
- * tsc writes diagnostics to stdout, which `execFile` errors expose only as a
- * property — not in the message — so error reporters that print only
- * message/stack would otherwise hide the reason the emit failed.
- */
-function withTscOutput(message: string, tscError: unknown): string {
-	const { stdout, stderr } = (tscError ?? {}) as {
-		stdout?: unknown;
-		stderr?: unknown;
-	};
-	const output = [stdout, stderr]
-		.filter((value): value is string => typeof value === "string")
-		.join("\n")
-		.trim();
-	if (output === "") {
-		return message;
-	}
-	const truncated =
-		output.length > 4000 ? output.slice(0, 4000) + "\n… (truncated)" : output;
-	return `${message}\n\nCompiler output:\n${truncated}`;
-}
-
-type QuotedExportAliases = Map<string, Map<string, Set<string>>>;
-
-function collectQuotedExportAliases(
-	ts: TypeScript,
-	files: Map<string, string>
-): QuotedExportAliases {
-	const aliases: QuotedExportAliases = new Map();
-
-	for (const [fileName, content] of files) {
-		const sourceFile = ts.createSourceFile(
-			fileName,
-			content,
-			ts.ScriptTarget.ESNext,
-			true,
-			ts.ScriptKind.JS
-		);
-		const fileAliases = new Map<string, Set<string>>();
-
-		const visit = (node: import("typescript").Node) => {
-			if (
-				ts.isExportDeclaration(node) &&
-				node.exportClause &&
-				ts.isNamedExports(node.exportClause)
-			) {
-				for (const specifier of node.exportClause.elements) {
-					if (ts.isStringLiteral(specifier.name)) {
-						const localName = moduleExportNameText(
-							specifier.propertyName ?? specifier.name
-						);
-						const exportedName = specifier.name.text;
-						const localAliases =
-							fileAliases.get(localName) ?? new Set<string>();
-						localAliases.add(exportedName);
-						fileAliases.set(localName, localAliases);
-					}
-				}
-			}
-			ts.forEachChild(node, visit);
-		};
-
-		visit(sourceFile);
-
-		if (fileAliases.size > 0) {
-			aliases.set(fileName, fileAliases);
-		}
-	}
-
-	return aliases;
-}
-
-function createQuotedExportAliasTransformer(
-	ts: TypeScript,
-	quotedExportAliases: QuotedExportAliases,
-	normalizeFileName: (fileName: string) => string
-): import("typescript").TransformerFactory<
-	import("typescript").SourceFile | import("typescript").Bundle
-> {
-	return (context) => {
-		const visitSourceFile = (sourceFile: import("typescript").SourceFile) => {
-			const fileAliases = quotedExportAliases.get(
-				normalizeFileName(sourceFile.fileName)
+			needsTypes = true;
+			const call = `(inputs: ${alias}) => LocalizedString`;
+			const hasParts = message?.variants.some((variant) =>
+				variant.pattern.some(
+					(part) =>
+						part.type === "markup-start" ||
+						part.type === "markup-end" ||
+						part.type === "markup-standalone"
+				)
 			);
-
-			if (!fileAliases) {
-				return sourceFile;
-			}
-
-			const visit = (
-				node: import("typescript").Node
-			): import("typescript").VisitResult<import("typescript").Node> => {
-				if (
-					ts.isExportDeclaration(node) &&
-					node.exportClause &&
-					ts.isNamedExports(node.exportClause)
-				) {
-					const elements: import("typescript").ExportSpecifier[] = [];
-					const emitted = new Set<string>();
-
-					for (const specifier of node.exportClause.elements) {
-						const localName = moduleExportNameText(
-							specifier.propertyName ?? specifier.name
-						);
-						const exportedName = moduleExportNameText(specifier.name);
-						const shouldQuote = fileAliases.get(localName)?.has(exportedName);
-						const nextSpecifier = shouldQuote
-							? ts.factory.updateExportSpecifier(
-									specifier,
-									specifier.isTypeOnly,
-									specifier.propertyName,
-									ts.factory.createStringLiteral(exportedName)
-								)
-							: specifier;
-						const emittedKey = `${moduleExportNameText(
-							nextSpecifier.propertyName ?? nextSpecifier.name
-						)}\0${moduleExportNameText(nextSpecifier.name)}`;
-
-						if (!emitted.has(emittedKey)) {
-							elements.push(nextSpecifier);
-							emitted.add(emittedKey);
-						}
-					}
-
-					return ts.factory.updateExportDeclaration(
-						node,
-						node.modifiers,
-						node.isTypeOnly,
-						ts.factory.updateNamedExports(node.exportClause, elements),
-						node.moduleSpecifier,
-						node.attributes
-					);
-				}
-
-				return ts.visitEachChild(node, visit, context);
-			};
-
-			return ts.visitEachChild(sourceFile, visit, context);
-		};
-
-		return (sourceFileOrBundle) => {
-			if ("fileName" in sourceFileOrBundle) {
-				return visitSourceFile(sourceFileOrBundle);
-			}
-			return sourceFileOrBundle;
-		};
-	};
-}
-
-function moduleExportNameText(name: import("typescript").ModuleExportName) {
-	return name.text;
-}
-
-async function importTypeScript(): Promise<TypeScript> {
-	try {
-		return await import("typescript");
-	} catch (cause) {
-		if (isMissingTypeScriptPackageError(cause)) {
-			throw new Error(missingTypeScriptMessage);
+			const type = hasParts
+				? `(${call}) & { parts: (inputs: ${alias}) => import("../runtime.js").MessagePart[] }`
+				: call;
+			contents.push(`export const ${name}: ${type};`);
 		}
-		throw new Error(failedToLoadTypeScriptMessage, { cause });
+		if (needsTypes) {
+			contents.push(localizedString);
+			const seen = new Set<string>();
+			for (const { alias, definition } of declarations) {
+				if (!seen.has(alias)) contents.push(definition);
+				seen.add(alias);
+			}
+		}
+		output[`messages/${locale}.d.ts`] = shareRuntimeTypes(
+			contents.join("\n") + (contents.length ? "\n" : "")
+		);
 	}
-}
-
-function isMissingTypeScriptPackageError(cause: unknown): boolean {
-	if (cause instanceof Error === false) {
-		return false;
-	}
-	if ("code" in cause && cause.code !== "ERR_MODULE_NOT_FOUND") {
-		return false;
-	}
-	return cause.message.includes("Cannot find package 'typescript'");
+	return output;
 }

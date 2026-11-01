@@ -1,5 +1,19 @@
 # @inlang/paraglide-js
 
+## 2.29.3
+
+### Patch Changes
+
+- d34c86c: Stop the bundler plugins from rewriting unchanged output when a watch event arrives before `buildStart` or after a failed compile. Such a recompile now starts from the hashes of the output on disk, as `buildStart` does, so it writes only the files that differ. Previously it rewrote every generated file, and in Vite each rewritten message module became another watch event: with `message-modules` and a few thousand messages, a dev server could stay busy for minutes after startup.
+
+## 2.29.2
+
+### Patch Changes
+
+- 6146ffd: Emit TypeScript declarations with the `tsc` of TypeScript 7 when it is installed beside TypeScript 5/6 under the `@typescript/native` alias, as documented for `svelte-check --tsgo`. On large `locale-modules` projects this is much faster than the compiler API of TypeScript 5/6. The declarations change the way they do when upgrading `typescript` to 7: formatting, ordering and some JSDoc.
+
+  When `additionalFiles` contains JavaScript, keep using the TypeScript 5/6 compiler API to preserve project dependency resolution and inferred types.
+
 ## 2.29.1
 
 ### Patch Changes

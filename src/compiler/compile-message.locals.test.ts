@@ -26,7 +26,7 @@ async function compileAndImport(args: {
 	const source =
 		createRegistry() +
 		"\nexport const locals_message = " +
-		code.replaceAll("registry.", "");
+		code.replaceAll("__paraglideRegistry.", "");
 	const module = await import(
 		"data:text/javascript;base64," + Buffer.from(source).toString("base64")
 	);
@@ -140,7 +140,7 @@ describe("emits only the locals a message reads", () => {
 
 		expect(code).toContain("const countValue = i?.count;");
 		expect(code).toContain(
-			'const countPlural = registry.plural("en", countValue, {}, true);'
+			'const countPlural = __paraglideRegistry.plural("en", countValue, {}, true);'
 		);
 		expect(code).toContain("const nameValue = i?.name;");
 		expect(code).not.toContain("unusedPlural");

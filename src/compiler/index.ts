@@ -18,7 +18,11 @@ export type {
 export type { Runtime } from "./runtime/type.js";
 export type { ServerRuntime } from "./server/type.js";
 export { compile } from "./compile.js";
-export { compileProject } from "./compile-project.js";
+export {
+	compileProject,
+	compileCatalog,
+	type CatalogInput,
+} from "./compile-project.js";
 export { compileBundle } from "./compile-bundle.js";
 export {
 	compileMessage,

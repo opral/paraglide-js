@@ -1,9 +1,11 @@
 ---
-title: Checking Translations
-description: Find missing translations, missing variables and unused messages in a Paraglide JS project with inlang check, locally and in CI.
+title: "Checking Translations: Find Missing and Unused Translation Keys"
+description: Find unused translation keys, missing translations and missing variables in a Paraglide JS project with one command, and fail CI when a translation is missing.
 ---
 
 # Checking Translations
+
+Use `inlang check` to find unused translation keys, find missing translations and fail CI when a translation is missing. It works in any Paraglide JS project, such as SvelteKit, React, TanStack Start, Next.js and Astro.
 
 The [inlang CLI](https://inlang.com/m/2qj2w8pu/app-inlang-cli)'s `check` command finds problems in your translations before they ship:
 
@@ -98,6 +100,8 @@ locale or check selection, or a machine-readable report.
 
 ## Unused messages
 
+An unused message is a translation key that no file in your source code uses. To find unused translation keys, run only this check:
+
 ```sh
 npx @inlang/cli check --project ./project.inlang --unused-messages
 ```
@@ -183,7 +187,7 @@ Some constructs make the analysis incomplete in any analyzed file, even when the
 
 ## Run checks in CI
 
-`check` exits with `1` when it reports findings or project errors, so it fails a CI job without extra configuration. Use `--locales` to fail only on the locales you ship. Findings that don't belong to a locale, such as unused messages, and project errors are always reported:
+To fail CI on missing translations, run `check` in a pull request workflow. `check` exits with `1` when it reports findings or project errors, so it fails a CI job without extra configuration. Use `--locales` to fail only on the locales you ship. Findings that don't belong to a locale, such as unused messages, and project errors are always reported:
 
 ```yaml
 # .github/workflows/i18n.yml

@@ -1,5 +1,6 @@
 import { afterEach, expect, test, vi } from "vitest";
 import * as sdk from "@inlang/sdk";
+import { createCatalogLoader } from "@inlang/sdk/catalog";
 import { memfs } from "memfs";
 import { loadProjectInMemory, newProject } from "@inlang/sdk";
 import messageFormat from "@inlang/plugin-message-format";
@@ -8,9 +9,9 @@ import { compileProject } from "./compile-project.js";
 import { compile } from "./compile.js";
 import { paraglideConfigSchema } from "../services/config/config-schema.js";
 
-vi.mock("@inlang/sdk", async (importOriginal) => ({
-	...(await importOriginal<typeof import("@inlang/sdk")>()),
-	loadProjectFromDirectory: vi.fn(),
+vi.mock("@inlang/sdk/catalog", async (importOriginal) => ({
+	...(await importOriginal<typeof import("@inlang/sdk/catalog")>()),
+	createCatalogLoader: vi.fn(),
 }));
 
 type Catalogs = Record<string, Record<string, unknown>>;
@@ -132,44 +133,37 @@ test("config accepts checkTranslations as a boolean", () => {
 	).toBe(false);
 });
 
-test.each([false, true])(
-	"failed checks preserve output and release the lock when close also fails: %s",
-	async (closeFails) => {
-		const invalid = await createProject({ en: { hello: "Hello" } });
-		const valid = await createProject({
-			en: { hello: "Hello" },
-			pt: { hello: "Olá" },
-			es: { hello: "Hola" },
+test("failed checks preserve output and release the compilation queue", async () => {
+	const invalid = await createProject({ en: { hello: "Hello" } });
+	const valid = await createProject({
+		en: { hello: "Hello" },
+		pt: { hello: "Olá" },
+		es: { hello: "Hola" },
+	});
+	const load = vi.fn();
+	for (const project of [invalid, valid]) {
+		load.mockResolvedValueOnce({
+			type: "reset",
+			settings: await project.settings.get(),
+			bundles: await sdk.selectBundleNested(project.db).execute(),
+			diagnostics: [],
 		});
-		const close = invalid.close;
-		const closeSpy = vi.spyOn(invalid, "close").mockImplementation(async () => {
-			await close();
-			projects.splice(projects.indexOf(invalid), 1);
-			if (closeFails) throw new Error("cleanup failed");
-		});
-		vi.spyOn(sdk, "loadProjectFromDirectory")
-			.mockResolvedValueOnce({
-				...invalid,
-				errors: { get: async () => [...(await invalid.errors.get())] },
-			})
-			.mockResolvedValueOnce({
-				...valid,
-				errors: { get: async () => [...(await valid.errors.get())] },
-			});
-		const { fs, vol } = memfs({ "/output/messages.js": "previous output" });
-		const options = {
-			...strictOptions,
-			project: "/project.inlang",
-			outdir: "/output",
-			fs: fs as unknown as typeof import("node:fs"),
-		};
-		await expect(compile(options)).rejects.toThrow(/missing-translation/);
-		expect(closeSpy).toHaveBeenCalledOnce();
-		expect(vol.toJSON()).toEqual({ "/output/messages.js": "previous output" });
-		await expect(compile(options)).resolves.toHaveProperty("outputHashes");
-		projects.splice(projects.indexOf(valid), 1);
-		expect(fs.readFileSync("/output/messages.js", "utf8")).not.toBe(
-			"previous output"
-		);
 	}
-);
+	vi.mocked(createCatalogLoader).mockReturnValue({ load } as ReturnType<
+		typeof createCatalogLoader
+	>);
+	const { fs, vol } = memfs({ "/output/messages.js": "previous output" });
+	const options = {
+		...strictOptions,
+		project: "/project.inlang",
+		outdir: "/output",
+		fs: fs as unknown as typeof import("node:fs"),
+	};
+	await expect(compile(options)).rejects.toThrow(/missing-translation/);
+	expect(vol.toJSON()).toEqual({ "/output/messages.js": "previous output" });
+	await expect(compile(options)).resolves.toHaveProperty("outputHashes");
+	expect(load).toHaveBeenCalledTimes(2);
+	expect(fs.readFileSync("/output/messages.js", "utf8")).not.toBe(
+		"previous output"
+	);
+});

@@ -1,30 +1,12 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# dynamically generated 
-src/pages
-src/i18n/generated.ts
-messages
-project.inlang
+.work/
+node_modules/
+dist/
+*.partial.json
+/results.json
+/summary.json
+/summary.csv
+/correctness.json
+/build-manifest.json
+/run-source-hashes.json
+/fixture-manifest.json
+/RUN.md

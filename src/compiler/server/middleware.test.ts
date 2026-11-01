@@ -1902,23 +1902,19 @@ test.each(
 		"locked body",
 		"html",
 	].flatMap((kind) =>
-		[false, true].flatMap((experimentalMiddlewareLocaleSplitting) =>
-			(["document", "navigation"] as const).map((redirect) => ({
-				kind,
-				experimentalMiddlewareLocaleSplitting,
-				redirect,
-			}))
-		)
+		(["document", "navigation"] as const).map((redirect) => ({
+			kind,
+			redirect,
+		}))
 	)
 )(
-	"$redirect redirects handle callback returns: $kind with locale splitting=$experimentalMiddlewareLocaleSplitting",
-	async ({ kind, experimentalMiddlewareLocaleSplitting, redirect }) => {
+	"$redirect redirects handle callback returns: $kind",
+	async ({ kind, redirect }) => {
 		const runtime = await createParaglide({
 			blob: await newProject({
 				settings: { baseLocale: "en", locales: ["en", "fr"] },
 			}),
 			strategy: ["preferredLanguage", "url"],
-			experimentalMiddlewareLocaleSplitting,
 		});
 		let downstream: unknown;
 		let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
@@ -1954,44 +1950,13 @@ test.each(
 						: "Accept-Language"
 				);
 				const html = await htmlResponse.text();
-				expect(html).toContain("<body>ok</body>");
-				expect(html.includes("globalThis.__paraglide.ssr")).toBe(
-					experimentalMiddlewareLocaleSplitting
-				);
+				expect(html).toBe("<html><head></head><body>ok</body></html>");
 			} else expect(response).toBe(downstream);
 		} finally {
 			reader?.releaseLock();
 		}
 	}
 );
-
-test("locale splitting accepts responses created before the global Response is replaced", async () => {
-	const runtime = await createParaglide({
-		blob: await newProject({
-			settings: { baseLocale: "en", locales: ["en", "de"] },
-		}),
-		strategy: ["globalVariable", "baseLocale"],
-		experimentalMiddlewareLocaleSplitting: true,
-	});
-	const NativeResponse = Response;
-	const downstream = new NativeResponse(
-		"<html><head></head><body>ok</body></html>",
-		{ headers: { "Content-Type": "text/html" } }
-	);
-	vi.stubGlobal("Response", class extends NativeResponse {});
-	try {
-		expect(downstream).not.toBeInstanceOf(Response);
-		const response = await runtime.paraglideMiddleware(
-			new Request("https://example.com/page"),
-			() => downstream
-		);
-		const html = await response.text();
-		expect(html).toContain("globalThis.__paraglide.ssr");
-		expect(html).toContain("<body>ok</body>");
-	} finally {
-		vi.unstubAllGlobals();
-	}
-});
 
 // https://github.com/opral/inlang-paraglide-js/issues/477
 test("does not catch errors thrown by downstream resolve call", async () => {
@@ -2331,41 +2296,45 @@ test("middleware works with multiple async custom strategies", async () => {
 	expect(regionCallCount).toBe(1);
 });
 
-test("injected script reuses the Content-Security-Policy nonce when present and omits it otherwise", async () => {
+test("passes streamed HTML through without consuming or rewriting the body", async () => {
 	const runtime = await createParaglide({
 		blob: await newProject({
-			settings: {
-				baseLocale: "en",
-				locales: ["en", "de"],
-			},
+			settings: { baseLocale: "en", locales: ["en", "de"] },
 		}),
-		strategy: ["globalVariable", "baseLocale"],
-		experimentalMiddlewareLocaleSplitting: true,
+		strategy: ["baseLocale"],
 	});
-
-	const request = new Request(new URL("https://example.com/page"), {
-		headers: { "Sec-Fetch-Dest": "document" },
+	// Keep the stream open until middleware returns: buffering would never resolve.
+	let controller!: ReadableStreamDefaultController<Uint8Array>;
+	const body = new ReadableStream<Uint8Array>({
+		start(value) {
+			controller = value;
+		},
 	});
-
-	// With a CSP nonce -> the injected script reuses it.
-	const responseWithCsp = await runtime.paraglideMiddleware(request, () => {
-		return new Response("<html><head></head><body></body></html>", {
-			headers: {
-				"Content-Type": "text/html",
-				"Content-Security-Policy":
-					"default-src 'self'; script-src 'nonce-abc123' 'strict-dynamic'",
-			},
-		});
+	const html = "<html><head></head><body>Hello</body></html>";
+	const downstream = new Response(body, {
+		status: 201,
+		headers: {
+			"Content-Type": "text/html",
+			"Content-Length": String(html.length),
+			"Content-Security-Policy": "script-src 'nonce-test'",
+		},
 	});
-	expect(await responseWithCsp.text()).toContain('<script nonce="abc123">');
-
-	// Without a CSP header -> the script is still injected, without a nonce.
-	const responseWithoutCsp = await runtime.paraglideMiddleware(request, () => {
-		return new Response("<html><head></head><body></body></html>", {
-			headers: { "Content-Type": "text/html" },
-		});
-	});
-	const html = await responseWithoutCsp.text();
-	expect(html).toContain("globalThis.__paraglide.ssr");
-	expect(html).not.toContain("nonce=");
+	try {
+		const response = await runtime.paraglideMiddleware(
+			new Request("https://example.com/"),
+			() => downstream
+		);
+		expect(response.body).toBe(body);
+		expect(response.bodyUsed).toBe(false);
+		expect(response.status).toBe(201);
+		expect(response.headers.get("Content-Length")).toBe(String(html.length));
+		expect(response.headers.get("Content-Security-Policy")).toBe(
+			"script-src 'nonce-test'"
+		);
+		controller.enqueue(new TextEncoder().encode(html));
+		controller.close();
+		expect(await response.text()).toBe(html);
+	} finally {
+		if (!body.locked) await body.cancel();
+	}
 });

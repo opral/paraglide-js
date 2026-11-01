@@ -96,16 +96,15 @@ export const paraglideConfigSchema = v.object({
 	),
 	strategy: v.optional(v.array(strategyNameSchema)),
 	routeStrategies: v.optional(v.array(routeStrategySchema)),
-	experimentalMiddlewareLocaleSplitting: v.optional(v.boolean()),
 	localStorageKey: v.optional(v.string()),
 	isServer: v.optional(v.string()),
+	isDevelopment: v.optional(v.string()),
 	experimentalStaticLocale: v.optional(v.string()),
 	cookieName: v.optional(v.string()),
 	cookieMaxAge: v.optional(v.number()),
 	cookieDomain: v.optional(v.string()),
 	cookieSameSite: v.optional(v.picklist(["lax", "strict", "none"])),
 	cookieSecure: v.optional(v.union([v.boolean(), v.literal("auto")])),
-	additionalFiles: v.optional(v.record(v.string(), v.string())),
 	emitPrettierIgnore: v.optional(v.boolean()),
 	emitReadme: v.optional(v.boolean()),
 	emitTsDeclarations: v.optional(v.boolean()),
@@ -122,7 +121,15 @@ export const paraglideConfigSchema = v.object({
 	disableAsyncLocalStorage: v.optional(v.boolean()),
 	emitGitIgnore: v.optional(v.boolean()),
 	outputStructure: v.optional(
-		v.picklist(["message-modules", "locale-modules"])
+		v.picklist(["message-modules", "locale-modules", "virtual-modules"])
+	),
+	messageModuleSize: v.optional(
+		v.pipe(
+			v.number(),
+			v.integer(),
+			v.minValue(1),
+			v.maxValue(Number.MAX_SAFE_INTEGER)
+		)
 	),
 	cleanOutdir: v.optional(v.boolean()),
 	checkTranslations: v.optional(v.boolean()),

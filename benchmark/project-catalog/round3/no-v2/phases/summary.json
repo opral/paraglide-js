@@ -1,0 +1,128 @@
+{
+  "groups": [
+    {
+      "group": "phases/6400/catalog/shards",
+      "size": 6400,
+      "backend": "catalog",
+      "layout": "shards",
+      "mode": "phases",
+      "trials": 5,
+      "totalMs": 166.787042,
+      "importMs": 64.412167,
+      "coldWithImportMs": 239.27220900000003,
+      "minMs": 146.954041,
+      "maxMs": 223.744084,
+      "phases": {
+        "load": 112.58275,
+        "catalogReady": 112.587042,
+        "compile": 42.983374999999995,
+        "write": 14.085792000000026,
+        "close": 0.0010000000000331966,
+        "total": 166.787042
+      },
+      "files": 40,
+      "dts": 18,
+      "bytes": 5098064,
+      "hash": "9414aa99518199d468e4cd1168bdc880cb24cef844b8f940773e7bbdf42edba6",
+      "pluginSha256": "d06d2899349517f0a7010ea1e47350c3f0f7f45dd4579cb7fd2c64ccd25a926c"
+    },
+    {
+      "group": "phases/6400/catalog-optimized/shards",
+      "size": 6400,
+      "backend": "catalog-optimized",
+      "layout": "shards",
+      "mode": "phases",
+      "trials": 5,
+      "totalMs": 125.41329200000001,
+      "importMs": 69.02883399999999,
+      "coldWithImportMs": 194.442126,
+      "minMs": 120.57004099999999,
+      "maxMs": 141.53429200000002,
+      "phases": {
+        "load": 65.58479200000001,
+        "catalogReady": 65.58837500000001,
+        "compile": 48.301083000000006,
+        "write": 11.905207999999988,
+        "close": 0.0009999999999763531,
+        "total": 125.41329200000001
+      },
+      "files": 40,
+      "dts": 18,
+      "bytes": 5098124,
+      "hash": "9414aa99518199d468e4cd1168bdc880cb24cef844b8f940773e7bbdf42edba6",
+      "pluginSha256": "0aff1308418564264a713be0c0351f84f81678c0c615d23577074f2c304a6d6b"
+    },
+    {
+      "group": "phases/13300/catalog/shards",
+      "size": 13300,
+      "backend": "catalog",
+      "layout": "shards",
+      "mode": "phases",
+      "trials": 5,
+      "totalMs": 371.507584,
+      "importMs": 92.423125,
+      "coldWithImportMs": 464.350875,
+      "minMs": 278.83941699999997,
+      "maxMs": 432.50479199999995,
+      "phases": {
+        "load": 258.011541,
+        "catalogReady": 258.015959,
+        "compile": 86.48904199999998,
+        "write": 28.798082999999963,
+        "close": 0.001334000000042579,
+        "total": 371.507584
+      },
+      "files": 66,
+      "dts": 31,
+      "bytes": 10487869,
+      "hash": "b6c928145cde46593cfb0f11e2aca4ab1d016dadf0f6333155d4ad1533c19826",
+      "pluginSha256": "d06d2899349517f0a7010ea1e47350c3f0f7f45dd4579cb7fd2c64ccd25a926c"
+    },
+    {
+      "group": "phases/13300/catalog-optimized/shards",
+      "size": 13300,
+      "backend": "catalog-optimized",
+      "layout": "shards",
+      "mode": "phases",
+      "trials": 5,
+      "totalMs": 259.063709,
+      "importMs": 90.07262499999999,
+      "coldWithImportMs": 349.13633400000003,
+      "minMs": 203.58158299999997,
+      "maxMs": 320.626166,
+      "phases": {
+        "load": 144.88179200000002,
+        "catalogReady": 144.885542,
+        "compile": 88.10920799999997,
+        "write": 30.709833000000003,
+        "close": 0.0013330000000451037,
+        "total": 259.063709
+      },
+      "files": 66,
+      "dts": 31,
+      "bytes": 10487929,
+      "hash": "b6c928145cde46593cfb0f11e2aca4ab1d016dadf0f6333155d4ad1533c19826",
+      "pluginSha256": "0aff1308418564264a713be0c0351f84f81678c0c615d23577074f2c304a6d6b"
+    }
+  ],
+  "pairs": [
+    {
+      "size": 6400,
+      "layout": "shards",
+      "backends": [
+        "catalog",
+        "catalog-optimized"
+      ],
+      "equal": true
+    },
+    {
+      "size": 13300,
+      "layout": "shards",
+      "backends": [
+        "catalog",
+        "catalog-optimized"
+      ],
+      "equal": true
+    }
+  ]
+}

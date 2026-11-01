@@ -1,31 +1,49 @@
 import type { ProjectSettings } from "@inlang/sdk";
 import type { CompiledBundleWithMessages } from "../compile-bundle.js";
-import { toSafeModuleId } from "../safe-module-id.js";
+import { allocateModuleIds, toSafeModuleId } from "../safe-module-id.js";
 import { inputsType } from "../jsdoc-types.js";
 import { toBundleInputTypeAliasName } from "../compile-bundle.js";
+import { registryBinding } from "../registry.js";
 
 const localeImportPrefix = "__";
 
-export function messageReferenceExpression(locale: string, bundleId: string) {
-	return `${localeImportPrefix}${toSafeModuleId(locale)}.${toSafeModuleId(bundleId)}`;
+/**
+ * Allocates the binding of each message, which cannot be one of the locale
+ * namespaces the index imports.
+ */
+export function moduleIds(
+	bundleIds: Iterable<string>,
+	locales: readonly string[]
+): Map<string, string> {
+	return allocateModuleIds(
+		bundleIds,
+		new Set(
+			locales.map((locale) => `${localeImportPrefix}${toSafeModuleId(locale)}`)
+		)
+	);
+}
+
+export function messageReferenceExpression(
+	locale: string,
+	_bundleId: string,
+	moduleId: string
+) {
+	return `${localeImportPrefix}${toSafeModuleId(locale)}.${moduleId}`;
 }
 
 export function generateOutput(
 	compiledBundles: CompiledBundleWithMessages[],
 	settings: Pick<ProjectSettings, "locales" | "baseLocale">,
-	fallbackMap: Record<string, string | undefined>,
-	experimentalMiddlewareLocaleSplitting = false
+	fallbackMap: Record<string, string | undefined>
 ): Record<string, string> {
-	const runtimeImport = experimentalMiddlewareLocaleSplitting
-		? `import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer, experimentalStaticLocale } from "../runtime.js"`
-		: `import { getLocale, experimentalStaticLocale } from "../runtime.js"`;
+	const runtimeImport = `import { getLocale, experimentalStaticLocale${compiledBundles.some((bundle) => bundle.usesDevelopmentDiagnostics) ? ", isDevelopment" : ""} } from "../runtime.js"`;
 
 	const indexFile = [
 		runtimeImport,
 		"",
 		`/** @typedef {import('../runtime.js').LocalizedString} LocalizedString */`,
 		...compiledBundles.map((compiledBundle) => {
-			const bundleModuleId = toSafeModuleId(compiledBundle.bundle.node.id);
+			const bundleModuleId = compiledBundle.moduleId;
 			const inputTypeAliasName =
 				compiledBundle.inputTypeAliasName ??
 				toBundleInputTypeAliasName(bundleModuleId);
@@ -60,7 +78,7 @@ export function generateOutput(
 
 		for (const compiledBundle of compiledBundles) {
 			const compiledMessage = compiledBundle.messages[locale];
-			const bundleModuleId = toSafeModuleId(compiledBundle.bundle.node.id);
+			const bundleModuleId = compiledBundle.moduleId;
 			const bundleId = compiledBundle.bundle.node.id;
 			const inputs =
 				compiledBundle.bundle.node.declarations?.filter(
@@ -83,7 +101,7 @@ export function generateOutput(
 					file += `\nexport { ${bundleModuleId} } from "./${fallbackLocale}.js"`;
 				} else {
 					// no fallback exists, render the bundleId
-					file += `\n/** @type {(inputs: ${inputTypeAliasName}) => LocalizedString} */\nexport const ${bundleModuleId} = () => /** @type {LocalizedString} */ ('${bundleId}')`;
+					file += `\n/** @type {(inputs: ${inputTypeAliasName}) => LocalizedString} */\nexport const ${bundleModuleId} = () => /** @type {LocalizedString} */ (${JSON.stringify(bundleId)})`;
 				}
 				continue;
 			}
@@ -96,7 +114,7 @@ export function generateOutput(
 
 		// add import if used
 		if (usesRegistry) {
-			file = `import * as registry from "../registry.js"\n` + file;
+			file = `import * as ${registryBinding} from "../registry.js"\n` + file;
 		}
 
 		// add LocalizedString typedef reference if used

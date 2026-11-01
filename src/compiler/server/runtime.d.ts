@@ -17,7 +17,6 @@ export declare const {
 	trailingSlash,
 	serverAsyncLocalStorage,
 	getServerAsyncLocalStorage,
-	experimentalMiddlewareLocaleSplitting,
 	isServer,
 	disableAsyncLocalStorage,
 	getLocale,
@@ -43,7 +42,6 @@ export declare const {
 	extractLocaleFromHeader,
 	extractLocaleFromNavigator,
 	withMessageCallTracking,
-	trackMessageCall,
 	getStrategyForUrl,
 	isExcludedByRouteStrategy,
 }: Runtime;

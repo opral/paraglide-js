@@ -5,13 +5,34 @@ import {
 	flattenManifestPages,
 	formatNavTitle,
 	getDocsSections,
+	loadDocsPage,
 	normalizeMarkdownAlerts,
 	resolveHtmlLinks,
 	resolveRelativeUrl,
 	rewriteOldMarketplaceUrl,
 } from "./data";
+import { paraglideStaticPages } from "../ssg/static-pages";
 
 describe("Paraglide docs data helpers", () => {
+	it("publishes the React guide with readable content, navigation, and prerendering", async () => {
+		const page = await loadDocsPage("/react");
+
+		expect(page.source).toBe("./examples/react/README.md");
+		expect(page.headings[0]).toMatchObject({
+			level: 1,
+			text: "React + Vite i18n with Paraglide JS",
+		});
+		expect(page.markdown).toContain("m.greeting");
+		expect(page.sections.flatMap((section) => section.pages)).toContainEqual(
+			expect.objectContaining({
+				route: "/react",
+				title: "React + Vite",
+				isExternal: false,
+			})
+		);
+		expect(paraglideStaticPages()).toContain("/react");
+	});
+
 	it("flattens manifest pages to standalone routes", () => {
 		const pages = flattenManifestPages();
 

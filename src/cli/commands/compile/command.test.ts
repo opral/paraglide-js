@@ -188,6 +188,8 @@ test("compile exposes and forwards compiler options missing from the CLI (#757)"
 	expect(help).toContain("--no-clean-outdir");
 	expect(help).toContain("--experimental-static-locale <expression>");
 	expect(help).toContain("--disable-async-local-storage");
+	expect(help).toContain("--message-module-size");
+	expect(help).toContain("--is-development <expression>");
 
 	await expect(
 		compileCommand.parseAsync(
@@ -200,6 +202,10 @@ test("compile exposes and forwards compiler options missing from the CLI (#757)"
 				"--experimental-static-locale",
 				'import.meta.env.PARAGLIDE_LOCALE ?? "en"',
 				"--disable-async-local-storage",
+				"--message-module-size",
+				"512",
+				"--is-development",
+				"false",
 				"--silent",
 			],
 			{ from: "user" }
@@ -211,11 +217,31 @@ test("compile exposes and forwards compiler options missing from the CLI (#757)"
 		expect.objectContaining({
 			cleanOutdir: false,
 			disableAsyncLocalStorage: true,
+			messageModuleSize: 512,
+			isDevelopment: "false",
 			experimentalStaticLocale: 'import.meta.env.PARAGLIDE_LOCALE ?? "en"',
 			previousCompilation: undefined,
 		})
 	);
 });
+
+test.each(["0", "1.5", "9007199254740992", "Infinity", "-1"])(
+	"compile rejects invalid --message-module-size %s before compiling",
+	async (size) => {
+		const compileMock = vi.fn();
+		vi.doMock("../../../compiler/compile.js", () => ({ compile: compileMock }));
+		const { compileCommand } = await import("./command.js");
+		compileCommand
+			.exitOverride()
+			.configureOutput({ writeErr: () => undefined });
+		await expect(
+			compileCommand.parseAsync(["--message-module-size", size, "--silent"], {
+				from: "user",
+			})
+		).rejects.toThrow(/positive safe integer/);
+		expect(compileMock).not.toHaveBeenCalled();
+	}
+);
 
 test("compile --watch seeds existing outdir and disables cleaning on first compile (#688)", async () => {
 	const testDirectory = await mkdtemp(path.join(tmpdir(), "paraglide-cli-"));
@@ -683,3 +709,85 @@ test("compile --watch forwards the newly exposed compiler options (#757)", async
 		})
 	);
 });
+
+test.each([
+	{ configValue: undefined, flags: [], expected: true },
+	{ configValue: false, flags: [], expected: false },
+	{ configValue: false, flags: ["--emit-ts-declarations"], expected: true },
+	{ configValue: true, flags: ["--no-emit-ts-declarations"], expected: false },
+])(
+	"CLI declaration default and overrides: %j",
+	async ({ configValue, flags, expected }) => {
+		const { workspace, projectDir } = await createWorkspace();
+		await writeConfig(projectDir, path.join(workspace, "output"));
+		if (configValue !== undefined) {
+			await writeFile(
+				path.join(projectDir, "paraglide.config.ts"),
+				`export default { outdir: ${JSON.stringify(path.join(workspace, "output"))}, emitTsDeclarations: ${configValue} }`
+			);
+		}
+		const compileMock = vi.fn().mockResolvedValue({ outputHashes: {} });
+		vi.doMock("../../../compiler/compile.js", () => ({ compile: compileMock }));
+		const exitError = new Error("process.exit");
+		vi.spyOn(process, "exit").mockImplementation(() => {
+			throw exitError;
+		});
+		const { compileCommand } = await import("./command.js");
+		await expect(
+			compileCommand.parseAsync(
+				["--project", projectDir, "--silent", ...flags],
+				{ from: "user" }
+			)
+		).rejects.toBe(exitError);
+		expect(compileMock).toHaveBeenCalledWith(
+			expect.objectContaining({ emitTsDeclarations: expected })
+		);
+	}
+);
+
+test.each([
+	{ configured: undefined, flag: undefined, expected: "message-modules" },
+	{ configured: "locale-modules", flag: undefined, expected: "locale-modules" },
+	{
+		configured: "virtual-modules",
+		flag: undefined,
+		expected: "virtual-modules",
+	},
+	{
+		configured: "virtual-modules",
+		flag: "message-modules",
+		expected: "message-modules",
+	},
+])(
+	"CLI output structure honors explicit config before applying its default: %j",
+	async ({ configured, flag, expected }) => {
+		const { workspace, projectDir } = await createWorkspace();
+		await writeConfig(projectDir, path.join(workspace, "output"));
+		await writeFile(
+			path.join(projectDir, "paraglide.config.ts"),
+			`export default ${JSON.stringify({ outdir: path.join(workspace, "output"), outputStructure: configured })};`
+		);
+		// Check option resolution separately from the compiler's Vite-only guard.
+		const compileMock = vi.fn().mockResolvedValue({ outputHashes: {} });
+		vi.doMock("../../../compiler/compile.js", () => ({ compile: compileMock }));
+		const exitError = new Error("process.exit");
+		vi.spyOn(process, "exit").mockImplementation(() => {
+			throw exitError;
+		});
+		const { compileCommand } = await import("./command.js");
+		await expect(
+			compileCommand.parseAsync(
+				[
+					"--project",
+					projectDir,
+					"--silent",
+					...(flag ? ["--output-structure", flag] : []),
+				],
+				{ from: "user" }
+			)
+		).rejects.toBe(exitError);
+		expect(compileMock).toHaveBeenCalledWith(
+			expect.objectContaining({ outputStructure: expected })
+		);
+	}
+);

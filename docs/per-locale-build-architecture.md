@@ -48,7 +48,9 @@ disable source maps or keep them private when deploying these graphs.
 ## Message modules and lazy pages
 
 To let Vite keep page-specific messages with their lazy page, opt in to
-`message-modules` and import the generated physical message modules directly:
+`message-modules`. Static references through the generated message entry point
+can preserve this splitting; direct physical imports make the dependency
+boundary explicit:
 
 ```js
 // vite.config.js
@@ -83,6 +85,12 @@ For `pathPattern: "./messages/{locale}.json"`, place `messages/` beside
 Use static imports for known messages. Dynamic lookup through the complete
 message namespace can retain the full catalog; changing the output layout alone
 does not guarantee page-specific payloads.
+
+The default `locale-modules` layout groups the surviving messages in a common
+module referenced by multiple pages. A bundler can remove unused exports, but
+cannot partition that one module's surviving exports between page chunks.
+Message-sized source modules give it the finer dependency graph it needs. They
+are bundled into page and common chunks, not requested individually by the browser.
 
 Each emitted graph has a fixed locale. Deployment must select the matching HTML
 and asset graph, and changing locale requires full-document navigation to the

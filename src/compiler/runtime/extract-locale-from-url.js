@@ -83,11 +83,10 @@ export function extractLocaleFromUrl(url) {
 /**
  * https://github.com/opral/inlang-paraglide-js/issues/381
  *
- * @param {URL | string} url - The full URL from which to extract the locale.
+ * @param {URL} url - The URL from which to extract the locale.
  * @returns {Locale | undefined} The extracted locale, or undefined if no locale is found.
  */
 function defaultUrlPatternExtractLocale(url) {
-	const urlObj = new URL(url, "http://example.com");
-	const pathSegments = urlObj.pathname.split("/").filter(Boolean);
+	const pathSegments = url.pathname.split("/").filter(Boolean);
 	return toLocale(pathSegments[0]) || baseLocale;
 }

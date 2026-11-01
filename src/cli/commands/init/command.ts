@@ -1,14 +1,9 @@
-import { Command, Option } from "commander";
 import * as nodePath from "node:path";
 import { Logger } from "../../../services/logger/index.js";
 import { findPackageJson } from "../../../services/environment/package.js";
 import { checkForUncommittedChanges } from "../../steps/check-for-uncomitted-changes.js";
 import { initializeInlangProject } from "../../steps/initialize-inlang-project.js";
 import { maybeAddSherlock } from "../../steps/maybe-add-sherlock.js";
-import {
-	maybeUpdateTsConfig,
-	enableAllowJs,
-} from "../../steps/update-ts-config.js";
 import { promptForOutdir } from "../../steps/prompt-for-outdir.js";
 import { updatePackageJson } from "../../steps/update-package-json.js";
 import { shellArgument, type CliStep } from "../../utils.js";
@@ -34,63 +29,7 @@ import {
 } from "../../../services/config/defaults.js";
 import { updateViteConfig } from "../../steps/add-vite-plugin.js";
 
-export function createInitCommand() {
-	return new Command()
-		.name("init")
-		.summary("Initializes Paraglide-JS.")
-		.option(
-			"-y, --yes",
-			"Use defaults without prompts; optional editor, translation and lint tools are skipped"
-		)
-		.option("--non-interactive", "Alias for --yes; never open terminal prompts")
-		.option("--allow-dirty", "Continue with uncommitted changes")
-		.option(
-			"--project <path>",
-			"Inlang project to create or reuse",
-			DEFAULT_PROJECT_PATH
-		)
-		.option("--outdir <path>", "Directory for generated messages")
-		.addOption(
-			new Option("--lint <tool>", "Optional message lint setup").choices([
-				"none",
-				"eslint",
-				"oxlint",
-			])
-		)
-		.option("--no-check", "Skip adding inlang check")
-		.option("--sherlock", "Add the editor recommendation")
-		.option("--no-sherlock", "Skip the editor recommendation")
-		.option("--machine-translation", "Add a machine-translate script")
-		.option("--no-machine-translation", "Skip the machine-translate script")
-		.option(
-			"--no-compile",
-			"Skip the initial compilation; compile after installing dependencies"
-		)
-		.action(
-			async (options: InitOptions & { compile: boolean }, command: Command) => {
-				try {
-					await runInit({
-						...options,
-						sherlock:
-							command.getOptionValueSource("sherlock") === "cli"
-								? options.sherlock
-								: undefined,
-						machineTranslation:
-							command.getOptionValueSource("machineTranslation") === "cli"
-								? options.machineTranslation
-								: undefined,
-					});
-				} catch (error) {
-					new Logger({ silent: false, prefix: false }).error(
-						error instanceof Error ? error.message : String(error)
-					);
-					process.exitCode = 1;
-				}
-			}
-		);
-}
-
-export const initCommand = createInitCommand();
+export { createInitCommand, initCommand } from "./definition.js";
 
 export async function runInit(options: InitOptions & { compile?: boolean }) {
 	const interactive = !(options.yes || options.nonInteractive);
@@ -173,15 +112,6 @@ export async function runInit(options: InitOptions & { compile?: boolean }) {
 				"The selected project directory is nonempty and has no settings.json; it will not be overwritten."
 			);
 	}
-	if (!interactive) {
-		const text = await nodeFs.promises
-			.readFile(nodePath.join(root, "tsconfig.json"), "utf8")
-			.catch((error: NodeJS.ErrnoException) => {
-				if (error.code === "ENOENT") return undefined;
-				throw error;
-			});
-		if (text !== undefined) enableAllowJs(text);
-	}
 	const ctx4 = await promptForOutdir(ctx2);
 	const normalizedOutput =
 		"./" +
@@ -237,8 +167,7 @@ export async function runInit(options: InitOptions & { compile?: boolean }) {
 		const ctx6 = await detectBundler(ctx5);
 		if (ctx6.bundler === "vite") await addVitePlugin(ctx6);
 		else await addCompileStepToPackageJSON(ctx6);
-		const ctx7 = await maybeUpdateTsConfig(ctx6);
-		const ctx8 = await maybeAddSherlock(ctx7);
+		const ctx8 = await maybeAddSherlock(ctx6);
 		if (options.check !== false) await addInlangCheck(ctx8);
 		const ctx9 = await maybeAddMachineTranslation(ctx8);
 		await addMessageLint({ ...ctx9, lint });
@@ -248,6 +177,7 @@ export async function runInit(options: InitOptions & { compile?: boolean }) {
 					project: ctx9.projectPath,
 					outdir: ctx9.outdir,
 					cleanOutdir: false,
+					emitTsDeclarations: true,
 				});
 				logger.success("Ran the paraglide compiler");
 			} catch (error) {
@@ -357,9 +287,9 @@ const addCompileStepToPackageJSON: CliStep<
 	ctx = await updatePackageJson({
 		scripts: async (scripts) => {
 			if (scripts.build === undefined) {
-				scripts.build = `paraglide-js compile --project ${projectPath} --outdir ${outdir}`;
+				scripts.build = `paraglide-js compile --project ${projectPath} --outdir ${outdir} --emit-ts-declarations`;
 			} else if (scripts.build.includes("paraglide-js compile") === false) {
-				scripts.build = `paraglide-js compile --project ${projectPath} --outdir ${outdir} && ${scripts.build}`;
+				scripts.build = `paraglide-js compile --project ${projectPath} --outdir ${outdir} --emit-ts-declarations && ${scripts.build}`;
 			} else {
 				return scripts;
 			}

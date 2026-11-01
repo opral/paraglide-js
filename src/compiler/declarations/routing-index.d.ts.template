@@ -1,0 +1,9 @@
+export type PrefixNode = {
+    children: Map<string, PrefixNode>;
+    ranks: Set<number>;
+};
+export type PatternIndex = {
+    items: any[];
+    snapshots: any[];
+    root: PrefixNode;
+};

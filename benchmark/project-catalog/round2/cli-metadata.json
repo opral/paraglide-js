@@ -1,0 +1,20 @@
+{
+  "node": "v22.21.1",
+  "execPath": "/opt/homebrew/Cellar/node@22/22.21.1_4/bin/node",
+  "platform": "darwin",
+  "arch": "arm64",
+  "uvThreadpool": "default",
+  "rounds": 5,
+  "candidate": "/Users/samuel/git-repos/workspace-1/paraglide-project-catalog",
+  "plugin": "/Users/samuel/git-repos/workspace-1/artifacts/catalog-stream-prototype/production-plugin/index.mjs",
+  "grai": "/Users/samuel/git-repos/workspace-1/artifacts/grai-latest-reference",
+  "candidateRevision": "1691bd3dde2fc003b8eb163dc411fe7b089b1b16",
+  "graiRevision": "8af924a6b513d178b8e6d67694bdfb490c7e697f",
+  "pluginSha256": "9274091ca2d0570270294bafc201286132232e1b52263b02c76ac714a721ba57",
+  "paraglideCliSha256": "2239f1d676e39c535982e82ac7c56d735e8b8d5b229dd060f547f848441d2975",
+  "paraglideCliIndexSha256": "eaef1a9db70944b17f8a791ea3cfe020a77f594808799486676d936c3145aa4e",
+  "graiCliSha256": "3958fc125542d3fddc677caab76ffd6efca70a2e56f3b4dd16934ee4923a1d4d",
+  "catalogLoaderSha256": "b0272a2bf154a181730944a6a38cd24b60614f2a424fbcf22c8a750974d6aa79",
+  "candidateWorkingTreeDirty": true,
+  "sourceNote": "Measured this PR implementation before committing result files; candidateRevision is the prior base. See provenance.json artifact fingerprints."
+}

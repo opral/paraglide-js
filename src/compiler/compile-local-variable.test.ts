@@ -1,5 +1,6 @@
 import { test, expect } from "vitest";
 import { compileLocalVariable } from "./compile-local-variable.js";
+import { compileLocalVariableName } from "./variable-access.js";
 
 test("compiles a literal local variable", () => {
 	const code = compileLocalVariable({
@@ -83,7 +84,7 @@ test("compiles a local variable with an annotation and empty options", () => {
 			},
 		},
 	});
-	expect(code).toEqual('const myVar = registry.number("en", "Hello", {}, true);');
+	expect(code).toEqual('const myVar = __paraglideRegistry.number("en", "Hello", {}, true);');
 });
 
 test("interpolates the raw value for an unknown annotation, like a pattern", () => {
@@ -132,7 +133,7 @@ test("compiles a local variable with an annotation and options", () => {
 		},
 	});
 	expect(code).toEqual(
-		'const myVar = registry.number("en", "Hello", { option1: "value1", option2: i?.varRef }, true);'
+		'const myVar = __paraglideRegistry.number("en", "Hello", { option1: "value1", option2: i?.varRef }, true);'
 	);
 });
 
@@ -168,7 +169,7 @@ test("compiles formatter options referencing earlier local variables", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedAmount = registry.number("en", i?.amount, { minimumFractionDigits: digits }, true);'
+		'const formattedAmount = __paraglideRegistry.number("en", i?.amount, { minimumFractionDigits: digits }, true);'
 	);
 });
 
@@ -200,7 +201,7 @@ test("compiles number formatter fraction digit options as numeric literals", () 
 	});
 
 	expect(code).toEqual(
-		'const formattedValue = registry.number("en", i?.value, { minimumFractionDigits: 1, maximumFractionDigits: 1 }, true);'
+		'const formattedValue = __paraglideRegistry.number("en", i?.value, { minimumFractionDigits: 1, maximumFractionDigits: 1 }, true);'
 	);
 });
 
@@ -228,7 +229,7 @@ test("compiles number formatter useGrouping option as boolean literal", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedValue = registry.number("en", i?.value, { useGrouping: false }, true);'
+		'const formattedValue = __paraglideRegistry.number("en", i?.value, { useGrouping: false }, true);'
 	);
 });
 
@@ -256,7 +257,7 @@ test("keeps negative digit options as strings to avoid emitting invalid numeric 
 	});
 
 	expect(code).toEqual(
-		'const formattedValue = registry.number("en", i?.value, { minimumFractionDigits: "-1" }, true);'
+		'const formattedValue = __paraglideRegistry.number("en", i?.value, { minimumFractionDigits: "-1" }, true);'
 	);
 });
 
@@ -283,7 +284,7 @@ test("compiles relative time formatter with a literal unit", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: "day", numeric: "auto", style: "short" }, true);'
+		'const formattedDuration = __paraglideRegistry.relativetime("en", i?.duration, { unit: "day", numeric: "auto", style: "short" }, true);'
 	);
 });
 
@@ -312,7 +313,7 @@ test("compiles relative time formatter with a dynamic unit cast", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit), style: "short" }, true);'
+		'const formattedDuration = __paraglideRegistry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit), style: "short" }, true);'
 	);
 });
 
@@ -405,7 +406,7 @@ test("accepts plural relative time formatter units", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: "days" }, true);'
+		'const formattedDuration = __paraglideRegistry.relativetime("en", i?.duration, { unit: "days" }, true);'
 	);
 });
 
@@ -433,7 +434,7 @@ test("accepts dynamic relative time formatter units", () => {
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit) }, true);'
+		'const formattedDuration = __paraglideRegistry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit) }, true);'
 	);
 });
 
@@ -458,7 +459,7 @@ test("accepts dollar-prefixed relative time formatter unit options from message 
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit) }, true);'
+		'const formattedDuration = __paraglideRegistry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.unit) }, true);'
 	);
 });
 
@@ -491,7 +492,7 @@ test("compiles dollar-prefixed relative time units referencing local variables",
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (localUnit) }, true);'
+		'const formattedDuration = __paraglideRegistry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (localUnit) }, true);'
 	);
 });
 
@@ -519,7 +520,7 @@ test("accepts dollar-prefixed relative time formatter unit options with non-iden
 	});
 
 	expect(code).toEqual(
-		'const formattedDuration = registry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.["relative-unit"]) }, true);'
+		'const formattedDuration = __paraglideRegistry.relativetime("en", i?.duration, { unit: /** @type {import("../registry.js").RelativeTimeFormatUnit} */ (i?.["relative-unit"]) }, true);'
 	);
 });
 
@@ -541,6 +542,46 @@ test.each([
 		},
 	});
 	expect(code).toBe(
-		`const formatted = registry.datetime("en", i?.d, ${options}, true);`
+		`const formatted = __paraglideRegistry.datetime("en", i?.d, ${options}, true);`
 	);
+});
+
+test("declares a local that cannot be a binding, or would shadow one the message reads, under a distinct private name", () => {
+	const code = compileLocalVariable({
+		locale: "en",
+		declarations: [{ type: "input-variable", name: "count" }],
+		declaration: {
+			type: "local-variable",
+			name: "i",
+			value: {
+				type: "expression",
+				arg: { type: "variable-reference", name: "count" },
+			},
+		},
+	});
+	expect(code).toBe("const $i = i?.count;");
+	const names = [
+		"count",
+		"registry",
+		"i",
+		"String",
+		"__paraglideRegistry",
+		"class",
+		"eval",
+		"a-b",
+		"a_b",
+		"$i",
+	];
+	expect(names.map(compileLocalVariableName)).toEqual([
+		"count",
+		"registry",
+		"$i",
+		"$$53$tring",
+		"$__paraglide$52$egistry",
+		"$class",
+		"$eval",
+		"$a$2d$b",
+		"a_b",
+		"$$24$i",
+	]);
 });

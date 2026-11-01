@@ -76,9 +76,8 @@ export const trailingSlash = undefined;
  * 		getStore(): {
  *   		locale?: Locale,
  * 			origin?: string,
- * 			messageCalls?: Set<string>
  *   	} | undefined,
- * 		run: (store: { locale?: Locale, origin?: string, messageCalls?: Set<string>},
+ * 		run: (store: { locale?: Locale, origin?: string },
  *    cb: any) => any
  * }} ParaglideAsyncLocalStorage
  */
@@ -107,9 +106,10 @@ export function getServerAsyncLocalStorage() {
 
 export const disableAsyncLocalStorage = false;
 
-export const experimentalMiddlewareLocaleSplitting = false;
-
 export const isServer = typeof window === "undefined";
+
+/** Controls development-only runtime diagnostics. */
+export const isDevelopment = /** @type {boolean} */ (true);
 
 /** @type {Locale | undefined} */
 export const experimentalStaticLocale = undefined;

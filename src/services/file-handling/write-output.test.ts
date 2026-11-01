@@ -1,4 +1,6 @@
 import memfs from "memfs";
+import path from "node:path";
+import { createHash } from "node:crypto";
 import type fs from "node:fs/promises";
 import { test, expect, vi, beforeEach } from "vitest";
 
@@ -315,6 +317,71 @@ test("hashDirectory skips directories that disappear while walking", async () =>
 	expect(seededHashes).toEqual({});
 });
 
+test("hashDirectory reads large outputs with at most eight reads in flight", async () => {
+	const { writeOutput, hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({});
+	const output = Object.fromEntries(
+		Array.from({ length: 500 }, (_, i) => [
+			`messages/${i % 5}/${i}.js`,
+			`message ${i}`,
+		])
+	);
+	const hashes = await writeOutput({ directory: "/output", output, fs });
+	const readFile = fs.readFile.bind(fs);
+	let active = 0;
+	let peak = 0;
+	vi.spyOn(fs, "readFile").mockImplementation(async (...args) => {
+		active++;
+		peak = Math.max(peak, active);
+		try {
+			await new Promise<void>((resolve) => setImmediate(resolve));
+			if (args[0] === "/output/messages/0/250.js") {
+				throw new Error("file disappeared");
+			}
+			return await readFile(...args);
+		} finally {
+			active--;
+		}
+	});
+
+	const expected = { ...hashes };
+	delete expected["messages/0/250.js"];
+	expect(await hashDirectory("/output", fs)).toEqual(expected);
+	expect(peak).toBeGreaterThan(1);
+	expect(peak).toBeLessThanOrEqual(8);
+	expect(active).toBe(0);
+	vi.restoreAllMocks();
+});
+
+test("hashDirectory reads files again when concurrent reads run out of descriptors", async () => {
+	const { writeOutput, hashDirectory } = await import("./write-output.js");
+	const fs = mockFs({});
+	const output = Object.fromEntries(
+		Array.from({ length: 40 }, (_, i) => [`messages/${i}.js`, `message ${i}`])
+	);
+	const hashes = await writeOutput({ directory: "/output", output, fs });
+	const readFile = fs.readFile.bind(fs);
+	// Seven descriptors are left: enough to read one file at a time.
+	let open = 0;
+	vi.spyOn(fs, "readFile").mockImplementation(async (...args) => {
+		if (open === 7) {
+			throw Object.assign(new Error("too many open files"), {
+				code: "EMFILE",
+			});
+		}
+		open++;
+		try {
+			await new Promise<void>((resolve) => setImmediate(resolve));
+			return await readFile(...args);
+		} finally {
+			open--;
+		}
+	});
+
+	expect(await hashDirectory("/output", fs)).toEqual(hashes);
+	vi.restoreAllMocks();
+});
+
 const mockFs = (files: memfs.DirectoryJSON) => {
 	const _memfs = memfs.createFsFromVolume(memfs.Volume.fromJSON(files));
 	return _memfs.promises as unknown as typeof fs;
@@ -512,3 +579,62 @@ test("retries a partially written incremental update with the same previous hash
 	expect(await hashDirectory("/output", fs)).toEqual(next);
 	expect(previousOutputHashes["a.js"]).not.toBe(next["a.js"]);
 });
+
+test.each([
+	{ label: "unicode", content: "é日本語".repeat(20_000) },
+	{ label: "astral", content: "😀𝌆".repeat(20_000) },
+	{
+		label: "lone-surrogates",
+		content: "x\uD800y\uDC00".repeat(20_000) + "\uD800",
+	},
+] as const)(
+	"large $label output preserves historical hashes, bytes, and incremental writes",
+	async ({ content }) => {
+		const { writeOutput, hashDirectory } = await import("./write-output.js");
+		const fs = mockFs({});
+		const directory = "/output/日本語😀";
+		const file = "messages/large😀.js";
+		const output = { [file]: content, "small.js": "small" };
+		const writes = vi.spyOn(fs, "writeFile");
+		const hashes = await writeOutput({ directory, output, fs });
+		const expectedHash = (value: string) =>
+			createHash("sha256")
+				.update(value + path.resolve(directory, file))
+				.digest("hex");
+		expect(hashes[file]).toBe(expectedHash(content));
+		expect(await fs.readFile(path.resolve(directory, file))).toEqual(
+			Buffer.from(content)
+		);
+		const largeWrite = writes.mock.calls.find(
+			([filename]) => filename === path.resolve(directory, file)
+		);
+		expect(Buffer.isBuffer(largeWrite?.[1])).toBe(true);
+		expect(
+			writes.mock.calls.find(
+				([filename]) => filename === path.resolve(directory, "small.js")
+			)?.[1]
+		).toBe("small");
+		const seeded = await hashDirectory(directory, fs);
+		expect(seeded).toEqual(hashes);
+		writes.mockClear();
+		expect(
+			await writeOutput({ directory, output, fs, previousOutputHashes: seeded })
+		).toEqual(hashes);
+		expect(writes).not.toHaveBeenCalled();
+		const changed = content + " changed 😀";
+		const next = await writeOutput({
+			directory,
+			output: { ...output, [file]: changed },
+			fs,
+			previousOutputHashes: hashes,
+		});
+		expect(writes).toHaveBeenCalledTimes(1);
+		expect(Buffer.isBuffer(writes.mock.calls[0]?.[1])).toBe(true);
+		expect(await fs.readFile(path.resolve(directory, file))).toEqual(
+			Buffer.from(changed)
+		);
+		expect(next[file]).toBe(expectedHash(changed));
+		expect(next["small.js"]).toBe(hashes["small.js"]);
+		expect(await hashDirectory(directory, fs)).toEqual(next);
+	}
+);

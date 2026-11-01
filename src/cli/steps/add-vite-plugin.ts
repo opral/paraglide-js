@@ -98,6 +98,16 @@ export function updateViteConfig(args: {
 					reason:
 						"Existing Vite plugin paths differ from the requested project/outdir",
 				};
+			if (options.emitTsDeclarations === undefined) {
+				const insertAt = call.index! + call[0].indexOf("{") + 1;
+				return {
+					ok: true,
+					updated:
+						args.config.slice(0, insertAt) +
+						" emitTsDeclarations: true," +
+						args.config.slice(insertAt),
+				};
+			}
 			return { ok: false, reason: "Already present" };
 		} catch {
 			return {
@@ -124,7 +134,7 @@ export function updateViteConfig(args: {
 	const updatedConfig =
 		"import { paraglideVitePlugin } from '@inlang/paraglide-js'\n" +
 		before +
-		`paraglideVitePlugin({ project: ${JSON.stringify(args.projectPath)}, outdir: ${JSON.stringify(args.outdir)} }),` +
+		`paraglideVitePlugin({ project: ${JSON.stringify(args.projectPath)}, outdir: ${JSON.stringify(args.outdir)}, emitTsDeclarations: true }),` +
 		after;
 
 	return {

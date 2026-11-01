@@ -1,6 +1,15 @@
 import { locales } from "./variables.js";
 
 /**
+ * The configured locale for each lowercased locale, built on first use. It is
+ * declared with `var` because the runtime can call `toLocale()` while its
+ * variables initialize, before this declaration is reached.
+ *
+ * @type {Map<string, Locale> | undefined}
+ */
+var localesByLowerCase;
+
+/**
  * Coerces a locale-like string to the canonical locale value used by the runtime.
  *
  * @param {unknown} value
@@ -11,13 +20,22 @@ export function toLocale(value) {
 		return undefined;
 	}
 
-	const lowerValue = value.toLowerCase();
+	localesByLowerCase ??= mapLocalesByLowerCase();
+	return localesByLowerCase.get(value.toLowerCase());
+}
+
+/**
+ * The first configured locale wins, as with a scan of `locales`.
+ *
+ * @returns {Map<string, Locale>}
+ */
+function mapLocalesByLowerCase() {
+	const map = new Map();
 	for (const locale of locales) {
-		if (locale.toLowerCase() === lowerValue) {
-			return locale;
-		}
+		const lowerCase = locale.toLowerCase();
+		if (!map.has(lowerCase)) map.set(lowerCase, locale);
 	}
-	return undefined;
+	return map;
 }
 
 /**

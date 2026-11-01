@@ -16,12 +16,18 @@ There are three ways to invoke the Paraglide JS compiler:
 
 For all available options, see the [Compiler Options Reference](./compiler-options). Options can also be centralized in a `paraglide.config.js/ts` file that is used by the CLI and all bundler plugins — see [Configuration File](./configuration).
 
+## Runtime diagnostics
+
+The generated runtime uses the bundler-independent `isDevelopment` flag for development-only diagnostics, such as warning when a locale override cannot change a locale-specialized build. Vite sets this flag from its resolved development/production mode. Other bundler plugins default to `NODE_ENV !== "production"`. Explicit plugin or project configuration takes precedence.
+
+Standalone compilation enables diagnostics by default. Set the compiler option `isDevelopment: "false"`, or pass `--is-development false` to the CLI, to remove these diagnostics from production bundles. Like `isServer`, the option accepts a JavaScript expression as a string; no Vite-specific globals are required.
+
 ## Via the Paraglide CLI
 
 > [!TIP]
 > For a complete setup guide using CLI compilation with Express, Hono, Fastify, or Elysia, see [Standalone Servers](./standalone-servers). For monorepo setups, see [Monorepo Setup](./monorepo).
 
-The recommended commands below emit `.d.ts` files for reliable editor updates and require TypeScript 5.6 or newer. Omit `--emit-ts-declarations` to use JavaScript/JSDoc inference instead.
+The recommended commands below emit `.d.ts` files for reliable editor updates without requiring TypeScript to be installed. Omit `--emit-ts-declarations` to use JavaScript/JSDoc inference instead.
 
 To compile your messages via the CLI, run the following command:
 
@@ -82,6 +88,12 @@ export default defineConfig({
 });
 ```
 
+#### Virtual message modules for large catalogs
+
+The Vite plugin defaults to [virtual message modules](./virtual-messages), which
+keep public generated entry points while reducing emitted files and the Vite
+module graph for static message imports.
+
 #### Stop serving stale translations during development
 
 By default, compilation errors appear in Vite's error overlay and the last
@@ -109,6 +121,13 @@ Writes whose events have not reached the plugin before shutdown are picked up
 by the next build or development-server start.
 
 #### Experimental per-locale builds
+
+Per-locale builds are the recommended approach for shipping only the active
+locale's messages. Paraglide v3 removes `experimentalMiddlewareLocaleSplitting`.
+Remove that option from your compiler or Vite configuration and use
+`experimentalPerLocaleBuild` for supported Vite applications, as shown below.
+The middleware no longer injects message functions into HTML. Check the build
+and deployment constraints in this section before migrating.
 
 The Vite 8+ backend builds one independent Rolldown client environment per
 locale:
@@ -142,9 +161,26 @@ server output or patch framework manifests. A framework integration requires
 a public API through which the framework asks for locale client variants and
 selects a returned graph during rendering.
 
-The generated Paraglide layout is `locale-modules`; explicitly selecting
-`message-modules` is rejected for this backend. Locale switching still
-requires full-document navigation. The server, deployment adapter, or static
+The default layout is `locale-modules`. For applications with lazy pages,
+select `message-modules` so Vite can keep each page's messages with that page:
+
+```ts
+paraglideVitePlugin({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	experimentalPerLocaleBuild: true,
+	outputStructure: "message-modules",
+});
+```
+
+Keep message references static, such as `m.greeting()`. Dynamic indexing through
+the complete message namespace can retain the whole catalog. Individual source
+modules provide build-time granularity; Vite bundles them into page and shared
+chunks rather than making a browser request for each message. With message
+modules, source maps can contain inactive locale branches; disable public source
+maps or keep them private.
+
+Locale switching still requires full-document navigation. The server, deployment adapter, or static
 hosting layout is responsible for selecting the directory named by the
 manifest. For directly opening each emitted HTML tree, use a relative Vite
 `base` such as `"./"`.
@@ -191,9 +227,9 @@ export default {
 
 ## TypeScript Configuration
 
-Paraglide compiles to JavaScript with JSDoc type annotations. The recommended configurations above also emit `.d.ts` files so editors reliably refresh message keys when generated files change. Declaration emission requires TypeScript 5.6 or newer.
+Paraglide compiles to JavaScript with JSDoc type annotations. The recommended configurations above also emit `.d.ts` files so editors reliably refresh message keys when generated files change. Declarations are generated directly without requiring TypeScript to be installed.
 
-If you disable declaration emission for faster compilation, enable TypeScript support for the generated JSDoc types with `allowJs` in your `tsconfig.json`:
+If you disable declaration emission, enable TypeScript support for the generated JSDoc types with `allowJs` in your `tsconfig.json`:
 
 ```json
 {
@@ -221,13 +257,7 @@ paraglideVitePlugin({
 });
 ```
 
-> [!NOTE]
-> Emitting declarations requires TypeScript 5.6 or newer and is slower than JSDoc-based types. The framework setup examples enable it for reliable language-server updates. Set `emitTsDeclarations: false` (or use `--no-emit-ts-declarations`) and `allowJs: true` when faster compilation matters more in your project.
-
-> [!NOTE]
-> With TypeScript 5 and 6, declarations are generated with the in-process compiler API. TypeScript 7+ no longer provides that API, so Paraglide invokes its `tsc` CLI in a child process instead. When TypeScript 7 is installed beside TypeScript 5/6 under the `@typescript/native` alias, as documented for `svelte-check --tsgo`, Paraglide uses its `tsc` too, which is much faster with `locale-modules` on large projects. The exported types are the same, but the output differs between the two (quote style, declaration ordering, `export declare const` vs `export const`, and some JSDoc: TypeScript 7 currently leaves `@typedef` types without their descriptions) — expect `.d.ts` churn when switching.
-
-When `additionalFiles` contains JavaScript (`.js`), Paraglide keeps using the TypeScript 5/6 compiler API even if `@typescript/native` is installed. This preserves project dependency resolution and inferred types for those files. Non-JavaScript additional files do not disable alias acceleration. Projects with TypeScript 7 installed as `typescript` continue to use its CLI.
+Declarations are generated directly from message metadata and runtime declaration templates. The generated declarations do not depend on the TypeScript version installed in your project. The CLI emits declarations by default, and init enables them in generated integrations without modifying your tsconfig. Programmatic compiler calls and manually configured bundler plugins retain `emitTsDeclarations: false` as their default. Set `emitTsDeclarations: false` (or use `--no-emit-ts-declarations`) and `allowJs: true` to use JSDoc-based types.
 
 ## Generated Output
 
@@ -255,7 +285,39 @@ paraglide/
 | `runtime.js`  | Locale utilities: `getLocale()`, `setLocale()`, `locales`, `baseLocale`  |
 | `server.js`   | Server middleware: `paraglideMiddleware()`                               |
 
-The `outputStructure` option controls how messages are organized. See [Compiler Options](./compiler-options) for details.
+The `outputStructure` option controls how messages are organized. The Vite
+plugin defaults to `"virtual-modules"` in development and production; this layout
+is available only through Vite. Select `"message-modules"` or `"locale-modules"`
+for physical message files. The CLI defaults to `"message-modules"`.
+See [Virtual Messages in Vite](./virtual-messages) for output and migration details,
+and [Compiler Options](./compiler-options) for all options.
+
+Large projects can reduce file creation and repeated generated code by grouping messages:
+
+```ts
+await compile({
+	project: "./project.inlang",
+	outdir: "./src/paraglide",
+	outputStructure: "message-modules",
+	messageModuleSize: 512,
+	emitTsDeclarations: true,
+});
+```
+
+The CLI exposes the same option:
+
+```sh
+paraglide-js compile --message-module-size 512 --emit-ts-declarations
+```
+
+`messageModuleSize` defaults to `1`, preserving the existing per-message files.
+Higher values write groups to `messages/_shard_*.js` and matching declarations.
+Continue importing messages through `messages.js`; imports of individual generated
+message files must be updated when enabling grouping. Individual unused messages
+can still be removed by a bundler. Grouping requires `message-modules` and is
+currently unavailable for locale-specialized builds. Bundler integrations can set
+these same compiler options; specify `outputStructure` explicitly because development
+mode can otherwise select locale modules.
 
 ## Programmatically
 
@@ -307,3 +369,17 @@ for (const [filename, content] of Object.entries(output)) {
 	await writeFile(join(outdir, filename), content);
 }
 ```
+
+## Migrating to Paraglide JS 3
+
+Paraglide JS 3 removes the `additionalFiles` compiler option. Remove this option from your compiler calls, bundler plugin options, and `paraglide.config.*` files.
+
+Keep framework helpers and message re-export wrappers in your application source, outside the generated output directory. For example, a wrapper in `src/messages.js` can re-export generated messages:
+
+```js
+export * from "./paraglide/messages.js";
+```
+
+Use your own build tooling for extra assets, metadata files, and source maps. Paraglide owns the generated output directory and may remove files placed there during compilation. With `emitTsDeclarations: true`, Paraglide continues to emit declarations for its generated JavaScript.
+
+Paraglide JS 3 uses the SDK catalog API directly; older SDKs without `@inlang/sdk/catalog` are no longer supported.

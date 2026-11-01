@@ -1,10 +1,4 @@
-import {
-	loadProjectFromDirectory,
-	loadProjectInMemory,
-	newProject,
-	saveProjectToDirectory,
-	type InlangProject,
-} from "@inlang/sdk";
+import type { InlangProject } from "@inlang/sdk";
 import type { Logger } from "../../services/logger/index.js";
 import type { CliStep } from "../utils.js";
 import { getNewProjectTemplate } from "../defaults.js";
@@ -34,6 +28,7 @@ export const initializeInlangProject: CliStep<
 		);
 	if (!existing)
 		return { ...ctx, ...(await createNewProjectFlow({ ...ctx, projectPath })) };
+	const { loadProjectFromDirectory } = await import("@inlang/sdk");
 	const project = await loadProjectFromDirectory({
 		path: projectPath,
 		fs: ctx.syncFs,
@@ -54,6 +49,12 @@ export const createNewProjectFlow = async (ctx: {
 	root?: string;
 	projectPath?: string;
 }): Promise<{ project: InlangProject; projectPath: string }> => {
+	const {
+		loadProjectFromDirectory,
+		loadProjectInMemory,
+		newProject,
+		saveProjectToDirectory,
+	} = await import("@inlang/sdk");
 	const root = ctx.root ?? process.cwd();
 	const projectPath = nodePath.resolve(
 		root,
