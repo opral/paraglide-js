@@ -1,11 +1,6 @@
 import { assertNoRemovedOptions } from "./removed-options.js";
 import { compileBundle } from "./compile-bundle.js";
-import {
-	checkBundle,
-	type InlangProject,
-	type BundleNested,
-	type ProjectSettings,
-} from "@inlang/sdk";
+import type { InlangProject, BundleNested, ProjectSettings } from "@inlang/sdk";
 import { lookup } from "../services/lookup.js";
 import * as localeModules from "./output-structure/locale-modules.js";
 import * as messageModules from "./output-structure/message-modules.js";
@@ -109,6 +104,7 @@ export const compileCatalog = async (args: {
 
 	const { settings, bundles } = args.catalog;
 	if (optionsWithDefaults.checkTranslations) {
+		const { checkBundle } = await import("@inlang/sdk");
 		const diagnostics = bundles.flatMap((bundle) =>
 			checkBundle({
 				bundle,
