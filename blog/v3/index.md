@@ -1,6 +1,8 @@
 ---
 og:title: "Paraglide JS v3: Faster development and builds"
 og:description: "Faster development startup and production builds through virtual message modules and direct TypeScript declaration generation."
+og:image: ./assets/og.png
+og:image:alt: "Paraglide JS v3: 18× faster. First dev SSR with 10,000 keys × 10 locales: v2 29.1 s, v3 physical 10.7 s, v3 virtual 1.6 s."
 ---
 
 # Paraglide JS v3: Up to 18x faster development and builds
