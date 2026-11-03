@@ -19,7 +19,10 @@ import {
 } from "./jsdoc-types.js";
 import { isValidIdentifier, quotePropertyKey } from "./variable-access.js";
 import { toSafeModuleId } from "./safe-module-id.js";
-import { escapeForDoubleQuoteString } from "../services/codegen/escape.js";
+import {
+	escapeCommentTerminator,
+	escapeForDoubleQuoteString,
+} from "../services/codegen/escape.js";
 import type { CompilerOptions } from "./compiler-options.js";
 import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 import { resolveInputAlias } from "./input-alias.js";
@@ -44,7 +47,7 @@ export type CompiledBundleWithMessages = {
 	usesSharedFactory?: boolean;
 	/** The dispatcher reads the development-only diagnostic flag. */
 	usesDevelopmentDiagnostics?: boolean;
-	englishMatchTableDoc?: string;
+	documentation?: string;
 };
 
 /**
@@ -249,13 +252,13 @@ function tryCompileInlineBundle(
 		if (plainText !== undefined) plain![message.locale] = plainText;
 		else bodies![message.locale] = inline;
 	}
-	const englishMatchTableDoc = args.sharedMessageFactory
-		? buildEnglishMatchTableDoc(args.bundle)
+	const documentation = args.sharedMessageFactory
+		? buildBundleDocumentation(args.bundle)
 		: undefined;
 	const compiledBundle = args.sharedMessageFactory
 		? {
 				node: args.bundle,
-				code: `${englishMatchTableDoc ? `/**\n${englishMatchTableDoc}*/\n` : ""}const ${moduleId} = /** @type {${args.bundle.declarations.length ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${inputTypeAliasName}>} */ (/* @__PURE__ */ ${args.bundle.declarations.length ? "__paraglideMessage" : "__paraglideOptionalMessage"}(${JSON.stringify(moduleId)}, ${locales
+				code: `${documentation ? `/**\n${documentation}*/\n` : ""}const ${moduleId} = /** @type {${args.bundle.declarations.length ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${inputTypeAliasName}>} */ (/* @__PURE__ */ ${args.bundle.declarations.length ? "__paraglideMessage" : "__paraglideOptionalMessage"}(${JSON.stringify(moduleId)}, ${locales
 					.map((locale) => expressions[locale])
 					.join(", ")}));`,
 			}
@@ -280,7 +283,7 @@ function tryCompileInlineBundle(
 		usesSharedFactory: args.sharedMessageFactory,
 		usesDevelopmentDiagnostics:
 			args.experimentalStaticLocale === perLocaleBuildStaticLocaleExpression,
-		englishMatchTableDoc,
+		documentation,
 		messages,
 		matchTypes,
 		inputTypeAliasName,
@@ -496,15 +499,15 @@ const compileBundleFunction = (args: {
 	// A locale-specialized graph may ship source maps. Keeping the English
 	// pattern preview in the shared dispatcher would leak base-locale message
 	// text into every locale's map even after the English module is tree-shaken.
-	const englishMatchTableDoc = perLocaleBuild
+	const documentation = perLocaleBuild
 		? ""
-		: buildEnglishMatchTableDoc(args.bundle);
+		: buildBundleDocumentation(args.bundle);
 
 	const compactTypes = args.compactTypes === true && !args.hasMarkup;
 	const commonJsDoc = compactTypes
-		? `/**\n${englishMatchTableDoc}*/`
+		? `/**\n${documentation}*/`
 		: `/**
-${englishMatchTableDoc}${jsDocBundleFunctionTypes({
+${documentation}${jsDocBundleFunctionTypes({
 				inputs,
 				locales: args.availableLocales,
 				matchTypes: args.matchTypes,
@@ -581,6 +584,21 @@ ${localeResolutionStatement("\t\t\t\t")}
 		node: args.bundle,
 	};
 };
+
+/** Shared author guidance followed by the source preview, for JavaScript and declarations. */
+export function buildBundleDocumentation(
+	bundle: BundleNested & { description?: string | null }
+): string {
+	const description = bundle.description
+		? escapeCommentTerminator(bundle.description)
+				.replace(/\r\n?|\u2028|\u2029/g, "\n")
+				.split("\n")
+				// Prevent an authored line from being interpreted as a JSDoc tag.
+				.map((line) => `* ${line.replace(/^([ \t]*)@/, "$1&#64;")}`)
+				.join("\n") + "\n*\n"
+		: "";
+	return description + buildEnglishMatchTableDoc(bundle);
+}
 
 export function buildEnglishMatchTableDoc(bundle: BundleNested): string {
 	const message = selectEnglishMessage(bundle);
