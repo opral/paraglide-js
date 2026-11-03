@@ -2,10 +2,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { build, createBuilder } from "vite";
-import { compile } from "@inlang/paraglide-js";
 import { fixture, pluralForms } from "./fixture.mjs";
 import { scenarios, variants, nameOf } from "./config.mjs";
 const localCompiler = await import("../dist/index.js");
+const { compile } = localCompiler;
 
 const sourceDirectory = path.dirname(fileURLToPath(import.meta.url));
 process.chdir(process.env.BENCHMARK_OUTPUT ?? sourceDirectory);

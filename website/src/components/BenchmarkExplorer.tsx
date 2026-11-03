@@ -66,7 +66,8 @@ export function BenchmarkExplorer() {
 			className="my-6 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:p-6"
 		>
 			<p className="mb-4 text-sm text-slate-600">
-				Five-run medians; lower is better. Language changes reload the page.
+				{data.settings.repeats}-run medians; lower is better. Language changes
+				reload the page.
 			</p>
 			<div className="mb-6 grid grid-cols-2 gap-4">
 				<label className="text-sm font-medium" htmlFor={`${id}-locales`}>

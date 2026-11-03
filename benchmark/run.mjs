@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { spawn } from "node:child_process";
+import { spawn, execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -47,7 +47,19 @@ await fs.writeFile(
 	path.join(output, "compiler-source.json"),
 	JSON.stringify(
 		{
-			variant: "paraglide-per-locale",
+			variants: ["paraglide", "paraglide-per-locale"],
+			release: "v3 main (unreleased)",
+			packageVersion: JSON.parse(
+				await fs.readFile(path.join(repository, "package.json"), "utf8")
+			).version,
+			commit: execFileSync("git", ["rev-parse", "HEAD"], {
+				cwd: repository,
+				encoding: "utf8",
+			}).trim(),
+			sourceTree: execFileSync("git", ["rev-parse", "HEAD^{tree}"], {
+				cwd: repository,
+				encoding: "utf8",
+			}).trim(),
 			source: "src/compiler/compile-bundle.ts",
 			sourceSha256: await digest("src/compiler/compile-bundle.ts"),
 			compiledSha256: await digest("dist/compiler/compile-bundle.js"),
