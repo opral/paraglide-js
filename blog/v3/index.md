@@ -31,6 +31,8 @@ On larger projects (10,000 keys × 10 locales, 100,000 messages):
 | Dev (translation edit) | 20.85 s | 1.13 s | 0.92 s |
 | Build | 24.30 s | 2.69 s | 1.38 s |
 
+Methodology and raw data: [methodology](/benchmark-data/v3-compilation-methodology.txt), [5,000 keys × 5 locales](/benchmark-data/v3-compilation-5k5-summary.csv), [10,000 keys × 10 locales](/benchmark-data/v3-compilation-10k10-summary.csv).
+
 ## Virtual modules
 
 Paraglide JS emits tree-shakable "message modules" by default in v2. Each message (translation) gets its own file. That lets bundlers like Vite tree-shake messages.

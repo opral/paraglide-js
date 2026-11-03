@@ -1,0 +1,385 @@
+{
+  "complete": true,
+  "analyzedRounds": 3,
+  "rawTrials": 18,
+  "supplementalTrials": 0,
+  "provenance": {
+    "v2": "2.29.3",
+    "v3": "2a01eb31001375cd4d1ae26a41a265df32c8340b",
+    "sdk": "4.1.0",
+    "messageFormat": "4.5.6",
+    "typescript": "7.0.2",
+    "vite": "8.1.4",
+    "node": "v24.22.1",
+    "catalogSizes": [
+      5000
+    ],
+    "locales": [
+      5
+    ],
+    "usedMessages": 200,
+    "rounds": 3,
+    "mix": {
+      "static": 50,
+      "interpolation": 35,
+      "plural": 10,
+      "currency": 3,
+      "date": 2
+    },
+    "headlines": "Median speed ratios for 5,000 keys \u00d7 5 locales only; no modification to existing large-project aggregation.",
+    "date": "2026-11-02",
+    "cpu": "Apple M5 Pro",
+    "typescriptPolicy": "Current stable TypeScript, including v2 native declaration emitter; TypeScript 5.9 pilot retained separately, excluded from headline.",
+    "integrity": {
+      "v2": "sha512-aI9gT7zGTpr/l8tZM7OXHrgGruZ6jcu2iIqIw8QXKOGOY4akF3u1cIK6EBsttBm+DHI0FGiwCl8xVUjz7kDZHg==",
+      "sdk": "sha512-pPlaxyemcFMBcwBx31zbSNWwKORSLc2yv93v0uGCh4QgNh/kBRuLlBxbubmME6UJFsj+5nbao2WDZjz3Fzs+FA==",
+      "typescript": "sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA=="
+    },
+    "stoppingReason": "Three balanced rounds for the user-requested 5k \u00d7 5 case.",
+    "primaryTrials": 18,
+    "sourceBenchmark": "paraglide-v3-release-ab-2026-11-02",
+    "measurementStartedAt": "2026-11-02T23:17:38.160184+00:00"
+  },
+  "rows": [
+    {
+      "count": 5000,
+      "localeCount": 5,
+      "variant": "v2",
+      "devTrials": 3,
+      "buildTrials": 3,
+      "fullCompileMs": {
+        "median": 6851.789458,
+        "min": 6650.596333,
+        "max": 7161.869167,
+        "samples": 3
+      },
+      "translationEditMs": {
+        "median": 5970.544083999999,
+        "min": 5689.171833999999,
+        "max": 6751.976166999999,
+        "samples": 3
+      },
+      "inputEditMs": {
+        "median": 5898.852374999999,
+        "min": 5858.808208999999,
+        "max": 5984.144541999998,
+        "samples": 3
+      },
+      "addMessageMs": {
+        "median": 5764.934541000002,
+        "min": 5437.285667,
+        "max": 5885.002625000001,
+        "samples": 3
+      },
+      "startToFirstSsrMs": {
+        "median": 10689.116833,
+        "min": 9952.69975,
+        "max": 10848.487208999999,
+        "samples": 3
+      },
+      "firstSsrRequestMs": {
+        "median": 3361.3888750000006,
+        "min": 3168.547042000001,
+        "max": 3815.208667000001,
+        "samples": 3
+      },
+      "buildMs": {
+        "median": 7088.937375,
+        "min": 6739.584166,
+        "max": 7097.345583,
+        "samples": 3
+      },
+      "typecheckMs": {
+        "median": 325.44483299999956,
+        "min": 308.3147079999999,
+        "max": 345.5914580000008,
+        "samples": 3
+      },
+      "jsBytes": {
+        "median": 84265,
+        "min": 84265,
+        "max": 84265,
+        "samples": 3
+      },
+      "gzipBytes": {
+        "median": 7832,
+        "min": 7832,
+        "max": 7832,
+        "samples": 3
+      },
+      "brotliBytes": {
+        "median": 4479,
+        "min": 4479,
+        "max": 4479,
+        "samples": 3
+      },
+      "correctness": "matching strings/HTML, valid declarations, exactly 200 bundled keys"
+    },
+    {
+      "count": 5000,
+      "localeCount": 5,
+      "variant": "v3",
+      "devTrials": 3,
+      "buildTrials": 3,
+      "fullCompileMs": {
+        "median": 818.691209,
+        "min": 785.6783330000001,
+        "max": 863.740916,
+        "samples": 3
+      },
+      "translationEditMs": {
+        "median": 253.95275000000038,
+        "min": 246.4271249999997,
+        "max": 348.9661249999999,
+        "samples": 3
+      },
+      "inputEditMs": {
+        "median": 226.3277079999998,
+        "min": 223.82966699999997,
+        "max": 239.1910829999997,
+        "samples": 3
+      },
+      "addMessageMs": {
+        "median": 304.2168750000001,
+        "min": 292.73029099999985,
+        "max": 310.6894169999996,
+        "samples": 3
+      },
+      "startToFirstSsrMs": {
+        "median": 3844.3897500000003,
+        "min": 3838.5912919999996,
+        "max": 4139.733709,
+        "samples": 3
+      },
+      "firstSsrRequestMs": {
+        "median": 2961.607917,
+        "min": 2883.846917,
+        "max": 3237.0641670000005,
+        "samples": 3
+      },
+      "buildMs": {
+        "median": 1059.9282500000002,
+        "min": 1050.7795,
+        "max": 1091.2618750000001,
+        "samples": 3
+      },
+      "typecheckMs": {
+        "median": 190.26779199999987,
+        "min": 184.109917,
+        "max": 197.6919170000001,
+        "samples": 3
+      },
+      "jsBytes": {
+        "median": 84234,
+        "min": 84234,
+        "max": 84234,
+        "samples": 3
+      },
+      "gzipBytes": {
+        "median": 7858,
+        "min": 7858,
+        "max": 7858,
+        "samples": 3
+      },
+      "brotliBytes": {
+        "median": 4596,
+        "min": 4596,
+        "max": 4596,
+        "samples": 3
+      },
+      "correctness": "matching strings/HTML, valid declarations, exactly 200 bundled keys"
+    },
+    {
+      "count": 5000,
+      "localeCount": 5,
+      "variant": "virtual",
+      "devTrials": 3,
+      "buildTrials": 3,
+      "fullCompileMs": {
+        "median": 397.93945799999995,
+        "min": 385.445875,
+        "max": 422.9786250000001,
+        "samples": 3
+      },
+      "translationEditMs": {
+        "median": 278.42887500000006,
+        "min": 246.8985419999999,
+        "max": 326.08945900000003,
+        "samples": 3
+      },
+      "inputEditMs": {
+        "median": 235.56279100000006,
+        "min": 226.99849999999992,
+        "max": 239.43333299999995,
+        "samples": 3
+      },
+      "addMessageMs": {
+        "median": 320.1653749999998,
+        "min": 312.1657090000001,
+        "max": 325.61874999999986,
+        "samples": 3
+      },
+      "startToFirstSsrMs": {
+        "median": 659.1039579999999,
+        "min": 633.396625,
+        "max": 672.900167,
+        "samples": 3
+      },
+      "firstSsrRequestMs": {
+        "median": 157.72916699999996,
+        "min": 157.34120799999994,
+        "max": 162.51987500000007,
+        "samples": 3
+      },
+      "buildMs": {
+        "median": 461.23716699999994,
+        "min": 422.68454199999996,
+        "max": 513.2914169999999,
+        "samples": 3
+      },
+      "typecheckMs": {
+        "median": 189.717709,
+        "min": 185.63429099999996,
+        "max": 200.885667,
+        "samples": 3
+      },
+      "jsBytes": {
+        "median": 84234,
+        "min": 84234,
+        "max": 84234,
+        "samples": 3
+      },
+      "gzipBytes": {
+        "median": 7858,
+        "min": 7858,
+        "max": 7858,
+        "samples": 3
+      },
+      "brotliBytes": {
+        "median": 4596,
+        "min": 4596,
+        "max": 4596,
+        "samples": 3
+      },
+      "correctness": "matching strings/HTML, valid declarations, exactly 200 bundled keys"
+    }
+  ],
+  "headline": {
+    "v3": {
+      "fullCompileMs": {
+        "speedRatio": 8.369198768323407,
+        "percentFaster": 736.9198768323407,
+        "percentLessTime": 88.05142490121155,
+        "fixtureRatios": [
+          8.369198768323406
+        ]
+      },
+      "translationEditMs": {
+        "speedRatio": 23.510452570409225,
+        "percentFaster": 2251.0452570409225,
+        "percentLessTime": 95.74657273395655,
+        "fixtureRatios": [
+          23.51045257040922
+        ]
+      },
+      "inputEditMs": {
+        "speedRatio": 26.06332396120056,
+        "percentFaster": 2506.332396120056,
+        "percentLessTime": 96.16319084438861,
+        "fixtureRatios": [
+          26.06332396120056
+        ]
+      },
+      "addMessageMs": {
+        "speedRatio": 18.950081388483135,
+        "percentFaster": 1795.0081388483134,
+        "percentLessTime": 94.72297780943703,
+        "fixtureRatios": [
+          18.950081388483138
+        ]
+      },
+      "startToFirstSsrMs": {
+        "speedRatio": 2.7804456696930897,
+        "percentFaster": 178.04456696930896,
+        "percentLessTime": 64.03454270299115,
+        "fixtureRatios": [
+          2.7804456696930897
+        ]
+      },
+      "buildMs": {
+        "speedRatio": 6.688129479519013,
+        "percentFaster": 568.8129479519013,
+        "percentLessTime": 85.04813635767236,
+        "fixtureRatios": [
+          6.688129479519014
+        ]
+      },
+      "typecheckMs": {
+        "speedRatio": 1.7104567703187505,
+        "percentFaster": 71.04567703187506,
+        "percentLessTime": 41.53608455046508,
+        "fixtureRatios": [
+          1.7104567703187505
+        ]
+      }
+    },
+    "virtual": {
+      "fullCompileMs": {
+        "speedRatio": 17.21817055397407,
+        "percentFaster": 1621.8170553974069,
+        "percentLessTime": 94.19218205055361,
+        "fixtureRatios": [
+          17.21817055397407
+        ]
+      },
+      "translationEditMs": {
+        "speedRatio": 21.443695751742695,
+        "percentFaster": 2044.3695751742694,
+        "percentLessTime": 95.3366247517351,
+        "fixtureRatios": [
+          21.443695751742695
+        ]
+      },
+      "inputEditMs": {
+        "speedRatio": 25.04152863004581,
+        "percentFaster": 2404.152863004581,
+        "percentLessTime": 96.00663356149848,
+        "fixtureRatios": [
+          25.041528630045807
+        ]
+      },
+      "addMessageMs": {
+        "speedRatio": 18.006114936694843,
+        "percentFaster": 1700.6114936694844,
+        "percentLessTime": 94.44633112964257,
+        "fixtureRatios": [
+          18.006114936694843
+        ]
+      },
+      "startToFirstSsrMs": {
+        "speedRatio": 16.217649284697515,
+        "percentFaster": 1521.7649284697516,
+        "percentLessTime": 93.83387824927519,
+        "fixtureRatios": [
+          16.217649284697515
+        ]
+      },
+      "buildMs": {
+        "speedRatio": 15.369397529492677,
+        "percentFaster": 1436.9397529492676,
+        "percentLessTime": 93.49356409006224,
+        "fixtureRatios": [
+          15.369397529492677
+        ]
+      },
+      "typecheckMs": {
+        "speedRatio": 1.7154162081938251,
+        "percentFaster": 71.54162081938252,
+        "percentLessTime": 41.70510951083366,
+        "fixtureRatios": [
+          1.7154162081938251
+        ]
+      }
+    }
+  }
+}

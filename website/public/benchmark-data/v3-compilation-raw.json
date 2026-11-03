@@ -1,0 +1,3190 @@
+{
+  "trials": [
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        2368.052792
+      ],
+      "buildMs": 2421.897959,
+      "fullCompileMs": 2368.052792,
+      "jsBytes": 152760,
+      "gzipBytes": 11902,
+      "brotliBytes": 5691,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            1062\nLines:           78092\nIdentifiers:     63061\nSymbols:         72965\nTypes:           40467\nInstantiations:  32761\nMemory used:    91264K\nMemory allocs:  486294\nConfig time:    0.000s\nParse time:     0.024s\nBind time:      0.006s\nCheck time:     0.102s\nEmit time:      0.000s\nTotal time:     0.132s\n",
+      "typecheckMs": [
+        166.636708,
+        161.87487499999997,
+        162.60695799999985
+      ],
+      "elapsedMs": 3349.7946669999997
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        2145.287625
+      ],
+      "buildMs": 2191.739709,
+      "fullCompileMs": 2145.287625,
+      "jsBytes": 152760,
+      "gzipBytes": 11902,
+      "brotliBytes": 5691,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            1062\nLines:           78092\nIdentifiers:     63061\nSymbols:         72965\nTypes:           40467\nInstantiations:  32761\nMemory used:    91296K\nMemory allocs:  486208\nConfig time:    0.000s\nParse time:     0.024s\nBind time:      0.004s\nCheck time:     0.094s\nEmit time:      0.000s\nTotal time:     0.123s\n",
+      "typecheckMs": [
+        151.148459,
+        152.07124999999996,
+        149.90412500000002
+      ],
+      "elapsedMs": 3056.599792
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        2355.356417
+      ],
+      "buildMs": 2407.959541,
+      "fullCompileMs": 2355.356417,
+      "jsBytes": 152760,
+      "gzipBytes": 11902,
+      "brotliBytes": 5691,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            1062\nLines:           78092\nIdentifiers:     63061\nSymbols:         72965\nTypes:           40467\nInstantiations:  32761\nMemory used:    91157K\nMemory allocs:  486055\nConfig time:    0.000s\nParse time:     0.026s\nBind time:      0.004s\nCheck time:     0.105s\nEmit time:      0.000s\nTotal time:     0.136s\n",
+      "typecheckMs": [
+        172.25662499999999,
+        165.87683300000026,
+        165.24658399999998
+      ],
+      "elapsedMs": 3364.76925
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        2258.1485
+      ],
+      "serverListeningMs": 2382.124333,
+      "startToFirstSsrMs": 3338.783458,
+      "firstSsrRequestMs": 956.6585829999999,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 2258.1485,
+      "incremental": {
+        "translation": [
+          1704.471584
+        ],
+        "input": [
+          1696.4935420000002
+        ],
+        "addition": [
+          1814.3251670000009
+        ]
+      },
+      "elapsedMs": 8688.761458
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        2079.6323749999997
+      ],
+      "serverListeningMs": 2198.4689590000003,
+      "startToFirstSsrMs": 2761.607084,
+      "firstSsrRequestMs": 563.137084,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 2079.6323749999997,
+      "incremental": {
+        "translation": [
+          1610.0974590000005
+        ],
+        "input": [
+          1595.8233750000009
+        ],
+        "addition": [
+          1641.8019170000007
+        ]
+      },
+      "elapsedMs": 7727.519667
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        2614.943667
+      ],
+      "serverListeningMs": 2742.2418749999997,
+      "startToFirstSsrMs": 3410.3095829999997,
+      "firstSsrRequestMs": 668.0668329999999,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 2614.943667,
+      "incremental": {
+        "translation": [
+          1833.1052920000002
+        ],
+        "input": [
+          1858.6994169999998
+        ],
+        "addition": [
+          1782.2662499999997
+        ]
+      },
+      "elapsedMs": 9019.081375
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        224.56649999999996
+      ],
+      "buildMs": 281.374208,
+      "fullCompileMs": 224.56649999999996,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           64884\nIdentifiers:     61035\nSymbols:         69948\nTypes:           40682\nInstantiations:  32949\nMemory used:    78700K\nMemory allocs:  305984\nConfig time:    0.000s\nParse time:     0.013s\nBind time:      0.004s\nCheck time:     0.101s\nEmit time:      0.000s\nTotal time:     0.119s\n",
+      "typecheckMs": [
+        162.838667,
+        157.87545899999998,
+        175.32741699999985
+      ],
+      "elapsedMs": 1145.4392500000001
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        218.48920800000002
+      ],
+      "buildMs": 275.290917,
+      "fullCompileMs": 218.48920800000002,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           64884\nIdentifiers:     61035\nSymbols:         69948\nTypes:           40682\nInstantiations:  32949\nMemory used:    78604K\nMemory allocs:  306000\nConfig time:    0.000s\nParse time:     0.012s\nBind time:      0.004s\nCheck time:     0.090s\nEmit time:      0.000s\nTotal time:     0.106s\n",
+      "typecheckMs": [
+        133.94287500000007,
+        250.00745800000016,
+        179.35179199999993
+      ],
+      "elapsedMs": 1186.79975
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        232.674042
+      ],
+      "buildMs": 288.38408300000003,
+      "fullCompileMs": 232.674042,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           64884\nIdentifiers:     61035\nSymbols:         69948\nTypes:           40682\nInstantiations:  32949\nMemory used:    78581K\nMemory allocs:  305992\nConfig time:    0.000s\nParse time:     0.013s\nBind time:      0.005s\nCheck time:     0.093s\nEmit time:      0.000s\nTotal time:     0.111s\n",
+      "typecheckMs": [
+        146.84354200000007,
+        142.72450000000003,
+        144.88745900000004
+      ],
+      "elapsedMs": 1085.492875
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        215.61933299999998
+      ],
+      "serverListeningMs": 290.0645,
+      "startToFirstSsrMs": 1018.8631670000001,
+      "firstSsrRequestMs": 728.798,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 215.61933299999998,
+      "incremental": {
+        "translation": [
+          96.13933299999985
+        ],
+        "input": [
+          82.46491700000001
+        ],
+        "addition": [
+          112.4520829999999
+        ]
+      },
+      "elapsedMs": 1451.239125
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        211.29645799999997
+      ],
+      "serverListeningMs": 285.33270799999997,
+      "startToFirstSsrMs": 913.764333,
+      "firstSsrRequestMs": 628.4345000000001,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 211.29645799999997,
+      "incremental": {
+        "translation": [
+          89.43587500000012
+        ],
+        "input": [
+          85.69612499999994
+        ],
+        "addition": [
+          107.29266699999994
+        ]
+      },
+      "elapsedMs": 1326.2185410000002
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        236.63370899999998
+      ],
+      "serverListeningMs": 321.948667,
+      "startToFirstSsrMs": 1120.784917,
+      "firstSsrRequestMs": 798.835333,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 236.63370899999998,
+      "incremental": {
+        "translation": [
+          102.34858399999985
+        ],
+        "input": [
+          115.45604200000002
+        ],
+        "addition": [
+          111.9381249999999
+        ]
+      },
+      "elapsedMs": 1602.357625
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        159.72083299999997
+      ],
+      "buildMs": 206.68683299999998,
+      "fullCompileMs": 159.72083299999997,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           66887\nIdentifiers:     61035\nSymbols:         69948\nTypes:           40682\nInstantiations:  32949\nMemory used:    78469K\nMemory allocs:  306013\nConfig time:    0.000s\nParse time:     0.013s\nBind time:      0.005s\nCheck time:     0.095s\nEmit time:      0.000s\nTotal time:     0.113s\n",
+      "typecheckMs": [
+        152.01312499999995,
+        148.68441700000005,
+        263.07837499999994
+      ],
+      "elapsedMs": 1228.041834
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        136.705083
+      ],
+      "buildMs": 176.92975,
+      "fullCompileMs": 136.705083,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           66887\nIdentifiers:     61035\nSymbols:         69948\nTypes:           40682\nInstantiations:  32949\nMemory used:    78501K\nMemory allocs:  305964\nConfig time:    0.000s\nParse time:     0.012s\nBind time:      0.004s\nCheck time:     0.085s\nEmit time:      0.000s\nTotal time:     0.101s\n",
+      "typecheckMs": [
+        134.03229199999998,
+        134.96408399999996,
+        137.286334
+      ],
+      "elapsedMs": 917.743292
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        148.53354199999998
+      ],
+      "buildMs": 191.11508400000002,
+      "fullCompileMs": 148.53354199999998,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           66887\nIdentifiers:     61035\nSymbols:         69948\nTypes:           40682\nInstantiations:  32949\nMemory used:    78390K\nMemory allocs:  305948\nConfig time:    0.000s\nParse time:     0.012s\nBind time:      0.004s\nCheck time:     0.093s\nEmit time:      0.000s\nTotal time:     0.111s\n",
+      "typecheckMs": [
+        143.13804099999993,
+        144.51025000000004,
+        153.012875
+      ],
+      "elapsedMs": 994.6565830000001
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        146.889416
+      ],
+      "serverListeningMs": 228.893083,
+      "startToFirstSsrMs": 372.37662500000005,
+      "firstSsrRequestMs": 143.4885,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 146.889416,
+      "incremental": {
+        "translation": [
+          91.42979099999997
+        ],
+        "input": [
+          77.84695900000003
+        ],
+        "addition": [
+          113.74924999999996
+        ]
+      },
+      "elapsedMs": 683.713417
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        139.264625
+      ],
+      "serverListeningMs": 210.92558300000002,
+      "startToFirstSsrMs": 356.402292,
+      "firstSsrRequestMs": 145.47654100000003,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 139.264625,
+      "incremental": {
+        "translation": [
+          87.912375
+        ],
+        "input": [
+          76.24779099999995
+        ],
+        "addition": [
+          98.90533299999993
+        ]
+      },
+      "elapsedMs": 646.394375
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        165.806416
+      ],
+      "serverListeningMs": 249.424542,
+      "startToFirstSsrMs": 417.618334,
+      "firstSsrRequestMs": 168.19324999999998,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 165.806416,
+      "incremental": {
+        "translation": [
+          103.01304099999999
+        ],
+        "input": [
+          86.24604199999999
+        ],
+        "addition": [
+          111.008916
+        ]
+      },
+      "elapsedMs": 749.523917
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        1362.637
+      ],
+      "buildMs": 1408.483625,
+      "fullCompileMs": 1362.637,
+      "jsBytes": 40168,
+      "gzipBytes": 5253,
+      "brotliBytes": 3582,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            1062\nLines:           78092\nIdentifiers:     63061\nSymbols:         72946\nTypes:           40391\nInstantiations:  32753\nMemory used:    86786K\nMemory allocs:  477050\nConfig time:    0.000s\nParse time:     0.025s\nBind time:      0.005s\nCheck time:     0.096s\nEmit time:      0.000s\nTotal time:     0.128s\n",
+      "typecheckMs": [
+        147.9555409999998,
+        149.74404100000015,
+        150.93254100000013
+      ],
+      "elapsedMs": 2206.9452499999998
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        1245.3940420000001
+      ],
+      "buildMs": 1287.579708,
+      "fullCompileMs": 1245.3940420000001,
+      "jsBytes": 40168,
+      "gzipBytes": 5253,
+      "brotliBytes": 3582,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            1062\nLines:           78092\nIdentifiers:     63061\nSymbols:         72946\nTypes:           40391\nInstantiations:  32753\nMemory used:    86730K\nMemory allocs:  476961\nConfig time:    0.000s\nParse time:     0.023s\nBind time:      0.004s\nCheck time:     0.090s\nEmit time:      0.000s\nTotal time:     0.118s\n",
+      "typecheckMs": [
+        227.44074999999998,
+        161.94724999999994,
+        154.91491699999983
+      ],
+      "elapsedMs": 2136.3314170000003
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        1321.0755840000002
+      ],
+      "buildMs": 1371.7972499999998,
+      "fullCompileMs": 1321.0755840000002,
+      "jsBytes": 40168,
+      "gzipBytes": 5253,
+      "brotliBytes": 3582,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            1062\nLines:           78092\nIdentifiers:     63061\nSymbols:         72946\nTypes:           40391\nInstantiations:  32753\nMemory used:    86799K\nMemory allocs:  477065\nConfig time:    0.000s\nParse time:     0.025s\nBind time:      0.006s\nCheck time:     0.108s\nEmit time:      0.000s\nTotal time:     0.141s\n",
+      "typecheckMs": [
+        176.94116700000018,
+        249.22862499999997,
+        176.49537500000042
+      ],
+      "elapsedMs": 2317.19575
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        1315.250792
+      ],
+      "serverListeningMs": 1442.544583,
+      "startToFirstSsrMs": 1945.700458,
+      "firstSsrRequestMs": 503.15491599999996,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 1315.250792,
+      "incremental": {
+        "translation": [
+          804.04925
+        ],
+        "input": [
+          787.8647080000001
+        ],
+        "addition": [
+          793.1198340000001
+        ]
+      },
+      "elapsedMs": 4454.284458
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        1223.6395420000001
+      ],
+      "serverListeningMs": 1381.1211660000001,
+      "startToFirstSsrMs": 1852.851208,
+      "firstSsrRequestMs": 471.72849999999994,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 1223.6395420000001,
+      "incremental": {
+        "translation": [
+          829.217958
+        ],
+        "input": [
+          786.8774159999998
+        ],
+        "addition": [
+          773.8723749999999
+        ]
+      },
+      "elapsedMs": 4360.477
+    },
+    {
+      "variant": "v2",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        1470.646291
+      ],
+      "serverListeningMs": 1668.897917,
+      "startToFirstSsrMs": 2183.808,
+      "firstSsrRequestMs": 514.9089580000002,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 1470.646291,
+      "incremental": {
+        "translation": [
+          873.401417
+        ],
+        "input": [
+          852.5530840000001
+        ],
+        "addition": [
+          1185.1119579999995
+        ]
+      },
+      "elapsedMs": 5297.6105
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        138.85391700000002
+      ],
+      "buildMs": 197.436875,
+      "fullCompileMs": 138.85391700000002,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           64884\nIdentifiers:     61035\nSymbols:         69929\nTypes:           40638\nInstantiations:  32941\nMemory used:    75181K\nMemory allocs:  301566\nConfig time:    0.000s\nParse time:     0.012s\nBind time:      0.004s\nCheck time:     0.094s\nEmit time:      0.000s\nTotal time:     0.111s\n",
+      "typecheckMs": [
+        145.301375,
+        160.77224999999999,
+        137.63854100000003
+      ],
+      "elapsedMs": 896.352708
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        125.715791
+      ],
+      "buildMs": 185.89825,
+      "fullCompileMs": 125.715791,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           64884\nIdentifiers:     61035\nSymbols:         69929\nTypes:           40638\nInstantiations:  32941\nMemory used:    75199K\nMemory allocs:  301597\nConfig time:    0.000s\nParse time:     0.012s\nBind time:      0.004s\nCheck time:     0.088s\nEmit time:      0.000s\nTotal time:     0.105s\n",
+      "typecheckMs": [
+        134.47979199999997,
+        140.82616699999994,
+        140.63991699999997
+      ],
+      "elapsedMs": 847.430542
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        151.35449999999997
+      ],
+      "buildMs": 216.41845899999998,
+      "fullCompileMs": 151.35449999999997,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           64884\nIdentifiers:     61035\nSymbols:         69929\nTypes:           40638\nInstantiations:  32941\nMemory used:    75145K\nMemory allocs:  301567\nConfig time:    0.000s\nParse time:     0.013s\nBind time:      0.004s\nCheck time:     0.102s\nEmit time:      0.000s\nTotal time:     0.120s\n",
+      "typecheckMs": [
+        151.94995800000004,
+        152.074833,
+        161.850416
+      ],
+      "elapsedMs": 980.3551249999999
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        150.830417
+      ],
+      "serverListeningMs": 231.405666,
+      "startToFirstSsrMs": 743.144125,
+      "firstSsrRequestMs": 511.74112499999995,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 150.830417,
+      "incremental": {
+        "translation": [
+          30.614625000000046
+        ],
+        "input": [
+          24.48350000000005
+        ],
+        "addition": [
+          34.932458
+        ]
+      },
+      "elapsedMs": 957.098333
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        123.932625
+      ],
+      "serverListeningMs": 193.65308299999998,
+      "startToFirstSsrMs": 647.7022910000001,
+      "firstSsrRequestMs": 454.04837499999996,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 123.932625,
+      "incremental": {
+        "translation": [
+          28.530958000000055
+        ],
+        "input": [
+          24.892708999999968
+        ],
+        "addition": [
+          35.082667000000015
+        ]
+      },
+      "elapsedMs": 855.943791
+    },
+    {
+      "variant": "v3",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        150.00429200000002
+      ],
+      "serverListeningMs": 237.768292,
+      "startToFirstSsrMs": 762.248959,
+      "firstSsrRequestMs": 524.479625,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 150.00429200000002,
+      "incremental": {
+        "translation": [
+          32.33737499999995
+        ],
+        "input": [
+          25.933417000000077
+        ],
+        "addition": [
+          47.998875
+        ]
+      },
+      "elapsedMs": 993.363709
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        56.92445900000001
+      ],
+      "buildMs": 94.336292,
+      "fullCompileMs": 56.92445900000001,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           66887\nIdentifiers:     61035\nSymbols:         69929\nTypes:           40638\nInstantiations:  32941\nMemory used:    74988K\nMemory allocs:  301516\nConfig time:    0.000s\nParse time:     0.012s\nBind time:      0.004s\nCheck time:     0.105s\nEmit time:      0.000s\nTotal time:     0.121s\n",
+      "typecheckMs": [
+        140.159834,
+        261.66,
+        148.90312500000005
+      ],
+      "elapsedMs": 901.499167
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        54.84875000000001
+      ],
+      "buildMs": 91.46604200000002,
+      "fullCompileMs": 54.84875000000001,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           66887\nIdentifiers:     61035\nSymbols:         69929\nTypes:           40638\nInstantiations:  32941\nMemory used:    75041K\nMemory allocs:  301481\nConfig time:    0.000s\nParse time:     0.011s\nBind time:      0.004s\nCheck time:     0.085s\nEmit time:      0.000s\nTotal time:     0.101s\n",
+      "typecheckMs": [
+        133.72145799999998,
+        140.44175000000007,
+        215.70604200000002
+      ],
+      "elapsedMs": 816.162167
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        62.45425
+      ],
+      "buildMs": 104.45058300000001,
+      "fullCompileMs": 62.45425,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:              62\nLines:           66887\nIdentifiers:     61035\nSymbols:         69929\nTypes:           40638\nInstantiations:  32941\nMemory used:    74989K\nMemory allocs:  301471\nConfig time:    0.000s\nParse time:     0.013s\nBind time:      0.004s\nCheck time:     0.100s\nEmit time:      0.000s\nTotal time:     0.120s\n",
+      "typecheckMs": [
+        142.96258300000005,
+        142.49129200000004,
+        145.77358300000003
+      ],
+      "elapsedMs": 814.332708
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        63.989915999999994
+      ],
+      "serverListeningMs": 142.116083,
+      "startToFirstSsrMs": 266.61395799999997,
+      "firstSsrRequestMs": 124.49716699999999,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 63.989915999999994,
+      "incremental": {
+        "translation": [
+          27.7115
+        ],
+        "input": [
+          24.71158300000002
+        ],
+        "addition": [
+          38.78666700000002
+        ]
+      },
+      "elapsedMs": 386.264583
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        58.309208999999996
+      ],
+      "serverListeningMs": 128.254916,
+      "startToFirstSsrMs": 248.87170799999998,
+      "firstSsrRequestMs": 120.61574999999999,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 58.309208999999996,
+      "incremental": {
+        "translation": [
+          25.529583000000002
+        ],
+        "input": [
+          22.680083000000025
+        ],
+        "addition": [
+          35.51062499999995
+        ]
+      },
+      "elapsedMs": 356.008791
+    },
+    {
+      "variant": "virtual",
+      "count": 1000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        70.75104199999998
+      ],
+      "serverListeningMs": 153.668791,
+      "startToFirstSsrMs": 286.912958,
+      "firstSsrRequestMs": 133.24450000000002,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 70.75104199999998,
+      "incremental": {
+        "translation": [
+          29.300082999999972
+        ],
+        "input": [
+          25.675082999999972
+        ],
+        "addition": [
+          36.44620800000001
+        ]
+      },
+      "elapsedMs": 408.493958
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        34922.650875
+      ],
+      "buildMs": 35335.954291,
+      "fullCompileMs": 34922.650875,
+      "jsBytes": 152760,
+      "gzipBytes": 11902,
+      "brotliBytes": 5691,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            20062\nLines:           478992\nIdentifiers:     329061\nSymbols:         405465\nTypes:           182967\nInstantiations:  108761\nMemory used:    614598K\nMemory allocs:  4748222\nConfig time:     0.000s\nParse time:      0.471s\nBind time:       0.092s\nCheck time:      0.398s\nEmit time:       0.000s\nTotal time:      0.968s\n",
+      "typecheckMs": [
+        943.247083000002,
+        935.505624999998,
+        918.9799170000042
+      ],
+      "elapsedMs": 39618.588084
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        46836.13975
+      ],
+      "buildMs": 47401.51425,
+      "fullCompileMs": 46836.13975,
+      "jsBytes": 152760,
+      "gzipBytes": 11902,
+      "brotliBytes": 5691,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            20062\nLines:           478992\nIdentifiers:     329061\nSymbols:         405465\nTypes:           182967\nInstantiations:  108761\nMemory used:    613035K\nMemory allocs:  4734756\nConfig time:     0.000s\nParse time:      0.530s\nBind time:       0.115s\nCheck time:      0.581s\nEmit time:       0.000s\nTotal time:      1.234s\n",
+      "typecheckMs": [
+        1218.518707999996,
+        1341.5013340000005,
+        1078.4744999999966
+      ],
+      "elapsedMs": 52795.749792
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        44018.264125
+      ],
+      "buildMs": 44642.843041,
+      "fullCompileMs": 44018.264125,
+      "jsBytes": 152760,
+      "gzipBytes": 11902,
+      "brotliBytes": 5691,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            20062\nLines:           478992\nIdentifiers:     329061\nSymbols:         405465\nTypes:           182967\nInstantiations:  108761\nMemory used:    613933K\nMemory allocs:  4746142\nConfig time:     0.000s\nParse time:      0.807s\nBind time:       0.119s\nCheck time:      0.690s\nEmit time:       0.000s\nTotal time:      1.624s\n",
+      "typecheckMs": [
+        1903.8411250000063,
+        1963.8932499999937,
+        1929.8464999999997
+      ],
+      "elapsedMs": 52792.743375
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        35119.928417
+      ],
+      "serverListeningMs": 35236.705375,
+      "startToFirstSsrMs": 49118.296707999994,
+      "firstSsrRequestMs": 13881.589417000003,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 35119.928417,
+      "incremental": {
+        "translation": [
+          36777.291541
+        ],
+        "input": [
+          37185.762749999994
+        ],
+        "addition": [
+          36477.356959
+        ]
+      },
+      "elapsedMs": 165004.502667
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        42270.775625
+      ],
+      "serverListeningMs": 42472.677041,
+      "startToFirstSsrMs": 59038.284541,
+      "firstSsrRequestMs": 16565.607375,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 42270.775625,
+      "incremental": {
+        "translation": [
+          42694.629292000005
+        ],
+        "input": [
+          40286.11375000002
+        ],
+        "addition": [
+          41081.845959
+        ]
+      },
+      "elapsedMs": 188936.394416
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        38626.426999999996
+      ],
+      "serverListeningMs": 38765.468041,
+      "startToFirstSsrMs": 53242.236500000006,
+      "firstSsrRequestMs": 14476.767500000002,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 38626.426999999996,
+      "incremental": {
+        "translation": [
+          36900.951292000005
+        ],
+        "input": [
+          48567.96391599999
+        ],
+        "addition": [
+          39442.251707999996
+        ]
+      },
+      "elapsedMs": 185649.992875
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        3932.150375
+      ],
+      "buildMs": 4533.001749999999,
+      "fullCompileMs": 3932.150375,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           218784\nIdentifiers:     289035\nSymbols:         345448\nTypes:           183182\nInstantiations:  108949\nMemory used:    365767K\nMemory allocs:  1156140\nConfig time:     0.000s\nParse time:      0.086s\nBind time:       0.039s\nCheck time:      0.292s\nEmit time:       0.000s\nTotal time:      0.418s\n",
+      "typecheckMs": [
+        456.5136249999996,
+        537.6042499999994,
+        437.58050000000003
+      ],
+      "elapsedMs": 6648.230291
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        4554.842584
+      ],
+      "buildMs": 5272.027708,
+      "fullCompileMs": 4554.842584,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           218784\nIdentifiers:     289035\nSymbols:         345448\nTypes:           183182\nInstantiations:  108949\nMemory used:    365745K\nMemory allocs:  1156109\nConfig time:     0.000s\nParse time:      0.102s\nBind time:       0.069s\nCheck time:      0.373s\nEmit time:       0.000s\nTotal time:      0.546s\n",
+      "typecheckMs": [
+        638.9050829999996,
+        592.7420419999999,
+        535.5876669999998
+      ],
+      "elapsedMs": 7895.490084
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        4813.969291
+      ],
+      "buildMs": 5789.142790999999,
+      "fullCompileMs": 4813.969291,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           218784\nIdentifiers:     289035\nSymbols:         345448\nTypes:           183182\nInstantiations:  108949\nMemory used:    365905K\nMemory allocs:  1156188\nConfig time:     0.000s\nParse time:      0.138s\nBind time:       0.062s\nCheck time:      0.374s\nEmit time:       0.000s\nTotal time:      0.575s\n",
+      "typecheckMs": [
+        551.5008330000001,
+        539.7724580000004,
+        617.4177499999996
+      ],
+      "elapsedMs": 8574.056375
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        4636.299875
+      ],
+      "serverListeningMs": 4737.582375,
+      "startToFirstSsrMs": 19955.118125,
+      "firstSsrRequestMs": 15217.534708,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 4636.299875,
+      "incremental": {
+        "translation": [
+          1915.9980410000026
+        ],
+        "input": [
+          1995.8474999999999
+        ],
+        "addition": [
+          2435.352749999998
+        ]
+      },
+      "elapsedMs": 31604.17675
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        4840.608958000001
+      ],
+      "serverListeningMs": 4930.032334,
+      "startToFirstSsrMs": 22106.378834,
+      "firstSsrRequestMs": 17176.346250000002,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 4840.608958000001,
+      "incremental": {
+        "translation": [
+          2235.933874999999
+        ],
+        "input": [
+          2110.5592499999984
+        ],
+        "addition": [
+          2561.610499999999
+        ]
+      },
+      "elapsedMs": 34968.928209
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        4726.473167
+      ],
+      "serverListeningMs": 4835.274625,
+      "startToFirstSsrMs": 21077.007666999998,
+      "firstSsrRequestMs": 16241.731959,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 4726.473167,
+      "incremental": {
+        "translation": [
+          2159.687582999999
+        ],
+        "input": [
+          2216.2722079999985
+        ],
+        "addition": [
+          2844.179082999999
+        ]
+      },
+      "elapsedMs": 34137.705833
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        2185.000292
+      ],
+      "buildMs": 2227.104042,
+      "fullCompileMs": 2185.000292,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           258787\nIdentifiers:     289035\nSymbols:         345448\nTypes:           183182\nInstantiations:  108949\nMemory used:    363985K\nMemory allocs:  1155776\nConfig time:     0.000s\nParse time:      0.085s\nBind time:       0.041s\nCheck time:      0.264s\nEmit time:       0.000s\nTotal time:      0.392s\n",
+      "typecheckMs": [
+        427.85824999999977,
+        428.28637500000013,
+        429.44675000000007
+      ],
+      "elapsedMs": 4169.566417
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        2711.2021250000003
+      ],
+      "buildMs": 2763.331084,
+      "fullCompileMs": 2711.2021250000003,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           258787\nIdentifiers:     289035\nSymbols:         345448\nTypes:           183182\nInstantiations:  108949\nMemory used:    364112K\nMemory allocs:  1155771\nConfig time:     0.000s\nParse time:      0.096s\nBind time:       0.049s\nCheck time:      0.345s\nEmit time:       0.000s\nTotal time:      0.490s\n",
+      "typecheckMs": [
+        575.3263329999995,
+        608.6629579999999,
+        521.1728330000005
+      ],
+      "elapsedMs": 5280.113042
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        3679.1077499999997
+      ],
+      "buildMs": 3770.127291,
+      "fullCompileMs": 3679.1077499999997,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           258787\nIdentifiers:     289035\nSymbols:         345448\nTypes:           183182\nInstantiations:  108949\nMemory used:    364094K\nMemory allocs:  1155791\nConfig time:     0.000s\nParse time:      0.163s\nBind time:       0.079s\nCheck time:      0.533s\nEmit time:       0.000s\nTotal time:      0.777s\n",
+      "typecheckMs": [
+        613.5657080000001,
+        597.0842080000002,
+        601.4064169999992
+      ],
+      "elapsedMs": 6842.208708
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        2322.4746250000003
+      ],
+      "serverListeningMs": 2394.185125,
+      "startToFirstSsrMs": 2547.867625,
+      "firstSsrRequestMs": 153.67995799999971,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 2322.4746250000003,
+      "incremental": {
+        "translation": [
+          2049.8880000000004
+        ],
+        "input": [
+          2034.6621250000007
+        ],
+        "addition": [
+          2261.0468329999994
+        ]
+      },
+      "elapsedMs": 9052.837500000001
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        2823.792125
+      ],
+      "serverListeningMs": 2997.899459,
+      "startToFirstSsrMs": 3275.535667,
+      "firstSsrRequestMs": 277.63870799999995,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 2823.792125,
+      "incremental": {
+        "translation": [
+          2322.0919580000004
+        ],
+        "input": [
+          2087.4529170000005
+        ],
+        "addition": [
+          2939.0054170000003
+        ]
+      },
+      "elapsedMs": 10855.982875
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        2566.0934580000003
+      ],
+      "serverListeningMs": 2644.312084,
+      "startToFirstSsrMs": 2806.324417,
+      "firstSsrRequestMs": 162.0113339999998,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 2566.0934580000003,
+      "incremental": {
+        "translation": [
+          1983.4892909999999
+        ],
+        "input": [
+          1972.5682500000003
+        ],
+        "addition": [
+          2351.169583
+        ]
+      },
+      "elapsedMs": 9184.072833999999
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        15115.984209
+      ],
+      "buildMs": 15618.791208,
+      "fullCompileMs": 15115.984209,
+      "jsBytes": 40168,
+      "gzipBytes": 5253,
+      "brotliBytes": 3582,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            20062\nLines:           478992\nIdentifiers:     329061\nSymbols:         405446\nTypes:           182891\nInstantiations:  108753\nMemory used:    528262K\nMemory allocs:  4569818\nConfig time:     0.000s\nParse time:      0.550s\nBind time:       0.108s\nCheck time:      0.427s\nEmit time:       0.000s\nTotal time:      1.092s\n",
+      "typecheckMs": [
+        951.4198340000003,
+        962.5011249999989,
+        977.827666000001
+      ],
+      "elapsedMs": 19862.115167
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        16567.914125
+      ],
+      "buildMs": 17063.674709,
+      "fullCompileMs": 16567.914125,
+      "jsBytes": 40168,
+      "gzipBytes": 5253,
+      "brotliBytes": 3582,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            20062\nLines:           478992\nIdentifiers:     329061\nSymbols:         405446\nTypes:           182891\nInstantiations:  108753\nMemory used:    526652K\nMemory allocs:  4563350\nConfig time:     0.000s\nParse time:      0.512s\nBind time:       0.103s\nCheck time:      0.479s\nEmit time:       0.000s\nTotal time:      1.102s\n",
+      "typecheckMs": [
+        1156.5470000000023,
+        1105.271249999998,
+        1016.357
+      ],
+      "elapsedMs": 21993.819417
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        17678.341416
+      ],
+      "buildMs": 18157.618958,
+      "fullCompileMs": 17678.341416,
+      "jsBytes": 40168,
+      "gzipBytes": 5253,
+      "brotliBytes": 3582,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:            20062\nLines:           478992\nIdentifiers:     329061\nSymbols:         405446\nTypes:           182891\nInstantiations:  108753\nMemory used:    525716K\nMemory allocs:  4557378\nConfig time:     0.000s\nParse time:      0.547s\nBind time:       0.124s\nCheck time:      0.633s\nEmit time:       0.000s\nTotal time:      1.313s\n",
+      "typecheckMs": [
+        1410.832957999999,
+        1181.8065829999978,
+        1238.3537920000017
+      ],
+      "elapsedMs": 23640.603417000002
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        14801.428958
+      ],
+      "serverListeningMs": 14927.571124999999,
+      "startToFirstSsrMs": 25476.329083,
+      "firstSsrRequestMs": 10548.757583999999,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 14801.428958,
+      "incremental": {
+        "translation": [
+          12855.259916000003
+        ],
+        "input": [
+          13810.862666
+        ],
+        "addition": [
+          13363.087040999999
+        ]
+      },
+      "elapsedMs": 69878.30099999999
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        14811.417125
+      ],
+      "serverListeningMs": 14931.896499999999,
+      "startToFirstSsrMs": 25146.296,
+      "firstSsrRequestMs": 10214.3995,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 14811.417125,
+      "incremental": {
+        "translation": [
+          13799.610500000003
+        ],
+        "input": [
+          13065.180875000005
+        ],
+        "addition": [
+          12116.835375000002
+        ]
+      },
+      "elapsedMs": 68542.470541
+    },
+    {
+      "variant": "v2",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        16071.240542000001
+      ],
+      "serverListeningMs": 16216.157458,
+      "startToFirstSsrMs": 27263.364583000002,
+      "firstSsrRequestMs": 11047.205417000001,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 16071.240542000001,
+      "incremental": {
+        "translation": [
+          13827.819291
+        ],
+        "input": [
+          14586.549249999996
+        ],
+        "addition": [
+          14701.381040999993
+        ]
+      },
+      "elapsedMs": 75373.637458
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        2529.2945839999998
+      ],
+      "buildMs": 3129.567708,
+      "fullCompileMs": 2529.2945839999998,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           218784\nIdentifiers:     289035\nSymbols:         345429\nTypes:           183138\nInstantiations:  108941\nMemory used:    298979K\nMemory allocs:  1069369\nConfig time:     0.000s\nParse time:      0.065s\nBind time:       0.034s\nCheck time:      0.203s\nEmit time:       0.000s\nTotal time:      0.304s\n",
+      "typecheckMs": [
+        329.40670899999986,
+        333.49929199999997,
+        341.4709579999999
+      ],
+      "elapsedMs": 4598.8126250000005
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        3027.3280830000003
+      ],
+      "buildMs": 3719.035666,
+      "fullCompileMs": 3027.3280830000003,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           218784\nIdentifiers:     289035\nSymbols:         345429\nTypes:           183138\nInstantiations:  108941\nMemory used:    298870K\nMemory allocs:  1069404\nConfig time:     0.000s\nParse time:      0.070s\nBind time:       0.045s\nCheck time:      0.440s\nEmit time:       0.000s\nTotal time:      0.555s\n",
+      "typecheckMs": [
+        475.39629199999945,
+        606.7182090000006,
+        442.8396250000005
+      ],
+      "elapsedMs": 5983.304709
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        2613.873833
+      ],
+      "buildMs": 3372.714333,
+      "fullCompileMs": 2613.873833,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           218784\nIdentifiers:     289035\nSymbols:         345429\nTypes:           183138\nInstantiations:  108941\nMemory used:    298896K\nMemory allocs:  1069383\nConfig time:     0.000s\nParse time:      0.093s\nBind time:       0.049s\nCheck time:      0.339s\nEmit time:       0.000s\nTotal time:      0.482s\n",
+      "typecheckMs": [
+        404.59729199999947,
+        368.22512499999993,
+        382.84379199999967
+      ],
+      "elapsedMs": 5226.345791
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        2218.791208
+      ],
+      "serverListeningMs": 2291.363875,
+      "startToFirstSsrMs": 12526.227666,
+      "firstSsrRequestMs": 10234.862583000002,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 2218.791208,
+      "incremental": {
+        "translation": [
+          452.27341700000034
+        ],
+        "input": [
+          445.7145410000012
+        ],
+        "addition": [
+          569.5513339999998
+        ]
+      },
+      "elapsedMs": 18165.975875
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        2532.63375
+      ],
+      "serverListeningMs": 2679.838667,
+      "startToFirstSsrMs": 16327.556292000001,
+      "firstSsrRequestMs": 13647.716917,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 2532.63375,
+      "incremental": {
+        "translation": [
+          474.8411670000005
+        ],
+        "input": [
+          452.1461670000026
+        ],
+        "addition": [
+          790.9177909999999
+        ]
+      },
+      "elapsedMs": 22890.169667000002
+    },
+    {
+      "variant": "v3",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        3060.1898330000004
+      ],
+      "serverListeningMs": 3178.238459,
+      "startToFirstSsrMs": 16266.35825,
+      "firstSsrRequestMs": 13088.11825,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 3060.1898330000004,
+      "incremental": {
+        "translation": [
+          509.83770899999763
+        ],
+        "input": [
+          436.91549999999916
+        ],
+        "addition": [
+          810.216375
+        ]
+      },
+      "elapsedMs": 23392.775417
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        648.6261669999999
+      ],
+      "buildMs": 690.2384579999999,
+      "fullCompileMs": 648.6261669999999,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           258787\nIdentifiers:     289035\nSymbols:         345429\nTypes:           183138\nInstantiations:  108941\nMemory used:    297295K\nMemory allocs:  1069121\nConfig time:     0.000s\nParse time:      0.070s\nBind time:       0.037s\nCheck time:      0.217s\nEmit time:       0.000s\nTotal time:      0.325s\n",
+      "typecheckMs": [
+        340.2032919999999,
+        353.0622079999998,
+        328.7393340000003
+      ],
+      "elapsedMs": 2202.516208
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        750.588333
+      ],
+      "buildMs": 794.412541,
+      "fullCompileMs": 750.588333,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           258787\nIdentifiers:     289035\nSymbols:         345429\nTypes:           183138\nInstantiations:  108941\nMemory used:    297397K\nMemory allocs:  1069080\nConfig time:     0.000s\nParse time:      0.071s\nBind time:       0.041s\nCheck time:      0.298s\nEmit time:       0.000s\nTotal time:      0.412s\n",
+      "typecheckMs": [
+        367.4492089999999,
+        367.64370799999983,
+        373.3589159999997
+      ],
+      "elapsedMs": 2511.762917
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        761.231625
+      ],
+      "buildMs": 812.124125,
+      "fullCompileMs": 761.231625,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           258787\nIdentifiers:     289035\nSymbols:         345429\nTypes:           183138\nInstantiations:  108941\nMemory used:    297384K\nMemory allocs:  1069101\nConfig time:     0.000s\nParse time:      0.068s\nBind time:       0.040s\nCheck time:      0.235s\nEmit time:       0.000s\nTotal time:      0.344s\n",
+      "typecheckMs": [
+        440.04566699999987,
+        426.1372920000001,
+        502.89083299999993
+      ],
+      "elapsedMs": 2718.755625
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        624.0934159999999
+      ],
+      "serverListeningMs": 694.716708,
+      "startToFirstSsrMs": 810.4735420000001,
+      "firstSsrRequestMs": 115.75637500000005,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 624.0934159999999,
+      "incremental": {
+        "translation": [
+          385.67820900000004
+        ],
+        "input": [
+          351.44945800000005
+        ],
+        "addition": [
+          606.83375
+        ]
+      },
+      "elapsedMs": 2195.849917
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        625.103084
+      ],
+      "serverListeningMs": 703.447959,
+      "startToFirstSsrMs": 821.989042,
+      "firstSsrRequestMs": 118.54037500000004,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 625.103084,
+      "incremental": {
+        "translation": [
+          399.948709
+        ],
+        "input": [
+          357.3783330000001
+        ],
+        "addition": [
+          565.6900839999998
+        ]
+      },
+      "elapsedMs": 2189.284167
+    },
+    {
+      "variant": "virtual",
+      "count": 20000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        679.528542
+      ],
+      "serverListeningMs": 756.8120839999999,
+      "startToFirstSsrMs": 879.2931249999999,
+      "firstSsrRequestMs": 122.48004099999991,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 679.528542,
+      "incremental": {
+        "translation": [
+          427.313625
+        ],
+        "input": [
+          485.71233400000006
+        ],
+        "addition": [
+          624.3974170000001
+        ]
+      },
+      "elapsedMs": 2465.777709
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        90135.212917
+      ],
+      "buildMs": 91270.86374999999,
+      "fullCompileMs": 90135.212917,
+      "jsBytes": 152760,
+      "gzipBytes": 11902,
+      "brotliBytes": 5691,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:             50062\nLines:           1111992\nIdentifiers:      749061\nSymbols:          930465\nTypes:            407967\nInstantiations:   228761\nMemory used:    1425454K\nMemory allocs:  11454479\nConfig time:      0.000s\nParse time:       1.303s\nBind time:        0.437s\nCheck time:       1.230s\nEmit time:        0.001s\nTotal time:       2.986s\n",
+      "typecheckMs": [
+        2903.0210829999996,
+        2907.3484580000077,
+        2981.701915999991
+      ],
+      "elapsedMs": 103627.98325
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        112498.64675
+      ],
+      "buildMs": 113849.706417,
+      "fullCompileMs": 112498.64675,
+      "jsBytes": 152760,
+      "gzipBytes": 11902,
+      "brotliBytes": 5691,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:             50062\nLines:           1111992\nIdentifiers:      749061\nSymbols:          930465\nTypes:            407967\nInstantiations:   228761\nMemory used:    1422110K\nMemory allocs:  11442056\nConfig time:      0.000s\nParse time:       1.544s\nBind time:        0.576s\nCheck time:       1.562s\nEmit time:        0.001s\nTotal time:       3.703s\n",
+      "typecheckMs": [
+        3534.1368330000114,
+        3529.874125000002,
+        3373.8561670000054
+      ],
+      "elapsedMs": 128747.25
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        117702.17825
+      ],
+      "buildMs": 119190.14833400001,
+      "fullCompileMs": 117702.17825,
+      "jsBytes": 152760,
+      "gzipBytes": 11902,
+      "brotliBytes": 5691,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:             50062\nLines:           1111992\nIdentifiers:      749061\nSymbols:          930465\nTypes:            407967\nInstantiations:   228761\nMemory used:    1425777K\nMemory allocs:  11451080\nConfig time:      0.000s\nParse time:       1.668s\nBind time:        0.570s\nCheck time:       1.822s\nEmit time:        0.002s\nTotal time:       4.082s\n",
+      "typecheckMs": [
+        4462.700624999998,
+        4446.5814170000085,
+        4272.7890420000185
+      ],
+      "elapsedMs": 137359.255334
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        93360.235459
+      ],
+      "serverListeningMs": 93476.71583300001,
+      "startToFirstSsrMs": 138151.172917,
+      "firstSsrRequestMs": 44674.45645900001,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 93360.235459,
+      "incremental": {
+        "translation": [
+          90898.43275
+        ],
+        "input": [
+          87742.31899999999
+        ],
+        "addition": [
+          87837.43137499999
+        ]
+      },
+      "elapsedMs": 426185.378042
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        109748.665083
+      ],
+      "serverListeningMs": 109966.308458,
+      "startToFirstSsrMs": 160596.177791,
+      "firstSsrRequestMs": 50629.868334,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 109748.665083,
+      "incremental": {
+        "translation": [
+          109102.35395799999
+        ],
+        "input": [
+          110174.67424999998
+        ],
+        "addition": [
+          112734.95620899997
+        ]
+      },
+      "elapsedMs": 519939.458416
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        114072.86937500001
+      ],
+      "serverListeningMs": 114332.180625,
+      "startToFirstSsrMs": 168921.343125,
+      "firstSsrRequestMs": 54589.158625,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 114072.86937500001,
+      "incremental": {
+        "translation": [
+          110473.07249999998
+        ],
+        "input": [
+          106149.92875000002
+        ],
+        "addition": [
+          111273.70933399996
+        ]
+      },
+      "elapsedMs": 523181.15475
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        10086.490792
+      ],
+      "buildMs": 11546.547041,
+      "fullCompileMs": 10086.490792,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           461784\nIdentifiers:     649035\nSymbols:         780448\nTypes:           408182\nInstantiations:  228949\nMemory used:    807621K\nMemory allocs:  2495526\nConfig time:     0.000s\nParse time:      0.208s\nBind time:       0.103s\nCheck time:      0.745s\nEmit time:       0.000s\nTotal time:      1.057s\n",
+      "typecheckMs": [
+        1155.3078749999986,
+        1192.8212910000002,
+        1211.5802909999984
+      ],
+      "elapsedMs": 16502.793958
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        11872.331708
+      ],
+      "buildMs": 13770.143417,
+      "fullCompileMs": 11872.331708,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           461784\nIdentifiers:     649035\nSymbols:         780448\nTypes:           408182\nInstantiations:  228949\nMemory used:    807411K\nMemory allocs:  2495485\nConfig time:     0.000s\nParse time:      0.279s\nBind time:       0.113s\nCheck time:      0.852s\nEmit time:       0.000s\nTotal time:      1.244s\n",
+      "typecheckMs": [
+        1183.3214579999985,
+        1277.0542090000017,
+        1214.7687499999993
+      ],
+      "elapsedMs": 19111.269042
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        14484.2855
+      ],
+      "buildMs": 16865.956667000002,
+      "fullCompileMs": 14484.2855,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           461784\nIdentifiers:     649035\nSymbols:         780448\nTypes:           408182\nInstantiations:  228949\nMemory used:    807575K\nMemory allocs:  2495530\nConfig time:     0.000s\nParse time:      0.328s\nBind time:       0.131s\nCheck time:      0.859s\nEmit time:       0.000s\nTotal time:      1.318s\n",
+      "typecheckMs": [
+        1391.384750000001,
+        1299.9998750000013,
+        1488.524290999998
+      ],
+      "elapsedMs": 22836.118709000002
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        10238.116959
+      ],
+      "serverListeningMs": 10336.472875,
+      "startToFirstSsrMs": 56628.688292000006,
+      "firstSsrRequestMs": 46292.215042,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 10238.116959,
+      "incremental": {
+        "translation": [
+          5379.661374999996
+        ],
+        "input": [
+          5827.763292000003
+        ],
+        "addition": [
+          6467.8936250000115
+        ]
+      },
+      "elapsedMs": 95715.587375
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        14617.366042
+      ],
+      "serverListeningMs": 14783.727041,
+      "startToFirstSsrMs": 77672.189333,
+      "firstSsrRequestMs": 62888.449458999996,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 14617.366042,
+      "incremental": {
+        "translation": [
+          6201.572541000001
+        ],
+        "input": [
+          6373.349791000001
+        ],
+        "addition": [
+          7771.468792
+        ]
+      },
+      "elapsedMs": 123056.480291
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        12652.736167000001
+      ],
+      "serverListeningMs": 12793.690291,
+      "startToFirstSsrMs": 77047.304791,
+      "firstSsrRequestMs": 64253.648,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 12652.736167000001,
+      "incremental": {
+        "translation": [
+          7421.153082999997
+        ],
+        "input": [
+          7342.889541000011
+        ],
+        "addition": [
+          8452.33537500001
+        ]
+      },
+      "elapsedMs": 127050.963
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        5724.769959
+      ],
+      "buildMs": 5766.496167,
+      "fullCompileMs": 5724.769959,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           561787\nIdentifiers:     649035\nSymbols:         780448\nTypes:           408182\nInstantiations:  228949\nMemory used:    803928K\nMemory allocs:  2494804\nConfig time:     0.000s\nParse time:      0.210s\nBind time:       0.100s\nCheck time:      0.737s\nEmit time:       0.000s\nTotal time:      1.047s\n",
+      "typecheckMs": [
+        1219.6928339999995,
+        1142.687167,
+        1095.1240409999991
+      ],
+      "elapsedMs": 10591.172208
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        6319.000791
+      ],
+      "buildMs": 6366.430292,
+      "fullCompileMs": 6319.000791,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           561787\nIdentifiers:     649035\nSymbols:         780448\nTypes:           408182\nInstantiations:  228949\nMemory used:    803951K\nMemory allocs:  2494848\nConfig time:     0.000s\nParse time:      0.216s\nBind time:       0.115s\nCheck time:      0.884s\nEmit time:       0.000s\nTotal time:      1.215s\n",
+      "typecheckMs": [
+        1304.2258339999998,
+        1162.8575840000012,
+        1263.8847079999996
+      ],
+      "elapsedMs": 11679.80975
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        7673.974458
+      ],
+      "buildMs": 7730.288208000001,
+      "fullCompileMs": 7673.974458,
+      "jsBytes": 152729,
+      "gzipBytes": 11934,
+      "brotliBytes": 5835,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           561787\nIdentifiers:     649035\nSymbols:         780448\nTypes:           408182\nInstantiations:  228949\nMemory used:    804019K\nMemory allocs:  2494834\nConfig time:     0.000s\nParse time:      0.269s\nBind time:       0.142s\nCheck time:      0.920s\nEmit time:       0.000s\nTotal time:      1.331s\n",
+      "typecheckMs": [
+        1436.094416,
+        1329.3740419999995,
+        1352.6414999999997
+      ],
+      "elapsedMs": 13554.473042
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        5743.7685839999995
+      ],
+      "serverListeningMs": 5814.717417,
+      "startToFirstSsrMs": 5955.124334,
+      "firstSsrRequestMs": 140.40629099999933,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 5743.7685839999995,
+      "incremental": {
+        "translation": [
+          4825.3060000000005
+        ],
+        "input": [
+          4756.383916999999
+        ],
+        "addition": [
+          5952.634749999999
+        ]
+      },
+      "elapsedMs": 21740.852459
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        7150.584416
+      ],
+      "serverListeningMs": 7275.347541,
+      "startToFirstSsrMs": 7429.778541,
+      "firstSsrRequestMs": 154.43066699999963,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 7150.584416,
+      "incremental": {
+        "translation": [
+          5932.263167
+        ],
+        "input": [
+          5445.138041
+        ],
+        "addition": [
+          7603.368875
+        ]
+      },
+      "elapsedMs": 26549.563833
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 10,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        6709.72875
+      ],
+      "serverListeningMs": 6790.202125,
+      "startToFirstSsrMs": 6947.508792,
+      "firstSsrRequestMs": 157.30562499999996,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5",
+        "fr": "008504c5b1cc62c20f7847099e169ae584ab324b579c266dc4c312f6881d90cb",
+        "es": "45a6b5c0fc96f771423d69606bbe4935f8fa3719bc9b1cc779542442de0a6556",
+        "it": "ac857ee25dff1f7751a8c9a2e34ca234fd968a345df56bde18051f9ad5bac13d",
+        "pt": "d792c6c58ae14f40239623168934ac95db4b86e2338c8d2056da72fc8531324d",
+        "nl": "353e741f10c52765474159bec407d1fb5b96c07c01160a9eee8ac6a0a55cd0db",
+        "pl": "e0a83c1e672986aa6f8388229d765a0ba876eca404c8e675197fdee7b693065a",
+        "ja": "49d0bd3679af6a334e21b37debf7b3ebc4d1704783f8908d5626ee2a7eb95c4a",
+        "ru": "c2b50b60d541ce6b77a87355a1f2ab93357aed7059393169e27da9cda14fff53"
+      },
+      "fullCompileMs": 6709.72875,
+      "incremental": {
+        "translation": [
+          5715.18175
+        ],
+        "input": [
+          5692.307083
+        ],
+        "addition": [
+          7807.735249999998
+        ]
+      },
+      "elapsedMs": 26289.260667
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        37147.134417
+      ],
+      "buildMs": 38180.058625,
+      "fullCompileMs": 37147.134417,
+      "jsBytes": 40168,
+      "gzipBytes": 5253,
+      "brotliBytes": 3582,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:             50062\nLines:           1111992\nIdentifiers:      749061\nSymbols:          930446\nTypes:            407891\nInstantiations:   228753\nMemory used:    1202245K\nMemory allocs:  10993360\nConfig time:      0.000s\nParse time:       1.304s\nBind time:        0.408s\nCheck time:       1.336s\nEmit time:        0.001s\nTotal time:       3.063s\n",
+      "typecheckMs": [
+        2870.681457999999,
+        2993.7511250000025,
+        2889.2852920000005
+      ],
+      "elapsedMs": 50441.446916
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        39884.832709
+      ],
+      "buildMs": 41030.228749999995,
+      "fullCompileMs": 39884.832709,
+      "jsBytes": 40168,
+      "gzipBytes": 5253,
+      "brotliBytes": 3582,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:             50062\nLines:           1111992\nIdentifiers:      749061\nSymbols:          930446\nTypes:            407891\nInstantiations:   228753\nMemory used:    1201735K\nMemory allocs:  10994150\nConfig time:      0.000s\nParse time:       1.370s\nBind time:        0.447s\nCheck time:       1.427s\nEmit time:        0.001s\nTotal time:       3.262s\n",
+      "typecheckMs": [
+        3530.631999999998,
+        3207.446916000001,
+        3299.3540409999987
+      ],
+      "elapsedMs": 54844.131666
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        44669.573917
+      ],
+      "buildMs": 46069.361,
+      "fullCompileMs": 44669.573917,
+      "jsBytes": 40168,
+      "gzipBytes": 5253,
+      "brotliBytes": 3582,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:             50062\nLines:           1111992\nIdentifiers:      749061\nSymbols:          930446\nTypes:            407891\nInstantiations:   228753\nMemory used:    1198186K\nMemory allocs:  10972849\nConfig time:      0.000s\nParse time:       1.502s\nBind time:        0.532s\nCheck time:       1.505s\nEmit time:        0.001s\nTotal time:       3.561s\n",
+      "typecheckMs": [
+        3487.040374999997,
+        3577.930583000001,
+        3731.043832999996
+      ],
+      "elapsedMs": 60942.040208000006
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        36310.7265
+      ],
+      "serverListeningMs": 36427.396584,
+      "startToFirstSsrMs": 69231.45533400001,
+      "firstSsrRequestMs": 32804.058124999996,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 36310.7265,
+      "incremental": {
+        "translation": [
+          33184.4935
+        ],
+        "input": [
+          33982.67329200001
+        ],
+        "addition": [
+          35908.63824999999
+        ]
+      },
+      "elapsedMs": 199688.538209
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        43296.68675
+      ],
+      "serverListeningMs": 43532.968041,
+      "startToFirstSsrMs": 80985.96475,
+      "firstSsrRequestMs": 37452.99587500001,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 43296.68675,
+      "incremental": {
+        "translation": [
+          37266.22525
+        ],
+        "input": [
+          39447.97304099999
+        ],
+        "addition": [
+          38708.2175
+        ]
+      },
+      "elapsedMs": 219543.709833
+    },
+    {
+      "variant": "v2",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        47237.085667
+      ],
+      "serverListeningMs": 47431.09175,
+      "startToFirstSsrMs": 84616.96091699999,
+      "firstSsrRequestMs": 37185.869625,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 47237.085667,
+      "incremental": {
+        "translation": [
+          42600.64141699999
+        ],
+        "input": [
+          42069.222749999986
+        ],
+        "addition": [
+          43772.699208999984
+        ]
+      },
+      "elapsedMs": 244885.46245800002
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        6743.509792
+      ],
+      "buildMs": 8210.899667,
+      "fullCompileMs": 6743.509792,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           461784\nIdentifiers:     649035\nSymbols:         780429\nTypes:           408138\nInstantiations:  228941\nMemory used:    645232K\nMemory allocs:  2279842\nConfig time:     0.000s\nParse time:      0.159s\nBind time:       0.091s\nCheck time:      0.559s\nEmit time:       0.000s\nTotal time:      0.810s\n",
+      "typecheckMs": [
+        868.2379999999994,
+        886.7146670000002,
+        829.8083339999994
+      ],
+      "elapsedMs": 11798.852292
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        6870.022333
+      ],
+      "buildMs": 8532.358708,
+      "fullCompileMs": 6870.022333,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           461784\nIdentifiers:     649035\nSymbols:         780429\nTypes:           408138\nInstantiations:  228941\nMemory used:    645273K\nMemory allocs:  2279858\nConfig time:     0.000s\nParse time:      0.173s\nBind time:       0.105s\nCheck time:      0.652s\nEmit time:       0.000s\nTotal time:      0.931s\n",
+      "typecheckMs": [
+        931.2663329999996,
+        927.8390840000011,
+        980.0116670000007
+      ],
+      "elapsedMs": 12514.798165999999
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        8841.798125000001
+      ],
+      "buildMs": 10815.111542,
+      "fullCompileMs": 8841.798125000001,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           461784\nIdentifiers:     649035\nSymbols:         780429\nTypes:           408138\nInstantiations:  228941\nMemory used:    645187K\nMemory allocs:  2279850\nConfig time:     0.000s\nParse time:      0.237s\nBind time:       0.122s\nCheck time:      0.666s\nEmit time:       0.000s\nTotal time:      1.026s\n",
+      "typecheckMs": [
+        943.7214589999985,
+        1014.3548330000012,
+        975.545666
+      ],
+      "elapsedMs": 15029.880874999999
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        6392.815416
+      ],
+      "serverListeningMs": 6494.514209,
+      "startToFirstSsrMs": 39231.959083999995,
+      "firstSsrRequestMs": 32737.444667,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 6392.815416,
+      "incremental": {
+        "translation": [
+          1275.6296659999934
+        ],
+        "input": [
+          1237.8135000000038
+        ],
+        "addition": [
+          1425.216416999996
+        ]
+      },
+      "elapsedMs": 62737.269084
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        7297.4452089999995
+      ],
+      "serverListeningMs": 7402.462792,
+      "startToFirstSsrMs": 43940.489292,
+      "firstSsrRequestMs": 36538.025666999994,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 7297.4452089999995,
+      "incremental": {
+        "translation": [
+          1317.478707999995
+        ],
+        "input": [
+          1508.5115829999995
+        ],
+        "addition": [
+          1710.7641250000015
+        ]
+      },
+      "elapsedMs": 69895.716625
+    },
+    {
+      "variant": "v3",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        8990.92975
+      ],
+      "serverListeningMs": 9122.944749999999,
+      "startToFirstSsrMs": 50490.07,
+      "firstSsrRequestMs": 41367.097625,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 8990.92975,
+      "incremental": {
+        "translation": [
+          1277.374834000002
+        ],
+        "input": [
+          1405.1740829999908
+        ],
+        "addition": [
+          1807.841166000013
+        ]
+      },
+      "elapsedMs": 76977.26045799999
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 0,
+      "compileTimes": [
+        1432.011125
+      ],
+      "buildMs": 1470.078625,
+      "fullCompileMs": 1432.011125,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           561787\nIdentifiers:     649035\nSymbols:         780429\nTypes:           408138\nInstantiations:  228941\nMemory used:    641881K\nMemory allocs:  2279270\nConfig time:     0.000s\nParse time:      0.156s\nBind time:       0.093s\nCheck time:      0.531s\nEmit time:       0.000s\nTotal time:      0.780s\n",
+      "typecheckMs": [
+        804.5390829999997,
+        831.3754170000002,
+        840.0697909999994
+      ],
+      "elapsedMs": 4918.970416
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 1,
+      "compileTimes": [
+        1764.432625
+      ],
+      "buildMs": 1807.671417,
+      "fullCompileMs": 1764.432625,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           561787\nIdentifiers:     649035\nSymbols:         780429\nTypes:           408138\nInstantiations:  228941\nMemory used:    641959K\nMemory allocs:  2279326\nConfig time:     0.000s\nParse time:      0.163s\nBind time:       0.102s\nCheck time:      0.607s\nEmit time:       0.000s\nTotal time:      0.873s\n",
+      "typecheckMs": [
+        934.9921669999999,
+        907.0454579999996,
+        950.6385410000003
+      ],
+      "elapsedMs": 5702.624792
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "build",
+      "round": 2,
+      "compileTimes": [
+        1757.675958
+      ],
+      "buildMs": 1803.142959,
+      "fullCompileMs": 1757.675958,
+      "jsBytes": 40137,
+      "gzipBytes": 5281,
+      "brotliBytes": 3604,
+      "bundledMessages": 200,
+      "productionHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "typecheckDiagnostics": "Files:               62\nLines:           561787\nIdentifiers:     649035\nSymbols:         780429\nTypes:           408138\nInstantiations:  228941\nMemory used:    641721K\nMemory allocs:  2279222\nConfig time:     0.000s\nParse time:      0.167s\nBind time:       0.108s\nCheck time:      0.684s\nEmit time:       0.000s\nTotal time:      0.959s\n",
+      "typecheckMs": [
+        1015.4074169999999,
+        1000.1407080000004,
+        909.0022920000001
+      ],
+      "elapsedMs": 5903.443292
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 0,
+      "compileTimes": [
+        1513.100708
+      ],
+      "serverListeningMs": 1583.95375,
+      "startToFirstSsrMs": 1703.861833,
+      "firstSsrRequestMs": 119.907375,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 1513.100708,
+      "incremental": {
+        "translation": [
+          1050.059708
+        ],
+        "input": [
+          1025.3234589999997
+        ],
+        "addition": [
+          1677.6365420000002
+        ]
+      },
+      "elapsedMs": 5550.670291
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 1,
+      "compileTimes": [
+        1917.604167
+      ],
+      "serverListeningMs": 2044.273959,
+      "startToFirstSsrMs": 2205.979375,
+      "firstSsrRequestMs": 161.70483299999978,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 1917.604167,
+      "incremental": {
+        "translation": [
+          1501.6140410000003
+        ],
+        "input": [
+          1533.0212079999997
+        ],
+        "addition": [
+          2148.7779169999994
+        ]
+      },
+      "elapsedMs": 7496.261042
+    },
+    {
+      "variant": "virtual",
+      "count": 50000,
+      "localeCount": 2,
+      "mode": "dev",
+      "round": 2,
+      "compileTimes": [
+        2043.613666
+      ],
+      "serverListeningMs": 2141.989083,
+      "startToFirstSsrMs": 2428.424625,
+      "firstSsrRequestMs": 286.434667,
+      "ssrHtmlHash": "5438d8370c2b8cc974df3acc877faa991b8598521ef09b531e7caabbca2e9ee8",
+      "localeHashes": {
+        "en": "faea5871ec3329ade6cfedd20b889fe468eb7c3ee07c5da8389dfecd4048322b",
+        "de": "75e6991457f9238954c69b4c32a6a784cf4d5c34c30d681b7dd76db7a21f71e5"
+      },
+      "fullCompileMs": 2043.613666,
+      "incremental": {
+        "translation": [
+          1642.1565
+        ],
+        "input": [
+          1292.5612090000004
+        ],
+        "addition": [
+          1757.7789579999999
+        ]
+      },
+      "elapsedMs": 7251.655167000001
+    }
+  ]
+}
