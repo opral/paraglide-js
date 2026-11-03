@@ -4,6 +4,7 @@ import type { CatalogInput } from "./compile-project.js";
 import { compileCatalog } from "./compile-project.js";
 import { generateCatalog } from "./incremental-output.js";
 import { buildBundleDocumentation } from "./compile-bundle.js";
+import { perLocaleBuildStaticLocaleExpression } from "./per-locale-build.js";
 
 function catalog(description?: string | null): CatalogInput {
 	return {
@@ -82,6 +83,57 @@ test("description is optional and works without an English message", () => {
 		buildBundleDocumentation(catalog("Shopping action.").bundles[0]!)
 	).toBe("* Shopping action.\n*\n");
 });
+
+test.each([
+	{ outputStructure: "message-modules" as const, emitTsDeclarations: false },
+	{ outputStructure: "message-modules" as const, emitTsDeclarations: true },
+	{ outputStructure: "locale-modules" as const, emitTsDeclarations: false },
+	{ outputStructure: "locale-modules" as const, emitTsDeclarations: true },
+])(
+	"locale-specialized $outputStructure retains escaped guidance with declarations $emitTsDeclarations",
+	async ({ outputStructure, emitTsDeclarations }) => {
+		const value = catalog(
+			"Shopping action. */ injected(); /*\n@param {wrong} input"
+		);
+		value.settings = { baseLocale: "en", locales: ["en", "de"], modules: [] };
+		const english = structuredClone(value.bundles[0]!.messages[0]!);
+		english.id = "en";
+		english.locale = "en";
+		english.variants[0]!.pattern = [
+			{ type: "text", value: "ENGLISH_PREVIEW_SENTINEL" },
+		];
+		value.bundles[0]!.messages.push(english);
+		const output = await compileCatalog({
+			catalog: value,
+			projectPath: options.project,
+			compilerOptions: {
+				...options,
+				outputStructure,
+				emitTsDeclarations,
+				experimentalStaticLocale: perLocaleBuildStaticLocaleExpression,
+			},
+		});
+		const dispatcher =
+			output[
+				outputStructure === "message-modules"
+					? "messages/save.js"
+					: "messages/_index.js"
+			]!;
+		const guidance =
+			"* Shopping action. *\\/ injected(); /*\n* &#64;param {wrong} input";
+		expect(dispatcher).toContain(guidance);
+		expect(dispatcher).not.toContain("*/ injected();");
+		// Locale-specific bodies can contain this text; shared preview comments cannot.
+		expect(dispatcher).not.toContain('* | "ENGLISH_PREVIEW_SENTINEL" |');
+		if (emitTsDeclarations) {
+			expect(output["messages/_index.d.ts"]).toContain(guidance);
+		} else {
+			expect(Object.keys(output).some((file) => file.endsWith(".d.ts"))).toBe(
+				false
+			);
+		}
+	}
+);
 
 test("description-only updates refresh generated JavaScript and declarations", async () => {
 	const initial = catalog("Old guidance");

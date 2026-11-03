@@ -499,9 +499,9 @@ const compileBundleFunction = (args: {
 	// A locale-specialized graph may ship source maps. Keeping the English
 	// pattern preview in the shared dispatcher would leak base-locale message
 	// text into every locale's map even after the English module is tree-shaken.
-	const documentation = perLocaleBuild
-		? ""
-		: buildBundleDocumentation(args.bundle);
+	const documentation = buildBundleDocumentation(args.bundle, {
+		includePreview: !perLocaleBuild,
+	});
 
 	const compactTypes = args.compactTypes === true && !args.hasMarkup;
 	const commonJsDoc = compactTypes
@@ -587,7 +587,8 @@ ${localeResolutionStatement("\t\t\t\t")}
 
 /** Shared author guidance followed by the source preview, for JavaScript and declarations. */
 export function buildBundleDocumentation(
-	bundle: BundleNested & { description?: string | null }
+	bundle: BundleNested & { description?: string | null },
+	options: { includePreview?: boolean } = {}
 ): string {
 	const description = bundle.description
 		? escapeCommentTerminator(bundle.description)
@@ -597,7 +598,10 @@ export function buildBundleDocumentation(
 				.map((line) => `* ${line.replace(/^([ \t]*)@/, "$1&#64;")}`)
 				.join("\n") + "\n*\n"
 		: "";
-	return description + buildEnglishMatchTableDoc(bundle);
+	return (
+		description +
+		(options.includePreview === false ? "" : buildEnglishMatchTableDoc(bundle))
+	);
 }
 
 export function buildEnglishMatchTableDoc(bundle: BundleNested): string {
