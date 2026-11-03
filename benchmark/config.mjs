@@ -30,7 +30,7 @@ export const settings = {
 	languageSwitch: "document",
 	switchesPerJourney: 1,
 	pageLoading: "parallel",
-	repeats: 5,
+	repeats: 3,
 	compression: "br",
 	brotliQuality: 5,
 	latencyMs: 40,

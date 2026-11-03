@@ -222,6 +222,11 @@ try {
 			])
 		)
 	);
+	const compilerSource = JSON.parse(
+		await fs.readFile("compiler-source.json", "utf8")
+	);
+	versions["@inlang/paraglide-js"] =
+		`${compilerSource.release} (${compilerSource.commit.slice(0, 8)})`;
 	await fs.writeFile(
 		"results.json",
 		JSON.stringify(

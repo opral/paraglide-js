@@ -155,7 +155,7 @@ const measured = new Date(data.measuredAt).toLocaleDateString("en-US", {
 	year: "numeric",
 	month: "long",
 	day: "numeric",
-	timeZone: "America/Mexico_City",
+	timeZone: "America/Los_Angeles",
 });
 const stats = data.overview.perLocale;
 await fs.writeFile(
@@ -173,7 +173,7 @@ Compare **translated DOM readiness** and **Brotli transfer** for the same Vite 8
 - **Per-locale Paraglide reaches translated DOM readiness sooner in ${stats.initialReadyWins}/${stats.comparisonCount} pairwise comparisons** against i18next. Initial and journey transfer are smaller in ${stats.initialByteWins}/${stats.comparisonCount} and ${stats.journeyByteWins}/${stats.comparisonCount} comparisons, respectively.
 - **Default Paraglide has transfer tradeoffs:** initial or journey bytes exceed an i18next configuration in ${data.overview.byteLosses}/${data.overview.comparisonCount} comparisons. All results remain visible below.
 
-With ten locales, 200 messages used per route, and a 1,000-message catalog, per-locale Paraglide reaches readiness in ${ms(perLocale.steps.initial.readyMs.median)} with ${kib(perLocale.initialWire.median)} initial transfer; route-based HTTP i18next takes ${ms(httpRoutes.steps.initial.readyMs.median)} and ${kib(httpRoutes.initialWire.median)}. These are five-run medians from one host and network profile, not universal rankings.
+With ten locales, 200 messages used per route, and a 1,000-message catalog, per-locale Paraglide reaches readiness in ${ms(perLocale.steps.initial.readyMs.median)} with ${kib(perLocale.initialWire.median)} initial transfer; route-based HTTP i18next takes ${ms(httpRoutes.steps.initial.readyMs.median)} and ${kib(httpRoutes.initialWire.median)}. These are ${data.settings.repeats}-run medians from one host and network profile, not universal rankings.
 
 ## Interactive examples
 
@@ -221,7 +221,7 @@ Selection targets 20% interpolation until eligible strings run out. Rich markup,
 
 Per-locale settings: \`experimentalPerLocaleBuild: true\` and \`outputStructure: "message-modules"\`.
 
-Per-locale results use the compiler in this repository; downloadable metadata records source and compiled hashes. Vite groups message modules into page/shared chunks, without per-message requests. Dynamic namespace indexing can retain additional messages. See the [per-locale setup and framework constraints](/compiling-messages).
+Both Paraglide variants use the v3 compiler in this repository at commit ${data.workspaceCompiler.commit}; downloadable metadata records source and compiled hashes. Vite groups message modules into page/shared chunks, without per-message requests. Dynamic namespace indexing can retain additional messages. See the [per-locale setup and framework constraints](/compiling-messages).
 
 Page code and translations load concurrently. Fixed-locale graphs avoid startup locale setters. HTTP variants disable fallback languages and retain resource caching; finer namespaces can reduce unused data further.
 
@@ -235,11 +235,11 @@ Each of **${data.validation.journeys} journeys** starts with a fresh browser con
 
 Trials run sequentially with rotated order: **40 ms latency, 10 Mbps down, 5 Mbps up, 4× CPU slowdown, Brotli quality 5**. Vite's default minification/module preloading remain enabled; no custom initial-route hints are added.
 
-Five-run medians do not establish statistical significance across devices. Per-locale builds are experimental. This plain-Vite client-rendered fixture does not establish SSR/hydration behavior or TanStack Start/SvelteKit compatibility. Source maps are disabled; keep message-module maps private because they can contain inactive-locale branches.
+${data.settings.repeats}-run medians do not establish statistical significance across devices. Per-locale builds are experimental. This plain-Vite client-rendered fixture does not establish SSR/hydration behavior or TanStack Start/SvelteKit compatibility. Source maps are disabled; keep message-module maps private because they can contain inactive-locale branches.
 
 ### Versions and data
 
-Measured ${measured}. Pinned packages: Paraglide **${data.versions["@inlang/paraglide-js"]}**, i18next **${data.versions.i18next}**, HTTP backend **${data.versions["i18next-http-backend"]}**, Vite **${data.versions.vite}**, Playwright **${data.versions.playwright}**. Host: ${data.environment.platform} ${data.environment.arch}, ${data.environment.cpu}, Node ${data.environment.node}, Chromium ${data.environment.chromium}.
+Measured ${measured}. Pinned packages: Paraglide **v3 main (unreleased), ${data.workspaceCompiler.commit.slice(0, 8)}**, i18next **${data.versions.i18next}**, HTTP backend **${data.versions["i18next-http-backend"]}**, Vite **${data.versions.vite}**, Playwright **${data.versions.playwright}**. Host: ${data.environment.platform} ${data.environment.arch}, ${data.environment.cpu}, Node ${data.environment.node}, Chromium ${data.environment.chromium}.
 
 - [Summary CSV](/benchmark-data/summary.csv)
 - [Scenario results JSON](/benchmark-data/results.json)

@@ -55,7 +55,7 @@ try {
 	);
 	const paraglide = selected.find((r) => r.variant === "paraglide");
 	const httpRoutes = selected.find((r) => r.variant === "i18next-http-routes");
-	assert.equal(summary.validation.journeys, 375);
+	assert.equal(summary.validation.journeys, 75 * summary.settings.repeats);
 	assert.equal(summary.graphValidation.lazyRouteIsolation, 15);
 	assert.equal(summary.graphValidation.inactiveLocaleIsolation, 15);
 	const csv = await (
