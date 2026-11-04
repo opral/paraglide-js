@@ -110,3 +110,22 @@ You can use multiple plugins to support different file formats in the same proje
 ```
 
 This is useful when migrating from one format to another, or when different parts of your app use different translation formats.
+
+## Translator descriptions
+
+A bundle can have one shared description explaining its meaning, where it appears, and translation constraints. Paraglide includes that description in generated JSDoc and TypeScript declarations, so it is available when hovering over a message function. It does not add descriptions to message runtime metadata or translated output.
+
+With a description-capable inlang SDK and message-format plugin, author the description in the source-locale file using the complex entry form:
+
+```json
+{
+	"checkout_confirm": [
+		{
+			"description": "Final checkout button. Confirms payment immediately. Keep it short.",
+			"match": { "*": "Pay now" }
+		}
+	]
+}
+```
+
+For formats without translator metadata, such as i18next JSON, the SDK stores descriptions in `project.inlang/descriptions.json`. Keep that companion file in version control alongside the translation files. Description edits refresh generated documentation just like message edits.

@@ -1,6 +1,6 @@
 import type { BundleNested, ProjectSettings } from "@inlang/sdk";
 import {
-	buildEnglishMatchTableDoc,
+	buildBundleDocumentation,
 	buildMarkupSchemaType,
 	bundleHasMarkup,
 	toBundleInputTypeAliasName,
@@ -152,8 +152,7 @@ export function emitTsDeclarations(args: {
 			(args.messageModuleSize ?? 1) > 1 && !parts
 				? `${inputs.length ? "__ParaglideMessage" : "__ParaglideOptionalMessage"}<${alias}>`
 				: `(${call})${parts} & import("../runtime.js").MessageMetadata<${alias}, ${options}, ${buildMarkupSchemaType(bundle, compiled.matchTypes)}>`;
-		const comment =
-			compiled.englishMatchTableDoc ?? buildEnglishMatchTableDoc(bundle);
+		const comment = compiled.documentation ?? buildBundleDocumentation(bundle);
 		const exported =
 			name === bundle.id
 				? `export const ${name}: ${type};`
