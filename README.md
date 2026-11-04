@@ -313,11 +313,17 @@ Message format is **plugin-based**: prefer the familiar **ICU MessageFormat** sy
 
 Runtime i18n libraries like i18next resolve message keys from dictionaries while your app runs. Paraglide compiles messages into typed ESM functions before your app ships.
 
-That means Vite can tree-shake unused translations, TypeScript can autocomplete message keys and parameters, and your components call plain functions instead of resolving strings through a runtime lookup layer.
+Three distinct mechanisms can make translated UI appear sooner:
 
-The [published benchmark](https://paraglidejs.com/benchmark) compares default and per-locale Paraglide with bundled and HTTP-loaded i18next in a client-rendered Vite app. It uses real translations, five routes, one document reload when changing language, and medians of five runs. Complete tables retain default Paraglide's transfer-size losses alongside the per-locale results. Readiness is a translated-content DOM mark, not paint or React rendering time.
+1. **Remove unused messages.** Static ESM references let bundlers remove message functions your app never calls, reducing code to download and execute.
+2. **Avoid a translation request waterfall.** A deferred catalog can require `download app JS → execute/initialize app → discover and fetch catalog → render translated UI`. Bundlers discover Paraglide's statically imported messages at build time and can bundle or preload them with app code, removing that runtime catalog-discovery stage.
+3. **Ship only the active locale.** Opt-in [per-locale builds](https://paraglidejs.com/compiling-messages#experimental-per-locale-builds) remove other languages from each locale's client graph. Default output retains configured locales for every used message; unused-message tree-shaking alone does not remove inactive locales.
 
-Unused-message removal and active-locale loading are separate: default Paraglide output retains configured locales for every used message. There is no fixed percentage saving for every app. The [build workflow](https://paraglidejs.com/build-workflow) includes a runnable probe that adds unused messages and verifies unchanged production JavaScript hashes.
+**Loading order matters as well as bytes:** a smaller catalog can arrive later if its request starts later. Other libraries can also bundle or preload catalogs; compilation alone does not guarantee a faster page. See [Don't Lazy-Load Translations](https://paraglidejs.com/blog/dont-lazy-load) for the loading-waterfall rationale.
+
+The [published benchmark](https://paraglidejs.com/benchmark) compares default and per-locale Paraglide with bundled and HTTP-loaded i18next in a client-rendered Vite app. It uses real translations, five routes, one document reload when changing language, and medians of three runs. Complete tables retain default Paraglide's transfer-size losses alongside the per-locale results. Readiness is a translated-content DOM mark, not paint or React rendering time. The measurements do not isolate each mechanism's contribution or establish a ranking against unmeasured libraries.
+
+There is no fixed percentage saving for every app. The [build workflow](https://paraglidejs.com/build-workflow) includes a runnable probe that adds unused messages and verifies unchanged production JavaScript hashes.
 
 ## Comparison
 

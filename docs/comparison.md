@@ -25,6 +25,18 @@ For a new React app, start with [choosing a React + Vite i18n library](/react-i1
 
 Typed IDs, generated parameter contracts, and runtime validation are different guarantees. All depend on your application's checking and delivery setup. Runtime lookup does not require bundling all languages or every catalog entry.
 
+## Why fewer bytes can still render later
+
+A catalog discovered only after app startup adds a serial dependency:
+
+```text
+Download app JavaScript → execute/initialize app → discover catalog URL → fetch catalog → render translated UI
+```
+
+Paraglide's statically imported message functions let bundlers discover translations at build time and bundle or preload them with app code. Fetches can overlap instead of waiting for runtime catalog discovery. A smaller, later-starting catalog can therefore delay translated UI more than a larger, earlier-starting bundle. See [Don't Lazy-Load Translations](https://paraglidejs.com/blog/dont-lazy-load) for the loading-waterfall rationale.
+
+Other libraries can also bundle or preload catalogs. This advantage depends on delivery configuration; it does not prove every runtime library is slower. It is separate from unused-message tree-shaking and active-locale loading, and the [benchmark](/benchmark) does not isolate each mechanism's contribution.
+
 ## Routing and framework integration
 
 Paraglide provides [locale detection strategies](/strategy), [localized URL helpers](/i18n-routing), and [middleware](/middleware) for request-scoped SSR. Follow the maintained [TanStack Start](/tanstack-start), [SvelteKit](/sveltekit), or [React Router](/react-router) integration for your framework. Plain message functions also work outside React.
