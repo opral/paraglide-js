@@ -70,18 +70,18 @@ describe("resolveConfigCandidate", () => {
 });
 
 describe("loadParaglideConfig", () => {
-	test("preserves the URLPattern polyfill opt-out from config", async () => {
+	test("preserves lazy URLPattern polyfill loading from config", async () => {
 		const projectDir = await createProjectDirectory();
 		await writeFile(
 			path.join(projectDir, "paraglide.config.ts"),
-			'export default { outdir: "./out", urlPatternPolyfill: false }'
+			'export default { outdir: "./out", lazyUrlPatternPolyfill: true }'
 		);
 		const loaded = await loadParaglideConfig({ projectDir });
 		const options = resolveCompilerOptions({
 			config: loaded?.config,
-			overrides: { project: projectDir, urlPatternPolyfill: undefined },
+			overrides: { project: projectDir, lazyUrlPatternPolyfill: undefined },
 		});
-		expect(options.urlPatternPolyfill).toBe(false);
+		expect(options.lazyUrlPatternPolyfill).toBe(true);
 	});
 
 	test("returns undefined when no config file exists", async () => {

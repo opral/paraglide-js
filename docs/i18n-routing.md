@@ -45,30 +45,34 @@ Paraglide includes a URLPattern polyfill in the generated runtime when you
 configure custom `urlPatterns` or `routeStrategies`. Built-in default routing
 without route strategies does not include it.
 
-If all your target runtimes provide native `URLPattern`, set
-`urlPatternPolyfill: false` in your compiler options or `paraglide.config.js/ts`
-to omit the polyfill import:
+Set `lazyUrlPatternPolyfill: true` in your compiler options or
+`paraglide.config.js/ts` to load the polyfill only when `URLPattern` is missing:
 
 ```js
 export default {
-	urlPatternPolyfill: false,
+	lazyUrlPatternPolyfill: true,
 	// Your urlPatterns or routeStrategies configuration
 };
 ```
 
-When targeting runtimes without native `URLPattern`, install a polyfill before
-using Paraglide routing. For example, run this in your application's bootstrap
-module before loading the rest of the app:
+This requires **Vite 7+**, or another ESM toolchain and runtime supporting
+top-level await. The generated runtime conditionally awaits the polyfill import:
 
 ```js
-if (!globalThis.URLPattern) {
+if (typeof URLPattern === "undefined") {
 	await import("@inlang/paraglide-js/urlpattern-polyfill");
 }
-await import("./app.js");
 ```
 
-The option defaults to `true` and only controls the generated runtime import.
-The compiler still loads a polyfill internally when it needs one.
+Applications keep normal static imports and synchronous routing calls. ESM
+importers wait for runtime initialization, so no application `ready` promise is
+needed. Environments with native `URLPattern` skip the dynamic import entirely.
+Bundlers can emit a separate polyfill chunk that is fetched only when needed.
+
+The option defaults to `false`, preserving the static polyfill import and
+compatibility with older build targets. CommonJS and IIFE output are not
+supported when it is enabled. The compiler's internal polyfill loading is
+unchanged.
 
 ## Core Concepts
 

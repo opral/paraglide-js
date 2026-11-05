@@ -10,7 +10,7 @@ Defined in: [compiler-options.ts:52](https://github.com/opral/paraglide-js/tree/
 
 > `optional` **cleanOutdir**: `boolean`
 
-Defined in: [compiler-options.ts:425](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:428](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Whether to clean the output directory before writing the new files.
 
@@ -140,7 +140,7 @@ false
 
 > `optional` **disableAsyncLocalStorage**: `boolean`
 
-Defined in: [compiler-options.ts:344](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:347](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Replaces AsyncLocalStorage with a synchronous implementation.
 
@@ -157,7 +157,7 @@ one request could leak into another concurrent request.
 
 > `optional` **emitGitIgnore**: `boolean`
 
-Defined in: [compiler-options.ts:358](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:361](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 If `emitGitIgnore` is set to `true` a `.gitignore` file will be emitted in the output directory. Defaults to `true`.
 
@@ -301,7 +301,7 @@ https://github.com/opral/paraglide-js/issues/88#issuecomment-3634754638
 
 > `optional` **fs**: `any`
 
-Defined in: [compiler-options.ts:432](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:435](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The file system to use. Defaults to `await import('node:fs')`.
 
@@ -311,7 +311,7 @@ Useful for testing the paraglide compiler by mocking the fs.
 
 > `optional` **includeEslintDisableComment**: `boolean`
 
-Defined in: [compiler-options.ts:331](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:334](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Whether to include an eslint-disable comment at the top of each .js file.
 
@@ -363,6 +363,29 @@ enable tree-shaking.
 typeof window === "undefined"
 ```
 
+#### lazyUrlPatternPolyfill?
+
+> `optional` **lazyUrlPatternPolyfill**: `boolean`
+
+Defined in: [compiler-options.ts:320](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+
+Load the URLPattern polyfill only when the target runtime lacks URLPattern.
+Applies when custom `urlPatterns` or `routeStrategies` require matching.
+
+Enabling this emits a conditional top-level `await import(...)`. Requires
+Vite 7+ or another ESM toolchain and runtime supporting top-level await.
+CommonJS and IIFE output are not supported when enabled. Importers wait for
+initialization automatically; routing APIs remain synchronous.
+
+Defaults to a static polyfill import. Built-in default routing without
+route strategies does not include the polyfill in either mode.
+
+##### Default
+
+```ts
+false
+```
+
 #### localStorageKey?
 
 > `optional` **localStorageKey**: `string`
@@ -381,7 +404,7 @@ The name of the localStorage key to use for the localStorage strategy.
 
 > `optional` **messageModuleSize**: `number`
 
-Defined in: [compiler-options.ts:419](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:422](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Messages per generated module in the message-modules layout.
 Values above one group messages into shards and preserve messages.js exports,
@@ -415,7 +438,7 @@ await compile({
 
 > `optional` **outputStructure**: `"locale-modules"` \| `"message-modules"` \| `"virtual-modules"`
 
-Defined in: [compiler-options.ts:410](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:413](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 The `outputStructure` defines how modules are structured in the output.
 
@@ -541,33 +564,13 @@ Custom strategies with the pattern `custom-[A-Za-z0-9_-]+` are supported.
 
 > `optional` **trailingSlash**: `"always"` \| `"never"`
 
-Defined in: [compiler-options.ts:325](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
+Defined in: [compiler-options.ts:328](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
 
 Controls trailing slash canonicalization for localized URLs.
 
 Canonicalization happens before URL pattern matching and after URL
 localization. If omitted, Paraglide keeps its existing trailing slash
 behavior.
-
-#### urlPatternPolyfill?
-
-> `optional` **urlPatternPolyfill**: `boolean`
-
-Defined in: [compiler-options.ts:317](https://github.com/opral/paraglide-js/tree/main/src/compiler/compiler-options.ts)
-
-Include the URLPattern polyfill in the generated runtime when custom
-`urlPatterns` or `routeStrategies` require URLPattern matching.
-
-Set to `false` when your target runtimes provide native `URLPattern`, or
-when your application installs a polyfill before using Paraglide routing.
-This only controls the generated runtime; the compiler can still use a
-polyfill internally. Built-in default routing does not include the polyfill.
-
-##### Default
-
-```ts
-true
-```
 
 #### urlPatterns?
 
@@ -685,6 +688,10 @@ Defined in: [compiler-options.ts:33](https://github.com/opral/paraglide-js/tree/
 
 > `readonly` **isServer**: `"typeof window === 'undefined'"` = `"typeof window === 'undefined'"`
 
+#### lazyUrlPatternPolyfill
+
+> `readonly` **lazyUrlPatternPolyfill**: `false` = `false`
+
 #### localStorageKey
 
 > `readonly` **localStorageKey**: `"PARAGLIDE_LOCALE"` = `"PARAGLIDE_LOCALE"`
@@ -696,7 +703,3 @@ Defined in: [compiler-options.ts:33](https://github.com/opral/paraglide-js/tree/
 #### strategy
 
 > `readonly` **strategy**: \[`"cookie"`, `"globalVariable"`, `"baseLocale"`\]
-
-#### urlPatternPolyfill
-
-> `readonly` **urlPatternPolyfill**: `true` = `true`

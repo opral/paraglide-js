@@ -17,7 +17,7 @@ export function createRuntimeFile(args: {
 		cookieSameSite?: CompilerOptions["cookieSameSite"];
 		cookieSecure?: CompilerOptions["cookieSecure"];
 		urlPatterns?: CompilerOptions["urlPatterns"];
-		urlPatternPolyfill?: CompilerOptions["urlPatternPolyfill"];
+		lazyUrlPatternPolyfill?: CompilerOptions["lazyUrlPatternPolyfill"];
 		trailingSlash?: CompilerOptions["trailingSlash"];
 		isServer: CompilerOptions["isServer"];
 		isDevelopment?: CompilerOptions["isDevelopment"];
@@ -63,8 +63,8 @@ export function createRuntimeFile(args: {
 	]);
 	const usesUrlPattern = !defaultUrlPatternUsed || routeStrategies.length > 0;
 	const urlPatternPrelude = usesUrlPattern
-		? args.compilerOptions.urlPatternPolyfill === false
-			? `/** @typedef {import("@inlang/paraglide-js/urlpattern-polyfill").x.URLPattern} URLPattern */`
+		? args.compilerOptions.lazyUrlPatternPolyfill === true
+			? `if (typeof URLPattern === "undefined") {\n\tawait import("@inlang/paraglide-js/urlpattern-polyfill");\n}`
 			: `import "@inlang/paraglide-js/urlpattern-polyfill";`
 		: "/** @type {any} */\nconst URLPattern = {}";
 

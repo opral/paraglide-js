@@ -117,7 +117,7 @@ export const paraglideConfigSchema = v.object({
 		)
 	),
 	trailingSlash: v.optional(v.picklist(["always", "never"])),
-	urlPatternPolyfill: v.optional(v.boolean()),
+	lazyUrlPatternPolyfill: v.optional(v.boolean()),
 	includeEslintDisableComment: v.optional(v.boolean()),
 	disableAsyncLocalStorage: v.optional(v.boolean()),
 	emitGitIgnore: v.optional(v.boolean()),
