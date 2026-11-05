@@ -1,5 +1,11 @@
 # @inlang/paraglide-js
 
+## 3.2.0
+
+### Minor Changes
+
+- 4045ec4: Add `lazyUrlPatternPolyfill: true` to load the URLPattern polyfill only when it is missing in generated runtimes with custom URL patterns or route strategies. This uses conditional top-level await and requires Vite 7+ or another ESM toolchain and runtime supporting top-level await. The option defaults to `false`, preserving the static polyfill import. Routing APIs remain synchronous.
+
 ## 3.1.0
 
 ### Minor Changes
