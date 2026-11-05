@@ -39,6 +39,7 @@ export const defaultCompilerOptions = {
 	emitTsDeclarations: false,
 	cleanOutdir: true,
 	disableAsyncLocalStorage: false,
+	urlPatternPolyfill: true,
 	localStorageKey: "PARAGLIDE_LOCALE",
 	isServer: "typeof window === 'undefined'",
 	isDevelopment: "true",
@@ -302,6 +303,18 @@ export type CompilerOptions = {
 	 * https://paraglidejs.com/strategy#url
 	 */
 	urlPatterns?: Runtime["urlPatterns"];
+	/**
+	 * Include the URLPattern polyfill in the generated runtime when custom
+	 * `urlPatterns` or `routeStrategies` require URLPattern matching.
+	 *
+	 * Set to `false` when your target runtimes provide native `URLPattern`, or
+	 * when your application installs a polyfill before using Paraglide routing.
+	 * This only controls the generated runtime; the compiler can still use a
+	 * polyfill internally. Built-in default routing does not include the polyfill.
+	 *
+	 * @default true
+	 */
+	urlPatternPolyfill?: boolean;
 	/**
 	 * Controls trailing slash canonicalization for localized URLs.
 	 *

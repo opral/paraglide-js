@@ -39,6 +39,37 @@ Need something different? Use `urlPatterns` to customize:
 
 Read on to learn how URL patterns work and see configuration examples.
 
+### URLPattern polyfill
+
+Paraglide includes a URLPattern polyfill in the generated runtime when you
+configure custom `urlPatterns` or `routeStrategies`. Built-in default routing
+without route strategies does not include it.
+
+If all your target runtimes provide native `URLPattern`, set
+`urlPatternPolyfill: false` in your compiler options or `paraglide.config.js/ts`
+to omit the polyfill import:
+
+```js
+export default {
+	urlPatternPolyfill: false,
+	// Your urlPatterns or routeStrategies configuration
+};
+```
+
+When targeting runtimes without native `URLPattern`, install a polyfill before
+using Paraglide routing. For example, run this in your application's bootstrap
+module before loading the rest of the app:
+
+```js
+if (!globalThis.URLPattern) {
+	await import("@inlang/paraglide-js/urlpattern-polyfill");
+}
+await import("./app.js");
+```
+
+The option defaults to `true` and only controls the generated runtime import.
+The compiler still loads a polyfill internally when it needs one.
+
 ## Core Concepts
 
 ### How URL patterns work
