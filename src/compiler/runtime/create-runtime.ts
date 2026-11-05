@@ -17,6 +17,7 @@ export function createRuntimeFile(args: {
 		cookieSameSite?: CompilerOptions["cookieSameSite"];
 		cookieSecure?: CompilerOptions["cookieSecure"];
 		urlPatterns?: CompilerOptions["urlPatterns"];
+		lazyUrlPatternPolyfill?: CompilerOptions["lazyUrlPatternPolyfill"];
 		trailingSlash?: CompilerOptions["trailingSlash"];
 		isServer: CompilerOptions["isServer"];
 		isDevelopment?: CompilerOptions["isDevelopment"];
@@ -60,8 +61,12 @@ export function createRuntimeFile(args: {
 		...args.compilerOptions.strategy,
 		...strategiesUsedByRoutes,
 	]);
-	const needsUrlPatternPolyfill =
-		!defaultUrlPatternUsed || routeStrategies.length > 0;
+	const usesUrlPattern = !defaultUrlPatternUsed || routeStrategies.length > 0;
+	const urlPatternPrelude = usesUrlPattern
+		? args.compilerOptions.lazyUrlPatternPolyfill === true
+			? `if (typeof URLPattern === "undefined") {\n\tawait import("@inlang/paraglide-js/urlpattern-polyfill");\n}`
+			: `import "@inlang/paraglide-js/urlpattern-polyfill";`
+		: "/** @type {any} */\nconst URLPattern = {}";
 
 	// verify that urlPatterns' locales are valid
 	for (const urlPattern of urlPatterns) {
@@ -86,7 +91,7 @@ export function createRuntimeFile(args: {
 	}
 
 	const code = `
-${needsUrlPatternPolyfill ? `import "@inlang/paraglide-js/urlpattern-polyfill";` : "/** @type {any} */\nconst URLPattern = {}"}
+${urlPatternPrelude}
 
 ${substitute(injectCode("./variables.js"), [
 	[
@@ -213,7 +218,7 @@ ${injectCode("./normalize-trailing-slash.js", {
 })}
 
 ${
-	needsUrlPatternPolyfill
+	usesUrlPattern
 		? injectCode("./url-pattern-cache.js", {
 				privateExports: ["getUrlPattern"],
 			}) +

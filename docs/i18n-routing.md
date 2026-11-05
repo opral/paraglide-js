@@ -39,6 +39,41 @@ Need something different? Use `urlPatterns` to customize:
 
 Read on to learn how URL patterns work and see configuration examples.
 
+### URLPattern polyfill
+
+Paraglide includes a URLPattern polyfill in the generated runtime when you
+configure custom `urlPatterns` or `routeStrategies`. Built-in default routing
+without route strategies does not include it.
+
+Set `lazyUrlPatternPolyfill: true` in your compiler options or
+`paraglide.config.js/ts` to load the polyfill only when `URLPattern` is missing:
+
+```js
+export default {
+	lazyUrlPatternPolyfill: true,
+	// Your urlPatterns or routeStrategies configuration
+};
+```
+
+This requires **Vite 7+**, or another ESM toolchain and runtime supporting
+top-level await. The generated runtime conditionally awaits the polyfill import:
+
+```js
+if (typeof URLPattern === "undefined") {
+	await import("@inlang/paraglide-js/urlpattern-polyfill");
+}
+```
+
+Applications keep normal static imports and synchronous routing calls. ESM
+importers wait for runtime initialization, so no application `ready` promise is
+needed. Environments with native `URLPattern` skip the dynamic import entirely.
+Bundlers can emit a separate polyfill chunk that is fetched only when needed.
+
+The option defaults to `false`, preserving the static polyfill import and
+compatibility with older build targets. CommonJS and IIFE output are not
+supported when it is enabled. The compiler's internal polyfill loading is
+unchanged.
+
 ## Core Concepts
 
 ### How URL patterns work

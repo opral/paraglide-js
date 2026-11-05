@@ -39,6 +39,7 @@ export const defaultCompilerOptions = {
 	emitTsDeclarations: false,
 	cleanOutdir: true,
 	disableAsyncLocalStorage: false,
+	lazyUrlPatternPolyfill: false,
 	localStorageKey: "PARAGLIDE_LOCALE",
 	isServer: "typeof window === 'undefined'",
 	isDevelopment: "true",
@@ -302,6 +303,21 @@ export type CompilerOptions = {
 	 * https://paraglidejs.com/strategy#url
 	 */
 	urlPatterns?: Runtime["urlPatterns"];
+	/**
+	 * Load the URLPattern polyfill only when the target runtime lacks URLPattern.
+	 * Applies when custom `urlPatterns` or `routeStrategies` require matching.
+	 *
+	 * Enabling this emits a conditional top-level `await import(...)`. Requires
+	 * Vite 7+ or another ESM toolchain and runtime supporting top-level await.
+	 * CommonJS and IIFE output are not supported when enabled. Importers wait for
+	 * initialization automatically; routing APIs remain synchronous.
+	 *
+	 * Defaults to a static polyfill import. Built-in default routing without
+	 * route strategies does not include the polyfill in either mode.
+	 *
+	 * @default false
+	 */
+	lazyUrlPatternPolyfill?: boolean;
 	/**
 	 * Controls trailing slash canonicalization for localized URLs.
 	 *

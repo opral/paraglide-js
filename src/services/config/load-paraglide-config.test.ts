@@ -9,6 +9,7 @@ import {
 	CONFIG_FILE_NAMES,
 	resolveConfigCandidate,
 	isConfigFileName,
+	resolveCompilerOptions,
 } from "./index.js";
 import { Logger } from "../logger/index.js";
 
@@ -69,6 +70,20 @@ describe("resolveConfigCandidate", () => {
 });
 
 describe("loadParaglideConfig", () => {
+	test("preserves lazy URLPattern polyfill loading from config", async () => {
+		const projectDir = await createProjectDirectory();
+		await writeFile(
+			path.join(projectDir, "paraglide.config.ts"),
+			'export default { outdir: "./out", lazyUrlPatternPolyfill: true }'
+		);
+		const loaded = await loadParaglideConfig({ projectDir });
+		const options = resolveCompilerOptions({
+			config: loaded?.config,
+			overrides: { project: projectDir, lazyUrlPatternPolyfill: undefined },
+		});
+		expect(options.lazyUrlPatternPolyfill).toBe(true);
+	});
+
 	test("returns undefined when no config file exists", async () => {
 		const projectDir = await createProjectDirectory();
 		expect(await loadParaglideConfig({ projectDir })).toBeUndefined();
