@@ -733,9 +733,9 @@ export const unpluginFactory: UnpluginFactoryWithOptions = (
 	async function performWatchRecompile(path: string): Promise<void> {
 		const normalizedPath = nodeNormalizePath(path);
 		const projectDir = getProjectDir();
-		const withinProjectDir =
-			normalizedPath === projectDir ||
-			normalizedPath.startsWith(`${projectDir}/`);
+		const withinProjectDir = isPathWithinDirectories(normalizedPath, [
+			projectDir,
+		]);
 		const configEvent = withinProjectDir && isConfigFileName(normalizedPath);
 
 		let args: CompilerOptions;

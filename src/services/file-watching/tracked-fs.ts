@@ -33,15 +33,17 @@ export function isPathWithinDirectories(
 ): boolean {
 	const normalizedPath = nodeNormalizePath(path);
 	for (const directory of directories) {
-		const normalizedDirectory = nodeNormalizePath(directory);
-		if (
-			normalizedPath === normalizedDirectory ||
-			normalizedPath.startsWith(`${normalizedDirectory}/`)
-		) {
+		if (isPathWithinDirectory(normalizedPath, nodeNormalizePath(directory))) {
 			return true;
 		}
 	}
 	return false;
+}
+
+function isPathWithinDirectory(path: string, directory: string): boolean {
+	// Roots already end in a separator; appending another would miss children.
+	const prefix = directory.endsWith("/") ? directory : `${directory}/`;
+	return path === directory || path.startsWith(prefix);
 }
 
 export function getWatchTargets(
@@ -63,11 +65,7 @@ export function getWatchTargets(
 		if (ignoreCache && /(^|\/)cache(\/|$)/.test(normalizedPath)) {
 			return true;
 		}
-		if (
-			outdirPath &&
-			(normalizedPath === outdirPath ||
-				normalizedPath.startsWith(`${outdirPath}/`))
-		) {
+		if (outdirPath && isPathWithinDirectory(normalizedPath, outdirPath)) {
 			return true;
 		}
 		return ignorePath ? ignorePath(normalizedPath) : false;

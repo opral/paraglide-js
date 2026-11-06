@@ -132,7 +132,10 @@ export function virtualMessages(
 				if (!path.extname(name) && Object.hasOwn(files, name + ".js"))
 					return prefix + name + ".js";
 			}
-			if (parent !== undefined && source.startsWith(".")) return absolute;
+			// Match Vite's filesystem IDs so virtual messages and application code
+			// share the same runtime instance on Windows.
+			if (parent !== undefined && source.startsWith("."))
+				return absolute.split(path.sep).join("/");
 			return null;
 		},
 		load(id: string) {
@@ -228,8 +231,13 @@ export function createVirtualMessagesPlugins(
 		},
 		async resolveId(source, importer) {
 			const direct = transport?.resolveId(source, importer);
-			if (direct || !transport || !/(?:^|\/)messages(?:\.js)?$/.test(source))
-				return direct;
+			if (direct) {
+				if (direct.startsWith("\0")) return direct;
+				// Let Vite canonicalize physical files using its preserveSymlinks
+				// setting, just as it does for application imports of the runtime.
+				return this.resolve(direct, importer, { skipSelf: true });
+			}
+			if (!transport || !/(?:^|\/)messages(?:\.js)?$/.test(source)) return null;
 			const resolved = await this.resolve(source, importer, { skipSelf: true });
 			return resolved ? transport.resolveId(resolved.id, importer) : null;
 		},
