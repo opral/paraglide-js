@@ -9,5 +9,6 @@ const isWindows =
 	typeof process !== "undefined" && process.platform === "win32";
 
 export function nodeNormalizePath(id: string) {
-	return path.posix.normalize(isWindows ? slash(id) : id);
+	// POSIX normalization collapses the leading // of Windows UNC paths.
+	return isWindows ? slash(path.win32.normalize(id)) : path.posix.normalize(id);
 }
